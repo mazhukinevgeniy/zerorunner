@@ -15,7 +15,7 @@ package chaotic.actors.manipulator.moves
 			
 		}
 		
-		final override public function actOn(item:Puppet):void
+		final override public function actOn(item:Puppet, ... args):void
 		{
 			if (!(item.remainingDelay > 0))
 				this.tryToMove(item);

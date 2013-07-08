@@ -12,7 +12,7 @@ package chaotic.actors.manipulator
 			
 		}
 		
-		public function actOn(item:Puppet):void
+		public function actOn(item:Puppet, ... args):void
 		{
 			throw new AbstractClassError();
 		}

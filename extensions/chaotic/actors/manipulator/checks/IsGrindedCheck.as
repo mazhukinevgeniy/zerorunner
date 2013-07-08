@@ -16,7 +16,7 @@ package chaotic.actors.manipulator.checks
 		}
 		
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			if (this.grinder.isGrinded(item.getCell()))
 			{

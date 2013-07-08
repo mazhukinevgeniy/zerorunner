@@ -11,7 +11,7 @@ package chaotic.actors.manipulator
 			
 		}
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			
 		}

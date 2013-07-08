@@ -18,7 +18,7 @@ package chaotic.actors.manipulator.onBlocked
 		}
 		
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			var target:Puppet = this.actors.findObjectByCell((item.getCell()).applyChanges(item.attemptedMove));
 			

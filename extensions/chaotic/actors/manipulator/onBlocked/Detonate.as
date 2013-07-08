@@ -15,7 +15,7 @@ package chaotic.actors.manipulator.onBlocked
 			this.performer = newPerformer;
 		}
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			this.performer.detonateActor(item);
 			
