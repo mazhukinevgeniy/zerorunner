@@ -3,6 +3,7 @@ package chaotic.ui
 	import chaotic.core.ChaoticFeature;
 	import chaotic.updates.IRestorable;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.Update;
 	import chaotic.xml.getActorsXML;
 	import starling.display.Image;
 	import starling.display.Sprite;
