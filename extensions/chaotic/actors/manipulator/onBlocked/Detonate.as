@@ -1,4 +1,4 @@
-package chaotic.actors.manipulator.actions 
+package chaotic.actors.manipulator.onBlocked 
 {
 	import chaotic.actors.manipulator.IActionPerformer;
 	import chaotic.actors.storage.Puppet;

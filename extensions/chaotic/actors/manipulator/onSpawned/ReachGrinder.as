@@ -1,4 +1,4 @@
-package chaotic.actors.manipulator.actions 
+package chaotic.actors.manipulator.onSpawned 
 {
 	import chaotic.actors.manipulator.ActionBase;
 	import chaotic.actors.manipulator.IActionPerformer;

@@ -1,4 +1,4 @@
-package chaotic.actors.manipulator.actions 
+package chaotic.actors.manipulator 
 {
 	import chaotic.actors.manipulator.ActionBase;
 	import chaotic.actors.storage.Puppet;
