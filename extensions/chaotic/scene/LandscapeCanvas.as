@@ -2,7 +2,6 @@ package chaotic.scene
 {
 	import chaotic.choosenArea.ChoosenArea;
 	import chaotic.choosenArea.ISector;
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -10,10 +9,9 @@ package chaotic.scene
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
-	import chaotic.updates.IDependOnChoosenArea;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.IPrerestorable;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -22,7 +20,7 @@ package chaotic.scene
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	internal class LandscapeCanvas extends ChaoticFeature implements IInformerGetter, IPrerestorable, IDependOnChoosenArea
+	internal class LandscapeCanvas implements IUpdateListener
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -40,6 +38,15 @@ package chaotic.scene
 		{
 			this.container = new Sprite();
 			this.container.touchable = false;
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "prerestore");
+			storage.addUpdateListener(this, "newTopLeftCell");
+			storage.addUpdateListener(this, "addedScenePiece");
+			storage.addUpdateListener(this, "movedTopLeftCell");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function newTopLeftCell(cCell:CellXY):void
@@ -227,14 +234,9 @@ package chaotic.scene
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			this.assets = table.getInformer(AssetManager);
-		}
-		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
-		{
-			super.setUpdateFlow(item);
+			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.SCENE, this.container));
 			
-			this.dispatchUpdate(new Update("addToTheLayer", Camera.SCENE, this.container));
+			this.assets = table.getInformer(AssetManager);
 		}
 	}
 

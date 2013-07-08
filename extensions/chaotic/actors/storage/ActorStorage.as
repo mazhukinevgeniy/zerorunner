@@ -2,17 +2,15 @@ package chaotic.actors.storage
 {
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.Puppet;
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IActorAdder;
-	import chaotic.updates.IInformerAdder;
-	import chaotic.updates.IPrerestorable;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.xml.getActorsXML;
 	
-	public class ActorStorage extends ChaoticFeature implements IActorAdder, IInformerAdder, IPrerestorable, ISearcher
+	public class ActorStorage implements IUpdateListener, ISearcher
 	{
 		private var puppets:Vector.<Puppet>;
 		
@@ -26,6 +24,13 @@ package chaotic.actors.storage
 		public function ActorStorage() 
 		{
 			
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "addActor");
+			storage.addUpdateListener(this, "prerestore");
+			storage.addUpdateListener(this, "addInformerTo");
 		}
 		
 		public function prerestore():void

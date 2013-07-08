@@ -1,61 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
 	
-	<update>
-		<name>chaotic.updates.ICamera</name>
-		<method>addToTheLayer</method>
-	</update>
+	<method>addToTheLayer</method>
 	
-	<update>
-		<name>chaotic.updates.ICenterDependant</name>
-		<method>moveCenter</method>
-		<method>setCenter</method>
-	</update>
+	<method>moveCenter</method>
+	<method>setCenter</method>
 	
-	<update>
-		<name>chaotic.updates.IEventAdder</name>
-		<method>addKeyboardEventListenersTo</method>
-	</update>
+	<method>addKeyboardEventListenersTo</method>
 	
-	<update>
-		<name>chaotic.updates.IGrinderSubscriber</name>
-		<method>grindingStreamMoved</method>
-	</update>
-	<update>
-		<name>chaotic.updates.IGrinderAdder</name>
-		<method>addGrinders</method>
-	</update>
+	<method>grindingStreamMoved</method>
+	<method>addGrinders</method>
 	
-	<update>
-		<name>chaotic.updates.IDependOnChoosenArea</name>
-		<method>newTopLeftCell</method>
-		<method>movedTopLeftCell</method>
-		<method>addedScenePiece</method>
-	</update>
+	<method>newTopLeftCell</method>
+	<method>movedTopLeftCell</method>
 	
-	<update>
-		<name>chaotic.updates.IActorAdder</name>
-		<method>addActor</method>
-	</update>
-	<update>
-		<name>chaotic.updates.IActorsSubscriber</name>
-		<method>moveActor</method>
-		<method>detonateActor</method>
-		<method>jumpedActor</method>
-	</update>
-	<update>
-		<name>chaotic.updates.IActorRemover</name>
-		<method>actorRemoved</method>
-	</update>
-	<update>
-		<name>chaotic.updates.IActionListener</name>
-		<method>movedLikeACharacter</method>
-	</update>
+	<method>addedScenePiece</method>
 	
-	<update>
-		<name>chaotic.updates.IInputCollector</name>
-		<method>newInputPiece</method>
-	</update>
+	<method>addActor</method>
+	<method>moveActor</method>
+	<method>detonateActor</method>
+	<method>jumpActor</method>
 	
+	<method>actorRemoved</method>
+	
+	<method>movedLikeACharacter</method>
+	<method>protagonistDamaged</method>
+	
+	<method>newInputPiece</method>
 	
 </data>

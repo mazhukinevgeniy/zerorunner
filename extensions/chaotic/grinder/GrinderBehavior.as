@@ -1,14 +1,13 @@
 package chaotic.grinder 
 {
-	import chaotic.core.ChaoticFeature;
+	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IGrinderSubscriber;
-	import chaotic.updates.IRestorable;
-	import chaotic.updates.ITimed;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	
-	internal class GrinderBehavior extends ChaoticFeature implements IRestorable, ITimed, IGrinderSubscriber
+	internal class GrinderBehavior implements IUpdateListener
 	{
 		private var updates:IUpdateDispatcher;
 		private var streams:Vector.<GrindingStream>;
@@ -18,25 +17,26 @@ package chaotic.grinder
 			
 		}
 		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "restore");
+			storage.addUpdateListener(this, "grindingStreamMoved");
+			storage.addUpdateListener(this, "tick");
+			storage.addUpdateListener(this, "getInformerFrom");
+		}
+		
 		public function restore():void
 		{
 			this.streams = new Vector.<GrindingStream>(GrinderFeature.NUMBER, true);
 			
 			for (var i:int = 0; i < GrinderFeature.NUMBER; i++)
 			{
-				this.streams[i] = new GrindingStream(i);
+				this.streams[i] = new GrindingStream(i, this.updates);
 				
-				this.streams[i].setUpdateFlow(this.updates);
 				this.streams[i].allowedGap = (Metric.CELLS_IN_VISIBLE_WIDTH + 1) / 2;
 			}
 			
-			this.dispatchUpdate(new Update("addGrinders", this.streams));
-		}
-		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
-		{
-			this.updates = item;
-			super.setUpdateFlow(item);
+			this.updates.dispatchUpdate(new Update("addGrinders", this.streams));
 		}
 		
 		/** As IGrinderSubscriber: */
@@ -54,6 +54,12 @@ package chaotic.grinder
 			
 			for (var i:int = 0; i < length; i++)
 				this.streams[i].tick();
+		}
+		
+		/** As IInformerGetter: */
+		public function getInformerFrom(table:IGiveInformers):void
+		{
+			this.updates = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

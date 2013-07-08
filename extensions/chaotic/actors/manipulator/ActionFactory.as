@@ -3,12 +3,14 @@ package chaotic.actors.manipulator
 	import chaotic.actors.manipulator.checks.*;
 	import chaotic.actors.manipulator.moves.*;
 	import chaotic.actors.manipulator.onBlocked.*;
+	import chaotic.actors.manipulator.onDamaged.*;
 	import chaotic.actors.manipulator.onSpawned.*;
 	import chaotic.actors.storage.ISearcher;
 	import chaotic.grinder.IGrinder;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.input.IKnowInput;
 	import chaotic.scene.IScene;
+	import chaotic.updates.IUpdateDispatcher;
 	
 	internal class ActionFactory
 	{
@@ -30,6 +32,7 @@ package chaotic.actors.manipulator
 			var actors:ISearcher = table.getInformer(ISearcher);
 			var grinder:IGrinder = table.getInformer(IGrinder);
 			var input:IKnowInput = table.getInformer(IKnowInput);
+			var updateFlow:IUpdateDispatcher = table.getInformer(IUpdateDispatcher);
 			
 			this.actions["DoNothing"] = new DoNothing();
 			
@@ -37,6 +40,8 @@ package chaotic.actors.manipulator
 			
 			this.actions["Detonate"] = new Detonate(actors, performer);
 			this.actions["Bite"] = new Bite(performer, actors);
+			
+			this.actions["ProtagonistDamaged"] = new ProtagonistDamaged(updateFlow);
 			
 			this.actions["IsGrindedCheck"] = new IsGrindedCheck(grinder, performer);
 			this.actions["NormalLandscapeCheck"] = new NormalLandscapeCheck(scene, performer);

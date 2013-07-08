@@ -1,7 +1,6 @@
 package chaotic.choosenArea 
 {
 	import chaotic.actors.ActorsFeature;
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
@@ -9,13 +8,12 @@ package chaotic.choosenArea
 	import chaotic.metric.Metric;
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
-	import chaotic.updates.ICenterDependant;
-	import chaotic.updates.IInformerAdder;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.IPrerestorable;
+	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	
-	public class ChoosenArea extends ChaoticFeature implements IPrerestorable, ICenterDependant, IInformerGetter, IInformerAdder, IChoosenArea
+	public class ChoosenArea implements IUpdateListener, IChoosenArea
 	{
 		public static const CELLS_IN_SECTOR_HEIGHT:int = 9;
 		public static const CELLS_IN_SECTOR_WIDTH:int = 9;
@@ -31,9 +29,20 @@ package chaotic.choosenArea
 		
 		private var scene:IScene;
 		
+		private var updateFlow:IUpdateDispatcher;
+		
 		public function ChoosenArea() 
 		{
 			
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "prerestore");
+			storage.addUpdateListener(this, "setCenter");
+			storage.addUpdateListener(this, "moveCenter");
+			storage.addUpdateListener(this, "addInformerTo");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function prerestore():void
@@ -56,11 +65,11 @@ package chaotic.choosenArea
 			this.topLeftCell = new CellXY(cell.x - (ChoosenArea.CELLS_IN_STABLE_WIDTH - 1) / 2,
 										  cell.y - (ChoosenArea.CELLS_IN_STABLE_HEIGHT - 1) / 2);
 			
-			this.dispatchUpdate(new Update("newTopLeftCell", this.topLeftCell));
+			this.updateFlow.dispatchUpdate(new Update("newTopLeftCell", this.topLeftCell));
 			
 			for (var i:int = 0; i < ChoosenArea.SECTORS_IN_STABLE_WIDTH; i++)
 				for (var j:int = 0; j < ChoosenArea.SECTORS_IN_STABLE_HEIGHT; j++)
-					this.dispatchUpdate(new Update("addedScenePiece", 
+					this.updateFlow.dispatchUpdate(new Update("addedScenePiece", 
 						this.composeSector(new CellXY(this.topLeftCell.x + i * ChoosenArea.CELLS_IN_SECTOR_WIDTH,
 													  this.topLeftCell.y + j * ChoosenArea.CELLS_IN_SECTOR_HEIGHT))));
 		}
@@ -87,14 +96,14 @@ package chaotic.choosenArea
 			
 			this.topLeftCell.applyChanges(change);
 			
-			this.dispatchUpdate(new Update("movedTopLeftCell", change));
+			this.updateFlow.dispatchUpdate(new Update("movedTopLeftCell", change));
 			
 			var a:int = int(change.x == ChoosenArea.CELLS_IN_SECTOR_WIDTH);
 			var b:int = int(change.y == ChoosenArea.CELLS_IN_SECTOR_HEIGHT);
 			
 			for (i = 0; vertical && (i < ChoosenArea.SECTORS_IN_STABLE_WIDTH) || !vertical && (i < 1); i++)
 				for (j = 0; vertical && (j < 1) || !vertical && (j < ChoosenArea.SECTORS_IN_STABLE_HEIGHT); j++)
-					this.dispatchUpdate(new Update("addedScenePiece", 
+					this.updateFlow.dispatchUpdate(new Update("addedScenePiece", 
 						this.composeSector(new CellXY(
 							this.topLeftCell.x + i * ChoosenArea.CELLS_IN_SECTOR_WIDTH + a * (ChoosenArea.CELLS_IN_STABLE_WIDTH - ChoosenArea.CELLS_IN_SECTOR_WIDTH),
 							this.topLeftCell.y + j * ChoosenArea.CELLS_IN_SECTOR_HEIGHT + b * (ChoosenArea.CELLS_IN_STABLE_HEIGHT - ChoosenArea.CELLS_IN_SECTOR_HEIGHT)))));
@@ -128,6 +137,7 @@ package chaotic.choosenArea
 		public function getInformerFrom(table:IGiveInformers):void
 		{
 			this.scene = table.getInformer(IScene);
+			this.updateFlow = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

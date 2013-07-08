@@ -3,6 +3,7 @@ package chaotic.actors.manipulator
 	import chaotic.actors.storage.Puppet;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
+	import chaotic.updates.Update;
 	
 	public interface IActionPerformer 
 	{
@@ -11,7 +12,7 @@ package chaotic.actors.manipulator
 		function movedActor(item:Puppet, change:DCellXY, source:String):void;
 		function jumpedActor(item:Puppet, change:DCellXY):void;
 		
-		function blockedActor(item:Puppet):void;
+		function blockedActor(item:Puppet, movingAttempt:DCellXY):void;
 		
 		function damageActor(item:Puppet, damage:int):void;
 		

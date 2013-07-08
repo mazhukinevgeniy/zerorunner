@@ -1,8 +1,8 @@
 package controller 
 {
-	import chaotic.core.ChaoticFeature;
 	import chaotic.core.IGame;
-	import chaotic.updates.IGameOverHandler;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import model.IModel;
 	import starling.events.KeyboardEvent;
 	import flash.ui.Keyboard;
@@ -11,7 +11,7 @@ package controller
 	import view.events.PanelEvent;
 	import view.IView;
 	
-	public class MainController extends ChaoticFeature implements IGameOverHandler, IController
+	public class MainController implements IUpdateListener, IController
 	{
 		private var view:IView;
 		private var model:IModel;
@@ -32,6 +32,11 @@ package controller
 			this.game = game;
 			
 			(game).addExternalFeature(this);
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "gameOver");
 		}
 		
 		public function viewPrepared():void
