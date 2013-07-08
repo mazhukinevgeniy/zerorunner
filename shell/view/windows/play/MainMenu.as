@@ -1,5 +1,6 @@
 package view.windows.play 
 {
+	import feathers.controls.Button;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
@@ -12,6 +13,9 @@ package view.windows.play
 		private var playButton:ButtonMainMenu,
 					continueButton:ButtonMainMenu,
 		            savefileButton:ButtonMainMenu;
+					
+					//====
+		private var button:Button;
 		
 		public function MainMenu(assets:AssetManager) 
 		{
@@ -21,6 +25,14 @@ package view.windows.play
 			this.addChild(this.playButton);
 			
 			this.addEventListener(Event.TRIGGERED, this.handleTrigger);
+			
+			
+			//===
+			this.button = new Button();
+			this.button.label = "Test";
+			this.button.x = 0;
+			this.button.y = 0;
+			this.addChild(this.button);
 		}
 		
 		
