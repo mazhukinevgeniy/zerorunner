@@ -20,6 +20,7 @@
     <class path="extensions" />
     <class path="..\starling" />
     <class path="..\chaotic" />
+    <class path="..\feathers" />
   </classpaths>
   <!-- Build options -->
   <build>
