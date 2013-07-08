@@ -163,7 +163,15 @@ package view
 			//this.button.defaultLabelProperties.textFormat = new BitmapFontTextFormat(new BitmapFont());    //TextField.registerBitmapFont(new BitmapFont(null, new XML("../../res/assets/fonts/testArial32.fnt"))));
 			this.button.x = 100;
 			this.button.y = 100;
+			
+			this.button.defaultIcon = new Image(this.assets.getTexture("testIcon"));
+			//this.button.iconPosition = "up";
+			this.button.iconOffsetX = 5;
+			this.button.gap = 5;
 			this.addChild(this.button);
+			
+			//this.button.width += 10;
+			//this.button.labe
 			
 			Starling.current.showStats = true;
 			

@@ -15,6 +15,9 @@ package view
 		[Embed(source="../../res/assets/textures/badbuttonClick1.png")]
 		public static const badbuttonClick1:Class;
 		
+		[Embed(source="../../res/assets/textures/testIcon.png")]
+		public static const testIcon:Class;
+		
 		//Sounds
 		
 		[Embed(source="../../res/assets/sounds/Veloma.mp3")]
