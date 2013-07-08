@@ -3,7 +3,9 @@ package view
 	import controller.IController;
 	import feathers.controls.Button;
 	import feathers.controls.text.TextFieldTextRenderer;
+	import feathers.core.FeathersControl;
 	import feathers.text.BitmapFontTextFormat;
+	import flash.text.TextFormat;
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -30,14 +32,14 @@ package view
 	//===
 	import starling.text.TextField;
 	import feathers.core.ITextRenderer
+	import flash.text.Font;
 	
 	
 	public class View extends Sprite implements IView
 	{
+		
 		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
 		private static const HiLoDeco:Class;
-		
-		
 		
 		
 		[Embed(source = "../../res/assets/textures/atlases/gameatlas.xml", mimeType="application/octet-stream")]
@@ -150,10 +152,15 @@ package view
 			
 			this.button.labelFactory = function():ITextRenderer
 			{
-				return new TextFieldTextRenderer();
+				var test:TextFieldTextRenderer = new TextFieldTextRenderer();
+				test.textFormat = new TextFormat("HiLo-Deco", 24, 0x000000);
+				test.embedFonts = true;
+				return test;
 			}
-			//this.button.defaultLabelProperties.textFormat = new BitmapFontTextFormat(new BitmapFont());//TextField.registerBitmapFont(new BitmapFont(null, new XML("../../res/assets/fonts/testArial32.fnt"))));
-			this.button.label = "Test test";
+			
+			this.button.label = "Unmute";
+			
+			//this.button.defaultLabelProperties.textFormat = new BitmapFontTextFormat(new BitmapFont());    //TextField.registerBitmapFont(new BitmapFont(null, new XML("../../res/assets/fonts/testArial32.fnt"))));
 			this.button.x = 100;
 			this.button.y = 100;
 			this.addChild(this.button);
