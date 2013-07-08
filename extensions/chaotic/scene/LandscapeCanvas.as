@@ -9,10 +9,9 @@ package chaotic.scene
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
-	import chaotic.updates.IDependOnChoosenArea;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.IPrerestorable;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -21,7 +20,7 @@ package chaotic.scene
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	internal class LandscapeCanvas implements IInformerGetter, IPrerestorable, IDependOnChoosenArea
+	internal class LandscapeCanvas implements IUpdateListener
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -39,6 +38,15 @@ package chaotic.scene
 		{
 			this.container = new Sprite();
 			this.container.touchable = false;
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "prerestore");
+			storage.addUpdateListener(this, "newTopLeftCell");
+			storage.addUpdateListener(this, "addedScenePiece");
+			storage.addUpdateListener(this, "movedTopLeftCell");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function newTopLeftCell(cCell:CellXY):void

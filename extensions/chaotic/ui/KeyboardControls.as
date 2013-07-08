@@ -3,21 +3,27 @@ package chaotic.ui
 	import chaotic.informers.IGiveInformers;
 	import chaotic.input.InputPiece;
 	import chaotic.metric.DCellXY;
-	import chaotic.updates.IEventAdder;
-	import chaotic.updates.IInformerGetter;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import flash.ui.Keyboard;
 	import starling.events.EventDispatcher;
 	import starling.events.KeyboardEvent;
 	
-	public class KeyboardControls implements IInformerGetter, IEventAdder
+	public class KeyboardControls implements IUpdateListener
 	{
 		private var updateFlow:IUpdateDispatcher;
 		
 		public function KeyboardControls() 
 		{
 			
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "addKeyboardEventListenersTo");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function addKeyboardEventListenersTo(item:EventDispatcher):void

@@ -7,15 +7,14 @@ package chaotic.actors.manipulator
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IActorAdder;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.ITimed;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import chaotic.xml.getActorsXML;
 	import starling.animation.Juggler;
 	
-	public class ActorManipulator implements IActorAdder, IInformerGetter, IActionPerformer, ITimed
+	public class ActorManipulator implements IUpdateListener, IActionPerformer
 	{
 		private var commandChains:Vector.<Vector.<ActionBase>>;
 		private var onBlocked:Vector.<ActionBase>;
@@ -45,6 +44,13 @@ package chaotic.actors.manipulator
 			this.onBlocked = new Vector.<ActionBase>(numberOfTypes, true);
 			this.onSpawned = new Vector.<ActionBase>(numberOfTypes, true);
 			this.onDamaged = new Vector.<ActionBase>(numberOfTypes, true);
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "addActor");
+			storage.addUpdateListener(this, "tick");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function addActor(puppet:Puppet):void
@@ -117,7 +123,7 @@ package chaotic.actors.manipulator
 			this.storage.moveObject(item, change, this.smash, item.getCell(), this.storage, this);
 			
 			item.remainingDelay = item.speed * 2;
-			this.updateFlow.dispatchUpdate(new Update("jumpedActor", item.id, change, item.speed * 2));
+			this.updateFlow.dispatchUpdate(new Update("jumpActor", item.id, change, item.speed * 2));
 		}
 		
 		private function smash(cell:CellXY, storage:ISearcher, destroyer:IActionPerformer):void

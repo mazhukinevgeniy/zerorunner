@@ -11,14 +11,13 @@ package chaotic.actors.spawner
 	import chaotic.metric.Metric;
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.IRestorable;
-	import chaotic.updates.ITimed;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import chaotic.xml.getActorsXML;
 	
-	public class ActorSpawner implements IInformerGetter, ITimed, IRestorable
+	public class ActorSpawner implements IUpdateListener
 	{
 		private var scene:IScene;
 		private var choosenArea:IChoosenArea;
@@ -52,6 +51,13 @@ package chaotic.actors.spawner
 			this.chances[numberOfTypes - 1] = 1;
 			
 			this.numberOfTypes = numberOfTypes;
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "restore");
+			storage.addUpdateListener(this, "tick");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function restore():void

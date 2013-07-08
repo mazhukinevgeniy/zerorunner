@@ -6,11 +6,9 @@ package chaotic.grinder
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
-	import chaotic.updates.ICenterDependant;
-	import chaotic.updates.IGrinderAdder;
-	import chaotic.updates.IGrinderSubscriber;
-	import chaotic.updates.IInformerGetter;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
@@ -18,7 +16,7 @@ package chaotic.grinder
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
-	internal class GrindersView implements IInformerGetter, IGrinderAdder, IGrinderSubscriber, ICenterDependant
+	internal class GrindersView implements IUpdateListener
 	{
 		private var streams:Vector.<Quad>;
 		
@@ -37,6 +35,15 @@ package chaotic.grinder
 			this.streams = new Vector.<Quad>();
 			
 			this.container = new Sprite();
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "addGrinders");
+			storage.addUpdateListener(this, "grindingStreamMoved");
+			storage.addUpdateListener(this, "setCenter");
+			storage.addUpdateListener(this, "moveCenter");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function addGrinders(vector:Vector.<GrindingStream>):void

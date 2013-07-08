@@ -8,14 +8,12 @@ package chaotic.choosenArea
 	import chaotic.metric.Metric;
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
-	import chaotic.updates.ICenterDependant;
-	import chaotic.updates.IInformerAdder;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.IPrerestorable;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	
-	public class ChoosenArea implements IPrerestorable, ICenterDependant, IInformerGetter, IInformerAdder, IChoosenArea
+	public class ChoosenArea implements IUpdateListener, IChoosenArea
 	{
 		public static const CELLS_IN_SECTOR_HEIGHT:int = 9;
 		public static const CELLS_IN_SECTOR_WIDTH:int = 9;
@@ -36,6 +34,15 @@ package chaotic.choosenArea
 		public function ChoosenArea() 
 		{
 			
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "prerestore");
+			storage.addUpdateListener(this, "setCenter");
+			storage.addUpdateListener(this, "moveCenter");
+			storage.addUpdateListener(this, "addInformerTo");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function prerestore():void

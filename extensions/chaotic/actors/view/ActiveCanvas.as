@@ -10,12 +10,9 @@ package chaotic.actors.view
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
-	import chaotic.updates.IActorAdder;
-	import chaotic.updates.IActorRemover;
-	import chaotic.updates.IActorsSubscriber;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.IPrerestorable;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
@@ -25,7 +22,7 @@ package chaotic.actors.view
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	public class ActiveCanvas implements IPrerestorable, IActorRemover, IActorAdder, IActorsSubscriber, IInformerGetter
+	public class ActiveCanvas implements IUpdateListener
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -40,6 +37,17 @@ package chaotic.actors.view
 		{
 			this.objects = new Vector.<Image>(ActorsFeature.CAP + 1, true);
 			this.container = new Sprite();
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "prerestore");
+			storage.addUpdateListener(this, "addActor");
+			storage.addUpdateListener(this, "actorRemoved");
+			storage.addUpdateListener(this, "moveActor");
+			storage.addUpdateListener(this, "detonateActor");
+			storage.addUpdateListener(this, "jumpActor");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function prerestore():void
@@ -99,7 +107,7 @@ package chaotic.actors.view
 			this.juggler.add(tween);
 		}
 		
-		public function jumpedActor(id:int, change:DCellXY, ticksToGo:int):void
+		public function jumpActor(id:int, change:DCellXY, ticksToGo:int):void
 		{
 			if (change.y != 0)
 				throw new Error("Not implemented");

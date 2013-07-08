@@ -2,12 +2,11 @@ package chaotic.input
 {
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.DCellXY;
-	import chaotic.updates.IActionListener;
-	import chaotic.updates.IInformerAdder;
-	import chaotic.updates.IInputCollector;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.xml.getActorsXML;
 	
-	public class InputManager implements IActionListener, IInputCollector, IInformerAdder, IKnowInput
+	public class InputManager implements IUpdateListener, IKnowInput
 	{
 		private var order:Vector.<int>;
 		private var maxI:int;
@@ -17,6 +16,14 @@ package chaotic.input
 			super();
 			
 			this.restore();
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "movedLikeACharacter");
+			storage.addUpdateListener(this, "restore");
+			storage.addUpdateListener(this, "newInputPiece");
+			storage.addUpdateListener(this, "addInformerTo");
 		}
 		
 		public function movedLikeACharacter(number:int):void

@@ -25,7 +25,7 @@ package chaotic
 		
 		override protected function getAdditionalUpdatesXMLList():XMLList
 		{
-			return getAdditionalUpdatesXML().update;
+			return getAdditionalUpdatesXML().method;
 		}
 		
 		override protected function addFeatures():void

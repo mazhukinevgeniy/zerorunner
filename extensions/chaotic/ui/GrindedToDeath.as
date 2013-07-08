@@ -1,16 +1,15 @@
 package chaotic.ui 
 {
 	import chaotic.informers.IGiveInformers;
-	import chaotic.updates.IGameOverHandler;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.IRestorable;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.text.TextField;
 	
-	public class GrindedToDeath implements IInformerGetter, IRestorable, IGameOverHandler
+	public class GrindedToDeath implements IUpdateListener
 	{
 		private var message:Sprite;
 		
@@ -28,6 +27,13 @@ package chaotic.ui
 			var tmp:TextField = new TextField(200, 20, "Game over, please quit using panel above.");
 			
 			this.message.addChild(tmp);
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "restore");
+			storage.addUpdateListener(this, "gameOver");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function restore():void

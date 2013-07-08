@@ -1,16 +1,15 @@
 package chaotic.ui 
 {
 	import chaotic.informers.IGiveInformers;
-	import chaotic.updates.IInformerGetter;
-	import chaotic.updates.IProtagonistDamagedHandler;
-	import chaotic.updates.IRestorable;
 	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.updates.IUpdateListener;
+	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.updates.Update;
 	import chaotic.xml.getActorsXML;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
-	internal class HealthBar implements IProtagonistDamagedHandler, IInformerGetter, IRestorable
+	internal class HealthBar implements IUpdateListener
 	{
 		private const POINTS_PER_COLUMN:int = 5;
 		
@@ -26,6 +25,13 @@ package chaotic.ui
 			
 			this.container.x = 5;
 			this.container.y = Constants.HEIGHT - 60;
+		}
+		
+		public function addListenersTo(storage:IUpdateListenerAdder):void
+		{
+			storage.addUpdateListener(this, "restore");
+			storage.addUpdateListener(this, "protagonistDamaged");
+			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function restore():void
