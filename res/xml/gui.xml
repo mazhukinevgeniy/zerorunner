@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gui>
+	<navigation>
+		<button>
+			<title>Play</title>
+		</button><!--
+		<button>
+			<title>Achievements</title>
+			<effect>toggleAchievements</effect>
+		</button>
+		<button>
+			<title>Statistics</title>
+			<effect>toggleStatistics</effect>
+		</button>
+		<button>
+			<title>Credits</title>
+			<effect>toggleCredits</effect>
+		</button>-->
+		<event>
+			NavigationEvent
+		</event>
+	</navigation>
+	
+	<windows>
+		<window>
+			<name>MainMenu</name>
+			<event>MainMenuEvent</event>
+			
+			<button>
+				<title>Start new game</title>
+			</button><!--
+			<button>
+				<title>Continue game</title>
+			</button>-->
+			
+			<content></content>
+		</window><!--
+		<window>
+			Achievements
+		</window>
+		<window>
+			Statistics
+		</window>
+		<window>
+			MainMenu
+		</window>-->
+	</windows>
+</gui>
