@@ -3,7 +3,6 @@ package chaotic.actors.view
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.view.DrawenActor;
-	import chaotic.camera.Camera;
 	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
@@ -11,6 +10,7 @@ package chaotic.actors.view
 	import chaotic.metric.DPixelXY;
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
+	import chaotic.ui.Camera;
 	import chaotic.updates.IActorAdder;
 	import chaotic.updates.IActorRemover;
 	import chaotic.updates.IActorsSubscriber;

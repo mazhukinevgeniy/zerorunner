@@ -1,4 +1,4 @@
-package chaotic.pause 
+package chaotic.ui 
 {
 	import chaotic.core.ChaoticFeature;
 	import chaotic.updates.IGameOverHandler;

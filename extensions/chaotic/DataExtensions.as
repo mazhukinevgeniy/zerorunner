@@ -10,9 +10,7 @@ package chaotic
 		
 		public function DataExtensions() 
 		{
-			this.list.push(new InputManager());
-			this.list.push(new Statistics());
-			this.list.push(new ChoosenArea());
+			this.list.push(
 		}
 		
 	}

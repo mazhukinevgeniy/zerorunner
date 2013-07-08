@@ -1,4 +1,4 @@
-package chaotic.input 
+package chaotic.ui 
 {
 	import chaotic.core.ChaoticFeature;
 	import chaotic.input.InputPiece;

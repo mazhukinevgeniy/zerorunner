@@ -1,6 +1,5 @@
 package chaotic.scene 
 {
-	import chaotic.camera.Camera;
 	import chaotic.choosenArea.ChoosenArea;
 	import chaotic.choosenArea.ISector;
 	import chaotic.core.ChaoticFeature;
@@ -10,6 +9,7 @@ package chaotic.scene
 	import chaotic.metric.DPixelXY;
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
+	import chaotic.ui.Camera;
 	import chaotic.updates.IDependOnChoosenArea;
 	import chaotic.updates.IInformerGetter;
 	import chaotic.updates.IPrerestorable;

@@ -1,4 +1,4 @@
-package chaotic.camera 
+package chaotic.ui 
 {
 	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;

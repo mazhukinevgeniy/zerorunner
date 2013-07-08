@@ -1,12 +1,12 @@
 package chaotic.grinder 
 {
-	import chaotic.camera.Camera;
 	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
+	import chaotic.ui.Camera;
 	import chaotic.updates.ICenterDependant;
 	import chaotic.updates.IGrinderAdder;
 	import chaotic.updates.IGrinderSubscriber;
