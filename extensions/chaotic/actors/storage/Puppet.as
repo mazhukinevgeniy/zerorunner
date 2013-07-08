@@ -17,8 +17,6 @@ package chaotic.actors.storage
 		public var active:Boolean;
 		public var hp:int;
 		
-		public var attemptedMove:DCellXY;
-		
 		public function Puppet(id:int, type:int, cell:CellXY) 
 		{
 			this.id = id;

@@ -28,8 +28,6 @@ package chaotic.actors.manipulator.moves
 		
 		final protected function callMove(item:Puppet, change:DCellXY, source:String = ""):void
 		{
-			item.attemptedMove = change;
-			
 			if (this.searcher.findObjectByCell(item.getCell().applyChanges(change)) == null)
 			{
 				item.remainingDelay = item.speed;
@@ -37,7 +35,7 @@ package chaotic.actors.manipulator.moves
 				this.performer.movedActor(item, change, source);
 			}
 			else
-				this.performer.blockedActor(item);
+				this.performer.blockedActor(item, change);
 		}
 	}
 

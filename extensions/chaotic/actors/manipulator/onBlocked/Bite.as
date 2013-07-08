@@ -20,7 +20,7 @@ package chaotic.actors.manipulator.onBlocked
 		
 		override public function actOn(item:Puppet, ... args):void
 		{
-			var target:Puppet = this.actors.findObjectByCell((item.getCell()).applyChanges(item.attemptedMove));
+			var target:Puppet = this.actors.findObjectByCell((item.getCell()).applyChanges(args[0]));
 			
 			this.performer.damageActor(target, this.DAMAGE);
 		}

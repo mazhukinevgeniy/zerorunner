@@ -140,9 +140,9 @@ package chaotic.actors.manipulator
 			this.storage.deleteObject(item);
 		}
 		
-		public function blockedActor(item:Puppet):void 
+		public function blockedActor(item:Puppet, movingAttempt:DCellXY):void 
 		{	
-			this.onBlocked[item.type].actOn(item);
+			this.onBlocked[item.type].actOn(item, movingAttempt);
 		}
 		
 		public function damageActor(item:Puppet, damage:int):void
