@@ -2,7 +2,6 @@ package chaotic.actors.storage
 {
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.Puppet;
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -12,7 +11,7 @@ package chaotic.actors.storage
 	import chaotic.updates.IPrerestorable;
 	import chaotic.xml.getActorsXML;
 	
-	public class ActorStorage extends ChaoticFeature implements IActorAdder, IInformerAdder, IPrerestorable, ISearcher
+	public class ActorStorage implements IActorAdder, IInformerAdder, IPrerestorable, ISearcher
 	{
 		private var puppets:Vector.<Puppet>;
 		

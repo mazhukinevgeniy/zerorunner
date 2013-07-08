@@ -3,7 +3,6 @@ package chaotic.actors.view
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.view.DrawenActor;
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -26,7 +25,7 @@ package chaotic.actors.view
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	public class ActiveCanvas extends ChaoticFeature implements IPrerestorable, IActorRemover, IActorAdder, IActorsSubscriber, IInformerGetter
+	public class ActiveCanvas implements IPrerestorable, IActorRemover, IActorAdder, IActorsSubscriber, IInformerGetter
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -126,13 +125,8 @@ package chaotic.actors.view
 		{
 			this.assets = table.getInformer(AssetManager);
 			this.juggler = table.getInformer(Juggler);
-		}
-		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
-		{
-			super.setUpdateFlow(item);
 			
-			this.dispatchUpdate(new Update("addToTheLayer", Camera.ACTORS, this.container));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.SCENE, this.container));
 		}
 	}
 

@@ -1,6 +1,5 @@
 package chaotic.input
 {
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.DCellXY;
 	import chaotic.updates.IActionListener;
@@ -8,7 +7,7 @@ package chaotic.input
 	import chaotic.updates.IInputCollector;
 	import chaotic.xml.getActorsXML;
 	
-	public class InputManager extends ChaoticFeature implements IActionListener, IInputCollector, IInformerAdder, IKnowInput
+	public class InputManager implements IActionListener, IInputCollector, IInformerAdder, IKnowInput
 	{
 		private var order:Vector.<int>;
 		private var maxI:int;

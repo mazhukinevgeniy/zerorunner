@@ -3,7 +3,6 @@ package chaotic.actors.manipulator
 	import chaotic.actors.storage.ActorStorage;
 	import chaotic.actors.storage.ISearcher;
 	import chaotic.actors.storage.Puppet;
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -11,11 +10,12 @@ package chaotic.actors.manipulator
 	import chaotic.updates.IActorAdder;
 	import chaotic.updates.IInformerGetter;
 	import chaotic.updates.ITimed;
+	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.Update;
 	import chaotic.xml.getActorsXML;
 	import starling.animation.Juggler;
 	
-	public class ActorManipulator extends ChaoticFeature implements IActorAdder, IInformerGetter, IActionPerformer, ITimed
+	public class ActorManipulator implements IActorAdder, IInformerGetter, IActionPerformer, ITimed
 	{
 		private var commandChains:Vector.<Vector.<ActionBase>>;
 		private var onBlocked:Vector.<ActionBase>;
@@ -23,6 +23,7 @@ package chaotic.actors.manipulator
 		
 		private var storage:ActorStorage;
 		
+		private var updateFlow:IUpdateDispatcher;
 		private var juggler:Juggler;
 		
 		public function ActorManipulator(newStorage:ActorStorage) 
@@ -99,14 +100,14 @@ package chaotic.actors.manipulator
 			var id:int = item.id;
 			
 			if (source == "movedLikeACharacter")
-				this.dispatchUpdate(new Update("movedLikeACharacter", id));
+				this.updateFlow.dispatchUpdate(new Update("movedLikeACharacter", id));
 			
 			if (id == 0)
-				this.dispatchUpdate(new Update("moveCenter", change, item.speed));
+				this.updateFlow.dispatchUpdate(new Update("moveCenter", change, item.speed));
 			
 			this.storage.moveObject(item, change);
 			
-			this.dispatchUpdate(new Update("moveActor", id, change, item.speed));
+			this.updateFlow.dispatchUpdate(new Update("moveActor", id, change, item.speed));
 		}
 		
 		public function jumpedActor(item:Puppet, change:DCellXY):void
@@ -114,7 +115,7 @@ package chaotic.actors.manipulator
 			this.storage.moveObject(item, change, this.smash, item.getCell(), this.storage, this);
 			
 			item.remainingDelay = item.speed * 2;
-			this.dispatchUpdate(new Update("jumpedActor", item.id, change, item.speed * 2));
+			this.updateFlow.dispatchUpdate(new Update("jumpedActor", item.id, change, item.speed * 2));
 		}
 		
 		private function smash(cell:CellXY, storage:ISearcher, destroyer:IActionPerformer):void
@@ -127,11 +128,11 @@ package chaotic.actors.manipulator
 		{
 			if (item.id == 0)
 			{
-				this.juggler.delayCall(this.dispatchUpdate, 0.5, new Update("gameOver"));
+				this.juggler.delayCall(this.updateFlow.dispatchUpdate, 0.5, new Update("gameOver"));
 			}
 			else
 			{
-				this.dispatchUpdate(new Update("actorRemoved", item.id));
+				this.updateFlow.dispatchUpdate(new Update("actorRemoved", item.id));
 			}
 			
 			this.storage.deleteObject(item);
@@ -154,7 +155,7 @@ package chaotic.actors.manipulator
 		
 		public function detonateActor(item:Puppet):void
 		{
-			this.dispatchUpdate(new Update("detonateActor", item.id));
+			this.updateFlow.dispatchUpdate(new Update("detonateActor", item.id));
 			
 			this.destroyActor(item);
 		}
@@ -186,6 +187,7 @@ package chaotic.actors.manipulator
 			}
 			
 			this.juggler = table.getInformer(Juggler);
+			this.updateFlow = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

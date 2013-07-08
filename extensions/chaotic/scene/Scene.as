@@ -1,7 +1,6 @@
 package chaotic.scene 
 {
 	import chaotic.actors.ActorsFeature;
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -10,7 +9,7 @@ package chaotic.scene
 	import chaotic.updates.IInformerAdder;
 	import chaotic.updates.IPrerestorable;
 	
-	internal class Scene extends ChaoticFeature implements IPrerestorable, IScene, IInformerAdder
+	internal class Scene implements IPrerestorable, IScene, IInformerAdder
 	{		
 		private var patterns:Vector.<ScenePattern>;
 		

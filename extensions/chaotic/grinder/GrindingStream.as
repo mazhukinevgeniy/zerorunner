@@ -1,9 +1,9 @@
 package chaotic.grinder 
 {
-	import chaotic.core.ChaoticFeature;
+	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.Update;
 	
-	public class GrindingStream extends ChaoticFeature
+	public class GrindingStream
 	{
 		public var front:int;
 		public var id:int;
@@ -13,10 +13,14 @@ package chaotic.grinder
 		private var timeBeforeTheMove:int = 1;
 		private var plannedMove:int;
 		
+		private var updateFlow:IUpdateDispatcher;
 		
-		public function GrindingStream(newID:int) 
+		
+		public function GrindingStream(newID:int, flow:IUpdateDispatcher) 
 		{
 			this.id = newID;
+			
+			this.updateFlow = flow;
 			
 			this.front = 10 + Math.random() * 10;
 			this.plannedMove = 1;
@@ -44,7 +48,7 @@ package chaotic.grinder
 		private function move(distance:int):void
 		{
 			this.front += distance;
-			this.dispatchUpdate(new Update("grindingStreamMoved", this.id, distance));
+			this.updateFlow.dispatchUpdate(new Update("grindingStreamMoved", this.id, distance));
 		}
 	}
 

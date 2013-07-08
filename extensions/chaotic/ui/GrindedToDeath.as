@@ -1,7 +1,8 @@
 package chaotic.ui 
 {
-	import chaotic.core.ChaoticFeature;
+	import chaotic.informers.IGiveInformers;
 	import chaotic.updates.IGameOverHandler;
+	import chaotic.updates.IInformerGetter;
 	import chaotic.updates.IRestorable;
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.Update;
@@ -9,7 +10,7 @@ package chaotic.ui
 	import starling.display.Sprite;
 	import starling.text.TextField;
 	
-	public class GrindedToDeath extends ChaoticFeature implements IRestorable, IGameOverHandler
+	public class GrindedToDeath implements IInformerGetter, IRestorable, IGameOverHandler
 	{
 		private var message:Sprite;
 		
@@ -39,11 +40,9 @@ package chaotic.ui
 			this.message.visible = true;	
 		}
 		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
+		public function getInformerFrom(table:IGiveInformers):void
 		{
-			super.setUpdateFlow(item);
-			
-			this.dispatchUpdate(new Update("addToTheHUD", this.message));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheHUD", this.message));
 		}
 	}
 

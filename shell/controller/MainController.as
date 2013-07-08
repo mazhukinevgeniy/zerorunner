@@ -1,6 +1,5 @@
 package controller 
 {
-	import chaotic.core.ChaoticFeature;
 	import chaotic.core.IGame;
 	import chaotic.updates.IGameOverHandler;
 	import model.IModel;
@@ -11,7 +10,7 @@ package controller
 	import view.events.PanelEvent;
 	import view.IView;
 	
-	public class MainController extends ChaoticFeature implements IGameOverHandler, IController
+	public class MainController implements IGameOverHandler, IController
 	{
 		private var view:IView;
 		private var model:IModel;

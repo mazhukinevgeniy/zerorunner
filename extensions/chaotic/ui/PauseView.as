@@ -1,7 +1,8 @@
 package chaotic.ui 
 {
-	import chaotic.core.ChaoticFeature;
+	import chaotic.informers.IGiveInformers;
 	import chaotic.updates.IGameOverHandler;
+	import chaotic.updates.IInformerGetter;
 	import chaotic.updates.IPauser;
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.Update;
@@ -11,7 +12,7 @@ package chaotic.ui
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	
-	public class PauseView extends ChaoticFeature implements IGameOverHandler, IPauser
+	public class PauseView implements IInformerGetter, IGameOverHandler, IPauser
 	{
 		[Embed(source="../../../res/assets/particles/pause/particle.pex", mimeType="application/octet-stream")]
 		private static const ParticleConfig:Class;
@@ -64,11 +65,9 @@ package chaotic.ui
 			}
 		}
 		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
+		public function getInformerFrom(table:IGiveInformers):void
 		{
-			super.setUpdateFlow(item);
-			
-			this.dispatchUpdate(new Update("addToTheHUD", this.container));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheHUD", this.container));
 		}
 	}
 

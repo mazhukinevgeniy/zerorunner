@@ -1,13 +1,12 @@
 package chaotic.grinder 
 {
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.updates.IGrinderAdder;
 	import chaotic.updates.IInformerAdder;
 	import chaotic.updates.IRestorable;
 	
-	internal class Grinders extends ChaoticFeature implements IGrinderAdder, IRestorable, IInformerAdder, IGrinder
+	internal class Grinders implements IGrinderAdder, IRestorable, IInformerAdder, IGrinder
 	{
 		private var topLine:int;
 		

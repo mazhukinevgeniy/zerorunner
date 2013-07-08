@@ -1,6 +1,7 @@
 package chaotic.ui 
 {
-	import chaotic.core.ChaoticFeature;
+	import chaotic.informers.IGiveInformers;
+	import chaotic.updates.IInformerGetter;
 	import chaotic.updates.IRestorable;
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.Update;
@@ -8,7 +9,7 @@ package chaotic.ui
 	import starling.display.Image;
 	import starling.display.Sprite;
 	
-	internal class HealthBar extends ChaoticFeature implements IRestorable
+	internal class HealthBar implements IInformerGetter, IRestorable
 	{
 		private var container:Sprite;
 		
@@ -38,12 +39,9 @@ package chaotic.ui
 			}
 		}
 		
-		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
+		public function getInformerFrom(table:IGiveInformers):void
 		{
-			super.setUpdateFlow(item);
-			
-			this.dispatchUpdate(new Update("addToTheHUD", this.container));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheHUD", this.container));
 		}
 		
 	}

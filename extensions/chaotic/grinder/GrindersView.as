@@ -1,6 +1,5 @@
 package chaotic.grinder 
 {
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -19,7 +18,7 @@ package chaotic.grinder
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
-	internal class GrindersView extends ChaoticFeature implements IInformerGetter, IGrinderAdder, IGrinderSubscriber, ICenterDependant
+	internal class GrindersView implements IInformerGetter, IGrinderAdder, IGrinderSubscriber, ICenterDependant
 	{
 		private var streams:Vector.<Quad>;
 		
@@ -118,15 +117,9 @@ package chaotic.grinder
 			}
 		}
 		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
-		{
-			super.setUpdateFlow(item);
-			
-			this.dispatchUpdate(new Update("addToTheLayer", Camera.GRINDERS, this.container));
-		}
-		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
+			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.GRINDERS, this.container));
 			this.juggler = table.getInformer(Juggler);
 		}
 	}

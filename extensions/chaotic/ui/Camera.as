@@ -1,6 +1,5 @@
 package chaotic.ui 
 {
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -17,7 +16,7 @@ package chaotic.ui
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	
-	public class Camera extends ChaoticFeature implements IInformerGetter, ICenterDependant, ICamera
+	public class Camera implements IInformerGetter, ICenterDependant, ICamera
 	{
 		public static const SCENE:int = 0;
 		public static const ACTORS:int = 1;
@@ -70,16 +69,11 @@ package chaotic.ui
 			this.layers[number].addChild(object);
 		}
 		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
-		{
-			super.setUpdateFlow(item);
-			
-			this.dispatchUpdate(new Update("addToTheHUD", this.container));
-		}
-		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
 			this.juggler = table.getInformer(Juggler);
+			
+			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheHUD", this.container));
 		}
 	}
 	

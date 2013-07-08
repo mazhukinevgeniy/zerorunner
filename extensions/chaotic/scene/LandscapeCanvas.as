@@ -2,7 +2,6 @@ package chaotic.scene
 {
 	import chaotic.choosenArea.ChoosenArea;
 	import chaotic.choosenArea.ISector;
-	import chaotic.core.ChaoticFeature;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -22,7 +21,7 @@ package chaotic.scene
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	internal class LandscapeCanvas extends ChaoticFeature implements IInformerGetter, IPrerestorable, IDependOnChoosenArea
+	internal class LandscapeCanvas implements IInformerGetter, IPrerestorable, IDependOnChoosenArea
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -227,14 +226,9 @@ package chaotic.scene
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			this.assets = table.getInformer(AssetManager);
-		}
-		
-		override public function setUpdateFlow(item:IUpdateDispatcher):void
-		{
-			super.setUpdateFlow(item);
+			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.SCENE, this.container));
 			
-			this.dispatchUpdate(new Update("addToTheLayer", Camera.SCENE, this.container));
+			this.assets = table.getInformer(AssetManager);
 		}
 	}
 
