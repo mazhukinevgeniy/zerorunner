@@ -1,4 +1,4 @@
-package chaotic.actors.manipulator.actions 
+package chaotic.actors.manipulator.onSpawned 
 {
 	import chaotic.actors.manipulator.ActionBase;
 	import chaotic.actors.manipulator.IActionPerformer;
@@ -18,7 +18,7 @@ package chaotic.actors.manipulator.actions
 		}
 		
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			var front:int = this.grinders.getFront(item.y);
 			this.performer.replaceActor(item, new DCellXY(front - item.x, 0));

@@ -9,6 +9,7 @@ package chaotic.ui
 		{
 			this.list.push(new Camera());
 			this.list.push(new KeyboardControls());
+			this.list.push(new HealthBar());
 			this.list.push(new GrindedToDeath());
 			this.list.push(new PauseView());
 		}

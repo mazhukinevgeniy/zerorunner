@@ -18,7 +18,7 @@ package chaotic.actors.manipulator.checks
 			this.performer = newPerformer;
 		}
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			if (Metric.distance(item.getCell(), this.searcher.getCharacterCell()) > this.MAXIMUM_DISTANCE)
 			{

@@ -1,4 +1,4 @@
-package chaotic.actors.manipulator.actions 
+package chaotic.actors.manipulator 
 {
 	import chaotic.actors.manipulator.ActionBase;
 	import chaotic.actors.storage.Puppet;
@@ -11,7 +11,7 @@ package chaotic.actors.manipulator.actions
 			
 		}
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			
 		}

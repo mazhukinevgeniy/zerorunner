@@ -15,7 +15,7 @@ package chaotic.actors.manipulator.checks
 			this.landscape = newLandscape;
 		}
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			if (this.landscape.getSceneCell(item.getCell()) == SceneFeature.FALL)
 			{

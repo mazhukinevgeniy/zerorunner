@@ -1,4 +1,4 @@
-package chaotic.actors.manipulator.actions 
+package chaotic.actors.manipulator.onBlocked 
 {
 	import chaotic.actors.manipulator.IActionPerformer;
 	import chaotic.actors.storage.Puppet;
@@ -15,7 +15,7 @@ package chaotic.actors.manipulator.actions
 			this.performer = newPerformer;
 		}
 		
-		override public function actOn(item:Puppet):void
+		override public function actOn(item:Puppet, ... args):void
 		{
 			this.performer.detonateActor(item);
 			

@@ -1,8 +1,9 @@
 package chaotic.actors.manipulator 
 {
-	import chaotic.actors.manipulator.actions.*;
 	import chaotic.actors.manipulator.checks.*;
 	import chaotic.actors.manipulator.moves.*;
+	import chaotic.actors.manipulator.onBlocked.*;
+	import chaotic.actors.manipulator.onSpawned.*;
 	import chaotic.actors.storage.ISearcher;
 	import chaotic.grinder.IGrinder;
 	import chaotic.informers.IGiveInformers;
