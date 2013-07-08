@@ -20,6 +20,7 @@ package chaotic.actors.manipulator
 		private var commandChains:Vector.<Vector.<ActionBase>>;
 		private var onBlocked:Vector.<ActionBase>;
 		private var onSpawned:Vector.<ActionBase>;
+		private var onDamaged:Vector.<ActionBase>;
 		
 		private var storage:ActorStorage;
 		
@@ -41,8 +42,9 @@ package chaotic.actors.manipulator
 				this.commandChains[i] = new Vector.<ActionBase>();
 			}
 			
-			this.onBlocked = new Vector.<ActionBase>();
-			this.onSpawned = new Vector.<ActionBase>();
+			this.onBlocked = new Vector.<ActionBase>(numberOfTypes, true);
+			this.onSpawned = new Vector.<ActionBase>(numberOfTypes, true);
+			this.onDamaged = new Vector.<ActionBase>(numberOfTypes, true);
 		}
 		
 		public function addActor(puppet:Puppet):void
@@ -145,6 +147,8 @@ package chaotic.actors.manipulator
 		
 		public function damageActor(item:Puppet, damage:int):void
 		{
+			this.onDamaged[item.type].actOn(item, damage);
+			
 			item.hp -= damage;
 			
 			if (!(item.hp > 0))
@@ -184,6 +188,7 @@ package chaotic.actors.manipulator
 				
 				this.onBlocked[i] = actions.getAction(xml.actor[i].onBlocked);
 				this.onSpawned[i] = actions.getAction(xml.actor[i].onSpawned);
+				this.onDamaged[i] = actions.getAction(xml.actor[i].onDamaged);
 			}
 			
 			this.juggler = table.getInformer(Juggler);

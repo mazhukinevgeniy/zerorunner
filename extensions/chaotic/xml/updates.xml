@@ -57,5 +57,9 @@
 		<method>newInputPiece</method>
 	</update>
 	
+	<update>
+		<name>chaotic.updates.IProtagonistDamagedHandler</name>
+		<method>protagonistDamaged</method>
+	</update>
 	
 </data>

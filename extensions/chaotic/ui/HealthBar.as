@@ -2,6 +2,7 @@ package chaotic.ui
 {
 	import chaotic.informers.IGiveInformers;
 	import chaotic.updates.IInformerGetter;
+	import chaotic.updates.IProtagonistDamagedHandler;
 	import chaotic.updates.IRestorable;
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.Update;
@@ -9,7 +10,7 @@ package chaotic.ui
 	import starling.display.Image;
 	import starling.display.Sprite;
 	
-	internal class HealthBar implements IInformerGetter, IRestorable
+	internal class HealthBar implements IProtagonistDamagedHandler, IInformerGetter, IRestorable
 	{
 		private var container:Sprite;
 		
@@ -23,7 +24,10 @@ package chaotic.ui
 			
 		}
 		
-		// TODO: handle onDamaged somehow
+		public function protagonistDamaged(damage:int):void
+		{
+			// TODO : react
+		}
 		
 		public function restore():void
 		{
