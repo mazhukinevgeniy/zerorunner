@@ -1,9 +1,8 @@
 package chaotic.scene 
 {
-	import chaotic.core.FeaturePack;
 	import chaotic.core.IUpdateDispatcher;
 	
-	public class SceneFeature extends FeaturePack
+	public class SceneFeature
 	{
 		public static const FALL:int = 0;
 		public static const ROAD:int = 1;
@@ -16,8 +15,8 @@ package chaotic.scene
 		
 		public function SceneFeature(flow:IUpdateDispatcher) 
 		{
-			this.list.push(new Scene(flow));
-			this.list.push(new LandscapeCanvas(flow));
+			new Scene(flow);
+			new LandscapeCanvas(flow);
 		}
 		
 	}

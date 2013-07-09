@@ -1,9 +1,8 @@
 package chaotic.grinder 
 {
-	import chaotic.core.FeaturePack;
 	import chaotic.core.IUpdateDispatcher;
 	
-	public class GrinderFeature extends FeaturePack
+	public class GrinderFeature
 	{
 		internal static const NUMBER:int = 7;
 		internal static const HEIGHT:int = 7;
@@ -12,9 +11,9 @@ package chaotic.grinder
 		
 		public function GrinderFeature(flow:IUpdateDispatcher) 
 		{
-			this.list.push(new Grinders(flow));
-			this.list.push(new GrinderBehavior(flow));
-			this.list.push(new GrindersView(flow));
+			new Grinders(flow);
+			new GrinderBehavior(flow);
+			new GrindersView(flow);
 		}
 		
 	}

@@ -4,12 +4,11 @@ package chaotic.actors
 	import chaotic.actors.spawner.ActorSpawner;
 	import chaotic.actors.storage.ActorStorage;
 	import chaotic.actors.view.ActiveCanvas;
-	import chaotic.core.FeaturePack;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.Metric;
 	
-	public class ActorsFeature extends FeaturePack
+	public class ActorsFeature
 	{
 		public static const CAP:int = 150;
 		
@@ -19,10 +18,9 @@ package chaotic.actors
 		{
 			var storage:ActorStorage = new ActorStorage(flow);
 			
-			this.list.push(storage);
-			this.list.push(new ActorSpawner(storage, flow));
-			this.list.push(new ActorManipulator(storage, flow));
-			this.list.push(new ActiveCanvas(flow));
+			new ActorSpawner(storage, flow);
+			new ActorManipulator(storage, flow);
+			new ActiveCanvas(flow);
 		}
 		
 		
