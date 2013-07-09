@@ -1,8 +1,6 @@
 package chaotic.scene 
 {
 	import chaotic.actors.storage.ISearcher;
-	import chaotic.choosenArea.ChoosenArea;
-	import chaotic.choosenArea.ISector;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
@@ -22,11 +20,16 @@ package chaotic.scene
 	internal class LandscapeCanvas
 	{
 		private var pull:TilePull;
-		
 		private var assets:AssetManager;
+		
 		private var searcher:ISearcher;
+		private var scene:IScene;
 		
 		private var container:Sprite;
+		
+		private var width:int = 1 + (Metric.CELLS_IN_VISIBLE_WIDTH + 2) / 2;
+		private var height:int = 1 + (Metric.CELLS_IN_VISIBLE_HEIGHT + 2) / 2;
+		
 		
 		public function LandscapeCanvas(flow:IUpdateDispatcher) 
 		{
@@ -45,10 +48,31 @@ package chaotic.scene
 		public function tick():void
 		{
 			this.container.removeChildren();
+			this.pull.nothingIsInUse();
 			
 			var center:CellXY = this.searcher.getCharacterCell();
 			
-			for (var i:int = 
+			var xGoal:int = center.x + this.width;
+			var yGoal:int = center.y + this.height;
+			
+			for (var i:int = center.x - 2 * this.width; i < xGoal; i++)
+			{
+				for (var j:int = center.y - 2 * this.height; j < yGoal; j++)
+				{
+					var sprite:Image = this.pull.getImage(this.getCode(new CellXY(i, j)));//TODO: stop it
+					
+					sprite.x = i * Metric.CELL_WIDTH;
+					sprite.y = j * Metric.CELL_HEIGHT;
+					
+					this.container.addChild(sprite);
+				}
+				
+			}
+		}
+		
+		private function getCode(cell:CellXY):int
+		{
+			return this.scene.getSceneCell(cell);
 		}
 		
 		
@@ -56,6 +80,8 @@ package chaotic.scene
 		{
 			this.assets = table.getInformer(AssetManager);
 			this.searcher = table.getInformer(ISearcher);
+			
+			this.scene = table.getInformer(IScene);
 		}
 		
 		public function prerestore():void

@@ -9,6 +9,7 @@ package chaotic.scene
 	{
 		private var textures:Vector.<Texture>;
 		private var pull:Vector.<Vector.<Image>>;
+		private var inUse:Vector.<Vector.<Image>>;
 		
 		public function TilePull(assets:AssetManager) 
 		{
@@ -18,12 +19,14 @@ package chaotic.scene
 			this.textures = new Vector.<Texture>(SceneFeature.NUMBER_OF_DIFFERENT_SPRITES, true);
 			
 			this.pull = new Vector.<Vector.<Image>>(SceneFeature.NUMBER_OF_DIFFERENT_SPRITES, true);
+			this.inUse = new Vector.<Vector.<Image>>(SceneFeature.NUMBER_OF_DIFFERENT_SPRITES, true);
 			
 			for (var i:int = 0; i < SceneFeature.NUMBER_OF_DIFFERENT_SPRITES; i++)
 			{
 				this.textures[i] = atlas.getTexture("scene" + i);
 				
 				this.pull[i] = new Vector.<Image>();
+				this.inUse[i] = new Vector.<Image>();
 			}
 		}
 		
@@ -33,15 +36,28 @@ package chaotic.scene
 			
 			if (image == null)
 			{
-				image = new SingleSceneTile(this.textures[code], code, this);
+				image = new Image(this.textures[code]);
 			}
+			
+			this.inUse[code].push(image);
 			
 			return image;
 		}
 		
-		internal function useTile(item:SingleSceneTile, code:int):void
+		public function nothingIsInUse():void
 		{
-			this.pull[code].push(item);
+			var image:Image;
+			
+			for (var i:int = 0; i < SceneFeature.NUMBER_OF_DIFFERENT_SPRITES; i++)
+			{
+				image = this.inUse[i].pop();
+				
+				while (image)
+				{
+					this.pull[i].push(image);
+					image = this.inUse[i].pop();
+				}
+			}
 		}
 	}
 

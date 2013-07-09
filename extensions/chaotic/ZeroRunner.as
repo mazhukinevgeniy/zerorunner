@@ -1,7 +1,6 @@
 package chaotic 
 {
 	import chaotic.actors.ActorsFeature;
-	import chaotic.choosenArea.ChoosenArea;
 	import chaotic.game.ChaoticGame;
 	import chaotic.grinder.GrinderFeature;
 	import chaotic.input.InputManager;
@@ -33,12 +32,11 @@ package chaotic
 			
 			new InputManager(this.updateFlow);
 			new Statistics(this.updateFlow);
-			new ChoosenArea(this.updateFlow);
 			new UIExtendsions(this.updateFlow);
 			
-			new SceneFeature(this.updateFlow);
 			new GrinderFeature(this.updateFlow);
 			new ActorsFeature(this.updateFlow);
+			new SceneFeature(this.updateFlow);
 		}
 	}
 
