@@ -44,7 +44,7 @@ package chaotic.actors.manipulator
 			this.actions["Detonate"] = new Detonate(actors, performer);
 			this.actions["Bite"] = new Bite(performer, actors);
 			
-			this.actions[ActorsFeature.protagonistDamaged] = new ProtagonistDamaged(updateFlow);
+			this.actions["ProtagonistDamaged"] = new ProtagonistDamaged(updateFlow);
 			
 			this.actions["IsGrindedCheck"] = new IsGrindedCheck(grinder, performer);
 			this.actions["NormalLandscapeCheck"] = new NormalLandscapeCheck(scene, performer);
