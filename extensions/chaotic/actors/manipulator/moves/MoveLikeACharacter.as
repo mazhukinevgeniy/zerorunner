@@ -1,5 +1,6 @@
 package chaotic.actors.manipulator.moves 
 {
+	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.manipulator.IActionPerformer;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.storage.ISearcher;
@@ -37,7 +38,7 @@ package chaotic.actors.manipulator.moves
 			{
 				if (this.landscape.getSceneCell(item.getCell().applyChanges(action)) != SceneFeature.FALL)
 				{
-					this.callMove(item, action, "movedLikeACharacter");
+					this.callMove(item, action, ActorsFeature.movedLikeACharacter);
 					
 					return;
 				}

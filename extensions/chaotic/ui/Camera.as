@@ -1,5 +1,6 @@
 package chaotic.ui 
 {
+	import chaotic.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
@@ -21,6 +22,7 @@ package chaotic.ui
 		
 		private static const NUMBER_OF_LAYERS:int = 3;
 		
+		public static const addToTheLayer:String = "addToTheLayer";
 		
 		private var container:Sprite;
 		private var layers:Vector.<Sprite>;
@@ -37,10 +39,10 @@ package chaotic.ui
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("setCenter");
-			flow.addUpdateListener("moveCenter");
+			flow.addUpdateListener(ActorsFeature.setCenter);
+			flow.addUpdateListener(ActorsFeature.moveCenter);
 			flow.addUpdateListener(ChaoticGame.getInformerFrom);
-			flow.addUpdateListener("addToTheLayer");
+			flow.addUpdateListener(Camera.addToTheLayer);
 			
 			flow.dispatchUpdate(ChaoticGame.addToTheHUD, this.container);
 		}

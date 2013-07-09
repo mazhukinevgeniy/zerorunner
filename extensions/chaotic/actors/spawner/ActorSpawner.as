@@ -67,8 +67,8 @@ package chaotic.actors.spawner
 			newPuppet.speed = this.speeds[0];
 			newPuppet.hp = this.hitpoints[0];
 			
-			this.updateFlow.dispatchUpdate("addActor", newPuppet);
-			this.updateFlow.dispatchUpdate("setCenter", cell);
+			this.updateFlow.dispatchUpdate(ActorsFeature.addActor, newPuppet);
+			this.updateFlow.dispatchUpdate(ActorsFeature.setCenter, cell);
 		}
 		
 		public function tick():void
@@ -99,7 +99,7 @@ package chaotic.actors.spawner
 				newPuppet.speed = this.speeds[type];
 				newPuppet.hp = this.hitpoints[type];
 				
-				this.updateFlow.dispatchUpdate("addActor", newPuppet);
+				this.updateFlow.dispatchUpdate(ActorsFeature.addActor, newPuppet);
 			}
 			else this.storage.addUnusedID(id);
 		}

@@ -1,5 +1,6 @@
 package chaotic.grinder 
 {
+	import chaotic.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
@@ -36,13 +37,13 @@ package chaotic.grinder
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("addGrinders");
-			flow.addUpdateListener("grindingStreamMoved");
-			flow.addUpdateListener("setCenter");
-			flow.addUpdateListener("moveCenter");
+			flow.addUpdateListener(GrinderFeature.addGrinders);
+			flow.addUpdateListener(GrinderFeature.grindingStreamMoved);
+			flow.addUpdateListener(ActorsFeature.setCenter);
+			flow.addUpdateListener(ActorsFeature.moveCenter);
 			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
-			flow.dispatchUpdate("addToTheLayer", Camera.GRINDERS, this.container);
+			flow.dispatchUpdate(Camera.addToTheLayer, Camera.GRINDERS, this.container);
 		}
 		
 		public function addGrinders(vector:Vector.<GrindingStream>):void

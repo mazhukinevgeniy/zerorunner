@@ -4,6 +4,10 @@ package chaotic.grinder
 	
 	public class GrinderFeature
 	{
+		public static const grindingStreamMoved:String = "grindingStreamMoved";
+		public static const addGrinders:String = "addGrinders";
+		
+		
 		internal static const NUMBER:int = 7;
 		internal static const HEIGHT:int = 7;
 		

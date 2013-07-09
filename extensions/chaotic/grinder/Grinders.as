@@ -17,7 +17,7 @@ package chaotic.grinder
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ChaoticGame.restore);
-			flow.addUpdateListener("addGrinders");
+			flow.addUpdateListener(GrinderFeature.addGrinders);
 			flow.addUpdateListener(ChaoticGame.addInformerTo);
 		}
 		

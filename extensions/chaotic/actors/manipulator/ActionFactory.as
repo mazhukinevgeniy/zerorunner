@@ -1,5 +1,6 @@
 package chaotic.actors.manipulator 
 {
+	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.manipulator.checks.*;
 	import chaotic.actors.manipulator.moves.*;
 	import chaotic.actors.manipulator.onBlocked.*;
@@ -43,7 +44,7 @@ package chaotic.actors.manipulator
 			this.actions["Detonate"] = new Detonate(actors, performer);
 			this.actions["Bite"] = new Bite(performer, actors);
 			
-			this.actions["ProtagonistDamaged"] = new ProtagonistDamaged(updateFlow);
+			this.actions[ActorsFeature.protagonistDamaged] = new ProtagonistDamaged(updateFlow);
 			
 			this.actions["IsGrindedCheck"] = new IsGrindedCheck(grinder, performer);
 			this.actions["NormalLandscapeCheck"] = new NormalLandscapeCheck(scene, performer);

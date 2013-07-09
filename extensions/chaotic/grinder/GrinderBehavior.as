@@ -15,7 +15,7 @@ package chaotic.grinder
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ChaoticGame.restore);
-			flow.addUpdateListener("grindingStreamMoved");
+			flow.addUpdateListener(GrinderFeature.grindingStreamMoved);
 			flow.addUpdateListener(ChaoticGame.tick);
 			
 			this.updates = flow;
@@ -32,7 +32,7 @@ package chaotic.grinder
 				this.streams[i].allowedGap = (Metric.CELLS_IN_VISIBLE_WIDTH + 1) / 2;
 			}
 			
-			this.updates.dispatchUpdate("addGrinders", this.streams);
+			this.updates.dispatchUpdate(GrinderFeature.addGrinders, this.streams);
 		}
 		
 		/** As IGrinderSubscriber: */

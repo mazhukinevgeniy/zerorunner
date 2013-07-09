@@ -1,5 +1,6 @@
 package chaotic.input
 {
+	import chaotic.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
@@ -8,6 +9,8 @@ package chaotic.input
 	
 	public class InputManager implements IKnowInput
 	{
+		public static const newInputPiece:String = "newInputPiece";
+		
 		private var order:Vector.<int>;
 		private var maxI:int;
 		
@@ -19,9 +22,9 @@ package chaotic.input
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("movedLikeACharacter");
+			flow.addUpdateListener(ActorsFeature.movedLikeACharacter);
 			flow.addUpdateListener(ChaoticGame.restore);
-			flow.addUpdateListener("newInputPiece");
+			flow.addUpdateListener(InputManager.newInputPiece);
 			flow.addUpdateListener(ChaoticGame.addInformerTo);
 		}
 		

@@ -4,6 +4,8 @@ package chaotic.scene
 	
 	public class SceneFeature
 	{
+		public static const addedScenePiece:String = "addedScenePiece";
+		
 		public static const FALL:int = 0;
 		public static const ROAD:int = 1;
 		

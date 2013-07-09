@@ -25,7 +25,7 @@ package chaotic.actors.storage
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("addActor");
+			flow.addUpdateListener(ActorsFeature.addActor);
 			flow.addUpdateListener(ChaoticGame.prerestore);
 			flow.addUpdateListener(ChaoticGame.addInformerTo);
 		}

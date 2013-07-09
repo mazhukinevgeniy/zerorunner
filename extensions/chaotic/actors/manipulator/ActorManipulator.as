@@ -1,5 +1,6 @@
 package chaotic.actors.manipulator 
 {
+	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.ActorStorage;
 	import chaotic.actors.storage.ISearcher;
 	import chaotic.actors.storage.Puppet;
@@ -28,7 +29,7 @@ package chaotic.actors.manipulator
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("addActor");
+			flow.addUpdateListener(ActorsFeature.addActor);
 			flow.addUpdateListener(ChaoticGame.tick);
 			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
@@ -106,15 +107,15 @@ package chaotic.actors.manipulator
 		{
 			var id:int = item.id;
 			
-			if (source == "movedLikeACharacter")
-				this.updateFlow.dispatchUpdate("movedLikeACharacter", id);
+			if (source == ActorsFeature.movedLikeACharacter)
+				this.updateFlow.dispatchUpdate(ActorsFeature.movedLikeACharacter, id);
 			
 			if (id == 0)
-				this.updateFlow.dispatchUpdate("moveCenter", change, item.speed);
+				this.updateFlow.dispatchUpdate(ActorsFeature.moveCenter, change, item.speed);
 			
 			this.storage.moveObject(item, change);
 			
-			this.updateFlow.dispatchUpdate("moveActor", id, change, item.speed);
+			this.updateFlow.dispatchUpdate(ActorsFeature.moveActor, id, change, item.speed);
 		}
 		
 		public function jumpedActor(item:Puppet, change:DCellXY):void
@@ -122,7 +123,7 @@ package chaotic.actors.manipulator
 			this.storage.moveObject(item, change, this.smash, item.getCell(), this.storage, this);
 			
 			item.remainingDelay = item.speed * 2;
-			this.updateFlow.dispatchUpdate("jumpActor", item.id, change, item.speed * 2);
+			this.updateFlow.dispatchUpdate(ActorsFeature.jumpActor, item.id, change, item.speed * 2);
 		}
 		
 		private function smash(cell:CellXY, storage:ISearcher, destroyer:IActionPerformer):void
@@ -139,7 +140,7 @@ package chaotic.actors.manipulator
 			}
 			else
 			{
-				this.updateFlow.dispatchUpdate("actorRemoved", item.id);
+				this.updateFlow.dispatchUpdate(ActorsFeature.actorRemoved, item.id);
 			}
 			
 			this.storage.deleteObject(item);
@@ -164,7 +165,7 @@ package chaotic.actors.manipulator
 		
 		public function detonateActor(item:Puppet):void
 		{
-			this.updateFlow.dispatchUpdate("detonateActor", item.id);
+			this.updateFlow.dispatchUpdate(ActorsFeature.detonateActor, item.id);
 			
 			this.destroyActor(item);
 		}

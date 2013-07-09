@@ -40,12 +40,12 @@ package chaotic.scene
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ChaoticGame.prerestore);
-			flow.addUpdateListener("newTopLeftCell");
-			flow.addUpdateListener("addedScenePiece");
-			flow.addUpdateListener("movedTopLeftCell");
+			flow.addUpdateListener(ChoosenArea.newTopLeftCell);
+			flow.addUpdateListener(SceneFeature.addedScenePiece);
+			flow.addUpdateListener(ChoosenArea.movedTopLeftCell);
 			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
-			flow.dispatchUpdate("addToTheLayer", Camera.SCENE, this.container);
+			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
 		}
 		
 		public function newTopLeftCell(cCell:CellXY):void

@@ -47,7 +47,7 @@ package chaotic.grinder
 		private function move(distance:int):void
 		{
 			this.front += distance;
-			this.updateFlow.dispatchUpdate("grindingStreamMoved", this.id, distance);
+			this.updateFlow.dispatchUpdate(GrinderFeature.grindingStreamMoved, this.id, distance);
 		}
 	}
 

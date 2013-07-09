@@ -10,6 +10,20 @@ package chaotic.actors
 	
 	public class ActorsFeature
 	{
+		public static const addActor:String = "addActor";
+		public static const moveActor:String = "moveActor";
+		public static const detonateActor:String = "detonateActor";
+		public static const jumpActor:String = "jumpActor";
+		
+		public static const actorRemoved:String = "actorRemoved";
+		
+		public static const movedLikeACharacter:String = "movedLikeACharacter";
+		public static const protagonistDamaged:String = "protagonistDamaged";
+		
+		public static const moveCenter:String = "moveCenter";
+		public static const setCenter:String = "setCenter";
+		
+		
 		public static const CAP:int = 150;
 		
 		public static const MAX_SPAWN_ONCE:int = 15;

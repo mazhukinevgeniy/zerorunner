@@ -39,14 +39,14 @@ package chaotic.actors.view
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ChaoticGame.prerestore);
-			flow.addUpdateListener("addActor");
-			flow.addUpdateListener("actorRemoved");
-			flow.addUpdateListener("moveActor");
-			flow.addUpdateListener("detonateActor");
-			flow.addUpdateListener("jumpActor");
+			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ActorsFeature.actorRemoved);
+			flow.addUpdateListener(ActorsFeature.moveActor);
+			flow.addUpdateListener(ActorsFeature.detonateActor);
+			flow.addUpdateListener(ActorsFeature.jumpActor);
 			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
-			flow.dispatchUpdate("addToTheLayer", Camera.SCENE, this.container);
+			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
 		}
 		
 		public function prerestore():void

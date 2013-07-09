@@ -1,5 +1,6 @@
 package chaotic.ui 
 {
+	import chaotic.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
@@ -27,7 +28,7 @@ package chaotic.ui
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ChaoticGame.restore);
-			flow.addUpdateListener("protagonistDamaged");
+			flow.addUpdateListener(ActorsFeature.protagonistDamaged);
 			
 			flow.dispatchUpdate(ChaoticGame.addToTheHUD, this.container);
 		}
