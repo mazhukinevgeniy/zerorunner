@@ -8,7 +8,6 @@ package chaotic.actors.storage
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
-	import chaotic.xml.getActorsXML;
 	
 	public class ActorStorage implements ISearcher
 	{
@@ -33,7 +32,7 @@ package chaotic.actors.storage
 		public function prerestore():void
 		{
 			var i:int;
-			var configuration:XML = getActorsXML();
+			var configuration:XML = ActorsFeature.CONFIG;
 			
 			this.puppets = new Vector.<Puppet>();
 			

@@ -7,6 +7,7 @@ package chaotic.actors
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.Metric;
+	import chaotic.utils.XMLByClass;
 	
 	public class ActorsFeature
 	{
@@ -22,6 +23,10 @@ package chaotic.actors
 		
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
+		
+		
+		[Embed(source = "actors.xml", mimeType="application/octet-stream")]
+		internal static const config:Class;
 		
 		
 		public static const CAP:int = 150;
@@ -41,6 +46,10 @@ package chaotic.actors
 		public static function get SPAWN_CELL():CellXY
 		{
 			return new CellXY((Metric.WIDTH - 1) / 2, (Metric.HEIGHT - 1) / 2);
+		}
+		public static function get CONFIG():XML
+		{
+			return XMLByClass(ActorsFeature.config);
 		}
 	}
 

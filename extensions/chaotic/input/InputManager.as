@@ -5,7 +5,6 @@ package chaotic.input
 	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.DCellXY;
-	import chaotic.xml.getActorsXML;
 	
 	public class InputManager implements IKnowInput
 	{

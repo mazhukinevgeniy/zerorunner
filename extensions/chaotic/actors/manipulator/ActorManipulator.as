@@ -10,7 +10,6 @@ package chaotic.actors.manipulator
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
-	import chaotic.xml.getActorsXML;
 	import starling.animation.Juggler;
 	
 	public class ActorManipulator implements IActionPerformer
@@ -38,7 +37,7 @@ package chaotic.actors.manipulator
 			this.storage = newStorage;
 			
 			
-			var configuration:XML = getActorsXML();
+			var configuration:XML = ActorsFeature.CONFIG;
 			var numberOfTypes:int = int(configuration.actor.length());
 			
 			this.commandChains = new Vector.<Vector.<ActionBase>>(numberOfTypes, true);
@@ -172,17 +171,15 @@ package chaotic.actors.manipulator
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			var configuration:XML = getActorsXML();
+			var configuration:XML = ActorsFeature.CONFIG;
 			var numberOfTypes:int = int(configuration.actor.length());
 			
 			var actions:ActionFactory = new ActionFactory(this.updateFlow);
 			actions.getInformerFrom(table, this);
 			
-			var xml:XML = getActorsXML();
-			
 			for (var i:int = 0; i < numberOfTypes; i++)
 			{
-				var tmpNode:XMLList = xml.actor[i].configuration;
+				var tmpNode:XMLList = configuration.actor[i].configuration;
 				var vector:Vector.<ActionBase> = this.commandChains[i];
 				
 				var length:int = tmpNode.action.length();
@@ -192,9 +189,9 @@ package chaotic.actors.manipulator
 					vector.push(actions.getAction(tmpNode.action[j]));
 				}
 				
-				this.onBlocked[i] = actions.getAction(xml.actor[i].onBlocked);
-				this.onSpawned[i] = actions.getAction(xml.actor[i].onSpawned);
-				this.onDamaged[i] = actions.getAction(xml.actor[i].onDamaged);
+				this.onBlocked[i] = actions.getAction(configuration.actor[i].onBlocked);
+				this.onSpawned[i] = actions.getAction(configuration.actor[i].onSpawned);
+				this.onDamaged[i] = actions.getAction(configuration.actor[i].onDamaged);
 			}
 			
 			this.juggler = table.getInformer(Juggler);

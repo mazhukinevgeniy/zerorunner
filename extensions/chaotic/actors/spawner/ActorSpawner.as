@@ -12,7 +12,6 @@ package chaotic.actors.spawner
 	import chaotic.metric.Metric;
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
-	import chaotic.xml.getActorsXML;
 	
 	public class ActorSpawner
 	{
@@ -40,7 +39,7 @@ package chaotic.actors.spawner
 			
 			this.storage = actorStorage;
 			
-			var actors:XML = getActorsXML();
+			var actors:XML = ActorsFeature.CONFIG;
 			var numberOfTypes:int = actors.actor.length();
 			this.speeds = new Vector.<int>(numberOfTypes, true);
 			this.hitpoints = new Vector.<int>(numberOfTypes, true);

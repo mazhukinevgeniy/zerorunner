@@ -4,7 +4,6 @@ package chaotic.ui
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
-	import chaotic.xml.getActorsXML;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
@@ -35,7 +34,7 @@ package chaotic.ui
 		
 		public function restore():void
 		{
-			this.healthPoints = int(getActorsXML().actor[0].baseHP);
+			this.healthPoints = int(ActorsFeature.CONFIG.actor[0].baseHP);
 			
 			this.container.removeChildren();
 			
