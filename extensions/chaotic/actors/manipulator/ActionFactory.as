@@ -39,7 +39,7 @@ package chaotic.actors.manipulator
 			
 			this.actions["DoNothing"] = new DoNothing();
 			
-			this.actions["ReachGrinder"] = new ReachGrinder(performer, grinder);
+			this.actions["ReachGrinder"] = new ReachGrinder(performer, grinder, actors);
 			
 			this.actions["Detonate"] = new Detonate(actors, performer);
 			this.actions["Bite"] = new Bite(performer, actors);
