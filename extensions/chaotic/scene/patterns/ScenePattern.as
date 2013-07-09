@@ -9,7 +9,7 @@ package chaotic.scene.patterns
 			var lastPattern:Pattern = new Pattern();
 			var anotherPattern:MiddlePattern;
 			
-			var length:int = 2 + Math.random() * 3;
+			var length:int = 2;
 			
 			for (var i:int = 0; i < length; i++)
 			{
