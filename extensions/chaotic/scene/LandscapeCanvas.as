@@ -3,6 +3,7 @@ package chaotic.scene
 	import chaotic.choosenArea.ChoosenArea;
 	import chaotic.choosenArea.ISector;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -38,11 +39,11 @@ package chaotic.scene
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("prerestore");
+			flow.addUpdateListener(ChaoticGame.prerestore);
 			flow.addUpdateListener("newTopLeftCell");
 			flow.addUpdateListener("addedScenePiece");
 			flow.addUpdateListener("movedTopLeftCell");
-			flow.addUpdateListener("getInformerFrom");
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
 			flow.dispatchUpdate("addToTheLayer", Camera.SCENE, this.container);
 		}

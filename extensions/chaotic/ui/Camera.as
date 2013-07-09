@@ -1,6 +1,7 @@
 package chaotic.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -38,10 +39,10 @@ package chaotic.ui
 			
 			flow.addUpdateListener("setCenter");
 			flow.addUpdateListener("moveCenter");
-			flow.addUpdateListener("getInformerFrom");
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			flow.addUpdateListener("addToTheLayer");
 			
-			flow.dispatchUpdate("addToTheHUD", this.container);
+			flow.dispatchUpdate(ChaoticGame.addToTheHUD, this.container);
 		}
 		
 		public function setCenter(center:CellXY):void

@@ -1,6 +1,7 @@
 package chaotic.grinder 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.Metric;
 	
@@ -13,9 +14,9 @@ package chaotic.grinder
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("restore");
+			flow.addUpdateListener(ChaoticGame.restore);
 			flow.addUpdateListener("grindingStreamMoved");
-			flow.addUpdateListener("tick");
+			flow.addUpdateListener(ChaoticGame.tick);
 			
 			this.updates = flow;
 		}

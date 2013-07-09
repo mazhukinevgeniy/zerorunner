@@ -2,6 +2,7 @@ package chaotic.choosenArea
 {
 	import chaotic.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
@@ -32,11 +33,11 @@ package chaotic.choosenArea
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("prerestore");
+			flow.addUpdateListener(ChaoticGame.prerestore);
 			flow.addUpdateListener("setCenter");
 			flow.addUpdateListener("moveCenter");
-			flow.addUpdateListener("addInformerTo");
-			flow.addUpdateListener("getInformerFrom");
+			flow.addUpdateListener(ChaoticGame.addInformerTo);
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
 			this.updateFlow = flow;
 		}

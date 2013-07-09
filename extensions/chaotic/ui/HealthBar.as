@@ -1,6 +1,7 @@
 package chaotic.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.xml.getActorsXML;
 	import starling.display.Quad;
@@ -25,10 +26,10 @@ package chaotic.ui
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("restore");
+			flow.addUpdateListener(ChaoticGame.restore);
 			flow.addUpdateListener("protagonistDamaged");
 			
-			flow.dispatchUpdate("addToTheHUD", this.container);
+			flow.dispatchUpdate(ChaoticGame.addToTheHUD, this.container);
 		}
 		
 		public function restore():void

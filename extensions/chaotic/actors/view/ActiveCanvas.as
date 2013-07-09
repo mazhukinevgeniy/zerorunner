@@ -4,6 +4,7 @@ package chaotic.actors.view
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.view.DrawenActor;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -37,13 +38,13 @@ package chaotic.actors.view
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("prerestore");
+			flow.addUpdateListener(ChaoticGame.prerestore);
 			flow.addUpdateListener("addActor");
 			flow.addUpdateListener("actorRemoved");
 			flow.addUpdateListener("moveActor");
 			flow.addUpdateListener("detonateActor");
 			flow.addUpdateListener("jumpActor");
-			flow.addUpdateListener("getInformerFrom");
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
 			flow.dispatchUpdate("addToTheLayer", Camera.SCENE, this.container);
 		}

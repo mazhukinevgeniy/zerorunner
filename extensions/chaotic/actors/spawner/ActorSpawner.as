@@ -6,6 +6,7 @@ package chaotic.actors.spawner
 	import chaotic.choosenArea.IChoosenArea;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.UnresolvedRequestError;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -33,9 +34,9 @@ package chaotic.actors.spawner
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("restore");
-			flow.addUpdateListener("tick");
-			flow.addUpdateListener("getInformerFrom");
+			flow.addUpdateListener(ChaoticGame.restore);
+			flow.addUpdateListener(ChaoticGame.tick);
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
 			this.updateFlow = flow;
 			

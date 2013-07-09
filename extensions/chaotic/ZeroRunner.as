@@ -12,6 +12,7 @@ package chaotic
 	import chaotic.statistics.Statistics;
 	import chaotic.ui.UIExtendsions;
 	import chaotic.xml.getAdditionalUpdatesXML;
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	
@@ -21,6 +22,8 @@ package chaotic
 		public function ZeroRunner(container:Sprite, assets:AssetManager) 
 		{
 			super(container, assets);
+			
+			this.updateFlow.dispatchUpdate("addKeyboardEventListenersTo", Starling.current.stage);
 		}
 		
 		override protected function addFeatures():void

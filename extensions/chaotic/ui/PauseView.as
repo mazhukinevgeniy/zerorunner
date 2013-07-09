@@ -1,6 +1,7 @@
 package chaotic.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -28,11 +29,11 @@ package chaotic.ui
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("gameOver");
-			flow.addUpdateListener("setPause");
+			flow.addUpdateListener(ChaoticGame.gameOver);
+			flow.addUpdateListener(ChaoticGame.setPause);
 			
 			this.container = new Sprite();
-			flow.dispatchUpdate("addToTheHUD", this.container);
+			flow.dispatchUpdate(ChaoticGame.addToTheHUD, this.container);
 			
 			this.notification = new TextField(500, 40, "Game paused", "HiLo-Deco", 30);
 			this.container.addChild(this.notification);

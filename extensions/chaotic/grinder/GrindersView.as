@@ -1,6 +1,7 @@
 package chaotic.grinder 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -39,7 +40,7 @@ package chaotic.grinder
 			flow.addUpdateListener("grindingStreamMoved");
 			flow.addUpdateListener("setCenter");
 			flow.addUpdateListener("moveCenter");
-			flow.addUpdateListener("getInformerFrom");
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
 			flow.dispatchUpdate("addToTheLayer", Camera.GRINDERS, this.container);
 		}

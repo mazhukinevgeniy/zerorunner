@@ -4,6 +4,7 @@ package chaotic.actors.manipulator
 	import chaotic.actors.storage.ISearcher;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -28,8 +29,8 @@ package chaotic.actors.manipulator
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener("addActor");
-			flow.addUpdateListener("tick");
-			flow.addUpdateListener("getInformerFrom");
+			flow.addUpdateListener(ChaoticGame.tick);
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
 			this.updateFlow = flow;
 			
@@ -134,7 +135,7 @@ package chaotic.actors.manipulator
 		{
 			if (item.id == 0)
 			{
-				this.juggler.delayCall(this.updateFlow.dispatchUpdate, 0.5, "gameOver");
+				this.juggler.delayCall(this.updateFlow.dispatchUpdate, 0.5, ChaoticGame.gameOver);
 			}
 			else
 			{

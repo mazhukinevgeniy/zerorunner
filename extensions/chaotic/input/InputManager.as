@@ -1,6 +1,7 @@
 package chaotic.input
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.DCellXY;
 	import chaotic.xml.getActorsXML;
@@ -19,9 +20,9 @@ package chaotic.input
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener("movedLikeACharacter");
-			flow.addUpdateListener("restore");
+			flow.addUpdateListener(ChaoticGame.restore);
 			flow.addUpdateListener("newInputPiece");
-			flow.addUpdateListener("addInformerTo");
+			flow.addUpdateListener(ChaoticGame.addInformerTo);
 		}
 		
 		public function movedLikeACharacter(number:int):void

@@ -2,6 +2,7 @@ package chaotic.scene
 {
 	import chaotic.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -18,8 +19,8 @@ package chaotic.scene
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener("prerestore");
-			flow.addUpdateListener("addInformerTo");
+			flow.addUpdateListener(ChaoticGame.prerestore);
+			flow.addUpdateListener(ChaoticGame.addInformerTo);
 		}
 		
 		public function getSceneCell(cell:CellXY):int
