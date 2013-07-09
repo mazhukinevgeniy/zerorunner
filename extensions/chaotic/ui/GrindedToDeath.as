@@ -1,6 +1,6 @@
 package chaotic.ui 
 {
-	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.core.IUpdateDispatcher;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.text.TextField;

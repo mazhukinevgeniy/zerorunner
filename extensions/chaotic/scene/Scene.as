@@ -1,12 +1,12 @@
 package chaotic.scene 
 {
 	import chaotic.actors.ActorsFeature;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
 	import chaotic.scene.patterns.ScenePattern;
-	import chaotic.updates.IUpdateDispatcher;
 	
 	internal class Scene implements IScene
 	{		

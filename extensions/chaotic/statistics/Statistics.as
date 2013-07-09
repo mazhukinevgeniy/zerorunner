@@ -1,7 +1,7 @@
 package chaotic.statistics 
 {
 	import chaotic.core.FeaturePack;
-	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.core.IUpdateDispatcher;
 	
 	public class Statistics extends FeaturePack
 	{

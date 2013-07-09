@@ -1,7 +1,7 @@
 package controller 
 {
-	import chaotic.core.IGame;
-	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.IGame;
 	import model.IModel;
 	import starling.events.KeyboardEvent;
 	import flash.ui.Keyboard;
@@ -30,7 +30,7 @@ package controller
 			this.model = model;
 			this.game = game;
 			
-			var flow:IUpdateDispatcher = (game).getUpdateFlow();
+			var flow:IUpdateDispatcher = game.updateFlow;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener("gameOver");

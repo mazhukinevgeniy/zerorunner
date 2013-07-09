@@ -1,7 +1,7 @@
 package chaotic.ui 
 {
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
-	import chaotic.updates.IUpdateDispatcher;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.particles.PDParticleSystem;

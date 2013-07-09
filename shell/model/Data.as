@@ -1,6 +1,6 @@
 package model 
 {
-	import chaotic.core.IGame;
+	import chaotic.game.IGame;
 	import model.settings.ISettings;
 	import model.settings.Settings;
 	import model.statistics.IKnowAchievements;
@@ -25,7 +25,7 @@ package model
 		}
 		
 		public function getSettings():ISettings { return this._settings; }
-		public function get settings():ISettings { return this._settings; }
+		public function get settings():ISettings { return this._settings; } //TODO: lol, it's superugly, i'm almost PROUD of it
 	}
 
 }

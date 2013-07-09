@@ -1,7 +1,7 @@
 package chaotic.grinder 
 {
 	import chaotic.core.FeaturePack;
-	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.core.IUpdateDispatcher;
 	
 	public class GrinderFeature extends FeaturePack
 	{

@@ -2,6 +2,7 @@ package chaotic.scene
 {
 	import chaotic.choosenArea.ChoosenArea;
 	import chaotic.choosenArea.ISector;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -9,7 +10,6 @@ package chaotic.scene
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
-	import chaotic.updates.IUpdateDispatcher;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;

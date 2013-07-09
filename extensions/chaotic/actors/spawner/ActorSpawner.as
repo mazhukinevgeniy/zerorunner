@@ -4,6 +4,7 @@ package chaotic.actors.spawner
 	import chaotic.actors.storage.ActorStorage;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.choosenArea.IChoosenArea;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.UnresolvedRequestError;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
@@ -11,7 +12,6 @@ package chaotic.actors.spawner
 	import chaotic.metric.Metric;
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
-	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.xml.getActorsXML;
 	
 	public class ActorSpawner

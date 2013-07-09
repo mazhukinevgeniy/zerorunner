@@ -2,11 +2,11 @@ package chaotic.actors.storage
 {
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.Puppet;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.xml.getActorsXML;
 	
 	public class ActorStorage implements ISearcher

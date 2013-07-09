@@ -2,7 +2,7 @@ package chaotic.actors.manipulator.onDamaged
 {
 	import chaotic.actors.manipulator.ActionBase;
 	import chaotic.actors.storage.Puppet;
-	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.core.IUpdateDispatcher;
 	
 	public class ProtagonistDamaged extends ActionBase
 	{

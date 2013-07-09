@@ -1,12 +1,12 @@
 package chaotic.ui 
 {
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.DPixelXY;
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
-	import chaotic.updates.IUpdateDispatcher;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;

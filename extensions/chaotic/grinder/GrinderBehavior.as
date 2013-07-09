@@ -1,8 +1,8 @@
 package chaotic.grinder 
 {
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IUpdateDispatcher;
 	
 	internal class GrinderBehavior
 	{

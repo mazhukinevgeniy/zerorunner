@@ -1,8 +1,8 @@
 package chaotic.ui 
 {
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.input.InputPiece;
 	import chaotic.metric.DCellXY;
-	import chaotic.updates.IUpdateDispatcher;
 	import flash.ui.Keyboard;
 	import starling.events.EventDispatcher;
 	import starling.events.KeyboardEvent;

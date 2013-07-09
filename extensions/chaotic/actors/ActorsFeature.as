@@ -5,9 +5,9 @@ package chaotic.actors
 	import chaotic.actors.storage.ActorStorage;
 	import chaotic.actors.view.ActiveCanvas;
 	import chaotic.core.FeaturePack;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IUpdateDispatcher;
 	
 	public class ActorsFeature extends FeaturePack
 	{

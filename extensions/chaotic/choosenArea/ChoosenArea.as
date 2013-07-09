@@ -1,6 +1,7 @@
 package chaotic.choosenArea 
 {
 	import chaotic.actors.ActorsFeature;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
@@ -8,7 +9,6 @@ package chaotic.choosenArea
 	import chaotic.metric.Metric;
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
-	import chaotic.updates.IUpdateDispatcher;
 	
 	public class ChoosenArea implements IChoosenArea
 	{

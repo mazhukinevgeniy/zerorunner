@@ -1,6 +1,6 @@
 package chaotic.grinder 
 {
-	import chaotic.updates.IUpdateDispatcher;
+	import chaotic.core.IUpdateDispatcher;
 	
 	public class GrindingStream
 	{

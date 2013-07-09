@@ -3,11 +3,11 @@ package chaotic.actors.manipulator
 	import chaotic.actors.storage.ActorStorage;
 	import chaotic.actors.storage.ISearcher;
 	import chaotic.actors.storage.Puppet;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.xml.getActorsXML;
 	import starling.animation.Juggler;
 	

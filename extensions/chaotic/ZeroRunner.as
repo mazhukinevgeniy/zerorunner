@@ -2,7 +2,7 @@ package chaotic
 {
 	import chaotic.actors.ActorsFeature;
 	import chaotic.choosenArea.ChoosenArea;
-	import chaotic.core.Chaotic;
+	import chaotic.game.ChaoticGame;
 	import chaotic.grinder.GrinderFeature;
 	import chaotic.input.InputManager;
 	import chaotic.metric.CellXY;
@@ -15,7 +15,7 @@ package chaotic
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	
-	public class ZeroRunner extends Chaotic
+	public class ZeroRunner extends ChaoticGame
 	{
 		
 		public function ZeroRunner(container:Sprite, assets:AssetManager) 
@@ -25,6 +25,8 @@ package chaotic
 		
 		override protected function addFeatures():void
 		{
+			super.addFeatures();
+			
 			Metric.initialize(40, 40, 81, 81);
 			
 			new InputManager(this.updateFlow);

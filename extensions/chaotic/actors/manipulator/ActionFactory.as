@@ -6,11 +6,11 @@ package chaotic.actors.manipulator
 	import chaotic.actors.manipulator.onDamaged.*;
 	import chaotic.actors.manipulator.onSpawned.*;
 	import chaotic.actors.storage.ISearcher;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.grinder.IGrinder;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.input.IKnowInput;
 	import chaotic.scene.IScene;
-	import chaotic.updates.IUpdateDispatcher;
 	
 	internal class ActionFactory
 	{

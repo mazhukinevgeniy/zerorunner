@@ -1,8 +1,8 @@
 package chaotic.input
 {
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.DCellXY;
-	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.xml.getActorsXML;
 	
 	public class InputManager implements IKnowInput

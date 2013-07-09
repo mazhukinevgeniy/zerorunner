@@ -3,6 +3,7 @@ package chaotic.actors.view
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.view.DrawenActor;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -10,7 +11,6 @@ package chaotic.actors.view
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
-	import chaotic.updates.IUpdateDispatcher;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;
