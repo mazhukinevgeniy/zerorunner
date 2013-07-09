@@ -5,7 +5,7 @@
     <image name="badsprite2" x="40" y="0" width="40" height="40" trans="false"/>
     <image name="badsprite3" x="40" y="80" width="23" height="23" trans="false"/>
     <image name="badsprite4" x="0" y="80" width="40" height="40" trans="false"/>
-    <image name="scene0" x="0" y="40" width="40" height="40" trans="false"/>
-    <image name="scene1" x="0" y="0" width="40" height="40" trans="false"/>
+    <image name="scene1" x="0" y="40" width="40" height="40" trans="false"/>
+    <image name="scene0" x="0" y="0" width="40" height="40" trans="false"/>
   </texture>
 </atlas>

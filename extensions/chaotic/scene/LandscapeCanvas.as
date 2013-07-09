@@ -1,5 +1,6 @@
 package chaotic.scene 
 {
+	import chaotic.actors.storage.ISearcher;
 	import chaotic.choosenArea.ChoosenArea;
 	import chaotic.choosenArea.ISector;
 	import chaotic.core.IUpdateDispatcher;
@@ -20,15 +21,10 @@ package chaotic.scene
 	
 	internal class LandscapeCanvas
 	{
+		private var pull:TilePull;
+		
 		private var assets:AssetManager;
-		private var atlas:TextureAtlas;
-		
-		private var textures:Vector.<Texture>;
-		
-		private var lastAccessed:DrawingCell;
-		
-		private var topLeftX:int = 0;
-		private var topLeftY:int = 0;
+		private var searcher:ISearcher;
 		
 		private var container:Sprite;
 		
@@ -40,200 +36,31 @@ package chaotic.scene
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ChaoticGame.prerestore);
-			flow.addUpdateListener(ChoosenArea.newTopLeftCell);
-			flow.addUpdateListener(SceneFeature.addedScenePiece);
-			flow.addUpdateListener(ChoosenArea.movedTopLeftCell);
+			flow.addUpdateListener(ChaoticGame.tick);
 			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
 		}
 		
-		public function newTopLeftCell(cCell:CellXY):void
-		{
-			var cell:PixelXY = Metric.toPixel(cCell);
-			
-			this.topLeftX = cell.x;
-			this.topLeftY = cell.y;
-			
-			for (var i:int = 0; i < ChoosenArea.SECTORS_IN_STABLE_WIDTH; i++)
-			{
-				for (var j:int = 0; j < ChoosenArea.SECTORS_IN_STABLE_HEIGHT; j++)
-				{
-					this.lastAccessed.x = cell.x + i * ChoosenArea.CELLS_IN_SECTOR_WIDTH * Metric.CELL_WIDTH;
-					this.lastAccessed.y = cell.y + j * ChoosenArea.CELLS_IN_SECTOR_HEIGHT * Metric.CELL_HEIGHT;
-					
-					this.lastAccessed = this.lastAccessed.down;
-				}
-				
-				this.lastAccessed = this.lastAccessed.right;
-			}
-		}
-		
-		public function movedTopLeftCell(cChange:DCellXY):void
-		{
-			var change:DPixelXY = Metric.toPixel(cChange);
-			
-			var i:int;
-			
-			var dX:int = sign(change.x);
-			var dY:int = sign(change.y);
-			
-			this.returnToTopLeft();
-			
-			if (dX == -1)
-			{
-				this.lastAccessed = this.lastAccessed.left;
-				
-				for (i = 0; i < ChoosenArea.SECTORS_IN_STABLE_HEIGHT; i++)
-				{
-					this.lastAccessed.x = this.lastAccessed.right.x - ChoosenArea.CELLS_IN_SECTOR_WIDTH * Metric.CELL_WIDTH;
-					
-					this.lastAccessed = this.lastAccessed.down;
-				}
-				
-				this.topLeftX -= ChoosenArea.CELLS_IN_SECTOR_WIDTH * Metric.CELL_WIDTH;
-			}
-			else if (dX == 1)
-			{
-				for (i = 0; i < ChoosenArea.SECTORS_IN_STABLE_HEIGHT; i++)
-				{
-					this.lastAccessed.x = this.lastAccessed.left.x + ChoosenArea.CELLS_IN_SECTOR_WIDTH * Metric.CELL_WIDTH;
-					
-					this.lastAccessed = this.lastAccessed.down;
-				}
-				
-				this.topLeftX += ChoosenArea.CELLS_IN_SECTOR_WIDTH * Metric.CELL_WIDTH;
-			}
-			else if (dY == -1)
-			{
-				this.lastAccessed = this.lastAccessed.up;
-				
-				for (i = 0; i < ChoosenArea.SECTORS_IN_STABLE_WIDTH; i++)
-				{
-					this.lastAccessed.y = this.lastAccessed.down.y - ChoosenArea.CELLS_IN_SECTOR_HEIGHT * Metric.CELL_HEIGHT;
-					
-					this.lastAccessed = this.lastAccessed.right;
-				}
-				
-				this.topLeftY -= ChoosenArea.CELLS_IN_SECTOR_HEIGHT * Metric.CELL_HEIGHT;
-			}
-			else if (dY == 1)
-			{
-				for (i = 0; i < ChoosenArea.SECTORS_IN_STABLE_WIDTH; i++)
-				{
-					this.lastAccessed.y = this.lastAccessed.up.y + ChoosenArea.CELLS_IN_SECTOR_HEIGHT * Metric.CELL_HEIGHT;
-					
-					this.lastAccessed = this.lastAccessed.right;
-				}
-				
-				this.topLeftY += ChoosenArea.CELLS_IN_SECTOR_HEIGHT * Metric.CELL_HEIGHT;
-			}
-			
-			function sign(num:Number):int
-			{
-				return (num > 0) ? 1 : ((num < 0) ? -1 : 0);
-			}
-		}
-		
-		public function addedScenePiece(sector:ISector):void
-		{
-			var pCell:PixelXY = Metric.toPixel(sector.topLeftCell);
-			var x:int = pCell.x;
-			var y:int = pCell.y;
-			
-			var sectorX:int = x;
-			var sectorY:int = y;
-			
-			while (this.lastAccessed.x != sectorX)
-			{
-				this.lastAccessed = this.lastAccessed.right;
-			}
-			
-			while (this.lastAccessed.y != sectorY)
-			{
-				this.lastAccessed = this.lastAccessed.down;
-			}
-			
-			this.drawSector(sector, this.lastAccessed);
-		}
-		
-		private function drawSector(sector:ISector, sprite:Sprite):void
-		{
-			sprite.removeChildren();
-			
-			var code:Vector.<int> = sector.getCode();
-			
-			for (var i:int = 0; i < ChoosenArea.CELLS_IN_SECTOR_WIDTH; i++)
-				for (var j:int = 0; j < ChoosenArea.CELLS_IN_SECTOR_HEIGHT; j++)
-				{
-					var tmp:Image = new Image(this.textures[code[i + j * ChoosenArea.CELLS_IN_SECTOR_WIDTH]]);
-					tmp.x = i * Metric.CELL_WIDTH;
-					tmp.y = j * Metric.CELL_HEIGHT;
-					sprite.addChild(tmp);
-				}
-		}
-		
-		private function returnToTopLeft():void
-		{
-			while (this.lastAccessed.x != this.topLeftX)
-				this.lastAccessed = this.lastAccessed.right;
-			while (this.lastAccessed.y != this.topLeftY)
-				this.lastAccessed = this.lastAccessed.down;
-		}
-		
-		
-		public function prerestore():void
+		public function tick():void
 		{
 			this.container.removeChildren();
 			
-			var tmpArrays:Array = new Array(ChoosenArea.SECTORS_IN_STABLE_HEIGHT);
+			var center:CellXY = this.searcher.getCharacterCell();
 			
-			for (var i:int = 0; i < ChoosenArea.SECTORS_IN_STABLE_HEIGHT; i++)
-			{
-				tmpArrays[i] = new Array(ChoosenArea.SECTORS_IN_STABLE_WIDTH);
-				
-				for (var j:int = 0; j < ChoosenArea.SECTORS_IN_STABLE_WIDTH; j++)
-				{
-					this.container.addChild(tmpArrays[i][j] = new DrawingCell());
-				}
-				
-				for (j = 0; j < ChoosenArea.SECTORS_IN_STABLE_WIDTH - 1; j++)
-				{
-					tmpArrays[i][j].right = tmpArrays[i][j+1];
-					tmpArrays[i][j+1].left = tmpArrays[i][j];
-				}
-				
-				tmpArrays[i][0].left = tmpArrays[i][ChoosenArea.SECTORS_IN_STABLE_WIDTH - 1];
-				tmpArrays[i][ChoosenArea.SECTORS_IN_STABLE_WIDTH - 1].right = tmpArrays[i][0];
-			}
-			
-			for (i = 0; i < ChoosenArea.SECTORS_IN_STABLE_HEIGHT - 1; i++)
-			{
-				for (j = 0; j < ChoosenArea.SECTORS_IN_STABLE_WIDTH; j++)
-				{
-					tmpArrays[i][j].down = tmpArrays[i+1][j];
-					tmpArrays[i+1][j].up = tmpArrays[i][j];
-				}
-			}
-			
-			for (j = 0; j < ChoosenArea.SECTORS_IN_STABLE_WIDTH; j++)
-			{
-				tmpArrays[0][j].up = tmpArrays[ChoosenArea.SECTORS_IN_STABLE_HEIGHT - 1][j];
-				tmpArrays[ChoosenArea.SECTORS_IN_STABLE_HEIGHT - 1][j].down = tmpArrays[0][j];
-			}
-			
-			this.lastAccessed = tmpArrays[0][0];
-			
-			
-			this.atlas = this.assets.getTextureAtlas("gameAtlas");
-			this.textures = new Vector.<Texture>(2, true);
-			this.textures[1] = atlas.getTexture("scene" + 0);
-			this.textures[0] = atlas.getTexture("scene" + 1);
+			for (var i:int = 
 		}
+		
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
 			this.assets = table.getInformer(AssetManager);
+			this.searcher = table.getInformer(ISearcher);
+		}
+		
+		public function prerestore():void
+		{
+			if (this.pull == null) this.pull = new TilePull(this.assets);
 		}
 	}
 
