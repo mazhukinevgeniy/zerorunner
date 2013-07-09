@@ -3,7 +3,6 @@ package chaotic.actors.spawner
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.ActorStorage;
 	import chaotic.actors.storage.Puppet;
-	import chaotic.choosenArea.IChoosenArea;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.UnresolvedRequestError;
 	import chaotic.game.ChaoticGame;
@@ -18,7 +17,6 @@ package chaotic.actors.spawner
 	public class ActorSpawner
 	{
 		private var scene:IScene;
-		private var choosenArea:IChoosenArea;
 		
 		private var storage:ActorStorage;
 		
@@ -121,7 +119,6 @@ package chaotic.actors.spawner
 		public function getInformerFrom(table:IGiveInformers):void
 		{
 			this.scene = table.getInformer(IScene);
-			this.choosenArea = table.getInformer(IChoosenArea);
 		}
 	}
 
