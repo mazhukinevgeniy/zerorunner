@@ -5,7 +5,6 @@ package chaotic.grinder
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	
 	internal class GrinderBehavior implements IUpdateListener
 	{
@@ -36,7 +35,7 @@ package chaotic.grinder
 				this.streams[i].allowedGap = (Metric.CELLS_IN_VISIBLE_WIDTH + 1) / 2;
 			}
 			
-			this.updates.dispatchUpdate(new Update("addGrinders", this.streams));
+			this.updates.dispatchUpdate("addGrinders", this.streams);
 		}
 		
 		/** As IGrinderSubscriber: */

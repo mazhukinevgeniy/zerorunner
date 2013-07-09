@@ -9,7 +9,6 @@ package chaotic.ui
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;
@@ -80,7 +79,7 @@ package chaotic.ui
 		{
 			this.juggler = table.getInformer(Juggler);
 			
-			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheHUD", this.container));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheHUD", this.container);
 		}
 	}
 	

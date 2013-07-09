@@ -1,7 +1,6 @@
 package chaotic.grinder 
 {
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.Update;
 	
 	public class GrindingStream
 	{
@@ -48,7 +47,7 @@ package chaotic.grinder
 		private function move(distance:int):void
 		{
 			this.front += distance;
-			this.updateFlow.dispatchUpdate(new Update("grindingStreamMoved", this.id, distance));
+			this.updateFlow.dispatchUpdate("grindingStreamMoved", this.id, distance);
 		}
 	}
 

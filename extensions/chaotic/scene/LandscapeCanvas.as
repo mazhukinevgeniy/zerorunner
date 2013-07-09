@@ -12,7 +12,6 @@ package chaotic.scene
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -234,7 +233,7 @@ package chaotic.scene
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.SCENE, this.container));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheLayer", Camera.SCENE, this.container);
 			
 			this.assets = table.getInformer(AssetManager);
 		}

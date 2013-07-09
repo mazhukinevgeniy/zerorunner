@@ -11,7 +11,6 @@ package chaotic.choosenArea
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	
 	public class ChoosenArea implements IUpdateListener, IChoosenArea
 	{
@@ -65,13 +64,13 @@ package chaotic.choosenArea
 			this.topLeftCell = new CellXY(cell.x - (ChoosenArea.CELLS_IN_STABLE_WIDTH - 1) / 2,
 										  cell.y - (ChoosenArea.CELLS_IN_STABLE_HEIGHT - 1) / 2);
 			
-			this.updateFlow.dispatchUpdate(new Update("newTopLeftCell", this.topLeftCell));
+			this.updateFlow.dispatchUpdate("newTopLeftCell", this.topLeftCell);
 			
 			for (var i:int = 0; i < ChoosenArea.SECTORS_IN_STABLE_WIDTH; i++)
 				for (var j:int = 0; j < ChoosenArea.SECTORS_IN_STABLE_HEIGHT; j++)
-					this.updateFlow.dispatchUpdate(new Update("addedScenePiece", 
+					this.updateFlow.dispatchUpdate("addedScenePiece", 
 						this.composeSector(new CellXY(this.topLeftCell.x + i * ChoosenArea.CELLS_IN_SECTOR_WIDTH,
-													  this.topLeftCell.y + j * ChoosenArea.CELLS_IN_SECTOR_HEIGHT))));
+													  this.topLeftCell.y + j * ChoosenArea.CELLS_IN_SECTOR_HEIGHT)));
 		}
 		
 		public function moveCenter(change:DCellXY, ticksToGo:int = 0):void
@@ -96,17 +95,17 @@ package chaotic.choosenArea
 			
 			this.topLeftCell.applyChanges(change);
 			
-			this.updateFlow.dispatchUpdate(new Update("movedTopLeftCell", change));
+			this.updateFlow.dispatchUpdate("movedTopLeftCell", change);
 			
 			var a:int = int(change.x == ChoosenArea.CELLS_IN_SECTOR_WIDTH);
 			var b:int = int(change.y == ChoosenArea.CELLS_IN_SECTOR_HEIGHT);
 			
 			for (i = 0; vertical && (i < ChoosenArea.SECTORS_IN_STABLE_WIDTH) || !vertical && (i < 1); i++)
 				for (j = 0; vertical && (j < 1) || !vertical && (j < ChoosenArea.SECTORS_IN_STABLE_HEIGHT); j++)
-					this.updateFlow.dispatchUpdate(new Update("addedScenePiece", 
+					this.updateFlow.dispatchUpdate("addedScenePiece", 
 						this.composeSector(new CellXY(
 							this.topLeftCell.x + i * ChoosenArea.CELLS_IN_SECTOR_WIDTH + a * (ChoosenArea.CELLS_IN_STABLE_WIDTH - ChoosenArea.CELLS_IN_SECTOR_WIDTH),
-							this.topLeftCell.y + j * ChoosenArea.CELLS_IN_SECTOR_HEIGHT + b * (ChoosenArea.CELLS_IN_STABLE_HEIGHT - ChoosenArea.CELLS_IN_SECTOR_HEIGHT)))));
+							this.topLeftCell.y + j * ChoosenArea.CELLS_IN_SECTOR_HEIGHT + b * (ChoosenArea.CELLS_IN_STABLE_HEIGHT - ChoosenArea.CELLS_IN_SECTOR_HEIGHT))));
 		}
 		
 		private function composeSector(cell:CellXY):Sector

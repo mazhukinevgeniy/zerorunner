@@ -9,7 +9,6 @@ package chaotic.grinder
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;
@@ -126,7 +125,7 @@ package chaotic.grinder
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.GRINDERS, this.container));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheLayer", Camera.GRINDERS, this.container);
 			this.juggler = table.getInformer(Juggler);
 		}
 	}

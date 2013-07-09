@@ -14,7 +14,6 @@ package chaotic.actors.spawner
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import chaotic.xml.getActorsXML;
 	
 	public class ActorSpawner implements IUpdateListener
@@ -68,8 +67,8 @@ package chaotic.actors.spawner
 			newPuppet.speed = this.speeds[0];
 			newPuppet.hp = this.hitpoints[0];
 			
-			this.updateFlow.dispatchUpdate(new Update("addActor", newPuppet));
-			this.updateFlow.dispatchUpdate(new Update("setCenter", cell));
+			this.updateFlow.dispatchUpdate("addActor", newPuppet);
+			this.updateFlow.dispatchUpdate("setCenter", cell);
 		}
 		
 		public function tick():void
@@ -100,7 +99,7 @@ package chaotic.actors.spawner
 				newPuppet.speed = this.speeds[type];
 				newPuppet.hp = this.hitpoints[type];
 				
-				this.updateFlow.dispatchUpdate(new Update("addActor", newPuppet));
+				this.updateFlow.dispatchUpdate("addActor", newPuppet);
 			}
 			else this.storage.addUnusedID(id);
 		}

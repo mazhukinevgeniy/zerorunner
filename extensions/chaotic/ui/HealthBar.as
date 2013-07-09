@@ -4,7 +4,6 @@ package chaotic.ui
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import chaotic.xml.getActorsXML;
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -67,7 +66,7 @@ package chaotic.ui
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheHUD", this.container));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheHUD", this.container);
 		}
 		
 	}

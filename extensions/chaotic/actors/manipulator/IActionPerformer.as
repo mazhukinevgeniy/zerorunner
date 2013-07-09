@@ -3,7 +3,6 @@ package chaotic.actors.manipulator
 	import chaotic.actors.storage.Puppet;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
-	import chaotic.updates.Update;
 	
 	public interface IActionPerformer 
 	{

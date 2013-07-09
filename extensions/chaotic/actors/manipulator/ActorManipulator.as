@@ -10,7 +10,6 @@ package chaotic.actors.manipulator
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import chaotic.xml.getActorsXML;
 	import starling.animation.Juggler;
 	
@@ -108,14 +107,14 @@ package chaotic.actors.manipulator
 			var id:int = item.id;
 			
 			if (source == "movedLikeACharacter")
-				this.updateFlow.dispatchUpdate(new Update("movedLikeACharacter", id));
+				this.updateFlow.dispatchUpdate("movedLikeACharacter", id);
 			
 			if (id == 0)
-				this.updateFlow.dispatchUpdate(new Update("moveCenter", change, item.speed));
+				this.updateFlow.dispatchUpdate("moveCenter", change, item.speed);
 			
 			this.storage.moveObject(item, change);
 			
-			this.updateFlow.dispatchUpdate(new Update("moveActor", id, change, item.speed));
+			this.updateFlow.dispatchUpdate("moveActor", id, change, item.speed);
 		}
 		
 		public function jumpedActor(item:Puppet, change:DCellXY):void
@@ -123,7 +122,7 @@ package chaotic.actors.manipulator
 			this.storage.moveObject(item, change, this.smash, item.getCell(), this.storage, this);
 			
 			item.remainingDelay = item.speed * 2;
-			this.updateFlow.dispatchUpdate(new Update("jumpActor", item.id, change, item.speed * 2));
+			this.updateFlow.dispatchUpdate("jumpActor", item.id, change, item.speed * 2);
 		}
 		
 		private function smash(cell:CellXY, storage:ISearcher, destroyer:IActionPerformer):void
@@ -136,11 +135,11 @@ package chaotic.actors.manipulator
 		{
 			if (item.id == 0)
 			{
-				this.juggler.delayCall(this.updateFlow.dispatchUpdate, 0.5, new Update("gameOver"));
+				this.juggler.delayCall(this.updateFlow.dispatchUpdate, 0.5, "gameOver");
 			}
 			else
 			{
-				this.updateFlow.dispatchUpdate(new Update("actorRemoved", item.id));
+				this.updateFlow.dispatchUpdate("actorRemoved", item.id);
 			}
 			
 			this.storage.deleteObject(item);
@@ -165,7 +164,7 @@ package chaotic.actors.manipulator
 		
 		public function detonateActor(item:Puppet):void
 		{
-			this.updateFlow.dispatchUpdate(new Update("detonateActor", item.id));
+			this.updateFlow.dispatchUpdate("detonateActor", item.id);
 			
 			this.destroyActor(item);
 		}

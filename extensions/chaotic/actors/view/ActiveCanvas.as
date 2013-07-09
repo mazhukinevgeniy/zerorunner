@@ -13,7 +13,6 @@ package chaotic.actors.view
 	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.updates.IUpdateListener;
 	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;
@@ -134,7 +133,7 @@ package chaotic.actors.view
 			this.assets = table.getInformer(AssetManager);
 			this.juggler = table.getInformer(Juggler);
 			
-			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.SCENE, this.container));
+			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheLayer", Camera.SCENE, this.container);
 		}
 	}
 
