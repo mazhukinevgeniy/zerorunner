@@ -59,7 +59,7 @@ package chaotic.scene
 			{
 				for (var j:int = center.y - 2 * this.height; j < yGoal; j++)
 				{
-					var sprite:Image = this.pull.getImage(this.getCode(new CellXY(i, j)));//TODO: stop it
+					var sprite:Image = this.pull.getImage(this.getCode(new CellXY(i, j)));
 					
 					sprite.x = i * Metric.CELL_WIDTH;
 					sprite.y = j * Metric.CELL_HEIGHT;
