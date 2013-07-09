@@ -1,11 +1,11 @@
 <atlas numImages="7">
   <texture file="sprites0.png" trans="false">
-    <image name="badsprite0" x="40" y="40" width="40" height="40" trans="false"/>
-    <image name="badsprite1" x="80" y="0" width="40" height="40" trans="false"/>
-    <image name="badsprite2" x="40" y="0" width="40" height="40" trans="false"/>
-    <image name="badsprite3" x="40" y="80" width="23" height="23" trans="false"/>
-    <image name="badsprite4" x="0" y="80" width="40" height="40" trans="false"/>
-    <image name="scene1" x="0" y="40" width="40" height="40" trans="false"/>
-    <image name="scene0" x="0" y="0" width="40" height="40" trans="false"/>
+    <image name="badsprite0" x="41" y="40" width="40" height="40" trans="false"/>
+    <image name="badsprite1" x="81" y="0" width="40" height="40" trans="false"/>
+    <image name="badsprite2" x="41" y="0" width="40" height="40" trans="false"/>
+    <image name="badsprite3" x="81" y="40" width="23" height="23" trans="false"/>
+    <image name="badsprite4" x="0" y="82" width="40" height="40" trans="false"/>
+    <image name="scene0" x="0" y="41" width="41" height="41" trans="false"/>
+    <image name="scene1" x="0" y="0" width="41" height="41" trans="false"/>
   </texture>
 </atlas>
