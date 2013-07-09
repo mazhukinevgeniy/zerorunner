@@ -9,10 +9,8 @@ package chaotic.choosenArea
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	
-	public class ChoosenArea implements IUpdateListener, IChoosenArea
+	public class ChoosenArea implements IChoosenArea
 	{
 		public static const CELLS_IN_SECTOR_HEIGHT:int = 9;
 		public static const CELLS_IN_SECTOR_WIDTH:int = 9;
@@ -30,18 +28,17 @@ package chaotic.choosenArea
 		
 		private var updateFlow:IUpdateDispatcher;
 		
-		public function ChoosenArea() 
+		public function ChoosenArea(flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
 			
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "prerestore");
-			storage.addUpdateListener(this, "setCenter");
-			storage.addUpdateListener(this, "moveCenter");
-			storage.addUpdateListener(this, "addInformerTo");
-			storage.addUpdateListener(this, "getInformerFrom");
+			flow.addUpdateListener("prerestore");
+			flow.addUpdateListener("setCenter");
+			flow.addUpdateListener("moveCenter");
+			flow.addUpdateListener("addInformerTo");
+			flow.addUpdateListener("getInformerFrom");
+			
+			this.updateFlow = flow;
 		}
 		
 		public function prerestore():void
@@ -136,7 +133,6 @@ package chaotic.choosenArea
 		public function getInformerFrom(table:IGiveInformers):void
 		{
 			this.scene = table.getInformer(IScene);
-			this.updateFlow = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

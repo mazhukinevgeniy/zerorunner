@@ -32,14 +32,14 @@ package chaotic
 		{
 			Metric.initialize(40, 40, 81, 81);
 			
-			this.addFeature(new InputManager());
-			this.addFeature(new Statistics());
-			this.addFeature(new ChoosenArea());
-			this.addFeature(new UIExtendsions());
+			new InputManager(this.updateFlow);
+			new Statistics(this.updateFlow);
+			new ChoosenArea(this.updateFlow);
+			new UIExtendsions(this.updateFlow);
 			
-			this.addFeature(new SceneFeature());
-			this.addFeature(new GrinderFeature());
-			this.addFeature(new ActorsFeature());
+			new SceneFeature(this.updateFlow);
+			new GrinderFeature(this.updateFlow);
+			new ActorsFeature(this.updateFlow);
 		}
 	}
 

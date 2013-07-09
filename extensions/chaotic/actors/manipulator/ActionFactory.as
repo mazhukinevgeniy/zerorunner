@@ -15,9 +15,11 @@ package chaotic.actors.manipulator
 	internal class ActionFactory
 	{
 		private var actions:Object;
+		private var flow:IUpdateDispatcher;
 		
-		public function ActionFactory() 
+		public function ActionFactory(flow:IUpdateDispatcher) 
 		{
+			this.flow = flow;
 			this.actions = new Object();
 		}
 		
@@ -32,7 +34,7 @@ package chaotic.actors.manipulator
 			var actors:ISearcher = table.getInformer(ISearcher);
 			var grinder:IGrinder = table.getInformer(IGrinder);
 			var input:IKnowInput = table.getInformer(IKnowInput);
-			var updateFlow:IUpdateDispatcher = table.getInformer(IUpdateDispatcher);
+			var updateFlow:IUpdateDispatcher = this.flow;
 			
 			this.actions["DoNothing"] = new DoNothing();
 			

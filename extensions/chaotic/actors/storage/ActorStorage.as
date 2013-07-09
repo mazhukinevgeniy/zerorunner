@@ -6,11 +6,10 @@ package chaotic.actors.storage
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
+	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.xml.getActorsXML;
 	
-	public class ActorStorage implements IUpdateListener, ISearcher
+	public class ActorStorage implements ISearcher
 	{
 		private var puppets:Vector.<Puppet>;
 		
@@ -21,16 +20,13 @@ package chaotic.actors.storage
 		private var active:int;
 		
 		
-		public function ActorStorage() 
+		public function ActorStorage(flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
 			
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "addActor");
-			storage.addUpdateListener(this, "prerestore");
-			storage.addUpdateListener(this, "addInformerTo");
+			flow.addUpdateListener("addActor");
+			flow.addUpdateListener("prerestore");
+			flow.addUpdateListener("addInformerTo");
 		}
 		
 		public function prerestore():void

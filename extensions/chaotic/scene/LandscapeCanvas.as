@@ -10,8 +10,6 @@ package chaotic.scene
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -19,7 +17,7 @@ package chaotic.scene
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	internal class LandscapeCanvas implements IUpdateListener
+	internal class LandscapeCanvas
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -33,19 +31,20 @@ package chaotic.scene
 		
 		private var container:Sprite;
 		
-		public function LandscapeCanvas() 
+		public function LandscapeCanvas(flow:IUpdateDispatcher) 
 		{
 			this.container = new Sprite();
 			this.container.touchable = false;
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "prerestore");
-			storage.addUpdateListener(this, "newTopLeftCell");
-			storage.addUpdateListener(this, "addedScenePiece");
-			storage.addUpdateListener(this, "movedTopLeftCell");
-			storage.addUpdateListener(this, "getInformerFrom");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("prerestore");
+			flow.addUpdateListener("newTopLeftCell");
+			flow.addUpdateListener("addedScenePiece");
+			flow.addUpdateListener("movedTopLeftCell");
+			flow.addUpdateListener("getInformerFrom");
+			
+			flow.dispatchUpdate("addToTheLayer", Camera.SCENE, this.container);
 		}
 		
 		public function newTopLeftCell(cCell:CellXY):void
@@ -233,8 +232,6 @@ package chaotic.scene
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheLayer", Camera.SCENE, this.container);
-			
 			this.assets = table.getInformer(AssetManager);
 		}
 	}

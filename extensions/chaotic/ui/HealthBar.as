@@ -2,13 +2,11 @@ package chaotic.ui
 {
 	import chaotic.informers.IGiveInformers;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.xml.getActorsXML;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
-	internal class HealthBar implements IUpdateListener
+	internal class HealthBar 
 	{
 		private const POINTS_PER_COLUMN:int = 5;
 		
@@ -18,19 +16,19 @@ package chaotic.ui
 		private var points:Vector.<Quad>;
 		private var healthPoints:int;
 		
-		public function HealthBar() 
+		public function HealthBar(flow:IUpdateDispatcher) 
 		{
 			this.container = new Sprite();
 			
 			this.container.x = 5;
 			this.container.y = Constants.HEIGHT - 60;
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "protagonistDamaged");
-			storage.addUpdateListener(this, "getInformerFrom");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("restore");
+			flow.addUpdateListener("protagonistDamaged");
+			
+			flow.dispatchUpdate("addToTheHUD", this.container);
 		}
 		
 		public function restore():void
@@ -62,11 +60,6 @@ package chaotic.ui
 				
 				damage--;
 			}
-		}
-		
-		public function getInformerFrom(table:IGiveInformers):void
-		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheHUD", this.container);
 		}
 		
 	}

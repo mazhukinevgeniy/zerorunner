@@ -8,12 +8,10 @@ package chaotic.actors.manipulator
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.xml.getActorsXML;
 	import starling.animation.Juggler;
 	
-	public class ActorManipulator implements IUpdateListener, IActionPerformer
+	public class ActorManipulator implements IActionPerformer
 	{
 		private var commandChains:Vector.<Vector.<ActionBase>>;
 		private var onBlocked:Vector.<ActionBase>;
@@ -25,8 +23,16 @@ package chaotic.actors.manipulator
 		private var updateFlow:IUpdateDispatcher;
 		private var juggler:Juggler;
 		
-		public function ActorManipulator(newStorage:ActorStorage) 
+		public function ActorManipulator(newStorage:ActorStorage, flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("addActor");
+			flow.addUpdateListener("tick");
+			flow.addUpdateListener("getInformerFrom");
+			
+			this.updateFlow = flow;
+			
 			this.storage = newStorage;
 			
 			
@@ -43,13 +49,6 @@ package chaotic.actors.manipulator
 			this.onBlocked = new Vector.<ActionBase>(numberOfTypes, true);
 			this.onSpawned = new Vector.<ActionBase>(numberOfTypes, true);
 			this.onDamaged = new Vector.<ActionBase>(numberOfTypes, true);
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "addActor");
-			storage.addUpdateListener(this, "tick");
-			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function addActor(puppet:Puppet):void
@@ -174,7 +173,7 @@ package chaotic.actors.manipulator
 			var configuration:XML = getActorsXML();
 			var numberOfTypes:int = int(configuration.actor.length());
 			
-			var actions:ActionFactory = new ActionFactory();
+			var actions:ActionFactory = new ActionFactory(this.updateFlow);
 			actions.getInformerFrom(table, this);
 			
 			var xml:XML = getActorsXML();
@@ -197,7 +196,6 @@ package chaotic.actors.manipulator
 			}
 			
 			this.juggler = table.getInformer(Juggler);
-			this.updateFlow = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

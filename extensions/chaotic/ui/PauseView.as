@@ -2,15 +2,13 @@ package chaotic.ui
 {
 	import chaotic.informers.IGiveInformers;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.particles.PDParticleSystem;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	
-	public class PauseView implements IUpdateListener
+	public class PauseView
 	{
 		[Embed(source="../../../res/assets/particles/pause/particle.pex", mimeType="application/octet-stream")]
 		private static const ParticleConfig:Class;
@@ -26,9 +24,15 @@ package chaotic.ui
 		
 		private var isGameOver:Boolean = true;
 		
-		public function PauseView() 
+		public function PauseView(flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("gameOver");
+			flow.addUpdateListener("setPause");
+			
 			this.container = new Sprite();
+			flow.dispatchUpdate("addToTheHUD", this.container);
 			
 			this.notification = new TextField(500, 40, "Game paused", "HiLo-Deco", 30);
 			this.container.addChild(this.notification);
@@ -41,13 +45,6 @@ package chaotic.ui
 			this.particles = new PDParticleSystem(config, texture);
 			this.container.addChild(this.particles);
 			Starling.juggler.add(this.particles);
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "gameOver");
-			storage.addUpdateListener(this, "setPause");
-			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function gameOver():void
@@ -68,11 +65,6 @@ package chaotic.ui
 				this.notification.visible = true;
 				this.particles.start();
 			}
-		}
-		
-		public function getInformerFrom(table:IGiveInformers):void
-		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheHUD", this.container);
 		}
 	}
 

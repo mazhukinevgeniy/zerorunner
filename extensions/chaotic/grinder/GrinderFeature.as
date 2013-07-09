@@ -1,6 +1,7 @@
 package chaotic.grinder 
 {
 	import chaotic.core.FeaturePack;
+	import chaotic.updates.IUpdateDispatcher;
 	
 	public class GrinderFeature extends FeaturePack
 	{
@@ -9,11 +10,11 @@ package chaotic.grinder
 		
 		internal static const TIME_MIN:int = 5;
 		
-		public function GrinderFeature() 
+		public function GrinderFeature(flow:IUpdateDispatcher) 
 		{
-			this.list.push(new Grinders());
-			this.list.push(new GrinderBehavior());
-			this.list.push(new GrindersView());
+			this.list.push(new Grinders(flow));
+			this.list.push(new GrinderBehavior(flow));
+			this.list.push(new GrindersView(flow));
 		}
 		
 	}

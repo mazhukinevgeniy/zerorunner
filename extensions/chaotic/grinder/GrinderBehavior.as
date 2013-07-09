@@ -3,25 +3,21 @@ package chaotic.grinder
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.Metric;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	
-	internal class GrinderBehavior implements IUpdateListener
+	internal class GrinderBehavior
 	{
 		private var updates:IUpdateDispatcher;
 		private var streams:Vector.<GrindingStream>;
 		
-		public function GrinderBehavior() 
+		public function GrinderBehavior(flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
 			
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "grindingStreamMoved");
-			storage.addUpdateListener(this, "tick");
-			storage.addUpdateListener(this, "getInformerFrom");
+			flow.addUpdateListener("restore");
+			flow.addUpdateListener("grindingStreamMoved");
+			flow.addUpdateListener("tick");
+			
+			this.updates = flow;
 		}
 		
 		public function restore():void
@@ -53,12 +49,6 @@ package chaotic.grinder
 			
 			for (var i:int = 0; i < length; i++)
 				this.streams[i].tick();
-		}
-		
-		/** As IInformerGetter: */
-		public function getInformerFrom(table:IGiveInformers):void
-		{
-			this.updates = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

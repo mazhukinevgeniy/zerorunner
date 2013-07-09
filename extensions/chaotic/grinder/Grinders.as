@@ -2,26 +2,22 @@ package chaotic.grinder
 {
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
+	import chaotic.updates.IUpdateDispatcher;
 	
-	internal class Grinders implements IUpdateListener, IGrinder
+	internal class Grinders implements IGrinder
 	{
 		private var topLine:int;
 		
 		private var streams:Vector.<GrindingStream>;
 		
 		
-		public function Grinders() 
+		public function Grinders(flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
 			
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "addGrinders");
-			storage.addUpdateListener(this, "addInformerTo");
+			flow.addUpdateListener("restore");
+			flow.addUpdateListener("addGrinders");
+			flow.addUpdateListener("addInformerTo");
 		}
 		
 		public function addGrinders(vector:Vector.<GrindingStream>):void

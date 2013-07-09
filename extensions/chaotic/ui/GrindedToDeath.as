@@ -1,18 +1,15 @@
 package chaotic.ui 
 {
-	import chaotic.informers.IGiveInformers;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.text.TextField;
 	
-	public class GrindedToDeath implements IUpdateListener
+	public class GrindedToDeath
 	{
 		private var message:Sprite;
 		
-		public function GrindedToDeath() 
+		public function GrindedToDeath(flow:IUpdateDispatcher) 
 		{
 			this.message = new Sprite();
 			
@@ -26,13 +23,13 @@ package chaotic.ui
 			var tmp:TextField = new TextField(200, 20, "Game over, please quit using panel above.");
 			
 			this.message.addChild(tmp);
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "gameOver");
-			storage.addUpdateListener(this, "getInformerFrom");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("restore");
+			flow.addUpdateListener("gameOver");
+			
+			flow.dispatchUpdate("addToTheHUD", this.message);
 		}
 		
 		public function restore():void
@@ -43,11 +40,6 @@ package chaotic.ui
 		public function gameOver():void
 		{
 			this.message.visible = true;	
-		}
-		
-		public function getInformerFrom(table:IGiveInformers):void
-		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheHUD", this.message);
 		}
 	}
 

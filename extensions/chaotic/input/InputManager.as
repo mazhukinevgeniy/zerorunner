@@ -2,28 +2,26 @@ package chaotic.input
 {
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.DCellXY;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
+	import chaotic.updates.IUpdateDispatcher;
 	import chaotic.xml.getActorsXML;
 	
-	public class InputManager implements IUpdateListener, IKnowInput
+	public class InputManager implements IKnowInput
 	{
 		private var order:Vector.<int>;
 		private var maxI:int;
 		
-		public function InputManager()
+		public function InputManager(flow:IUpdateDispatcher)
 		{
 			super();
 			
 			this.restore();
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "movedLikeACharacter");
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "newInputPiece");
-			storage.addUpdateListener(this, "addInformerTo");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("movedLikeACharacter");
+			flow.addUpdateListener("restore");
+			flow.addUpdateListener("newInputPiece");
+			flow.addUpdateListener("addInformerTo");
 		}
 		
 		public function movedLikeACharacter(number:int):void

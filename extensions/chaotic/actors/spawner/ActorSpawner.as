@@ -12,11 +12,9 @@ package chaotic.actors.spawner
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	import chaotic.xml.getActorsXML;
 	
-	public class ActorSpawner implements IUpdateListener
+	public class ActorSpawner
 	{
 		private var scene:IScene;
 		private var choosenArea:IChoosenArea;
@@ -31,8 +29,16 @@ package chaotic.actors.spawner
 		
 		private var updateFlow:IUpdateDispatcher;
 		
-		public function ActorSpawner(actorStorage:ActorStorage)
+		public function ActorSpawner(actorStorage:ActorStorage, flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("restore");
+			flow.addUpdateListener("tick");
+			flow.addUpdateListener("getInformerFrom");
+			
+			this.updateFlow = flow;
+			
 			this.storage = actorStorage;
 			
 			var actors:XML = getActorsXML();
@@ -50,13 +56,6 @@ package chaotic.actors.spawner
 			this.chances[numberOfTypes - 1] = 1;
 			
 			this.numberOfTypes = numberOfTypes;
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "tick");
-			storage.addUpdateListener(this, "getInformerFrom");
 		}
 		
 		public function restore():void
@@ -122,8 +121,6 @@ package chaotic.actors.spawner
 		{
 			this.scene = table.getInformer(IScene);
 			this.choosenArea = table.getInformer(IChoosenArea);
-			
-			this.updateFlow = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

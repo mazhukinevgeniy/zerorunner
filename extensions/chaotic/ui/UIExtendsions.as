@@ -1,17 +1,18 @@
 package chaotic.ui 
 {
 	import chaotic.core.FeaturePack;
+	import chaotic.updates.IUpdateDispatcher;
 	
 	public class UIExtendsions extends FeaturePack
 	{
 		
-		public function UIExtendsions() 
+		public function UIExtendsions(flow:IUpdateDispatcher) 
 		{
-			this.list.push(new Camera());
-			this.list.push(new KeyboardControls());
-			this.list.push(new HealthBar());
-			this.list.push(new GrindedToDeath());
-			this.list.push(new PauseView());
+			this.list.push(new Camera(flow));
+			this.list.push(new KeyboardControls(flow));
+			this.list.push(new HealthBar(flow));
+			this.list.push(new GrindedToDeath(flow));
+			this.list.push(new PauseView(flow));
 		}
 		
 	}

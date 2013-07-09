@@ -6,22 +6,20 @@ package chaotic.scene
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
 	import chaotic.scene.patterns.ScenePattern;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
+	import chaotic.updates.IUpdateDispatcher;
 	
-	internal class Scene implements IUpdateListener, IScene
+	internal class Scene implements IScene
 	{		
 		private var patterns:Vector.<ScenePattern>;
 		
-		public function Scene() 
+		public function Scene(flow:IUpdateDispatcher) 
 		{
 			this.patterns = new Vector.<ScenePattern>(SceneFeature.NUMBER_OF_PATTERNS, true);
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "prerestore");
-			storage.addUpdateListener(this, "addInformerTo");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("prerestore");
+			flow.addUpdateListener("addInformerTo");
 		}
 		
 		public function getSceneCell(cell:CellXY):int

@@ -7,15 +7,13 @@ package chaotic.grinder
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
 	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
-	internal class GrindersView implements IUpdateListener
+	internal class GrindersView
 	{
 		private var streams:Vector.<Quad>;
 		
@@ -29,20 +27,21 @@ package chaotic.grinder
 		
 		private var juggler:Juggler;
 		
-		public function GrindersView() 
+		public function GrindersView(flow:IUpdateDispatcher) 
 		{
 			this.streams = new Vector.<Quad>();
 			
 			this.container = new Sprite();
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "addGrinders");
-			storage.addUpdateListener(this, "grindingStreamMoved");
-			storage.addUpdateListener(this, "setCenter");
-			storage.addUpdateListener(this, "moveCenter");
-			storage.addUpdateListener(this, "getInformerFrom");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener("addGrinders");
+			flow.addUpdateListener("grindingStreamMoved");
+			flow.addUpdateListener("setCenter");
+			flow.addUpdateListener("moveCenter");
+			flow.addUpdateListener("getInformerFrom");
+			
+			flow.dispatchUpdate("addToTheLayer", Camera.GRINDERS, this.container);
 		}
 		
 		public function addGrinders(vector:Vector.<GrindingStream>):void
@@ -125,7 +124,6 @@ package chaotic.grinder
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate("addToTheLayer", Camera.GRINDERS, this.container);
 			this.juggler = table.getInformer(Juggler);
 		}
 	}

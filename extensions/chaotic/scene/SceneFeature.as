@@ -1,6 +1,7 @@
 package chaotic.scene 
 {
 	import chaotic.core.FeaturePack;
+	import chaotic.updates.IUpdateDispatcher;
 	
 	public class SceneFeature extends FeaturePack
 	{
@@ -13,10 +14,10 @@ package chaotic.scene
 		
 		internal static const NUMBER_OF_PATTERNS:int = 5;
 		
-		public function SceneFeature() 
+		public function SceneFeature(flow:IUpdateDispatcher) 
 		{
-			this.list.push(new Scene());
-			this.list.push(new LandscapeCanvas());
+			this.list.push(new Scene(flow));
+			this.list.push(new LandscapeCanvas(flow));
 		}
 		
 	}
