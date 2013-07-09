@@ -46,7 +46,7 @@ package chaotic.actors.view
 			flow.addUpdateListener(ActorsFeature.jumpActor);
 			flow.addUpdateListener(ChaoticGame.getInformerFrom);
 			
-			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
+			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
 		}
 		
 		public function prerestore():void
@@ -89,7 +89,7 @@ package chaotic.actors.view
 			
 			var image:Image = this.objects[id];
 			
-			var tween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS);
+			var tween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS / 2);
 			tween.moveTo(image.x + change.x, image.y + change.y);
 			
 			this.juggler.add(tween);
@@ -114,11 +114,11 @@ package chaotic.actors.view
 			{
 				var image:Image = this.objects[id];
 				
-				var tween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS / 2, "easeIn");
+				var tween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS / 4, "easeIn");
 				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
 				tween.animate("x", image.x + Metric.toPixel(change).x / 2);
 				
-				var secondTween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS / 2, "easeOut");
+				var secondTween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS / 4, "easeOut");
 				secondTween.animate("y", image.y);
 				secondTween.animate("x", image.x + Metric.toPixel(change).x);
 				

@@ -56,9 +56,9 @@ package chaotic.ui
             this.container.y = -pCenter.y + (Constants.HEIGHT - Metric.CELL_HEIGHT) / 2;
 		}
 		
-		public function moveCenter(change:DCellXY, ticksToGo:int = 0):void 
+		public function moveCenter(change:DCellXY, ticksToGo:int):void 
 		{ 
-			this.moveCenterGently(change, ticksToGo * Constants.TIME_BETWEEN_TICKS); 
+			this.moveCenterGently(change, ticksToGo * Constants.TIME_BETWEEN_TICKS / 2); 
 		}
 		
 		private function moveCenterGently(change:DCellXY, time:Number):void 

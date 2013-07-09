@@ -69,7 +69,7 @@ package chaotic.grinder
 		{
 			var stream:DisplayObject = this.streams[id];
 			
-			var tween:Tween = new Tween(stream, GrinderFeature.TIME_MIN * Constants.TIME_BETWEEN_TICKS);
+			var tween:Tween = new Tween(stream, GrinderFeature.TIME_MIN * Constants.TIME_BETWEEN_TICKS / 2);
 			tween.animate("x", stream.x + change * Metric.CELL_WIDTH);
 			
 			this.juggler.add(tween);
