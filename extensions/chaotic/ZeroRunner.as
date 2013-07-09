@@ -23,11 +23,6 @@ package chaotic
 			super(container, assets);
 		}
 		
-		override protected function getAdditionalUpdatesXMLList():XMLList
-		{
-			return getAdditionalUpdatesXML().method;
-		}
-		
 		override protected function addFeatures():void
 		{
 			Metric.initialize(40, 40, 81, 81);
