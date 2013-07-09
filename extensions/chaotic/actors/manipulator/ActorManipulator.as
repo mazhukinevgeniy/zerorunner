@@ -141,9 +141,9 @@ package chaotic.actors.manipulator
 			else
 			{
 				this.updateFlow.dispatchUpdate(ActorsFeature.actorRemoved, item.id);
+				
+				this.storage.deleteObject(item);
 			}
-			
-			this.storage.deleteObject(item);
 		}
 		
 		public function blockedActor(item:Puppet, movingAttempt:DCellXY):void 
