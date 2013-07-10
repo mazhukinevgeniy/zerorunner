@@ -162,7 +162,8 @@ package
 			this.parent.removeChild(this);
 			
 			
-			if (this.item.stage) this.item.initialize();
+			if (this.item.stage) 
+				this.item.initialize();
 			else this.addEventListener(Event.ADDED_TO_STAGE, this.initialize, true);
 		}
 		

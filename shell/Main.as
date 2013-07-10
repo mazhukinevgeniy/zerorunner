@@ -4,15 +4,20 @@ package
 	import flash.ui.ContextMenu;
 	import flash.system.Capabilities;
 	import starling.core.Starling;
+	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
+	import starling.display.Sprite;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
-	public class Main extends Sprite 
+	public class Main extends flash.display.Sprite 
 	{
 		private var mStarling:Starling;
 		
 		private var newContextMenu:ContextMenu;
+		
+		
+		private var master:MasterChaotic;
 		
 		public function Main()
 		{ 	
@@ -21,11 +26,11 @@ package
 			this.contextMenu = this.newContextMenu;
 		}
 		
-		public function initialize():void 
+		internal function initialize():void 
 		{
 			Starling.handleLostContext = true;
 			
-			this.mStarling = new Starling(Root, this.stage);
+			this.mStarling = new Starling(starling.display.Sprite, this.stage);
 			this.mStarling.simulateMultitouch = false;
 			this.mStarling.enableErrorChecking = Capabilities.isDebugger;
 			this.mStarling.start();
@@ -42,6 +47,8 @@ package
 				this.mStarling.nativeStage.frameRate = 30;
 				trace("GPU is out of business!");
 			}
+			
+			this.master = new MasterChaotic(event.data as DisplayObjectContainer);
 		}
 	}
 
