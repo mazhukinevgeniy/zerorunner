@@ -23,14 +23,11 @@ package ui
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
 		
-		public function ChaoticUI(displayRoot:DisplayObjectContainer, masterFlow:IUpdateDispatcher, assets:AssetManager) 
+		public function ChaoticUI(displayRoot:DisplayObjectContainer, assets:AssetManager) 
 		{
 			this.masterFlow = masterFlow;
 			this.root = displayRoot;
 			this.assets = assets;
-			
-			masterFlow.workWithUpdateListener(this);
-			masterFlow.addUpdateListener(ChaoticUI.keyUp);
 			
 			super(ChaoticUI.flowName);
 			

@@ -24,9 +24,8 @@ package
 			this.root = root;
 			this.assets = assets;
 			
-			this.workWithUpdateListener(this);
 			
-			new ChaoticUI(root, this, this.assets);
+			new ChaoticUI(root, this.assets);
 			/*
 			var view:View = new View(this);
 			
@@ -40,7 +39,7 @@ package
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
-			this.dispatchUpdate(ChaoticUI.keyUp, event.keyCode);
+			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, ChaoticUI.keyUp, event.keyCode);
 		}
 	}
 
