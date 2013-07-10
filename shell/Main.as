@@ -1,12 +1,15 @@
 package 
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.ui.ContextMenu;
 	import flash.system.Capabilities;
+	import preloader.ProgressBar;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
 	import starling.display.Sprite;
+	import starling.utils.AssetManager;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
@@ -15,7 +18,6 @@ package
 		[Embed(source = "../res/assets/textures/atlases/gameatlas.xml", mimeType="application/octet-stream")]
 		internal static const gameatlas:Class; 
 		
-		
 		public static const WIDTH:int = 640;
 		public static const HEIGHT:int = 480;
 		
@@ -23,20 +25,25 @@ package
 		
 		
 		private var mStarling:Starling;
+		
+		private var starlingRoot:starling.display.Sprite;
 		private var master:MasterChaotic;
 		
-		private var newContextMenu:ContextMenu;
-		
+		private var progressBar:ProgressBar;
+		private var assets:AssetManager;
 		
 		public function Main()
 		{ 	
-			this.newContextMenu = new ContextMenu();
-			this.newContextMenu.hideBuiltInItems();
-			this.contextMenu = this.newContextMenu;
+			this.contextMenu = new ContextMenu();
+			this.contextMenu.hideBuiltInItems();
+			
+			this.addEventListener(flash.events.Event.ADDED_TO_STAGE, this.initialize);
 		}
 		
-		internal function initialize():void 
+		private function initialize(event:flash.events.Event):void 
 		{
+			this.removeEventListener(flash.events.Event.ADDED_TO_STAGE, this.initialize);
+			
 			Starling.handleLostContext = true;
 			
 			this.mStarling = new Starling(starling.display.Sprite, this.stage);
@@ -47,12 +54,12 @@ package
 			this.mStarling.showStats = true;
 			this.mStarling.showStatsAt("left", "bottom");
 			
-			this.mStarling.addEventListener(Event.ROOT_CREATED, this.handleRootCreated);
+			this.mStarling.addEventListener(starling.events.Event.ROOT_CREATED, this.handleRootCreated);
 		}
 		
-		private function handleRootCreated(event:Event):void
+		private function handleRootCreated(event:starling.events.Event):void
 		{
-			this.mStarling.removeEventListener(Event.ROOT_CREATED, this.handleRootCreated);
+			this.mStarling.removeEventListener(starling.events.Event.ROOT_CREATED, this.handleRootCreated);
 			
 			if (this.mStarling.context.driverInfo.toLowerCase().indexOf("software") != -1)
 			{
@@ -60,7 +67,35 @@ package
 				trace("GPU is out of business!");
 			}
 			
-			this.master = new MasterChaotic(event.data as DisplayObjectContainer);
+			this.starlingRoot = event.data as starling.display.Sprite;
+			
+			this.loadAssets();
+		}
+		
+		private function loadAssets():void
+		{
+			this.progressBar = new ProgressBar();
+			this.addChild(this.progressBar);
+			
+			this.assets = new AssetManager();
+			
+			this.assets.verbose = true;
+			this.assets.enqueue(EmbeddedAssets);
+			
+			this.assets.loadQueue(this.assetsProgress);
+		}
+		
+		private function assetsProgress(ratio:Number):void
+		{
+			this.progressBar.redraw(ratio);
+			
+			if (ratio == 1.0)
+			{
+				this.removeChild(this.progressBar);
+				this.progressBar = null;
+				
+				this.master = new MasterChaotic(this.starlingRoot);
+			}
 		}
 	}
 

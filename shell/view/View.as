@@ -18,7 +18,7 @@ package view
 	public class View extends Chaotic implements IView
 	{
 		
-		private var assets:AssetManager;
+		
 		
 		
 		
@@ -30,24 +30,6 @@ package view
 			this.game.addChild(this.gameView = new Sprite());
 			
 			displayRoot.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
-		}
-		
-		override protected function addFeatures():void
-		{
-			this.assets = new AssetManager();
-			
-			this.assets.verbose = true;
-			this.assets.enqueue(EmbeddedAssets);
-			
-			this.assets.loadQueue(this.continueConstruction);
-		}
-		
-		private function continueConstruction(ratio:Number):void
-		{
-			if (ratio == 1.0)
-			{
-				this.initializeStuff();
-			}
 		}
 		
 		private function initializeStuff():void

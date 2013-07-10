@@ -161,18 +161,6 @@ package
 			this.parent.addChildAt(this.item as DisplayObject, 0);
 			
 			this.parent.removeChild(this);
-			
-			
-			if (this.item.stage) 
-				this.item.initialize();
-			else this.addEventListener(Event.ADDED_TO_STAGE, this.initialize, true);
-		}
-		
-		private function initialize(event:Event):void
-		{
-			this.removeEventListener(Event.ADDED_TO_STAGE, this.initialize, true);
-			
-			this.item.initialize();
 		}
 	}
 	
