@@ -13,25 +13,10 @@ package view
 	import starling.textures.TextureAtlas;
 	import starling.utils.adaptTextureAtlasMakerXML;
 	import starling.utils.AssetManager;
-	import view.controls.ButtonGlobalNavigation;
-	import view.controls.MuteButton;
-	import view.events.MainMenuEvent;
-	import view.events.NavigationEvent;
-	import view.events.PanelEvent;
-	import view.panel.Panel;
-	import view.screens.Background;
-	import view.sounds.SoundManager;
-	import view.sounds.MusicManager;
-	import view.windows.play.MainMenu;
 	
 	
 	public class View extends Chaotic implements IView
 	{
-		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
-		private static const HiLoDeco:Class;
-		
-		[Embed(source = "../../res/assets/textures/atlases/gameatlas.xml", mimeType="application/octet-stream")]
-		internal static const gameatlas:Class; 
 		
 		private var assets:AssetManager;
 		

@@ -12,6 +12,10 @@ package
 	[Frame(factoryClass="Preloader")]
 	public class Main extends flash.display.Sprite 
 	{
+		[Embed(source = "../res/assets/textures/atlases/gameatlas.xml", mimeType="application/octet-stream")]
+		internal static const gameatlas:Class; 
+		
+		
 		public static const WIDTH:int = 640;
 		public static const HEIGHT:int = 480;
 		

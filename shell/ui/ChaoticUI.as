@@ -8,6 +8,10 @@ package ui
 	
 	public class ChaoticUI extends Chaotic
 	{
+		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
+		private static const HiLoDeco:Class;
+		
+		
 		private var masterFlow:IUpdateDispatcher;
 		
 		private var root:DisplayObjectContainer;

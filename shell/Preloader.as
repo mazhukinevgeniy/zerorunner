@@ -22,7 +22,7 @@ package
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	public class Preloader extends MovieClip
-	{
+	{		
 		private static const TIME_WORK_TIMER:Number = 3000;
 		private static const COUNT_REPEATS_TIMER:int = 100;
 		
@@ -67,7 +67,7 @@ package
 			this.timer.addEventListener(TimerEvent.TIMER, this.loading);
 			this.timer.start();
 			
-			this.progressBar = new ProgressBar(Preloader.COUNT_REPEATS_TIMER);
+			this.progressBar = new ProgressBar();
 			this.addChild(this.progressBar);
 			
 			this.background = new Background();
@@ -80,7 +80,8 @@ package
 		}
 		private function loading(event:TimerEvent):void		
 		{
-			this.progressBar.redraw();
+			this.progressBar.redraw((Preloader.COUNT_REPEATS_TIMER - this.remainRepeats) / Preloader.COUNT_REPEATS_TIMER);
+			
 			this.remainRepeats--;
 			if (this.remainRepeats <= 0)
 			{
