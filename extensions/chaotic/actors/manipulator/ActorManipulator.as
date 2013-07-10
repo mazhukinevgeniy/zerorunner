@@ -91,8 +91,6 @@ package chaotic.actors.manipulator
 						
 						if (!object.active)
 						{
-							numberOfObjects--;
-							i--;
 							break;
 						}
 					}
