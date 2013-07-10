@@ -1,14 +1,14 @@
 package  
 {
-	import chaotic.core.Chaotic;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.UpdateManager;
 	import flash.events.KeyboardEvent;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
 	
-	internal class MasterChaotic extends Chaotic
+	internal class MasterChaotic extends UpdateManager
 	{
 		private var root:DisplayObjectContainer;
 		private var assets:AssetManager;
@@ -18,7 +18,7 @@ package
 			this.root = root;
 			this.assets = assets;
 			
-			super();
+			new ChaoticUI(root, this, this.assets);
 			/*
 			 * 
 			 * 
@@ -33,17 +33,9 @@ package
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
-		override protected function addFeatures():void
-		{
-			var flow:IUpdateDispatcher = this.updateFlow;
-			
-			new ChaoticUI(this.root, flow, this.assets);
-			
-		}
-		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
-			this.updateFlow.dispatchUpdate(ChaoticUI.keyUp, event.keyCode);
+			this.dispatchUpdate(ChaoticUI.keyUp, event.keyCode);
 		}
 	}
 

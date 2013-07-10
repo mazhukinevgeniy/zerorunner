@@ -1,14 +1,14 @@
 package ui 
 {
-	import chaotic.core.Chaotic;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.UpdateManager;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
 	import ui.background.Background;
 	import ui.sounds.Sounds;
 	import ui.windows.Windows;
 	
-	public class ChaoticUI extends Chaotic
+	public class ChaoticUI extends UpdateManager
 	{
 		public static const keyUp:String = "keyUp";
 		
@@ -30,20 +30,15 @@ package ui
 			masterFlow.addUpdateListener(ChaoticUI.keyUp);
 			
 			super();
-		}
-		
-		override protected function addFeatures():void
-		{
-			var flow:IUpdateDispatcher = this.updateFlow;
 			
 			new Background(this.root);
-			new Windows(this.root, flow);
-			new Sounds(this.root, flow, this.assets);
+			new Windows(this.root, this);
+			new Sounds(this.root, this, this.assets);
 		}
 		
 		public function keyUp(keyCode:uint):void
 		{
-			this.updateFlow.dispatchUpdate(ChaoticUI.keyUp, keyCode);
+			this.dispatchUpdate(ChaoticUI.keyUp, keyCode);
 		}
 	}
 

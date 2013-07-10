@@ -1,23 +1,3 @@
-		private var pauseToggled:Boolean = true;
-		private var isOutOfFocus:Boolean = true;
-		private var isOutOfSight:Boolean = true;
-		private var isInUse:Boolean = true;
-		
-		public function MainController(view:IView, model:IModel, game:IGame) 
-		{
-			super();
-			
-			(view).setController(this);
-			this.view = view;
-			this.model = model;
-			this.game = game;
-			
-			var flow:IUpdateDispatcher = game.updateFlow;
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(ChaoticGame.gameOver);
-		}
-		
 		public function toggleSound():void
 		{
 			(this.model).settings.toggleMuteOptions();
@@ -37,10 +17,7 @@
 		{
 			if (event.type == PanelEvent.BACK_TO_MENU)
 			{
-				this.pauseToggled = true;
-				this.isInUse = true;
-				this.isOutOfFocus = true;
-				this.isOutOfSight = true;
+				
 				
 				(this.view).hideGame();
 			}
@@ -91,11 +68,6 @@
 			this.isOutOfSight = false;
 			this.setPause();
 		}
-		public function focusOut():void
-		{
-			this.isOutOfFocus = true;
-			this.setPause();
-		}
 		
 		private function newGame():void
 		{
@@ -108,17 +80,4 @@
 			this.isOutOfSight = false;
 			
 			this.setPause();
-		}
-		
-		private function setPause():void
-		{
-			(this.game).setPause(this.pauseToggled || this.isInUse || this.isOutOfFocus || this.isOutOfSight);
-		}
-		
-		public function gameOver():void
-		{
-			this.pauseToggled = true;
-			this.isOutOfFocus = true;
-			this.isOutOfSight = true;
-			this.isInUse = true;
 		}
