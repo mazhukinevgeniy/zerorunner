@@ -15,6 +15,7 @@ package
 		public static const WIDTH:int = 640;
 		public static const HEIGHT:int = 480;
 		
+		public static const PROJECT_NAME:String = "zeroRunner";
 		
 		private var mStarling:Starling;
 		
