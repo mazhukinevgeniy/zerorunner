@@ -36,8 +36,6 @@ package view
 		{
 			this.removeChildren();
 			
-			this.assets.addTextureAtlas("gameAtlas", new TextureAtlas(this.assets.getTexture("sprites0"), adaptTextureAtlasMakerXML(View.gameatlas)));
-			
 			this.background = new Background();			
 			this.game.addChild(this.panel = new Panel());
 			
@@ -62,17 +60,6 @@ package view
 			this.music.toggleSound();
 			this.sound.toggleSound();
 			this.muteButton.toggleTitle();
-		}
-		
-		
-		
-		public function getGameContainer():Sprite
-		{
-			return this.gameView;
-		}
-		public function getAssets():AssetManager
-		{
-			return this.assets;
 		}
 	}
 

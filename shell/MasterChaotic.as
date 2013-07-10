@@ -3,15 +3,18 @@ package
 	import chaotic.core.Chaotic;
 	import chaotic.core.IUpdateDispatcher;
 	import starling.display.DisplayObjectContainer;
+	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
 	
 	internal class MasterChaotic extends Chaotic
 	{
 		private var root:DisplayObjectContainer;
+		private var assets:AssetManager;
 		
-		public function MasterChaotic(root:DisplayObjectContainer) 
+		public function MasterChaotic(root:DisplayObjectContainer, assets:AssetManager) 
 		{
 			this.root = root;
+			this.assets = assets;
 			
 			/*
 			 * 

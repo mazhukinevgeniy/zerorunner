@@ -9,6 +9,8 @@ package
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
 	import starling.display.Sprite;
+	import starling.textures.TextureAtlas;
+	import starling.utils.adaptTextureAtlasMakerXML;
 	import starling.utils.AssetManager;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
@@ -94,7 +96,13 @@ package
 				this.removeChild(this.progressBar);
 				this.progressBar = null;
 				
-				this.master = new MasterChaotic(this.starlingRoot);
+				this.assets.addTextureAtlas(
+						"gameAtlas", 
+						new TextureAtlas(
+								this.assets.getTexture("sprites0"), 
+								adaptTextureAtlasMakerXML(Main.gameatlas)));
+			
+				this.master = new MasterChaotic(this.starlingRoot, this.assets);
 			}
 		}
 	}
