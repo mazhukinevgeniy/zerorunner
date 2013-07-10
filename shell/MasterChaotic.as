@@ -10,25 +10,30 @@ package
 	
 	internal class MasterChaotic extends UpdateManager
 	{
+		public static const flowName:String = "Master Flow";
+		
+		
 		private var root:DisplayObjectContainer;
 		private var assets:AssetManager;
 		
 		public function MasterChaotic(root:DisplayObjectContainer, assets:AssetManager) 
 		{
+			super(MasterChaotic.flowName);
+			
+			
 			this.root = root;
 			this.assets = assets;
 			
+			this.workWithUpdateListener(this);
+			
 			new ChaoticUI(root, this, this.assets);
 			/*
-			 * 
-			 * 
 			var view:View = new View(this);
 			
 			var game:ZeroRunner = new ZeroRunner((view).getGameContainer(), (view).getAssets());
 			
 			var model:Data = new Data(game);
-			 * 
-			 */
+			*/
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}

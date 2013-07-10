@@ -10,6 +10,9 @@ package ui
 	
 	public class ChaoticUI extends UpdateManager
 	{
+		public static const flowName:String = "Shell Flow";
+		
+		
 		public static const keyUp:String = "keyUp";
 		
 		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
@@ -29,7 +32,7 @@ package ui
 			masterFlow.workWithUpdateListener(this);
 			masterFlow.addUpdateListener(ChaoticUI.keyUp);
 			
-			super();
+			super(ChaoticUI.flowName);
 			
 			new Background(this.root);
 			new Windows(this.root, this);
