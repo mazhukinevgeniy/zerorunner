@@ -20,11 +20,19 @@ package ui.pauseControl
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ChaoticGame.gameOver);
-			
+			flow.addUpdateListener(ChaoticUI.newGame);
 			flow.addUpdateListener(ChaoticUI.keyUp);
 			flow.addUpdateListener(Panel.panel_BackToMenu);
 		}
 		
+		public function newGame():void
+		{
+			this.pauseToggled = false;
+			this.isInUse = false;
+			this.isOutOfSight = false;
+			
+			this.setPause();
+		}
 		public function gameOver():void
 		{
 			this.pauseToggled = true;

@@ -21,8 +21,7 @@ package chaotic
 		
 		public function ZeroRunner(container:Sprite, assets:AssetManager) 
 		{
-			super(container, assets);
-			this.updateFlow.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
+			super(assets);
 		}
 		
 		override protected function addFeatures():void
@@ -31,13 +30,15 @@ package chaotic
 			
 			Metric.initialize(40, 40, 81, 81);
 			
-			new InputManager(this.updateFlow);
-			new Statistics(this.updateFlow);
-			new UIExtendsions(this.updateFlow);
+			new InputManager(this);
+			new Statistics(this);
+			new UIExtendsions(this);
 			
-			new GrinderFeature(this.updateFlow);
-			new ActorsFeature(this.updateFlow);
-			new SceneFeature(this.updateFlow);
+			new GrinderFeature(this);
+			new ActorsFeature(this);
+			new SceneFeature(this);
+			
+			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
 		}
 	}
 

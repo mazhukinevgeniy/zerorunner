@@ -6,11 +6,10 @@ package ui.mainMenu
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
+	import ui.ChaoticUI;
 	
 	public class MainMenu extends WindowBase
-	{
-		public static const mainMenu_NewGame:String = "mainMenu_NewGame";
-		
+	{		
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -35,7 +34,7 @@ package ui.mainMenu
 		{
 			if (event.target == this.playButton)
 			{
-				this.flow.dispatchUpdate(MainMenu.mainMenu_NewGame);
+				this.flow.dispatchUpdate(ChaoticUI.newGame);
 			}
 		}
 	}

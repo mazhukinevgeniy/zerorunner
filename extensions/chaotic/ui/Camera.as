@@ -9,6 +9,7 @@ package chaotic.ui
 	import chaotic.metric.DPixelXY;
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
+	import chaotic.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;
@@ -57,7 +58,7 @@ package chaotic.ui
 		}
 		
 		public function moveCenter(change:DCellXY, ticksToGo:int = 0):void 
-		{ 
+		{
 			this.moveCenterGently(change, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS); 
 		}
 		

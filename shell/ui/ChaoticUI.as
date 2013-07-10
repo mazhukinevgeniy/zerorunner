@@ -13,6 +13,7 @@ package ui
 	public class ChaoticUI extends UpdateManager
 	{
 		public static const flowName:String = "Shell Flow";
+		public static const newGame:String = "newGame";
 		
 		
 		public static const keyUp:String = "keyUp";
@@ -21,13 +22,11 @@ package ui
 		private static const HiLoDeco:Class;
 		
 		
-		private var masterFlow:IUpdateDispatcher;
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
 		
 		public function ChaoticUI(displayRoot:DisplayObjectContainer, assets:AssetManager) 
 		{
-			this.masterFlow = masterFlow;
 			this.root = displayRoot;
 			this.assets = assets;
 			
@@ -35,15 +34,10 @@ package ui
 			
 			new Background(this.root);
 			new MainMenu(this.root, this, assets);
-			new GameView(this.root);
+			new GameView(this.root, this);
 			new Sounds(this.root, this, this.assets);
 			
 			//new PauseTypes(this); //TODO: uncomment
-		}
-		
-		public function keyUp(keyCode:uint):void
-		{
-			this.dispatchUpdate(ChaoticUI.keyUp, keyCode);
 		}
 	}
 
