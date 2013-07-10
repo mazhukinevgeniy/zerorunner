@@ -11,6 +11,7 @@ package game
 	import game.statistics.Statistics;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
+	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.utils.AssetManager;
 	
@@ -18,9 +19,13 @@ package game
 	{
 		public static const TIME_BETWEEN_TICKS:Number = 0.12;
 		
+		private var juggler:Juggler;
+		
 		public function ZeroRunner(assets:AssetManager) 
-		{
+		{			
 			super(assets);
+			
+			this.workWithUpdateListener(this);
 		}
 		
 		override protected function addFeatures():void
@@ -38,6 +43,22 @@ package game
 			new SceneFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
+		}
+		
+		override public function newGame():void
+		{
+			super.newGame();
+			
+			this.juggler = this.informers.getInformer(Juggler);
+			
+			this.juggler.delayCall(this.prepareTick, ZeroRunner.TIME_BETWEEN_TICKS);
+		}
+		
+		private function prepareTick():void
+		{
+			this.dispatchUpdate(ChaoticGame.tick);
+			
+			this.juggler.delayCall(this.prepareTick, ZeroRunner.TIME_BETWEEN_TICKS);
 		}
 	}
 
