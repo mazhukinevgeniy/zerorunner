@@ -18,7 +18,6 @@ package chaotic.actors
 		
 		public static const actorRemoved:String = "actorRemoved";
 		
-		public static const movedLikeACharacter:String = "movedLikeACharacter";
 		public static const protagonistDamaged:String = "protagonistDamaged";
 		
 		public static const moveCenter:String = "moveCenter";

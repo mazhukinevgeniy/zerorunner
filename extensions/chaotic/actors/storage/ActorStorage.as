@@ -66,6 +66,25 @@ package chaotic.actors.storage
 			
 			return null;
 		}
+		
+		public function findObjectsInSquare(tlX:int, tlY:int, width:int):Vector.<Puppet>
+		{
+			var toReturn:Vector.<Puppet> = new Vector.<Puppet>();
+			
+			var maxX:int = tlX + width;
+			var maxY:int = tlY + width;
+			
+			for (var i:int = tlX; i < maxX; i++)
+				for (var j:int = tlY; j < maxY; j++)
+				{
+					var item:Puppet = this.findObjectByCell(new CellXY(i, j));
+					
+					if (item != null) toReturn.push(item);
+				}
+			
+			return toReturn;
+		}
+		
 		public function getCharacterCell():CellXY
 		{
 			return this.puppets[0].cell.getCopy();

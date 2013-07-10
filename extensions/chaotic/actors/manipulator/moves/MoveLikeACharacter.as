@@ -4,7 +4,9 @@ package chaotic.actors.manipulator.moves
 	import chaotic.actors.manipulator.IActionPerformer;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.storage.ISearcher;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.input.IKnowInput;
+	import chaotic.input.InputManager;
 	import chaotic.metric.DCellXY;
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
@@ -14,7 +16,9 @@ package chaotic.actors.manipulator.moves
 		private var landscape:IScene;
 		private var input:IKnowInput;
 		
-		public function MoveLikeACharacter(newLandscape:IScene, newInput:IKnowInput, newPerformer:IActionPerformer, newSearcher:ISearcher) 
+		private var flow:IUpdateDispatcher;
+		
+		public function MoveLikeACharacter(newLandscape:IScene, newInput:IKnowInput, newPerformer:IActionPerformer, newSearcher:ISearcher, flow:IUpdateDispatcher) 
 		{
 			this.searcher = newSearcher;
 			
@@ -22,6 +26,8 @@ package chaotic.actors.manipulator.moves
 			
 			this.landscape = newLandscape;
 			this.input = newInput;
+			
+			this.flow = flow;
 		}
 		
 		override public function prepareDataIn(item:Puppet):void
@@ -38,13 +44,20 @@ package chaotic.actors.manipulator.moves
 			{
 				if (this.landscape.getSceneCell(item.getCell().applyChanges(action)) != SceneFeature.FALL)
 				{
-					this.callMove(item, action, ActorsFeature.movedLikeACharacter);
+					this.callMove(item, action);
 					
 					return;
 				}
 				
 				action = tmp.pop();
 			}
+		}
+		
+		override protected function onMoved(item:Puppet, change:DCellXY):void
+		{
+			super.onMoved(item, change);
+			
+			this.flow.dispatchUpdate(InputManager.purgeClicks);
 		}
 	}
 

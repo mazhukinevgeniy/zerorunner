@@ -1,13 +1,14 @@
-package chaotic.actors.manipulator.onBlocked 
+package chaotic.actors.manipulator.actions 
 {
-	import chaotic.actors.manipulator.ActionBase;
 	import chaotic.actors.manipulator.IActionPerformer;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.storage.ISearcher;
+	import chaotic.metric.DCellXY;
 	
-	public class Bite extends ActionBase
+	public class Bite
 	{
 		private var actors:ISearcher;
+		private var performer:IActionPerformer;
 		
 		private const DAMAGE:int = 5;
 		
@@ -18,16 +19,11 @@ package chaotic.actors.manipulator.onBlocked
 		}
 		
 		
-		override public function actOn(item:Puppet, ... args):void
+		public function act(item:Puppet, change:DCellXY):void
 		{
-			var target:Puppet = this.actors.findObjectByCell((item.getCell()).applyChanges(args[0]));
+			var target:Puppet = this.actors.findObjectByCell((item.getCell()).applyChanges(change));
 			
 			this.performer.damageActor(target, this.DAMAGE);
-		}
-		
-		override public function prepareDataIn(item:Puppet):void
-		{
-			
 		}
 	}
 

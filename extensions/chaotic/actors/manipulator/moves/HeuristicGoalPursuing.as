@@ -1,5 +1,6 @@
 package chaotic.actors.manipulator.moves 
 {
+	import chaotic.actors.manipulator.actions.Detonate;
 	import chaotic.actors.manipulator.IActionPerformer;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.storage.ISearcher;
@@ -27,11 +28,16 @@ package chaotic.actors.manipulator.moves
 		
 		private var actor:Puppet;
 		
-		public function HeuristicGoalPursuing(newScene:IScene, charFinder:ISearcher, newPerformer:IActionPerformer) 
+		private var detonate:Detonate;
+		
+		
+		public function HeuristicGoalPursuing(newScene:IScene, charFinder:ISearcher, newPerformer:IActionPerformer, detonate:Detonate) 
 		{
 			this.scene = newScene;
 			this.searcher = charFinder;
 			this.performer = newPerformer;
+			
+			this.detonate = detonate;
 			
 			this.initializeHelperArrays();
 		}
@@ -195,6 +201,12 @@ package chaotic.actors.manipulator.moves
 			{
 				return Math.abs(p1[coordinate] - p2[coordinate]);
 			}
+		}
+		
+		
+		override protected function onBlocked(item:Puppet, change:DCellXY):void
+		{
+			this.detonate.act(item);
 		}
 	}
 

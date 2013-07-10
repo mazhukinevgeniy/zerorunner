@@ -1,5 +1,6 @@
 package chaotic.actors.manipulator.moves 
 {
+	import chaotic.actors.manipulator.actions.Bite;
 	import chaotic.actors.manipulator.IActionPerformer;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.storage.ISearcher;
@@ -15,9 +16,14 @@ package chaotic.actors.manipulator.moves
 		private var forward:DCellXY = new DCellXY(1, 0);
 		private var jump:DCellXY = new DCellXY(2, 0);
 		
-		public function RunForward(newPerformer:IActionPerformer, newSearcher:ISearcher, scene:IScene) 
+		private var bite:Bite;
+		
+		public function RunForward(newPerformer:IActionPerformer, searcher:ISearcher, scene:IScene, bite:Bite) 
 		{
-			this.searcher = newSearcher;
+			this.bite = bite;
+			
+			this.searcher = searcher;
+			
 			this.performer = newPerformer;
 			this.scene = scene;
 		}
@@ -35,6 +41,11 @@ package chaotic.actors.manipulator.moves
 		override public function prepareDataIn(item:Puppet):void
 		{
 			
+		}
+		
+		override protected function onBlocked(item:Puppet, change:DCellXY):void
+		{
+			this.bite.act(item, change);
 		}
 	}
 

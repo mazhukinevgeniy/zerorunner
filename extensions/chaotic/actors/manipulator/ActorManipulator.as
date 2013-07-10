@@ -15,7 +15,6 @@ package chaotic.actors.manipulator
 	public class ActorManipulator implements IActionPerformer
 	{
 		private var commandChains:Vector.<Vector.<ActionBase>>;
-		private var onBlocked:Vector.<ActionBase>;
 		private var onSpawned:Vector.<ActionBase>;
 		private var onDamaged:Vector.<ActionBase>;
 		
@@ -47,7 +46,6 @@ package chaotic.actors.manipulator
 				this.commandChains[i] = new Vector.<ActionBase>();
 			}
 			
-			this.onBlocked = new Vector.<ActionBase>(numberOfTypes, true);
 			this.onSpawned = new Vector.<ActionBase>(numberOfTypes, true);
 			this.onDamaged = new Vector.<ActionBase>(numberOfTypes, true);
 		}
@@ -100,12 +98,9 @@ package chaotic.actors.manipulator
 			}
 		}
 		
-		public function movedActor(item:Puppet, change:DCellXY, source:String):void
+		public function movedActor(item:Puppet, change:DCellXY):void
 		{
 			var id:int = item.id;
-			
-			if (source == ActorsFeature.movedLikeACharacter)
-				this.updateFlow.dispatchUpdate(ActorsFeature.movedLikeACharacter, id);
 			
 			if (id == 0)
 				this.updateFlow.dispatchUpdate(ActorsFeature.moveCenter, change, item.speed);
@@ -141,11 +136,6 @@ package chaotic.actors.manipulator
 				
 				this.storage.deleteObject(item);
 			}
-		}
-		
-		public function blockedActor(item:Puppet, movingAttempt:DCellXY):void 
-		{	
-			this.onBlocked[item.type].actOn(item, movingAttempt);
 		}
 		
 		public function damageActor(item:Puppet, damage:int):void
@@ -187,7 +177,6 @@ package chaotic.actors.manipulator
 					vector.push(actions.getAction(tmpNode.action[j]));
 				}
 				
-				this.onBlocked[i] = actions.getAction(configuration.actor[i].onBlocked);
 				this.onSpawned[i] = actions.getAction(configuration.actor[i].onSpawned);
 				this.onDamaged[i] = actions.getAction(configuration.actor[i].onDamaged);
 			}

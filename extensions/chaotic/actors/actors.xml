@@ -9,7 +9,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<onSpawned>DoNothing</onSpawned>
-		<onBlocked>DoNothing</onBlocked>
 		<onDamaged>ProtagonistDamaged</onDamaged>
 		<chance>0</chance>
 	</actor>
@@ -24,7 +23,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<onSpawned>DoNothing</onSpawned>
-		<onBlocked>Detonate</onBlocked>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.3</chance>
 	</actor>
@@ -39,7 +37,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<onSpawned>DoNothing</onSpawned>
-		<onBlocked>DoNothing</onBlocked>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.3</chance>
 	</actor>
@@ -52,7 +49,6 @@
 			<action>RunForward</action>
 		</configuration>
 		<onSpawned>ReachGrinder</onSpawned>
-		<onBlocked>Bite</onBlocked>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.4</chance>
 	</actor>
@@ -67,7 +63,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<onSpawned>DoNothing</onSpawned>
-		<onBlocked>DoNothing</onBlocked>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.7</chance>
 	</actor>
