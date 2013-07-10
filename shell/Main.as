@@ -40,6 +40,9 @@ package
 			this.mStarling.enableErrorChecking = Capabilities.isDebugger;
 			this.mStarling.start();
 			
+			this.mStarling.showStats = true;
+			this.mStarling.showStatsAt("left", "bottom");
+			
 			this.mStarling.addEventListener(Event.ROOT_CREATED, this.handleRootCreated);
 		}
 		

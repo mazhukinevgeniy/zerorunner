@@ -87,45 +87,23 @@ package view
 			
 			this.assets.addTextureAtlas("gameAtlas", new TextureAtlas(this.assets.getTexture("sprites0"), adaptTextureAtlasMakerXML(View.gameatlas)));
 			
-			this.background = new Background();
-			this.addChild(this.background);
-			
+			this.background = new Background();			
 			this.game.addChild(this.panel = new Panel());
-			this.addEventListener(PanelEvent.BACK_TO_MENU, this.handlePanelEvent);
-			this.addEventListener(PanelEvent.ROLL_OUT, this.handlePanelEvent);
-			this.addEventListener(PanelEvent.ROLL_OVER, this.handlePanelEvent);
 			
 			this.addChild(new ButtonGlobalNavigation(30, "Play"));
-			this.addEventListener("Play", this.handleNavigationEvent);
-			
 			
 			this.addChild(this.game); this.game.visible = false;
-			
 			
 			this.music = new MusicManager(this.assets);
 			this.music.playMusic();
 			this.sound = new SoundManager(this.assets);
 			
 			this.addChild(this.muteButton = new MuteButton());
-			this.muteButton.addEventListener(starling.events.Event.TRIGGERED, this.handleTrigger);
-			
 			
 			this.windows = new Array();
 			this.addChild(this.windows[0] = new MainMenu(this.assets));
-			this.addEventListener(MainMenuEvent.NEW_GAME, this.handleMainMenuEvent);
-			this.addEventListener(MainMenuEvent.CLOSE, this.handleMainMenuEvent);
-			
-			this.addEventListener(TouchEvent.TOUCH, this.handleTouch);
-			
-			Starling.current.showStats = true;
 			
 			(this.controller).viewPrepared();
-		}
-		
-		
-		public function toggleWindow(id:int):void
-		{
-			this.windows[id].visible = !this.windows[id].visible;
 		}
 		
 		public function toggleSound():void
@@ -136,16 +114,6 @@ package view
 		}
 		
 		
-		
-		private function handleTouch(event:TouchEvent):void
-		{
-			var touch:Touch = event.getTouch(this); 
-			
-			if (touch && (touch.phase == TouchPhase.HOVER || touch.phase == TouchPhase.BEGAN))
-			{
-				(this.controller).focusIn();
-			}
-		}
 		
 		public function getGameContainer():Sprite
 		{
