@@ -2,8 +2,6 @@ package ui.sounds
 {
 	import flash.events.Event;
 	import starling.utils.AssetManager;
-	import view.controls.MuteButton;
-	import view.sounds.SoundManagerBase;
 	
 	internal class MusicManager extends SoundManagerBase
 	{

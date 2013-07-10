@@ -53,11 +53,7 @@ package controller
 		
 		public function keyUp(event:KeyboardEvent):void
 		{
-			if (event.keyCode == Keyboard.M)
-			{
-				this.toggleSound();
-			}
-			else if (event.keyCode == Keyboard.P)
+			if (event.keyCode == Keyboard.P)
 			{
 				this.pauseToggled = !this.pauseToggled;
 				this.setPause();

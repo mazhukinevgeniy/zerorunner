@@ -1,7 +1,6 @@
 package ui.sounds
 {
 	import starling.utils.AssetManager;
-	import view.sounds.SoundManagerBase;
 	
 	internal class SoundManager extends SoundManagerBase
 	{

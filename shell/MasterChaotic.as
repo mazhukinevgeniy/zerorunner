@@ -3,6 +3,7 @@ package
 	import chaotic.core.Chaotic;
 	import chaotic.core.IUpdateDispatcher;
 	import starling.display.DisplayObjectContainer;
+	import starling.events.KeyboardEvent;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
 	
@@ -16,6 +17,7 @@ package
 			this.root = root;
 			this.assets = assets;
 			
+			super();
 			/*
 			 * 
 			 * 
@@ -26,14 +28,21 @@ package
 			var model:Data = new Data(game);
 			 * 
 			 */
+			
+			root.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
 		override protected function addFeatures():void
 		{
 			var flow:IUpdateDispatcher = this.updateFlow;
 			
-			new ChaoticUI(this.root, flow);
+			new ChaoticUI(this.root, flow, this.assets);
 			
+		}
+		
+		private function handleKeyUp(event:KeyboardEvent):void
+		{
+			this.updateFlow.dispatchUpdate(ChaoticUI.keyUp, event.keyCode);
 		}
 	}
 
