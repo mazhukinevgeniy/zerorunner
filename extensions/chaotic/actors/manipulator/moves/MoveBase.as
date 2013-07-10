@@ -26,16 +26,26 @@ package chaotic.actors.manipulator.moves
 			throw new AbstractClassError();
 		}
 		
-		final protected function callMove(item:Puppet, change:DCellXY, source:String = ""):void
+		final protected function callMove(item:Puppet, change:DCellXY):void
 		{
 			if (this.searcher.findObjectByCell(item.getCell().applyChanges(change)) == null)
 			{
-				item.remainingDelay = item.speed;
-				
-				this.performer.movedActor(item, change, source);
+				this.onMoved(item, change);
 			}
 			else
-				this.performer.blockedActor(item, change);
+				this.onBlocked(item, change);
+		}
+		
+		protected function onMoved(item:Puppet, change:DCellXY):void
+		{
+			item.remainingDelay = item.speed;
+			
+			this.performer.movedActor(item, change);
+		}
+		
+		protected function onBlocked(item:Puppet, change:DCellXY):void
+		{
+			
 		}
 	}
 

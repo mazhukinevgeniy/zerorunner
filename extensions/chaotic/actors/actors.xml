@@ -2,21 +2,20 @@
 <actors>
 	<actor type = "Character" code = "0">
 		<baseHP>50</baseHP>
-		<speed>3</speed>
+		<speed>1</speed>
 		<configuration>
 			<action>MoveLikeACharacter</action>
 			<action>NormalLandscapeCheck</action>
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<onSpawned>DoNothing</onSpawned>
-		<onBlocked>DoNothing</onBlocked>
 		<onDamaged>ProtagonistDamaged</onDamaged>
 		<chance>0</chance>
 	</actor>
 	
 	<actor type = "Heuristic" code = "1">
 		<baseHP>3</baseHP>
-		<speed>8</speed>
+		<speed>3</speed>
 		<configuration>
 			<action>HeuristicGoalPursuing</action>
 			<action>NormalLandscapeCheck</action>
@@ -24,14 +23,13 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<onSpawned>DoNothing</onSpawned>
-		<onBlocked>Detonate</onBlocked>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.3</chance>
 	</actor>
 	
 	<actor type = "Guard" code = "2">
 		<baseHP>10</baseHP>
-		<speed>8</speed>
+		<speed>4</speed>
 		<configuration>
 			<action>SearchCorridor</action>
 			<action>NormalLandscapeCheck</action>
@@ -39,27 +37,25 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<onSpawned>DoNothing</onSpawned>
-		<onBlocked>DoNothing</onBlocked>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.3</chance>
 	</actor>
 	
 	<actor type = "Destroyer" code = "3">
 		<baseHP>1</baseHP>
-		<speed>4</speed>
+		<speed>1</speed>
 		<configuration>
 			<action>NormalLandscapeCheck</action>
 			<action>RunForward</action>
 		</configuration>
 		<onSpawned>ReachGrinder</onSpawned>
-		<onBlocked>Bite</onBlocked>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.4</chance>
 	</actor>
 	
 	<actor type = "Inertionist" code = "4">
 		<baseHP>2</baseHP>
-		<speed>7</speed>
+		<speed>4</speed>
 		<configuration>
 			<action>InertialRandom</action>
 			<action>NormalLandscapeCheck</action>
@@ -67,7 +63,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<onSpawned>DoNothing</onSpawned>
-		<onBlocked>DoNothing</onBlocked>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.7</chance>
 	</actor>

@@ -1,6 +1,5 @@
 package chaotic.input
 {
-	import chaotic.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
@@ -9,6 +8,7 @@ package chaotic.input
 	public class InputManager implements IKnowInput
 	{
 		public static const newInputPiece:String = "newInputPiece";
+		public static const purgeClicks:String = "purgeClicks";
 		
 		private var order:Vector.<int>;
 		private var maxI:int;
@@ -21,17 +21,16 @@ package chaotic.input
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ActorsFeature.movedLikeACharacter);
 			flow.addUpdateListener(ChaoticGame.restore);
 			flow.addUpdateListener(InputManager.newInputPiece);
+			flow.addUpdateListener(InputManager.purgeClicks);
 			flow.addUpdateListener(ChaoticGame.addInformerTo);
 		}
 		
-		public function movedLikeACharacter(number:int):void
+		public function purgeClicks():void
  		{
-			if (number == 0)
-				for (var i:int = 9; i < 17; i++)
-					this.order[i] = -1;
+			for (var i:int = 9; i < 17; i++)
+				this.order[i] = -1;
  		}
 		
 		public function getInputCopy():Vector.<DCellXY>

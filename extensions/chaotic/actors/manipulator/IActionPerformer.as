@@ -8,10 +8,8 @@ package chaotic.actors.manipulator
 	{
 		function replaceActor(item:Puppet, change:DCellXY):void;
 		
-		function movedActor(item:Puppet, change:DCellXY, source:String):void;
+		function movedActor(item:Puppet, change:DCellXY):void;
 		function jumpedActor(item:Puppet, change:DCellXY):void;
-		
-		function blockedActor(item:Puppet, movingAttempt:DCellXY):void;
 		
 		function damageActor(item:Puppet, damage:int):void;
 		

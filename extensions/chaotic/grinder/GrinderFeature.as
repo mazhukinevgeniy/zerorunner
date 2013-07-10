@@ -11,7 +11,7 @@ package chaotic.grinder
 		internal static const NUMBER:int = 7;
 		internal static const HEIGHT:int = 7;
 		
-		internal static const TIME_MIN:int = 5;
+		internal static const TIME_MIN:int = 2;
 		
 		public function GrinderFeature(flow:IUpdateDispatcher) 
 		{

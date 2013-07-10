@@ -6,7 +6,7 @@ package
 		public static const WIDTH:int = 640;
 		public static const HEIGHT:int = 480;		
 		
-		public static const TIME_BETWEEN_TICKS:Number = 0.04;
+		public static const TIME_BETWEEN_TICKS:Number = 0.12;
 		
 		public function Constants() 
 		{

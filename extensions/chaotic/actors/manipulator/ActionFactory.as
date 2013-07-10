@@ -1,9 +1,9 @@
 package chaotic.actors.manipulator 
 {
 	import chaotic.actors.ActorsFeature;
+	import chaotic.actors.manipulator.actions.*;
 	import chaotic.actors.manipulator.checks.*;
 	import chaotic.actors.manipulator.moves.*;
-	import chaotic.actors.manipulator.onBlocked.*;
 	import chaotic.actors.manipulator.onDamaged.*;
 	import chaotic.actors.manipulator.onSpawned.*;
 	import chaotic.actors.storage.ISearcher;
@@ -37,12 +37,12 @@ package chaotic.actors.manipulator
 			var input:IKnowInput = table.getInformer(IKnowInput);
 			var updateFlow:IUpdateDispatcher = this.flow;
 			
+			var bite:Bite = new Bite(performer, actors);
+			var detonate:Detonate = new Detonate(actors, performer);
+			
 			this.actions["DoNothing"] = new DoNothing();
 			
-			this.actions["ReachGrinder"] = new ReachGrinder(performer, grinder);
-			
-			this.actions["Detonate"] = new Detonate(actors, performer);
-			this.actions["Bite"] = new Bite(performer, actors);
+			this.actions["ReachGrinder"] = new ReachGrinder(performer, grinder, actors);
 			
 			this.actions["ProtagonistDamaged"] = new ProtagonistDamaged(updateFlow);
 			
@@ -50,10 +50,10 @@ package chaotic.actors.manipulator
 			this.actions["NormalLandscapeCheck"] = new NormalLandscapeCheck(scene, performer);
 			this.actions["OutOfBoundsCheck"] = new OutOfBoundsCheck(performer, actors);
 			
-			this.actions["HeuristicGoalPursuing"] = new HeuristicGoalPursuing(scene, actors, performer);
+			this.actions["HeuristicGoalPursuing"] = new HeuristicGoalPursuing(scene, actors, performer, detonate);
 			this.actions["InertialRandom"] = new InertialRandom(performer, actors);
-			this.actions["MoveLikeACharacter"] = new MoveLikeACharacter(scene, input, performer, actors);
-			this.actions["RunForward"] = new RunForward(performer, actors, scene);
+			this.actions["MoveLikeACharacter"] = new MoveLikeACharacter(scene, input, performer, actors, updateFlow);
+			this.actions["RunForward"] = new RunForward(performer, actors, scene, bite);
 			this.actions["SearchCorridor"] = new SearchCorridor(scene, performer, actors);
 		}
 	}
