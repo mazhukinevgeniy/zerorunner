@@ -1,5 +1,6 @@
 package view.panel 
 {
+	import chaotic.core.IUpdateDispatcher;
 	import flash.display.Stage;
 	import flash.geom.Point;
 	import starling.core.Starling;
@@ -12,15 +13,18 @@ package view.panel
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	
-	import view.events.PanelEvent;
-	
 	public class Panel extends Sprite
 	{
+		public static const panel_BackToMenu:String = "panel_BackToMenu";
+		public static const panel_RollOut:String = "panel_RollOut";
+		public static const panel_RollOver:String = "panel_RollOver";
+		
+		
 		private var body:Sprite;
 		
 		private var menuButton:Button;
 		
-		public function Panel() 
+		public function Panel(flow:IUpdateDispatcher) 
 		{
 			this.addChild(new SpaceHolder());
 			

@@ -1,6 +1,5 @@
 package view.controls 
 {
-	//import starling.display.Button;
 	import feathers.controls.Button;
 	import feathers.controls.text.TextFieldTextRenderer;
 	import feathers.core.ITextRenderer;
@@ -16,15 +15,6 @@ package view.controls
 		
 		public function ButtonGlobalNavigation(y:int, title:String = "title") 
 		{
-			/*super(Texture.fromColor(100, 20, 0xFFCCFF33), title);
-			
-			this.fontName = "HiLo-Deco"; this.fontSize = 18;
-			
-			this.x = 10;
-			this.y = y;
-			
-			this.addEventListener(Event.TRIGGERED, this.handleTrigger);*/
-			
 			this.labelFactory = function():ITextRenderer
 			{
 				var test:TextFieldTextRenderer = new TextFieldTextRenderer();
@@ -32,7 +22,6 @@ package view.controls
 				test.embedFonts = true;
 				return test;
 			}
-			//this.button.defaultLabelProperties.textFormat = new BitmapFontTextFormat(new BitmapFont());    //TextField.registerBitmapFont(new BitmapFont(null, new XML("../../res/assets/fonts/testArial32.fnt"))));
 			
 			
 			this.label = title;
@@ -49,7 +38,6 @@ package view.controls
 		{
 			event.stopImmediatePropagation();
 			
-			//this.dispatchEvent(new NavigationEvent(this.text));
 			this.dispatchEvent(new NavigationEvent(this.label));
 		}
 	}

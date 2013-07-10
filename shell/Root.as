@@ -17,7 +17,6 @@ package
 			var game:ZeroRunner = new ZeroRunner((view).getGameContainer(), (view).getAssets());
 			
 			var model:Data = new Data(game);
-			var controller:IController = new MainController(view, model, game);
 		}
 		
 	}

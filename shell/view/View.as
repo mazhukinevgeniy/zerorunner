@@ -33,10 +33,10 @@ package view
 		[Embed(source = "../../res/assets/textures/atlases/gameatlas.xml", mimeType="application/octet-stream")]
 		internal static const gameatlas:Class; 
 		
-		/*
 		private var assets:AssetManager;
 		
 		
+		/*
 		private var controller:IController;
 		
 		private var background:Background;
@@ -51,25 +51,29 @@ package view
 		private var game:Sprite;
 		private var panel:Panel;
 		private var gameView:Sprite;
+		*/
 		
 		private var assetsLoaded:Boolean;
-		*/
 		
 		
 		public function View(displayRoot:DisplayObjectContainer) 
 		{
+			super();
+			
 			this.game = new Sprite();
 			this.game.addChild(this.gameView = new Sprite());
 			
-			
+			displayRoot.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
+		}
+		
+		override protected function addFeatures():void
+		{
 			this.assets = new AssetManager();
 			
 			this.assets.verbose = true;
 			this.assets.enqueue(EmbeddedAssets);
 			
 			this.assets.loadQueue(this.continueConstruction);
-			
-			displayRoot.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
 		private function continueConstruction(ratio:Number):void
@@ -81,7 +85,6 @@ package view
 					this.initializeStuff();
 			}
 		}
-		
 		
 		public function setController(item:IController):void
 		{
@@ -134,21 +137,6 @@ package view
 		private function handleTrigger(event:Event):void
 		{
 			this.toggleSound();
-		}
-		
-		private function handleNavigationEvent(event:NavigationEvent):void
-		{
-			(this.controller).handleNavigationEvent(event);
-		}
-		
-		private function handleMainMenuEvent(event:MainMenuEvent):void
-		{
-			(this.controller).handleMainMenuEvent(event);
-		}
-		
-		private function handlePanelEvent(event:PanelEvent):void
-		{
-			(this.controller).handlePanelEvent(event);
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void
