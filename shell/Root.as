@@ -12,14 +12,12 @@ package
 		
 		public function Root() 
 		{
-			var view:View = new View();
+			var view:View = new View(this);
 			
 			var game:ZeroRunner = new ZeroRunner((view).getGameContainer(), (view).getAssets());
 			
 			var model:Data = new Data(game);
 			var controller:IController = new MainController(view, model, game);
-			
-			this.addChild(view);
 		}
 		
 	}

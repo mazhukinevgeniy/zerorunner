@@ -1,7 +1,9 @@
 package view 
 {
+	import chaotic.core.Chaotic;
 	import controller.IController;
 	import starling.core.Starling;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.KeyboardEvent;
@@ -23,17 +25,15 @@ package view
 	import view.windows.play.MainMenu;
 	
 	
-	public class View extends Sprite implements IView
+	public class View extends Chaotic implements IView
 	{
-		
 		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
 		private static const HiLoDeco:Class;
-		
 		
 		[Embed(source = "../../res/assets/textures/atlases/gameatlas.xml", mimeType="application/octet-stream")]
 		internal static const gameatlas:Class; 
 		
-		
+		/*
 		private var assets:AssetManager;
 		
 		
@@ -53,8 +53,10 @@ package view
 		private var gameView:Sprite;
 		
 		private var assetsLoaded:Boolean;
+		*/
 		
-		public function View() 
+		
+		public function View(displayRoot:DisplayObjectContainer) 
 		{
 			this.game = new Sprite();
 			this.game.addChild(this.gameView = new Sprite());
@@ -67,14 +69,7 @@ package view
 			
 			this.assets.loadQueue(this.continueConstruction);
 			
-			this.addEventListener(Event.ADDED_TO_STAGE, this.handleAddedToStage);	
-			
-		}
-		
-		private function handleAddedToStage():void
-		{
-			this.removeEventListener(Event.ADDED_TO_STAGE, this.handleAddedToStage);
-			this.stage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
+			displayRoot.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
 		private function continueConstruction(ratio:Number):void
