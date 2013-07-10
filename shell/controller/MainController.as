@@ -1,22 +1,3 @@
-package controller 
-{
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
-	import chaotic.game.IGame;
-	import model.IModel;
-	import starling.events.KeyboardEvent;
-	import flash.ui.Keyboard;
-	import view.events.MainMenuEvent;
-	import view.events.NavigationEvent;
-	import view.events.PanelEvent;
-	import view.IView;
-	
-	public class MainController implements IController
-	{
-		private var view:IView;
-		private var model:IModel;
-		private var game:IGame;
-		
 		private var pauseToggled:Boolean = true;
 		private var isOutOfFocus:Boolean = true;
 		private var isOutOfSight:Boolean = true;
@@ -35,14 +16,6 @@ package controller
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(ChaoticGame.gameOver);
-		}
-		
-		public function viewPrepared():void
-		{
-			if ((this.model).settings.mute)
-			{
-				(this.view).toggleSound();
-			}
 		}
 		
 		public function toggleSound():void
@@ -149,6 +122,3 @@ package controller
 			this.isOutOfSight = true;
 			this.isInUse = true;
 		}
-	}
-
-}

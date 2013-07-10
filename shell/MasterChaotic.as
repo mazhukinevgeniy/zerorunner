@@ -2,8 +2,9 @@ package
 {
 	import chaotic.core.Chaotic;
 	import chaotic.core.IUpdateDispatcher;
+	import flash.events.KeyboardEvent;
+	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
-	import starling.events.KeyboardEvent;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
 	
@@ -29,7 +30,7 @@ package
 			 * 
 			 */
 			
-			root.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
+			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
 		override protected function addFeatures():void

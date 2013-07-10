@@ -4,6 +4,7 @@ package ui
 	import chaotic.core.IUpdateDispatcher;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
+	import ui.background.Background;
 	import ui.sounds.Sounds;
 	import ui.windows.Windows;
 	
@@ -25,6 +26,9 @@ package ui
 			this.root = displayRoot;
 			this.assets = assets;
 			
+			masterFlow.workWithUpdateListener(this);
+			masterFlow.addUpdateListener(ChaoticUI.keyUp);
+			
 			super();
 		}
 		
@@ -32,8 +36,14 @@ package ui
 		{
 			var flow:IUpdateDispatcher = this.updateFlow;
 			
+			new Background(this.root);
 			new Windows(this.root, flow);
 			new Sounds(this.root, flow, this.assets);
+		}
+		
+		public function keyUp(keyCode:uint):void
+		{
+			this.updateFlow.dispatchUpdate(ChaoticUI.keyUp, keyCode);
 		}
 	}
 
