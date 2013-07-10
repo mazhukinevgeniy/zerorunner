@@ -1,4 +1,4 @@
-package gui 
+package ui 
 {
 	import chaotic.core.Chaotic;
 	import chaotic.core.IUpdateDispatcher;

@@ -17,12 +17,12 @@ package
 		
 		public static const PROJECT_NAME:String = "zeroRunner";
 		
+		
 		private var mStarling:Starling;
+		private var master:MasterChaotic;
 		
 		private var newContextMenu:ContextMenu;
 		
-		
-		private var master:MasterChaotic;
 		
 		public function Main()
 		{ 	
