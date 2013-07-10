@@ -12,9 +12,6 @@
 			this.addChild(this.game); this.game.visible = false;
 			
 			
-			
-			this.addChild(this.muteButton = new MuteButton());
-			
 			this.windows = new Array();
 			this.addChild(this.windows[0] = new MainMenu(this.assets));
 			

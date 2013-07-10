@@ -1,12 +1,14 @@
 package ui.sounds 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.utils.SaveBase;
 	import flash.ui.Keyboard;
 	import starling.display.DisplayObjectContainer;
+	import starling.events.Event;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
 	
-	public class Sounds 
+	public class Sounds extends SaveBase
 	{
 		private var music:MusicManager;
 		private var sound:SoundManager;
@@ -25,16 +27,36 @@ package ui.sounds
 			
 			this.muteButton = new MuteButton();
 			root.addChild(this.muteButton);
+			this.muteButton.addEventListener(Event.TRIGGERED, this.toggleMute);
+			
+			super();
+		}
+		
+		override protected function checkLocalSave():void
+		{
+			if (this.localSave.data.sound == null)
+			{
+				this.localSave.data.sound = new Object();
+				this.localSave.data.sound.muted = false;
+			}
+			
+			if (this.localSave.data.sound.muted)
+				this.toggleMute();
+		}
+		
+		private function toggleMute():void
+		{
+			this.music.toggleSound();
+			this.sound.toggleSound();
+			this.muteButton.toggleTitle();
+			
+			this.localSave.data.sound.muted = !this.localSave.data.sound.muted;
 		}
 		
 		public function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.M)
-			{
-				this.music.toggleSound();
-				this.sound.toggleSound();
-				this.muteButton.toggleTitle();
-			}
+				this.toggleMute();
 		}
 	}
 
