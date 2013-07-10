@@ -5,6 +5,7 @@ package ui
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
 	import ui.background.Background;
+	import ui.game.GameView;
 	import ui.mainMenu.MainMenu;
 	import ui.pauseControl.PauseTypes;
 	import ui.sounds.Sounds;
@@ -33,8 +34,8 @@ package ui
 			super(ChaoticUI.flowName);
 			
 			new Background(this.root);
-			//new GameView(this.root);
 			new MainMenu(this.root, this, assets);
+			new GameView(this.root);
 			new Sounds(this.root, this, this.assets);
 			
 			//new PauseTypes(this); //TODO: uncomment

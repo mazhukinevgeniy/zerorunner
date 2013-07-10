@@ -3,7 +3,9 @@ package ui.pauseControl
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
 	import chaotic.game.ChaoticGame;
-	import ui.panel.Panel;
+	import flash.ui.Keyboard;
+	import ui.ChaoticUI;
+	import ui.game.panel.Panel;
 	
 	public class PauseTypes 
 	{
@@ -19,6 +21,7 @@ package ui.pauseControl
 			
 			flow.addUpdateListener(ChaoticGame.gameOver);
 			
+			flow.addUpdateListener(ChaoticUI.keyUp);
 			flow.addUpdateListener(Panel.panel_BackToMenu);
 		}
 		
@@ -33,6 +36,14 @@ package ui.pauseControl
 			this.pauseToggled = true;
 			this.isInUse = true;
 			this.isOutOfSight = true;
+		}
+		public function keyUp(keyCode:uint):void
+		{
+			if (keyCode == Keyboard.P)
+			{
+				this.pauseToggled = !this.pauseToggled;
+				this.setPause();
+			}
 		}
 		
 		private function setPause():void

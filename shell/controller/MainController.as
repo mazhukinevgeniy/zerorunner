@@ -4,14 +4,7 @@
 			(this.view).toggleSound();
 		}
 		
-		public function keyUp(event:KeyboardEvent):void
-		{
-			if (event.keyCode == Keyboard.P)
-			{
-				this.pauseToggled = !this.pauseToggled;
-				this.setPause();
-			}
-		}
+		
 		
 		public function handlePanelEvent(event:PanelEvent):void
 		{
