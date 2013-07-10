@@ -23,6 +23,10 @@ package ui.pauseControl
 			flow.addUpdateListener(ChaoticUI.newGame);
 			flow.addUpdateListener(ChaoticUI.keyUp);
 			flow.addUpdateListener(Panel.panel_BackToMenu);
+			flow.addUpdateListener(Panel.panel_RollOver);
+			flow.addUpdateListener(Panel.panel_RollOut);
+			
+			this.flow = flow;
 		}
 		
 		public function newGame():void
@@ -44,6 +48,20 @@ package ui.pauseControl
 			this.pauseToggled = true;
 			this.isInUse = true;
 			this.isOutOfSight = true;
+			
+			this.setPause();
+		}
+		public function panel_RollOver():void
+		{
+			this.isInUse = true;
+			
+			this.setPause();
+		}
+		public function panel_RollOut():void
+		{
+			this.isInUse = false;
+			
+			this.setPause();
 		}
 		public function keyUp(keyCode:uint):void
 		{

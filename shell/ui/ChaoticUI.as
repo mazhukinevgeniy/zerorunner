@@ -37,7 +37,7 @@ package ui
 			new GameView(this.root, this);
 			new Sounds(this.root, this, this.assets);
 			
-			//new PauseTypes(this); //TODO: uncomment
+			new PauseTypes(this);
 		}
 	}
 

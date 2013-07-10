@@ -5,6 +5,7 @@ package ui.game
 	import chaotic.game.ChaoticGame;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
+	import ui.ChaoticUI;
 	import ui.game.panel.Panel;
 	
 	public class GameView 
@@ -18,6 +19,10 @@ package ui.game
 			
 			this.container.visible = false;
 			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(ChaoticUI.newGame);
+			flow.addUpdateListener(Panel.panel_BackToMenu);
+			
 			var gameContainer:Sprite = new Sprite();
 			this.container.addChild(gameContainer);
 			flow.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticGame.flowName, 
@@ -29,6 +34,11 @@ package ui.game
 		public function newGame():void
 		{
 			this.container.visible = true;
+		}
+		
+		public function panel_BackToMenu():void
+		{
+			this.container.visible = false;
 		}
 	}
 

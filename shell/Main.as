@@ -54,7 +54,7 @@ package
 			this.mStarling.start();
 			
 			this.mStarling.showStats = true;
-			this.mStarling.showStatsAt("left", "bottom");
+			this.mStarling.showStatsAt("right", "top");
 			
 			this.mStarling.addEventListener(starling.events.Event.ROOT_CREATED, this.handleRootCreated);
 		}

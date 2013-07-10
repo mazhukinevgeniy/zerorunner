@@ -2,6 +2,7 @@ package
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
+	import chaotic.ZeroRunner;
 	import flash.events.KeyboardEvent;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
@@ -24,7 +25,7 @@ package
 			this.root = root;
 			this.assets = assets;
 			
-			
+			new ZeroRunner(assets);
 			new ChaoticUI(root, this.assets);
 			/*
 			var view:View = new View(this);

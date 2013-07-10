@@ -66,7 +66,7 @@ package ui.game.panel
 			if (event.target == this.menuButton)
 			{
 				this.collapse();
-				this.dispatchEvent(new PanelEvent(PanelEvent.BACK_TO_MENU));
+				this.flow.dispatchUpdate(Panel.panel_BackToMenu);
 			}
 		}
 		
@@ -75,7 +75,7 @@ package ui.game.panel
 			var touch:Touch = event.getTouch(this);
 			
 			if (touch && touch.phase == TouchPhase.HOVER)
-				this.dispatchEvent(new PanelEvent(PanelEvent.ROLL_OVER));
+				this.expand();
 			
 			else if (this.body.visible)
 			{
@@ -86,17 +86,19 @@ package ui.game.panel
 					|| mouseY < 0
 					|| mouseX > Main.WIDTH
 					|| mouseY > Body.HEIGHT)
-				this.dispatchEvent(new PanelEvent(PanelEvent.ROLL_OUT));
+				this.collapse();
 			}
 		}
 		
 		public function expand():void
 		{
+			this.flow.dispatchUpdate(Panel.panel_RollOver);
 			this.body.visible = true;
 		}
 		
 		public function collapse():void
 		{
+			this.flow.dispatchUpdate(Panel.panel_RollOut);
 			this.body.visible = false;
 		}
 	}
