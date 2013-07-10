@@ -27,13 +27,6 @@ package
 			
 			new ZeroRunner(assets);
 			new ChaoticUI(root, this.assets);
-			/*
-			var view:View = new View(this);
-			
-			var game:ZeroRunner = new ZeroRunner((view).getGameContainer(), (view).getAssets());
-			
-			var model:Data = new Data(game);
-			*/
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
