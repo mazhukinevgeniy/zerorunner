@@ -1,4 +1,4 @@
-package view.windows 
+package ui.windows 
 {
 	import starling.display.Quad;
 	import starling.display.Sprite;
