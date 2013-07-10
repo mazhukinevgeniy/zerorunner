@@ -37,7 +37,6 @@ package view
 		
 		
 		/*
-		private var controller:IController;
 		
 		private var background:Background;
 		
@@ -52,8 +51,6 @@ package view
 		private var panel:Panel;
 		private var gameView:Sprite;
 		*/
-		
-		private var assetsLoaded:Boolean;
 		
 		
 		public function View(displayRoot:DisplayObjectContainer) 
@@ -80,17 +77,8 @@ package view
 		{
 			if (ratio == 1.0)
 			{
-				this.assetsLoaded = true;
-				if (this.controller != null)
-					this.initializeStuff();
-			}
-		}
-		
-		public function setController(item:IController):void
-		{
-			this.controller = item;
-			if (this.assetsLoaded)
 				this.initializeStuff();
+			}
 		}
 		
 		private function initializeStuff():void
