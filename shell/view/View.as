@@ -134,35 +134,6 @@ package view
 			(this.controller).viewPrepared();
 		}
 		
-		private function handleTrigger(event:Event):void
-		{
-			this.toggleSound();
-		}
-		
-		private function handleKeyUp(event:KeyboardEvent):void
-		{
-			(this.controller).keyUp(event);
-		}
-		
-		
-		public function showGame():void
-		{
-			this.game.visible = true;
-		}
-		public function hideGame():void
-		{
-			this.game.visible = false;
-		}
-		
-		public function showPanel():void
-		{
-			this.panel.expand();
-		}
-		public function hidePanel():void
-		{
-			this.panel.collapse();
-		}
-		
 		
 		public function toggleWindow(id:int):void
 		{

@@ -1,4 +1,4 @@
-package view.controls 
+package ui.navigation 
 {
 	import feathers.controls.Button;
 	import feathers.controls.text.TextFieldTextRenderer;
