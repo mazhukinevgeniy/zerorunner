@@ -1,20 +1,13 @@
 package view 
 {
 	import controller.IController;
-	import feathers.controls.Button;
-	import feathers.controls.text.TextFieldTextRenderer;
-	import feathers.core.FeathersControl;
-	import feathers.text.BitmapFontTextFormat;
-	import flash.text.TextFormat;
 	import starling.core.Starling;
-	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.KeyboardEvent;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
-	import starling.text.BitmapFont;
 	import starling.textures.TextureAtlas;
 	import starling.utils.adaptTextureAtlasMakerXML;
 	import starling.utils.AssetManager;
@@ -28,11 +21,6 @@ package view
 	import view.sounds.SoundManager;
 	import view.sounds.MusicManager;
 	import view.windows.play.MainMenu;
-	
-	//===
-	import starling.text.TextField;
-	import feathers.core.ITextRenderer
-	import flash.text.Font;
 	
 	
 	public class View extends Sprite implements IView
@@ -65,9 +53,6 @@ package view
 		private var gameView:Sprite;
 		
 		private var assetsLoaded:Boolean;
-		
-		//===
-		private var button:Button;
 		
 		public function View() 
 		{
@@ -119,15 +104,16 @@ package view
 			this.background = new Background();
 			this.addChild(this.background);
 			
-			/*this.game.addChild(this.panel = new Panel());
+			this.game.addChild(this.panel = new Panel());
 			this.addEventListener(PanelEvent.BACK_TO_MENU, this.handlePanelEvent);
 			this.addEventListener(PanelEvent.ROLL_OUT, this.handlePanelEvent);
 			this.addEventListener(PanelEvent.ROLL_OVER, this.handlePanelEvent);
 			
-			this.addChild(new ButtonGlobalNavigation(10, "Play"));
+			this.addChild(new ButtonGlobalNavigation(30, "Play"));
 			this.addEventListener("Play", this.handleNavigationEvent);
 			
-			this.addChild(this.game); this.game.visible = false;*/
+			
+			this.addChild(this.game); this.game.visible = false;
 			
 			
 			this.music = new MusicManager(this.assets);
@@ -138,50 +124,17 @@ package view
 			this.muteButton.addEventListener(starling.events.Event.TRIGGERED, this.handleTrigger);
 			
 			
-			/*this.windows = new Array();
+			this.windows = new Array();
 			this.addChild(this.windows[0] = new MainMenu(this.assets));
 			this.addEventListener(MainMenuEvent.NEW_GAME, this.handleMainMenuEvent);
 			this.addEventListener(MainMenuEvent.CLOSE, this.handleMainMenuEvent);
 			
-			this.addEventListener(TouchEvent.TOUCH, this.handleTouch);*/
-			
-			//===
-			this.button = new Button();
-			this.button.defaultSkin = new Image(this.assets.getTexture("badbutton1"));
-			this.button.downSkin = new Image(this.assets.getTexture("badbuttonClick1"));
-			
-			this.button.labelFactory = function():ITextRenderer
-			{
-				var test:TextFieldTextRenderer = new TextFieldTextRenderer();
-				test.textFormat = new TextFormat("HiLo-Deco", 24, 0x000000);
-				test.embedFonts = true;
-				return test;
-			}
-			
-			this.button.label = "Unmute";
-			
-			//this.button.defaultLabelProperties.textFormat = new BitmapFontTextFormat(new BitmapFont());    //TextField.registerBitmapFont(new BitmapFont(null, new XML("../../res/assets/fonts/testArial32.fnt"))));
-			this.button.x = 100;
-			this.button.y = 100;
-			
-			this.button.defaultIcon = new Image(this.assets.getTexture("testIcon"));
-			//this.button.iconPosition = "up";
-			this.button.iconOffsetX = 5;
-			this.button.gap = 5;
-			this.addChild(this.button);
-			
-			//this.button.width += 10;
-			//this.button.labe
+			this.addEventListener(TouchEvent.TOUCH, this.handleTouch);
 			
 			Starling.current.showStats = true;
 			
 			(this.controller).viewPrepared();
 		}
-		
-		/*FeathersControl.defaultTextRendererFactory = function():ITextRenderer
-		{
-			return new TextFieldTextRenderer();
-		};*/
 		
 		private function handleTrigger(event:Event):void
 		{
