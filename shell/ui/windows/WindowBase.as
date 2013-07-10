@@ -5,11 +5,8 @@ package ui.windows
 	import starling.events.Event;
 	import starling.textures.Texture;
 	
-	import view.controls.CloseButton;
-	
 	public class WindowBase extends Sprite
 	{
-		private var closeButton:CloseButton;
 		
 		public function WindowBase(width:int, height:int) 
 		{
@@ -19,17 +16,6 @@ package ui.windows
 			
 			this.x = (Main.WIDTH - this.width) / 2;
 			this.y = (Main.HEIGHT - this.height) / 2;
-			
-			
-			this.closeButton = new CloseButton();
-			this.addChild(this.closeButton);
-			
-			this.closeButton.addEventListener(Event.TRIGGERED, this.closeYourself);
-		}
-		
-		protected function closeYourself(event:Event):void
-		{
-			throw new Error("Must implement!");
 		}
 	}
 

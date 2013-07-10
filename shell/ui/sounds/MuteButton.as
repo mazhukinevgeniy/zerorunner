@@ -1,9 +1,9 @@
-package view.controls 
+package ui.sounds 
 {
 	import starling.display.Button;
 	import starling.textures.Texture;
 	
-	public class MuteButton extends Button 
+	internal class MuteButton extends Button 
 	{
 		private static const WIDTH:int = 50;
 		private static const HEIGHT:int = 20;

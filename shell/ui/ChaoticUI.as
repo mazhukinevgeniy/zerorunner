@@ -3,14 +3,19 @@ package ui
 	import chaotic.core.Chaotic;
 	import chaotic.core.IUpdateDispatcher;
 	import starling.display.DisplayObjectContainer;
+	import ui.sounds.Sounds;
+	import ui.windows.Windows;
 	
 	public class ChaoticUI extends Chaotic
 	{
 		private var masterFlow:IUpdateDispatcher;
 		
+		private var root:DisplayObjectContainer;
+		
 		public function ChaoticUI(displayRoot:DisplayObjectContainer, masterFlow:IUpdateDispatcher) 
 		{
 			this.masterFlow = masterFlow;
+			this.root = displayRoot;
 			
 			super();
 		}
@@ -19,7 +24,8 @@ package ui
 		{
 			var flow:IUpdateDispatcher = this.updateFlow;
 			
-			
+			new Windows(this.root, flow);
+			new Sounds(this.root, flow);
 		}
 	}
 

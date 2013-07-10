@@ -36,22 +36,6 @@ package view
 		private var assets:AssetManager;
 		
 		
-		/*
-		
-		private var background:Background;
-		
-		private var windows:Array;
-		
-		private var music:MusicManager;
-		private var sound:SoundManager;
-		
-		private var muteButton:MuteButton;
-		
-		private var game:Sprite;
-		private var panel:Panel;
-		private var gameView:Sprite;
-		*/
-		
 		
 		public function View(displayRoot:DisplayObjectContainer) 
 		{

@@ -5,7 +5,7 @@ package ui.sounds
 	import view.controls.MuteButton;
 	import view.sounds.SoundManagerBase;
 	
-	public class MusicManager extends SoundManagerBase
+	internal class MusicManager extends SoundManagerBase
 	{
 		private var currentTrack:int;
 		private var volume:Number;

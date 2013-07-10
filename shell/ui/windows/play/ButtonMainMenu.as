@@ -4,7 +4,7 @@ package ui.windows.play
 	import starling.events.Event;
 	import starling.textures.Texture;
 	
-	public class ButtonMainMenu extends Button
+	internal class ButtonMainMenu extends Button
 	{
 		
 		public function ButtonMainMenu(texture:Texture, title:String = "title" ) 

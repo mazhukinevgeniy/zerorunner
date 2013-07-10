@@ -8,7 +8,8 @@ package ui.sounds
 	import flash.utils.Dictionary;
 	import starling.core.Starling;
 
-	public class SoundManagerBase {
+	internal class SoundManagerBase 
+	{
 		
 		public static const MAX_VOLUME:Number = 1.0;
 		public static const MIN_VOLUME:Number = 0;

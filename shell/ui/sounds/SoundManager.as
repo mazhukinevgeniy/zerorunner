@@ -3,7 +3,7 @@ package ui.sounds
 	import starling.utils.AssetManager;
 	import view.sounds.SoundManagerBase;
 	
-	public class SoundManager extends SoundManagerBase
+	internal class SoundManager extends SoundManagerBase
 	{
 		private var volume:Number;
 		
