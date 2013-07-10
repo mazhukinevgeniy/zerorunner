@@ -1,4 +1,4 @@
-package view.sounds 
+package ui.sounds 
 {
 	import flash.events.Event;
 	import starling.utils.AssetManager;

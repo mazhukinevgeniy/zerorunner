@@ -1,9 +1,6 @@
 package ui.windows 
 {
-	/**
-	 * ...
-	 * @author 
-	 */
+	
 	public class Windows 
 	{
 		

@@ -1,4 +1,4 @@
-package gui.panel 
+package ui.panel 
 {
 	import starling.display.Quad;
 	

@@ -1,4 +1,4 @@
-package view.windows.play 
+package ui.windows.play 
 {
 	import starling.display.Button;
 	import starling.events.Event;

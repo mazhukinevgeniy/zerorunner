@@ -4,11 +4,11 @@ package ui
 	import chaotic.core.IUpdateDispatcher;
 	import starling.display.DisplayObjectContainer;
 	
-	public class ChaoticGUI extends Chaotic
+	public class ChaoticUI extends Chaotic
 	{
 		private var masterFlow:IUpdateDispatcher;
 		
-		public function ChaoticGUI(displayRoot:DisplayObjectContainer, masterFlow:IUpdateDispatcher) 
+		public function ChaoticUI(displayRoot:DisplayObjectContainer, masterFlow:IUpdateDispatcher) 
 		{
 			this.masterFlow = masterFlow;
 			

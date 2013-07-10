@@ -1,4 +1,4 @@
-package view.windows.play 
+package ui.windows.play 
 {
 	import feathers.controls.Button;
 	import starling.display.Sprite;

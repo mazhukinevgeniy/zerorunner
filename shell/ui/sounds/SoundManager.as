@@ -1,4 +1,4 @@
-package view.sounds
+package ui.sounds
 {
 	import starling.utils.AssetManager;
 	import view.sounds.SoundManagerBase;

@@ -2,8 +2,8 @@ package
 {
 	import chaotic.core.Chaotic;
 	import chaotic.core.IUpdateDispatcher;
-	import gui.ChaoticGUI;
 	import starling.display.DisplayObjectContainer;
+	import ui.ChaoticUI;
 	
 	internal class MasterChaotic extends Chaotic
 	{
@@ -29,7 +29,7 @@ package
 		{
 			var flow:IUpdateDispatcher = this.updateFlow;
 			
-			new ChaoticGUI(this.root, flow);
+			new ChaoticUI(this.root, flow);
 			
 		}
 	}

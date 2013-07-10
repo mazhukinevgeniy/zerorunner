@@ -1,4 +1,4 @@
-package view.sounds
+package ui.sounds
 {
 	//first author: Francesco Maisto
 	
