@@ -1,4 +1,4 @@
-package ui.windows 
+package ui.mainMenu 
 {
 	import starling.display.Quad;
 	import starling.display.Sprite;

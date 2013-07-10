@@ -5,8 +5,9 @@ package ui
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
 	import ui.background.Background;
+	import ui.mainMenu.MainMenu;
+	import ui.pauseControl.PauseTypes;
 	import ui.sounds.Sounds;
-	import ui.windows.Windows;
 	
 	public class ChaoticUI extends UpdateManager
 	{
@@ -32,8 +33,11 @@ package ui
 			super(ChaoticUI.flowName);
 			
 			new Background(this.root);
-			new Windows(this.root, this);
+			//new GameView(this.root);
+			new MainMenu(this.root, this, assets);
 			new Sounds(this.root, this, this.assets);
+			
+			//new PauseTypes(this); //TODO: uncomment
 		}
 		
 		public function keyUp(keyCode:uint):void

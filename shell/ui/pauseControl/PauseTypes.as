@@ -1,6 +1,7 @@
 package ui.pauseControl 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.UpdateManager;
 	import chaotic.game.ChaoticGame;
 	import ui.panel.Panel;
 	
@@ -17,7 +18,6 @@ package ui.pauseControl
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ChaoticGame.gameOver);
-			//flow.addUpdateListener(ChaoticGame.getGameFlow);
 			
 			flow.addUpdateListener(Panel.panel_BackToMenu);
 		}
@@ -37,7 +37,8 @@ package ui.pauseControl
 		
 		private function setPause():void
 		{
-			(this.game).setPause(this.pauseToggled || this.isInUse || this.isOutOfSight);
+			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticGame.flowName, ChaoticGame.setPause,
+										this.pauseToggled || this.isInUse || this.isOutOfSight);
 		}
 	}
 

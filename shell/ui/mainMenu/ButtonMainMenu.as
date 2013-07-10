@@ -1,4 +1,4 @@
-package ui.windows.play 
+package ui.mainMenu 
 {
 	import starling.display.Button;
 	import starling.events.Event;

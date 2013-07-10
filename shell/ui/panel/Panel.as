@@ -19,6 +19,7 @@ package ui.panel
 		public static const panel_RollOut:String = "panel_RollOut";
 		public static const panel_RollOver:String = "panel_RollOver";
 		
+		private var flow:IUpdateDispatcher;
 		
 		private var body:Sprite;
 		
@@ -26,6 +27,8 @@ package ui.panel
 		
 		public function Panel(flow:IUpdateDispatcher) 
 		{
+			this.flow = flow;
+			
 			this.addChild(new SpaceHolder());
 			
 			this.body = new Body();
