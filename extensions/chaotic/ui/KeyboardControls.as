@@ -1,29 +1,26 @@
 package chaotic.ui 
 {
-	import chaotic.informers.IGiveInformers;
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.input.InputManager;
 	import chaotic.input.InputPiece;
 	import chaotic.metric.DCellXY;
-	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import flash.ui.Keyboard;
 	import starling.events.EventDispatcher;
 	import starling.events.KeyboardEvent;
 	
-	public class KeyboardControls implements IUpdateListener
+	public class KeyboardControls
 	{
+		public static const addKeyboardEventListenersTo:String = "addKeyboardEventListenersTo";
+		
 		private var updateFlow:IUpdateDispatcher;
 		
-		public function KeyboardControls() 
+		public function KeyboardControls(flow:IUpdateDispatcher) 
 		{
+			this.updateFlow = flow;
 			
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "addKeyboardEventListenersTo");
-			storage.addUpdateListener(this, "getInformerFrom");
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener(KeyboardControls.addKeyboardEventListenersTo);
 		}
 		
 		public function addKeyboardEventListenersTo(item:EventDispatcher):void
@@ -35,30 +32,25 @@ package chaotic.ui
 		private function handleKeyDown(event:KeyboardEvent):void
 		{
 			if (event.keyCode == Keyboard.UP)
-		        this.updateFlow.dispatchUpdate(new Update("newInputPiece", new InputPiece(true, true, new DCellXY(0, -1))));
+		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, true, new DCellXY(0, -1)));
             else if (event.keyCode == Keyboard.DOWN)
-		        this.updateFlow.dispatchUpdate(new Update("newInputPiece", new InputPiece(true, true, new DCellXY(0, 1))));
+		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, true, new DCellXY(0, 1)));
 			else if (event.keyCode == Keyboard.RIGHT)
-		        this.updateFlow.dispatchUpdate(new Update("newInputPiece", new InputPiece(true, true, new DCellXY(1, 0))));
+		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, true, new DCellXY(1, 0)));
 			else if (event.keyCode == Keyboard.LEFT)
-		        this.updateFlow.dispatchUpdate(new Update("newInputPiece", new InputPiece(true, true, new DCellXY(-1, 0))));
+		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, true, new DCellXY(-1, 0)));
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
 			if (event.keyCode == Keyboard.UP)
-		        this.updateFlow.dispatchUpdate(new Update("newInputPiece", new InputPiece(true, false, new DCellXY(0, -1))));
+		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, false, new DCellXY(0, -1)));
             else if (event.keyCode == Keyboard.DOWN)
-		        this.updateFlow.dispatchUpdate(new Update("newInputPiece", new InputPiece(true, false, new DCellXY(0, 1))));
+		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, false, new DCellXY(0, 1)));
 			else if (event.keyCode == Keyboard.RIGHT)
-		        this.updateFlow.dispatchUpdate(new Update("newInputPiece", new InputPiece(true, false, new DCellXY(1, 0))));
+		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, false, new DCellXY(1, 0)));
 			else if (event.keyCode == Keyboard.LEFT)
-		        this.updateFlow.dispatchUpdate(new Update("newInputPiece", new InputPiece(true, false, new DCellXY(-1, 0))));
-		}
-		
-		public function getInformerFrom(table:IGiveInformers):void
-		{
-			this.updateFlow = table.getInformer(IUpdateDispatcher);
+		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, false, new DCellXY(-1, 0)));
 		}
 	}
 

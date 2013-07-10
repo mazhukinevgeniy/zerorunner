@@ -1,19 +1,23 @@
 package chaotic.grinder 
 {
-	import chaotic.core.FeaturePack;
+	import chaotic.core.IUpdateDispatcher;
 	
-	public class GrinderFeature extends FeaturePack
+	public class GrinderFeature
 	{
+		public static const grindingStreamMoved:String = "grindingStreamMoved";
+		public static const addGrinders:String = "addGrinders";
+		
+		
 		internal static const NUMBER:int = 7;
 		internal static const HEIGHT:int = 7;
 		
 		internal static const TIME_MIN:int = 5;
 		
-		public function GrinderFeature() 
+		public function GrinderFeature(flow:IUpdateDispatcher) 
 		{
-			this.list.push(new Grinders());
-			this.list.push(new GrinderBehavior());
-			this.list.push(new GrindersView());
+			new Grinders(flow);
+			new GrinderBehavior(flow);
+			new GrindersView(flow);
 		}
 		
 	}

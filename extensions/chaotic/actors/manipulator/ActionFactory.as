@@ -1,23 +1,26 @@
 package chaotic.actors.manipulator 
 {
+	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.manipulator.checks.*;
 	import chaotic.actors.manipulator.moves.*;
 	import chaotic.actors.manipulator.onBlocked.*;
 	import chaotic.actors.manipulator.onDamaged.*;
 	import chaotic.actors.manipulator.onSpawned.*;
 	import chaotic.actors.storage.ISearcher;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.grinder.IGrinder;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.input.IKnowInput;
 	import chaotic.scene.IScene;
-	import chaotic.updates.IUpdateDispatcher;
 	
 	internal class ActionFactory
 	{
 		private var actions:Object;
+		private var flow:IUpdateDispatcher;
 		
-		public function ActionFactory() 
+		public function ActionFactory(flow:IUpdateDispatcher) 
 		{
+			this.flow = flow;
 			this.actions = new Object();
 		}
 		
@@ -32,7 +35,7 @@ package chaotic.actors.manipulator
 			var actors:ISearcher = table.getInformer(ISearcher);
 			var grinder:IGrinder = table.getInformer(IGrinder);
 			var input:IKnowInput = table.getInformer(IKnowInput);
-			var updateFlow:IUpdateDispatcher = table.getInformer(IUpdateDispatcher);
+			var updateFlow:IUpdateDispatcher = this.flow;
 			
 			this.actions["DoNothing"] = new DoNothing();
 			

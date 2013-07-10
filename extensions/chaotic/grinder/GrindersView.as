@@ -1,22 +1,21 @@
 package chaotic.grinder 
 {
+	import chaotic.actors.ActorsFeature;
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
-	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
-	internal class GrindersView implements IUpdateListener
+	internal class GrindersView
 	{
 		private var streams:Vector.<Quad>;
 		
@@ -30,20 +29,21 @@ package chaotic.grinder
 		
 		private var juggler:Juggler;
 		
-		public function GrindersView() 
+		public function GrindersView(flow:IUpdateDispatcher) 
 		{
 			this.streams = new Vector.<Quad>();
 			
 			this.container = new Sprite();
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "addGrinders");
-			storage.addUpdateListener(this, "grindingStreamMoved");
-			storage.addUpdateListener(this, "setCenter");
-			storage.addUpdateListener(this, "moveCenter");
-			storage.addUpdateListener(this, "getInformerFrom");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener(GrinderFeature.addGrinders);
+			flow.addUpdateListener(GrinderFeature.grindingStreamMoved);
+			flow.addUpdateListener(ActorsFeature.setCenter);
+			flow.addUpdateListener(ActorsFeature.moveCenter);
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			
+			flow.dispatchUpdate(Camera.addToTheLayer, Camera.GRINDERS, this.container);
 		}
 		
 		public function addGrinders(vector:Vector.<GrindingStream>):void
@@ -126,7 +126,6 @@ package chaotic.grinder
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
-			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.GRINDERS, this.container));
 			this.juggler = table.getInformer(Juggler);
 		}
 	}

@@ -1,8 +1,8 @@
 package controller 
 {
-	import chaotic.core.IGame;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
+	import chaotic.game.IGame;
 	import model.IModel;
 	import starling.events.KeyboardEvent;
 	import flash.ui.Keyboard;
@@ -11,7 +11,7 @@ package controller
 	import view.events.PanelEvent;
 	import view.IView;
 	
-	public class MainController implements IUpdateListener, IController
+	public class MainController implements IController
 	{
 		private var view:IView;
 		private var model:IModel;
@@ -31,12 +31,10 @@ package controller
 			this.model = model;
 			this.game = game;
 			
-			(game).addExternalFeature(this);
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "gameOver");
+			var flow:IUpdateDispatcher = game.updateFlow;
+			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(ChaoticGame.gameOver);
 		}
 		
 		public function viewPrepared():void

@@ -1,28 +1,24 @@
 package chaotic.grinder 
 {
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	
-	internal class GrinderBehavior implements IUpdateListener
+	internal class GrinderBehavior
 	{
 		private var updates:IUpdateDispatcher;
 		private var streams:Vector.<GrindingStream>;
 		
-		public function GrinderBehavior() 
+		public function GrinderBehavior(flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
 			
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "grindingStreamMoved");
-			storage.addUpdateListener(this, "tick");
-			storage.addUpdateListener(this, "getInformerFrom");
+			flow.addUpdateListener(ChaoticGame.restore);
+			flow.addUpdateListener(GrinderFeature.grindingStreamMoved);
+			flow.addUpdateListener(ChaoticGame.tick);
+			
+			this.updates = flow;
 		}
 		
 		public function restore():void
@@ -36,7 +32,7 @@ package chaotic.grinder
 				this.streams[i].allowedGap = (Metric.CELLS_IN_VISIBLE_WIDTH + 1) / 2;
 			}
 			
-			this.updates.dispatchUpdate(new Update("addGrinders", this.streams));
+			this.updates.dispatchUpdate(GrinderFeature.addGrinders, this.streams);
 		}
 		
 		/** As IGrinderSubscriber: */
@@ -54,12 +50,6 @@ package chaotic.grinder
 			
 			for (var i:int = 0; i < length; i++)
 				this.streams[i].tick();
-		}
-		
-		/** As IInformerGetter: */
-		public function getInformerFrom(table:IGiveInformers):void
-		{
-			this.updates = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

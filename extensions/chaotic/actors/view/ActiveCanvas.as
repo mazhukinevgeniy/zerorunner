@@ -3,6 +3,8 @@ package chaotic.actors.view
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.Puppet;
 	import chaotic.actors.view.DrawenActor;
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
@@ -10,10 +12,6 @@ package chaotic.actors.view
 	import chaotic.metric.Metric;
 	import chaotic.metric.PixelXY;
 	import chaotic.ui.Camera;
-	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
 	import starling.display.DisplayObject;
@@ -22,7 +20,7 @@ package chaotic.actors.view
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	public class ActiveCanvas implements IUpdateListener
+	public class ActiveCanvas 
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -33,21 +31,22 @@ package chaotic.actors.view
 		
 		private var container:Sprite;
 		
-		public function ActiveCanvas()
+		public function ActiveCanvas(flow:IUpdateDispatcher)
 		{
 			this.objects = new Vector.<Image>(ActorsFeature.CAP + 1, true);
 			this.container = new Sprite();
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "prerestore");
-			storage.addUpdateListener(this, "addActor");
-			storage.addUpdateListener(this, "actorRemoved");
-			storage.addUpdateListener(this, "moveActor");
-			storage.addUpdateListener(this, "detonateActor");
-			storage.addUpdateListener(this, "jumpActor");
-			storage.addUpdateListener(this, "getInformerFrom");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener(ChaoticGame.prerestore);
+			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ActorsFeature.actorRemoved);
+			flow.addUpdateListener(ActorsFeature.moveActor);
+			flow.addUpdateListener(ActorsFeature.detonateActor);
+			flow.addUpdateListener(ActorsFeature.jumpActor);
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			
+			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
 		}
 		
 		public function prerestore():void
@@ -133,8 +132,6 @@ package chaotic.actors.view
 		{
 			this.assets = table.getInformer(AssetManager);
 			this.juggler = table.getInformer(Juggler);
-			
-			table.getInformer(IUpdateDispatcher).dispatchUpdate(new Update("addToTheLayer", Camera.SCENE, this.container));
 		}
 	}
 

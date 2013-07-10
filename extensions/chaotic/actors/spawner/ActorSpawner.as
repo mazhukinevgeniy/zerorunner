@@ -3,24 +3,19 @@ package chaotic.actors.spawner
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.ActorStorage;
 	import chaotic.actors.storage.Puppet;
-	import chaotic.choosenArea.IChoosenArea;
+	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.UnresolvedRequestError;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
 	import chaotic.scene.IScene;
 	import chaotic.scene.SceneFeature;
-	import chaotic.updates.IUpdateDispatcher;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.updates.Update;
-	import chaotic.xml.getActorsXML;
 	
-	public class ActorSpawner implements IUpdateListener
+	public class ActorSpawner
 	{
 		private var scene:IScene;
-		private var choosenArea:IChoosenArea;
 		
 		private var storage:ActorStorage;
 		
@@ -32,11 +27,19 @@ package chaotic.actors.spawner
 		
 		private var updateFlow:IUpdateDispatcher;
 		
-		public function ActorSpawner(actorStorage:ActorStorage)
+		public function ActorSpawner(actorStorage:ActorStorage, flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener(ChaoticGame.restore);
+			flow.addUpdateListener(ChaoticGame.tick);
+			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			
+			this.updateFlow = flow;
+			
 			this.storage = actorStorage;
 			
-			var actors:XML = getActorsXML();
+			var actors:XML = ActorsFeature.CONFIG;
 			var numberOfTypes:int = actors.actor.length();
 			this.speeds = new Vector.<int>(numberOfTypes, true);
 			this.hitpoints = new Vector.<int>(numberOfTypes, true);
@@ -53,13 +56,6 @@ package chaotic.actors.spawner
 			this.numberOfTypes = numberOfTypes;
 		}
 		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "tick");
-			storage.addUpdateListener(this, "getInformerFrom");
-		}
-		
 		public function restore():void
 		{
 			var cell:CellXY = ActorsFeature.SPAWN_CELL;
@@ -68,8 +64,8 @@ package chaotic.actors.spawner
 			newPuppet.speed = this.speeds[0];
 			newPuppet.hp = this.hitpoints[0];
 			
-			this.updateFlow.dispatchUpdate(new Update("addActor", newPuppet));
-			this.updateFlow.dispatchUpdate(new Update("setCenter", cell));
+			this.updateFlow.dispatchUpdate(ActorsFeature.addActor, newPuppet);
+			this.updateFlow.dispatchUpdate(ActorsFeature.setCenter, cell);
 		}
 		
 		public function tick():void
@@ -100,7 +96,7 @@ package chaotic.actors.spawner
 				newPuppet.speed = this.speeds[type];
 				newPuppet.hp = this.hitpoints[type];
 				
-				this.updateFlow.dispatchUpdate(new Update("addActor", newPuppet));
+				this.updateFlow.dispatchUpdate(ActorsFeature.addActor, newPuppet);
 			}
 			else this.storage.addUnusedID(id);
 		}
@@ -122,9 +118,6 @@ package chaotic.actors.spawner
 		public function getInformerFrom(table:IGiveInformers):void
 		{
 			this.scene = table.getInformer(IScene);
-			this.choosenArea = table.getInformer(IChoosenArea);
-			
-			this.updateFlow = table.getInformer(IUpdateDispatcher);
 		}
 	}
 

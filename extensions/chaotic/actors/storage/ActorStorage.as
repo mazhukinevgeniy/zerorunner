@@ -2,15 +2,14 @@ package chaotic.actors.storage
 {
 	import chaotic.actors.ActorsFeature;
 	import chaotic.actors.storage.Puppet;
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.CellXY;
 	import chaotic.metric.DCellXY;
 	import chaotic.metric.Metric;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.xml.getActorsXML;
 	
-	public class ActorStorage implements IUpdateListener, ISearcher
+	public class ActorStorage implements ISearcher
 	{
 		private var puppets:Vector.<Puppet>;
 		
@@ -21,22 +20,19 @@ package chaotic.actors.storage
 		private var active:int;
 		
 		
-		public function ActorStorage() 
+		public function ActorStorage(flow:IUpdateDispatcher) 
 		{
+			flow.workWithUpdateListener(this);
 			
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "addActor");
-			storage.addUpdateListener(this, "prerestore");
-			storage.addUpdateListener(this, "addInformerTo");
+			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ChaoticGame.prerestore);
+			flow.addUpdateListener(ChaoticGame.addInformerTo);
 		}
 		
 		public function prerestore():void
 		{
 			var i:int;
-			var configuration:XML = getActorsXML();
+			var configuration:XML = ActorsFeature.CONFIG;
 			
 			this.puppets = new Vector.<Puppet>();
 			

@@ -1,8 +1,7 @@
 package chaotic 
 {
 	import chaotic.actors.ActorsFeature;
-	import chaotic.choosenArea.ChoosenArea;
-	import chaotic.core.Chaotic;
+	import chaotic.game.ChaoticGame;
 	import chaotic.grinder.GrinderFeature;
 	import chaotic.input.InputManager;
 	import chaotic.metric.CellXY;
@@ -10,36 +9,34 @@ package chaotic
 	import chaotic.metric.Metric;
 	import chaotic.scene.SceneFeature;
 	import chaotic.statistics.Statistics;
+	import chaotic.ui.KeyboardControls;
 	import chaotic.ui.UIExtendsions;
-	import chaotic.xml.getAdditionalUpdatesXML;
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	
-	public class ZeroRunner extends Chaotic
+	public class ZeroRunner extends ChaoticGame
 	{
 		
 		public function ZeroRunner(container:Sprite, assets:AssetManager) 
 		{
 			super(container, assets);
-		}
-		
-		override protected function getAdditionalUpdatesXMLList():XMLList
-		{
-			return getAdditionalUpdatesXML().method;
+			this.updateFlow.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
 		}
 		
 		override protected function addFeatures():void
 		{
+			super.addFeatures();
+			
 			Metric.initialize(40, 40, 81, 81);
 			
-			this.addFeature(new InputManager());
-			this.addFeature(new Statistics());
-			this.addFeature(new ChoosenArea());
-			this.addFeature(new UIExtendsions());
+			new InputManager(this.updateFlow);
+			new Statistics(this.updateFlow);
+			new UIExtendsions(this.updateFlow);
 			
-			this.addFeature(new SceneFeature());
-			this.addFeature(new GrinderFeature());
-			this.addFeature(new ActorsFeature());
+			new GrinderFeature(this.updateFlow);
+			new ActorsFeature(this.updateFlow);
+			new SceneFeature(this.updateFlow);
 		}
 	}
 

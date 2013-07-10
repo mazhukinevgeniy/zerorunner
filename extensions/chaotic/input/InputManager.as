@@ -1,29 +1,30 @@
 package chaotic.input
 {
+	import chaotic.actors.ActorsFeature;
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import chaotic.metric.DCellXY;
-	import chaotic.updates.IUpdateListener;
-	import chaotic.updates.IUpdateListenerAdder;
-	import chaotic.xml.getActorsXML;
 	
-	public class InputManager implements IUpdateListener, IKnowInput
+	public class InputManager implements IKnowInput
 	{
+		public static const newInputPiece:String = "newInputPiece";
+		
 		private var order:Vector.<int>;
 		private var maxI:int;
 		
-		public function InputManager()
+		public function InputManager(flow:IUpdateDispatcher)
 		{
 			super();
 			
 			this.restore();
-		}
-		
-		public function addListenersTo(storage:IUpdateListenerAdder):void
-		{
-			storage.addUpdateListener(this, "movedLikeACharacter");
-			storage.addUpdateListener(this, "restore");
-			storage.addUpdateListener(this, "newInputPiece");
-			storage.addUpdateListener(this, "addInformerTo");
+			
+			flow.workWithUpdateListener(this);
+			
+			flow.addUpdateListener(ActorsFeature.movedLikeACharacter);
+			flow.addUpdateListener(ChaoticGame.restore);
+			flow.addUpdateListener(InputManager.newInputPiece);
+			flow.addUpdateListener(ChaoticGame.addInformerTo);
 		}
 		
 		public function movedLikeACharacter(number:int):void
