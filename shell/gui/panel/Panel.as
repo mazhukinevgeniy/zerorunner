@@ -81,7 +81,7 @@ package gui.panel
 				var mouseY:Number = stage.mouseY;
 				if    (mouseX < 0
 					|| mouseY < 0
-					|| mouseX > Constants.WIDTH
+					|| mouseX > Main.WIDTH
 					|| mouseY > Body.HEIGHT)
 				this.dispatchEvent(new PanelEvent(PanelEvent.ROLL_OUT));
 			}

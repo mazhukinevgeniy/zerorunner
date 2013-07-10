@@ -32,8 +32,8 @@ package view.controls
 			
 			this.fontName = "HiLo-Deco"; this.fontSize = 18; this.fontSize = 18;
 			
-			this.x = Constants.WIDTH / 2 - this.width / 2;
-			this.y = Constants.HEIGHT / 2 - this.height / 2;
+			this.x = Main.WIDTH / 2 - this.width / 2;
+			this.y = Main.HEIGHT / 2 - this.height / 2;
 			
 			this.title.x = this.width / 2 - this.title.width / 2;
 			this.title.y = this.height / 2 - this.title.height / 2;
@@ -47,7 +47,7 @@ package view.controls
 		{	
 			newWidth = int(this.width * PlayButton.NEW_SCALE_X);
 			newHeight = int(this.height * PlayButton.NEW_SCALE_Y);
-			newY = Constants.HEIGHT - newHeight;
+			newY = Main.HEIGHT - newHeight;
 			newX = 0;
 			
 			this.remainSteps = PlayButton.COUNT_STEPS;

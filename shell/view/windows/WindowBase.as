@@ -17,8 +17,8 @@ package view.windows
 			tmp.alpha = 0.85;
 			this.addChild(tmp);
 			
-			this.x = (Constants.WIDTH - this.width) / 2;
-			this.y = (Constants.HEIGHT - this.height) / 2;
+			this.x = (Main.WIDTH - this.width) / 2;
+			this.y = (Main.HEIGHT - this.height) / 2;
 			
 			
 			this.closeButton = new CloseButton();

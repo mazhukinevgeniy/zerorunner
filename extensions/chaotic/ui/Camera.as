@@ -52,13 +52,13 @@ package chaotic.ui
 			var pCenter:PixelXY = Metric.toPixel(center);
 			
 			
-			this.container.x = -pCenter.x + (Constants.WIDTH - Metric.CELL_WIDTH) / 2;
-            this.container.y = -pCenter.y + (Constants.HEIGHT - Metric.CELL_HEIGHT) / 2;
+			this.container.x = -pCenter.x + (Main.WIDTH - Metric.CELL_WIDTH) / 2;
+            this.container.y = -pCenter.y + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;
 		}
 		
 		public function moveCenter(change:DCellXY, ticksToGo:int = 0):void 
 		{ 
-			this.moveCenterGently(change, ticksToGo * Constants.TIME_BETWEEN_TICKS); 
+			this.moveCenterGently(change, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS); 
 		}
 		
 		private function moveCenterGently(change:DCellXY, time:Number):void 

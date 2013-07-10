@@ -14,8 +14,8 @@ package view.controls
 			
 			this.fontName = "HiLo-Deco"; this.fontSize = 18;
 			
-			this.x = Constants.WIDTH - MuteButton.WIDTH;
-			this.y = Constants.HEIGHT - MuteButton.HEIGHT;
+			this.x = Main.WIDTH - MuteButton.WIDTH;
+			this.y = Main.HEIGHT - MuteButton.HEIGHT;
 		}
 		
 		public function toggleTitle():void

@@ -89,7 +89,7 @@ package chaotic.actors.view
 			
 			var image:Image = this.objects[id];
 			
-			var tween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS);
+			var tween:Tween = new Tween(image, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS);
 			tween.moveTo(image.x + change.x, image.y + change.y);
 			
 			this.juggler.add(tween);
@@ -114,11 +114,11 @@ package chaotic.actors.view
 			{
 				var image:Image = this.objects[id];
 				
-				var tween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS / 2, "easeIn");
+				var tween:Tween = new Tween(image, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS / 2, "easeIn");
 				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
 				tween.animate("x", image.x + Metric.toPixel(change).x / 2);
 				
-				var secondTween:Tween = new Tween(image, ticksToGo * Constants.TIME_BETWEEN_TICKS / 2, "easeOut");
+				var secondTween:Tween = new Tween(image, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS / 2, "easeOut");
 				secondTween.animate("y", image.y);
 				secondTween.animate("x", image.x + Metric.toPixel(change).x);
 				

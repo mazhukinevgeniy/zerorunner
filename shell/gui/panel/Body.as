@@ -9,7 +9,7 @@ package gui.panel
 		
 		public function Body() 
 		{
-			this.addChild(new Quad(Constants.WIDTH, Body.HEIGHT, 0x222222));
+			this.addChild(new Quad(Main.WIDTH, Body.HEIGHT, 0x222222));
 			
 			this.visible = false;
 		}

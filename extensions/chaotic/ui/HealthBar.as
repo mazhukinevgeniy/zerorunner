@@ -22,7 +22,7 @@ package chaotic.ui
 			this.container = new Sprite();
 			
 			this.container.x = 5;
-			this.container.y = Constants.HEIGHT - 60;
+			this.container.y = Main.HEIGHT - 60;
 			
 			flow.workWithUpdateListener(this);
 			

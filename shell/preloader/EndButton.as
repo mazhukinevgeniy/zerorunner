@@ -16,8 +16,8 @@ package preloader
 			var height:int = 20;
 			var title:String = "Finish immediately";
 			
-			this.x = int(Constants.WIDTH / 2 - width / 2);
-			this.y = int(Constants.HEIGHT * 2 / 3);
+			this.x = int(Main.WIDTH / 2 - width / 2);
+			this.y = int(Main.HEIGHT * 2 / 3);
 			
 			/* код ButtonBase.as */
 			this.graphics.beginFill(color);

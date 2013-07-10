@@ -39,8 +39,8 @@ package chaotic.metric
 			Metric.width = tW;
 			Metric.height = tH;
 			
-			Metric.cellsInVisibleWidth = int(Constants.WIDTH / Metric.cellWidth);
-			Metric.cellsInVisibleHeigth = int(Constants.HEIGHT / Metric.cellHeight);
+			Metric.cellsInVisibleWidth = int(Main.WIDTH / Metric.cellWidth);
+			Metric.cellsInVisibleHeigth = int(Main.HEIGHT / Metric.cellHeight);
 		}
 		
 		public static function getRandomDCell():DCellXY 

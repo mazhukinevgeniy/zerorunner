@@ -6,7 +6,7 @@ package gui.panel
 	{
 		public function SpaceHolder() 
 		{
-			super(Constants.WIDTH, 15, 0x222222);
+			super(Main.WIDTH, 15, 0x222222);
 			this.alpha = 0.3;
 		}
 		

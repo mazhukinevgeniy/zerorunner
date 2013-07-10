@@ -24,7 +24,7 @@ package chaotic.grinder
 		
 		private var container:Sprite;
 		
-		private const GRINDER_WIDTH:int = Constants.WIDTH * 2;
+		private const GRINDER_WIDTH:int = Main.WIDTH * 2;
 		private const GRINDER_HEIGHT:int = GrinderFeature.HEIGHT * Metric.CELL_HEIGHT;
 		
 		private var juggler:Juggler;
@@ -69,7 +69,7 @@ package chaotic.grinder
 		{
 			var stream:DisplayObject = this.streams[id];
 			
-			var tween:Tween = new Tween(stream, GrinderFeature.TIME_MIN * Constants.TIME_BETWEEN_TICKS);
+			var tween:Tween = new Tween(stream, GrinderFeature.TIME_MIN * ZeroRunner.TIME_BETWEEN_TICKS);
 			tween.animate("x", stream.x + change * Metric.CELL_WIDTH);
 			
 			this.juggler.add(tween);

@@ -17,8 +17,8 @@ package preloader
 			this.countBar = newCountBar - 1;
 			this.drawBar = 0;
 			
-			this.x = int(Constants.WIDTH / 2 - ProgressBar.WIDTH/ 2);
-			this.y = int(Constants.HEIGHT / 2);
+			this.x = int(Main.WIDTH / 2 - ProgressBar.WIDTH/ 2);
+			this.y = int(Main.HEIGHT / 2);
 			
 			this.redraw()
 			

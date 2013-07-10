@@ -18,8 +18,8 @@ package chaotic.ui
 			tmpI.alpha = 0.2;
 			this.message.addChild(tmpI);
 			
-			this.message.x = (Constants.WIDTH - this.message.width) / 2;
-			this.message.y = (Constants.HEIGHT - this.message.height) / 2;
+			this.message.x = (Main.WIDTH - this.message.width) / 2;
+			this.message.y = (Main.HEIGHT - this.message.height) / 2;
 			
 			var tmp:TextField = new TextField(200, 20, "Game over, please quit using panel above.");
 			

@@ -17,6 +17,7 @@ package chaotic
 	
 	public class ZeroRunner extends ChaoticGame
 	{
+		public static const TIME_BETWEEN_TICKS:Number = 0.12;
 		
 		public function ZeroRunner(container:Sprite, assets:AssetManager) 
 		{

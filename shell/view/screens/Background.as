@@ -6,7 +6,7 @@ package view.screens
 	{
 		public function Background() 
 		{
-			super(Constants.WIDTH, Constants.HEIGHT, 0x344322);
+			super(Main.WIDTH, Main.HEIGHT, 0x344322);
 		}
 	}
 
