@@ -39,7 +39,7 @@ package chaotic.grinder
 			{
 				this.move(this.plannedMove);
 				
-				this.timeBeforeTheMove = GrinderFeature.TIME_MIN + Math.random() * 15;
+				this.timeBeforeTheMove = GrinderFeature.TIME_MIN + Math.random() * 3;
 				this.plannedMove = 1;
 			}
 		}
