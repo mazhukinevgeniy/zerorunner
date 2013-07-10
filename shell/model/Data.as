@@ -24,8 +24,7 @@ package model
 			this._settings = new Settings();
 		}
 		
-		public function getSettings():ISettings { return this._settings; }
-		public function get settings():ISettings { return this._settings; } //TODO: lol, it's superugly, i'm almost PROUD of it
+		public function get settings():ISettings { return this._settings; }
 	}
 
 }

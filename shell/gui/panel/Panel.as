@@ -1,4 +1,4 @@
-package view.panel 
+package gui.panel 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import flash.display.Stage;
