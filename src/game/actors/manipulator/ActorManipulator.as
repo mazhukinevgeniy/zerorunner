@@ -10,23 +10,19 @@ package game.actors.manipulator
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
-	import starling.animation.Juggler;
 	
-	public class ActorManipulator implements IActionPerformer
+	public class ActorManipulator
 	{
 		private var commandChains:Vector.<Vector.<ActionBase>>;
 		
-		private var storage:ActorStorage;
-		
 		private var updateFlow:IUpdateDispatcher;
-		private var juggler:Juggler;
+		private var storage:ActorStorage;
 		
 		public function ActorManipulator(newStorage:ActorStorage, flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ActorsFeature.addActor);
-			flow.addUpdateListener(ActorsFeature.damageActor);
+			flow.addUpdateListener(ActorsFeature.actorAdded);
 			flow.addUpdateListener(ZeroRunner.tick);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
@@ -46,7 +42,7 @@ package game.actors.manipulator
 			}
 		}
 		
-		public function addActor(puppet:Puppet):void
+		public function actorAdded(puppet:Puppet):void
 		{
 			var type:int = puppet.type;
 			
@@ -87,62 +83,6 @@ package game.actors.manipulator
 			}
 		}
 		
-		public function movedActor(item:Puppet, change:DCellXY):void
-		{
-			var id:int = item.id;
-			
-			if (id == 0)
-				this.updateFlow.dispatchUpdate(ActorsFeature.moveCenter, change, item.speed);
-			
-			this.storage.moveObject(item, change);
-			
-			this.updateFlow.dispatchUpdate(ActorsFeature.moveActor, id, change, item.speed);
-		}
-		
-		public function jumpedActor(item:Puppet, change:DCellXY):void
-		{
-			this.storage.moveObject(item, change, this.smash, item.getCell(), this.storage, this);
-			
-			item.remainingDelay = item.speed * 2;
-			this.updateFlow.dispatchUpdate(ActorsFeature.jumpActor, item.id, change, item.speed * 2);
-		}
-		
-		private function smash(cell:CellXY, storage:ISearcher, destroyer:IActionPerformer):void
-		{
-			var target:Puppet = storage.findObjectByCell(cell);
-			if (target != null) destroyer.destroyActor(target);
-		}
-		
-		public function destroyActor(item:Puppet):void
-		{
-			if (item.id == 0)
-			{
-				this.juggler.delayCall(this.updateFlow.dispatchUpdate, 0.5, ZeroRunner.gameOver);
-			}
-			else
-			{
-				this.updateFlow.dispatchUpdate(ActorsFeature.actorRemoved, item.id);
-				
-				this.storage.deleteObject(item);
-			}
-		}
-		
-		public function damageActor(item:Puppet, damage:int):void
-		{
-			item.hp -= damage;
-			
-			if (!(item.hp > 0))
-			{
-				this.destroyActor(item);
-			}
-		}
-		
-		public function detonateActor(item:Puppet):void
-		{
-			this.updateFlow.dispatchUpdate(ActorsFeature.detonateActor, item.id);
-			
-			this.destroyActor(item);
-		}
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{
@@ -150,7 +90,7 @@ package game.actors.manipulator
 			var numberOfTypes:int = int(configuration.actor.length());
 			
 			var actions:ActionFactory = new ActionFactory(this.updateFlow);
-			actions.getInformerFrom(table, this);
+			actions.getInformerFrom(table);
 			
 			for (var i:int = 0; i < numberOfTypes; i++)
 			{
@@ -164,8 +104,6 @@ package game.actors.manipulator
 					vector.push(actions.getAction(tmpNode.action[j]));
 				}
 			}
-			
-			this.juggler = table.getInformer(Juggler);
 		}
 	}
 

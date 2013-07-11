@@ -1,7 +1,6 @@
 package game.actors.manipulator.moves 
 {
-	import game.actors.manipulator.actions.Detonate;
-	import game.actors.manipulator.IActionPerformer;
+	import game.actors.manipulator.actions.Bite;
 	import game.actors.storage.Puppet;
 	import game.actors.storage.ISearcher;
 	import game.metric.CellXY;
@@ -28,16 +27,14 @@ package game.actors.manipulator.moves
 		
 		private var actor:Puppet;
 		
-		private var detonate:Detonate;
+		private var bite:Bite;
 		
 		
-		public function HeuristicGoalPursuing(newScene:IScene, charFinder:ISearcher, newPerformer:IActionPerformer, detonate:Detonate) 
+		public function HeuristicGoalPursuing(newScene:IScene, bite:Bite) 
 		{
 			this.scene = newScene;
-			this.searcher = charFinder;
-			this.performer = newPerformer;
 			
-			this.detonate = detonate;
+			this.bite = bite;
 			
 			this.initializeHelperArrays();
 		}
@@ -79,38 +76,34 @@ package game.actors.manipulator.moves
 			if (data.hand == this.NOT_IN_BYPASS) 
 				data.goal = this.searcher.getCharacterCell();
 			
-			if (!item.getCell().isEqualTo(this.searcher.getCharacterCell()))
+			this.refreshCells();
+			
+			if (data.hand == this.NOT_IN_BYPASS)
 			{
-				this.refreshCells();
-				
-				if (data.hand == this.NOT_IN_BYPASS)
+				if (!this.tryStraightGoing(data.goal))
 				{
-					if (!this.tryStraightGoing(data.goal))
-					{
-						data.hand = (Math.random() > 0.5)?(-1):(1);
-						
-						if (data.goal.x > this.actor.x)
-							data.lastTouchedWall = this.RIGHT;
-						else if (data.goal.x < this.actor.x)
-							data.lastTouchedWall = this.LEFT;
-						else if (data.goal.y > this.actor.y)
-							data.lastTouchedWall = this.DOWN;
-						else if (data.goal.y < this.actor.y)
-							data.lastTouchedWall = this.UP;
-						
-						data.bypassStartingPoint = this.actor.getCell();
-					}
-				}
-				
-				if (data.hand != this.NOT_IN_BYPASS)
-				{
-					this.move(data.lastTouchedWall);
+					data.hand = (Math.random() > 0.5)?(-1):(1);
 					
-					if (this.sureCheck(data) || this.actor.getCell().isEqualTo(data.bypassStartingPoint))
-						data.hand = this.NOT_IN_BYPASS;
+					if (data.goal.x > this.actor.x)
+						data.lastTouchedWall = this.RIGHT;
+					else if (data.goal.x < this.actor.x)
+						data.lastTouchedWall = this.LEFT;
+					else if (data.goal.y > this.actor.y)
+						data.lastTouchedWall = this.DOWN;
+					else if (data.goal.y < this.actor.y)
+						data.lastTouchedWall = this.UP;
+					
+					data.bypassStartingPoint = this.actor.getCell();
 				}
 			}
-			else this.performer.destroyActor(item);
+			
+			if (data.hand != this.NOT_IN_BYPASS)
+			{
+				this.move(data.lastTouchedWall);
+				
+				if (this.sureCheck(data) || this.actor.getCell().isEqualTo(data.bypassStartingPoint))
+					data.hand = this.NOT_IN_BYPASS;
+			}
 			
 			data.previousCell = this.actor.getCell();
 		}
@@ -206,7 +199,7 @@ package game.actors.manipulator.moves
 		
 		override protected function onBlocked(item:Puppet, change:DCellXY):void
 		{
-			this.detonate.act(item);
+			this.bite.act(item, change);
 		}
 	}
 

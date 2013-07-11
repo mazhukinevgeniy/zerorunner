@@ -1,7 +1,6 @@
 package game.actors.manipulator.moves 
 {
 	import game.actors.ActorsFeature;
-	import game.actors.manipulator.IActionPerformer;
 	import game.actors.storage.Puppet;
 	import game.actors.storage.ISearcher;
 	import chaotic.core.IUpdateDispatcher;
@@ -18,12 +17,8 @@ package game.actors.manipulator.moves
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function MoveLikeACharacter(newLandscape:IScene, newInput:IKnowInput, newPerformer:IActionPerformer, newSearcher:ISearcher, flow:IUpdateDispatcher) 
+		public function MoveLikeACharacter(newLandscape:IScene, newInput:IKnowInput, flow:IUpdateDispatcher) 
 		{
-			this.searcher = newSearcher;
-			
-			this.performer = newPerformer;
-			
 			this.landscape = newLandscape;
 			this.input = newInput;
 			

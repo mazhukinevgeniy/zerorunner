@@ -14,11 +14,12 @@ package game.actors.manipulator
 	internal class ActionFactory
 	{
 		private var actions:Object;
-		private var flow:IUpdateDispatcher;
 		
 		public function ActionFactory(flow:IUpdateDispatcher) 
 		{
-			this.flow = flow;
+			ActionBase.flow = flow;
+			
+			
 			this.actions = new Object();
 		}
 		
@@ -27,26 +28,25 @@ package game.actors.manipulator
 			return this.actions[name];
 		}
 		
-		internal function getInformerFrom(table:IGiveInformers, performer:IActionPerformer):void
+		internal function getInformerFrom(table:IGiveInformers):void
 		{
 			var scene:IScene = table.getInformer(IScene);
-			var actors:ISearcher = table.getInformer(ISearcher);
 			var grinder:IGrinder = table.getInformer(IGrinder);
 			var input:IKnowInput = table.getInformer(IKnowInput);
-			var updateFlow:IUpdateDispatcher = this.flow;
 			
-			var bite:Bite = new Bite(updateFlow, actors);
-			var detonate:Detonate = new Detonate(actors, performer, updateFlow);
+			ActionBase.searcher = table.getInformer(ISearcher);
 			
-			this.actions["IsGrindedCheck"] = new IsGrindedCheck(grinder, performer);
-			this.actions["NormalLandscapeCheck"] = new NormalLandscapeCheck(scene, performer);
-			this.actions["OutOfBoundsCheck"] = new OutOfBoundsCheck(performer, actors);
+			var bite:Bite = new Bite();
 			
-			this.actions["HeuristicGoalPursuing"] = new HeuristicGoalPursuing(scene, actors, performer, detonate);
-			this.actions["InertialRandom"] = new InertialRandom(performer, actors);
-			this.actions["MoveLikeACharacter"] = new MoveLikeACharacter(scene, input, performer, actors, updateFlow);
-			this.actions["RunForward"] = new RunForward(performer, actors, scene, bite);
-			this.actions["SearchCorridor"] = new SearchCorridor(scene, performer, actors);
+			this.actions["IsGrindedCheck"] = new IsGrindedCheck(grinder);
+			this.actions["NormalLandscapeCheck"] = new NormalLandscapeCheck(scene);
+			this.actions["OutOfBoundsCheck"] = new OutOfBoundsCheck();
+			
+			this.actions["HeuristicGoalPursuing"] = new HeuristicGoalPursuing(scene, bite);
+			this.actions["InertialRandom"] = new InertialRandom();
+			this.actions["MoveLikeACharacter"] = new MoveLikeACharacter(scene, input, ActionBase.flow);
+			this.actions["RunForward"] = new RunForward(scene, bite);
+			this.actions["SearchCorridor"] = new SearchCorridor(scene);
 		}
 	}
 

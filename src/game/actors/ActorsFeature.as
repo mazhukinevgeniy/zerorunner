@@ -11,18 +11,21 @@ package game.actors
 	
 	public class ActorsFeature
 	{
-		public static const addActor:String = "addActor";
-		public static const moveActor:String = "moveActor";
-		public static const detonateActor:String = "detonateActor";
-		public static const jumpActor:String = "jumpActor";
-		public static const damageActor:String = "damageActor";
+		public static const actorAdded:String = "actorAdded";
 		
-		public static const actorRemoved:String = "actorRemoved";
+		public static const actorJumped:String = "actorJumped";
+		public static const actorMoved:String = "actorMoved";
+		public static const actorDamaged:String = "actorDamaged";
+		
+		public static const actorDestroyed:String = "actorDestroyed";
 		
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
 		public static const PROTAGONIST_ID:int = 0;
+		
+		
+		public static const MAXIMUM_DAMAGE:int = 1000;
 		
 		[Embed(source = "actors.xml", mimeType="application/octet-stream")]
 		internal static const config:Class;

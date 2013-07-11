@@ -1,6 +1,6 @@
 package game.actors.manipulator.checks 
 {
-	import game.actors.manipulator.IActionPerformer;
+	import game.actors.ActorsFeature;
 	import game.actors.storage.Puppet;
 	import game.scene.IScene;
 	import game.scene.SceneFeature;
@@ -9,9 +9,8 @@ package game.actors.manipulator.checks
 	{
 		private var landscape:IScene;
 		
-		public function NormalLandscapeCheck(newLandscape:IScene, newPerformer:IActionPerformer)
+		public function NormalLandscapeCheck(newLandscape:IScene)
 		{
-			this.performer = newPerformer;
 			this.landscape = newLandscape;
 		}
 		
@@ -19,7 +18,7 @@ package game.actors.manipulator.checks
 		{
 			if (this.landscape.getSceneCell(item.getCell()) == SceneFeature.FALL)
 			{
-				this.performer.destroyActor(item);
+				this.damageActor(item, ActorsFeature.MAXIMUM_DAMAGE);
 			}
 		}
 		

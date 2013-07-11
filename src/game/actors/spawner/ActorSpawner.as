@@ -71,7 +71,7 @@ package game.actors.spawner
 			newPuppet.speed = this.speeds[0];
 			newPuppet.hp = this.hitpoints[0];
 			
-			this.updateFlow.dispatchUpdate(ActorsFeature.addActor, newPuppet);
+			this.updateFlow.dispatchUpdate(ActorsFeature.actorAdded, newPuppet);
 			this.updateFlow.dispatchUpdate(ActorsFeature.setCenter, cell);
 		}
 		
@@ -98,7 +98,7 @@ package game.actors.spawner
 				newPuppet.speed = this.speeds[type];
 				newPuppet.hp = this.hitpoints[type];
 				
-				this.updateFlow.dispatchUpdate(ActorsFeature.addActor, newPuppet);
+				this.updateFlow.dispatchUpdate(ActorsFeature.actorAdded, newPuppet);
 			}
 			else this.storage.addUnusedID(id);
 		}

@@ -1,6 +1,6 @@
 package game.actors.manipulator.checks 
 {
-	import game.actors.manipulator.IActionPerformer;
+	import game.actors.ActorsFeature;
 	import game.actors.storage.Puppet;
 	import game.grinder.IGrinder;
 	
@@ -9,10 +9,9 @@ package game.actors.manipulator.checks
 		private var grinder:IGrinder;
 		
 		
-		public function IsGrindedCheck(newGrinder:IGrinder, newPerformer:IActionPerformer) 
+		public function IsGrindedCheck(newGrinder:IGrinder) 
 		{
 			this.grinder = newGrinder;
-			this.performer = newPerformer;
 		}
 		
 		
@@ -20,7 +19,7 @@ package game.actors.manipulator.checks
 		{
 			if (this.grinder.isGrinded(item.getCell()))
 			{
-				this.performer.destroyActor(item);
+				this.damageActor(item, ActorsFeature.MAXIMUM_DAMAGE);
 			}
 			
 		}

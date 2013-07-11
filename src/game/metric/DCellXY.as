@@ -13,6 +13,11 @@ package game.metric
 		{
 			return new DCellXY(- this._x, - this._y);
 		}
+		
+		public function get length():int
+		{
+			return Math.abs(this._x) + Math.abs(this._y);
+		}
 	}
 
 }

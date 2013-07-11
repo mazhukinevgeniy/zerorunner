@@ -28,7 +28,7 @@ package game.ui
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.restore);
-			flow.addUpdateListener(ActorsFeature.damageActor);
+			flow.addUpdateListener(ActorsFeature.actorDamaged);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
 		}
@@ -53,7 +53,7 @@ package game.ui
 			}
 		}
 		
-		public function damageActor(actor:Puppet, damage:int):void
+		public function actorDamaged(actor:Puppet, damage:int):void
 		{
 			if (actor.id == ActorsFeature.PROTAGONIST_ID)
 				while (damage > 0 && this.points.length > 0)

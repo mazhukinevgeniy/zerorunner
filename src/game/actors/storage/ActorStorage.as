@@ -1,9 +1,8 @@
 package game.actors.storage 
 {
-	import game.actors.ActorsFeature;
-	import game.actors.storage.Puppet;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IStoreInformers;
+	import game.actors.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -20,13 +19,67 @@ package game.actors.storage
 		private var active:int;
 		
 		
+		private var flow:IUpdateDispatcher;
+		
 		public function ActorStorage(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ActorsFeature.actorAdded);
+			flow.addUpdateListener(ActorsFeature.actorMoved);
+			flow.addUpdateListener(ActorsFeature.actorDestroyed);
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			
+			this.flow = flow;
+		}
+		
+		public function actorAdded(item:Puppet):void
+		{			
+			this.puppets[item.id] = item;
+			this.hashmap[Metric.getHash(item.cell)].push(item);
+			
+			this.active++;
+		}
+		
+		public function actorMoved(item:Puppet, change:DCellXY):void
+		{
+			this.removeFromHash(item);
+			
+			item.cell.applyChanges(change);
+			
+			this.hashmap[Metric.getHash(item.cell)].push(item);
+		}
+		
+		public function actorDestroyed(item:Puppet):void
+		{
+			if (item.id == 0)
+			{
+				this.flow.dispatchUpdate(ZeroRunner.gameOver);
+			}
+			else
+			{
+				this.deleteObject(item);
+			}
+		}
+		
+		private function deleteObject(item:Puppet):void
+		{
+			if (item.active)
+			{
+				item.active = false;
+				
+				this.unusedIDs.push(item.id);
+				this.active--;
+				
+				this.removeFromHash(item);
+			}
+		}
+		
+		private function removeFromHash(item:Puppet):void
+		{
+			var oldHash:Vector.<Puppet> = this.hashmap[Metric.getHash(item.cell)];
+			oldHash.splice(oldHash.indexOf(item), 1);
 		}
 		
 		public function prerestore():void
@@ -67,24 +120,6 @@ package game.actors.storage
 			return null;
 		}
 		
-		public function findObjectsInSquare(tlX:int, tlY:int, width:int):Vector.<Puppet>
-		{
-			var toReturn:Vector.<Puppet> = new Vector.<Puppet>();
-			
-			var maxX:int = tlX + width;
-			var maxY:int = tlY + width;
-			
-			for (var i:int = tlX; i < maxX; i++)
-				for (var j:int = tlY; j < maxY; j++)
-				{
-					var item:Puppet = this.findObjectByCell(new CellXY(i, j));
-					
-					if (item != null) toReturn.push(item);
-				}
-			
-			return toReturn;
-		}
-		
 		public function getCharacterCell():CellXY
 		{
 			return this.puppets[0].cell.getCopy();
@@ -111,48 +146,11 @@ package game.actors.storage
 			this.unusedIDs.push(id);
 		}
 		
-		public function addActor(item:Puppet):void
-		{			
-			this.puppets[item.id] = item;
-			this.hashmap[Metric.getHash(item.cell)].push(item);
-			
-			this.active++;
-		}
-		public function moveObject(item:Puppet, change:DCellXY, inBetween:Function = null, ... args):void
-		{
-			this.removeFromHash(item);
-			
-			item.cell.applyChanges(change);
-			
-			if (inBetween != null)
-				inBetween.apply(null, args);
-			
-			this.hashmap[Metric.getHash(item.cell)].push(item);
-		}
-		public function deleteObject(item:Puppet):void
-		{
-			if (item.active)
-			{
-				item.active = false;
-				
-				this.unusedIDs.push(item.id);
-				this.active--;
-				
-				this.removeFromHash(item);
-			}
-		}
-		
 		
 		
 		public function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(ISearcher, this);
-		}
-		
-		private function removeFromHash(item:Puppet):void
-		{
-			var oldHash:Vector.<Puppet> = this.hashmap[Metric.getHash(item.cell)];
-			oldHash.splice(oldHash.indexOf(item), 1);
 		}
 	}
 

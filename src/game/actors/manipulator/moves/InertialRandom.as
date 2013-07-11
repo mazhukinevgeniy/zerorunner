@@ -1,19 +1,15 @@
 package game.actors.manipulator.moves 
 {
-	import game.actors.manipulator.IActionPerformer;
 	import game.actors.storage.Puppet;
-	import game.actors.storage.ISearcher;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	
 	public class InertialRandom extends MoveBase
 	{
 		
-		public function InertialRandom(newPerformer:IActionPerformer, newSearcher:ISearcher) 
+		public function InertialRandom() 
 		{
-			this.searcher = newSearcher;
 			
-			this.performer = newPerformer;
 		}
 		
 		override public function prepareDataIn(item:Puppet):void

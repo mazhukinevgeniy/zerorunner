@@ -1,8 +1,6 @@
 package game.actors.manipulator.moves 
 {
-	import game.actors.manipulator.IActionPerformer;
 	import game.actors.storage.Puppet;
-	import game.actors.storage.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -13,13 +11,8 @@ package game.actors.manipulator.moves
 	{
 		private var scene:IScene;
 		
-		public function SearchCorridor(newScene:IScene, newPerformer:IActionPerformer, newSearcher:ISearcher) 
+		public function SearchCorridor(newScene:IScene) 
 		{
-			this.searcher = newSearcher;
-			
-			this.performer = newPerformer;
-			
-			
 			this.scene = newScene;
 		}
 		

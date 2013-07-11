@@ -40,11 +40,10 @@ package game.actors.view
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
-			flow.addUpdateListener(ActorsFeature.addActor);
-			flow.addUpdateListener(ActorsFeature.actorRemoved);
-			flow.addUpdateListener(ActorsFeature.moveActor);
-			flow.addUpdateListener(ActorsFeature.detonateActor);
-			flow.addUpdateListener(ActorsFeature.jumpActor);
+			flow.addUpdateListener(ActorsFeature.actorAdded);
+			flow.addUpdateListener(ActorsFeature.actorDestroyed);
+			flow.addUpdateListener(ActorsFeature.actorMoved);
+			flow.addUpdateListener(ActorsFeature.actorJumped);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
@@ -56,7 +55,7 @@ package game.actors.view
 			this.atlas = this.assets.getTextureAtlas("gameAtlas");
 		}
 		
-		public function addActor(puppet:Puppet):void
+		public function actorAdded(puppet:Puppet):void
 		{
 			var cell:PixelXY = Metric.toPixel(puppet.getCell());
 			
@@ -67,8 +66,10 @@ package game.actors.view
 			this.container.addChild(image);
 		}
 		
-		public function actorRemoved(id:int):void
+		public function actorDestroyed(puppet:Puppet):void
 		{
+			var id:int = puppet.id;
+			
 			var image:Image = this.objects[id];
 			var tween:Tween = new Tween(image, 0.5);
 			tween.scaleTo(0);
@@ -84,49 +85,40 @@ package game.actors.view
 			this.container.removeChild(item);
 		}
 		
-		public function moveActor(id:int, cChange:DCellXY, ticksToGo:int):void
+		public function actorMoved(item:Puppet, cChange:DCellXY):void
 		{
 			var change:DPixelXY = Metric.toPixel(cChange);
 			
-			var image:Image = this.objects[id];
+			var image:Image = this.objects[item.id];
 			
-			var tween:Tween = new Tween(image, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS);
+			var tween:Tween = new Tween(image, item.remainingDelay * ZeroRunner.TIME_BETWEEN_TICKS);
 			tween.moveTo(image.x + change.x, image.y + change.y);
 			
 			this.juggler.add(tween);
 		}
 		
-		public function detonateActor(id:int):void
+		public function actorJumped(item:Puppet):void
 		{
-			var image:Image = this.objects[id];
-			
-			var tween:Tween = new Tween(image, 0);
-			tween.scaleTo(2);
-			tween.moveTo(image.x - image.width / 2, image.y - image.height / 2);
-			
-			this.juggler.add(tween);
-		}
-		
-		public function jumpActor(id:int, change:DCellXY, ticksToGo:int):void
-		{
-			if (change.y != 0)
-				throw new Error("Not implemented");
-			else
-			{
+			//if (change.y != 0)
+			//	throw new Error("Not implemented");
+			//else
+			//{
+				var id:int = item.id;
 				var image:Image = this.objects[id];
+				var ticksToGo:int = item.remainingDelay;
 				
 				var tween:Tween = new Tween(image, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS / 2, "easeIn");
 				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
-				tween.animate("x", image.x + Metric.toPixel(change).x / 2);
+			//	tween.animate("x", image.x + Metric.toPixel(change).x / 2);
 				
 				var secondTween:Tween = new Tween(image, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS / 2, "easeOut");
 				secondTween.animate("y", image.y);
-				secondTween.animate("x", image.x + Metric.toPixel(change).x);
+			//	secondTween.animate("x", image.x + Metric.toPixel(change).x);
 				
 				tween.nextTween = secondTween;
 				
 				this.juggler.add(tween);
-			}
+			//} //TODO: redisign
 		}
 		
 		public function getInformerFrom(table:IGiveInformers):void

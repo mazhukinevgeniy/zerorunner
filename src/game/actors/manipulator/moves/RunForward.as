@@ -1,7 +1,6 @@
 package game.actors.manipulator.moves 
 {
 	import game.actors.manipulator.actions.Bite;
-	import game.actors.manipulator.IActionPerformer;
 	import game.actors.storage.Puppet;
 	import game.actors.storage.ISearcher;
 	import game.metric.CellXY;
@@ -18,13 +17,10 @@ package game.actors.manipulator.moves
 		
 		private var bite:Bite;
 		
-		public function RunForward(newPerformer:IActionPerformer, searcher:ISearcher, scene:IScene, bite:Bite) 
+		public function RunForward(scene:IScene, bite:Bite) 
 		{
 			this.bite = bite;
 			
-			this.searcher = searcher;
-			
-			this.performer = newPerformer;
 			this.scene = scene;
 		}
 		
@@ -35,7 +31,7 @@ package game.actors.manipulator.moves
 			if (this.scene.getSceneCell(new CellXY(cell.x + 1, cell.y)) != SceneFeature.FALL)
 				this.callMove(item, this.forward);
 			else
-				this.performer.jumpedActor(item, this.jump);
+				this.jumpActor(item, this.jump);
 		}
 		
 		override public function prepareDataIn(item:Puppet):void
