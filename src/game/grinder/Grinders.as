@@ -34,7 +34,7 @@ package game.grinder
 		
 		public function isGrinded(cell:CellXY):Boolean
 		{
-			return this.getFront(cell.y) >= cell.x;
+			return this.getFront(cell.y) > cell.x;
 		}
 		
 		public function getFront(y:int):int
