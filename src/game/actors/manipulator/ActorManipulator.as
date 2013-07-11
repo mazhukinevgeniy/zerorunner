@@ -15,7 +15,6 @@ package game.actors.manipulator
 	public class ActorManipulator implements IActionPerformer
 	{
 		private var commandChains:Vector.<Vector.<ActionBase>>;
-		private var onDamaged:Vector.<ActionBase>;
 		
 		private var storage:ActorStorage;
 		
@@ -27,6 +26,7 @@ package game.actors.manipulator
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ActorsFeature.damageActor);
 			flow.addUpdateListener(ZeroRunner.tick);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
@@ -44,8 +44,6 @@ package game.actors.manipulator
 			{
 				this.commandChains[i] = new Vector.<ActionBase>();
 			}
-			
-			this.onDamaged = new Vector.<ActionBase>(numberOfTypes, true);
 		}
 		
 		public function addActor(puppet:Puppet):void
@@ -131,8 +129,6 @@ package game.actors.manipulator
 		
 		public function damageActor(item:Puppet, damage:int):void
 		{
-			this.onDamaged[item.type].actOn(item, damage);
-			
 			item.hp -= damage;
 			
 			if (!(item.hp > 0))
@@ -167,8 +163,6 @@ package game.actors.manipulator
 				{
 					vector.push(actions.getAction(tmpNode.action[j]));
 				}
-				
-				this.onDamaged[i] = actions.getAction(configuration.actor[i].onDamaged);
 			}
 			
 			this.juggler = table.getInformer(Juggler);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <actors>
 	<actor type = "Character" code = "0">
-		<baseHP>50</baseHP>
+		<baseHP>100</baseHP>
 		<speed>1</speed>
 		<configuration>
 			<action>MoveLikeACharacter</action>
@@ -9,7 +9,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<getCell>getSpawnCell</getCell>
-		<onDamaged>ProtagonistDamaged</onDamaged>
 		<chance>0</chance>
 	</actor>
 	
@@ -23,7 +22,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<getCell>getRandomCell</getCell>
-		<onDamaged>DoNothing</onDamaged>
 		<chance>0.3</chance>
 	</actor>
 	
@@ -37,7 +35,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<getCell>getRandomCell</getCell>
-		<onDamaged>DoNothing</onDamaged>
 		<chance>0.3</chance>
 	</actor>
 	
@@ -49,7 +46,6 @@
 			<action>RunForward</action>
 		</configuration>
 		<getCell>getGrindedCell</getCell>
-		<onDamaged>DoNothing</onDamaged>
 		<chance>0.4</chance>
 	</actor>
 	
@@ -63,7 +59,6 @@
 			<action>IsGrindedCheck</action>
 		</configuration>
 		<getCell>getRandomCell</getCell>
-		<onDamaged>DoNothing</onDamaged>
 		<chance>0.7</chance>
 	</actor>
 	

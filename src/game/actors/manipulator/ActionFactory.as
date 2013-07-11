@@ -4,7 +4,6 @@ package game.actors.manipulator
 	import game.actors.manipulator.actions.*;
 	import game.actors.manipulator.checks.*;
 	import game.actors.manipulator.moves.*;
-	import game.actors.manipulator.onDamaged.*;
 	import game.actors.storage.ISearcher;
 	import chaotic.core.IUpdateDispatcher;
 	import game.grinder.IGrinder;
@@ -36,12 +35,8 @@ package game.actors.manipulator
 			var input:IKnowInput = table.getInformer(IKnowInput);
 			var updateFlow:IUpdateDispatcher = this.flow;
 			
-			var bite:Bite = new Bite(performer, actors);
-			var detonate:Detonate = new Detonate(actors, performer);
-			
-			this.actions["DoNothing"] = new DoNothing();
-			
-			this.actions["ProtagonistDamaged"] = new ProtagonistDamaged(updateFlow);
+			var bite:Bite = new Bite(updateFlow, actors);
+			var detonate:Detonate = new Detonate(actors, performer, updateFlow);
 			
 			this.actions["IsGrindedCheck"] = new IsGrindedCheck(grinder, performer);
 			this.actions["NormalLandscapeCheck"] = new NormalLandscapeCheck(scene, performer);

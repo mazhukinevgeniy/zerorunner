@@ -15,14 +15,14 @@ package game.actors
 		public static const moveActor:String = "moveActor";
 		public static const detonateActor:String = "detonateActor";
 		public static const jumpActor:String = "jumpActor";
+		public static const damageActor:String = "damageActor";
 		
 		public static const actorRemoved:String = "actorRemoved";
-		
-		public static const protagonistDamaged:String = "protagonistDamaged";
 		
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
+		public static const PROTAGONIST_ID:int = 0;
 		
 		[Embed(source = "actors.xml", mimeType="application/octet-stream")]
 		internal static const config:Class;

@@ -1,5 +1,7 @@
 package game.actors.manipulator.actions 
 {
+	import chaotic.core.IUpdateDispatcher;
+	import game.actors.ActorsFeature;
 	import game.actors.manipulator.IActionPerformer;
 	import game.actors.storage.Puppet;
 	import game.actors.storage.ISearcher;
@@ -8,13 +10,13 @@ package game.actors.manipulator.actions
 	public class Bite
 	{
 		private var actors:ISearcher;
-		private var performer:IActionPerformer;
+		private var flow:IUpdateDispatcher;
 		
 		private const DAMAGE:int = 5;
 		
-		public function Bite(performer:IActionPerformer, actors:ISearcher) 
+		public function Bite(flow:IUpdateDispatcher, actors:ISearcher) 
 		{
-			this.performer = performer;
+			this.flow = flow;
 			this.actors = actors;
 		}
 		
@@ -23,7 +25,7 @@ package game.actors.manipulator.actions
 		{
 			var target:Puppet = this.actors.findObjectByCell((item.getCell()).applyChanges(change));
 			
-			this.performer.damageActor(target, this.DAMAGE);
+			this.flow.dispatchUpdate(ActorsFeature.damageActor, target, this.DAMAGE);
 		}
 	}
 

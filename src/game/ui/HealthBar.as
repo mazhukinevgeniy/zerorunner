@@ -3,6 +3,7 @@ package game.ui
 	import game.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
+	import game.actors.storage.Puppet;
 	import game.ZeroRunner;
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -27,7 +28,7 @@ package game.ui
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.restore);
-			flow.addUpdateListener(ActorsFeature.protagonistDamaged);
+			flow.addUpdateListener(ActorsFeature.damageActor);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
 		}
@@ -52,15 +53,16 @@ package game.ui
 			}
 		}
 		
-		public function protagonistDamaged(damage:int):void
+		public function damageActor(actor:Puppet, damage:int):void
 		{
-			while (damage > 0 && this.points.length > 0)
-			{
-				var point:Quad = this.points.pop();
-				this.container.removeChild(point);
-				
-				damage--;
-			}
+			if (actor.id == ActorsFeature.PROTAGONIST_ID)
+				while (damage > 0 && this.points.length > 0)
+				{
+					var point:Quad = this.points.pop();
+					this.container.removeChild(point);
+					
+					damage--;
+				}
 		}
 		
 	}
