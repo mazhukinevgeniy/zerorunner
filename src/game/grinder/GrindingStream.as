@@ -10,9 +10,10 @@ package game.grinder
 		internal var allowedGap:int;
 		
 		private var timeBeforeTheMove:int = 1;
-		private var plannedMove:int;
 		
 		private var updateFlow:IUpdateDispatcher;
+		
+		private const step:int = 1;
 		
 		
 		public function GrindingStream(newID:int, flow:IUpdateDispatcher) 
@@ -22,7 +23,6 @@ package game.grinder
 			this.updateFlow = flow;
 			
 			this.front = 10 + Math.random() * 10;
-			this.plannedMove = 1;
 		}
 		
 		internal function newFront(value:int):void
@@ -37,10 +37,9 @@ package game.grinder
 			
 			if (this.timeBeforeTheMove == 0)
 			{
-				this.move(this.plannedMove);
+				this.move(this.step);
 				
 				this.timeBeforeTheMove = GrinderFeature.TIME_MIN + Math.random() * 3;
-				this.plannedMove = 1;
 			}
 		}
 		
