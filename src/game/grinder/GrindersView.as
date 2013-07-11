@@ -74,6 +74,8 @@ package game.grinder
 			var tween:Tween = new Tween(stream, GrinderFeature.TIME_MIN * Time.TIME_BETWEEN_TICKS);
 			tween.animate("x", stream.x + change * Metric.CELL_WIDTH);
 			
+			tween.roundToInt = true;
+			
 			this.juggler.add(tween);
 		}
 		

@@ -71,6 +71,8 @@ package game.ui
 			var tween:Tween = new Tween(this.container, time);
 			tween.moveTo(this.container.x - pChange.x, this.container.y - pChange.y);
 			
+			tween.roundToInt = true;
+			
 			this.juggler.add(tween);
 		}
 		

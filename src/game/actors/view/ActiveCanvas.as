@@ -95,6 +95,8 @@ package game.actors.view
 			var tween:Tween = new Tween(image, item.remainingDelay * Time.TIME_BETWEEN_TICKS);
 			tween.moveTo(image.x + change.x, image.y + change.y);
 			
+			tween.roundToInt = true;
+			
 			this.juggler.add(tween);
 		}
 		
