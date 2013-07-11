@@ -34,6 +34,17 @@ package game.scene
 			
 			this.textures = new Object();
 			this.textures["ground"] = atlas.getTexture("ground");
+			this.textures["S"] = atlas.getTexture("S");
+			this.textures["W"] = atlas.getTexture("W");
+			this.textures["E"] = atlas.getTexture("E");
+			this.textures["N"] = atlas.getTexture("N");
+		/*	this.textures["S"] = atlas.getTexture("S");
+			this.textures["S"] = atlas.getTexture("S");
+			this.textures["S"] = atlas.getTexture("S");
+			this.textures["S"] = atlas.getTexture("S");
+			this.textures["S"] = atlas.getTexture("S");
+			this.textures["S"] = atlas.getTexture("S");
+			this.textures["S"] = atlas.getTexture("S"); */
 		}
 		
 		public function getImage(title:String):Image

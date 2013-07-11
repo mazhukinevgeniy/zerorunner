@@ -62,20 +62,33 @@ package game.scene
 			var xGoal:int = center.x + this.width;
 			var yGoal:int = center.y + this.height;
 			
+			var sprite:Image;
+			
 			for (var i:int = center.x - this.width; i < xGoal; i++)
 			{
 				for (var j:int = center.y - this.height; j < yGoal; j++)
 				{
 					if (this.cache.getCached(i, j))
 					{
-						var sprite:Image = this.pull.getImage("ground");
+						sprite = this.pull.getImage("ground");
 						
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
 						this.container.addChild(sprite);
 					}
-					
+					else
+					{
+						if (this.cache.getCached(i, j - 1))
+						{
+							sprite = this.pull.getImage("S");
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = j * Metric.CELL_HEIGHT;
+							
+							this.container.addChild(sprite);
+						}
+					}
 				}
 				
 			}
