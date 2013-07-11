@@ -77,9 +77,9 @@ package game.scene
 						
 						this.container.addChild(sprite);
 						
-						var number:uint = uint(((i) * 999999000001) ^ ((j) * 87178291199));
+						var number:uint = uint(((i) * 999999000001) | ((j) * 87178291199));
 						
-						if (number % 10 < 3)
+						if (number % 13 < 3)
 						{
 							sprite = this.pull.getImage("stones" + (1 + number % 3));
 							
