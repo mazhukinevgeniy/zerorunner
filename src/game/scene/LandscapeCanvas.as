@@ -8,6 +8,7 @@ package game.scene
 	import game.metric.DPixelXY;
 	import game.metric.Metric;
 	import game.metric.PixelXY;
+	import game.time.Time;
 	import game.ui.Camera;
 	import game.ZeroRunner;
 	import starling.display.Image;
@@ -22,19 +23,22 @@ package game.scene
 		private var assets:AssetManager;
 		
 		private var searcher:ISearcher;
-		private var scene:IScene;
+		private var cache:LandscapeCache;
 		
 		private var container:Sprite;
 		
-		private var width:int = 1 + (Metric.CELLS_IN_VISIBLE_WIDTH + 2) / 2;
-		private var height:int = 1 + (Metric.CELLS_IN_VISIBLE_HEIGHT + 2) / 2;
+		private const width:int = 1 + (Metric.CELLS_IN_VISIBLE_WIDTH + 2) / 2;
+		private const height:int = 1 + (Metric.CELLS_IN_VISIBLE_HEIGHT + 2) / 2;
 		
 		
-		public function LandscapeCanvas(flow:IUpdateDispatcher) 
+		public function LandscapeCanvas(flow:IUpdateDispatcher, cache:LandscapeCache) 
 		{
 			this.container = new Sprite();
 			
 			this.container.touchable = false;
+			
+			this.cache = cache;
+			
 			
 			flow.workWithUpdateListener(this);
 			
@@ -43,6 +47,9 @@ package game.scene
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
+			
+			for (var i:int = 0; i < 6; i++)
+				flow.dispatchUpdate(Time.addCacher, cache);
 		}
 		
 		public function tick():void
@@ -55,11 +62,11 @@ package game.scene
 			var xGoal:int = center.x + this.width;
 			var yGoal:int = center.y + this.height;
 			
-			for (var i:int = center.x - 2 * this.width; i < xGoal; i++)
+			for (var i:int = center.x - this.width; i < xGoal; i++)
 			{
-				for (var j:int = center.y - 2 * this.height; j < yGoal; j++)
+				for (var j:int = center.y - this.height; j < yGoal; j++)
 				{
-					if (this.scene.getSceneCell(new CellXY(i, j)))
+					if (this.cache.getCached(i, j))
 					{
 						var sprite:Image = this.pull.getImage("ground");
 						
@@ -72,6 +79,8 @@ package game.scene
 				}
 				
 			}
+			
+			this.cache.setTopLeftCell(new CellXY(center.x - this.width, center.y - this.height));
 		}
 		
 		
@@ -79,8 +88,6 @@ package game.scene
 		{
 			this.assets = table.getInformer(AssetManager);
 			this.searcher = table.getInformer(ISearcher);
-			
-			this.scene = table.getInformer(IScene);
 		}
 		
 		public function prerestore():void

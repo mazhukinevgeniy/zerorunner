@@ -13,6 +13,8 @@ package game.scene
 	{		
 		private var patterns:Vector.<ScenePattern>;
 		
+		private var cacher:LandscapeCache;
+		
 		public function Scene(flow:IUpdateDispatcher) 
 		{
 			this.patterns = new Vector.<ScenePattern>(SceneFeature.NUMBER_OF_PATTERNS, true);
