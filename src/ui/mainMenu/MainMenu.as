@@ -13,17 +13,45 @@ package ui.mainMenu
 	public class MainMenu extends WindowBase
 	{		
 		
+		private static const WIDTH_MAIN_MENU = 250;
+		private static const HEIGHT_MAIN_MENU = 300;
+		private static const SPACE_BEETWEEN_BUTTON = 20;
+		private static const START_HEIGHT_BUTTONS = 50;
+		
+		
+		public static const WIDTH_BUTTON = 100;
+		public static const HEIGHT_BUTTON = 30;
+		
 		private var flow:IUpdateDispatcher;
 		
-		private var playButton:ButtonMainMenu;
+		private var playButton:ButtonMainMenu,
+					statisticsButton:ButtonMainMenu,
+					achievementsButton:ButtonMainMenu,
+					creditsButton:ButtonMainMenu;
 		
 		
 		public function MainMenu(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
 		{
-			super(250, 150);
+			super(MainMenu.WIDTH_MAIN_MENU, MainMenu.HEIGHT_MAIN_MENU);
 			
-			this.playButton = new ButtonMainMenu(assets.getTexture("badbutton1"), "New game");
+			this.playButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS, "New game");
 			this.addChild(this.playButton);
+			
+			this.statisticsButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS + MainMenu.HEIGHT_BUTTON + MainMenu.SPACE_BEETWEEN_BUTTON,
+													   "Statistics");
+			this.addChild(this.statisticsButton);
+			
+			this.achievementsButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS + 2 * MainMenu.HEIGHT_BUTTON + 2 * MainMenu.SPACE_BEETWEEN_BUTTON,
+													   "Achievements");
+			this.addChild(this.achievementsButton);
+			
+			this.creditsButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS + 3 * MainMenu.HEIGHT_BUTTON + 3 * MainMenu.SPACE_BEETWEEN_BUTTON,
+													   "Credits");
+			this.addChild(this.creditsButton);
+			
+			
+			
+			
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handlePlayTriggered);
 			

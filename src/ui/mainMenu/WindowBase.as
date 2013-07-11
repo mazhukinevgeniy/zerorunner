@@ -10,12 +10,13 @@ package ui.mainMenu
 		
 		public function WindowBase(width:int, height:int) 
 		{
+			//временно, в будущем стоит сделать прозрачным
 			var tmp:Quad = new Quad(width, height, 0xFFFFFF);
 			tmp.alpha = 0.85;
 			this.addChild(tmp);
 			
-			this.x = (Main.WIDTH - this.width) / 2;
-			this.y = (Main.HEIGHT - this.height) / 2;
+			//this.x = (Main.WIDTH - this.width) / 2;
+			//this.y = (Main.HEIGHT - this.height) / 2;
 		}
 	}
 
