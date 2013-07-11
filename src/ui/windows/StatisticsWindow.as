@@ -24,17 +24,17 @@ package ui.windows
 			this.visible = false;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(ChaoticUI.changeShowStatistic);
+			this.flow.addUpdateListener(ChaoticUI.openWindow);
 			
 			root.addChild(this);
 		}
 		
-		public function changeShowStatistic():void
+		public function openWindow(target:String):void
 		{
-			if (this.visible)
-				this.visible = false;
-			else
+			if(target == ManagerWindows.STATISTICS)
 				this.visible = true;
+			else
+				this.visible = false;
 		}
 		
 	}

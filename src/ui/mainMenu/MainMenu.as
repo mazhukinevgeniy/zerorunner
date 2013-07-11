@@ -10,6 +10,7 @@ package ui.mainMenu
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
 	import ui.windows.WindowBase;
+	import ui.windows.ManagerWindows;
 	
 	public class MainMenu extends WindowBase
 	{		
@@ -51,8 +52,10 @@ package ui.mainMenu
 			this.addChild(this.creditsButton);
 
 			
-			this.playButton.addEventListener(Event.TRIGGERED, this.handlePlayTriggered);
-			this.statisticsButton.addEventListener(Event.TRIGGERED, this.handleStatisticsTriggered);
+			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			this.statisticsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			
 			
 			
@@ -61,21 +64,17 @@ package ui.mainMenu
 			this.flow = flow;
 		}
 		
-		
-		private function handlePlayTriggered(event:Event):void
+		private function handleMenuTriggered(event:Event):void
 		{
 			if (event.target == this.playButton)
 			{
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.GAME);
 				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.flow.dispatchUpdate(ChaoticUI.newGame);
 			}
-		}
-		
-		private function handleStatisticsTriggered(event:Event):void
-		{
-			if (event.target == this.statisticsButton)
+			else if (event.target == this.statisticsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.changeShowStatistic);
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.STATISTICS);
 			}
 		}
 	}
