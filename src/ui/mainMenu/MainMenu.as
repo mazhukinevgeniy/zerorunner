@@ -9,18 +9,19 @@ package ui.mainMenu
 	import starling.events.Event;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
+	import ui.windows.WindowBase;
 	
 	public class MainMenu extends WindowBase
 	{		
 		
-		private static const WIDTH_MAIN_MENU = 250;
-		private static const HEIGHT_MAIN_MENU = 300;
-		private static const SPACE_BEETWEEN_BUTTON = 20;
-		private static const START_HEIGHT_BUTTONS = 50;
+		private static const WIDTH_MAIN_MENU:Number = 250;
+		private static const HEIGHT_MAIN_MENU:Number = 300;
+		private static const SPACE_BEETWEEN_BUTTON:Number = 20;
+		private static const START_HEIGHT_BUTTONS:Number = 50;
 		
 		
-		public static const WIDTH_BUTTON = 100;
-		public static const HEIGHT_BUTTON = 30;
+		public static const WIDTH_BUTTON:Number = 100;
+		public static const HEIGHT_BUTTON:Number = 30;
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -48,12 +49,11 @@ package ui.mainMenu
 			this.creditsButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS + 3 * MainMenu.HEIGHT_BUTTON + 3 * MainMenu.SPACE_BEETWEEN_BUTTON,
 													   "Credits");
 			this.addChild(this.creditsButton);
-			
-			
-			
-			
+
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handlePlayTriggered);
+			this.statisticsButton.addEventListener(Event.TRIGGERED, this.handleStatisticsTriggered);
+			
 			
 			
 			root.addChild(this);
@@ -68,6 +68,14 @@ package ui.mainMenu
 			{
 				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.flow.dispatchUpdate(ChaoticUI.newGame);
+			}
+		}
+		
+		private function handleStatisticsTriggered(event:Event):void
+		{
+			if (event.target == this.statisticsButton)
+			{
+				this.flow.dispatchUpdate(ChaoticUI.changeShowStatistic);
 			}
 		}
 	}

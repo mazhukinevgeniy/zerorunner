@@ -11,11 +11,14 @@ package ui
 	import ui.mainMenu.MainMenu;
 	import ui.pauseControl.PauseTypes;
 	import ui.sounds.Sounds;
+	import ui.windows.StatisticsWindow;
 	
 	public class ChaoticUI extends UpdateManager
 	{
 		public static const flowName:String = "Shell Flow";
 		public static const newGame:String = "newGame";
+		
+		public static const changeShowStatistic:String = "changeShowStatistic";
 		
 		
 		public static const keyUp:String = "keyUp";
@@ -38,6 +41,8 @@ package ui
 			new MainMenu(this.root, this, assets);
 			new GameView(this.root, this);
 			new Sounds(this.root, this, this.assets);
+			
+			new StatisticsWindow(this.root, this);
 			
 			new PauseTypes(this);
 			

@@ -1,0 +1,42 @@
+package ui.windows 
+{
+	import chaotic.core.IUpdateDispatcher;
+	import starling.display.DisplayObjectContainer;
+	import ui.ChaoticUI;
+	import starling.display.Sprite;
+	/**
+	 * ...
+	 * @author 
+	 */
+	public class StatisticsWindow extends WindowBase
+	{
+		
+		private var flow:IUpdateDispatcher;
+		
+		public function StatisticsWindow(root:DisplayObjectContainer, flow:IUpdateDispatcher) 
+		{
+			super(250, 250)
+			
+			this.x = (Main.WIDTH - this.width) / 2;
+			this.y = (Main.HEIGHT - this.height) / 2;
+			
+			this.flow = flow;
+			this.visible = false;
+			
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(ChaoticUI.changeShowStatistic);
+			
+			root.addChild(this);
+		}
+		
+		public function changeShowStatistic():void
+		{
+			if (this.visible)
+				this.visible = false;
+			else
+				this.visible = true;
+		}
+		
+	}
+
+}
