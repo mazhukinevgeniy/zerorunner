@@ -48,10 +48,8 @@ package game.actors.manipulator.moves
 			}
 		}
 		
-		override protected function onMoved(item:Puppet, change:DCellXY):void
+		override protected function afterMoved(item:Puppet):void
 		{
-			super.onMoved(item, change);
-			
 			this.flow.dispatchUpdate(InputManager.purgeClicks);
 		}
 	}

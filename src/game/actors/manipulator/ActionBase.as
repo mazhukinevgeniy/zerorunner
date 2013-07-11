@@ -48,11 +48,10 @@ package game.actors.manipulator
 		{
 			item.remainingDelay = item.speed * change.length;
 			
-			ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change);
-			
-			var target:Puppet = ActionBase.searcher.findObjectByCell(item.getCell());
+			var target:Puppet = ActionBase.searcher.findObjectByCell(item.getCell().applyChanges(change));
 			if (target != null) ActionBase.flow.dispatchUpdate(ActorsFeature.actorDestroyed, target);
 			
+			ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change);
 			ActionBase.flow.dispatchUpdate(ActorsFeature.actorJumped, item);
 		}
 		
@@ -66,7 +65,7 @@ package game.actors.manipulator
 				this.onBlocked(item, change);
 		}
 		
-		protected function onMoved(item:Puppet, change:DCellXY):void
+		private function onMoved(item:Puppet, change:DCellXY):void
 		{
 			item.remainingDelay = item.speed;
 			var id:int = item.id;
@@ -75,6 +74,13 @@ package game.actors.manipulator
 				ActionBase.flow.dispatchUpdate(ActorsFeature.moveCenter, change, item.speed);
 			
 			ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change);
+			
+			this.afterMoved(item);
+		}
+		
+		protected function afterMoved(item:Puppet):void
+		{
+			
 		}
 		
 		protected function onBlocked(item:Puppet, change:DCellXY):void

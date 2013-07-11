@@ -11,7 +11,6 @@ package game.scene
 	import game.ui.Camera;
 	import game.ZeroRunner;
 	import starling.display.Image;
-	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
