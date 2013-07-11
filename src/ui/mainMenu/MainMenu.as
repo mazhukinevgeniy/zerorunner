@@ -14,15 +14,13 @@ package ui.mainMenu
 	
 	public class MainMenu extends WindowBase
 	{		
-		
-		private static const WIDTH_MAIN_MENU:Number = 250;
-		private static const HEIGHT_MAIN_MENU:Number = 300;
-		private static const SPACE_BEETWEEN_BUTTON:Number = 20;
-		private static const START_HEIGHT_BUTTONS:Number = 50;
-		
-		
+		public static const WIDTH_MAIN_MENU:Number = 150;
+		public static const HEIGHT_MAIN_MENU:Number = 300;
 		public static const WIDTH_BUTTON:Number = 100;
 		public static const HEIGHT_BUTTON:Number = 30;
+		
+		private static const SPACE_BEETWEEN_BUTTON:Number = 20;
+		private static const START_HEIGHT_BUTTONS:Number = 50;
 		
 		private var flow:IUpdateDispatcher;
 		

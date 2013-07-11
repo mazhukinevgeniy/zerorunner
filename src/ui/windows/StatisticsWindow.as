@@ -17,7 +17,7 @@ package ui.windows
 		{
 			super(250, 250)
 			
-			this.x = (Main.WIDTH - this.width) / 2;
+			this.x = (ManagerWindows.WIDTH - this.width) / 2 + ManagerWindows.X;
 			this.y = (Main.HEIGHT - this.height) / 2;
 			
 			this.flow = flow;
