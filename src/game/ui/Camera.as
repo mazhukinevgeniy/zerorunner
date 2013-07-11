@@ -1,6 +1,7 @@
 package game.ui 
 {
 	import game.actors.ActorsFeature;
+	import game.time.Time;
 	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
@@ -60,7 +61,7 @@ package game.ui
 		
 		public function moveCenter(change:DCellXY, ticksToGo:int = 0):void 
 		{
-			this.moveCenterGently(change, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS); 
+			this.moveCenterGently(change, ticksToGo * Time.TIME_BETWEEN_TICKS);
 		}
 		
 		private function moveCenterGently(change:DCellXY, time:Number):void 

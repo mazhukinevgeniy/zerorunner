@@ -1,6 +1,7 @@
 package game.grinder 
 {
 	import game.actors.ActorsFeature;
+	import game.time.Time;
 	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
@@ -70,7 +71,7 @@ package game.grinder
 		{
 			var stream:DisplayObject = this.streams[id];
 			
-			var tween:Tween = new Tween(stream, GrinderFeature.TIME_MIN * ZeroRunner.TIME_BETWEEN_TICKS);
+			var tween:Tween = new Tween(stream, GrinderFeature.TIME_MIN * Time.TIME_BETWEEN_TICKS);
 			tween.animate("x", stream.x + change * Metric.CELL_WIDTH);
 			
 			this.juggler.add(tween);

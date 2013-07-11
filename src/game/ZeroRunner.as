@@ -40,7 +40,6 @@ package game
 		public static const setGameContainer:String = "setGameContainer";
 		
 		
-		public static const TIME_BETWEEN_TICKS:Number = 0.12;
 		
 		
 		

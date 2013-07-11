@@ -5,11 +5,29 @@ package game.time
 	import chaotic.informers.IStoreInformers;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
 	
 	public class Time
 	{
+		private var FPS:int;
+		private var framesBetweenTicks:int;
+		
+		private var cachers:Vector.<Vector.<ICacher>>;
+		private var numberOfCachers:int;
+		
+		private var frameCount:int;
+		
+		public static const addCacher:String = "addCacher";
+		
+		private static var TBT:Number;
+		public static function get TIME_BETWEEN_TICKS():Number //:Number = 0.12;
+		{
+			return Time.TBT;
+		}
+		
+		
 		private var fixed:Boolean = true;
 		private var gameJuggler:Juggler;
 		
@@ -17,6 +35,23 @@ package game.time
 		
 		public function Time(root:Sprite, flow:IUpdateDispatcher) 
 		{
+			this.FPS = Starling.current.nativeStage.frameRate;
+			this.framesBetweenTicks = this.FPS == 60 ? 6 : 3;
+			
+			this.cachers = new Vector.<Vector.<ICacher>>(this.framesBetweenTicks, true);
+			
+			for (var i:int = 0; i < this.framesBetweenTicks; i++)
+			{
+				this.cachers[i] = new Vector.<ICacher>();
+			}
+			
+			this.numberOfCachers = 0;
+			this.frameCount = 0;
+			
+			Time.TBT = this.framesBetweenTicks / this.FPS; // multiply by 0.95 if tweens would be not fast enough
+			
+			
+			
 			this.gameJuggler = new Juggler();
 			
 			root.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
@@ -27,8 +62,16 @@ package game.time
 			flow.addUpdateListener(ZeroRunner.setPause);
 			flow.addUpdateListener(ZeroRunner.gameOver);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			flow.addUpdateListener(Time.addCacher);
 			
 			this.updateFlow = flow;
+		}
+		
+		public function addCacher(cacher:ICacher):void
+		{
+			this.cachers[this.numberOfCachers % this.framesBetweenTicks].push(cacher);
+			
+			this.numberOfCachers++;
 		}
 		
 		public function restore():void
@@ -37,7 +80,7 @@ package game.time
 			
 			this.fixed = false;
 			
-			this.gameJuggler.delayCall(this.prepareTick, ZeroRunner.TIME_BETWEEN_TICKS);
+			this.frameCount = 0;
 		}
 		
 		public function setPause(value:Boolean):void
@@ -50,19 +93,33 @@ package game.time
 			if (!this.fixed)
 			{
 				this.gameJuggler.advanceTime(event.passedTime);
+				
+				if (this.frameCount == this.framesBetweenTicks)
+				{
+					this.frameCount = 0;
+					
+					this.updateFlow.dispatchUpdate(ZeroRunner.tick);
+				}
+				else
+				{
+					var vector:Vector.<ICacher> = this.cachers[this.frameCount];
+					var length:int = vector.length;
+					
+					for (var i:int = 0; i < length; i++)
+					{
+						vector[i].cache();
+					}
+					
+					this.frameCount++;
+				}
 			}
-		}
-		
-		private function prepareTick():void
-		{
-			this.updateFlow.dispatchUpdate(ZeroRunner.tick);
-			
-			this.gameJuggler.delayCall(this.prepareTick, ZeroRunner.TIME_BETWEEN_TICKS);
 		}
 		
 		public function gameOver():void
 		{
 			this.fixed = true;
+			
+			this.frameCount = 0;
 		}
 		public function addInformerTo(table:IStoreInformers):void
 		{

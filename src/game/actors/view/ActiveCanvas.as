@@ -3,6 +3,7 @@ package game.actors.view
 	import game.actors.ActorsFeature;
 	import game.actors.storage.Puppet;
 	import game.actors.view.DrawenActor;
+	import game.time.Time;
 	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
@@ -91,7 +92,7 @@ package game.actors.view
 			
 			var image:Image = this.objects[item.id];
 			
-			var tween:Tween = new Tween(image, item.remainingDelay * ZeroRunner.TIME_BETWEEN_TICKS);
+			var tween:Tween = new Tween(image, item.remainingDelay * Time.TIME_BETWEEN_TICKS);
 			tween.moveTo(image.x + change.x, image.y + change.y);
 			
 			this.juggler.add(tween);
@@ -107,11 +108,11 @@ package game.actors.view
 				var image:Image = this.objects[id];
 				var ticksToGo:int = item.remainingDelay;
 				
-				var tween:Tween = new Tween(image, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS / 2, "easeIn");
+				var tween:Tween = new Tween(image, ticksToGo * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
 				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
 			//	tween.animate("x", image.x + Metric.toPixel(change).x / 2);
 				
-				var secondTween:Tween = new Tween(image, ticksToGo * ZeroRunner.TIME_BETWEEN_TICKS / 2, "easeOut");
+				var secondTween:Tween = new Tween(image, ticksToGo * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
 				secondTween.animate("y", image.y);
 			//	secondTween.animate("x", image.x + Metric.toPixel(change).x);
 				
