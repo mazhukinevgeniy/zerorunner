@@ -33,6 +33,7 @@ package game.ui
 		public function Camera(flow:IUpdateDispatcher) 
 		{
 			this.container = new Sprite();
+			
 			this.layers = new Vector.<Sprite>(Camera.NUMBER_OF_LAYERS, true);
 			
 			for (var i:int = 0; i < Camera.NUMBER_OF_LAYERS; i++)

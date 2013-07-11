@@ -33,6 +33,7 @@ package game.scene
 		public function LandscapeCanvas(flow:IUpdateDispatcher) 
 		{
 			this.container = new Sprite();
+			
 			this.container.touchable = false;
 			
 			flow.workWithUpdateListener(this);
@@ -58,20 +59,19 @@ package game.scene
 			{
 				for (var j:int = center.y - 2 * this.height; j < yGoal; j++)
 				{
-					var sprite:Image = this.pull.getImage(this.getCode(new CellXY(i, j)));
+					if (this.scene.getSceneCell(new CellXY(i, j)))
+					{
+						var sprite:Image = this.pull.getImage("ground");
+						
+						sprite.x = i * Metric.CELL_WIDTH;
+						sprite.y = j * Metric.CELL_HEIGHT;
+						
+						this.container.addChild(sprite);
+					}
 					
-					sprite.x = i * Metric.CELL_WIDTH;
-					sprite.y = j * Metric.CELL_HEIGHT;
-					
-					this.container.addChild(sprite);
 				}
 				
 			}
-		}
-		
-		private function getCode(cell:CellXY):int
-		{
-			return this.scene.getSceneCell(cell);
 		}
 		
 		

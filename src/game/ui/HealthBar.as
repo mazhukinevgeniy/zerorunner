@@ -43,7 +43,7 @@ package game.ui
 			
 			for (var i:int = 0; i < this.healthPoints; i++)
 			{
-				var point:Quad = new Quad(10, 10, 0x000000);
+				var point:Quad = new Quad(10, 10, 0xAAAAAA);
 				
 				point.x = 12 * (i / this.POINTS_PER_COLUMN);
 				point.y = 12 * (i % this.POINTS_PER_COLUMN);

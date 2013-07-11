@@ -15,6 +15,7 @@ package game
 	import game.ui.UIExtendsions;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
@@ -62,6 +63,7 @@ package game
 		public function setGameContainer(viewRoot:Sprite):void
 		{
 			this.displayRoot = viewRoot;
+			viewRoot.addChild(new Quad(Main.WIDTH, Main.HEIGHT, 0xFF000000));//TODO: it causes extra redraws, must reimplement
 			
 			Metric.initialize(40, 40, 81, 81);
 			
