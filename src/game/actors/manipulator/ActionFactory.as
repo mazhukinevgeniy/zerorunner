@@ -5,7 +5,6 @@ package game.actors.manipulator
 	import game.actors.manipulator.checks.*;
 	import game.actors.manipulator.moves.*;
 	import game.actors.manipulator.onDamaged.*;
-	import game.actors.manipulator.onSpawned.*;
 	import game.actors.storage.ISearcher;
 	import chaotic.core.IUpdateDispatcher;
 	import game.grinder.IGrinder;
@@ -41,8 +40,6 @@ package game.actors.manipulator
 			var detonate:Detonate = new Detonate(actors, performer);
 			
 			this.actions["DoNothing"] = new DoNothing();
-			
-			this.actions["ReachGrinder"] = new ReachGrinder(performer, grinder, actors);
 			
 			this.actions["ProtagonistDamaged"] = new ProtagonistDamaged(updateFlow);
 			

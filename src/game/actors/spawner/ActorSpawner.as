@@ -1,11 +1,12 @@
 package game.actors.spawner 
 {
-	import game.actors.ActorsFeature;
-	import game.actors.storage.ActorStorage;
-	import game.actors.storage.Puppet;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.UnresolvedRequestError;
 	import chaotic.informers.IGiveInformers;
+	import game.actors.ActorsFeature;
+	import game.actors.storage.ActorStorage;
+	import game.actors.storage.Puppet;
+	import game.grinder.IGrinder;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -16,12 +17,14 @@ package game.actors.spawner
 	public class ActorSpawner
 	{
 		private var scene:IScene;
+		private var grinders:IGrinder;
 		
 		private var storage:ActorStorage;
 		
 		private var speeds:Vector.<int>;
 		private var hitpoints:Vector.<int>;
 		private var chances:Vector.<Number>;
+		private var getCell:Vector.<String>;
 		
 		private var numberOfTypes:int;
 		
@@ -44,12 +47,16 @@ package game.actors.spawner
 			this.speeds = new Vector.<int>(numberOfTypes, true);
 			this.hitpoints = new Vector.<int>(numberOfTypes, true);
 			this.chances = new Vector.<Number>(numberOfTypes, true);
+			this.getCell = new Vector.<String>(numberOfTypes, true);
 			
 			for (var i:int = 0; i < numberOfTypes; i++)
 			{
-				this.speeds[i] = int(actors.actor[i].speed);
-				this.hitpoints[i] = int(actors.actor[i].baseHP);
-				this.chances[i] = Number(actors.actor[i].chance);
+				var actor:XML = actors.actor[i];
+				
+				this.speeds[i] = int(actor.speed);
+				this.hitpoints[i] = int(actor.baseHP);
+				this.chances[i] = Number(actor.chance);
+				this.getCell[i] = String(actor.getCell);
 			}
 			this.chances[numberOfTypes - 1] = 1;
 			
@@ -58,7 +65,7 @@ package game.actors.spawner
 		
 		public function restore():void
 		{
-			var cell:CellXY = ActorsFeature.SPAWN_CELL;
+			var cell:CellXY = this.getSpawnCell();
 			
 			var newPuppet:Puppet = new Puppet(0, 0, cell);
 			newPuppet.speed = this.speeds[0];
@@ -75,17 +82,12 @@ package game.actors.spawner
 			
 			for (var i:int = 0; i < stepsToDo; i++)
 				this.spawn(this.storage.getUnusedID(), 
-		                   this.getType(), 
-						   this.getCell());
-			
-			CONFIG::debug
-			{
-				trace(this.storage.getNumberOfActives(), "actors are present");
-			}
+		                   this.getType());
 		}
 		
-		private function spawn(id:int, type:int, cell:CellXY):void
+		private function spawn(id:int, type:int):void
 		{
+			var cell:CellXY = this[getCell[type]]();
 			var char:CellXY = this.storage.getCharacterCell();
 			
 			if ((Metric.distance(cell, char) > 10) && 
@@ -101,11 +103,24 @@ package game.actors.spawner
 			else this.storage.addUnusedID(id);
 		}
 		
-		private function getCell():CellXY
+		private function getSpawnCell():CellXY
+		{
+			return ActorsFeature.SPAWN_CELL;
+		}
+		private function getGrindedCell():CellXY
+		{
+			var y:int = this.storage.getCharacterCell().y - 20 + Math.random() * 40;
+			
+			var x:int = this.grinders.getFront(y);
+			
+			return new CellXY(x, y);
+		}
+		private function getRandomCell():CellXY
 		{
 			return this.storage.getCharacterCell().applyChanges
 					(new DCellXY( -5 + Math.random() * 15, -8 + Math.random() * 21));
 		}
+		
 		private function getType():int
 		{
 			for (var i:int = 0; i < this.numberOfTypes; i++)
@@ -118,6 +133,7 @@ package game.actors.spawner
 		public function getInformerFrom(table:IGiveInformers):void
 		{
 			this.scene = table.getInformer(IScene);
+			this.grinders = table.getInformer(IGrinder);
 		}
 	}
 

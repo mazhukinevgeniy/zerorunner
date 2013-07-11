@@ -15,7 +15,6 @@ package game.actors.manipulator
 	public class ActorManipulator implements IActionPerformer
 	{
 		private var commandChains:Vector.<Vector.<ActionBase>>;
-		private var onSpawned:Vector.<ActionBase>;
 		private var onDamaged:Vector.<ActionBase>;
 		
 		private var storage:ActorStorage;
@@ -46,7 +45,6 @@ package game.actors.manipulator
 				this.commandChains[i] = new Vector.<ActionBase>();
 			}
 			
-			this.onSpawned = new Vector.<ActionBase>(numberOfTypes, true);
 			this.onDamaged = new Vector.<ActionBase>(numberOfTypes, true);
 		}
 		
@@ -61,13 +59,6 @@ package game.actors.manipulator
 			{
 				commands[i].prepareDataIn(puppet);
 			}
-			
-			this.onSpawned[type].actOn(puppet);
-		}
-		
-		public function replaceActor(item:Puppet, change:DCellXY):void
-		{
-			this.storage.moveObject(item, change);
 		}
 		
 		public function tick():void
@@ -177,7 +168,6 @@ package game.actors.manipulator
 					vector.push(actions.getAction(tmpNode.action[j]));
 				}
 				
-				this.onSpawned[i] = actions.getAction(configuration.actor[i].onSpawned);
 				this.onDamaged[i] = actions.getAction(configuration.actor[i].onDamaged);
 			}
 			

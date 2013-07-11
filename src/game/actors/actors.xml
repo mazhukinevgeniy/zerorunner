@@ -8,7 +8,7 @@
 			<action>NormalLandscapeCheck</action>
 			<action>IsGrindedCheck</action>
 		</configuration>
-		<onSpawned>DoNothing</onSpawned>
+		<getCell>getSpawnCell</getCell>
 		<onDamaged>ProtagonistDamaged</onDamaged>
 		<chance>0</chance>
 	</actor>
@@ -22,7 +22,7 @@
 			<action>OutOfBoundsCheck</action>
 			<action>IsGrindedCheck</action>
 		</configuration>
-		<onSpawned>DoNothing</onSpawned>
+		<getCell>getRandomCell</getCell>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.3</chance>
 	</actor>
@@ -36,7 +36,7 @@
 			<action>OutOfBoundsCheck</action>
 			<action>IsGrindedCheck</action>
 		</configuration>
-		<onSpawned>DoNothing</onSpawned>
+		<getCell>getRandomCell</getCell>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.3</chance>
 	</actor>
@@ -48,7 +48,7 @@
 			<action>NormalLandscapeCheck</action>
 			<action>RunForward</action>
 		</configuration>
-		<onSpawned>ReachGrinder</onSpawned>
+		<getCell>getGrindedCell</getCell>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.4</chance>
 	</actor>
@@ -62,7 +62,7 @@
 			<action>OutOfBoundsCheck</action>
 			<action>IsGrindedCheck</action>
 		</configuration>
-		<onSpawned>DoNothing</onSpawned>
+		<getCell>getRandomCell</getCell>
 		<onDamaged>DoNothing</onDamaged>
 		<chance>0.7</chance>
 	</actor>
