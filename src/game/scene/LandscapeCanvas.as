@@ -189,6 +189,8 @@ package game.scene
 		public function prerestore():void
 		{
 			if (this.pull == null) this.pull = new TilePull(this.assets);
+			
+			this.cache.setTopLeftCell(new CellXY(40 - 10, 40 - 10));
 		}
 	}
 

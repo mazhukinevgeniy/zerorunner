@@ -30,8 +30,6 @@ package game.scene
 		
 			
 			this.cacheVector = new Vector.<int>(this.width * this.height, true);
-			
-			this.tLC = new CellXY(40 - 10, 40 - 10); //why so?
 		}
 		
 		internal function setTopLeftCell(cell:CellXY):void
