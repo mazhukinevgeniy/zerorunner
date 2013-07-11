@@ -88,6 +88,33 @@ package game.scene
 							
 							this.container.addChild(sprite);
 						}
+						if (this.cache.getCached(i - 1, j))
+						{
+							sprite = this.pull.getImage("E");
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = j * Metric.CELL_HEIGHT;
+							
+							this.container.addChild(sprite);
+						}
+						if (this.cache.getCached(i + 1, j))
+						{
+							sprite = this.pull.getImage("W");
+							
+							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
+							sprite.y = j * Metric.CELL_HEIGHT;
+							
+							this.container.addChild(sprite);
+						}
+						if (this.cache.getCached(i, j + 1))
+						{
+							sprite = this.pull.getImage("N");
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
+							
+							this.container.addChild(sprite);
+						}
 					}
 				}
 				
