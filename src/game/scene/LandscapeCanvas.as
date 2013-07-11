@@ -76,6 +76,18 @@ package game.scene
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
 						this.container.addChild(sprite);
+						
+						var number:uint = uint(((i) * 999999000001) ^ ((j) * 87178291199));
+						
+						if (number % 10 < 3)
+						{
+							sprite = this.pull.getImage("stones" + (1 + number % 3));
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = j * Metric.CELL_HEIGHT;
+							
+							this.container.addChild(sprite);
+						}
 					}
 					else
 					{

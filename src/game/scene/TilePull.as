@@ -42,9 +42,9 @@ package game.scene
 			this.textures["NW"] = atlas.getTexture("NW");
 			this.textures["SE"] = atlas.getTexture("SE");
 			this.textures["SW"] = atlas.getTexture("SW");
-			/*this.textures["S"] = atlas.getTexture("S");
-			this.textures["S"] = atlas.getTexture("S");
-			this.textures["S"] = atlas.getTexture("S"); */
+			this.textures["stones1"] = atlas.getTexture("stones1");
+			this.textures["stones2"] = atlas.getTexture("stones2");
+			this.textures["stones3"] = atlas.getTexture("stones3");
 		}
 		
 		public function getImage(title:String):Image
