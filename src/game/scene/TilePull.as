@@ -38,11 +38,11 @@ package game.scene
 			this.textures["W"] = atlas.getTexture("W");
 			this.textures["E"] = atlas.getTexture("E");
 			this.textures["N"] = atlas.getTexture("N");
-		/*	this.textures["S"] = atlas.getTexture("S");
-			this.textures["S"] = atlas.getTexture("S");
-			this.textures["S"] = atlas.getTexture("S");
-			this.textures["S"] = atlas.getTexture("S");
-			this.textures["S"] = atlas.getTexture("S");
+			this.textures["NE"] = atlas.getTexture("NE");
+			this.textures["NW"] = atlas.getTexture("NW");
+			this.textures["SE"] = atlas.getTexture("SE");
+			this.textures["SW"] = atlas.getTexture("SW");
+			/*this.textures["S"] = atlas.getTexture("S");
 			this.textures["S"] = atlas.getTexture("S");
 			this.textures["S"] = atlas.getTexture("S"); */
 		}
