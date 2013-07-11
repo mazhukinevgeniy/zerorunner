@@ -4,6 +4,7 @@ package
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
 	import flash.system.Capabilities;
+	import game.ZeroRunner;
 	import preloader.ProgressBar;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
@@ -12,6 +13,7 @@ package
 	import starling.textures.TextureAtlas;
 	import starling.utils.adaptTextureAtlasMakerXML;
 	import starling.utils.AssetManager;
+	import ui.ChaoticUI;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
@@ -29,7 +31,8 @@ package
 		private var mStarling:Starling;
 		
 		private var starlingRoot:starling.display.Sprite;
-		private var master:MasterChaotic;
+		private var game:ZeroRunner;
+		private var ui:ChaoticUI;
 		
 		private var progressBar:ProgressBar;
 		private var assets:AssetManager;
@@ -102,7 +105,8 @@ package
 								this.assets.getTexture("sprites0"), 
 								adaptTextureAtlasMakerXML(Main.gameatlas)));
 			
-				this.master = new MasterChaotic(this.starlingRoot, this.assets);
+				this.game = new ZeroRunner(this.assets);
+				this.ui = new ChaoticUI(this.starlingRoot, this.assets);
 			}
 		}
 	}

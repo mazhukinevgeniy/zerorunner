@@ -1,8 +1,8 @@
 package game.ui 
 {
 	import game.actors.ActorsFeature;
+	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -42,10 +42,10 @@ package game.ui
 			
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ActorsFeature.moveCenter);
-			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			flow.addUpdateListener(Camera.addToTheLayer);
 			
-			flow.dispatchUpdate(ChaoticGame.addToTheHUD, this.container);
+			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
 		}
 		
 		public function setCenter(center:CellXY):void

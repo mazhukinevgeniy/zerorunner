@@ -1,8 +1,8 @@
 package game.grinder 
 {
 	import game.actors.ActorsFeature;
+	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -42,7 +42,7 @@ package game.grinder
 			flow.addUpdateListener(GrinderFeature.grindingStreamMoved);
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ActorsFeature.moveCenter);
-			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.GRINDERS, this.container);
 		}

@@ -2,8 +2,8 @@ package ui.mainMenu
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
-	import chaotic.game.ChaoticGame;
 	import feathers.controls.Button;
+	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -38,7 +38,7 @@ package ui.mainMenu
 		{
 			if (event.target == this.playButton)
 			{
-				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticGame.flowName, ChaoticUI.newGame);
+				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.flow.dispatchUpdate(ChaoticUI.newGame);
 			}
 		}

@@ -3,11 +3,11 @@ package game.actors.storage
 	import game.actors.ActorsFeature;
 	import game.actors.storage.Puppet;
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
+	import game.ZeroRunner;
 	
 	public class ActorStorage implements ISearcher
 	{
@@ -25,8 +25,8 @@ package game.actors.storage
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ActorsFeature.addActor);
-			flow.addUpdateListener(ChaoticGame.prerestore);
-			flow.addUpdateListener(ChaoticGame.addInformerTo);
+			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(ZeroRunner.addInformerTo);
 		}
 		
 		public function prerestore():void

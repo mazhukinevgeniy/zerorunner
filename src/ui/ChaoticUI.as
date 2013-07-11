@@ -2,6 +2,8 @@ package ui
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
+	import flash.events.KeyboardEvent;
+	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
 	import ui.background.Background;
@@ -38,6 +40,13 @@ package ui
 			new Sounds(this.root, this, this.assets);
 			
 			new PauseTypes(this);
+			
+			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
+		}
+		
+		private function handleKeyUp(event:KeyboardEvent):void
+		{
+			this.dispatchUpdate(ChaoticUI.keyUp, event.keyCode);
 		}
 	}
 

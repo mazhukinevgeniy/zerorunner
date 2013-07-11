@@ -2,8 +2,8 @@ package game.ui
 {
 	import game.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
+	import game.ZeroRunner;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
@@ -26,10 +26,10 @@ package game.ui
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.restore);
+			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(ActorsFeature.protagonistDamaged);
 			
-			flow.dispatchUpdate(ChaoticGame.addToTheHUD, this.container);
+			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
 		}
 		
 		public function restore():void

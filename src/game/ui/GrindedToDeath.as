@@ -1,7 +1,7 @@
 package game.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
+	import game.ZeroRunner;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.text.TextField;
@@ -27,10 +27,10 @@ package game.ui
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.restore);
-			flow.addUpdateListener(ChaoticGame.gameOver);
+			flow.addUpdateListener(ZeroRunner.restore);
+			flow.addUpdateListener(ZeroRunner.gameOver);
 			
-			flow.dispatchUpdate(ChaoticGame.addToTheHUD, this.message);
+			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.message);
 		}
 		
 		public function restore():void

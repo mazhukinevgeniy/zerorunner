@@ -1,9 +1,9 @@
 package game.grinder 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import game.metric.Metric;
+	import game.ZeroRunner;
 	
 	internal class GrinderBehavior
 	{
@@ -14,9 +14,9 @@ package game.grinder
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.restore);
+			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(GrinderFeature.grindingStreamMoved);
-			flow.addUpdateListener(ChaoticGame.tick);
+			flow.addUpdateListener(ZeroRunner.tick);
 			
 			this.updates = flow;
 		}

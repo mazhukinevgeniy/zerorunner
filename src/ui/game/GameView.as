@@ -2,7 +2,7 @@ package ui.game
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
-	import chaotic.game.ChaoticGame;
+	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import ui.ChaoticUI;
@@ -25,8 +25,8 @@ package ui.game
 			
 			var gameContainer:Sprite = new Sprite();
 			this.container.addChild(gameContainer);
-			flow.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticGame.flowName, 
-									ChaoticGame.setGameContainer, gameContainer);
+			flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, 
+									ZeroRunner.setGameContainer, gameContainer);
 				
 			this.container.addChild(new Panel(flow));
 		}

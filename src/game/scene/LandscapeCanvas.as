@@ -2,7 +2,6 @@ package game.scene
 {
 	import game.actors.storage.ISearcher;
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -10,6 +9,7 @@ package game.scene
 	import game.metric.Metric;
 	import game.metric.PixelXY;
 	import game.ui.Camera;
+	import game.ZeroRunner;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -38,9 +38,9 @@ package game.scene
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.prerestore);
-			flow.addUpdateListener(ChaoticGame.tick);
-			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(ZeroRunner.tick);
+			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
 		}

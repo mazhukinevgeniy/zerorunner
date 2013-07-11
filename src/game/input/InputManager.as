@@ -1,9 +1,9 @@
 package game.input
 {
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import game.metric.DCellXY;
+	import game.ZeroRunner;
 	
 	public class InputManager implements IKnowInput
 	{
@@ -21,10 +21,10 @@ package game.input
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.restore);
+			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(InputManager.newInputPiece);
 			flow.addUpdateListener(InputManager.purgeClicks);
-			flow.addUpdateListener(ChaoticGame.addInformerTo);
+			flow.addUpdateListener(ZeroRunner.addInformerTo);
 		}
 		
 		public function purgeClicks():void

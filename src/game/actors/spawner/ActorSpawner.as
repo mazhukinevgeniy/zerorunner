@@ -5,13 +5,13 @@ package game.actors.spawner
 	import game.actors.storage.Puppet;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.UnresolvedRequestError;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.IScene;
 	import game.scene.SceneFeature;
+	import game.ZeroRunner;
 	
 	public class ActorSpawner
 	{
@@ -31,9 +31,9 @@ package game.actors.spawner
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.restore);
-			flow.addUpdateListener(ChaoticGame.tick);
-			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			flow.addUpdateListener(ZeroRunner.restore);
+			flow.addUpdateListener(ZeroRunner.tick);
+			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			this.updateFlow = flow;
 			

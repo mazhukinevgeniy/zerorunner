@@ -4,8 +4,8 @@ package game.actors.manipulator
 	import game.actors.storage.ActorStorage;
 	import game.actors.storage.ISearcher;
 	import game.actors.storage.Puppet;
+	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -28,8 +28,8 @@ package game.actors.manipulator
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ActorsFeature.addActor);
-			flow.addUpdateListener(ChaoticGame.tick);
-			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			flow.addUpdateListener(ZeroRunner.tick);
+			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			this.updateFlow = flow;
 			
@@ -128,7 +128,7 @@ package game.actors.manipulator
 		{
 			if (item.id == 0)
 			{
-				this.juggler.delayCall(this.updateFlow.dispatchUpdate, 0.5, ChaoticGame.gameOver);
+				this.juggler.delayCall(this.updateFlow.dispatchUpdate, 0.5, ZeroRunner.gameOver);
 			}
 			else
 			{

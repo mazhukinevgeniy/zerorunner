@@ -1,9 +1,9 @@
 package game.grinder 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import game.metric.CellXY;
+	import game.ZeroRunner;
 	
 	internal class Grinders implements IGrinder
 	{
@@ -16,9 +16,9 @@ package game.grinder
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.restore);
+			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(GrinderFeature.addGrinders);
-			flow.addUpdateListener(ChaoticGame.addInformerTo);
+			flow.addUpdateListener(ZeroRunner.addInformerTo);
 		}
 		
 		public function addGrinders(vector:Vector.<GrindingStream>):void

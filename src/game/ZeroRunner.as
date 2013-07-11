@@ -1,7 +1,8 @@
 package game 
 {
+	import chaotic.core.UpdateManager;
+	import chaotic.informers.InformerManager;
 	import game.actors.ActorsFeature;
-	import chaotic.game.ChaoticGame;
 	import game.grinder.GrinderFeature;
 	import game.input.InputManager;
 	import game.metric.CellXY;
@@ -9,31 +10,62 @@ package game
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
 	import game.statistics.Statistics;
+	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
-	import starling.animation.Juggler;
 	import starling.core.Starling;
+	import starling.display.DisplayObject;
+	import starling.display.Sprite;
 	import starling.utils.AssetManager;
+	import ui.ChaoticUI;
 	
-	public class ZeroRunner extends ChaoticGame
+	public class ZeroRunner extends UpdateManager
 	{
+		public static const flowName:String = "Game Flow";
+		
+		public static const addToTheHUD:String = "addToTheHUD";
+		
+		public static const addInformerTo:String = "addInformerTo";
+		public static const getInformerFrom:String = "getInformerFrom";
+		
+		public static const prerestore:String = "prerestore";
+		public static const restore:String = "restore";
+		
+		public static const gameOver:String = "gameOver";
+		
+		public static const tick:String = "tick";
+		public static const setPause:String = "setPause";
+		
+		public static const setGameContainer:String = "setGameContainer";
+		
+		
 		public static const TIME_BETWEEN_TICKS:Number = 0.12;
 		
-		private var juggler:Juggler;
+		
+		
+		protected var displayRoot:Sprite;
+		protected var informers:InformerManager;
 		
 		public function ZeroRunner(assets:AssetManager) 
 		{			
-			super(assets);
+			super(ZeroRunner.flowName);
 			
 			this.workWithUpdateListener(this);
+			this.addUpdateListener(ZeroRunner.setGameContainer);
+			this.addUpdateListener(ChaoticUI.newGame);
+			this.addUpdateListener(ZeroRunner.addToTheHUD);
+			
+			this.informers = new InformerManager();
+			this.informers.addInformer(AssetManager, assets);
 		}
 		
-		override protected function addFeatures():void
+		public function setGameContainer(viewRoot:Sprite):void
 		{
-			super.addFeatures();
+			this.displayRoot = viewRoot;
 			
 			Metric.initialize(40, 40, 81, 81);
 			
+			new Time(this.displayRoot, this);
 			new InputManager(this);
 			new Statistics(this);
 			new UIExtendsions(this);
@@ -43,22 +75,21 @@ package game
 			new SceneFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
+			
+			this.dispatchUpdate(ZeroRunner.addInformerTo, informers);
+			this.dispatchUpdate(ZeroRunner.getInformerFrom, informers);
 		}
 		
-		override public function newGame():void
+		
+		public function newGame():void
 		{
-			super.newGame();
-			
-			this.juggler = this.informers.getInformer(Juggler);
-			
-			this.juggler.delayCall(this.prepareTick, ZeroRunner.TIME_BETWEEN_TICKS);
+			this.dispatchUpdate(ZeroRunner.prerestore);
+			this.dispatchUpdate(ZeroRunner.restore);
 		}
 		
-		private function prepareTick():void
+		final public function addToTheHUD(item:DisplayObject):void
 		{
-			this.dispatchUpdate(ChaoticGame.tick);
-			
-			this.juggler.delayCall(this.prepareTick, ZeroRunner.TIME_BETWEEN_TICKS);
+			this.displayRoot.addChild(item);
 		}
 	}
 

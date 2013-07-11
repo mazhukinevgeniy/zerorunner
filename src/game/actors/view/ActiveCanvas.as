@@ -3,8 +3,8 @@ package game.actors.view
 	import game.actors.ActorsFeature;
 	import game.actors.storage.Puppet;
 	import game.actors.view.DrawenActor;
+	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -39,13 +39,13 @@ package game.actors.view
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.prerestore);
+			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ActorsFeature.addActor);
 			flow.addUpdateListener(ActorsFeature.actorRemoved);
 			flow.addUpdateListener(ActorsFeature.moveActor);
 			flow.addUpdateListener(ActorsFeature.detonateActor);
 			flow.addUpdateListener(ActorsFeature.jumpActor);
-			flow.addUpdateListener(ChaoticGame.getInformerFrom);
+			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
 		}

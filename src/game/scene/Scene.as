@@ -2,12 +2,12 @@ package game.scene
 {
 	import game.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.game.ChaoticGame;
 	import chaotic.informers.IStoreInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.patterns.ScenePattern;
+	import game.ZeroRunner;
 	
 	internal class Scene implements IScene
 	{		
@@ -19,8 +19,8 @@ package game.scene
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.prerestore);
-			flow.addUpdateListener(ChaoticGame.addInformerTo);
+			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(ZeroRunner.addInformerTo);
 		}
 		
 		public function getSceneCell(cell:CellXY):int

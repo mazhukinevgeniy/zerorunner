@@ -2,8 +2,8 @@ package ui.pauseControl
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
-	import chaotic.game.ChaoticGame;
 	import flash.ui.Keyboard;
+	import game.ZeroRunner;
 	import ui.ChaoticUI;
 	import ui.game.panel.Panel;
 	
@@ -19,7 +19,7 @@ package ui.pauseControl
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ChaoticGame.gameOver);
+			flow.addUpdateListener(ZeroRunner.gameOver);
 			flow.addUpdateListener(ChaoticUI.newGame);
 			flow.addUpdateListener(ChaoticUI.keyUp);
 			flow.addUpdateListener(Panel.panel_BackToMenu);
@@ -74,7 +74,7 @@ package ui.pauseControl
 		
 		private function setPause():void
 		{
-			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticGame.flowName, ChaoticGame.setPause,
+			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ZeroRunner.setPause,
 										this.pauseToggled || this.isInUse || this.isOutOfSight);
 		}
 	}
