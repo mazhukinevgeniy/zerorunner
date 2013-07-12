@@ -1,21 +1,22 @@
 package game.actors.storage 
 {
+	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;
 	
 	public class ActorBase 
 	{
+		internal static var flow:IUpdateDispatcher;
+		internal static var searcher:ISearcher;
+		
+		
 		internal var type:int;
 		internal var id:int;
 		
 		internal var cell:CellXY;
 		
-		internal var speed:int;
-		internal var remainingDelay:int;
-		
 		internal var active:Boolean;
-		internal var hp:int;
 		
-		public function ActorBase() 
+		public function ActorBase(configuration:XML) 
 		{
 			
 		}

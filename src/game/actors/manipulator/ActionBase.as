@@ -9,8 +9,6 @@ package game.actors.manipulator
 	
 	public class ActionBase
 	{
-		internal static var flow:IUpdateDispatcher;
-		internal static var searcher:ISearcher;
 		
 		public function ActionBase() 
 		{

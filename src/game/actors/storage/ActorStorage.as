@@ -12,7 +12,6 @@ package game.actors.storage
 	{
 		private var puppets:Vector.<Puppet>;
 		
-		private var hashmap:Vector.<Vector.<Puppet>>;
 		
 		private var unusedIDs:Vector.<int>;
 		
