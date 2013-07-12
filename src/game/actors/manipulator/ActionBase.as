@@ -71,7 +71,7 @@ package game.actors.manipulator
 			var id:int = item.id;
 			
 			if (id == ActorsFeature.PROTAGONIST_ID)
-				ActionBase.flow.dispatchUpdate(ActorsFeature.moveCenter, change, item.speed);
+				ActionBase.flow.dispatchUpdate(ActorsFeature.moveCenter, change, item.speed + 1);
 			
 			ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change);
 			

@@ -59,7 +59,7 @@ package game.ui
             this.container.y = -pCenter.y + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;
 		}
 		
-		public function moveCenter(change:DCellXY, ticksToGo:int = 0):void 
+		public function moveCenter(change:DCellXY, ticksToGo:int):void 
 		{
 			this.moveCenterGently(change, ticksToGo * Time.TIME_BETWEEN_TICKS);
 		}
