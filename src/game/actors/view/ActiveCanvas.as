@@ -86,13 +86,13 @@ package game.actors.view
 			this.container.removeChild(item);
 		}
 		
-		public function actorMoved(item:Puppet, cChange:DCellXY):void
+		public function actorMoved(item:Puppet, cChange:DCellXY, ticksToMove:int):void
 		{
 			var change:DPixelXY = Metric.toPixel(cChange);
 			
 			var image:Image = this.objects[item.id];
 			
-			var tween:Tween = new Tween(image, (item.remainingDelay + 1) * Time.TIME_BETWEEN_TICKS);
+			var tween:Tween = new Tween(image, ticksToMove * Time.TIME_BETWEEN_TICKS);
 			tween.moveTo(image.x + change.x, image.y + change.y);
 			
 			tween.roundToInt = true;

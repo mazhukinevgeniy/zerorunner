@@ -18,16 +18,12 @@ package game.actors.manipulator.moves
 		
 		private var flow:IUpdateDispatcher;
 		
-		private var kick:Kick;
-		
 		public function MoveLikeACharacter(newLandscape:IScene, newInput:IKnowInput, flow:IUpdateDispatcher, kick:Kick) 
 		{
 			this.landscape = newLandscape;
 			this.input = newInput;
 			
 			this.flow = flow;
-			
-			this.kick = kick;
 		}
 		
 		override public function prepareDataIn(item:Puppet):void
@@ -60,7 +56,7 @@ package game.actors.manipulator.moves
 		
 		override protected function onBlocked(item:Puppet, change:DCellXY):void
 		{
-			this.kick.act(item, change);
+			this.kick(item, this.searcher.findObjectByCell(item.getCell().applyChanges(change)), change);
 		}
 	}
 

@@ -51,18 +51,19 @@ package game.actors.manipulator
 			var target:Puppet = ActionBase.searcher.findObjectByCell(item.getCell().applyChanges(change));
 			if (target != null) ActionBase.flow.dispatchUpdate(ActorsFeature.actorDestroyed, target);
 			
-			ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change);
+			ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change, item.remainingDelay + 1);
 			ActionBase.flow.dispatchUpdate(ActorsFeature.actorJumped, item);
 		}
 		
 		final protected function kick(kicker:Puppet, kicked:Puppet, change:DCellXY):void
 		{
+			/*
 			if (target.remainingDelay / target.speed < 0.6)
 				this.forceMove(target, change);
 			else
 			{
 				//TODO: 
-			}
+			}*/
 		}
 		
 		final protected function callMove(item:Puppet, change:DCellXY):void
@@ -83,7 +84,7 @@ package game.actors.manipulator
 			if (id == ActorsFeature.PROTAGONIST_ID)
 				ActionBase.flow.dispatchUpdate(ActorsFeature.moveCenter, change, item.speed + 1);
 			
-			ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change);
+			ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change, item.remainingDelay + 1);
 			
 			this.afterMoved(item);
 		}

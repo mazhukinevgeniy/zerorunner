@@ -42,7 +42,7 @@ package game.actors.storage
 			this.active++;
 		}
 		
-		public function actorMoved(item:Puppet, change:DCellXY):void
+		public function actorMoved(item:Puppet, change:DCellXY, ticksToGo:int):void
 		{
 			this.removeFromHash(item);
 			
