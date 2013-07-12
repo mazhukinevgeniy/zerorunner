@@ -17,8 +17,7 @@ package game.actors.manipulator.actions
 		public function act(item:Puppet, change:DCellXY):void
 		{
 			var target:Puppet = this.searcher.findObjectByCell(item.getCell().applyChanges(change));
-			if (target.speed <= item.speed)
-				this.callMove(target, change);
+			this.kick(item, target, change);
 		}
 		
 		override protected function afterMoved(item:Puppet):void
@@ -28,7 +27,7 @@ package game.actors.manipulator.actions
 		
 		override protected function onBlocked(item:Puppet, change:DCellXY):void
 		{
-			this.damageActor(item, ActorsFeature.MAXIMUM_DAMAGE);
+			this.damageActor(item, ActorsFeature.MAXIMUM_DAMAGE); // TODO: what is it?
 		}
 	}
 

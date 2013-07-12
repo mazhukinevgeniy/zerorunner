@@ -55,6 +55,16 @@ package game.actors.manipulator
 			ActionBase.flow.dispatchUpdate(ActorsFeature.actorJumped, item);
 		}
 		
+		final protected function kick(kicker:Puppet, kicked:Puppet, change:DCellXY):void
+		{
+			if (target.remainingDelay / target.speed < 0.6)
+				this.forceMove(target, change);
+			else
+			{
+				//TODO: 
+			}
+		}
+		
 		final protected function callMove(item:Puppet, change:DCellXY):void
 		{
 			if (ActionBase.searcher.findObjectByCell(item.getCell().applyChanges(change)) == null)
