@@ -31,9 +31,9 @@ package game.actors
 		internal static const config:Class;
 		
 		
-		public static const CAP:int = 150;
+		public static const CAP:int = 100;
 		
-		public static const MAX_SPAWN_ONCE:int = 15;
+		public static const MAX_SPAWN_ONCE:int = 10;
 		
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{
