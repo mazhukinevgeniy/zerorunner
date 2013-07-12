@@ -4,12 +4,12 @@ package ui.windows
 	import starling.display.DisplayObjectContainer;
 	import ui.ChaoticUI;
 	
-	public class StatisticsWindow extends WindowBase
+	public class CreditsWindow extends WindowBase
 	{
 		
-		public function StatisticsWindow(root:DisplayObjectContainer, flow:IUpdateDispatcher) 
+		public function CreditsWindow(root:DisplayObjectContainer, flow:IUpdateDispatcher) 
 		{
-			super(250, 250)
+			super(150, 100)
 			
 			this.visible = false;
 			
@@ -23,7 +23,7 @@ package ui.windows
 		
 		public function openWindow(target:String):void
 		{
-			if(target == ManagerWindows.STATISTICS)
+			if(target == ManagerWindows.CREDITS)
 				this.visible = true;
 			else
 				this.visible = false;

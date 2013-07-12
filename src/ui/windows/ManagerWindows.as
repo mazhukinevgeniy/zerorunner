@@ -33,6 +33,8 @@ package ui.windows
 			this.assets = assets;
 			
 			new StatisticsWindow(root, flow);
+			new AchievementsWindow(root, flow);
+			new CreditsWindow(root, flow);
 			
 		}
 		

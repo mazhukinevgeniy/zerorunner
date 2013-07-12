@@ -11,8 +11,10 @@ package ui.mainMenu
 	import ui.ChaoticUI;
 	import ui.windows.WindowBase;
 	import ui.windows.ManagerWindows;
+	import starling.display.Sprite;
+	import starling.display.Quad;
 	
-	public class MainMenu extends WindowBase
+	public class MainMenu  extends WindowBase
 	{		
 		public static const WIDTH_MAIN_MENU:Number = 150;
 		public static const HEIGHT_MAIN_MENU:Number = 300;
@@ -22,8 +24,6 @@ package ui.mainMenu
 		private static const SPACE_BEETWEEN_BUTTON:Number = 20;
 		private static const START_HEIGHT_BUTTONS:Number = 50;
 		
-		private var flow:IUpdateDispatcher;
-		
 		private var playButton:ButtonMainMenu,
 					statisticsButton:ButtonMainMenu,
 					achievementsButton:ButtonMainMenu,
@@ -32,7 +32,7 @@ package ui.mainMenu
 		
 		public function MainMenu(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
 		{
-			super(MainMenu.WIDTH_MAIN_MENU, MainMenu.HEIGHT_MAIN_MENU);
+			super(MainMenu.WIDTH_MAIN_MENU, MainMenu.HEIGHT_MAIN_MENU, false);
 			
 			this.playButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS, "New game");
 			this.addChild(this.playButton);
@@ -73,6 +73,14 @@ package ui.mainMenu
 			else if (event.target == this.statisticsButton)
 			{
 				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.STATISTICS);
+			}
+			else if (event.target == this.achievementsButton)
+			{
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.ACHIEVEMENTS);
+			}
+			else if (event.target == this.creditsButton)
+			{
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.CREDITS);
 			}
 		}
 	}

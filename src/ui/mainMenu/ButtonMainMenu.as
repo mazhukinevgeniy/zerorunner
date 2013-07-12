@@ -17,8 +17,6 @@ package ui.mainMenu
 			
 			this.width = MainMenu.WIDTH_BUTTON;
 			this.height = MainMenu.HEIGHT_BUTTON;
-			this.defaultSkin = new Image(Texture.fromColor(this.width, this.height, 0xFFFFFF));//не очень работает, но и не надо
-			this.downSkin = new Image(Texture.fromColor(this.width, this.height, 0x000000));
 			
 			this.labelFactory = function():ITextRenderer
 			{
@@ -30,6 +28,8 @@ package ui.mainMenu
 			this.label = title;
 			this.y = y;
 			
+			this.defaultSkin = new Image(Texture.fromColor(this.width, this.height, 0xFFCCFF33));
+			this.downSkin = new Image(Texture.fromColor(this.width, this.height, 0xFFCCDD33));
 			this.addEventListener(Event.ADDED_TO_STAGE, setX);
 		}
 		
