@@ -17,7 +17,8 @@ package game.actors.manipulator.actions
 		public function act(item:Puppet, change:DCellXY):void
 		{
 			var target:Puppet = this.searcher.findObjectByCell(item.getCell().applyChanges(change));
-			this.callMove(target, change);
+			if (target.speed <= item.speed)
+				this.callMove(target, change);
 		}
 		
 		override protected function afterMoved(item:Puppet):void

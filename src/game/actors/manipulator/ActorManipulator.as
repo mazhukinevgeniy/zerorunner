@@ -13,7 +13,8 @@ package game.actors.manipulator
 	
 	public class ActorManipulator
 	{
-		private var commandChains:Vector.<Vector.<ActionBase>>;
+		private var actions:Vector.<Vector.<ActionBase>>;
+		private var checks:Vector.<Vector.<ActionBase>>;
 		
 		private var updateFlow:IUpdateDispatcher;
 		private var storage:ActorStorage;
@@ -34,11 +35,13 @@ package game.actors.manipulator
 			var configuration:XML = ActorsFeature.CONFIG;
 			var numberOfTypes:int = int(configuration.actor.length());
 			
-			this.commandChains = new Vector.<Vector.<ActionBase>>(numberOfTypes, true);
+			this.actions = new Vector.<Vector.<ActionBase>>(numberOfTypes, true);
+			this.checks = new Vector.<Vector.<ActionBase>>(numberOfTypes, true);
 			
 			for (var i:int = 0; i < numberOfTypes; i++)
 			{
-				this.commandChains[i] = new Vector.<ActionBase>();
+				this.actions[i] = new Vector.<ActionBase>();
+				this.checks[i] = new Vector.<ActionBase>();
 			}
 		}
 		
@@ -46,18 +49,21 @@ package game.actors.manipulator
 		{
 			var type:int = puppet.type;
 			
-			var numberOfCommands:int = this.commandChains[type].length;
-			var commands:Vector.<ActionBase> = this.commandChains[type];
+			var actions:Vector.<ActionBase> = this.actions[type];
+			var numberOfCommands:int = actions.length;
 			
 			for (var i:int = 0; i < numberOfCommands; i++)
 			{
-				commands[i].prepareDataIn(puppet);
+				actions[i].prepareDataIn(puppet);
 			}
 		}
 		
 		public function tick():void
 		{
 			var numberOfObjects:int = this.storage.getNumberOfObjects();
+			var checks:Vector.<ActionBase>;
+			var actions:Vector.<ActionBase>;
+			
 			
 			for (var i:int = 0; i < numberOfObjects; i++)
 			{
@@ -67,19 +73,41 @@ package game.actors.manipulator
 				{
 					var type:int = object.type;
 					
-					var numberOfCommands:int = this.commandChains[type].length;
-					for (var k:int = 0; k < numberOfCommands; k++)
+					checks = this.checks[type];
+					var length:int = checks.length;
+					
+					for (var j:int = 0; j < length; j++)
 					{
-						this.commandChains[type][k].actOn(object);
+						checks[j].actOn(object);
+					}
+					
+					
+					if (object.remainingDelay > 0)
+					{
+						object.remainingDelay--;
+					}
+					else
+					{
+						actions = this.actions[type];
+						var numberOfCommands:int = actions.length;
 						
-						if (!object.active)
+						for (var k:int = 0; k < numberOfCommands; k++)
 						{
-							break;
+							actions[k].actOn(object);
+							
+							
+							/**
+							 * Not actual: there's no second action anywhere
+							
+							if (!object.active)
+							{
+								break;
+							}
+							
+							**/
 						}
 					}
 				}
-				
-				object.remainingDelay--;
 			}
 		}
 		
@@ -92,16 +120,26 @@ package game.actors.manipulator
 			var actions:ActionFactory = new ActionFactory(this.updateFlow);
 			actions.getInformerFrom(table);
 			
+			var tmpNode:XMLList;
+			var j:int;
+			
 			for (var i:int = 0; i < numberOfTypes; i++)
 			{
-				var tmpNode:XMLList = configuration.actor[i].configuration;
-				var vector:Vector.<ActionBase> = this.commandChains[i];
+				tmpNode = configuration.actor[i].configuration;
 				
-				var length:int = tmpNode.action.length();
+				var actionsV:Vector.<ActionBase> = this.actions[i];
+				var checksV:Vector.<ActionBase> = this.checks[i];
 				
-				for (var j:int = 0; j < length; j++)
+				var lengthA:int = tmpNode.action.length();
+				var lengthC:int = tmpNode.check.length();
+				
+				for (j = 0; j < lengthA; j++)
 				{
-					vector.push(actions.getAction(tmpNode.action[j]));
+					actionsV.push(actions.getAction(tmpNode.action[j]));
+				}
+				for (j = 0; j < lengthC; j++)
+				{
+					checksV.push(actions.getAction(tmpNode.check[j]));
 				}
 			}
 		}

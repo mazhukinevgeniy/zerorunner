@@ -4,9 +4,9 @@
 		<baseHP>100</baseHP>
 		<speed>1</speed>
 		<configuration>
+			<check>NormalLandscapeCheck</check>
+			<check>IsGrindedCheck</check>
 			<action>MoveLikeACharacter</action>
-			<action>NormalLandscapeCheck</action>
-			<action>IsGrindedCheck</action>
 		</configuration>
 		<getCell>getSpawnCell</getCell>
 		<chance>0</chance>
@@ -14,12 +14,12 @@
 	
 	<actor type = "Heuristic" code = "1">
 		<baseHP>3</baseHP>
-		<speed>3</speed>
+		<speed>2</speed>
 		<configuration>
+			<check>NormalLandscapeCheck</check>
+			<check>OutOfBoundsCheck</check>
+			<check>IsGrindedCheck</check>
 			<action>HeuristicGoalPursuing</action>
-			<action>NormalLandscapeCheck</action>
-			<action>OutOfBoundsCheck</action>
-			<action>IsGrindedCheck</action>
 		</configuration>
 		<getCell>getRandomCell</getCell>
 		<chance>0.3</chance>
@@ -29,10 +29,10 @@
 		<baseHP>10</baseHP>
 		<speed>4</speed>
 		<configuration>
+			<check>NormalLandscapeCheck</check>
+			<check>OutOfBoundsCheck</check>
+			<check>IsGrindedCheck</check>
 			<action>SearchCorridor</action>
-			<action>NormalLandscapeCheck</action>
-			<action>OutOfBoundsCheck</action>
-			<action>IsGrindedCheck</action>
 		</configuration>
 		<getCell>getRandomCell</getCell>
 		<chance>0.3</chance>
@@ -42,7 +42,7 @@
 		<baseHP>1</baseHP>
 		<speed>1</speed>
 		<configuration>
-			<action>NormalLandscapeCheck</action>
+			<check>NormalLandscapeCheck</check>
 			<action>RunForward</action>
 		</configuration>
 		<getCell>getGrindedCell</getCell>
@@ -53,10 +53,10 @@
 		<baseHP>2</baseHP>
 		<speed>4</speed>
 		<configuration>
+			<check>NormalLandscapeCheck</check>
+			<check>OutOfBoundsCheck</check>
+			<check>IsGrindedCheck</check>
 			<action>InertialRandom</action>
-			<action>NormalLandscapeCheck</action>
-			<action>OutOfBoundsCheck</action>
-			<action>IsGrindedCheck</action>
 		</configuration>
 		<getCell>getRandomCell</getCell>
 		<chance>0.7</chance>
