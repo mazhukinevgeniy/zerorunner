@@ -5,17 +5,6 @@ package game.actors.storage
 	
 	public class Puppet 
 	{
-		public var type:int;
-		public var id:int;
-		
-		internal var cell:CellXY;
-		
-		public var speed:int;
-		public var remainingDelay:int;
-		public var data:Object;
-		
-		public var active:Boolean;
-		public var hp:int;
 		
 		public function Puppet(id:int, type:int, cell:CellXY) 
 		{
@@ -33,14 +22,6 @@ package game.actors.storage
 		public function getCell():CellXY
 		{
 			return this.cell.getCopy();
-		}
-		public function get x():int
-		{
-			return this.cell.x;
-		}
-		public function get y():int
-		{
-			return this.cell.y;
 		}
 	}
 

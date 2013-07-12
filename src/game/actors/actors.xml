@@ -1,29 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <actors>
-	<actor type = "Character" code = "0">
-		<baseHP>100</baseHP>
-		<speed>1</speed>
-		<configuration>
-			<check>NormalLandscapeCheck</check>
-			<check>IsGrindedCheck</check>
-			<action>MoveLikeACharacter</action>
-		</configuration>
-		<getCell>getSpawnCell</getCell>
-		<chance>0</chance>
-	</actor>
 	
-	<actor type = "Heuristic" code = "1">
-		<baseHP>3</baseHP>
-		<speed>2</speed>
-		<configuration>
-			<check>NormalLandscapeCheck</check>
-			<check>OutOfBoundsCheck</check>
-			<check>IsGrindedCheck</check>
-			<action>HeuristicGoalPursuing</action>
-		</configuration>
-		<getCell>getRandomCell</getCell>
-		<chance>0.3</chance>
-	</actor>
+	
+	
 	
 	<actor type = "Guard" code = "2">
 		<baseHP>10</baseHP>

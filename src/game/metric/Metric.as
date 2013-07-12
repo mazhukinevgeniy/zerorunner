@@ -72,16 +72,6 @@ package game.metric
 		}
 		
 		
-		
-		public static function getHash(cell:CellXY):int
-		{
-			return uint(uint(cell.x * 426389) ^ uint(cell.y * 514229)) % 512;
-		}
-		public static function getMaximumHash():int
-		{
-			return 512;
-		}
-		
 		public static function distance(p1:CellXY, p2:CellXY):int
 		{
 			return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)
