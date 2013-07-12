@@ -1,6 +1,7 @@
 package game.actors.manipulator.moves 
 {
 	import game.actors.ActorsFeature;
+	import game.actors.manipulator.actions.Kick;
 	import game.actors.storage.Puppet;
 	import game.actors.storage.ISearcher;
 	import chaotic.core.IUpdateDispatcher;
@@ -17,12 +18,16 @@ package game.actors.manipulator.moves
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function MoveLikeACharacter(newLandscape:IScene, newInput:IKnowInput, flow:IUpdateDispatcher) 
+		private var kick:Kick;
+		
+		public function MoveLikeACharacter(newLandscape:IScene, newInput:IKnowInput, flow:IUpdateDispatcher, kick:Kick) 
 		{
 			this.landscape = newLandscape;
 			this.input = newInput;
 			
 			this.flow = flow;
+			
+			this.kick = kick;
 		}
 		
 		override public function prepareDataIn(item:Puppet):void
@@ -51,6 +56,11 @@ package game.actors.manipulator.moves
 		override protected function afterMoved(item:Puppet):void
 		{
 			this.flow.dispatchUpdate(InputManager.purgeClicks);
+		}
+		
+		override protected function onBlocked(item:Puppet, change:DCellXY):void
+		{
+			this.kick.act(item, change);
 		}
 	}
 

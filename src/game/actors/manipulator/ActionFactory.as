@@ -42,9 +42,11 @@ package game.actors.manipulator
 			this.actions["NormalLandscapeCheck"] = new NormalLandscapeCheck(scene);
 			this.actions["OutOfBoundsCheck"] = new OutOfBoundsCheck();
 			
+			var kick:Kick = new Kick(this.actions["NormalLandscapeCheck"]);
+			
 			this.actions["HeuristicGoalPursuing"] = new HeuristicGoalPursuing(scene, bite);
 			this.actions["InertialRandom"] = new InertialRandom();
-			this.actions["MoveLikeACharacter"] = new MoveLikeACharacter(scene, input, ActionBase.flow);
+			this.actions["MoveLikeACharacter"] = new MoveLikeACharacter(scene, input, ActionBase.flow, kick);
 			this.actions["RunForward"] = new RunForward(scene, bite);
 			this.actions["SearchCorridor"] = new SearchCorridor(scene);
 		}
