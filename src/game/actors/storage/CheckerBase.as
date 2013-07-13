@@ -1,31 +1,37 @@
 package game.actors.storage 
 {
-	import game.grinder.IGrinder;
-	import game.scene.IScene;
+	import game.scene.SceneFeature;
 	
 	internal class CheckerBase 
 	{
-		internal static var grinder:IGrinder;
-		internal static var scene:IScene;
-		internal static var searcher:ISearcher;
 		
 		public function CheckerBase() 
 		{
 			
 		}
 		
-		final protected function get grinder():IGrinder
+		/*
+		final protected function isGrinded(item:ActorBase):void
 		{
-			return CheckerBase.grinder;
-		}
-		final protected function get scene():IScene
+			if (ActorBase.grinder.isGrinded(item.cell))
+			{
+				this.destroyActor(item);
+			}
+			
+		}*/ // TODO: move to the caching code
+		
+		final protected function isOnTheGround(item:ActorBase):void
 		{
-			return CheckerBase.scene;
+			if (ActorBase.scene.getSceneCell(item.cell) == SceneFeature.FALL)
+			{
+				this.destroyActor(item);
+			}
 		}
-		final protected function get searcher():ISearcher
+		/*
+		final protected function isOutOfBounds(item:ActorBase):void
 		{
-			return CheckerBase.searcher;
-		}
+			...
+		}*/ // TODO: reimplement in the cache
 	}
 
 }
