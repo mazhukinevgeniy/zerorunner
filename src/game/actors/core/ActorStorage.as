@@ -1,11 +1,14 @@
 package game.actors.core 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
+	import game.grinder.IGrinder;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
+	import game.scene.IScene;
 	import game.ZeroRunner;
 	
 	public class ActorStorage implements ISearcher
@@ -23,6 +26,7 @@ package game.actors.core
 			flow.addUpdateListener(ActorsFeature.actorDestroyed);
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			this.flow = flow;
 		}
@@ -94,6 +98,15 @@ package game.actors.core
 		public function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(ISearcher, this);
+		}
+		
+		public function getInformerFrom(table:IGiveInformers):void
+		{
+			ActorBase.iFlow = this.flow;
+			ActorBase.iSearcher = this;
+			ActorBase.iGrinder = table.getInformer(IGrinder);
+			ActorBase.iScene = table.getInformer(IScene);
+			ActorBase.iListener = this.listener;
 		}
 	}
 

@@ -1,24 +1,17 @@
-package game.actors.spawner 
+package game.actors.modules.pull 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
 	
 	internal class Character extends ActorBase
 	{
+		internal static const HP:int = 100;
+		
+		internal static const MOVE_SPEED:int = 1;
+		
 		private static const configuration = new XML
 		(
-			<actor>
-				<type>0</type>
-				<baseHP>100</baseHP>
-				<speed>1</speed>
-				<configuration>
-					<check>NormalLandscapeCheck</check>
-					<check>IsGrindedCheck</check>
-					<action>MoveLikeACharacter</action>
-				</configuration>
-				<getCell>getSpawnCell</getCell>
-				<chance>0</chance>
-			</actor>
+			
 		);
 		
 		public function Character() 
@@ -26,8 +19,13 @@ package game.actors.spawner
 			super(Character.configuration);
 		}
 		
+		override protected function onActing():void
+		{
+			this.isOnTheGround(this);
+		}
 		
-		override protected function tryToMove(item:Puppet):void
+		
+		override protected function onCanMove():void
 		{
 			var tmp:Vector.<DCellXY> = this.input.getInputCopy();
 			var action:DCellXY = tmp.pop();

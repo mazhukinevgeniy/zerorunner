@@ -1,4 +1,4 @@
-package game.actors.spawner 
+package game.actors.modules.pull 
 {
 	
 	internal class ActorPull 

@@ -1,4 +1,4 @@
-package game.actors.spawner 
+package game.actors.modules 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.UnresolvedRequestError;
@@ -16,17 +16,6 @@ package game.actors.spawner
 	
 	public class ActorSpawner
 	{
-		private var scene:IScene;
-		private var grinders:IGrinder;
-		
-		private var storage:ActorStorage;
-		
-		private var speeds:Vector.<int>;
-		private var hitpoints:Vector.<int>;
-		private var chances:Vector.<Number>;
-		private var getCell:Vector.<String>;
-		
-		private var numberOfTypes:int;
 		
 		private var updateFlow:IUpdateDispatcher;
 		

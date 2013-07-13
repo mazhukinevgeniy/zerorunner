@@ -1,4 +1,4 @@
-package game.actors.spawner 
+package game.actors.modules.pull 
 {
 	
 	internal class Guardian 
@@ -6,7 +6,6 @@ package game.actors.spawner
 		private static const configuration = new XML
 		(
 			<actor>
-				<type>2</type>
 				<baseHP>10</baseHP>
 				<speed>4</speed>
 				<configuration>

@@ -1,4 +1,4 @@
-package game.actors.spawner 
+package game.actors.modules.pull 
 {
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -8,7 +8,6 @@ package game.actors.spawner
 		private static const configuration = new XML
 		(
 			<actor>
-				<type>1</type>
 				<baseHP>3</baseHP>
 				<speed>2</speed>
 				<configuration>

@@ -16,7 +16,7 @@ package game.actors.core
 		
 		internal var cell:CellXY;
 		
-		internal var active:Boolean;
+		internal var isActive:Boolean;
 		
 		public function ActorPuppet() 
 		{
@@ -33,6 +33,10 @@ package game.actors.core
 			return this.cell.y;
 		}
 		
+		final public function get active():Boolean
+		{
+			return this.isActive;
+		}
 	}
 
 }

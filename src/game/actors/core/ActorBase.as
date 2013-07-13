@@ -1,6 +1,7 @@
 package game.actors.core 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import game.actors.view.IActorListener;
 	import game.grinder.IGrinder;
 	import game.metric.CellXY;
 	import game.scene.IScene;
@@ -11,9 +12,10 @@ package game.actors.core
 		internal static var iSearcher:ISearcher;
 		internal static var iGrinder:IGrinder;
 		internal static var iScene:IScene;
+		internal static var iListener:IActorListener;
 		
 		
-		public function ActorBase(configuration:XML) 
+		public function ActorBase(id:int) 
 		{
 			this.id = id;
 			this.type = type;
@@ -24,7 +26,11 @@ package game.actors.core
 			this.data = new Object();
 			
 			this.active = true;
+			
+			this.reset();
 		}
+		
+		
 		
 		final public function act():void
 		{
@@ -73,6 +79,10 @@ package game.actors.core
 		final protected function get searcher():ISearcher
 		{
 			return ActorBase.iSearcher;
+		}
+		final protected function get listener():IActorListener
+		{
+			return ActorBase.iListener;
 		}
 		
 		final protected function dispatchUpdate(... args):void
