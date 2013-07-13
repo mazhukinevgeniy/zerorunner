@@ -11,14 +11,7 @@ package game.actors
 	
 	public class ActorsFeature
 	{
-		public static const actorAdded:String = "actorAdded";
-		
-		public static const actorJumped:String = "actorJumped";
-		public static const actorMoved:String = "actorMoved";
-		public static const actorDamaged:String = "actorDamaged";
-		
-		public static const actorDestroyed:String = "actorDestroyed";
-		
+		public static const heroDamaged:String = "heroDamaged";
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
