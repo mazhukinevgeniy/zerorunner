@@ -5,18 +5,13 @@ package game.actors.modules.pull
 	
 	internal class Character extends ActorBase
 	{
-		internal static const HP:int = 100;
-		
-		internal static const MOVE_SPEED:int = 1;
-		
-		private static const configuration = new XML
-		(
-			
-		);
+		private static const HP:int = 100;
+		private static const MOVE_SPEED:int = 1;
+		private static const ACTION_SPEED:int = 1000;
 		
 		public function Character() 
 		{
-			super(Character.configuration);
+			super(Character.HP, Character.MOVE_SPEED, Character.ACTION_SPEED);
 		}
 		
 		override protected function onSpawned():void

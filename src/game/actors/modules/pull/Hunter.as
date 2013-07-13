@@ -5,21 +5,9 @@ package game.actors.modules.pull
 	
 	internal class Hunter 
 	{
-		private static const configuration = new XML
-		(
-			<actor>
-				<baseHP>3</baseHP>
-				<speed>2</speed>
-				<configuration>
-					<check>NormalLandscapeCheck</check>
-					<check>OutOfBoundsCheck</check>
-					<check>IsGrindedCheck</check>
-					<action>HeuristicGoalPursuing</action>
-				</configuration>
-				<getCell>getRandomCell</getCell>
-				<chance>0.3</chance>
-			</actor>
-		);
+		private static const HP:int = 3;
+		private static const MOVE_SPEED:int = 2;
+		private static const ACTION_SPEED:int = 1000;
 		
 		private static const LEFT:int = 0;
 		private static const UP:int = 1;
@@ -47,10 +35,17 @@ package game.actors.modules.pull
 		
 		private var lastTouchedWall:int = -1;
 		
+		
 		public function Hunter() 
 		{
-			super(Hunter.configuration);
+			super(Hunter.HP, Hunter.MOVE_SPEED, Hunter.ACTION_SPEED);
 		}
+		
+		override protected function onActing():void
+		{
+			this.isOnTheGround(this);
+		}
+		
 		
 		override protected function onCanMove():void
 		{

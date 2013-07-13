@@ -15,19 +15,27 @@ package game.actors.core
 		internal static var iListener:IActorListener;
 		
 		
-		public function ActorBase(id:int) 
+		public function ActorBase(hp:int, moveSpeed:int, actionSpeed:int) 
+		{
+			this.hp = hp;
+			
+			this.moveSpeed = moveSpeed;
+			this.actionSpeed = actionSpeed;
+		}
+		
+		final public function reset(id:int):void
 		{
 			this.id = id;
-			this.type = type;
 			
-			this.cell = cell.getCopy();
+			this.actingCooldown = 0;
+			this.movingCooldown = 0;
 			
-			this.remainingDelay = 0;
-			this.data = new Object();
-			
-			this.active = true;
-			
-			this.reset();
+			this.cell = this.getCell();
+		}
+		
+		protected function getCell():CellXY
+		{
+			return this.getRandomCell();
 		}
 		
 		

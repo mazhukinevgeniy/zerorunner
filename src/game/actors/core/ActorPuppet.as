@@ -4,9 +4,8 @@ package game.actors.core
 	
 	internal class ActorPuppet 
 	{
-		
-		internal var type:int;
 		internal var id:int;
+		internal var hp:int;
 		
 		internal var moveSpeed:int;
 		internal var movingCooldown:int;

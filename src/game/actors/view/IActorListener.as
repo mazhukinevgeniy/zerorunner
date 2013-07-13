@@ -1,9 +1,22 @@
 package game.actors.view 
 {
+	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	
 	public interface IActorListener 
 	{
+		/**
+		 * Call if actor is created and finalized (no cell changes out of mechanics etc).
+		 * 
+		 * @param type Special code which represents what sprite set should be used.
+		**/
+		function actorSpawned(id:int, cell:CellXY, type:int);
+		
+		
+		
+		
+		
+		
 		/**
 		 * MOVING OPTIONS
 		**/

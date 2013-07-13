@@ -1,24 +1,15 @@
 package game.actors.modules.pull 
 {
+	import game.actors.core.ActorBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.SceneFeature;
 	
-	internal class Destroyer 
+	internal class Destroyer extends ActorBase
 	{
-		private static const configuration = new XML
-		(
-			<actor>
-				<baseHP>1</baseHP>
-				<speed>1</speed>
-				<configuration>
-					<check>NormalLandscapeCheck</check>
-					<action>RunForward</action>
-				</configuration>
-				<getCell>getGrindedCell</getCell>
-				<chance>0.4</chance>
-			</actor>
-		);
+		private static const HP:int = 1;
+		private static const MOVE_SPEED:int = 1;
+		private static const ACTION_SPEED:int = 1000;
 		
 		
 		private var forward:DCellXY = new DCellXY(1, 0);
@@ -27,15 +18,25 @@ package game.actors.modules.pull
 		
 		public function Destroyer() 
 		{
-			
+			super(Destroyer.HP, Destroyer.MOVE_SPEED, Destroyer.ACTION_SPEED);
+		}
+		
+		override protected function getCell():CellXY
+		{
+			return this.getGrindedCell();
+		}
+		
+		override protected function onActing():void
+		{
+			this.isOnTheGround(this);
 		}
 		
 		override protected function onCanMove():void
 		{
-			if (this.scene.getSceneCell(new CellXY(this.x + 1, this.y)) != SceneFeature.FALL)
+			/*if (this.scene.getSceneCell(new CellXY(this.x + 1, this.y)) != SceneFeature.FALL)
 				this.callMove(item, this.forward);
 			else
-				this.jumpActor(item, this.jump);
+				this.jumpActor(item, this.jump);*/
 		}
 	}
 

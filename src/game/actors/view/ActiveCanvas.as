@@ -1,7 +1,6 @@
 package game.actors.view 
 {
 	import game.actors.ActorsFeature;
-	import game.actors.storage.Puppet;
 	import game.actors.view.DrawenActor;
 	import game.time.Time;
 	import game.ZeroRunner;
@@ -56,6 +55,7 @@ package game.actors.view
 			this.atlas = this.assets.getTextureAtlas("gameAtlas");
 		}
 		
+		/*
 		public function actorAdded(puppet:Puppet):void
 		{
 			var cell:PixelXY = Metric.toPixel(puppet.getCell());
@@ -122,7 +122,7 @@ package game.actors.view
 				
 				this.juggler.add(tween);
 			//} //TODO: redisign
-		}
+		}*/
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{

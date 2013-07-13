@@ -8,12 +8,12 @@ package game.actors.modules.pull
 		private const TICKS_BEFORE_NEXT:int = 200;
 		
 		
-		private var types:Vector.<Class> = new <Class>[Character, Destroyer];/ / , Guardian, Hunter];
+		private var types:Vector.<Class> = new <Class>[Character, Destroyer, Guardian, Hunter];
 		//TODO: reactivate extra species
 		
 		private var state:IGameState;
 		
-		public function ActorPull(state:IGameState) 
+		public function ActorPull(state:IGameState)
 		{
 			this.state = state;
 		}

@@ -3,27 +3,20 @@ package game.actors.modules.pull
 	
 	internal class Guardian 
 	{
-		private static const configuration = new XML
-		(
-			<actor>
-				<baseHP>10</baseHP>
-				<speed>4</speed>
-				<configuration>
-					<check>NormalLandscapeCheck</check>
-					<check>OutOfBoundsCheck</check>
-					<check>IsGrindedCheck</check>
-					<action>SearchCorridor</action>
-				</configuration>
-				<getCell>getRandomCell</getCell>
-				<chance>0.3</chance>
-			</actor>
-		);
+		private static const HP:int = 10;
+		private static const MOVE_SPEED:int = 4;
+		private static const ACTION_SPEED:int = 1000;
 		
 		private var isFixed:Boolean = false;
 		
 		public function Guardian() 
 		{
-			
+			super(Guardian.HP, Guardian.MOVE_SPEED, Guardian.ACTION_SPEED);
+		}
+		
+		override protected function onActing():void
+		{
+			this.isOnTheGround(this);
 		}
 		
 		override protected function onCanMove():void
