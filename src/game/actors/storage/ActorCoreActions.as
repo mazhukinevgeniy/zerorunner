@@ -1,14 +1,14 @@
 package game.actors.storage 
 {
-	import game.scene.SceneFeature;
 	
-	internal class CheckerBase 
+	internal class ActorCoreActions extends ActorPuppet
 	{
 		
-		public function CheckerBase() 
+		public function ActorCoreActions() 
 		{
 			
 		}
+		
 		
 		/*
 		final protected function isGrinded(item:ActorBase):void

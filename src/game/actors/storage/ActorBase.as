@@ -5,26 +5,13 @@ package game.actors.storage
 	import game.metric.CellXY;
 	import game.scene.IScene;
 	
-	public class ActorBase 
+	public class ActorBase extends ActorCoreActions
 	{
 		internal static var iFlow:IUpdateDispatcher;
 		internal static var iSearcher:ISearcher;
 		internal static var iGrinder:IGrinder;
 		internal static var iScene:IScene;
 		
-		
-		internal var type:int;
-		internal var id:int;
-		
-		internal var speed:int;
-		internal var movingCooldown:int;
-		
-		internal var actionSpeed:int;
-		internal var actingCooldown:int;
-		
-		internal var cell:CellXY;
-		
-		internal var active:Boolean;
 		
 		public function ActorBase(configuration:XML) 
 		{
@@ -41,6 +28,8 @@ package game.actors.storage
 		
 		final public function act():void
 		{
+			this.runChecks();
+			
 			if (this.actingCooldown > 0)
 				this.actingCooldown--;
 			else
@@ -52,6 +41,11 @@ package game.actors.storage
 				this.onCanMove();
 		}
 		
+		protected function runChecks():void
+		{
+			
+		}
+		
 		protected function onCanAct():void
 		{
 			
@@ -60,15 +54,6 @@ package game.actors.storage
 		protected function onCanMove():void
 		{
 			
-		}
-		
-		final public function get x():int
-		{
-			return this.cell.x;
-		}
-		final public function get y():int
-		{
-			return this.cell.y;
 		}
 		
 		
