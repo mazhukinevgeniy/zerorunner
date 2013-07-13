@@ -62,7 +62,6 @@ package game.actors.storage
 			
 		}
 		
-		/*
 		final public function get x():int
 		{
 			return this.cell.x;
@@ -70,7 +69,7 @@ package game.actors.storage
 		final public function get y():int
 		{
 			return this.cell.y;
-		}*/ // TODO: remove if not needed
+		}
 		
 		
 		
