@@ -1,24 +1,3 @@
-package game.actors.modules 
-{
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.errors.UnresolvedRequestError;
-	import chaotic.informers.IGiveInformers;
-	import game.actors.ActorsFeature;
-	import game.actors.storage.ActorStorage;
-	import game.actors.storage.Puppet;
-	import game.grinder.IGrinder;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.Metric;
-	import game.scene.IScene;
-	import game.scene.SceneFeature;
-	import game.ZeroRunner;
-	
-	public class ActorSpawner
-	{
-		
-		private var updateFlow:IUpdateDispatcher;
-		
 		public function ActorSpawner(actorStorage:ActorStorage, flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
@@ -117,13 +96,3 @@ package game.actors.modules
 					return i;
 			throw new UnresolvedRequestError();
 		}
-		
-		
-		public function getInformerFrom(table:IGiveInformers):void
-		{
-			this.scene = table.getInformer(IScene);
-			this.grinders = table.getInformer(IGrinder);
-		}
-	}
-
-}

@@ -19,10 +19,7 @@ package game.actors
 		
 		public static const MAXIMUM_DAMAGE:int = 1000;
 		
-		
-		public static const CAP:int = 100;
-		
-		public static const MAX_SPAWN_ONCE:int = 10;
+		public static const CAP:int = 50;
 		
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{

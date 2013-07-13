@@ -1,7 +1,8 @@
 package game.actors.modules.pull 
 {
+	import game.actors.core.ActorBase;
 	
-	internal class ActorPull 
+	public class ActorPull 
 	{
 		
 		public function ActorPull() 
@@ -9,6 +10,15 @@ package game.actors.modules.pull
 			
 		}
 		
+		public function stash(actor:ActorBase):void
+		{
+			// TODO: do
+		}
+		
+		public function getActor():ActorBase
+		{
+			// TODO: do
+		}
 	}
 
 }
