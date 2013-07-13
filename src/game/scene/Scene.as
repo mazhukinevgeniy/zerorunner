@@ -32,40 +32,10 @@ package game.scene
 		
 		public function prerestore():void
 		{
-			do
+			for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
 			{
-				for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
-				{
-					this.patterns[i] = new ScenePattern();
-				}
+				this.patterns[i] = new ScenePattern();
 			}
-			while (this.probablyCanNotLeave(ActorsFeature.SPAWN_CELL));
-		}
-		
-		private function probablyCanNotLeave(cell:CellXY):Boolean
-		{
-			if (this.getSceneCell(cell) == SceneFeature.FALL)
-				return true;
-			
-			var rightWay:int = 0;
-			
-			var right:DCellXY = new DCellXY(1, 0);
-			var up:DCellXY = new DCellXY(0, -1);
-			
-			while (rightWay < 10)
-			{
-				if (this.getSceneCell(new CellXY(cell.x + 1, cell.y)) == SceneFeature.ROAD)
-				{
-					cell.applyChanges(right);
-					rightWay++;
-				}
-				else if (this.getSceneCell(new CellXY(cell.x, cell.y - 1)) == SceneFeature.ROAD)
-				{
-					cell.applyChanges(up);
-				}
-				else return true;
-			}
-			return false;
 		}
 		
 		public function addInformerTo(table:IStoreInformers):void
