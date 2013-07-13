@@ -1,4 +1,4 @@
-package game.actors.storage 
+package game.actors.core 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import game.grinder.IGrinder;
@@ -28,7 +28,7 @@ package game.actors.storage
 		
 		final public function act():void
 		{
-			this.runChecks();
+			this.onActing();
 			
 			if (this.actingCooldown > 0)
 				this.actingCooldown--;
@@ -41,7 +41,7 @@ package game.actors.storage
 				this.onCanMove();
 		}
 		
-		protected function runChecks():void
+		protected function onActing():void
 		{
 			
 		}
@@ -74,9 +74,10 @@ package game.actors.storage
 		{
 			return ActorBase.iSearcher;
 		}
-		final protected function get flow():IUpdateDispatcher
+		
+		final protected function dispatchUpdate(... args):void
 		{
-			return ActorBase.iFlow;
+			ActorBase.iFlow.dispatchUpdate.apply(ActorBase.iFlow, args);
 		}
 	}
 

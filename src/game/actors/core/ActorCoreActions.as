@@ -1,4 +1,4 @@
-package game.actors.storage 
+package game.actors.core 
 {
 	
 	internal class ActorCoreActions extends ActorPuppet
@@ -32,6 +32,11 @@ package game.actors.storage
 		{
 			...
 		}*/ // TODO: reimplement in the cache
+		
+		protected function onDamaged(damage:int):void
+		{
+			
+		}
 	}
 
 }

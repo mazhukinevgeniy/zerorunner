@@ -27,9 +27,6 @@ package game.actors
 		
 		public static const MAXIMUM_DAMAGE:int = 1000;
 		
-		[Embed(source = "actors.xml", mimeType="application/octet-stream")]
-		internal static const config:Class;
-		
 		
 		public static const CAP:int = 100;
 		
@@ -47,11 +44,7 @@ package game.actors
 		
 		public static function get SPAWN_CELL():CellXY
 		{
-			return new CellXY((Metric.WIDTH - 1) / 2, (Metric.HEIGHT - 1) / 2);
-		}
-		public static function get CONFIG():XML
-		{
-			return XMLByClass(ActorsFeature.config);
+			return new CellXY((Metric.WIDTH - 1) / 2, (Metric.HEIGHT - 1) / 2); //TODO: change for something like -9000, -9000
 		}
 	}
 

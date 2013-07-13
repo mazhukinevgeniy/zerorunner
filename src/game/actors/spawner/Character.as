@@ -52,6 +52,11 @@ package game.actors.spawner
 		{
 			this.kick(item, this.searcher.findObjectByCell(item.getCell().applyChanges(change)), change);
 		}
+		
+		override protected function onDamaged(damage:int):void
+		{
+			this.
+		}
 	}
 
 }

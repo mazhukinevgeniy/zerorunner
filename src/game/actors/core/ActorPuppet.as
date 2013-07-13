@@ -1,4 +1,4 @@
-package game.actors.storage 
+package game.actors.core 
 {
 	import game.metric.CellXY;
 	
