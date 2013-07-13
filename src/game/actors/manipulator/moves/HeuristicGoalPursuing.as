@@ -10,18 +10,7 @@ package game.actors.manipulator.moves
 	
 	public class HeuristicGoalPursuing extends MoveBase
 	{
-		private const LEFT:int = 0;
-		private const UP:int = 1;
-		private const RIGHT:int = 2;
-		private const DOWN:int = 3;
 		
-		private const LEFT_HAND:int = -1;
-		private const RIGHT_HAND:int = 1;
-		private const NOT_IN_BYPASS:int = 0;
-		
-		private var moves:Vector.<DCellXY>;
-		private var directions:Vector.<int>;
-		private var surroundings:Vector.<Boolean>;
 		
 		private var scene:IScene;
 		
@@ -30,82 +19,14 @@ package game.actors.manipulator.moves
 		private var bite:Bite;
 		
 		
-		public function HeuristicGoalPursuing(newScene:IScene, bite:Bite) 
-		{
-			this.scene = newScene;
-			
-			this.bite = bite;
-			
-			this.initializeHelperArrays();
-		}
-		
-		private function initializeHelperArrays():void
-		{
-			this.moves = new Vector.<DCellXY>(4, true);
-			this.moves[this.RIGHT] = new DCellXY(1, 0);
-			this.moves[this.LEFT] = new DCellXY(-1, 0);
-			this.moves[this.DOWN] = new DCellXY(0, 1);
-			this.moves[this.UP] = new DCellXY(0, -1);
-			
-			this.directions = new <int>[this.LEFT,
-										this.UP,
-										this.RIGHT,
-										this.DOWN];
-			
-			this.surroundings = new Vector.<Boolean>(4, true);
-		}
-		
 		override public function prepareDataIn(item:Puppet):void
 		{
-			var data:Object = (item.data.heuristic = new Object());
 			
-			data.previousCell = (data.goal = this.searcher.getCharacterCell());
-			data.hand = this.NOT_IN_BYPASS;
-			data.lastTouchedWall = new int( -1);
-			data.bypassStartingPoint = new CellXY( -1, -1);
 		}
 		
 		override protected function tryToMove(item:Puppet):void
 		{
-			var data:Object = item.data.heuristic;
-			this.actor = item;
 			
-			if (!data.previousCell.isEqualTo(this.actor.getCell()))
-				data.hand = this.NOT_IN_BYPASS;
-			
-			if (data.hand == this.NOT_IN_BYPASS) 
-				data.goal = this.searcher.getCharacterCell();
-			
-			this.refreshCells();
-			
-			if (data.hand == this.NOT_IN_BYPASS)
-			{
-				if (!this.tryStraightGoing(data.goal))
-				{
-					data.hand = (Math.random() > 0.5)?(-1):(1);
-					
-					if (data.goal.x > this.actor.x)
-						data.lastTouchedWall = this.RIGHT;
-					else if (data.goal.x < this.actor.x)
-						data.lastTouchedWall = this.LEFT;
-					else if (data.goal.y > this.actor.y)
-						data.lastTouchedWall = this.DOWN;
-					else if (data.goal.y < this.actor.y)
-						data.lastTouchedWall = this.UP;
-					
-					data.bypassStartingPoint = this.actor.getCell();
-				}
-			}
-			
-			if (data.hand != this.NOT_IN_BYPASS)
-			{
-				this.move(data.lastTouchedWall);
-				
-				if (this.sureCheck(data) || this.actor.getCell().isEqualTo(data.bypassStartingPoint))
-					data.hand = this.NOT_IN_BYPASS;
-			}
-			
-			data.previousCell = this.actor.getCell();
 		}
 		
 		private function tryStraightGoing(goal:CellXY):Boolean

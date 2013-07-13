@@ -6,7 +6,7 @@ package game.actors.storage
 	{
 		function findObjectByCell(cell:CellXY):Puppet;
 		
-		function getCharacterCell():CellXY;
+		function getCharacterCell(storeIn:CellXY):void;
 	}
 	
 }
