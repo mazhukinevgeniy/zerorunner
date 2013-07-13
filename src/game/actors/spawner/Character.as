@@ -1,7 +1,9 @@
 package game.actors.spawner 
 {
+	import game.actors.ActorsFeature;
+	import game.actors.core.ActorBase;
 	
-	internal class Character 
+	internal class Character extends ActorBase
 	{
 		private static const configuration = new XML
 		(
@@ -55,7 +57,7 @@ package game.actors.spawner
 		
 		override protected function onDamaged(damage:int):void
 		{
-			this.
+			this.dispatchUpdate(ActorsFeature.heroDamaged, damage);
 		}
 	}
 
