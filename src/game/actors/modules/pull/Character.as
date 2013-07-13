@@ -19,6 +19,12 @@ package game.actors.modules.pull
 			super(Character.configuration);
 		}
 		
+		override protected function onSpawned():void
+		{
+			
+			this.updateFlow.dispatchUpdate(ActorsFeature.setCenter, this.cell);
+		}
+		
 		override protected function onActing():void
 		{
 			this.isOnTheGround(this);

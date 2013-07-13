@@ -1,5 +1,6 @@
 package game.actors.core 
 {
+	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	
 	internal class ActorCoreActions extends ActorPuppet
@@ -11,6 +12,18 @@ package game.actors.core
 		}
 		
 		
+		final protected function getGrindedCell():CellXY
+		{
+			var y:int = this.storage.character.y - 20 + Math.random() * 40;
+			var x:int = this.grinders.getFront(y);
+			
+			return new CellXY(x, y);
+		}
+		final protected function getRandomCell():CellXY
+		{
+			return new CellXY(this.storage.character.x - 5 + Math.random() * 15,
+							  this.storage.character.y -8 + Math.random() * 21)); // TODO: reduce hardcoding
+		}
 		/*
 		final protected function isGrinded(item:ActorBase):void
 		{
