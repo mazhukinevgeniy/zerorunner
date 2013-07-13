@@ -9,7 +9,7 @@ package game
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
-	import game.statistics.Statistics;
+	import game.state.GameState;
 	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
@@ -66,9 +66,9 @@ package game
 			
 			Metric.initialize(40, 40, 81, 81);
 			
+			new GameState(this);
 			new Time(this.displayRoot, this);
 			new InputManager(this);
-			new Statistics(this);
 			new UIExtendsions(this);
 			
 			new GrinderFeature(this);
