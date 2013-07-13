@@ -27,7 +27,7 @@ package game.scene
 		
 		public function getSceneCell(cell:CellXY):int
 		{
-			return (this.patterns[Metric.getHash(cell) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(cell.x, cell.y) % 4 == 0 ? SceneFeature.FALL : SceneFeature.ROAD);
+			return (this.patterns[uint((cell.x * 84673) ^ (cell.y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(cell.x, cell.y) % 4 == 0 ? SceneFeature.FALL : SceneFeature.ROAD);
 		}
 		
 		public function prerestore():void

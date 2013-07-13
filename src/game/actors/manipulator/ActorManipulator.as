@@ -1,9 +1,6 @@
 package game.actors.manipulator 
 {
 	import game.actors.ActorsFeature;
-	import game.actors.storage.ActorStorage;
-	import game.actors.storage.ISearcher;
-	import game.actors.storage.Puppet;
 	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
@@ -13,8 +10,6 @@ package game.actors.manipulator
 	
 	public class ActorManipulator
 	{
-		private var actions:Vector.<Vector.<ActionBase>>;
-		private var checks:Vector.<Vector.<ActionBase>>;
 		
 		private var updateFlow:IUpdateDispatcher;
 		private var storage:ActorStorage;
@@ -58,7 +53,7 @@ package game.actors.manipulator
 			}
 		}
 		
-		public function tick():void
+		public function tick(numberOfObjects:int):void
 		{
 			var numberOfObjects:int = this.storage.getNumberOfObjects();
 			var checks:Vector.<ActionBase>;
@@ -70,44 +65,7 @@ package game.actors.manipulator
 				var object:Puppet = this.storage.getObject(i);
 				
 				if (object.active)
-				{
-					var type:int = object.type;
 					
-					checks = this.checks[type];
-					var length:int = checks.length;
-					
-					for (var j:int = 0; j < length; j++)
-					{
-						checks[j].actOn(object);
-					}
-					
-					
-					if (object.remainingDelay > 0)
-					{
-						object.remainingDelay--;
-					}
-					else
-					{
-						actions = this.actions[type];
-						var numberOfCommands:int = actions.length;
-						
-						for (var k:int = 0; k < numberOfCommands; k++)
-						{
-							actions[k].actOn(object);
-							
-							
-							/**
-							 * Not actual: there's no second action anywhere
-							
-							if (!object.active)
-							{
-								break;
-							}
-							
-							**/
-						}
-					}
-				}
 			}
 		}
 		

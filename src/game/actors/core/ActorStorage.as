@@ -1,4 +1,4 @@
-package game.actors.storage 
+package game.actors.core 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IStoreInformers;
@@ -13,32 +13,18 @@ package game.actors.storage
 		private var puppets:Vector.<Puppet>;
 		
 		
-		private var unusedIDs:Vector.<int>;
-		
-		private var active:int;
-		
-		
 		private var flow:IUpdateDispatcher;
 		
 		public function ActorStorage(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ActorsFeature.actorAdded);
 			flow.addUpdateListener(ActorsFeature.actorMoved);
 			flow.addUpdateListener(ActorsFeature.actorDestroyed);
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			
 			this.flow = flow;
-		}
-		
-		public function actorAdded(item:Puppet):void
-		{			
-			this.puppets[item.id] = item;
-			this.hashmap[Metric.getHash(item.cell)].push(item);
-			
-			this.active++;
 		}
 		
 		public function actorMoved(item:Puppet, change:DCellXY, ticksToGo:int):void
@@ -75,31 +61,9 @@ package game.actors.storage
 			}
 		}
 		
-		private function removeFromHash(item:Puppet):void
-		{
-			var oldHash:Vector.<Puppet> = this.hashmap[Metric.getHash(item.cell)];
-			oldHash.splice(oldHash.indexOf(item), 1);
-		}
-		
 		public function prerestore():void
 		{
-			var i:int;
-			var configuration:XML = ActorsFeature.CONFIG;
-			
 			this.puppets = new Vector.<Puppet>();
-			
-			var length:int = Metric.getMaximumHash();
-			this.hashmap = new Vector.<Vector.<Puppet>>(length, true);
-			
-			for (i = 0; i < length; i++)
-				this.hashmap[i] = new Vector.<Puppet>();
-			
-			this.unusedIDs = new Vector.<int>();
-			
-			for (i = 0; i < ActorsFeature.CAP; i++)
-				this.unusedIDs[i] = ActorsFeature.CAP - i;
-			
-			this.active = 0;
 		}
 		
 		public function findObjectByCell(cell:CellXY):Puppet
@@ -123,27 +87,7 @@ package game.actors.storage
 		{
 			return this.puppets[0].cell.getCopy();
 		}
-		public function getObject(id:int):Puppet
-		{
-			return this.puppets[id];
-		}
-		public function getNumberOfObjects():int
-		{
-			return this.puppets.length;
-		}
-		public function getNumberOfActives():int
-		{
-			return this.active;
-		}
-		public function getUnusedID():int
-		{
-			return this.unusedIDs.pop();
-		}
 		
-		public function addUnusedID(id:int):void
-		{
-			this.unusedIDs.push(id);
-		}
 		
 		
 		

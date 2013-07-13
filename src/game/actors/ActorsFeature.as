@@ -1,8 +1,7 @@
 package game.actors 
 {
-	import game.actors.manipulator.ActorManipulator;
+	import game.actors.core.ActorStorage;
 	import game.actors.spawner.ActorSpawner;
-	import game.actors.storage.ActorStorage;
 	import game.actors.view.ActiveCanvas;
 	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;
@@ -27,11 +26,9 @@ package game.actors
 		
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{
-			var storage:ActorStorage = new ActorStorage(flow);
-			
-			new ActorSpawner(storage, flow);
-			new ActorManipulator(storage, flow);
-			new ActiveCanvas(flow);
+			var view:ActiveCanvas = new ActiveCanvas();
+			var spawner:ActorSpawner = new ActorSpawner(view);
+			new ActorStorage(view, spawner, flow);
 		}
 		
 		
