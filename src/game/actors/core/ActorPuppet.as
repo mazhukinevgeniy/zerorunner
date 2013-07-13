@@ -8,7 +8,7 @@ package game.actors.core
 		internal var type:int;
 		internal var id:int;
 		
-		internal var speed:int;
+		internal var moveSpeed:int;
 		internal var movingCooldown:int;
 		
 		internal var actionSpeed:int;
