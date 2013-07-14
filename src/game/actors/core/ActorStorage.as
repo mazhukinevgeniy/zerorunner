@@ -11,10 +11,10 @@ package game.actors.core
 	import game.scene.IScene;
 	import game.ZeroRunner;
 	
-	public class ActorStorage implements ISearcher
+	public class ActorStorage implements IActorCache, ISearcher
 	{
-		private var puppets:Vector.<Puppet>;
-		
+		private var actors:Vector.<ActorBase>;
+		private var cache:Vector.<ActorBase>;
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -22,8 +22,6 @@ package game.actors.core
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ActorsFeature.actorMoved);
-			flow.addUpdateListener(ActorsFeature.actorDestroyed);
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
@@ -31,20 +29,15 @@ package game.actors.core
 			this.flow = flow;
 		}
 		
-		public function actorMoved(item:Puppet, change:DCellXY, ticksToGo:int):void
+		public function prerestore():void
 		{
-			this.removeFromHash(item);
-			
-			item.cell.applyChanges(change);
-			
-			this.hashmap[Metric.getHash(item.cell)].push(item);
+			this.actors = new Vector.<ActorBase>(ActorsFeature.CAP, true);
 		}
 		
 		public function actorDestroyed(item:Puppet):void
 		{
 			if (item.id == 0)
 			{
-				this.flow.dispatchUpdate(ZeroRunner.gameOver);
 			}
 			else
 			{
@@ -63,11 +56,6 @@ package game.actors.core
 				
 				this.removeFromHash(item);
 			}
-		}
-		
-		public function prerestore():void
-		{
-			this.puppets = new Vector.<Puppet>();
 		}
 		
 		public function findObjectByCell(cell:CellXY):Puppet

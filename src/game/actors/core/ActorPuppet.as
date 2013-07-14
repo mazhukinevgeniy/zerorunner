@@ -1,8 +1,9 @@
 package game.actors.core 
 {
 	import game.metric.CellXY;
+	import game.metric.ICoordinated;
 	
-	internal class ActorPuppet 
+	internal class ActorPuppet implements ICoordinated
 	{
 		internal var id:int;
 		internal var hp:int;
@@ -23,11 +24,11 @@ package game.actors.core
 		}
 		
 		
-		final protected function get x():int
+		final public function get x():int
 		{
 			return this.cell.x;
 		}
-		final protected function get y():int
+		final public function get y():int
 		{
 			return this.cell.y;
 		}

@@ -13,6 +13,7 @@ package game.actors.core
 		internal static var iGrinder:IGrinder;
 		internal static var iScene:IScene;
 		internal static var iListener:IActorListener;
+		internal static var iCache:IActorCache;
 		
 		
 		public function ActorBase(hp:int, moveSpeed:int, actionSpeed:int) 
@@ -70,11 +71,15 @@ package game.actors.core
 			
 		}
 		
+		protected function onDestroyed():void
+		{
+			
+		}
 		
 		
-		
-		
-		
+		/**
+		 * Informer access methods
+		 */
 		
 		final protected function get grinder():IGrinder
 		{
@@ -93,7 +98,17 @@ package game.actors.core
 			return ActorBase.iListener;
 		}
 		
-		final protected function dispatchUpdate(... args):void
+		
+		/**
+		 * DANGER: force methods
+		 */
+		
+		final protected function forceActive(value:Boolean):void
+		{
+			this.isActive = value;
+		}
+		
+		final protected function forceUpdate(... args):void
 		{
 			ActorBase.iFlow.dispatchUpdate.apply(ActorBase.iFlow, args);
 		}

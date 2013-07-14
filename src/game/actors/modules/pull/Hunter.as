@@ -27,7 +27,7 @@ package game.actors.modules.pull
 		private static var directions:Vector.<int> = new <int>[Hunter.LEFT, Hunter.UP, Hunter.RIGHT, Hunter.DOWN];
 		private static var surroundings:Vector.<Boolean> = new Vector.<Boolean>(4, true);
 		
-		private var previousCell:CellXY; // TODO: is needed?
+		private var previousCell:CellXY;
 		private var goal:CellXY;
 		private var bypassStartingPoint:CellXY;
 		

@@ -20,6 +20,13 @@ package game.actors.modules.pull
 			this.updateFlow.dispatchUpdate(ActorsFeature.setCenter, this.cell);
 		}
 		
+		override protected function onDestroyed():void
+		{
+			this.flow.dispatchUpdate(ZeroRunner.gameOver);
+			
+			this.forceActive(true);
+		}
+		
 		override protected function onActing():void
 		{
 			this.isOnTheGround(this);
