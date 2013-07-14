@@ -3,7 +3,6 @@ package game
 	import chaotic.core.UpdateManager;
 	import chaotic.informers.InformerManager;
 	import game.actors.ActorsFeature;
-	import game.grinder.GrinderFeature;
 	import game.input.InputManager;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -71,7 +70,6 @@ package game
 			new InputManager(this);
 			new UIExtendsions(this);
 			
-			new GrinderFeature(this);
 			new ActorsFeature(this);
 			new SceneFeature(this);
 			

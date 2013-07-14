@@ -2,7 +2,6 @@ package game.actors.core
 {
 	import chaotic.core.IUpdateDispatcher;
 	import game.actors.view.IActorListener;
-	import game.grinder.IGrinder;
 	import game.metric.CellXY;
 	import game.scene.IScene;
 	
@@ -10,7 +9,6 @@ package game.actors.core
 	{
 		internal static var iFlow:IUpdateDispatcher;
 		internal static var iSearcher:ISearcher;
-		internal static var iGrinder:IGrinder;
 		internal static var iScene:IScene;
 		internal static var iListener:IActorListener;
 		internal static var iCache:IActorCache;
@@ -61,10 +59,6 @@ package game.actors.core
 		 * Informer access methods
 		 */
 		
-		final protected function get grinder():IGrinder
-		{
-			return ActorBase.iGrinder;
-		}
 		final protected function get scene():IScene
 		{
 			return ActorBase.iScene;

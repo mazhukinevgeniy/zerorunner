@@ -17,7 +17,6 @@ package game.actors.modules.pull
 		
 		override protected function onSpawned():void
 		{
-			
 			this.updateFlow.dispatchUpdate(ActorsFeature.setCenter, this.cell);
 		}
 		

@@ -40,10 +40,6 @@ package game.actors.view
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
-			flow.addUpdateListener(ActorsFeature.actorAdded);
-			flow.addUpdateListener(ActorsFeature.actorDestroyed);
-			flow.addUpdateListener(ActorsFeature.actorMoved);
-			flow.addUpdateListener(ActorsFeature.actorJumped);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
