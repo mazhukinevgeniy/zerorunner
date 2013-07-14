@@ -1,5 +1,6 @@
 package game.actors.core 
 {
+	import game.metric.DCellXY;
 	/**
 	 * Here are defined overridable onSomething-methods
 	**/
@@ -31,6 +32,20 @@ package game.actors.core
 		 * Called if moving cooldown expired.
 		 */
 		protected function onCanMove():void
+		{
+			
+		}
+		/**
+		 * Called if moved succesfully
+		 */
+		protected function onMoved(change:DCellXY):void
+		{
+			
+		}
+		/**
+		 * Called if can not move
+		 */
+		protected function onBlocked(change:DCellXY):void
 		{
 			
 		}

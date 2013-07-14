@@ -2,6 +2,7 @@ package game.actors.modules.pull
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
+	import game.metric.DCellXY;
 	
 	internal class Character extends ActorBase
 	{
@@ -18,6 +19,11 @@ package game.actors.modules.pull
 		{
 			
 			this.updateFlow.dispatchUpdate(ActorsFeature.setCenter, this.cell);
+		}
+		
+		override protected function onMoved(change:DCellXY):void
+		{
+			this.forceUpdate(ActorsFeature.moveCenter, change, this.speed);
 		}
 		
 		override protected function onDestroyed():void

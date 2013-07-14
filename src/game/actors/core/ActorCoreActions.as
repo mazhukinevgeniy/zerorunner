@@ -1,7 +1,11 @@
 package game.actors.core 
 {
+	import game.actors.view.IActorListener;
+	import game.grinder.IGrinder;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
+	import game.scene.IScene;
+	import game.scene.SceneFeature;
 	
 	internal class ActorCoreActions extends ActorPuppet
 	{
@@ -14,15 +18,15 @@ package game.actors.core
 		
 		final protected function getGrindedCell():CellXY
 		{
-			var y:int = this.storage.character.y - 20 + Math.random() * 40;
-			var x:int = this.grinders.getFront(y);
+			var y:int = ActorBase.iSearcher.character.y - 20 + Math.random() * 40;
+			var x:int = ActorBase.iGrinder.getFront(y);
 			
 			return new CellXY(x, y);
 		}
 		final protected function getRandomCell():CellXY
 		{
-			return new CellXY(this.storage.character.x - 5 + Math.random() * 15,
-							  this.storage.character.y -8 + Math.random() * 21); // TODO: reduce hardcoding
+			return new CellXY(ActorBase.iSearcher.character.x - 5 + Math.random() * 15,
+							  ActorBase.iSearcher.character.y -8 + Math.random() * 21); // TODO: reduce hardcoding
 		}
 		/*
 		final protected function isGrinded(item:ActorBase):void
@@ -34,27 +38,19 @@ package game.actors.core
 			
 		}*/ // TODO: move to the caching code
 		
-		final protected function isOnTheGround(item:ActorBase):void
-		{
-			if (ActorBase.scene.getSceneCell(item.cell) == SceneFeature.FALL)
-			{
-				this.destroyActor(item);
-			}
-		}
-		
 		final protected function tryMove(change:DCellXY):void
 		{
 			if (ActorBase.iSearcher.findObjectByCell(this.cell.getCopy().applyChanges(change)) == null) // TODO: fix syntax
 			{
 				this.movingCooldown = this.moveSpeed;
-				var id:int = item.id;
 				
-				if (id == ActorsFeature.PROTAGONIST_ID)
-					ActionBase.flow.dispatchUpdate(ActorsFeature.moveCenter, change, item.speed + 1);
+				ActorBase.iCache.cleanCell(this.x, this.y);
+				this.cell.applyChanges(change);
+				ActorBase.iCache.putInCell(this.x, this.y, this as ActorBase);
 				
-				ActionBase.flow.dispatchUpdate(ActorsFeature.actorMoved, item, change, item.remainingDelay + 1);
+				ActorBase.iListener.actorMovedNormally(this.id, change, this.moveSpeed);
 				
-				this.afterMoved(item);
+				this.onMoved(change);
 			}
 			else
 				this.onBlocked(change);
@@ -65,17 +61,40 @@ package game.actors.core
 			...
 		}*/ // TODO: reimplement in the cache
 		
+		final protected function isOnTheGround(item:ActorBase):void
+		{
+			if (ActorBase.iScene.getSceneCell(item.cell) == SceneFeature.FALL)
+			{
+				ActorBase.iListener.actorFallen(item.id);
+				
+				this.destroyActor(item);
+			}
+		}
+		
 		final protected function damageActor(item:ActorBase, damage:int):void
 		{
 			item.hp -= damage;
 			
-			if (!(item.hp > 0))
+			if (item.hp > 0)
 			{
-				ActionBase.flow.dispatchUpdate(ActorsFeature.actorDestroyed, item);
+				item.onDamaged(damage);
 			}
 			else
 			{
-				item.onDamaged(damage);
+				this.destroyActor(item);
+				
+				ActorBase.iListener.actorDeadlyDamaged(item.id);
+			}
+		}
+		
+		private function destroyActor(item:ActorBase):void
+		{
+			if (item.isActive)
+			{
+				item.isActive = false;
+				ActorBase.iCache.cleanCell(item.x, item.y);
+				
+				item.onDestroyed();
 			}
 		}
 	}
