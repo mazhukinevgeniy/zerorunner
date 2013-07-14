@@ -9,12 +9,22 @@ package game.actors.core
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.IScene;
+	import game.time.ICacher;
+	import game.time.Time;
 	import game.ZeroRunner;
 	
-	public class ActorStorage implements IActorCache, ISearcher
+	public class ActorStorage implements ICacher, IActorCache, ISearcher
 	{
 		private var actors:Vector.<ActorBase>;
-		private var cache:Vector.<ActorBase>;
+		
+		
+		private var cacheV:Vector.<ActorBase>;
+		
+		private var cacheWidth:int;
+		private var cacheHeight:int;
+		private var cacheLength:int;
+		
+		private var cacheIsCleared:Boolean;
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -28,13 +38,42 @@ package game.actors.core
 			
 			this.flow = flow;
 			
+			this.cacheWidth = Metric.xDistanceActorsAllowed * 2;
+			this.cacheHeight = Metric.yDistanceActorsAllowed * 2;
+			this.cacheLength = this.cacheWidth * this.cacheHeight;
+			
 			this.actors = new Vector.<ActorBase>(ActorsFeature.CAP, true);
-			this.cache = new Vector.<ActorBase>(???, true); 
+			this.cache = new Vector.<ActorBase>(this.cacheLength, true);
+			
+			flow.dispatchUpdate(Time.addCacher, this);
+			flow.dispatchUpdate(Time.addCacher, this);
 		}
 		
 		public function prerestore():void
 		{
 			this.pull.refill(this.actors, true);
+			
+			this.cacheIsCleared = false;
+		}
+		
+		public function cache():void
+		{
+			var i:int;
+			
+			if (this.cacheIsCleared)
+			{
+				for (i = 0; i < ActorsFeature.CAP; i++)
+				{
+					// TODO: fill the cache; perform outOfBounds and isGrinded checks
+				}
+			}
+			else
+			{
+				for (i = 0; i < this.cacheLength; i++)
+					this.cacheV[i] = null;
+			}
+			
+			this.cacheIsCleared = !this.cacheIsCleared;
 		}
 		
 		public function findObjectByCell(cell:CellXY):Puppet
