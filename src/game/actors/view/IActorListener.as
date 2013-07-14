@@ -10,7 +10,7 @@ package game.actors.view
 		 * 
 		 * @param type Special code which represents what sprite set should be used.
 		**/
-		function actorSpawned(id:int, cell:CellXY, type:int);
+		function actorSpawned(id:int, cell:CellXY, type:int):void;
 		
 		
 		

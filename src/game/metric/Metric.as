@@ -23,6 +23,11 @@ package game.metric
 		public static function get WIDTH():int { return Metric.width; }
 		public static function get HEIGHT():int { return Metric.height; }
 		
+		public static function get xDistanceActorsAllowed():int	{ return Metric.cellsInVisibleWidth; }
+		public static function get yDistanceActorsAllowed():int	{ return Metric.cellsInVisibleHeigth; }
+		
+		public static function get xDistanceSceneAllowed():int	{ return 2 * Metric.cellsInVisibleWidth; }
+		public static function get yDistanceSceneAllowed():int	{ return 2 * Metric.cellsInVisibleHeigth; }
 		
 		
 		public function Metric() 
@@ -60,17 +65,6 @@ package game.metric
 			
 			return new DCellXY(x, y);
 		}
-		
-		public static function toPixel(item:*):*
-		{
-			if (item is CellXY)
-				return new PixelXY(item.x * Metric.cellWidth, item.y * Metric.cellHeight);
-			else if (item is DCellXY)
-				return new DPixelXY(item.x * Metric.cellWidth, item.y * Metric.cellHeight);
-			else 
-				throw new UnresolvedRequestError();
-		}
-		
 		
 		public static function distance(p1:CellXY, p2:CellXY):int
 		{

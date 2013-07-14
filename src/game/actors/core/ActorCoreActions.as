@@ -22,7 +22,7 @@ package game.actors.core
 		final protected function getRandomCell():CellXY
 		{
 			return new CellXY(this.storage.character.x - 5 + Math.random() * 15,
-							  this.storage.character.y -8 + Math.random() * 21)); // TODO: reduce hardcoding
+							  this.storage.character.y -8 + Math.random() * 21); // TODO: reduce hardcoding
 		}
 		/*
 		final protected function isGrinded(item:ActorBase):void
@@ -65,15 +65,17 @@ package game.actors.core
 			...
 		}*/ // TODO: reimplement in the cache
 		
-		final protected function damageActor(item:Puppet, damage:int):void
+		final protected function damageActor(item:ActorBase, damage:int):void
 		{
 			item.hp -= damage;
-			
-			ActionBase.flow.dispatchUpdate(ActorsFeature.actorDamaged, item, damage);
 			
 			if (!(item.hp > 0))
 			{
 				ActionBase.flow.dispatchUpdate(ActorsFeature.actorDestroyed, item);
+			}
+			else
+			{
+				item.onDamaged(damage);
 			}
 		}
 	}

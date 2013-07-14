@@ -1,13 +1,12 @@
 package game.scene 
 {
-	import game.actors.storage.ISearcher;
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.informers.IGiveInformers;
+	import game.actors.core.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.DPixelXY;
 	import game.metric.Metric;
-	import game.metric.PixelXY;
 	import game.time.Time;
 	import game.ui.Camera;
 	import game.ZeroRunner;
@@ -23,6 +22,7 @@ package game.scene
 		private var assets:AssetManager;
 		
 		private var searcher:ISearcher;
+		
 		private var cache:LandscapeCache;
 		
 		private var container:Sprite;
@@ -57,16 +57,17 @@ package game.scene
 			this.container.removeChildren();
 			this.pull.nothingIsInUse();
 			
-			var center:CellXY = this.searcher.getCharacterCell();
+			var centerX:int = this.searcher.character.x;
+			var centerY:int = this.searcher.character.y;
 			
-			var xGoal:int = center.x + this.width;
-			var yGoal:int = center.y + this.height;
+			var xGoal:int = centerX + this.width;
+			var yGoal:int = centerY + this.height;
 			
 			var sprite:Image;
 			
-			for (var i:int = center.x - this.width; i < xGoal; i++)
+			for (var i:int = centerX - this.width; i < xGoal; i++)
 			{
-				for (var j:int = center.y - this.height; j < yGoal; j++)
+				for (var j:int = centerY - this.height; j < yGoal; j++)
 				{
 					if (this.cache.getCached(i, j))
 					{
@@ -176,7 +177,7 @@ package game.scene
 				
 			}
 			
-			this.cache.setTopLeftCell(new CellXY(center.x - this.width, center.y - this.height));
+			this.cache.setTopLeftCell(new CellXY(centerX - this.width, centerY - this.height));
 		}
 		
 		

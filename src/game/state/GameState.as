@@ -36,6 +36,8 @@ package game.state
 		{
 			return this.ticks;
 		}
+		
+		
 	}
 
 }

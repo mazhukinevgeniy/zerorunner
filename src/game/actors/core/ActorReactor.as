@@ -36,7 +36,7 @@ package game.actors.core
 		}
 		
 		/**
-		 * Called when damaged. //TODO: before? after? when exactly what?
+		 * Called if damaged and survived that damage.
 		**/
 		protected function onDamaged(damage:int):void
 		{
