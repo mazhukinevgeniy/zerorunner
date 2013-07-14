@@ -21,11 +21,6 @@ package game.actors.modules.pull
 			super(Destroyer.HP, Destroyer.MOVE_SPEED, Destroyer.ACTION_SPEED);
 		}
 		
-		override protected function getCell():CellXY
-		{
-			return this.getGrindedCell();
-		}
-		
 		override protected function onActing():void
 		{
 			this.isOnTheGround(this);

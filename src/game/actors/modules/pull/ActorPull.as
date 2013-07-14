@@ -27,9 +27,15 @@ package game.actors.modules.pull
 		{
 			// TODO: do
 			
-			return new this.types[this.chooseTypeToReturn(id)](id);
+			var type:int = this.chooseTypeToReturn(id);
 			
-			//TODO : actually must use syntax like "reset(id)" etc
+			//if there's no such actor stashed...
+			
+			var actor:ActorBase = new this.types[type]();
+			
+			actor.reset(id);
+			
+			return actor;
 		}
 		
 		private function chooseTypeToReturn(id:int):int

@@ -2,6 +2,7 @@ package game.actors.core
 {
 	import chaotic.core.IUpdateDispatcher;
 	import game.actors.view.IActorListener;
+	import game.input.IKnowInput;
 	import game.metric.CellXY;
 	import game.scene.IScene;
 	
@@ -12,6 +13,7 @@ package game.actors.core
 		internal static var iScene:IScene;
 		internal static var iListener:IActorListener;
 		internal static var iCache:IActorCache;
+		internal static var iInput:IKnowInput;
 		
 		
 		public function ActorBase(hp:int, moveSpeed:int, actionSpeed:int) 
@@ -30,6 +32,8 @@ package game.actors.core
 			this.movingCooldown = 0;
 			
 			this.cell = this.getCell();
+			
+			this.onSpawned();
 		}
 		
 		protected function getCell():CellXY
@@ -71,6 +75,10 @@ package game.actors.core
 		final protected function get listener():IActorListener
 		{
 			return ActorBase.iListener;
+		}
+		final protected function get input():IKnowInput
+		{
+			return ActorBase.iInput;
 		}
 		
 		

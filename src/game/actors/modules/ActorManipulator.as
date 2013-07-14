@@ -30,12 +30,12 @@ package game.actors.modules
 					{
 						this.pool.stash(actor);
 						
-						vector[i] = this.pool.getActor();
+						vector[i] = this.pool.getActor(i);
 					}
 				}
 				else
 				{
-					vector[i] = this.pool.getActor();
+					vector[i] = this.pool.getActor(i);
 				}
 			}
 		}

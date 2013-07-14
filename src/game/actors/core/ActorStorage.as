@@ -4,7 +4,9 @@ package game.actors.core
 	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
-	import game.grinder.IGrinder;
+	import game.actors.modules.ActorManipulator;
+	import game.actors.view.IActorListener;
+	import game.input.IKnowInput;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
@@ -29,8 +31,15 @@ package game.actors.core
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function ActorStorage(flow:IUpdateDispatcher) 
+		private var command:ActorManipulator;
+		private var listener:IActorListener;
+		
+		private var tLC:CellXY;
+		
+		public function ActorStorage(view:IActorListener, flow:IUpdateDispatcher) 
 		{
+			this.listener = view;
+			
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
@@ -44,15 +53,17 @@ package game.actors.core
 			this.cacheLength = this.cacheWidth * this.cacheHeight;
 			
 			this.actors = new Vector.<ActorBase>(ActorsFeature.CAP, true);
-			this.cache = new Vector.<ActorBase>(this.cacheLength, true);
+			this.cacheV = new Vector.<ActorBase>(this.cacheLength, true);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
 			flow.dispatchUpdate(Time.addCacher, this);
+			
+			this.command = new ActorManipulator();
 		}
 		
 		public function prerestore():void
 		{
-			this.pull.refill(this.actors, true);
+			this.command.refill(this.actors, true);
 			
 			this.cacheIsCleared = false;
 		}
@@ -79,16 +90,28 @@ package game.actors.core
 		
 		public function findObjectByCell(cell:CellXY):ActorBase
 		{
-			return this.cacheV[cell.x + cell.y * this.cacheWidth];
+			return this.cacheV[(cell.x - this.tLC.x) + (cell.y - this.tLC.y) * this.cacheWidth];
 		}
 		
 		public function getCharacterCell(cell:CellXY):void
 		{
 			var ccell:CellXY = this.actors[0].cell;
-			cell.x = ccell.x;
-			cell.y = ccell.y;
+			cell.setValue(ccell.x, ccell.y);
+		}
+		public function get character():ICoordinated
+		{
+			return this.actors[0];
 		}
 		
+		public function cleanCell(x:int, y:int):void
+		{
+			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.cacheWidth] = null;
+		}
+		
+		public function putInCell(x:int, y:int, item:ActorBase = null):void
+		{
+			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.cacheWidth] = item;
+		}
 		
 		
 		
@@ -101,9 +124,9 @@ package game.actors.core
 		{
 			ActorBase.iFlow = this.flow;
 			ActorBase.iSearcher = this;
-			ActorBase.iGrinder = table.getInformer(IGrinder);
 			ActorBase.iScene = table.getInformer(IScene);
 			ActorBase.iListener = this.listener;
+			ActorBase.iInput = table.getInformer(IKnowInput);
 		}
 	}
 

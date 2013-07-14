@@ -21,13 +21,13 @@ package game.actors.core
 			{
 				this.movingCooldown = this.moveSpeed;
 				
-				ActorBase.iCache.cleanCell(this.x, this.y);
+				ActorBase.iCache.putInCell(this.x, this.y);
 				this.cell.applyChanges(change);
 				ActorBase.iCache.putInCell(this.x, this.y, this as ActorBase);
 				
 				ActorBase.iListener.actorMovedNormally(this.id, change, this.moveSpeed);
 				
-				this.onMoved(change);
+				this.onMoved(change, this.moveSpeed);
 			}
 			else
 				this.onBlocked(change);
@@ -69,7 +69,7 @@ package game.actors.core
 			if (item.isActive)
 			{
 				item.isActive = false;
-				ActorBase.iCache.cleanCell(item.x, item.y);
+				ActorBase.iCache.putInCell(item.x, item.y);
 				
 				item.onDestroyed();
 			}

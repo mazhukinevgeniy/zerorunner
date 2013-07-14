@@ -1,9 +1,11 @@
 package game.actors.modules.pull 
 {
+	import game.actors.core.ActorBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
+	import game.scene.SceneFeature;
 	
-	internal class Hunter 
+	internal class Hunter extends ActorBase
 	{
 		private static const HP:int = 3;
 		private static const MOVE_SPEED:int = 2;
@@ -49,50 +51,47 @@ package game.actors.modules.pull
 		
 		override protected function onCanMove():void
 		{
-			var data:Object = item.data.heuristic;
-			this.actor = item;
+			if (!this.previousCell.isEqualTo(this.getCell()))
+				this.hand = Hunter.NOT_IN_BYPASS;
 			
-			if (!data.previousCell.isEqualTo(this.actor.getCell()))
-				data.hand = this.NOT_IN_BYPASS;
-			
-			if (data.hand == this.NOT_IN_BYPASS) 
-				data.goal = this.searcher.getCharacterCell();
+			if (this.hand == Hunter.NOT_IN_BYPASS) 
+				this.searcher.getCharacterCell(this.goal);
 			
 			this.refreshCells();
 			
-			if (data.hand == this.NOT_IN_BYPASS)
+			if (this.hand == Hunter.NOT_IN_BYPASS)
 			{
-				if (!this.tryStraightGoing(data.goal))
+				if (!this.tryStraightGoing(this.goal))
 				{
-					data.hand = (Math.random() > 0.5)?(-1):(1);
+					this.hand = (Math.random() > 0.5)?( -1):(1);
 					
-					if (data.goal.x > this.actor.x)
-						data.lastTouchedWall = this.RIGHT;
-					else if (data.goal.x < this.actor.x)
-						data.lastTouchedWall = this.LEFT;
-					else if (data.goal.y > this.actor.y)
-						data.lastTouchedWall = this.DOWN;
-					else if (data.goal.y < this.actor.y)
-						data.lastTouchedWall = this.UP;
+					if (this.goal.x > this.x)
+						this.lastTouchedWall = Hunter.RIGHT;
+					else if (this.goal.x < this.x)
+						this.lastTouchedWall = Hunter.LEFT;
+					else if (this.goal.y > this.y)
+						this.lastTouchedWall = Hunter.DOWN;
+					else if (this.goal.y < this.y)
+						this.lastTouchedWall = Hunter.UP;
 					
-					data.bypassStartingPoint = this.actor.getCell();
+					this.bypassStartingPoint = this.getCell();
 				}
 			}
 			
-			if (data.hand != this.NOT_IN_BYPASS)
+			if (this.hand != Hunter.NOT_IN_BYPASS)
 			{
-				this.move(data.lastTouchedWall);
+				this.move(this.lastTouchedWall);
 				
-				if (this.sureCheck(data) || this.actor.getCell().isEqualTo(data.bypassStartingPoint))
-					data.hand = this.NOT_IN_BYPASS;
+				if (this.sureCheck() || this.getCell().isEqualTo(this.bypassStartingPoint))
+					this.hand = Hunter.NOT_IN_BYPASS;
 			}
 			
-			data.previousCell = this.actor.getCell();
+			this.previousCell = this.getCell();
 		}
 		
 		private function tryStraightGoing(goal:CellXY):Boolean
 		{
-			if (Math.abs(goal.x - this.actor.x) > Math.abs(goal.y - this.actor.y))
+			if (Math.abs(goal.x - this.x) > Math.abs(goal.y - this.y))
 			{
 				if (!this.tryHorizontal(goal))
 					if (!this.tryVertical(goal))
@@ -109,28 +108,28 @@ package game.actors.modules.pull
 		}
 		private function tryVertical(goal:CellXY):Boolean
 		{
-			if ((goal.y > this.actor.y) && !this.surroundings[this.DOWN])
+			if ((goal.y > this.y) && !Hunter.surroundings[Hunter.DOWN])
 			{
-				this.move(this.DOWN);
+				this.move(Hunter.DOWN);
 				return true;
 			}
-			else if ((goal.y < this.actor.y) && !this.surroundings[this.UP])
+			else if ((goal.y < this.y) && !Hunter.surroundings[Hunter.UP])
 			{
-				this.move(this.UP);
+				this.move(Hunter.UP);
 				return true;
 			}
 			return false;
 		}
 		private	function tryHorizontal(goal:CellXY):Boolean
 		{
-			if ((goal.x > this.actor.x) && !this.surroundings[this.RIGHT])
+			if ((goal.x > this.x) && !Hunter.surroundings[Hunter.RIGHT])
 			{
-				this.move(this.RIGHT);
+				this.move(Hunter.RIGHT);
 				return true;
 			}
-			else if ((goal.x < this.actor.x) && !this.surroundings[this.LEFT])
+			else if ((goal.x < this.x) && !Hunter.surroundings[Hunter.LEFT])
 			{
-				this.move(this.LEFT);
+				this.move(Hunter.LEFT);
 				return true;
 			}
 			return false;
@@ -138,39 +137,38 @@ package game.actors.modules.pull
 		
 		private function refreshCells():void
 		{
-			this.surroundings[this.LEFT] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.actor.x - 1, this.actor.y));
-			this.surroundings[this.RIGHT] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.actor.x + 1, this.actor.y));
-			this.surroundings[this.UP] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.actor.x, this.actor.y - 1));
-			this.surroundings[this.DOWN] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.actor.x, this.actor.y + 1));
+			Hunter.surroundings[Hunter.LEFT] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.x - 1, this.y));
+			Hunter.surroundings[Hunter.RIGHT] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.x + 1, this.y));
+			Hunter.surroundings[Hunter.UP] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.x, this.y - 1));
+			Hunter.surroundings[Hunter.DOWN] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.x, this.y + 1));
 		}
 		
 		private function move(direction:int):void
 		{
 			var start:int = direction;
-			var data:Object = this.actor.data.heuristic;
 			
 			do
 			{
-				if (!this.surroundings[direction])
+				if (!Hunter.surroundings[direction])
 				{
-					this.callMove(this.actor, this.moves[direction]);
+					this.tryMove(Hunter.moves[direction]);
 					
 					start = direction;
 				}
 				else
-					direction = (direction - data.hand + 4) % 4;
+					direction = (direction - this.hand + 4) % 4;
 			}
 			while (start != direction);
 			
-			data.lastTouchedWall = this.directions[(direction + data.hand + 4) % 4];
+			this.lastTouchedWall = Hunter.directions[(direction + this.hand + 4) % 4];
 		}
 		
 		
-		private function sureCheck(data:Object):Boolean
+		private function sureCheck():Boolean
 		{	
-			return distance(data.goal, data.bypassStartingPoint, "x") >= distance(data.goal, this.actor.getCell(), "x")
+			return distance(this.goal, this.bypassStartingPoint, "x") >= distance(this.goal, this.getCell(), "x")
 				   && 
-				   distance(data.goal, data.bypassStartingPoint, "y") >= distance(data.goal, this.actor.getCell(), "y");
+				   distance(this.goal, this.bypassStartingPoint, "y") >= distance(this.goal, this.getCell(), "y");
 					
 			function distance(p1:CellXY, p2:CellXY, coordinate:String):int
 			{
@@ -179,9 +177,10 @@ package game.actors.modules.pull
 		}
 		
 		
-		override protected function onBlocked(item:Puppet, change:DCellXY):void
+		override protected function onBlocked(change:DCellXY):void
 		{
-			this.bite.act(item, change);
+			//this.bite.act(item, change);
+			//TODO: do something
 		}
 	}
 

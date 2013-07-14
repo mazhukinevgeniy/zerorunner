@@ -19,7 +19,7 @@ package game.actors.view
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	public class ActiveCanvas 
+	public class ActiveCanvas implements IActorListener
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -49,22 +49,38 @@ package game.actors.view
 			this.atlas = this.assets.getTextureAtlas("gameAtlas");
 		}
 		
-		/*
-		public function actorAdded(puppet:Puppet):void
+		
+		
+		public function actorSpawned(id:int, cell:CellXY, type:int):void
 		{
-			var cell:PixelXY = Metric.toPixel(puppet.getCell());
-			
-			var image:Image = this.objects[puppet.id] = new DrawenActor(this.atlas.getTexture("badsprite" + String(puppet.type)));
-			image.x = cell.x;
-			image.y = cell.y;
+			var image:Image = this.objects[id] = new DrawenActor(this.atlas.getTexture("badsprite" + String(type)));
+			image.x = cell.x * Metric.CELL_WIDTH;
+			image.y = cell.y * Metric.CELL_HEIGHT;
 			
 			this.container.addChild(image);
 		}
 		
-		public function actorDestroyed(puppet:Puppet):void
+		
+		public function actorMovedNormally(id:int, change:DCellXY, delay:int):void
 		{
-			var id:int = puppet.id;
+			var image:Image = this.objects[id];
 			
+			var tween:Tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS);
+			tween.moveTo(image.x + change.x * Metric.CELL_WIDTH, image.y + change.y * Metric.CELL_HEIGHT);
+			
+			tween.roundToInt = true;
+			
+			this.juggler.add(tween);
+		}
+		
+		
+		public function actorDisappeared(id:int):void
+		{
+			this.unparent(this.objects[id]);
+		}
+		
+		public function actorDeadlyDamaged(id:int):void
+		{
 			var image:Image = this.objects[id];
 			var tween:Tween = new Tween(image, 0.5);
 			tween.scaleTo(0);
@@ -75,24 +91,17 @@ package game.actors.view
 			this.juggler.add(tween);
 		}
 		
+		public function actorFallen(id:int):void
+		{
+			this.actorDisappeared(id);
+		}
+		
 		private function unparent(item:DisplayObject):void
 		{
 			this.container.removeChild(item);
 		}
 		
-		public function actorMoved(item:Puppet, cChange:DCellXY, ticksToMove:int):void
-		{
-			var change:DPixelXY = Metric.toPixel(cChange);
-			
-			var image:Image = this.objects[item.id];
-			
-			var tween:Tween = new Tween(image, ticksToMove * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(image.x + change.x, image.y + change.y);
-			
-			tween.roundToInt = true;
-			
-			this.juggler.add(tween);
-		}
+		/*
 		
 		public function actorJumped(item:Puppet):void
 		{

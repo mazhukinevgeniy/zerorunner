@@ -1,7 +1,12 @@
 package game.actors.modules.pull 
 {
+	import game.actors.core.ActorBase;
+	import game.metric.CellXY;
+	import game.metric.DCellXY;
+	import game.metric.Metric;
+	import game.scene.SceneFeature;
 	
-	internal class Guardian 
+	internal class Guardian extends ActorBase
 	{
 		private static const HP:int = 10;
 		private static const MOVE_SPEED:int = 4;
@@ -23,26 +28,18 @@ package game.actors.modules.pull
 		{
 			if (!this.isFixed)
 			{
-				var x:int = item.x;
-				var y:int = item.y;
-				
 				var fall:int = SceneFeature.FALL;
 				
-				var left:int = this.scene.getSceneCell(new CellXY(x - 1, y)),
-					right:int = this.scene.getSceneCell(new CellXY(x + 1, y)),
-					up:int = this.scene.getSceneCell(new CellXY(x , y - 1)),
-					down:int = this.scene.getSceneCell(new CellXY(x, y + 1));
-				
-				if ((left != fall || right != fall)
+				if ((this.scene.getSceneCell(new CellXY(x - 1, y)) != fall || this.scene.getSceneCell(new CellXY(x + 1, y)) != fall)
 					&&
-					(up != fall || down != fall)
+					(this.scene.getSceneCell(new CellXY(x , y - 1)) != fall || this.scene.getSceneCell(new CellXY(x, y + 1)) != fall)
 				   )
 				{
 					var move:DCellXY = Metric.getRandomDCell();
 					
-					if (this.scene.getSceneCell(item.getCell().applyChanges(move)) != fall)
+					if (this.scene.getSceneCell(this.getCell().applyChanges(move)) != fall)
 					{
-						this.callMove(item, move);
+						this.tryMove(move);
 					}
 				}
 				else this.isFixed = true;

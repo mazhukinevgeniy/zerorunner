@@ -12,6 +12,13 @@ package game.actors.core
 			
 		}
 		
+		/**
+		 * Called in the end of reset(id).
+		 */
+		protected function onSpawned():void
+		{ 
+			
+		}
 		
 		
 		/**
@@ -38,7 +45,7 @@ package game.actors.core
 		/**
 		 * Called if moved succesfully
 		 */
-		protected function onMoved(change:DCellXY):void
+		protected function onMoved(change:DCellXY, delay:int):void
 		{
 			
 		}

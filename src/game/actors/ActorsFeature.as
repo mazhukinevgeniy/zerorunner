@@ -23,9 +23,8 @@ package game.actors
 		
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{
-			var view:ActiveCanvas = new ActiveCanvas();
-			var spawner:ActorSpawner = new ActorSpawner(view);
-			new ActorStorage(view, spawner, flow);
+			var view:ActiveCanvas = new ActiveCanvas(flow);
+			new ActorStorage(view, flow);
 		}
 		
 		
