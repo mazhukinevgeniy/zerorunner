@@ -56,26 +56,6 @@ package game.actors.core
 				this.movingCooldown--;
 		}
 		
-		protected function onActing():void
-		{
-			
-		}
-		
-		protected function onCanAct():void
-		{
-			
-		}
-		
-		protected function onCanMove():void
-		{
-			
-		}
-		
-		protected function onDestroyed():void
-		{
-			
-		}
-		
 		
 		/**
 		 * Informer access methods

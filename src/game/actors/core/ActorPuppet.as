@@ -3,7 +3,7 @@ package game.actors.core
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	
-	internal class ActorPuppet implements ICoordinated
+	internal class ActorPuppet extends ActorReactor implements ICoordinated
 	{
 		internal var id:int;
 		internal var hp:int;

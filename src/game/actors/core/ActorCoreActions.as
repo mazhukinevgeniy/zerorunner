@@ -76,11 +76,6 @@ package game.actors.core
 				ActionBase.flow.dispatchUpdate(ActorsFeature.actorDestroyed, item);
 			}
 		}
-		
-		protected function onDamaged(damage:int):void
-		{
-			
-		}
 	}
 
 }

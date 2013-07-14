@@ -37,19 +37,6 @@ package game.actors.core
 			this.pull.refill(this.actors, true);
 		}
 		
-		private function deleteObject(item:Puppet):void
-		{
-			if (item.active)
-			{
-				item.active = false;
-				
-				this.unusedIDs.push(item.id);
-				this.active--;
-				
-				this.removeFromHash(item);
-			}
-		}
-		
 		public function findObjectByCell(cell:CellXY):Puppet
 		{
 			var hashcell:Vector.<Puppet> = this.hashmap[Metric.getHash(cell)];
