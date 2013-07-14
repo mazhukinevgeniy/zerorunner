@@ -28,6 +28,8 @@ package game.actors.modules.pull
 			// TODO: do
 			
 			return new this.types[this.chooseTypeToReturn(id)](id);
+			
+			//TODO : actually must use syntax like "reset(id)" etc
 		}
 		
 		private function chooseTypeToReturn(id:int):int

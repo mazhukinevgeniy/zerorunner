@@ -12,7 +12,10 @@ package game.actors.modules
 			
 		}
 		
-		public function refill(vector:Vector.<ActorBase>):void
+		/**
+		 * @param force If true, forces recreation of active actors as well
+		**/
+		public function refill(vector:Vector.<ActorBase>, force:Boolean = false):void
 		{
 			var length:int = vector.length;
 			var actor:ActorBase;
@@ -21,10 +24,17 @@ package game.actors.modules
 			{
 				actor = vector[i];
 				
-				if (!actor.active)
+				if (actor)
 				{
-					this.pool.stash(actor);
-					
+					if (!actor.active || force)
+					{
+						this.pool.stash(actor);
+						
+						vector[i] = this.pool.getActor();
+					}
+				}
+				else
+				{
 					vector[i] = this.pool.getActor();
 				}
 			}

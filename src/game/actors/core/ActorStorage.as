@@ -27,22 +27,14 @@ package game.actors.core
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			this.flow = flow;
+			
+			this.actors = new Vector.<ActorBase>(ActorsFeature.CAP, true);
+			this.cache = new Vector.<ActorBase>(???, true); 
 		}
 		
 		public function prerestore():void
 		{
-			this.actors = new Vector.<ActorBase>(ActorsFeature.CAP, true);
-		}
-		
-		public function actorDestroyed(item:Puppet):void
-		{
-			if (item.id == 0)
-			{
-			}
-			else
-			{
-				this.deleteObject(item);
-			}
+			this.pull.refill(this.actors, true);
 		}
 		
 		private function deleteObject(item:Puppet):void
