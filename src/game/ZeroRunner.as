@@ -70,8 +70,8 @@ package game
 			new InputManager(this);
 			new UIExtendsions(this);
 			
-			new ActorsFeature(this);
 			new SceneFeature(this);
+			new ActorsFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
 			

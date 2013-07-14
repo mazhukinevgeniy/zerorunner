@@ -2,14 +2,15 @@ package game.actors.modules
 {
 	import game.actors.core.ActorBase;
 	import game.actors.modules.pull.ActorPull;
+	import game.state.IGameState;
 	
 	public class ActorManipulator
 	{
 		private var pool:ActorPull;
 		
-		public function ActorManipulator() 
+		public function ActorManipulator(state:IGameState) 
 		{
-			
+			this.pool = new ActorPull(state);
 		}
 		
 		/**

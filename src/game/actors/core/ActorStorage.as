@@ -12,6 +12,7 @@ package game.actors.core
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
 	import game.scene.IScene;
+	import game.state.IGameState;
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
@@ -57,8 +58,6 @@ package game.actors.core
 			
 			flow.dispatchUpdate(Time.addCacher, this);
 			flow.dispatchUpdate(Time.addCacher, this);
-			
-			this.command = new ActorManipulator();
 		}
 		
 		public function prerestore():void
@@ -127,6 +126,8 @@ package game.actors.core
 			ActorBase.iScene = table.getInformer(IScene);
 			ActorBase.iListener = this.listener;
 			ActorBase.iInput = table.getInformer(IKnowInput);
+			
+			this.command = new ActorManipulator(table.getInformer(IGameState));
 		}
 	}
 

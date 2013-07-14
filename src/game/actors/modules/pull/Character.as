@@ -3,6 +3,7 @@ package game.actors.modules.pull
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
 	import game.input.InputManager;
+	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.SceneFeature;
 	import game.ZeroRunner;
@@ -16,6 +17,11 @@ package game.actors.modules.pull
 		public function Character() 
 		{
 			super(Character.HP, Character.MOVE_SPEED, Character.ACTION_SPEED);
+		}
+		
+		override protected function getCell():CellXY
+		{
+			return ActorsFeature.SPAWN_CELL;
 		}
 		
 		override protected function onSpawned():void
