@@ -5,7 +5,6 @@ package game.scene
 	import game.actors.core.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
-	import game.metric.DPixelXY;
 	import game.metric.Metric;
 	import game.time.Time;
 	import game.ui.Camera;

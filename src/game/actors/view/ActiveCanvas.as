@@ -8,9 +8,7 @@ package game.actors.view
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
-	import game.metric.DPixelXY;
 	import game.metric.Metric;
-	import game.metric.PixelXY;
 	import game.ui.Camera;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;

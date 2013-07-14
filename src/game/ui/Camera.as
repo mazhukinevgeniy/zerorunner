@@ -7,9 +7,7 @@ package game.ui
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
-	import game.metric.DPixelXY;
 	import game.metric.Metric;
-	import game.metric.PixelXY;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
@@ -52,11 +50,8 @@ package game.ui
 		
 		public function setCenter(center:CellXY):void
 		{
-			var pCenter:PixelXY = Metric.toPixel(center);
-			
-			
-			this.container.x = -pCenter.x + (Main.WIDTH - Metric.CELL_WIDTH) / 2;
-            this.container.y = -pCenter.y + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;
+			this.container.x = -center.x * Metric.CELL_WIDTH + (Main.WIDTH - Metric.CELL_WIDTH) / 2;
+            this.container.y = -center.y * Metric.CELL_HEIGHT + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;
 		}
 		
 		public function moveCenter(change:DCellXY, ticksToGo:int):void 
@@ -66,10 +61,8 @@ package game.ui
 		
 		private function moveCenterGently(change:DCellXY, time:Number):void 
 		{ 
-			var pChange:DPixelXY = Metric.toPixel(change);
-			
 			var tween:Tween = new Tween(this.container, time);
-			tween.moveTo(this.container.x - pChange.x, this.container.y - pChange.y);
+			tween.moveTo(this.container.x - change.x * Metric.CELL_WIDTH, this.container.y - change.y * Metric.CELL_HEIGHT);
 			
 			tween.roundToInt = true;
 			

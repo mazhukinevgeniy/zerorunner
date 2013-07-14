@@ -7,6 +7,7 @@ package game.actors.core
 	import game.grinder.IGrinder;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import game.metric.Metric;
 	import game.scene.IScene;
 	import game.time.ICacher;
@@ -64,7 +65,7 @@ package game.actors.core
 			{
 				for (i = 0; i < ActorsFeature.CAP; i++)
 				{
-					// TODO: fill the cache; perform outOfBounds and isGrinded checks
+					// TODO: fill the cache; perform outOfBounds check
 				}
 			}
 			else
@@ -76,26 +77,16 @@ package game.actors.core
 			this.cacheIsCleared = !this.cacheIsCleared;
 		}
 		
-		public function findObjectByCell(cell:CellXY):Puppet
+		public function findObjectByCell(cell:CellXY):ActorBase
 		{
-			var hashcell:Vector.<Puppet> = this.hashmap[Metric.getHash(cell)];
-			var hashLength:int = hashcell.length;
-			
-			for (var i:int = 0; i < hashLength; i++)
-			{
-				var item:Puppet = hashcell[i];
-				if (cell.isEqualTo(item.cell))
-				{
-					return item;
-				}
-			}
-			
-			return null;
+			return this.cacheV[cell.x + cell.y * this.cacheWidth];
 		}
 		
-		public function getCharacterCell():CellXY
+		public function getCharacterCell(cell:CellXY):void
 		{
-			return this.puppets[0].cell.getCopy();
+			var ccell:CellXY = this.actors[0].cell;
+			cell.x = ccell.x;
+			cell.y = ccell.y;
 		}
 		
 		

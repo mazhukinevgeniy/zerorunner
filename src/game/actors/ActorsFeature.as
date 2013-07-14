@@ -1,7 +1,6 @@
 package game.actors 
 {
 	import game.actors.core.ActorStorage;
-	import game.actors.spawner.ActorSpawner;
 	import game.actors.view.ActiveCanvas;
 	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;

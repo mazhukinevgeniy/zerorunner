@@ -34,7 +34,8 @@ package game.actors.core
 		
 		protected function getCell():CellXY
 		{
-			return this.getRandomCell();
+			return new CellXY(ActorBase.iSearcher.character.x - 5 + Math.random() * 15,
+							  ActorBase.iSearcher.character.y -8 + Math.random() * 21); // TODO: reduce hardcoding
 		}
 		
 		

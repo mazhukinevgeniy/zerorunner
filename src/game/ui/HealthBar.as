@@ -34,7 +34,8 @@ package game.ui
 		
 		public function restore():void
 		{
-			this.healthPoints = int(ActorsFeature.CONFIG.actor[0].baseHP);
+			this.healthPoints = 100; // must match Character.HP
+			// TODO: reimplement without hardcode
 			
 			this.container.removeChildren();
 			

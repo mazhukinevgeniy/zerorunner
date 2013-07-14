@@ -1,7 +1,6 @@
 package game.actors.core 
 {
 	import game.actors.view.IActorListener;
-	import game.grinder.IGrinder;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.IScene;
@@ -15,28 +14,6 @@ package game.actors.core
 			
 		}
 		
-		
-		final protected function getGrindedCell():CellXY
-		{
-			var y:int = ActorBase.iSearcher.character.y - 20 + Math.random() * 40;
-			var x:int = ActorBase.iGrinder.getFront(y);
-			
-			return new CellXY(x, y);
-		}
-		final protected function getRandomCell():CellXY
-		{
-			return new CellXY(ActorBase.iSearcher.character.x - 5 + Math.random() * 15,
-							  ActorBase.iSearcher.character.y -8 + Math.random() * 21); // TODO: reduce hardcoding
-		}
-		/*
-		final protected function isGrinded(item:ActorBase):void
-		{
-			if (ActorBase.grinder.isGrinded(item.cell))
-			{
-				this.destroyActor(item);
-			}
-			
-		}*/ // TODO: move to the caching code
 		
 		final protected function tryMove(change:DCellXY):void
 		{
