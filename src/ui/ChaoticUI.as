@@ -3,6 +3,7 @@ package ui
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
 	import flash.events.KeyboardEvent;
+	import game.ZeroRunner;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
@@ -12,6 +13,8 @@ package ui
 	import ui.sounds.Sounds;
 	import ui.WindowsFeature;
 	import ui.themes.ExtenedTheme;
+	import ui.game.panel.Panel;
+	import flash.ui.Keyboard;
 	
 	public class ChaoticUI extends UpdateManager
 	{
@@ -26,12 +29,15 @@ package ui
 		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
 		private static const HiLoDeco:Class;
 		
+		private static var gameRunToggled:Boolean;
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
 		
 		public function ChaoticUI(displayRoot:DisplayObjectContainer, assets:AssetManager) 
 		{
+			ChaoticUI.gameRunToggled = false;
+			
 			this.root = displayRoot;
 			this.assets = assets;
 			
@@ -47,6 +53,12 @@ package ui
 			
 			new PauseTypes(this);
 			
+			this.workWithUpdateListener(this);
+			this.addUpdateListener(ChaoticUI.newGame);
+			this.addUpdateListener(Panel.panel_BackToMenu);
+			this.addUpdateListener(ChaoticUI.keyUp);
+			
+			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
@@ -54,6 +66,34 @@ package ui
 		{
 			this.dispatchUpdate(ChaoticUI.keyUp, event.keyCode);
 		}
+		
+		public function keyUp(keyCode:uint):void
+		{
+			if (keyCode == Keyboard.P && !ChaoticUI.gameRun)
+			{
+				this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
+				this.dispatchUpdate(ChaoticUI.newGame);
+			}
+		}
+		
+		public static function get gameRun():Boolean
+		{
+			return ChaoticUI.gameRunToggled;
+		}
+		
+		public function newGame():void 
+		{
+			ChaoticUI.gameRunToggled = true;
+		}
+		
+		public function panel_BackToMenu():void
+		{
+			ChaoticUI.gameRunToggled = false;
+		}
+		
+		
+		
+		
 	}
 
 }
