@@ -4,15 +4,16 @@ package game.actors.core
 	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
+	import game.metric.DCellXY;
+	import game.metric.Metric;
 	import game.scene.IScene;
 	
 	public class ActorBase extends ActorCoreActions
 	{
 		internal static var iFlow:IUpdateDispatcher;
-		internal static var iSearcher:ISearcher;
+		internal static var iSearcher:ActorStorage;
 		internal static var iScene:IScene;
 		internal static var iListener:IActorListener;
-		internal static var iCache:IActorCache;
 		internal static var iInput:IKnowInput;
 		
 		
@@ -33,13 +34,36 @@ package game.actors.core
 			
 			this.cell = this.getCell();
 			
+			ActorBase.iSearcher.putInCell(this.cell.x, this.cell.y, this);
+			
 			this.onSpawned();
 		}
 		
 		protected function getCell():CellXY
 		{
-			return new CellXY(ActorBase.iSearcher.character.x - 5 + Math.random() * 15,
-							  ActorBase.iSearcher.character.y -8 + Math.random() * 21); // TODO: reduce hardcoding
+			var dX:int;
+			var dY:int;
+			
+			var charcell:CellXY = new CellXY(0, 0);
+			ActorBase.iSearcher.getCharacterCell(charcell);
+			
+			do 
+			{
+				do
+				{
+					dX = -Metric.xDistanceActorsAllowed + Math.random() * (2 * Metric.xDistanceActorsAllowed);
+				}
+				while (Math.abs(dX) < 10);
+				
+				do
+				{
+					dY = -Metric.yDistanceActorsAllowed + Math.random() * (2 * Metric.yDistanceActorsAllowed);
+				}
+				while (Math.abs(dY) < 10);
+			}
+			while (ActorBase.iSearcher.findObjectByCell(charcell.x + dX, charcell.y + dY) != null);
+			
+			return charcell.applyChanges(new DCellXY(dX, dY));
 		}
 		
 		

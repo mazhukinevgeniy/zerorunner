@@ -30,7 +30,7 @@ package game.actors
 		
 		public static function get SPAWN_CELL():CellXY
 		{
-			return new CellXY((Metric.WIDTH - 1) / 2, (Metric.HEIGHT - 1) / 2); //TODO: change for something like -9000, -9000
+			return new CellXY(- 10000, -10000);
 		}
 	}
 

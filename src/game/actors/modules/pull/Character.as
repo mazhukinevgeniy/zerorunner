@@ -55,7 +55,7 @@ package game.actors.modules.pull
 			
 			while (action.x != 0 || action.y != 0)
 			{
-				if (this.scene.getSceneCell(this.getCell().applyChanges(action)) != SceneFeature.FALL)
+				if (this.scene.getSceneCell(this.x + action.x, this.y + action.y) != SceneFeature.FALL)
 				{
 					this.tryMove(action);
 					

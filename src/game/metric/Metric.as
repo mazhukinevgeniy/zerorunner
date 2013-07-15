@@ -23,11 +23,11 @@ package game.metric
 		public static function get WIDTH():int { return Metric.width; }
 		public static function get HEIGHT():int { return Metric.height; }
 		
-		public static function get xDistanceActorsAllowed():int	{ return Metric.cellsInVisibleWidth; }
-		public static function get yDistanceActorsAllowed():int	{ return Metric.cellsInVisibleHeigth; }
+		public static function get xDistanceActorsAllowed():int	{ return 2 * Metric.cellsInVisibleWidth; }
+		public static function get yDistanceActorsAllowed():int	{ return 2 * Metric.cellsInVisibleHeigth; }
 		
-		public static function get xDistanceSceneAllowed():int	{ return 2 * Metric.cellsInVisibleWidth; }
-		public static function get yDistanceSceneAllowed():int	{ return 2 * Metric.cellsInVisibleHeigth; }
+		public static function get xDistanceSceneAllowed():int	{ return 3 * Metric.cellsInVisibleWidth; }
+		public static function get yDistanceSceneAllowed():int	{ return 3 * Metric.cellsInVisibleHeigth; }
 		
 		
 		public function Metric() 

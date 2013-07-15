@@ -99,6 +99,7 @@ package game.time
 					this.frameCount = 0;
 					
 					this.updateFlow.dispatchUpdate(ZeroRunner.tick);
+					this.updateFlow.dispatchUpdate(ZeroRunner.aftertick);
 				}
 				else
 				{

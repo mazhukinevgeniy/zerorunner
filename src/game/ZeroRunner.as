@@ -34,6 +34,7 @@ package game
 		public static const gameOver:String = "gameOver";
 		
 		public static const tick:String = "tick";
+		public static const aftertick:String = "aftertick";
 		public static const setPause:String = "setPause";
 		
 		public static const setGameContainer:String = "setGameContainer";

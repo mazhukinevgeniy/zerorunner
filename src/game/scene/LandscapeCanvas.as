@@ -21,8 +21,7 @@ package game.scene
 		private var assets:AssetManager;
 		
 		private var searcher:ISearcher;
-		
-		private var cache:LandscapeCache;
+		private var scene:IScene;
 		
 		private var container:Sprite;
 		
@@ -30,13 +29,11 @@ package game.scene
 		private const height:int = 1 + (Metric.CELLS_IN_VISIBLE_HEIGHT + 2) / 2;
 		
 		
-		public function LandscapeCanvas(flow:IUpdateDispatcher, cache:LandscapeCache) 
+		public function LandscapeCanvas(flow:IUpdateDispatcher) 
 		{
 			this.container = new Sprite();
 			
 			this.container.touchable = false;
-			
-			this.cache = cache;
 			
 			
 			flow.workWithUpdateListener(this);
@@ -46,9 +43,6 @@ package game.scene
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
-			
-			for (var i:int = 0; i < 6; i++)
-				flow.dispatchUpdate(Time.addCacher, cache);
 		}
 		
 		public function tick():void
@@ -68,7 +62,7 @@ package game.scene
 			{
 				for (var j:int = centerY - this.height; j < yGoal; j++)
 				{
-					if (this.cache.getCached(i, j))
+					if (this.scene.getSceneCell(i, j))
 					{
 						sprite = this.pull.getImage("ground");
 						
@@ -91,7 +85,7 @@ package game.scene
 					}
 					else
 					{
-						if (this.cache.getCached(i, j - 1))
+						if (this.scene.getSceneCell(i, j - 1))
 						{
 							sprite = this.pull.getImage("S");
 							
@@ -100,7 +94,7 @@ package game.scene
 							
 							this.container.addChild(sprite);
 						}
-						if (this.cache.getCached(i - 1, j))
+						if (this.scene.getSceneCell(i - 1, j))
 						{
 							sprite = this.pull.getImage("E");
 							
@@ -109,7 +103,7 @@ package game.scene
 							
 							this.container.addChild(sprite);
 						}
-						if (this.cache.getCached(i + 1, j))
+						if (this.scene.getSceneCell(i + 1, j))
 						{
 							sprite = this.pull.getImage("W");
 							
@@ -118,7 +112,7 @@ package game.scene
 							
 							this.container.addChild(sprite);
 						}
-						if (this.cache.getCached(i, j + 1))
+						if (this.scene.getSceneCell(i, j + 1))
 						{
 							sprite = this.pull.getImage("N");
 							
@@ -127,9 +121,9 @@ package game.scene
 							
 							this.container.addChild(sprite);
 						}
-						if (this.cache.getCached(i - 1, j - 1) && 
-							!this.cache.getCached(i - 1, j) && 
-							!this.cache.getCached(i, j - 1))
+						if (this.scene.getSceneCell(i - 1, j - 1) && 
+							!this.scene.getSceneCell(i - 1, j) && 
+							!this.scene.getSceneCell(i, j - 1))
 						{
 							sprite = this.pull.getImage("SE");
 							
@@ -138,9 +132,9 @@ package game.scene
 							
 							this.container.addChild(sprite);
 						}
-						if (this.cache.getCached(i + 1, j - 1) && 
-							!this.cache.getCached(i + 1, j) && 
-							!this.cache.getCached(i, j - 1))
+						if (this.scene.getSceneCell(i + 1, j - 1) && 
+							!this.scene.getSceneCell(i + 1, j) && 
+							!this.scene.getSceneCell(i, j - 1))
 						{
 							sprite = this.pull.getImage("SW");
 							
@@ -149,9 +143,9 @@ package game.scene
 							
 							this.container.addChild(sprite);
 						}
-						if (this.cache.getCached(i - 1, j + 1) && 
-							!this.cache.getCached(i - 1, j) && 
-							!this.cache.getCached(i, j + 1))
+						if (this.scene.getSceneCell(i - 1, j + 1) && 
+							!this.scene.getSceneCell(i - 1, j) && 
+							!this.scene.getSceneCell(i, j + 1))
 						{
 							sprite = this.pull.getImage("NE");
 							
@@ -160,9 +154,9 @@ package game.scene
 							
 							this.container.addChild(sprite);
 						}
-						if (this.cache.getCached(i + 1, j + 1) && 
-							!this.cache.getCached(i + 1, j) && 
-							!this.cache.getCached(i, j + 1))
+						if (this.scene.getSceneCell(i + 1, j + 1) && 
+							!this.scene.getSceneCell(i + 1, j) && 
+							!this.scene.getSceneCell(i, j + 1))
 						{
 							sprite = this.pull.getImage("NW");
 							
@@ -175,8 +169,6 @@ package game.scene
 				}
 				
 			}
-			
-			this.cache.setTopLeftCell(new CellXY(centerX - this.width, centerY - this.height));
 		}
 		
 		
@@ -184,13 +176,12 @@ package game.scene
 		{
 			this.assets = table.getInformer(AssetManager);
 			this.searcher = table.getInformer(ISearcher);
+			this.scene = table.getInformer(IScene);
 		}
 		
 		public function prerestore():void
 		{
 			if (this.pull == null) this.pull = new TilePull(this.assets);
-			
-			this.cache.setTopLeftCell(new CellXY(40 - 10, 40 - 10));
 		}
 	}
 

@@ -5,7 +5,7 @@ package game.actors.core
 	
 	public interface ISearcher
 	{
-		function findObjectByCell(cell:CellXY):ActorBase;
+		function findObjectByCell(x:int, y:int):ActorBase;
 		
 		function getCharacterCell(storeIn:CellXY):void;
 		function get character():ICoordinated;

@@ -17,15 +17,15 @@ package game.actors.core
 	import game.time.Time;
 	import game.ZeroRunner;
 	
-	public class ActorStorage implements ICacher, IActorCache, ISearcher
+	public class ActorStorage implements ICacher, ISearcher
 	{
 		private var actors:Vector.<ActorBase>;
 		
 		
 		private var cacheV:Vector.<ActorBase>;
 		
-		private var cacheWidth:int;
-		private var cacheHeight:int;
+		private var width:int = Metric.xDistanceActorsAllowed * 2;
+		private var height:int = Metric.yDistanceActorsAllowed * 2;
 		private var cacheLength:int;
 		
 		private var cacheIsCleared:Boolean;
@@ -36,6 +36,7 @@ package game.actors.core
 		private var listener:IActorListener;
 		
 		private var tLC:CellXY;
+		private var toTLC:DCellXY = new DCellXY( - Metric.xDistanceActorsAllowed, - Metric.yDistanceActorsAllowed);
 		
 		public function ActorStorage(view:IActorListener, flow:IUpdateDispatcher) 
 		{
@@ -44,14 +45,13 @@ package game.actors.core
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(ZeroRunner.aftertick);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			this.flow = flow;
 			
-			this.cacheWidth = Metric.xDistanceActorsAllowed * 2;
-			this.cacheHeight = Metric.yDistanceActorsAllowed * 2;
-			this.cacheLength = this.cacheWidth * this.cacheHeight;
+			this.cacheLength = this.width * this.height;
 			
 			this.actors = new Vector.<ActorBase>(ActorsFeature.CAP, true);
 			this.cacheV = new Vector.<ActorBase>(this.cacheLength, true);
@@ -62,20 +62,48 @@ package game.actors.core
 		
 		public function prerestore():void
 		{
+			this.cacheIsCleared = false;
+			
+			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
+			
 			this.command.refill(this.actors, true);
 			
-			this.cacheIsCleared = false;
+			this.cache(); 
+			this.cache();
+		}
+		
+		public function aftertick():void
+		{
+			this.getCharacterCell(this.tLC);
+			this.tLC.applyChanges(this.toTLC);
+			
+			this.command.refill(this.actors, true);
 		}
 		
 		public function cache():void
 		{
-			var i:int;
+			var i:int, x:int, y:int;
+			var actor:ActorBase;
 			
 			if (this.cacheIsCleared)
 			{
 				for (i = 0; i < ActorsFeature.CAP; i++)
 				{
-					// TODO: fill the cache; perform outOfBounds check
+					actor = this.actors[i];
+					x = actor.x; y = actor.y;
+					
+					if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+						&&
+						!(y < this.tLC.y) && (y < this.tLC.y + this.height))
+					{
+						this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
+					}
+					else
+					{
+						this.listener.actorDisappeared(actor.id);
+						
+						actor.isActive = false;
+					}
 				}
 			}
 			else
@@ -87,9 +115,9 @@ package game.actors.core
 			this.cacheIsCleared = !this.cacheIsCleared;
 		}
 		
-		public function findObjectByCell(cell:CellXY):ActorBase
+		public function findObjectByCell(x:int, y:int):ActorBase
 		{
-			return this.cacheV[(cell.x - this.tLC.x) + (cell.y - this.tLC.y) * this.cacheWidth];
+			return this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width];
 		}
 		
 		public function getCharacterCell(cell:CellXY):void
@@ -102,14 +130,9 @@ package game.actors.core
 			return this.actors[0];
 		}
 		
-		public function cleanCell(x:int, y:int):void
-		{
-			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.cacheWidth] = null;
-		}
-		
 		public function putInCell(x:int, y:int, item:ActorBase = null):void
 		{
-			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.cacheWidth] = item;
+			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.width] = item;
 		}
 		
 		

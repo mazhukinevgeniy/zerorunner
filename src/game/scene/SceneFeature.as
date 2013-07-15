@@ -12,8 +12,8 @@ package game.scene
 		
 		public function SceneFeature(flow:IUpdateDispatcher) 
 		{
-			var cache:LandscapeCache = new LandscapeCache(new Scene(flow));
-			new LandscapeCanvas(flow, cache);
+			new Scene(flow);
+			new LandscapeCanvas(flow);
 		}
 		
 	}

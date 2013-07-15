@@ -30,14 +30,14 @@ package game.actors.modules.pull
 			{
 				var fall:int = SceneFeature.FALL;
 				
-				if ((this.scene.getSceneCell(new CellXY(x - 1, y)) != fall || this.scene.getSceneCell(new CellXY(x + 1, y)) != fall)
+				if ((this.scene.getSceneCell(x - 1, y) != fall || this.scene.getSceneCell(x + 1, y) != fall)
 					&&
-					(this.scene.getSceneCell(new CellXY(x , y - 1)) != fall || this.scene.getSceneCell(new CellXY(x, y + 1)) != fall)
+					(this.scene.getSceneCell(x , y - 1) != fall || this.scene.getSceneCell(x, y + 1) != fall)
 				   )
 				{
 					var move:DCellXY = Metric.getRandomDCell();
 					
-					if (this.scene.getSceneCell(this.getCell().applyChanges(move)) != fall)
+					if (this.scene.getSceneCell(this.x + move.x, this.y + move.y) != fall)
 					{
 						this.tryMove(move);
 					}

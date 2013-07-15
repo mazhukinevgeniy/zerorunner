@@ -137,10 +137,10 @@ package game.actors.modules.pull
 		
 		private function refreshCells():void
 		{
-			Hunter.surroundings[Hunter.LEFT] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.x - 1, this.y));
-			Hunter.surroundings[Hunter.RIGHT] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.x + 1, this.y));
-			Hunter.surroundings[Hunter.UP] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.x, this.y - 1));
-			Hunter.surroundings[Hunter.DOWN] = SceneFeature.FALL == this.scene.getSceneCell(new CellXY(this.x, this.y + 1));
+			Hunter.surroundings[Hunter.LEFT] = SceneFeature.FALL == this.scene.getSceneCell(this.x - 1, this.y);
+			Hunter.surroundings[Hunter.RIGHT] = SceneFeature.FALL == this.scene.getSceneCell(this.x + 1, this.y);
+			Hunter.surroundings[Hunter.UP] = SceneFeature.FALL == this.scene.getSceneCell(this.x, this.y - 1);
+			Hunter.surroundings[Hunter.DOWN] = SceneFeature.FALL == this.scene.getSceneCell(this.x, this.y + 1);
 		}
 		
 		private function move(direction:int):void

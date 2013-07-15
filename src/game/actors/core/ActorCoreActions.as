@@ -17,13 +17,13 @@ package game.actors.core
 		
 		final protected function tryMove(change:DCellXY):void
 		{
-			if (ActorBase.iSearcher.findObjectByCell(this.cell.getCopy().applyChanges(change)) == null) // TODO: fix syntax
+			if (!ActorBase.iSearcher.findObjectByCell(this.x + change.x, this.y + change.y))
 			{
 				this.movingCooldown = this.moveSpeed;
 				
-				ActorBase.iCache.putInCell(this.x, this.y);
+				ActorBase.iSearcher.putInCell(this.x, this.y);
 				this.cell.applyChanges(change);
-				ActorBase.iCache.putInCell(this.x, this.y, this as ActorBase);
+				ActorBase.iSearcher.putInCell(this.x, this.y, this as ActorBase);
 				
 				ActorBase.iListener.actorMovedNormally(this.id, change, this.moveSpeed);
 				
@@ -40,7 +40,7 @@ package game.actors.core
 		
 		final protected function isOnTheGround(item:ActorBase):void
 		{
-			if (ActorBase.iScene.getSceneCell(item.cell) == SceneFeature.FALL)
+			if (ActorBase.iScene.getSceneCell(item.x, item.y) == SceneFeature.FALL)
 			{
 				ActorBase.iListener.actorFallen(item.id);
 				
@@ -69,7 +69,7 @@ package game.actors.core
 			if (item.isActive)
 			{
 				item.isActive = false;
-				ActorBase.iCache.putInCell(item.x, item.y);
+				ActorBase.iSearcher.putInCell(item.x, item.y);
 				
 				item.onDestroyed();
 			}
