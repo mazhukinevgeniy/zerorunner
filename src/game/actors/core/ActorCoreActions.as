@@ -41,7 +41,10 @@ package game.actors.core
 			
 			var unluckyGuy:ActorBase = ActorBase.iSearcher.findObjectByCell(this.x + jChange.x, this.y + jChange.y);
 			if (unluckyGuy)
+			{
 				this.destroyActor(unluckyGuy);
+				ActorBase.iListener.actorDeadlyDamaged(unluckyGuy.id);
+			}
 			
 			
 			ActorBase.iSearcher.putInCell(this.x, this.y);
