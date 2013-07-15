@@ -9,29 +9,49 @@ package game.actors.modules.pull
 		
 		
 		private var types:Vector.<Class> = new <Class>[Character, Destroyer, Guardian, Hunter];
-		//TODO: reactivate extra species
+		
+		private var pull:Vector.<Vector.<ActorBase>>;
 		
 		private var state:IGameState;
 		
 		public function ActorPull(state:IGameState)
 		{
 			this.state = state;
+			
+			var length:int = this.types.length;
+			this.pull = new Vector.<Vector.<ActorBase>>(length, true);
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				this.pull[i] = new Vector.<ActorBase>();
+			}
 		}
 		
 		public function stash(actor:ActorBase):void
 		{
-			// TODO: do
+			var length:int = this.types.length;
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				if (actor is this.types[i])
+				{
+					this.pull[i].push(actor);
+					return;
+				}
+			}
 		}
 		
 		public function getActor(id:int):ActorBase
 		{
-			// TODO: do
+			var actor:ActorBase;
 			
 			var type:int = this.chooseTypeToReturn(id);
+			actor = this.pull[type].pop();
 			
-			//if there's no such actor stashed...
-			
-			var actor:ActorBase = new this.types[type]();
+			if (!actor)
+			{
+				actor = new this.types[type]();
+			}
 			
 			actor.reset(id);
 			
