@@ -14,6 +14,7 @@ package game
 	import game.ui.UIExtendsions;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
+	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
@@ -62,7 +63,12 @@ package game
 		public function setGameContainer(viewRoot:Sprite):void
 		{
 			this.displayRoot = viewRoot;
-			viewRoot.addChild(new Quad(Main.WIDTH, Main.HEIGHT, 0xFF000000));//TODO: it causes extra redraws, must reimplement
+			
+			var image:Image = new Image(this.informers.getInformer(AssetManager).getTextureAtlas("gameAtlas").getTexture("fall"));
+			image.scaleX = Main.WIDTH / image.width;
+			image.scaleY = Main.HEIGHT / image.height;
+			
+			viewRoot.addChild(image);
 			
 			Metric.initialize(40, 40, 81, 81);
 			
