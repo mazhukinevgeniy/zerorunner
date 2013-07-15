@@ -34,8 +34,7 @@ package game.actors.modules.pull
 		
 		override protected function onMoved(change:DCellXY, delay:int):void
 		{
-			this.forceUpdate(ActorsFeature.moveCenter, change, delay + 1); //TODO: must move center in any case... damn, it'll be easier with sprites doing this job
-			this.forceUpdate(InputManager.purgeClicks);
+			this.forceUpdate(ActorsFeature.moveCenter, change, delay + 1);
 		}
 		
 		override protected function onDestroyed():void
@@ -61,12 +60,16 @@ package game.actors.modules.pull
 				if (this.scene.getSceneCell(this.x + action.x, this.y + action.y) != SceneFeature.FALL)
 				{
 					this.tryMove(action);
+					this.forceUpdate(InputManager.purgeClicks);
 					
 					return;
 				}
-				else
+				else if (this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != SceneFeature.FALL)
 				{
-					//TODO: consider jumping
+					this.jump(action, 2);
+					this.forceUpdate(InputManager.purgeClicks);
+					
+					return;
 				}
 				
 				action = tmp.pop();

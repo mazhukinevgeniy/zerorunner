@@ -30,7 +30,13 @@ package game.actors.view
 		**/
 		function actorMovedNormally(id:int, change:DCellXY, delay:int):void; 
 		
-		
+		/**
+		 * Call if actor jumps.
+		 * 
+		 * @param delay Produced cooldown. 
+		 * If not interrupted, that's how many ticks sprite will be moving to its next position.
+		**/
+		function actorJumped(id:int, change:DCellXY, delay:int):void;
 		
 		
 		

@@ -73,6 +73,35 @@ package game.actors.view
 			this.juggler.add(tween);
 		}
 		
+		public function actorJumped(id:int, change:DCellXY, delay:int):void
+		{
+			/*
+			
+			public function actorJumped(item:Puppet):void
+			{
+				//if (change.y != 0)
+				//	throw new Error("Not implemented");
+				//else
+				//{
+					var id:int = item.id;
+					var image:Image = this.objects[id];
+					var ticksToGo:int = item.remainingDelay;
+					
+					var tween:Tween = new Tween(image, ticksToGo * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
+					tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
+				//	tween.animate("x", image.x + Metric.toPixel(change).x / 2);
+					
+					var secondTween:Tween = new Tween(image, ticksToGo * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
+					secondTween.animate("y", image.y);
+				//	secondTween.animate("x", image.x + Metric.toPixel(change).x);
+					
+					tween.nextTween = secondTween;
+					
+					this.juggler.add(tween);
+				//} //TODO: redisign
+			}*/
+		}
+		
 		
 		public function actorDisappeared(id:int):void
 		{
@@ -101,31 +130,7 @@ package game.actors.view
 			this.container.removeChild(item);
 		}
 		
-		/*
 		
-		public function actorJumped(item:Puppet):void
-		{
-			//if (change.y != 0)
-			//	throw new Error("Not implemented");
-			//else
-			//{
-				var id:int = item.id;
-				var image:Image = this.objects[id];
-				var ticksToGo:int = item.remainingDelay;
-				
-				var tween:Tween = new Tween(image, ticksToGo * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
-				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
-			//	tween.animate("x", image.x + Metric.toPixel(change).x / 2);
-				
-				var secondTween:Tween = new Tween(image, ticksToGo * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
-				secondTween.animate("y", image.y);
-			//	secondTween.animate("x", image.x + Metric.toPixel(change).x);
-				
-				tween.nextTween = secondTween;
-				
-				this.juggler.add(tween);
-			//} //TODO: redisign
-		}*/
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{

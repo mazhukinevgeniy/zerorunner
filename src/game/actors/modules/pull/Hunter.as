@@ -43,6 +43,8 @@ package game.actors.modules.pull
 		override protected function onSpawned(id:int):void
 		{
 			this.listener.actorSpawned(id, this.giveCell(), 1);
+			
+			this.previousCell = new CellXY(0, 0);
 		}
 		
 		override protected function onActing():void

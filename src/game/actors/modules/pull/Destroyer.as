@@ -13,7 +13,7 @@ package game.actors.modules.pull
 		
 		
 		private var forward:DCellXY = new DCellXY(1, 0);
-		private var jump:DCellXY = new DCellXY(2, 0); //TODO : also should think about other directions... or not?
+		//private var jump:DCellXY = new DCellXY(2, 0); //TODO : also should think about other directions... or not?
 		//TODO: not really effective, reimplement
 		
 		public function Destroyer() 

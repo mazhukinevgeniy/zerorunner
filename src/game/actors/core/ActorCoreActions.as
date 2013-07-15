@@ -33,6 +33,26 @@ package game.actors.core
 				this.onBlocked(change);
 		}
 		
+		final protected function jump(change:DCellXY, multiplier:int):void
+		{
+			this.movingCooldown = this.moveSpeed * multiplier;
+			
+			var jChange:DCellXY = new DCellXY(change.x * multiplier, change.y * multiplier);
+			
+			var unluckyGuy:ActorBase = ActorBase.iSearcher.findObjectByCell(this.x + jChange.x, this.y + jChange.y);
+			if (unluckyGuy)
+				this.destroyActor(unluckyGuy);
+			
+			
+			ActorBase.iSearcher.putInCell(this.x, this.y);
+			this.cell.setValue(this.x + jChange.x, this.y + jChange.y);
+			ActorBase.iSearcher.putInCell(this.x, this.y, this as ActorBase);
+			
+			ActorBase.iListener.actorJumped(this.id, jChange, this.movingCooldown + 1);
+			
+			this.onMoved(jChange, this.movingCooldown + 1);
+		}
+		
 		final protected function isOnTheGround(item:ActorBase):void
 		{
 			if (ActorBase.iScene.getSceneCell(item.x, item.y) == SceneFeature.FALL)
