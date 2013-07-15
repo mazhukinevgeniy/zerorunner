@@ -77,13 +77,15 @@ package game.actors.view
 		{
 			var image:Image = this.objects[id];
 			
+			var tween:Tween, secondTween:Tween;
+			
 			if (change.y != 0)
 			{
-				var tween:Tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
+				tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
 				tween.animate("y", image.y + change.y * Metric.CELL_HEIGHT / 2);
 				tween.scaleTo(1.5);
 				
-				var secondTween:Tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
+				secondTween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
 				secondTween.animate("y", image.y + change.y * Metric.CELL_HEIGHT);
 				secondTween.scaleTo(1);
 				
@@ -93,11 +95,11 @@ package game.actors.view
 			}
 			else
 			{
-				var tween:Tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
+				tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
 				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
 				tween.animate("x", image.x + change.x * Metric.CELL_WIDTH / 2);
 				
-				var secondTween:Tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
+				secondTween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
 				secondTween.animate("y", image.y);
 				secondTween.animate("x", image.x + change.x * Metric.CELL_WIDTH);
 				
