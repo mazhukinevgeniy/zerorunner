@@ -11,6 +11,7 @@ package ui
 	import ui.pauseControl.PauseTypes;
 	import ui.sounds.Sounds;
 	import ui.WindowsFeature;
+	import ui.themes.ExtenedTheme;
 	
 	public class ChaoticUI extends UpdateManager
 	{
@@ -35,6 +36,8 @@ package ui
 			this.assets = assets;
 			
 			super(ChaoticUI.flowName);
+			
+		    new ExtenedTheme(root);
 			
 			new Background(this.root);
 			new GameView(this.root, this);

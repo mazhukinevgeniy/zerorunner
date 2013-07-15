@@ -15,13 +15,19 @@ package ui.mainMenu
 	import ui.game.panel.Panel;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import ui.themes.ExtenedTheme;
+	
+	import feathers.controls.Button;
+	import feathers.controls.text.TextFieldTextRenderer;
+	import feathers.core.ITextRenderer;
+	import flash.text.TextFormat;
 	
 	public class MainMenu  extends Sprite
 	{	
 	
 		public static const WIDTH_MAIN_MENU:Number = 150;
 		public static const HEIGHT_MAIN_MENU:Number = 300;
-		public static const WIDTH_BUTTON:Number = 100;
+		public static const WIDTH_BUTTON:Number = 120;
 		public static const HEIGHT_BUTTON:Number = 30;
 		
 		private static const SPACE_BEETWEEN_BUTTON:Number = 20;
@@ -30,32 +36,32 @@ package ui.mainMenu
 		
 		private var flow:IUpdateDispatcher;
 		
-		private var playButton:ButtonMainMenu,
-					statisticsButton:ButtonMainMenu,
-					achievementsButton:ButtonMainMenu,
-					creditsButton:ButtonMainMenu;
+		private var playButton:Button,
+					statisticsButton:Button,
+					achievementsButton:Button,
+					creditsButton:Button;
 		
 		
 		public function MainMenu( flow:IUpdateDispatcher, assets:AssetManager, name:String = "MainMenu") 
-		{
+		{			
 			this.name = WindowsFeature.MENU;
 			
 			var tmp:Quad = new Quad(MainMenu.WIDTH_MAIN_MENU, MainMenu.HEIGHT_MAIN_MENU, 0xFFFFFF);
 			tmp.alpha = 0.85;
 			this.addChild(tmp);
 			
-			this.playButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS, "New game");
+			this.playButton = ButtonMainMenuFactory.create(MainMenu.START_HEIGHT_BUTTONS, "New game");
 			this.addChild(this.playButton);
 			
-			this.statisticsButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS + MainMenu.HEIGHT_BUTTON + MainMenu.SPACE_BEETWEEN_BUTTON,
+			this.statisticsButton = ButtonMainMenuFactory.create(MainMenu.START_HEIGHT_BUTTONS + MainMenu.HEIGHT_BUTTON + MainMenu.SPACE_BEETWEEN_BUTTON,
 													   "Statistics");
 			this.addChild(this.statisticsButton);
 			
-			this.achievementsButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS + 2 * MainMenu.HEIGHT_BUTTON + 2 * MainMenu.SPACE_BEETWEEN_BUTTON,
+			this.achievementsButton = ButtonMainMenuFactory.create(MainMenu.START_HEIGHT_BUTTONS + 2 * MainMenu.HEIGHT_BUTTON + 2 * MainMenu.SPACE_BEETWEEN_BUTTON,
 													   "Achievements");
 			this.addChild(this.achievementsButton);
 			
-			this.creditsButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS + 3 * MainMenu.HEIGHT_BUTTON + 3 * MainMenu.SPACE_BEETWEEN_BUTTON,
+			this.creditsButton = ButtonMainMenuFactory.create(MainMenu.START_HEIGHT_BUTTONS + 3 * MainMenu.HEIGHT_BUTTON + 3 * MainMenu.SPACE_BEETWEEN_BUTTON,
 													   "Credits");
 			this.addChild(this.creditsButton);
 
@@ -88,6 +94,8 @@ package ui.mainMenu
 				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.CREDITS);
 			}
 		}
+		
+		
 	}
 
 }
