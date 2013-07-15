@@ -8,13 +8,12 @@ package game.actors.modules.pull
 	internal class Destroyer extends ActorBase
 	{
 		private static const HP:int = 1;
-		private static const MOVE_SPEED:int = 1;
+		private static const MOVE_SPEED:int = 0;
 		private static const ACTION_SPEED:int = 1000;
 		
 		
 		private var forward:DCellXY = new DCellXY(1, 0);
-		//private var jump:DCellXY = new DCellXY(2, 0); //TODO : also should think about other directions... or not?
-		//TODO: not really effective, reimplement
+		//TODO : also should think about other directions... or not?
 		
 		public function Destroyer() 
 		{
@@ -33,10 +32,10 @@ package game.actors.modules.pull
 		
 		override protected function onCanMove():void
 		{
-			/*if (this.scene.getSceneCell(new CellXY(this.x + 1, this.y)) != SceneFeature.FALL)
-				this.callMove(item, this.forward);
+			if (this.scene.getSceneCell(this.x + 1, this.y) != SceneFeature.FALL)
+				this.tryMove(this.forward);
 			else
-				this.jumpActor(item, this.jump);*/
+				this.jump(this.forward, 2);
 		}
 	}
 
