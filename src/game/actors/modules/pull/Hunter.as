@@ -79,7 +79,7 @@ package game.actors.modules.pull
 					else if (this.goal.y < this.y)
 						this.lastTouchedWall = Hunter.UP;
 					
-					this.bypassStartingPoint = this.giveCell();
+					this.bypassStartingPoint = this.giveCell().getCopy();
 				}
 			}
 			
