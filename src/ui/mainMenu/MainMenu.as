@@ -9,13 +9,16 @@ package ui.mainMenu
 	import starling.events.Event;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
-	import ui.windows.WindowBase;
-	import ui.windows.ManagerWindows;
+	import ui.WindowsFeature;
 	import starling.display.Sprite;
 	import starling.display.Quad;
+	import ui.game.panel.Panel;
+	import starling.display.Quad;
+	import starling.display.Sprite;
 	
-	public class MainMenu  extends WindowBase
-	{		
+	public class MainMenu  extends Sprite
+	{	
+	
 		public static const WIDTH_MAIN_MENU:Number = 150;
 		public static const HEIGHT_MAIN_MENU:Number = 300;
 		public static const WIDTH_BUTTON:Number = 100;
@@ -24,15 +27,22 @@ package ui.mainMenu
 		private static const SPACE_BEETWEEN_BUTTON:Number = 20;
 		private static const START_HEIGHT_BUTTONS:Number = 50;
 		
+		
+		private var flow:IUpdateDispatcher;
+		
 		private var playButton:ButtonMainMenu,
 					statisticsButton:ButtonMainMenu,
 					achievementsButton:ButtonMainMenu,
 					creditsButton:ButtonMainMenu;
 		
 		
-		public function MainMenu(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
+		public function MainMenu( flow:IUpdateDispatcher, assets:AssetManager, name:String = "MainMenu") 
 		{
-			super(MainMenu.WIDTH_MAIN_MENU, MainMenu.HEIGHT_MAIN_MENU, false);
+			this.name = WindowsFeature.MENU;
+			
+			var tmp:Quad = new Quad(MainMenu.WIDTH_MAIN_MENU, MainMenu.HEIGHT_MAIN_MENU, 0xFFFFFF);
+			tmp.alpha = 0.85;
+			this.addChild(tmp);
 			
 			this.playButton = new ButtonMainMenu(MainMenu.START_HEIGHT_BUTTONS, "New game");
 			this.addChild(this.playButton);
@@ -55,10 +65,6 @@ package ui.mainMenu
 			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			
-			
-			
-			root.addChild(this);
-			
 			this.flow = flow;
 		}
 		
@@ -66,21 +72,20 @@ package ui.mainMenu
 		{
 			if (event.target == this.playButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.GAME);
 				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.flow.dispatchUpdate(ChaoticUI.newGame);
 			}
 			else if (event.target == this.statisticsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.STATISTICS);
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.STATISTICS);
 			}
 			else if (event.target == this.achievementsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.ACHIEVEMENTS);
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.ACHIEVEMENTS);
 			}
 			else if (event.target == this.creditsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.CREDITS);
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.CREDITS);
 			}
 		}
 	}
