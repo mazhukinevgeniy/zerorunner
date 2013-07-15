@@ -27,6 +27,8 @@ package game.actors.modules.pull
 		override protected function onSpawned():void
 		{
 			this.forceUpdate(ActorsFeature.setCenter, this.getCell());
+			
+			this.listener.actorSpawned(0, this.getCell(), 0); //TODO : reimplement any other way
 		}
 		
 		override protected function onMoved(change:DCellXY, delay:int):void

@@ -83,7 +83,7 @@ package game.actors.core
 			this.getCharacterCell(this.tLC);
 			this.tLC.applyChanges(this.toTLC);
 			
-			this.command.refill(this.actors, true);
+			this.command.refill(this.actors);
 		}
 		
 		public function cache():void
