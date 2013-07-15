@@ -36,7 +36,7 @@ package game.time
 		public function Time(root:Sprite, flow:IUpdateDispatcher) 
 		{
 			this.FPS = Starling.current.nativeStage.frameRate;
-			this.framesBetweenTicks = this.FPS == 60 ? 6 : 3;
+			this.framesBetweenTicks = this.FPS == 60 ? 4 : 2;
 			
 			this.cachers = new Vector.<Vector.<ICacher>>(this.framesBetweenTicks, true);
 			
@@ -99,6 +99,7 @@ package game.time
 					this.frameCount = 0;
 					
 					this.updateFlow.dispatchUpdate(ZeroRunner.tick);
+					this.updateFlow.dispatchUpdate(ZeroRunner.aftertick);
 				}
 				else
 				{

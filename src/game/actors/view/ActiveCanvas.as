@@ -1,7 +1,6 @@
 package game.actors.view 
 {
 	import game.actors.ActorsFeature;
-	import game.actors.storage.Puppet;
 	import game.actors.view.DrawenActor;
 	import game.time.Time;
 	import game.ZeroRunner;
@@ -9,9 +8,7 @@ package game.actors.view
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
-	import game.metric.DPixelXY;
 	import game.metric.Metric;
-	import game.metric.PixelXY;
 	import game.ui.Camera;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
@@ -22,7 +19,7 @@ package game.actors.view
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
-	public class ActiveCanvas 
+	public class ActiveCanvas implements IActorListener
 	{
 		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
@@ -41,10 +38,6 @@ package game.actors.view
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
-			flow.addUpdateListener(ActorsFeature.actorAdded);
-			flow.addUpdateListener(ActorsFeature.actorDestroyed);
-			flow.addUpdateListener(ActorsFeature.actorMoved);
-			flow.addUpdateListener(ActorsFeature.actorJumped);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
@@ -56,21 +49,74 @@ package game.actors.view
 			this.atlas = this.assets.getTextureAtlas("gameAtlas");
 		}
 		
-		public function actorAdded(puppet:Puppet):void
+		
+		
+		public function actorSpawned(id:int, cell:CellXY, type:int):void
 		{
-			var cell:PixelXY = Metric.toPixel(puppet.getCell());
-			
-			var image:Image = this.objects[puppet.id] = new DrawenActor(this.atlas.getTexture("badsprite" + String(puppet.type)));
-			image.x = cell.x;
-			image.y = cell.y;
+			var image:Image = this.objects[id] = new DrawenActor(this.atlas.getTexture("badsprite" + String(type)));
+			image.x = cell.x * Metric.CELL_WIDTH;
+			image.y = cell.y * Metric.CELL_HEIGHT;
 			
 			this.container.addChild(image);
 		}
 		
-		public function actorDestroyed(puppet:Puppet):void
+		
+		public function actorMovedNormally(id:int, change:DCellXY, delay:int):void
 		{
-			var id:int = puppet.id;
+			var image:Image = this.objects[id];
 			
+			var tween:Tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS);
+			tween.moveTo(image.x + change.x * Metric.CELL_WIDTH, image.y + change.y * Metric.CELL_HEIGHT);
+			
+			tween.roundToInt = true;
+			
+			this.juggler.add(tween);
+		}
+		
+		public function actorJumped(id:int, change:DCellXY, delay:int):void
+		{
+			var image:Image = this.objects[id];
+			
+			var tween:Tween, secondTween:Tween;
+			
+			if (change.y != 0)
+			{
+				tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
+				tween.animate("y", image.y + change.y * Metric.CELL_HEIGHT / 2);
+				tween.scaleTo(1.5);
+				
+				secondTween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
+				secondTween.animate("y", image.y + change.y * Metric.CELL_HEIGHT);
+				secondTween.scaleTo(1);
+				
+				tween.nextTween = secondTween;
+				
+				this.juggler.add(tween);
+			}
+			else
+			{
+				tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
+				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
+				tween.animate("x", image.x + change.x * Metric.CELL_WIDTH / 2);
+				
+				secondTween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
+				secondTween.animate("y", image.y);
+				secondTween.animate("x", image.x + change.x * Metric.CELL_WIDTH);
+				
+				tween.nextTween = secondTween;
+				
+				this.juggler.add(tween);
+			}
+		}
+		
+		
+		public function actorDisappeared(id:int):void
+		{
+			this.unparent(this.objects[id]);
+		}
+		
+		public function actorDeadlyDamaged(id:int):void
+		{
 			var image:Image = this.objects[id];
 			var tween:Tween = new Tween(image, 0.5);
 			tween.scaleTo(0);
@@ -81,48 +127,17 @@ package game.actors.view
 			this.juggler.add(tween);
 		}
 		
+		public function actorFallen(id:int):void
+		{
+			this.actorDisappeared(id);
+		}
+		
 		private function unparent(item:DisplayObject):void
 		{
 			this.container.removeChild(item);
 		}
 		
-		public function actorMoved(item:Puppet, cChange:DCellXY):void
-		{
-			var change:DPixelXY = Metric.toPixel(cChange);
-			
-			var image:Image = this.objects[item.id];
-			
-			var tween:Tween = new Tween(image, item.remainingDelay * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(image.x + change.x, image.y + change.y);
-			
-			tween.roundToInt = true;
-			
-			this.juggler.add(tween);
-		}
 		
-		public function actorJumped(item:Puppet):void
-		{
-			//if (change.y != 0)
-			//	throw new Error("Not implemented");
-			//else
-			//{
-				var id:int = item.id;
-				var image:Image = this.objects[id];
-				var ticksToGo:int = item.remainingDelay;
-				
-				var tween:Tween = new Tween(image, ticksToGo * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
-				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
-			//	tween.animate("x", image.x + Metric.toPixel(change).x / 2);
-				
-				var secondTween:Tween = new Tween(image, ticksToGo * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
-				secondTween.animate("y", image.y);
-			//	secondTween.animate("x", image.x + Metric.toPixel(change).x);
-				
-				tween.nextTween = secondTween;
-				
-				this.juggler.add(tween);
-			//} //TODO: redisign
-		}
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{

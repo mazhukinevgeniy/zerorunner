@@ -3,13 +3,12 @@ package game
 	import chaotic.core.UpdateManager;
 	import chaotic.informers.InformerManager;
 	import game.actors.ActorsFeature;
-	import game.grinder.GrinderFeature;
 	import game.input.InputManager;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
-	import game.statistics.Statistics;
+	import game.state.GameState;
 	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
@@ -35,6 +34,7 @@ package game
 		public static const gameOver:String = "gameOver";
 		
 		public static const tick:String = "tick";
+		public static const aftertick:String = "aftertick";
 		public static const setPause:String = "setPause";
 		
 		public static const setGameContainer:String = "setGameContainer";
@@ -66,14 +66,13 @@ package game
 			
 			Metric.initialize(40, 40, 81, 81);
 			
+			new GameState(this);
 			new Time(this.displayRoot, this);
 			new InputManager(this);
-			new Statistics(this);
 			new UIExtendsions(this);
 			
-			new GrinderFeature(this);
-			new ActorsFeature(this);
 			new SceneFeature(this);
+			new ActorsFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
 			

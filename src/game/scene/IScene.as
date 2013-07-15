@@ -4,7 +4,7 @@ package game.scene
 	
 	public interface IScene
 	{
-		function getSceneCell(cell:CellXY):int;
+		function getSceneCell(x:int, y:int):int;
 	}
 	
 }

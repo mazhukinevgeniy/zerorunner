@@ -23,6 +23,11 @@ package game.metric
 		public static function get WIDTH():int { return Metric.width; }
 		public static function get HEIGHT():int { return Metric.height; }
 		
+		public static function get xDistanceActorsAllowed():int	{ return 3 * Metric.cellsInVisibleWidth; }
+		public static function get yDistanceActorsAllowed():int	{ return 3 * Metric.cellsInVisibleHeigth; }
+		
+		public static function get xDistanceSceneAllowed():int	{ return 4 * Metric.cellsInVisibleWidth; }
+		public static function get yDistanceSceneAllowed():int	{ return 4 * Metric.cellsInVisibleHeigth; }
 		
 		
 		public function Metric() 
@@ -59,27 +64,6 @@ package game.metric
 				else 					 x = 1;		}
 			
 			return new DCellXY(x, y);
-		}
-		
-		public static function toPixel(item:*):*
-		{
-			if (item is CellXY)
-				return new PixelXY(item.x * Metric.cellWidth, item.y * Metric.cellHeight);
-			else if (item is DCellXY)
-				return new DPixelXY(item.x * Metric.cellWidth, item.y * Metric.cellHeight);
-			else 
-				throw new UnresolvedRequestError();
-		}
-		
-		
-		
-		public static function getHash(cell:CellXY):int
-		{
-			return uint(uint(cell.x * 426389) ^ uint(cell.y * 514229)) % 512;
-		}
-		public static function getMaximumHash():int
-		{
-			return 512;
 		}
 		
 		public static function distance(p1:CellXY, p2:CellXY):int

@@ -1,8 +1,6 @@
 package game.actors 
 {
-	import game.actors.manipulator.ActorManipulator;
-	import game.actors.spawner.ActorSpawner;
-	import game.actors.storage.ActorStorage;
+	import game.actors.core.ActorStorage;
 	import game.actors.view.ActiveCanvas;
 	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;
@@ -11,13 +9,8 @@ package game.actors
 	
 	public class ActorsFeature
 	{
-		public static const actorAdded:String = "actorAdded";
-		
-		public static const actorJumped:String = "actorJumped";
-		public static const actorMoved:String = "actorMoved";
-		public static const actorDamaged:String = "actorDamaged";
-		
-		public static const actorDestroyed:String = "actorDestroyed";
+		public static const setHeroHP:String = "setHeroHP";
+		public static const heroDamaged:String = "heroDamaged";
 		
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
@@ -27,31 +20,18 @@ package game.actors
 		
 		public static const MAXIMUM_DAMAGE:int = 1000;
 		
-		[Embed(source = "actors.xml", mimeType="application/octet-stream")]
-		internal static const config:Class;
-		
-		
-		public static const CAP:int = 150;
-		
-		public static const MAX_SPAWN_ONCE:int = 15;
+		public static const CAP:int = 250;
 		
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{
-			var storage:ActorStorage = new ActorStorage(flow);
-			
-			new ActorSpawner(storage, flow);
-			new ActorManipulator(storage, flow);
-			new ActiveCanvas(flow);
+			var view:ActiveCanvas = new ActiveCanvas(flow);
+			new ActorStorage(view, flow);
 		}
 		
 		
 		public static function get SPAWN_CELL():CellXY
 		{
-			return new CellXY((Metric.WIDTH - 1) / 2, (Metric.HEIGHT - 1) / 2);
-		}
-		public static function get CONFIG():XML
-		{
-			return XMLByClass(ActorsFeature.config);
+			return new CellXY(- 10000, -10000);
 		}
 	}
 
