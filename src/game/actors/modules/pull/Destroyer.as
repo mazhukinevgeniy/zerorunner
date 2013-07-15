@@ -36,7 +36,7 @@ package game.actors.modules.pull
 		
 		override protected function onCanMove():void
 		{
-			if (this.scene.getSceneCell(this.x + 1, this.y) != SceneFeature.FALL)
+			if (this.scene.getSceneCell(this.x + this.forward.x, this.y + this.forward.y) != SceneFeature.FALL)
 				this.tryMove(this.forward);
 			else
 				this.jump(this.forward, 2);
