@@ -29,6 +29,7 @@ package game.metric
 		public static function get xDistanceSceneAllowed():int	{ return 4 * Metric.cellsInVisibleWidth; }
 		public static function get yDistanceSceneAllowed():int	{ return 4 * Metric.cellsInVisibleHeigth; }
 		
+		private static var randomDCells:Vector.<DCellXY> = new <DCellXY>[new DCellXY(-1, 0), new DCellXY(1, 0), new DCellXY(0,1), new DCellXY(0, -1)];
 		
 		public function Metric() 
 		{
@@ -50,20 +51,7 @@ package game.metric
 		
 		public static function getRandomDCell():DCellXY 
 		{
-			var x:int, y:int;
-			
-			if (Math.random() < 0.5)
-			{	x = 0;
-				
-				if (Math.random() < 0.5) y = -1;
-				else 					 y = 1;		}
-			else 
-			{	y = 0;
-				
-				if (Math.random() < 0.5) x = -1;
-				else 					 x = 1;		}
-			
-			return new DCellXY(x, y); //TODO: do not allocate
+			return Metric.randomDCells[int(Math.random() * 4)];
 		}
 		
 		public static function distance(p1:CellXY, p2:CellXY):int

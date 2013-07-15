@@ -13,6 +13,8 @@ package game.input
 		private var order:Vector.<int>;
 		private var maxI:int;
 		
+		private var changes:Vector.<DCellXY>;
+		
 		public function InputManager(flow:IUpdateDispatcher)
 		{
 			super();
@@ -25,6 +27,14 @@ package game.input
 			flow.addUpdateListener(InputManager.newInputPiece);
 			flow.addUpdateListener(InputManager.purgeClicks);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			
+			this.changes = new Vector.<DCellXY>(5, true);
+			
+			for (var i:int = 0; i < 5; i++)
+			{
+				this.changes[i] = new DCellXY(	i == 1 ? 1 : i == 3 ? -1 : 0,
+												i == 2 ? 1 : i == 4 ? -1 : 0);
+			}
 		}
 		
 		public function purgeClicks():void
@@ -38,11 +48,11 @@ package game.input
 			var arr:Vector.<DCellXY> = new Vector.<DCellXY>(5);
 			var vals:Vector.<int> = new Vector.<int>(5, true);
 			
-			arr[0] = this.intToDXY(0);
+			arr[0] = this.changes[0];
 			vals[0] = this.order[0];
 			for (var i:int = 1; i < 5; i++)
 			{
-				arr[i] = this.intToDXY(i);
+				arr[i] = this.changes[i];
 				vals[i] = Math.max(this.order[i], 
 				                  this.order[i + InputManager.MOUSE],
 				                  this.order[i + InputManager.CLICK], 
@@ -109,11 +119,6 @@ package game.input
 		private function dCXYtoInt(item:DCellXY):int
 		{
 			return 2 * item.x * item.x - item.x + 3 * item.y * item.y - item.y;
-		}
-		private function intToDXY(value:int):DCellXY
-		{
-			return new DCellXY(value == 1 ? 1 : value == 3 ? -1 : 0,
-							   value == 2 ? 1 : value == 4 ? -1 : 0);// TODO: do not allocate
 		}
 		
 		private static const PRESS:int = 0;
