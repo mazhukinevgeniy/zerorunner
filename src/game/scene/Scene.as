@@ -34,8 +34,10 @@ package game.scene
 		public function Scene(flow:IUpdateDispatcher) 
 		{
 			this.nextColumn = new DCellXY(1, -this.height);
-			this.unmodificate = new DCellXY( -this.width, -this.height);
+			
 			this.toTLC = new DCellXY( -Metric.xDistanceSceneAllowed, -Metric.yDistanceSceneAllowed);
+			
+			this.unmodificate = new DCellXY( -this.width, 0);
 			
 			this.cacheVector = new Vector.<int>(this.width * this.height, true);
 			
@@ -52,10 +54,10 @@ package game.scene
 		}
 		
 		public function getSceneCell(x:int, y:int):int
-		{			
-			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+		{
+			if ((!(x < this.tLC.x)) && (x < this.tLC.x + this.width)
 				&&
-			    !(y < this.tLC.y) && (y < this.tLC.y + this.height))
+			    (!(y < this.tLC.y)) && (y < this.tLC.y + this.height))
 			{
 				x -= this.tLC.x;
 				y -= this.tLC.y;
@@ -95,17 +97,23 @@ package game.scene
 		
 		private function getCell(x:int, y:int):int
 		{
-			return (this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y) % 3 == 0 ? SceneFeature.FALL : SceneFeature.ROAD);
+			return (this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y) % 4 == 0 ? SceneFeature.FALL : SceneFeature.ROAD);
 		}
 		
 		public function prerestore():void
 		{
-			for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
-			{
-				this.patterns[i] = new ScenePattern();
-			}
+			var cell:CellXY = ActorsFeature.SPAWN_CELL;
 			
-			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
+			do
+			{
+				for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
+				{
+					this.patterns[i] = new ScenePattern();
+				}
+			}
+			while (this.getCell(cell.x, cell.y) == SceneFeature.FALL);
+			
+			this.tLC = cell.applyChanges(this.toTLC);
 			
 			this.cache();
 		}

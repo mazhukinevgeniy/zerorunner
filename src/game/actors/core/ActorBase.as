@@ -29,6 +29,8 @@ package game.actors.core
 		{
 			this.id = id;
 			
+			this.isActive = true;
+			
 			this.actingCooldown = 0;
 			this.movingCooldown = 0;
 			

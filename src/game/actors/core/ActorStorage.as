@@ -45,6 +45,7 @@ package game.actors.core
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(ZeroRunner.tick);
 			flow.addUpdateListener(ZeroRunner.aftertick);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
@@ -70,6 +71,11 @@ package game.actors.core
 			
 			this.cache(); 
 			this.cache();
+		}
+		
+		public function tick():void
+		{
+			this.command.act(this.actors);
 		}
 		
 		public function aftertick():void
