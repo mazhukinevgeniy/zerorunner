@@ -1,13 +1,15 @@
-package ui.windows 
+package ui.achievements 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import starling.display.DisplayObjectContainer;
 	import ui.ChaoticUI;
+	import ui.WindowBase;
+	import ui.WindowsFeature;
 	
 	public class AchievementsWindow extends WindowBase
 	{
 		
-		public function AchievementsWindow(root:DisplayObjectContainer, flow:IUpdateDispatcher) 
+		public function AchievementsWindow(flow:IUpdateDispatcher) 
 		{
 			super(350, 400)
 			
@@ -17,13 +19,11 @@ package ui.windows
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(ChaoticUI.openWindow);
-			
-			root.addChild(this);
 		}
 		
 		public function openWindow(target:String):void
 		{
-			if(target == ManagerWindows.ACHIEVEMENTS)
+			if(target == WindowsFeature.ACHIEVEMENTS)
 				this.visible = true;
 			else
 				this.visible = false;

@@ -1,15 +1,17 @@
-package ui.windows 
+package ui.statistics 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import starling.display.DisplayObjectContainer;
 	import ui.ChaoticUI;
+	import ui.WindowBase;
+	import ui.WindowsFeature;
 	
-	public class CreditsWindow extends WindowBase
+	public class StatisticsWindow extends WindowBase
 	{
 		
-		public function CreditsWindow(root:DisplayObjectContainer, flow:IUpdateDispatcher) 
+		public function StatisticsWindow(flow:IUpdateDispatcher) 
 		{
-			super(150, 100)
+			super(250, 250)
 			
 			this.visible = false;
 			
@@ -17,13 +19,11 @@ package ui.windows
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(ChaoticUI.openWindow);
-			
-			root.addChild(this);
 		}
 		
 		public function openWindow(target:String):void
 		{
-			if(target == ManagerWindows.CREDITS)
+			if(target == WindowsFeature.STATISTICS)
 				this.visible = true;
 			else
 				this.visible = false;

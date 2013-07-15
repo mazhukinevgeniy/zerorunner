@@ -9,10 +9,11 @@ package ui.mainMenu
 	import starling.events.Event;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
-	import ui.windows.WindowBase;
-	import ui.windows.ManagerWindows;
+	import ui.WindowBase;
+	import ui.WindowsFeature;
 	import starling.display.Sprite;
 	import starling.display.Quad;
+	import ui.game.panel.Panel;
 	
 	public class MainMenu  extends WindowBase
 	{		
@@ -30,7 +31,7 @@ package ui.mainMenu
 					creditsButton:ButtonMainMenu;
 		
 		
-		public function MainMenu(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
+		public function MainMenu( flow:IUpdateDispatcher, assets:AssetManager) 
 		{
 			super(MainMenu.WIDTH_MAIN_MENU, MainMenu.HEIGHT_MAIN_MENU, false);
 			
@@ -55,32 +56,37 @@ package ui.mainMenu
 			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			
-			
-			
-			root.addChild(this);
-			
 			this.flow = flow;
+			
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(Panel.panel_BackToMenu);
+		}
+		
+		public function panel_BackToMenu():void
+		{
+			this.visible = true;
 		}
 		
 		private function handleMenuTriggered(event:Event):void
 		{
 			if (event.target == this.playButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.GAME);
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.GAME);
 				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.flow.dispatchUpdate(ChaoticUI.newGame);
+				this.visible = false;
 			}
 			else if (event.target == this.statisticsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.STATISTICS);
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.STATISTICS);
 			}
 			else if (event.target == this.achievementsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.ACHIEVEMENTS);
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.ACHIEVEMENTS);
 			}
 			else if (event.target == this.creditsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, ManagerWindows.CREDITS);
+				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.CREDITS);
 			}
 		}
 	}

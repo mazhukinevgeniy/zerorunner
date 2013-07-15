@@ -8,10 +8,9 @@ package ui
 	import starling.utils.AssetManager;
 	import ui.background.Background;
 	import ui.game.GameView;
-	import ui.mainMenu.MainMenu;
 	import ui.pauseControl.PauseTypes;
 	import ui.sounds.Sounds;
-	import ui.windows.ManagerWindows;
+	import ui.WindowsFeature;
 	
 	public class ChaoticUI extends UpdateManager
 	{
@@ -38,11 +37,10 @@ package ui
 			super(ChaoticUI.flowName);
 			
 			new Background(this.root);
-			new MainMenu(this.root, this, assets);
 			new GameView(this.root, this);
 			new Sounds(this.root, this, this.assets);
 			
-			new ManagerWindows(this.root, this, this.assets);
+			new WindowsFeature(this.root, this, this.assets);
 			
 			new PauseTypes(this);
 			

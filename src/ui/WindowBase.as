@@ -1,4 +1,4 @@
-package ui.windows 
+package ui 
 {
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -22,7 +22,7 @@ package ui.windows
 		
 		private function centerAlignment():void
 		{
-			this.x = (ManagerWindows.WIDTH - this.width) / 2 + ManagerWindows.X;
+			this.x = (WindowsFeature.WIDTH - this.width) / 2 + WindowsFeature.X;
 			this.y = (Main.HEIGHT - this.height) / 2;
 		}
 		
