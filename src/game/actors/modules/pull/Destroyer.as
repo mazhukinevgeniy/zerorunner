@@ -10,7 +10,7 @@ package game.actors.modules.pull
 	{
 		private static const HP:int = 1;
 		private static const MOVE_SPEED:int = 1;
-		private static const ACTION_SPEED:int = 1000;
+		private static const ACTION_SPEED:int = 1;
 		
 		private static const DAMAGE:int = 4;
 		

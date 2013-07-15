@@ -68,18 +68,24 @@ package game.actors.core
 		
 		final protected function damageActor(item:ActorBase, damage:int):void
 		{
-			item.hp -= damage;
-			
-			if (item.hp > 0)
+			if (this.actingCooldown < 0)
 			{
-				item.onDamaged(damage);
-			}
-			else
-			{
-				this.destroyActor(item);
+				item.hp -= damage;
 				
-				ActorBase.iListener.actorDeadlyDamaged(item.id);
+				if (item.hp > 0)
+				{
+					item.onDamaged(damage);
+				}
+				else
+				{
+					this.destroyActor(item);
+					
+					ActorBase.iListener.actorDeadlyDamaged(item.id);
+				}
+				
+				this.actingCooldown = this.actionSpeed;
 			}
+			else this.actingCooldown--;
 		}
 		
 		private function destroyActor(item:ActorBase):void
