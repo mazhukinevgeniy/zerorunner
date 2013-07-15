@@ -21,7 +21,6 @@ package ui
 		public static const STATISTICS:String = "Statistics";
 		public static const ACHIEVEMENTS:String = "Achievements";
 		public static const CREDITS:String = "Credits";
-		public static const GAME:String = "Game";
 		
 		
 		public static const WINDOWS_REGION_X:Number = MainMenu.WIDTH_MAIN_MENU + WindowsFeature.INDENT;

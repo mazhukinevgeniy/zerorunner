@@ -22,17 +22,6 @@ package ui.statistics
 			this.visible = false;
 			
 			this.flow = flow;
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(ChaoticUI.openWindow);
-		}
-		
-		public function openWindow(target:String):void
-		{
-			if(target == WindowsFeature.STATISTICS)
-				this.visible = true;
-			else
-				this.visible = false;
 		}
 		
 	}

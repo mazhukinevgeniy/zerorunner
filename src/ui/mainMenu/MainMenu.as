@@ -66,24 +66,14 @@ package ui.mainMenu
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			
 			this.flow = flow;
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Panel.panel_BackToMenu);
-		}
-		
-		public function panel_BackToMenu():void
-		{
-			this.visible = true;
 		}
 		
 		private function handleMenuTriggered(event:Event):void
 		{
 			if (event.target == this.playButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.GAME);
 				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.flow.dispatchUpdate(ChaoticUI.newGame);
-				this.visible = false;
 			}
 			else if (event.target == this.statisticsButton)
 			{
