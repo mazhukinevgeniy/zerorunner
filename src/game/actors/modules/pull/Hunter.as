@@ -7,6 +7,9 @@ package game.actors.modules.pull
 	
 	internal class Hunter extends ActorBase
 	{
+		private static const DAMAGE:int = 10;
+		
+		
 		private static const HP:int = 3;
 		private static const MOVE_SPEED:int = 2;
 		private static const ACTION_SPEED:int = 1000;
@@ -94,6 +97,11 @@ package game.actors.modules.pull
 			this.previousCell = this.giveCell().getCopy();
 		}
 		
+		override protected function onBlocked(change:DCellXY):void
+		{
+			this.damageActor(this.searcher.findObjectByCell(this.x + change.x, this.y + change.y), Hunter.DAMAGE);
+		}
+		
 		private function tryStraightGoing(goal:CellXY):Boolean
 		{
 			if (Math.abs(goal.x - this.x) > Math.abs(goal.y - this.y))
@@ -179,13 +187,6 @@ package game.actors.modules.pull
 			{
 				return Math.abs(p1[coordinate] - p2[coordinate]);
 			}
-		}
-		
-		
-		override protected function onBlocked(change:DCellXY):void
-		{
-			//this.bite.act(item, change);
-			//TODO: do something
 		}
 	}
 
