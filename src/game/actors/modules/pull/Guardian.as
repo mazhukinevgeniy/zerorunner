@@ -22,6 +22,8 @@ package game.actors.modules.pull
 		override protected function onSpawned(id:int):void
 		{
 			this.listener.actorSpawned(id, this.giveCell(), 2);
+			
+			this.isFixed = false;
 		}
 		
 		override protected function onActing():void
