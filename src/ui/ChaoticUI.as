@@ -6,6 +6,7 @@ package ui
 	import game.ZeroRunner;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
+	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.background.Background;
 	import ui.game.GameView;
@@ -29,16 +30,18 @@ package ui
 		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
 		private static const HiLoDeco:Class;
 		
-		private static var gameRunToggled:Boolean;
+		private var gameIsActive:Boolean;
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
 		
 		public function ChaoticUI(displayRoot:DisplayObjectContainer, assets:AssetManager) 
 		{
-			ChaoticUI.gameRunToggled = false;
+			this.gameIsActive = false;
 			
-			this.root = displayRoot;
+			this.root = new Sprite();
+			displayRoot.addChild(this.root);
+			
 			this.assets = assets;
 			
 			super(ChaoticUI.flowName);
@@ -46,7 +49,7 @@ package ui
 		    new ExtenedTheme(root);
 			
 			new Background(this.root);
-			new GameView(this.root, this);
+			new GameView(displayRoot, this);
 			new Sounds(this.root, this, this.assets);
 			
 			new WindowsFeature(this.root, this, this.assets);
@@ -69,26 +72,25 @@ package ui
 		
 		public function keyUp(keyCode:uint):void
 		{
-			if (keyCode == Keyboard.P && !ChaoticUI.gameRun)
+			if (keyCode == Keyboard.P && !this.gameIsActive)
 			{
 				this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.dispatchUpdate(ChaoticUI.newGame);
 			}
 		}
 		
-		public static function get gameRun():Boolean
-		{
-			return ChaoticUI.gameRunToggled;
-		}
-		
 		public function newGame():void 
 		{
-			ChaoticUI.gameRunToggled = true;
+			this.gameIsActive = true;
+			
+			this.root.visible = false;
 		}
 		
 		public function panel_BackToMenu():void
 		{
-			ChaoticUI.gameRunToggled = false;
+			this.gameIsActive = false;
+			
+			this.root.visible = true;
 		}
 		
 		
