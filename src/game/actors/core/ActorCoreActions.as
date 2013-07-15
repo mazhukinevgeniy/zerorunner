@@ -37,7 +37,7 @@ package game.actors.core
 		{
 			this.movingCooldown = this.moveSpeed * multiplier;
 			
-			var jChange:DCellXY = new DCellXY(change.x * multiplier, change.y * multiplier);
+			var jChange:DCellXY = new DCellXY(change.x * multiplier, change.y * multiplier);//TODO: do not allocate
 			
 			var unluckyGuy:ActorBase = ActorBase.iSearcher.findObjectByCell(this.x + jChange.x, this.y + jChange.y);
 			if (unluckyGuy)

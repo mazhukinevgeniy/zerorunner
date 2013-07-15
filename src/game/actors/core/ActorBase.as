@@ -23,6 +23,8 @@ package game.actors.core
 			
 			this.moveSpeed = moveSpeed;
 			this.actionSpeed = actionSpeed;
+			
+			this.cell = new CellXY(0, 0);
 		}
 		
 		final public function reset(id:int):void
@@ -34,20 +36,20 @@ package game.actors.core
 			this.actingCooldown = 0;
 			this.movingCooldown = 0;
 			
-			this.cell = this.getSpawningCell();
+			this.setSpawningCell();
 			
 			ActorBase.iSearcher.putInCell(this.cell.x, this.cell.y, this);
 			
 			this.onSpawned(id);
 		}
 		
-		protected function getSpawningCell():CellXY
+		protected function setSpawningCell():void
 		{
 			var dX:int;
 			var dY:int;
 			
-			var charcell:CellXY = new CellXY(0, 0);
-			ActorBase.iSearcher.getCharacterCell(charcell);
+			var x:int = ActorBase.iSearcher.character.x;
+			var y:int = ActorBase.iSearcher.character.y;
 			
 			do 
 			{
@@ -63,9 +65,9 @@ package game.actors.core
 				}
 				while (Math.abs(dY) < 6);
 			}
-			while (ActorBase.iSearcher.findObjectByCell(charcell.x + dX, charcell.y + dY) != null);
+			while (ActorBase.iSearcher.findObjectByCell(x + dX, y + dY) != null);
 			
-			return charcell.applyChanges(new DCellXY(dX, dY));
+			this.cell.setValue(x + dX, y + dY);
 		}
 		
 		

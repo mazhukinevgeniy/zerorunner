@@ -41,14 +41,20 @@ package game.actors.modules.pull
 		public function Hunter() 
 		{
 			super(Hunter.HP, Hunter.MOVE_SPEED, Hunter.ACTION_SPEED);
+			
+			
+			this.previousCell = new CellXY(0, 0);
+			this.goal = new CellXY(0, 0);
+			
+			this.bypassStartingPoint = new CellXY(0, 0);
 		}
 		
 		override protected function onSpawned(id:int):void
 		{
 			this.listener.actorSpawned(id, this.giveCell(), 1);
 			
-			this.previousCell = new CellXY(0, 0);
-			this.goal = new CellXY(0, 0);
+			this.previousCell.setValue(0, 0);
+			this.goal.setValue(0, 0);
 		}
 		
 		override protected function onActing():void
@@ -82,7 +88,7 @@ package game.actors.modules.pull
 					else if (this.goal.y < this.y)
 						this.lastTouchedWall = Hunter.UP;
 					
-					this.bypassStartingPoint = this.giveCell().getCopy();
+					this.bypassStartingPoint.setValue(this.x, this.y);
 				}
 			}
 			
@@ -94,7 +100,7 @@ package game.actors.modules.pull
 					this.hand = Hunter.NOT_IN_BYPASS;
 			}
 			
-			this.previousCell = this.giveCell().getCopy();
+			this.previousCell.setValue(this.x, this.y);
 		}
 		
 		override protected function onBlocked(change:DCellXY):void

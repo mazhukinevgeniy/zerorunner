@@ -63,7 +63,7 @@ package game.metric
 				if (Math.random() < 0.5) x = -1;
 				else 					 x = 1;		}
 			
-			return new DCellXY(x, y);
+			return new DCellXY(x, y); //TODO: do not allocate
 		}
 		
 		public static function distance(p1:CellXY, p2:CellXY):int

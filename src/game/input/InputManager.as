@@ -113,7 +113,7 @@ package game.input
 		private function intToDXY(value:int):DCellXY
 		{
 			return new DCellXY(value == 1 ? 1 : value == 3 ? -1 : 0,
-							   value == 2 ? 1 : value == 4 ? -1 : 0);
+							   value == 2 ? 1 : value == 4 ? -1 : 0);// TODO: do not allocate
 		}
 		
 		private static const PRESS:int = 0;

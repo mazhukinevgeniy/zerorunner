@@ -19,9 +19,10 @@ package game.actors.modules.pull
 			super(Character.HP, Character.MOVE_SPEED, Character.ACTION_SPEED);
 		}
 		
-		override protected function getSpawningCell():CellXY
+		override protected function setSpawningCell():void
 		{
-			return ActorsFeature.SPAWN_CELL;
+			var c:CellXY = ActorsFeature.SPAWN_CELL;
+			this.giveCell().setValue(c.x, c.y);
 		}
 		
 		override protected function onSpawned(id:int):void

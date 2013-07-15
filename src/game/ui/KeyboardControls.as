@@ -31,7 +31,7 @@ package game.ui
 		
 		private function handleKeyDown(event:KeyboardEvent):void
 		{
-			if (event.keyCode == Keyboard.UP)
+			if (event.keyCode == Keyboard.UP)  //TODO: STOP ALLOCATING
 		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, true, new DCellXY(0, -1)));
             else if (event.keyCode == Keyboard.DOWN)
 		        this.updateFlow.dispatchUpdate(InputManager.newInputPiece, new InputPiece(true, true, new DCellXY(0, 1)));
