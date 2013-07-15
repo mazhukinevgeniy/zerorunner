@@ -15,7 +15,7 @@ package game.actors.core
 		/**
 		 * Called in the end of reset(id).
 		 */
-		protected function onSpawned():void
+		protected function onSpawned(id:int):void
 		{ 
 			
 		}

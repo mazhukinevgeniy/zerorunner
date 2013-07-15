@@ -123,7 +123,11 @@ package game.actors.core
 		
 		public function findObjectByCell(x:int, y:int):ActorBase
 		{
-			return this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width];
+			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+				&&
+				!(y < this.tLC.y) && (y < this.tLC.y + this.height))
+				return this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width];
+			else return null;
 		}
 		
 		public function getCharacterCell(cell:CellXY):void

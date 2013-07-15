@@ -21,6 +21,11 @@ package game.actors.modules.pull
 			super(Destroyer.HP, Destroyer.MOVE_SPEED, Destroyer.ACTION_SPEED);
 		}
 		
+		override protected function onSpawned(id:int):void
+		{
+			this.listener.actorSpawned(id, this.getCell(), 3);
+		}
+		
 		override protected function onActing():void
 		{
 			this.isOnTheGround(this);

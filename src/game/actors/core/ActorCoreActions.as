@@ -32,11 +32,6 @@ package game.actors.core
 			else
 				this.onBlocked(change);
 		}
-		/*
-		final protected function isOutOfBounds(item:ActorBase):void
-		{
-			...
-		}*/ // TODO: reimplement in the cache
 		
 		final protected function isOnTheGround(item:ActorBase):void
 		{

@@ -38,7 +38,7 @@ package game.actors.core
 			
 			ActorBase.iSearcher.putInCell(this.cell.x, this.cell.y, this);
 			
-			this.onSpawned();
+			this.onSpawned(id);
 		}
 		
 		protected function getCell():CellXY
@@ -55,13 +55,13 @@ package game.actors.core
 				{
 					dX = -Metric.xDistanceActorsAllowed + Math.random() * (2 * Metric.xDistanceActorsAllowed);
 				}
-				while (Math.abs(dX) < 10);
+				while (Math.abs(dX) < 6);
 				
 				do
 				{
 					dY = -Metric.yDistanceActorsAllowed + Math.random() * (2 * Metric.yDistanceActorsAllowed);
 				}
-				while (Math.abs(dY) < 10);
+				while (Math.abs(dY) < 6);
 			}
 			while (ActorBase.iSearcher.findObjectByCell(charcell.x + dX, charcell.y + dY) != null);
 			

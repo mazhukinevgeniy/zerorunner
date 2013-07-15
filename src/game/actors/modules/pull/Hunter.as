@@ -43,6 +43,11 @@ package game.actors.modules.pull
 			super(Hunter.HP, Hunter.MOVE_SPEED, Hunter.ACTION_SPEED);
 		}
 		
+		override protected function onSpawned(id:int):void
+		{
+			this.listener.actorSpawned(id, this.getCell(), 1);
+		}
+		
 		override protected function onActing():void
 		{
 			this.isOnTheGround(this);

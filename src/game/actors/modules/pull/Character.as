@@ -24,11 +24,11 @@ package game.actors.modules.pull
 			return ActorsFeature.SPAWN_CELL;
 		}
 		
-		override protected function onSpawned():void
+		override protected function onSpawned(id:int):void
 		{
 			this.forceUpdate(ActorsFeature.setCenter, this.getCell());
 			
-			this.listener.actorSpawned(0, this.getCell(), 0); //TODO : reimplement any other way
+			this.listener.actorSpawned(id, this.getCell(), 0);
 		}
 		
 		override protected function onMoved(change:DCellXY, delay:int):void
