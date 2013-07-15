@@ -16,16 +16,18 @@ package ui
 	public class WindowsFeature
 	{
 		public static const PLAY:String = "Play";
+		
+		public static const MENU:String = "Menu";
 		public static const STATISTICS:String = "Statistics";
 		public static const ACHIEVEMENTS:String = "Achievements";
 		public static const CREDITS:String = "Credits";
 		public static const GAME:String = "Game";
 		
 		
-		public static const X:Number = MainMenu.WIDTH_MAIN_MENU + WindowsFeature.INDENT;
-		public static const Y:Number = WindowsFeature.INDENT;
-		public static const WIDTH:Number = Main.WIDTH - WindowsFeature.INDENT - WindowsFeature.X;
-		public static const HEIGHT:Number = Main.HEIGHT - 2 * WindowsFeature.INDENT;
+		public static const WINDOWS_REGION_X:Number = MainMenu.WIDTH_MAIN_MENU + WindowsFeature.INDENT;
+		public static const WINDOWS_REGION_Y:Number = WindowsFeature.INDENT;
+		public static const WINDOWS_REGION_WIDTH:Number = Main.WIDTH - WindowsFeature.INDENT - WindowsFeature.WINDOWS_REGION_X;
+		public static const WINDOWS_REGION_HEIGHT:Number = Main.HEIGHT - 2 * WindowsFeature.INDENT;
 		
 		private static const INDENT:Number = 30;
 		
@@ -39,10 +41,10 @@ package ui
 			
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>();
 			
-			windows.push(new MainMenu(flow, assets));
-			windows.push(new StatisticsWindow(flow));
-			windows.push(new AchievementsWindow(flow));
-			windows.push(new CreditsWindow(flow));
+			windows.push(new MainMenu(flow, assets, WindowsFeature.MENU));
+			windows.push(new StatisticsWindow(flow, WindowsFeature.STATISTICS));
+			windows.push(new AchievementsWindow(flow, WindowsFeature.ACHIEVEMENTS));
+			windows.push(new CreditsWindow(flow, WindowsFeature.CREDITS));
 			
 			new WindowsController(root, flow, windows);
 			

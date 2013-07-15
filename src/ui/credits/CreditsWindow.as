@@ -3,15 +3,21 @@ package ui.credits
 	import chaotic.core.IUpdateDispatcher;
 	import starling.display.DisplayObjectContainer;
 	import ui.ChaoticUI;
-	import ui.WindowBase;
 	import ui.WindowsFeature;
+	import starling.display.Quad;
+	import starling.display.Sprite;
 	
-	public class CreditsWindow extends WindowBase
-	{
+	public class CreditsWindow  extends Sprite
+	{	
+		private var flow:IUpdateDispatcher;
 		
-		public function CreditsWindow(flow:IUpdateDispatcher) 
+		public function CreditsWindow(flow:IUpdateDispatcher, name:String = "CreditsWindow") 
 		{
-			super(150, 100)
+			this.name = WindowsFeature.CREDITS;
+			
+			var tmp:Quad = new Quad(150, 100, 0xFFFFFF);
+			tmp.alpha = 0.85;
+			this.addChild(tmp);
 			
 			this.visible = false;
 			
