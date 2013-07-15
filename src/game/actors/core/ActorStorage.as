@@ -142,6 +142,9 @@ package game.actors.core
 		
 		public function putInCell(x:int, y:int, item:ActorBase = null):void
 		{
+			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+				&&
+				!(y < this.tLC.y) && (y < this.tLC.y + this.height))
 			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.width] = item;
 		}
 		

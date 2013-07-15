@@ -38,6 +38,11 @@ package game.actors.core
 			return this.isActive;
 		}
 		
+		final public function get health():int
+		{
+			return this.hp;
+		}
+		
 		
 		/**
 		 * DANGER: it gives link to te ACTUAL cell of you! Fair use only, or you'll die painfully.

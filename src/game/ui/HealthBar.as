@@ -26,16 +26,15 @@ package game.ui
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(ActorsFeature.heroDamaged);
+			flow.addUpdateListener(ActorsFeature.setHeroHP);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
 		}
 		
-		public function restore():void
+		public function setHeroHP(hp:int):void
 		{
-			this.healthPoints = 100; // must match Character.HP
-			// TODO: reimplement without hardcode
+			this.healthPoints = hp;
 			
 			this.container.removeChildren();
 			

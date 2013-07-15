@@ -20,11 +20,8 @@ package game.actors.modules.pull
 		private static const RIGHT_HAND:int = 1;
 		private static const NOT_IN_BYPASS:int = 0;
 		
-		private static var moves:Vector.<DCellXY> = new Vector.<DCellXY>(4, true);
-			Hunter.moves[Hunter.RIGHT] = new DCellXY(1, 0);
-			Hunter.moves[Hunter.LEFT] = new DCellXY(-1, 0);
-			Hunter.moves[Hunter.DOWN] = new DCellXY(0, 1);
-			Hunter.moves[Hunter.UP] = new DCellXY(0, -1);
+		private static var moves:Vector.<DCellXY> = new <DCellXY>[
+			new DCellXY( -1, 0), new DCellXY(0, -1), new DCellXY(1, 0), new DCellXY(0, 1)];
 		
 		private static var directions:Vector.<int> = new <int>[Hunter.LEFT, Hunter.UP, Hunter.RIGHT, Hunter.DOWN];
 		private static var surroundings:Vector.<Boolean> = new Vector.<Boolean>(4, true);

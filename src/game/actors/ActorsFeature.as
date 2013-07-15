@@ -9,6 +9,7 @@ package game.actors
 	
 	public class ActorsFeature
 	{
+		public static const setHeroHP:String = "setHeroHP";
 		public static const heroDamaged:String = "heroDamaged";
 		
 		public static const moveCenter:String = "moveCenter";

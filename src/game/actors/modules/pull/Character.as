@@ -27,6 +27,7 @@ package game.actors.modules.pull
 		override protected function onSpawned(id:int):void
 		{
 			this.forceUpdate(ActorsFeature.setCenter, this.giveCell());
+			this.forceUpdate(ActorsFeature.setHeroHP, this.health);
 			
 			this.listener.actorSpawned(id, this.giveCell(), 0);
 		}
