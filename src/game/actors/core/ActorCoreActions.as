@@ -25,7 +25,7 @@ package game.actors.core
 				this.cell.applyChanges(change);
 				ActorBase.iSearcher.putInCell(this.x, this.y, this as ActorBase);
 				
-				ActorBase.iListener.actorMovedNormally(this.id, change, this.moveSpeed);
+				ActorBase.iListener.actorMovedNormally(this.id, change, this.moveSpeed + 1);
 				
 				this.onMoved(change, this.moveSpeed);
 			}

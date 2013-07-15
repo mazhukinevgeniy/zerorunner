@@ -34,14 +34,14 @@ package game.actors.core
 			this.actingCooldown = 0;
 			this.movingCooldown = 0;
 			
-			this.cell = this.getCell();
+			this.cell = this.getSpawningCell();
 			
 			ActorBase.iSearcher.putInCell(this.cell.x, this.cell.y, this);
 			
 			this.onSpawned(id);
 		}
 		
-		protected function getCell():CellXY
+		protected function getSpawningCell():CellXY
 		{
 			var dX:int;
 			var dY:int;

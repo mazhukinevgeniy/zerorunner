@@ -37,6 +37,15 @@ package game.actors.core
 		{
 			return this.isActive;
 		}
+		
+		
+		/**
+		 * DANGER: it gives link to te ACTUAL cell of you! Fair use only, or you'll die painfully.
+		**/
+		final protected function giveCell():CellXY
+		{
+			return this.cell;
+		}
 	}
 
 }

@@ -45,7 +45,7 @@ package game.actors.modules.pull
 		
 		override protected function onSpawned(id:int):void
 		{
-			this.listener.actorSpawned(id, this.getCell(), 1);
+			this.listener.actorSpawned(id, this.giveCell(), 1);
 		}
 		
 		override protected function onActing():void
@@ -56,7 +56,7 @@ package game.actors.modules.pull
 		
 		override protected function onCanMove():void
 		{
-			if (!this.previousCell.isEqualTo(this.getCell()))
+			if (!this.previousCell.isEqualTo(this.giveCell()))
 				this.hand = Hunter.NOT_IN_BYPASS;
 			
 			if (this.hand == Hunter.NOT_IN_BYPASS) 
@@ -79,7 +79,7 @@ package game.actors.modules.pull
 					else if (this.goal.y < this.y)
 						this.lastTouchedWall = Hunter.UP;
 					
-					this.bypassStartingPoint = this.getCell();
+					this.bypassStartingPoint = this.giveCell();
 				}
 			}
 			
@@ -87,11 +87,11 @@ package game.actors.modules.pull
 			{
 				this.move(this.lastTouchedWall);
 				
-				if (this.sureCheck() || this.getCell().isEqualTo(this.bypassStartingPoint))
+				if (this.sureCheck() || this.giveCell().isEqualTo(this.bypassStartingPoint))
 					this.hand = Hunter.NOT_IN_BYPASS;
 			}
 			
-			this.previousCell = this.getCell();
+			this.previousCell = this.giveCell().getCopy();
 		}
 		
 		private function tryStraightGoing(goal:CellXY):Boolean
@@ -171,9 +171,9 @@ package game.actors.modules.pull
 		
 		private function sureCheck():Boolean
 		{	
-			return distance(this.goal, this.bypassStartingPoint, "x") >= distance(this.goal, this.getCell(), "x")
+			return distance(this.goal, this.bypassStartingPoint, "x") >= distance(this.goal, this.giveCell(), "x")
 				   && 
-				   distance(this.goal, this.bypassStartingPoint, "y") >= distance(this.goal, this.getCell(), "y");
+				   distance(this.goal, this.bypassStartingPoint, "y") >= distance(this.goal, this.giveCell(), "y");
 					
 			function distance(p1:CellXY, p2:CellXY, coordinate:String):int
 			{

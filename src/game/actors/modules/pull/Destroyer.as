@@ -23,7 +23,7 @@ package game.actors.modules.pull
 		
 		override protected function onSpawned(id:int):void
 		{
-			this.listener.actorSpawned(id, this.getCell(), 3);
+			this.listener.actorSpawned(id, this.giveCell(), 3);
 		}
 		
 		override protected function onActing():void

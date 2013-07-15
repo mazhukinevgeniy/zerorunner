@@ -19,21 +19,21 @@ package game.actors.modules.pull
 			super(Character.HP, Character.MOVE_SPEED, Character.ACTION_SPEED);
 		}
 		
-		override protected function getCell():CellXY
+		override protected function getSpawningCell():CellXY
 		{
 			return ActorsFeature.SPAWN_CELL;
 		}
 		
 		override protected function onSpawned(id:int):void
 		{
-			this.forceUpdate(ActorsFeature.setCenter, this.getCell());
+			this.forceUpdate(ActorsFeature.setCenter, this.giveCell());
 			
-			this.listener.actorSpawned(id, this.getCell(), 0);
+			this.listener.actorSpawned(id, this.giveCell(), 0);
 		}
 		
 		override protected function onMoved(change:DCellXY, delay:int):void
 		{
-			this.forceUpdate(ActorsFeature.moveCenter, change, delay); //TODO: must move center in any case... damn, it'll be easier with sprites doing this job
+			this.forceUpdate(ActorsFeature.moveCenter, change, delay + 1); //TODO: must move center in any case... damn, it'll be easier with sprites doing this job
 			this.forceUpdate(InputManager.purgeClicks);
 		}
 		
