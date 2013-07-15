@@ -8,7 +8,7 @@ package game.scene
 		public static const ROAD:int = 1;
 		
 		
-		internal static const NUMBER_OF_PATTERNS:int = 5;
+		internal static const NUMBER_OF_PATTERNS:int = 7;
 		
 		public function SceneFeature(flow:IUpdateDispatcher) 
 		{

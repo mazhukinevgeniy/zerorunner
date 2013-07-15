@@ -9,7 +9,7 @@ package game.scene.patterns
 			var lastPattern:Pattern = new Pattern();
 			var anotherPattern:MiddlePattern;
 			
-			var length:int = 2;
+			var length:int = 1;
 			
 			for (var i:int = 0; i < length; i++)
 			{
