@@ -57,7 +57,7 @@ package ui
 			
 			this.workWithUpdateListener(this);
 			this.addUpdateListener(ChaoticUI.newGame);
-			this.addUpdateListener(Panel.panel_BackToMenu);
+			this.addUpdateListener(ZeroRunner.gameOver);
 			this.addUpdateListener(ChaoticUI.keyUp);
 			
 			
@@ -85,7 +85,7 @@ package ui
 			this.root.visible = false;
 		}
 		
-		public function panel_BackToMenu():void
+		public function gameOver():void
 		{
 			this.gameIsActive = false;
 			
