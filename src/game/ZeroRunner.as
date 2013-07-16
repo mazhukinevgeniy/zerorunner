@@ -10,6 +10,7 @@ package game
 	import game.scene.SceneFeature;
 	import game.state.GameState;
 	import game.statistics.StatisticsFeature;
+	import game.statistics.StatisticsPiece;
 	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
@@ -58,6 +59,7 @@ package game
 			this.addUpdateListener(ChaoticUI.newGame);
 			this.addUpdateListener(ZeroRunner.gameOver);
 			this.addUpdateListener(ZeroRunner.addToTheHUD);
+			this.addUpdateListener(StatisticsFeature.takeStatistics);
 			
 			this.informers = new InformerManager();
 			this.informers.addInformer(AssetManager, assets);
@@ -101,6 +103,11 @@ package game
 		public function gameOver():void
 		{
 			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, ZeroRunner.gameOver);
+		}
+		
+		public function takeStatistics(item:StatisticsPiece):void
+		{
+			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, StatisticsFeature.takeStatistics);
 		}
 		
 		final public function addToTheHUD(item:DisplayObject):void
