@@ -4,6 +4,7 @@ package game.statistics
 	import feathers.controls.List;
 	import feathers.data.ListCollection;
 	import game.ZeroRunner;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	
 	public class StatisticsView 
@@ -19,23 +20,42 @@ package game.statistics
 		public function StatisticsView(flow:IUpdateDispatcher) 
 		{
 			this.flow = flow;
-			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(StatisticsFeature.takeStatistics);
+			flow.addUpdateListener(StatisticsFeature.showStatistics);
+			flow.addUpdateListener(StatisticsFeature.hideStatistics);
 			
 			this.container = new Sprite();
+			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+			
+			this.container.x = 50;
+			this.container.y = 50;
+			
+			this.container.addChild(new Quad(100, 200, 0xFFFFFF));
 			
 			this.container.addChild(this.list = new List());
 			this.list.itemRendererProperties.labelField = "text";
+			
+			this.container.visible = false;
 		}
 		
-		public function ~~~showStatistics():void
+		public function showStatistics():void
 		{
 			this.container.visible = true;
 			
 			this.entries = new Vector.<Object>();
 			
-			this.flow.dispathUpdate(StatisticsFeature.emitStatistics);
+			this.flow.dispatchUpdate(StatisticsFeature.emitStatistics);
 			
 			this.list.dataProvider = new ListCollection(this.entries);
+		}
+		
+		public function hideStatistics():void
+		{
+			this.container.visible = false;
+			
+			this.entries = null;
 		}
 		
 		public function takeStatistics(piece:StatisticsPiece):void

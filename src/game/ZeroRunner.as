@@ -9,6 +9,7 @@ package game
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
 	import game.state.GameState;
+	import game.statistics.StatisticsFeature;
 	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
@@ -79,6 +80,8 @@ package game
 			
 			new SceneFeature(this);
 			new ActorsFeature(this);
+			
+			new StatisticsFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
 			
