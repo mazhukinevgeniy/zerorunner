@@ -45,7 +45,7 @@ package ui
 			
 			super(ChaoticUI.flowName);
 			
-		    new ExtenedTheme(root);
+		    new ExtenedTheme(displayRoot);
 			
 			new Background(this.root);
 			new GameView(displayRoot, this);
