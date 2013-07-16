@@ -25,6 +25,7 @@ package game.statistics
 			flow.addUpdateListener(StatisticsFeature.takeStatistics);
 			flow.addUpdateListener(StatisticsFeature.showStatistics);
 			flow.addUpdateListener(StatisticsFeature.hideStatistics);
+			flow.addUpdateListener(ZeroRunner.quitGame);
 			
 			this.container = new Sprite();
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
@@ -56,6 +57,12 @@ package game.statistics
 			this.container.visible = false;
 			
 			this.entries = null;
+		}
+		
+		public function quitGame():void
+		{
+			if (this.container.visible)
+				this.hideStatistics();
 		}
 		
 		public function takeStatistics(piece:StatisticsPiece):void

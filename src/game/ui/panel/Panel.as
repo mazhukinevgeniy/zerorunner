@@ -43,6 +43,8 @@ package game.ui.panel
 			this.addEventListener(Event.ADDED_TO_STAGE, this.handleAddedToStage);
 			
 			this.addButtons();
+			
+			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this);
 		}
 		
 		private function handleAddedToStage():void

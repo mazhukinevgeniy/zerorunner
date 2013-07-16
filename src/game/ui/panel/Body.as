@@ -1,4 +1,4 @@
-package ui.game.panel 
+package game.ui.panel 
 {
 	import starling.display.Quad;
 	import starling.display.Sprite;

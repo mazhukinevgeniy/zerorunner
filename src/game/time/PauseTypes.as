@@ -2,12 +2,12 @@ package game.time
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
+	import game.ui.panel.Panel;
 	import ui.ChaoticUI;
-	import ui.game.panel.Panel;
 	import game.ZeroRunner;
 	import flash.ui.Keyboard;
 	
-	public class PauseTypes 
+	internal class PauseTypes 
 	{
 		private var pauseToggled:Boolean = true;
 		private var isOutOfSight:Boolean = true;

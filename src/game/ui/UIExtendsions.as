@@ -1,6 +1,7 @@
 package game.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import game.ui.panel.Panel;
 	
 	public class UIExtendsions
 	{
@@ -12,6 +13,7 @@ package game.ui
 			new HealthBar(flow);
 			new GameOverWindow(flow);
 			new PauseView(flow);
+			new Panel(flow);
 		}
 		
 	}

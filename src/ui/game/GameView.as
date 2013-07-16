@@ -6,7 +6,6 @@ package ui.game
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import ui.ChaoticUI;
-	import ui.game.panel.Panel;
 	
 	public class GameView 
 	{
@@ -23,12 +22,8 @@ package ui.game
 			flow.addUpdateListener(ChaoticUI.newGame);
 			flow.addUpdateListener(ZeroRunner.quitGame);
 			
-			var gameContainer:Sprite = new Sprite();
-			this.container.addChild(gameContainer);
 			flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, 
-									ZeroRunner.setGameContainer, gameContainer);
-				
-			this.container.addChild(new Panel(flow));
+									ZeroRunner.setGameContainer, this.container);
 		}
 		
 		public function newGame():void

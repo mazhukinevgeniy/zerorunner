@@ -35,6 +35,8 @@ package game.time
 		
 		public function Time(root:Sprite, flow:IUpdateDispatcher) 
 		{
+			new PauseTypes(flow);
+			
 			this.FPS = Starling.current.nativeStage.frameRate;
 			this.framesBetweenTicks = this.FPS == 60 ? 4 : 2;
 			

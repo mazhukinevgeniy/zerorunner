@@ -18,8 +18,8 @@ package game.ui
 		{
 			this.message = new Sprite();
 			
-			var tmpI:Quad = new Quad(200, 200, 0xCCFF11);
-			tmpI.alpha = 0.2;
+			var tmpI:Quad = new Quad(200, 200, 0x222222);
+			tmpI.alpha = 0.3;
 			this.message.addChild(tmpI);
 			
 			this.message.x = (Main.WIDTH - this.message.width) / 2;

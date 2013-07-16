@@ -7,11 +7,9 @@ package ui
 	import starling.utils.AssetManager;
 	import ui.background.Background;
 	import ui.game.GameView;
-	import ui.pauseControl.PauseTypes;
 	import ui.sounds.Sounds;
 	import ui.WindowsFeature;
 	import ui.themes.ExtenedTheme;
-	import ui.game.panel.Panel;
 	import game.ZeroRunner;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
@@ -53,8 +51,6 @@ package ui
 			
 			new WindowsFeature(this.root, this, this.assets);
 			
-			new PauseTypes(this);
-			
 			this.workWithUpdateListener(this);
 			this.addUpdateListener(ChaoticUI.newGame);
 			this.addUpdateListener(ZeroRunner.gameOver);
@@ -94,8 +90,6 @@ package ui
 		public function quitGame():void
 		{
 			this.root.visible = true;
-			
-			this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ZeroRunner.quitGame);
 		}
 		
 		
