@@ -6,11 +6,11 @@ package game.ui
 	import starling.display.Sprite;
 	import starling.text.TextField;
 	
-	public class GrindedToDeath
+	public class GameOverWindow
 	{
 		private var message:Sprite;
 		
-		public function GrindedToDeath(flow:IUpdateDispatcher) 
+		public function GameOverWindow(flow:IUpdateDispatcher) 
 		{
 			this.message = new Sprite();
 			
