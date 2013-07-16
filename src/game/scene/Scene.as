@@ -8,14 +8,15 @@ package game.scene
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
-	import game.scene.patterns.ScenePattern;
+	import game.scene.patterns.getPattern;
+	import game.scene.patterns.IPattern;
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
 	
 	internal class Scene implements ICacher, IScene
 	{		
-		private var patterns:Vector.<ScenePattern>;
+		private var patterns:Vector.<IPattern>;
 		private var searcher:ISearcher;
 		
 		private var cacheVector:Vector.<int>;
@@ -41,7 +42,7 @@ package game.scene
 			
 			this.cacheVector = new Vector.<int>(this.width * this.height, true);
 			
-			this.patterns = new Vector.<ScenePattern>(SceneFeature.NUMBER_OF_PATTERNS, true);
+			this.patterns = new Vector.<IPattern>(SceneFeature.NUMBER_OF_PATTERNS, true);
 			
 			flow.workWithUpdateListener(this);
 			
@@ -97,23 +98,19 @@ package game.scene
 		
 		private function getCell(x:int, y:int):int
 		{
-			return (this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y) % 4 == 0 ? SceneFeature.FALL : SceneFeature.ROAD);
+			if ((x + 10000) * (x + 10000) + (y + 10000) * (y + 10000) < 6 * 6)
+				return SceneFeature.ROAD;
+			return this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y);
 		}
 		
 		public function prerestore():void
 		{
-			var cell:CellXY = ActorsFeature.SPAWN_CELL;
-			
-			do
+			for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
 			{
-				for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
-				{
-					this.patterns[i] = new ScenePattern();
-				}
+				this.patterns[i] = getPattern();
 			}
-			while (this.getCell(cell.x, cell.y) == SceneFeature.FALL);
 			
-			this.tLC = cell.applyChanges(this.toTLC);
+			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
 			this.cache();
 		}
