@@ -1,19 +1,17 @@
 package game.scene.patterns 
 {
 	
-	internal class ThinGridPattern extends MiddlePattern
+	internal class ThinGridPattern implements IPattern
 	{
 		private var dX:int, dY:int;
 		
-		public function ThinGridPattern(item:Pattern) 
+		public function ThinGridPattern() 
 		{
-			super(item);
-			
 			this.dX = Math.random() * 2;
 			this.dY = Math.random() * 2;
 		}
 		
-		override protected function getLocalNumber(x:int, y:int):int
+		public function getNumber(x:int, y:int):int
 		{
 			return ((x + this.dX) % 2 == 0) || ((y + this.dY) % 2 == 0) ? 1 : 0;
 		}

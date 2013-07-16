@@ -8,14 +8,15 @@ package game.scene
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
-	import game.scene.patterns.ScenePattern;
+	import game.scene.patterns.getPattern;
+	import game.scene.patterns.IPattern;
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
 	
 	internal class Scene implements ICacher, IScene
 	{		
-		private var patterns:Vector.<ScenePattern>;
+		private var patterns:Vector.<IPattern>;
 		private var searcher:ISearcher;
 		
 		private var cacheVector:Vector.<int>;
@@ -41,7 +42,7 @@ package game.scene
 			
 			this.cacheVector = new Vector.<int>(this.width * this.height, true);
 			
-			this.patterns = new Vector.<ScenePattern>(SceneFeature.NUMBER_OF_PATTERNS, true);
+			this.patterns = new Vector.<IPattern>(SceneFeature.NUMBER_OF_PATTERNS, true);
 			
 			flow.workWithUpdateListener(this);
 			
@@ -108,7 +109,7 @@ package game.scene
 			{
 				for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
 				{
-					this.patterns[i] = new ScenePattern();
+					this.patterns[i] = getPattern();
 				}
 			}
 			while (this.getCell(cell.x, cell.y) == SceneFeature.FALL);
