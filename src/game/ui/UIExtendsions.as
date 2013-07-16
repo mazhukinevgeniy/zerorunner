@@ -10,7 +10,7 @@ package game.ui
 			new Camera(flow);
 			new KeyboardControls(flow);
 			new HealthBar(flow);
-			new GrindedToDeath(flow);
+			new GameOverWindow(flow);
 			new PauseView(flow);
 		}
 		

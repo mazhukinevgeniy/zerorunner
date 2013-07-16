@@ -1,4 +1,4 @@
-package ui.pauseControl 
+package game.time 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
@@ -22,7 +22,6 @@ package ui.pauseControl
 			flow.addUpdateListener(ZeroRunner.gameOver);
 			flow.addUpdateListener(ChaoticUI.newGame);
 			flow.addUpdateListener(ChaoticUI.keyUp);
-			flow.addUpdateListener(Panel.panel_BackToMenu);
 			flow.addUpdateListener(Panel.panel_RollOver);
 			flow.addUpdateListener(Panel.panel_RollOut);
 			
@@ -43,14 +42,7 @@ package ui.pauseControl
 			this.isOutOfSight = true;
 			this.isInUse = true;
 		}
-		public function panel_BackToMenu():void
-		{
-			this.pauseToggled = true;
-			this.isInUse = true;
-			this.isOutOfSight = true;
-			
-			this.setPause();
-		}
+		
 		public function panel_RollOver():void
 		{
 			this.isInUse = true;

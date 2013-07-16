@@ -1,9 +1,9 @@
 package ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import game.ZeroRunner;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
-	import ui.game.panel.Panel;
 	
 	internal class WindowsController 
 	{
@@ -26,7 +26,7 @@ package ui
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(ChaoticUI.openWindow);
 			this.flow.addUpdateListener(ChaoticUI.newGame);
-			this.flow.addUpdateListener(Panel.panel_BackToMenu);
+			this.flow.addUpdateListener(ZeroRunner.quitGame);
 			
 			
 		}
@@ -56,7 +56,7 @@ package ui
 			}
 		}
 		
-		public function panel_BackToMenu():void
+		public function quitGame():void
 		{
 			for (var i:int = 0; i < this.windows.length; ++i)
 			{

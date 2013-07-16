@@ -1,4 +1,4 @@
-package ui.game.panel 
+package game.ui.panel 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
@@ -18,7 +18,6 @@ package ui.game.panel
 	
 	public class Panel extends Sprite
 	{
-		public static const panel_BackToMenu:String = "panel_BackToMenu";
 		public static const panel_RollOut:String = "panel_RollOut";
 		public static const panel_RollOver:String = "panel_RollOver";
 		
@@ -81,7 +80,6 @@ package ui.game.panel
 			if (event.target == this.menuButton)
 			{
 				this.collapse();
-				this.flow.dispatchUpdate(Panel.panel_BackToMenu);
 				this.flow.dispatchUpdate(ZeroRunner.quitGame);
 			}
 			else if (event.target == this.statButton)
