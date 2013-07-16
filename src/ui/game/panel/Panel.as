@@ -1,8 +1,10 @@
 package ui.game.panel 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.UpdateManager;
 	import flash.display.Stage;
 	import flash.geom.Point;
+	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
 	import starling.core.Starling;
 	import starling.display.Button;
@@ -25,6 +27,9 @@ package ui.game.panel
 		private var body:Sprite;
 		
 		private var menuButton:Button;
+		private var statButton:Button;
+		
+		private var statFlag:Boolean = false;
 		
 		public function Panel(flow:IUpdateDispatcher) 
 		{
@@ -56,8 +61,17 @@ package ui.game.panel
 			
 			this.body.addChild(this.menuButton);
 			
-			this.menuButton.x = 50 + (Body.HEIGHT - 20) / 2;
+			this.menuButton.x = this.menuButton.width / 10 + (Body.HEIGHT - 20) / 2;
 			this.menuButton.y = (Body.HEIGHT - 20) / 2;
+			
+			this.statButton = new Button(Texture.fromColor(100, 20, 0xFFCCFF33), "Statistic");
+			this.statButton.fontName = "HiLo-Deco";
+			this.statButton.fontSize = 18;
+			
+			this.body.addChild(this.statButton);
+			
+			this.statButton.x = 12 * this.statButton.width / 10 + (Body.HEIGHT - 20) / 2;
+			this.statButton.y = (Body.HEIGHT - 20) / 2;
 		}
 		
 		private function handleTrigger(event:Event):void
@@ -69,6 +83,15 @@ package ui.game.panel
 				this.collapse();
 				this.flow.dispatchUpdate(Panel.panel_BackToMenu);
 				this.flow.dispatchUpdate(ZeroRunner.quitGame);
+			}
+			else if (event.target == this.statButton)
+			{
+				this.statFlag = !this.statFlag;
+				
+				if (this.statFlag)
+					this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.showStatistics);
+				else
+					this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.hideStatistics);
 			}
 		}
 		
