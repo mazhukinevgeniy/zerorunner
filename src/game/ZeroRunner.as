@@ -33,6 +33,7 @@ package game
 		public static const restore:String = "restore";
 		
 		public static const gameOver:String = "gameOver";
+		public static const quitGame:String = "quitGame";
 		
 		public static const tick:String = "tick";
 		public static const aftertick:String = "aftertick";
@@ -55,6 +56,7 @@ package game
 			this.addUpdateListener(ZeroRunner.setGameContainer);
 			this.addUpdateListener(ChaoticUI.newGame);
 			this.addUpdateListener(ZeroRunner.gameOver);
+			this.addUpdateListener(ZeroRunner.quitGame);
 			this.addUpdateListener(ZeroRunner.addToTheHUD);
 			
 			this.informers = new InformerManager();
@@ -97,6 +99,10 @@ package game
 		public function gameOver():void
 		{
 			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, ZeroRunner.gameOver);
+		}
+		public function quitGame():void
+		{
+			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, ZeroRunner.quitGame);
 		}
 		
 		final public function addToTheHUD(item:DisplayObject):void

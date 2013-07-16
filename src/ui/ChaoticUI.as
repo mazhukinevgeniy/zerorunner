@@ -58,6 +58,7 @@ package ui
 			this.workWithUpdateListener(this);
 			this.addUpdateListener(ChaoticUI.newGame);
 			this.addUpdateListener(ZeroRunner.gameOver);
+			this.addUpdateListener(ZeroRunner.quitGame);
 			this.addUpdateListener(ChaoticUI.keyUp);
 			
 			
@@ -88,10 +89,12 @@ package ui
 		public function gameOver():void
 		{
 			this.gameIsActive = false;
-			
-			this.root.visible = true;
 		}
 		
+		public function quitGame():void
+		{
+			this.root.visible = true;
+		}
 		
 		
 		

@@ -21,7 +21,7 @@ package ui.game
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(ChaoticUI.newGame);
-			flow.addUpdateListener(Panel.panel_BackToMenu);
+			flow.addUpdateListener(ZeroRunner.quitGame);
 			
 			var gameContainer:Sprite = new Sprite();
 			this.container.addChild(gameContainer);
@@ -36,7 +36,7 @@ package ui.game
 			this.container.visible = true;
 		}
 		
-		public function panel_BackToMenu():void
+		public function quitGame():void
 		{
 			this.container.visible = false;
 		}

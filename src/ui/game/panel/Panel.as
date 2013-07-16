@@ -3,6 +3,7 @@ package ui.game.panel
 	import chaotic.core.IUpdateDispatcher;
 	import flash.display.Stage;
 	import flash.geom.Point;
+	import game.ZeroRunner;
 	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Sprite;
@@ -67,6 +68,7 @@ package ui.game.panel
 			{
 				this.collapse();
 				this.flow.dispatchUpdate(Panel.panel_BackToMenu);
+				this.flow.dispatchUpdate(ZeroRunner.quitGame);
 			}
 		}
 		
