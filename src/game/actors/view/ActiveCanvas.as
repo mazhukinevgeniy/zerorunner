@@ -39,6 +39,7 @@ package game.actors.view
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
+			flow.addUpdateListener(ZeroRunner.quitGame);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
 		}
@@ -46,10 +47,13 @@ package game.actors.view
 		public function prerestore():void
 		{
 			this.container.removeChildren();
-			this.atlas = this.assets.getTextureAtlas("gameAtlas");
+			this.atlas = this.assets.getTextureAtlas("gameAtlas"); //TODO: can remove the entire method
 		}
 		
-		
+		public function quitGame():void
+		{
+			this.container.removeChildren();
+		}
 		
 		public function actorSpawned(id:int, cell:CellXY, type:int):void
 		{

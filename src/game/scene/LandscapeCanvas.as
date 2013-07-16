@@ -41,6 +41,7 @@ package game.scene
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.tick);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
+			flow.addUpdateListener(ZeroRunner.quitGame);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
 		}
@@ -171,6 +172,11 @@ package game.scene
 			}
 		}
 		
+		public function quitGame():void
+		{
+			this.container.removeChildren();
+			this.pull.nothingIsInUse();
+		}
 		
 		public function getInformerFrom(table:IGiveInformers):void
 		{

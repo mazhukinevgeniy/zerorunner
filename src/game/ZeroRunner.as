@@ -56,7 +56,6 @@ package game
 			this.addUpdateListener(ZeroRunner.setGameContainer);
 			this.addUpdateListener(ChaoticUI.newGame);
 			this.addUpdateListener(ZeroRunner.gameOver);
-			this.addUpdateListener(ZeroRunner.quitGame);
 			this.addUpdateListener(ZeroRunner.addToTheHUD);
 			
 			this.informers = new InformerManager();
@@ -99,10 +98,6 @@ package game
 		public function gameOver():void
 		{
 			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, ZeroRunner.gameOver);
-		}
-		public function quitGame():void
-		{
-			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, ZeroRunner.quitGame);
 		}
 		
 		final public function addToTheHUD(item:DisplayObject):void

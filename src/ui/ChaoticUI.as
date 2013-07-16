@@ -94,6 +94,8 @@ package ui
 		public function quitGame():void
 		{
 			this.root.visible = true;
+			
+			this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ZeroRunner.quitGame);
 		}
 		
 		
