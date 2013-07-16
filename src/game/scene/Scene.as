@@ -98,7 +98,7 @@ package game.scene
 		
 		private function getCell(x:int, y:int):int
 		{
-			return (this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y) % 4 == 0 ? SceneFeature.FALL : SceneFeature.ROAD);
+			return this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y);
 		}
 		
 		public function prerestore():void
