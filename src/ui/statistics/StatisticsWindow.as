@@ -1,20 +1,26 @@
 package ui.statistics 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import feathers.controls.ScrollContainer;
 	import starling.display.Quad;
-	import starling.display.Sprite;
 	
-	public class StatisticsWindow  extends Sprite
+	public class StatisticsWindow  extends ScrollContainer
 	{	
 		private var flow:IUpdateDispatcher;
+		
+		public static const WIDTH_STATISTICS_WINDOW:Number = 250;
+		public static const HEIGHT_STATISTICS_WINDOW:Number = 250;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
 			this.name =  name;
 			
-			var tmp:Quad = new Quad(250, 250, 0xFFFFFF);
+			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
+			this.height = StatisticsWindow.HEIGHT_STATISTICS_WINDOW;
+			
+			var tmp:Quad = new Quad(StatisticsWindow.WIDTH_STATISTICS_WINDOW, StatisticsWindow.HEIGHT_STATISTICS_WINDOW, 0xFFFFFF);
 			tmp.alpha = 0.85;
-			this.addChild(tmp);
+			this.backgroundSkin = tmp;
 			
 			this.visible = false;
 			
