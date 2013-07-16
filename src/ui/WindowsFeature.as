@@ -1,18 +1,14 @@
 package ui 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import flash.utils.Dictionary;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
-	import ui.mainMenu.MainMenu;
 	import starling.display.DisplayObject;
 	import ui.statistics.StatisticsWindow;
 	import ui.achievements.AchievementsWindow;
 	import ui.credits.CreditsWindow;
-	/**
-	 * ...
-	 * @author 
-	 */
+	import ui.mainMenu.MainMenu;
+	
 	public class WindowsFeature
 	{
 		public static const PLAY:String = "Play";

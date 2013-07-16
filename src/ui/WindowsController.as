@@ -4,10 +4,7 @@ package ui
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import ui.game.panel.Panel;
-	/**
-	 * ...
-	 * @author 
-	 */
+	
 	internal class WindowsController 
 	{
 		

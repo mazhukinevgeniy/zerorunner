@@ -1,9 +1,6 @@
 package ui.achievements 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import starling.display.DisplayObjectContainer;
-	import ui.ChaoticUI;
-	import ui.WindowsFeature;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
@@ -13,7 +10,7 @@ package ui.achievements
 		
 		public function AchievementsWindow(flow:IUpdateDispatcher, name:String = "AchievementsWindow") 
 		{
-			this.name = WindowsFeature.ACHIEVEMENTS;
+			this.name = name;
 			
 			var tmp:Quad = new Quad(350, 400, 0xFFFFFF);
 			tmp.alpha = 0.85;

@@ -1,15 +1,9 @@
 package ui.themes 
 {
-	import feathers.controls.Label;
-	import feathers.controls.text.TextFieldTextRenderer;
-	import feathers.core.ITextRenderer;
-	import flash.text.TextFormat;
 	import starling.display.DisplayObjectContainer;
 	import feathers.controls.Button;
-	import starling.textures.Texture;
-	import starling.display.Image;
-	import feathers.display.Scale9Image;
 	import flash.text.TextFormatAlign;
+	import flash.text.TextFormat;
 	
 	public class ExtenedTheme extends AeonDesktopTheme
 	{

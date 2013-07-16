@@ -2,10 +2,10 @@ package ui.pauseControl
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
-	import flash.ui.Keyboard;
-	import game.ZeroRunner;
 	import ui.ChaoticUI;
 	import ui.game.panel.Panel;
+	import game.ZeroRunner;
+	import flash.ui.Keyboard;
 	
 	public class PauseTypes 
 	{

@@ -1,13 +1,12 @@
 package game.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.informers.IGiveInformers;
-	import game.ZeroRunner;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.particles.PDParticleSystem;
 	import starling.text.TextField;
 	import starling.textures.Texture;
+	import game.ZeroRunner;
 	
 	public class PauseView
 	{

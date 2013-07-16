@@ -1,9 +1,6 @@
 package ui.statistics 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import starling.display.DisplayObjectContainer;
-	import ui.ChaoticUI;
-	import ui.WindowsFeature;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
@@ -13,7 +10,7 @@ package ui.statistics
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
-			this.name =  WindowsFeature.STATISTICS;
+			this.name =  name;
 			
 			var tmp:Quad = new Quad(250, 250, 0xFFFFFF);
 			tmp.alpha = 0.85;

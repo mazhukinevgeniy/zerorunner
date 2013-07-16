@@ -2,25 +2,14 @@ package ui.mainMenu
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
-	import feathers.controls.Button;
-	import game.ZeroRunner;
-	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
+	import starling.display.Quad;
 	import ui.ChaoticUI;
 	import ui.WindowsFeature;
-	import starling.display.Sprite;
-	import starling.display.Quad;
-	import ui.game.panel.Panel;
-	import starling.display.Quad;
-	import starling.display.Sprite;
-	import ui.themes.ExtenedTheme;
-	
 	import feathers.controls.Button;
-	import feathers.controls.text.TextFieldTextRenderer;
-	import feathers.core.ITextRenderer;
-	import flash.text.TextFormat;
+	import game.ZeroRunner;
 	
 	public class MainMenu  extends Sprite
 	{	
@@ -44,7 +33,7 @@ package ui.mainMenu
 		
 		public function MainMenu( flow:IUpdateDispatcher, assets:AssetManager, name:String = "MainMenu") 
 		{			
-			this.name = WindowsFeature.MENU;
+			this.name = name;
 			
 			var tmp:Quad = new Quad(MainMenu.WIDTH_MAIN_MENU, MainMenu.HEIGHT_MAIN_MENU, 0xFFFFFF);
 			tmp.alpha = 0.85;
