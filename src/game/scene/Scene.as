@@ -98,23 +98,19 @@ package game.scene
 		
 		private function getCell(x:int, y:int):int
 		{
+			if ((x + 10000) * (x + 10000) + (y + 10000) * (y + 10000) < 6 * 6)
+				return SceneFeature.ROAD;
 			return this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y);
 		}
 		
 		public function prerestore():void
 		{
-			var cell:CellXY = ActorsFeature.SPAWN_CELL;
-			
-			do
+			for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
 			{
-				for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
-				{
-					this.patterns[i] = getPattern();
-				}
+				this.patterns[i] = getPattern();
 			}
-			while (this.getCell(cell.x, cell.y) == SceneFeature.FALL);
 			
-			this.tLC = cell.applyChanges(this.toTLC);
+			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
 			this.cache();
 		}
