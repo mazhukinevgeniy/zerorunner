@@ -2,6 +2,7 @@ package ui
 {
 	import chaotic.core.IUpdateDispatcher;
 	import game.ZeroRunner;
+	import game.statistics.StatisticsFeature;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	
@@ -45,6 +46,11 @@ package ui
 					this.windows[i].visible = true;
 				else
 					this.windows[i].visible = false;
+			}
+			
+			if (target == WindowsFeature.STATISTICS)
+			{
+				this.flow.dispatchUpdate(StatisticsFeature.showStatistics);
 			}
 		}
 		

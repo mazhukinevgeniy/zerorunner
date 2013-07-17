@@ -15,9 +15,9 @@ package game.statistics
 			this.flow = flow;
 		}
 		
-		public function emitStatistics():void
+		public function emitStatistics(requester:ITakeStatistics):void
 		{
-			this.flow.dispatchUpdate(StatisticsFeature.takeStatistics, new StatisticsPiece(new < String > ["hey hey hey", "dinosaurs", "dinosours", "dinozurs", "dinosavr", "dinosourse"]));
+			 requester.takeStatistics(new StatisticsPiece(new < String > ["hey hey hey", "dinosaurs", "dinosours", "dinozurs", "dinosavr", "dinosourse"]));
 		}
 	}
 

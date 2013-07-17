@@ -10,6 +10,7 @@ package game
 	import game.scene.SceneFeature;
 	import game.state.GameState;
 	import game.statistics.StatisticsFeature;
+	import game.statistics.StatisticsPiece;
 	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
