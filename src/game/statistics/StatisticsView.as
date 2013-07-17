@@ -7,7 +7,7 @@ package game.statistics
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
-	public class StatisticsView 
+	public class StatisticsView implements ITakeStatistics
 	{
 		private var container:Sprite;
 		private var list:List;
@@ -22,7 +22,6 @@ package game.statistics
 			this.flow = flow;
 			
 			flow.workWithUpdateListener(this);
-			//flow.addUpdateListener(StatisticsFeature.takeStatistics);
 			flow.addUpdateListener(StatisticsFeature.showStatistics);
 			flow.addUpdateListener(StatisticsFeature.hideStatistics);
 			
@@ -46,7 +45,7 @@ package game.statistics
 			
 			this.entries = new Vector.<Object>();
 			
-			this.flow.dispatchUpdate(StatisticsFeature.emitStatistics);
+			this.flow.dispatchUpdate(StatisticsFeature.emitStatistics, this);
 			
 			this.list.dataProvider = new ListCollection(this.entries);
 		}

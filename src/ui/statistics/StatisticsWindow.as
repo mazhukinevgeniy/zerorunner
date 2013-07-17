@@ -6,12 +6,13 @@ package ui.statistics
 	import feathers.controls.ScrollContainer;
 	import feathers.data.ListCollection;
 	import feathers.layout.VerticalLayout;
+	import game.statistics.ITakeStatistics;
 	import starling.display.Quad;
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
 	
-	public class StatisticsWindow  extends ScrollContainer
+	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics
 	{	
 		private var flow:IUpdateDispatcher;
 		
@@ -42,14 +43,13 @@ package ui.statistics
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(StatisticsFeature.takeStatistics);
 			this.flow.addUpdateListener(StatisticsFeature.showStatistics);
 		}
 		
 		public function showStatistics():void
 		{
 			this.removeChildren();
-			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics);
+			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
 		}
 		
 		public function takeStatistics(newItem:StatisticsPiece):void
