@@ -7,6 +7,7 @@ package ui.statistics
 	import feathers.data.ListCollection;
 	import feathers.layout.VerticalLayout;
 	import game.statistics.ITakeStatistics;
+	import starling.display.DisplayObject;
 	import starling.display.Quad;
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
@@ -22,7 +23,7 @@ package ui.statistics
 		private static const SPACE_BEETWEEN_LIST:Number = 10;
 		private static const PAGGING:Number = 10;
 		
-		private var data:Vector.<List>;
+		private var data:Vector.<DisplayObject>;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
@@ -38,7 +39,7 @@ package ui.statistics
 			this.visible = false;
 			this.layout = this.createLayout();
 			
-			this.data = new Vector.<List>();
+			this.data = new Vector.<DisplayObject>();
 			
 			this.flow = flow;
 			
@@ -56,8 +57,8 @@ package ui.statistics
 		{
 			var list:List = new List();
 			this.writeInList(list, newItem);
-			this.data.push( list );
-			this.addChild(list);
+			this.data.push(new ContainerStatisticsPiece(list));
+			this.addChild(this.data[this.data.length - 1]);
 		}
 		
 		private function writeInList(list:List, newItem:StatisticsPiece):void
