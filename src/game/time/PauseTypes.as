@@ -1,7 +1,6 @@
 package game.time 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.UpdateManager;
 	import game.ui.panel.Panel;
 	import ui.ChaoticUI;
 	import game.ZeroRunner;
@@ -66,8 +65,7 @@ package game.time
 		
 		private function setPause():void
 		{
-			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ZeroRunner.setPause,
-										this.pauseToggled || this.isInUse || this.isOutOfSight);
+			this.flow.dispatchUpdate(ZeroRunner.setPause, this.pauseToggled || this.isInUse || this.isOutOfSight);
 		}
 	}
 

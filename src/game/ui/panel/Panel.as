@@ -1,7 +1,6 @@
 package game.ui.panel 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.UpdateManager;
 	import flash.display.Stage;
 	import flash.geom.Point;
 	import game.statistics.StatisticsFeature;
@@ -89,9 +88,9 @@ package game.ui.panel
 				this.statFlag = !this.statFlag;
 				
 				if (this.statFlag)
-					this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.showStatistics);
+					this.flow.dispatchUpdate(StatisticsFeature.showStatistics);
 				else
-					this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.hideStatistics);
+					this.flow.dispatchUpdate(StatisticsFeature.hideStatistics);
 			}
 		}
 		

@@ -1,7 +1,6 @@
 package ui.mainMenu 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.UpdateManager;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
 	import feathers.controls.Button;
@@ -66,7 +65,6 @@ package ui.mainMenu
 		{
 			if (event.target == this.playButton)
 			{
-				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.flow.dispatchUpdate(ChaoticUI.newGame);
 			}
 			else if (event.target == this.statisticsButton)

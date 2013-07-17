@@ -53,7 +53,6 @@ package ui
 			
 			this.workWithUpdateListener(this);
 			this.addUpdateListener(ChaoticUI.newGame);
-			this.addUpdateListener(ZeroRunner.gameOver);
 			this.addUpdateListener(ZeroRunner.quitGame);
 			this.addUpdateListener(ChaoticUI.keyUp);
 			
@@ -70,7 +69,6 @@ package ui
 		{
 			if (keyCode == Keyboard.P && !this.gameIsActive)
 			{
-				this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 				this.dispatchUpdate(ChaoticUI.newGame);
 			}
 		}
@@ -80,11 +78,8 @@ package ui
 			this.gameIsActive = true;
 			
 			this.root.visible = false;
-		}
-		
-		public function gameOver():void
-		{
-			this.gameIsActive = false;
+			
+			this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 		}
 		
 		public function quitGame():void
