@@ -107,7 +107,7 @@ package game
 		
 		public function takeStatistics(item:StatisticsPiece):void
 		{
-			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, StatisticsFeature.takeStatistics);
+			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, StatisticsFeature.takeStatistics, item);
 		}
 		
 		final public function addToTheHUD(item:DisplayObject):void

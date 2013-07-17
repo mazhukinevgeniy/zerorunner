@@ -22,7 +22,7 @@ package game.statistics
 			this.flow = flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(StatisticsFeature.takeStatistics);
+			//flow.addUpdateListener(StatisticsFeature.takeStatistics);
 			flow.addUpdateListener(StatisticsFeature.showStatistics);
 			flow.addUpdateListener(StatisticsFeature.hideStatistics);
 			
