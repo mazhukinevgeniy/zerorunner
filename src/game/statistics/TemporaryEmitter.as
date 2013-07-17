@@ -17,7 +17,7 @@ package game.statistics
 		
 		public function emitStatistics(requester:ITakeStatistics):void
 		{
-			 requester.takeStatistics(new StatisticsPiece(new < String > ["hey hey hey", "dinosaurs", "dinosours", "dinozurs", "dinosavr", "dinosourse"]));
+			 requester.takeStatistics(new StatisticsPiece(new < String > ["hey hey hey", "dinosaurs", "dinosours", "dinozurs", "dinosavr", "dinosourse"], "test"));
 		}
 	}
 
