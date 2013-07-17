@@ -70,6 +70,12 @@ package ui.statistics
 				else
 					this.list.dataProvider.addItem(newItem.entry[i]);
 			}
+			
+			if (newItem.length < lengthList)
+				for (var j:int = newItem.length; j < lengthList; ++j)
+				{
+					this.list.dataProvider.removeItemAt(j);
+				}
 		}
 		
 		private function writeInList(newItem:StatisticsPiece):List
