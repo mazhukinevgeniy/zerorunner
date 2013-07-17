@@ -9,7 +9,7 @@ package ui
 	import ui.game.GameView;
 	import ui.sounds.Sounds;
 	import ui.WindowsFeature;
-	import ui.themes.ExtenedTheme;
+	import ui.themes.ExtendedTheme;
 	import game.ZeroRunner;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
@@ -43,7 +43,7 @@ package ui
 			
 			super(ChaoticUI.flowName);
 			
-		    new ExtenedTheme(displayRoot);
+		    new ExtendedTheme(displayRoot);
 			
 			new Background(this.root);
 			new GameView(displayRoot, this);

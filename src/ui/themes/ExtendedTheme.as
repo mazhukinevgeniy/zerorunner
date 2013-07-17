@@ -5,11 +5,11 @@ package ui.themes
 	import flash.text.TextFormatAlign;
 	import flash.text.TextFormat;
 	
-	public class ExtenedTheme extends AeonDesktopTheme
+	public class ExtendedTheme extends AeonDesktopTheme
 	{
 		public static const BUTTON_MAIN_MENU:String = "button-main-menu";
 		
-		public function ExtenedTheme(root:DisplayObjectContainer)
+		public function ExtendedTheme(root:DisplayObjectContainer)
 		{
 			super(root);
 		} 
@@ -21,7 +21,7 @@ package ui.themes
 			this.defaultTextFormat = new TextFormat("HiLo-Deco", 18, PRIMARY_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 			this.disabledTextFormat = new TextFormat("HiLo-Deco", 18, DISABLED_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 			
-			this.setInitializerForClass( Button, this.buttonMainMenu, ExtenedTheme.BUTTON_MAIN_MENU );
+			this.setInitializerForClass( Button, this.buttonMainMenu, ExtendedTheme.BUTTON_MAIN_MENU );
 		}
 		
 		private function buttonMainMenu(button:Button):void

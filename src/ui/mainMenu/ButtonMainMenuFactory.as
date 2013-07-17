@@ -1,7 +1,7 @@
 package ui.mainMenu 
 {
 	import feathers.controls.Button;
-	import ui.themes.ExtenedTheme;
+	import ui.themes.ExtendedTheme;
 	
 	internal class ButtonMainMenuFactory
 	{
@@ -9,7 +9,7 @@ package ui.mainMenu
 		public static function create(title:String = "title" ):Button
 		{
 			var newButton:Button = new Button();
-			newButton.nameList.add(ExtenedTheme.BUTTON_MAIN_MENU);
+			newButton.nameList.add(ExtendedTheme.BUTTON_MAIN_MENU);
 			
 			newButton.width = MainMenu.WIDTH_BUTTON;
 			newButton.height = MainMenu.HEIGHT_BUTTON;

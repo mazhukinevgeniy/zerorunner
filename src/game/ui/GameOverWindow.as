@@ -7,7 +7,7 @@ package game.ui
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import ui.themes.ExtenedTheme;
+	import ui.themes.ExtendedTheme;
 	
 	public class GameOverWindow
 	{
@@ -39,7 +39,7 @@ package game.ui
 			button.x = 60;
 			button.y = 60;
 			
-			button.nameList.add(ExtenedTheme.BUTTON_MAIN_MENU);
+			button.nameList.add(ExtendedTheme.BUTTON_MAIN_MENU);
 			
 			button.addEventListener(Event.TRIGGERED, this.handleTriggered);
 			
