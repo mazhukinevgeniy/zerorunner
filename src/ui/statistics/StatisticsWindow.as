@@ -17,7 +17,7 @@ package ui.statistics
 	{	
 		private var flow:IUpdateDispatcher;
 		
-		public static const WIDTH_STATISTICS_WINDOW:Number = 250;
+		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
 		private static const SPACE_BEETWEEN_LIST:Number = 10;
@@ -78,7 +78,7 @@ package ui.statistics
 		{
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = StatisticsWindow.SPACE_BEETWEEN_LIST;
-			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER
+			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_LEFT;
 			
 			return layout;
 		}

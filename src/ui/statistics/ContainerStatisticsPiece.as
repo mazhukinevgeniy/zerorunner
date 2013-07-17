@@ -25,6 +25,7 @@ package ui.statistics
 			this.addChild(this.rollBatton);
 			
 			this.list = list;
+			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
 			this.addChild(this.list);
 			
 			this.rollBatton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered)
@@ -47,7 +48,6 @@ package ui.statistics
 				this.height = this.fullHeight;
 			}
 		}
-		
-	}
+			}
 
 }
