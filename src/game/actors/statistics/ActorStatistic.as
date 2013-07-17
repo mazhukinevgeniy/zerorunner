@@ -2,6 +2,8 @@ package game.actors.statistics
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.utils.SaveBase;
+	import game.metric.DCellXY;
+	import game.metric.Metric;
 	import game.statistics.ITakeStatistics;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
@@ -32,6 +34,12 @@ package game.actors.statistics
 				this.localSave.data.statistics.actors.lifetime = lifetime;
 			}
 		}
+		
+		public function heroMoved(change:DCellXY):void
+		{
+			this.localSave.data.statistics.actors.lifetime.distance += change.length;
+		}
+		
 		
 		public function emitStatistics(requester:ITakeStatistics):void
 		{

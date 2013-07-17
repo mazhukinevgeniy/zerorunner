@@ -5,6 +5,7 @@ package game.actors.core
 	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
 	import game.actors.modules.ActorManipulator;
+	import game.actors.statistics.IActorStatistic;
 	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
@@ -38,9 +39,10 @@ package game.actors.core
 		private var tLC:CellXY;
 		private var toTLC:DCellXY = new DCellXY( - Metric.xDistanceActorsAllowed, - Metric.yDistanceActorsAllowed);
 		
-		public function ActorStorage(view:IActorListener, flow:IUpdateDispatcher) 
+		public function ActorStorage(view:IActorListener, stat:IActorStatistic, flow:IUpdateDispatcher) 
 		{
 			this.listener = view;
+			ActorBase.iStat = stat;
 			
 			flow.workWithUpdateListener(this);
 			

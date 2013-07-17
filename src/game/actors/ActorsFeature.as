@@ -27,7 +27,7 @@ package game.actors
 		{
 			var view:ActiveCanvas = new ActiveCanvas(flow);
 			var stat:ActorStatistic = new ActorStatistic(flow);
-			new ActorStorage(view, flow);
+			new ActorStorage(view, stat, flow);
 		}
 		
 		
