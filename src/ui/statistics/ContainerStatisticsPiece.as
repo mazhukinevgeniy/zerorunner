@@ -8,9 +8,11 @@ package ui.statistics
 	
 	public class ContainerStatisticsPiece extends ScrollContainer
 	{
+		private static const SIZE_ROLL_BUTTON:Number = 15;
 		
 		private var list:List;
 		private var rollBatton:Button;
+		private var fullHeight:Number;
 		
 		public function ContainerStatisticsPiece(list:List) 
 		{
@@ -18,8 +20,8 @@ package ui.statistics
 			
 			this.rollBatton = new Button();
 			this.rollBatton.label = "-";
-			this.rollBatton.width = 15;
-			this.rollBatton.height = 15;
+			this.rollBatton.width = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
+			this.rollBatton.height = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
 			this.addChild(this.rollBatton);
 			
 			this.list = list;
@@ -35,11 +37,14 @@ package ui.statistics
 			{
 				this.list.visible = false;
 				this.rollBatton.label = "+"
+				this.fullHeight = this.height;
+				this.height = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
 			}
 			else
 			{
 				this.list.visible = true;
-				this.rollBatton.label = "-"
+				this.rollBatton.label = "-";
+				this.height = this.fullHeight;
 			}
 		}
 		
