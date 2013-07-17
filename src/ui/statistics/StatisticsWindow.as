@@ -2,12 +2,9 @@ package ui.statistics
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.UpdateManager;
-	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
-	import feathers.data.ListCollection;
 	import feathers.layout.VerticalLayout;
 	import game.statistics.ITakeStatistics;
-	import starling.display.DisplayObject;
 	import starling.display.Quad;
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
@@ -23,7 +20,7 @@ package ui.statistics
 		private static const SPACE_BEETWEEN_LIST:Number = 10;
 		private static const PAGGING:Number = 10;
 		
-		private var data:Vector.<DisplayObject>;
+		private var data:Vector.<ContainerStatisticsPiece>;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
@@ -39,7 +36,7 @@ package ui.statistics
 			this.visible = false;
 			this.layout = this.createLayout();
 			
-			this.data = new Vector.<DisplayObject>();
+			this.data = new Vector.<ContainerStatisticsPiece>();
 			
 			this.flow = flow;
 			
@@ -49,29 +46,35 @@ package ui.statistics
 		
 		public function showStatistics():void
 		{
-			this.removeChildren();
 			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
 		}
 		
 		public function takeStatistics(newItem:StatisticsPiece):void
 		{
-			var list:List = new List();
-			this.writeInList(list, newItem);
-			this.data.push(new ContainerStatisticsPiece(list));
-			this.addChild(this.data[this.data.length - 1]);
+			var lastIndex:int;
+			
+			this.updateData(newItem);
+			lastIndex = this.data.length - 1;
+			if(this.getChildIndex(this.data[lastIndex]) == -1)
+				this.addChild(this.data[lastIndex]);
 		}
 		
-		private function writeInList(list:List, newItem:StatisticsPiece):void
+		private function updateData(newItem:StatisticsPiece):void
 		{
-			var data:Vector.<Object> = new Vector.<Object>;
-			list.dataProvider = new ListCollection(data);
-			list.itemRendererProperties.labelField = "text";
+			var isPiece:Boolean = false;
 			
-			for (var i:int = 0; i < newItem.length; ++i)
+			for (var i:int = 0; i < this.data.length;  ++i)
 			{
-				var string:String = newItem.entry[i];
-				data.push( { text: string } );
+				if (this.data[i].title == newItem.title)
+				{
+					isPiece = true;
+					this.data[i].updateData(newItem);
+					break;
+				}
 			}
+			
+			if (!isPiece)
+				this.data.push(new ContainerStatisticsPiece(newItem));
 		}
 		
 		private function createLayout():VerticalLayout
