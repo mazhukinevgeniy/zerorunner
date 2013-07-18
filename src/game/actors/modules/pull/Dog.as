@@ -6,7 +6,7 @@ package game.actors.modules.pull
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
 	
-	internal class Destroyer extends ActorBase
+	internal class Dog extends ActorBase
 	{
 		private static const HP:int = 1;
 		private static const MOVE_SPEED:int = 1;
@@ -17,9 +17,9 @@ package game.actors.modules.pull
 		
 		private var forward:DCellXY;
 		
-		public function Destroyer() 
+		public function Dog() 
 		{
-			super(Destroyer.HP, Destroyer.MOVE_SPEED, Destroyer.ACTION_SPEED);
+			super(Dog.HP, Dog.MOVE_SPEED, Dog.ACTION_SPEED);
 		}
 		
 		override protected function onSpawned(id:int):void
