@@ -58,24 +58,8 @@ package ui.statistics
 		
 		public function updateData(newItem:StatisticsPiece):void
 		{
-			var lengthList:int = this.list.dataProvider.length;
-			
-			for (var i:int = 0; i < newItem.length; ++i)
-			{
-				if (i < lengthList)
-				{
-					if (this.list.dataProvider.getItemAt(i) != newItem.entry[i])
-						this.list.dataProvider.setItemAt(newItem.entry[i], i);
-				}
-				else
-					this.list.dataProvider.addItem(newItem.entry[i]);
-			}
-			
-			if (newItem.length < lengthList)
-				for (var j:int = newItem.length; j < lengthList; ++j)
-				{
-					this.list.dataProvider.removeItemAt(j);
-				}
+			var newList:List = this.writeInList(newItem);
+			this.list.dataProvider = newList.dataProvider;
 		}
 		
 		private function writeInList(newItem:StatisticsPiece):List
