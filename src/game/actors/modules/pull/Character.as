@@ -30,7 +30,7 @@ package game.actors.modules.pull
 			this.forceUpdate(ActorsFeature.setCenter, this.giveCell());
 			this.forceUpdate(ActorsFeature.setHeroHP, this.health);
 			
-			this.listener.actorSpawned(id, this.giveCell(), 0);
+			this.listener.actorSpawned(id, this.giveCell(), String(0));
 		}
 		
 		override protected function onMoved(change:DCellXY, delay:int):void

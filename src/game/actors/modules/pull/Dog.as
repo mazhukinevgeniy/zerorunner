@@ -24,7 +24,7 @@ package game.actors.modules.pull
 		
 		override protected function onSpawned(id:int):void
 		{
-			this.listener.actorSpawned(id, this.giveCell(), 3);
+			this.listener.actorSpawned(id, this.giveCell(), String(3));
 			
 			this.forward = Metric.getRandomDCell();
 		}

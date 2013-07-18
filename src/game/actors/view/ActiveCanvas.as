@@ -56,9 +56,9 @@ package game.actors.view
 			this.container.removeChildren();
 		}
 		
-		public function actorSpawned(id:int, cell:CellXY, type:int):void
+		public function actorSpawned(id:int, cell:CellXY, type:String):void
 		{
-			var image:Image = this.objects[id] = new DrawenActor(this.atlas.getTexture("badsprite" + String(type)));
+			var image:Image = this.objects[id] = new DrawenActor(this.atlas.getTexture("badsprite" + type));
 			image.x = cell.x * Metric.CELL_WIDTH;
 			image.y = cell.y * Metric.CELL_HEIGHT;
 			

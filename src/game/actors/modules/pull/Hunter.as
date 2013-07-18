@@ -51,7 +51,7 @@ package game.actors.modules.pull
 		
 		override protected function onSpawned(id:int):void
 		{
-			this.listener.actorSpawned(id, this.giveCell(), 1);
+			this.listener.actorSpawned(id, this.giveCell(), String(1));
 			
 			this.previousCell.setValue(0, 0);
 			this.goal.setValue(0, 0);
