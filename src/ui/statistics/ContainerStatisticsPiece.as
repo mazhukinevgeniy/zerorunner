@@ -5,14 +5,15 @@ package ui.statistics
 	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
 	import feathers.data.ListCollection;
-	import feathers.layout.VerticalLayout;
 	import game.statistics.StatisticsPiece;
 	import starling.events.Event;
+	import ui.themes.ExtendedTheme;
 	
 	public class ContainerStatisticsPiece extends ScrollContainer
 	{
 		private static const SIZE_ROLL_BUTTON:Number = 15;
 		private static const INTERVAL:Number = 3;
+		private static const LABEL_Y:Number = -5;
 		
 		private var list:List;
 		private var rollButton:Button;
@@ -33,12 +34,15 @@ package ui.statistics
 			this.fixButton = new Button();
 			this.fixButton.width = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
 			this.fixButton.height = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
-			this.fixButton.x = ContainerStatisticsPiece.SIZE_ROLL_BUTTON +  + ContainerStatisticsPiece.INTERVAL;
+			this.fixButton.x = ContainerStatisticsPiece.SIZE_ROLL_BUTTON + ContainerStatisticsPiece.INTERVAL;
 			this.addChild(this.fixButton);
 			
 			this.label = new Label();
 			this.label.text = newItem.title;
-			this.label.x = 2 * (ContainerStatisticsPiece.SIZE_ROLL_BUTTON + ContainerStatisticsPiece.INTERVAL);
+			this.label.x = 2 * ContainerStatisticsPiece.SIZE_ROLL_BUTTON + ContainerStatisticsPiece.INTERVAL;
+			this.label.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW - this.label.x;
+			this.label.y = ContainerStatisticsPiece.LABEL_Y;
+			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
 			this.addChild(this.label);
 			
 			this.list = writeInList(newItem);
@@ -86,7 +90,7 @@ package ui.statistics
 				this.list.visible = false;
 				this.rollButton.label = "+"
 				this.fullHeight = this.height;
-				this.height = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
+				this.height = this.label.height;
 			}
 			else
 			{

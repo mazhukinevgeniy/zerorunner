@@ -18,8 +18,8 @@ package ui.statistics
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
-		private static const SPACE_BEETWEEN_LIST:Number = 10;
-		private static const PAGGING:Number = 10;
+		private static const SPACE_BEETWEEN_LIST:Number = 5;
+		private static const PAGGING:Number = 5;
 		
 		private var data:Vector.<ContainerStatisticsPiece>;
 		
@@ -27,7 +27,7 @@ package ui.statistics
 		{
 			this.name =  name;
 			
-			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
+			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
 			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
 			
 			var tmp:Quad = new Quad(StatisticsWindow.WIDTH_STATISTICS_WINDOW, 1, 0xFFFFFF);
@@ -83,6 +83,7 @@ package ui.statistics
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = StatisticsWindow.SPACE_BEETWEEN_LIST;
 			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_LEFT;
+			layout.padding = StatisticsWindow.PAGGING;
 			
 			return layout;
 		}
