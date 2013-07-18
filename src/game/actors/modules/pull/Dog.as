@@ -38,13 +38,14 @@ package game.actors.modules.pull
 		{
 			if (this.scene.getSceneCell(this.x + this.forward.x, this.y + this.forward.y) != SceneFeature.FALL)
 				this.tryMove(this.forward);
-			else
+			else if (this.scene.getSceneCell(this.x + 2 * this.forward.x, this.y + 2 * this.forward.y) != SceneFeature.FALL)
 				this.jump(this.forward, 2);
+			else this.forward = Metric.getRandomDCell();
 		}
 		
 		override protected function onBlocked(change:DCellXY):void
 		{
-			this.damageActor(this.searcher.findObjectByCell(this.x + change.x, this.y + change.y), Destroyer.DAMAGE);
+			this.damageActor(this.searcher.findObjectByCell(this.x + change.x, this.y + change.y), Dog.DAMAGE);
 		}
 	}
 
