@@ -8,9 +8,9 @@ package game.actors.view
 		/**
 		 * Call if actor is created and finalized (no cell changes out of mechanics etc).
 		 * 
-		 * @param type Special code which represents what sprite set should be used.
+		 * @param type Codename which represents what sprite set should be used.
 		**/
-		function actorSpawned(id:int, cell:CellXY, type:int):void;
+		function actorSpawned(id:int, cell:CellXY, type:String):void;
 		
 		
 		
