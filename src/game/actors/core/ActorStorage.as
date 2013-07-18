@@ -1,6 +1,7 @@
 package game.actors.core 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
@@ -63,7 +64,7 @@ package game.actors.core
 			flow.dispatchUpdate(Time.addCacher, this);
 		}
 		
-		public function prerestore():void
+		update function prerestore():void
 		{
 			this.cacheIsCleared = false;
 			
@@ -75,12 +76,12 @@ package game.actors.core
 			this.cache();
 		}
 		
-		public function tick():void
+		update function tick():void
 		{
 			this.command.act(this.actors);
 		}
 		
-		public function aftertick():void
+		update function aftertick():void
 		{
 			this.getCharacterCell(this.tLC);
 			this.tLC.applyChanges(this.toTLC);
@@ -152,12 +153,12 @@ package game.actors.core
 		
 		
 		
-		public function addInformerTo(table:IStoreInformers):void
+		update function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(ISearcher, this);
 		}
 		
-		public function getInformerFrom(table:IGiveInformers):void
+		update function getInformerFrom(table:IGiveInformers):void
 		{
 			ActorBase.iFlow = this.flow;
 			ActorBase.iSearcher = this;

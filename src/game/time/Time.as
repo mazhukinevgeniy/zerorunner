@@ -1,6 +1,7 @@
 package game.time 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
 	import game.ZeroRunner;
@@ -69,14 +70,14 @@ package game.time
 			this.updateFlow = flow;
 		}
 		
-		public function addCacher(cacher:ICacher):void
+		update function addCacher(cacher:ICacher):void
 		{
 			this.cachers[this.numberOfCachers % this.framesBetweenTicks].push(cacher);
 			
 			this.numberOfCachers++;
 		}
 		
-		public function restore():void
+		update function restore():void
 		{
 			this.gameJuggler.purge();
 			
@@ -85,7 +86,7 @@ package game.time
 			this.frameCount = 0;
 		}
 		
-		public function setPause(value:Boolean):void
+		update function setPause(value:Boolean):void
 		{
 			this.fixed = value;
 		}
@@ -118,13 +119,13 @@ package game.time
 			}
 		}
 		
-		public function gameOver():void
+		update function gameOver():void
 		{
 			this.fixed = true;
 			
 			this.frameCount = 0;
 		}
-		public function addInformerTo(table:IStoreInformers):void
+		update function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(Juggler, this.gameJuggler);
 		}

@@ -1,6 +1,7 @@
 package ui.statistics 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.core.UpdateManager;
 	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
@@ -47,7 +48,7 @@ package ui.statistics
 			this.flow.addUpdateListener(StatisticsFeature.showStatistics);
 		}
 		
-		public function showStatistics():void
+		update function showStatistics():void
 		{
 			this.removeChildren();
 			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);

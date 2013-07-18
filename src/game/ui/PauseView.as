@@ -1,6 +1,7 @@
 package game.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.particles.PDParticleSystem;
@@ -47,12 +48,12 @@ package game.ui
 			Starling.juggler.add(this.particles);
 		}
 		
-		public function gameOver():void
+		update function gameOver():void
 		{
 			this.isGameOver = true;
 		}
 		
-		public function setPause(value:Boolean):void
+		update function setPause(value:Boolean):void
 		{
 			if (!value)
 			{

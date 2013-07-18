@@ -1,6 +1,7 @@
 package game.statistics 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import feathers.controls.List;
 	import feathers.data.ListCollection;
 	import game.ZeroRunner;
@@ -40,7 +41,7 @@ package game.statistics
 			this.container.visible = false;
 		}
 		
-		public function showStatistics():void
+		update function showStatistics():void
 		{
 			this.container.visible = true;
 			
@@ -51,17 +52,17 @@ package game.statistics
 			this.list.dataProvider = new ListCollection(this.entries);
 		}
 		
-		public function hideStatistics():void
+		update function hideStatistics():void
 		{
 			this.container.visible = false;
 			
 			this.entries = null;
 		}
 		
-		public function quitGame():void
+		update function quitGame():void
 		{
 			if (this.container.visible)
-				this.hideStatistics();
+				this.update::hideStatistics();
 		}
 		
 		public function takeStatistics(piece:StatisticsPiece):void

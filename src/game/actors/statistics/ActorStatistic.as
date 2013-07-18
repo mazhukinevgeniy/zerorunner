@@ -1,6 +1,7 @@
 package game.actors.statistics 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.utils.SaveBase;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -41,7 +42,7 @@ package game.actors.statistics
 		}
 		
 		
-		public function emitStatistics(requester:ITakeStatistics):void
+		update function emitStatistics(requester:ITakeStatistics):void
 		{
 			var vector:Vector.<String> = new <String>
 				[

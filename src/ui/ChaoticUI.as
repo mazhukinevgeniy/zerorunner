@@ -1,5 +1,6 @@
 package ui 
 {
+	import chaotic.core.update;
 	import chaotic.core.UpdateManager;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
@@ -65,7 +66,7 @@ package ui
 			this.dispatchUpdate(ChaoticUI.keyUp, event.keyCode);
 		}
 		
-		public function keyUp(keyCode:uint):void
+		update function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.P && !this.gameIsActive)
 			{
@@ -73,7 +74,7 @@ package ui
 			}
 		}
 		
-		public function newGame():void 
+		update function newGame():void 
 		{
 			this.gameIsActive = true;
 			
@@ -82,7 +83,7 @@ package ui
 			this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
 		}
 		
-		public function quitGame():void
+		update function quitGame():void
 		{
 			this.root.visible = true;
 		}

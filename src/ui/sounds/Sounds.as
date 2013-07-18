@@ -1,6 +1,7 @@
 package ui.sounds 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.utils.SaveBase;
 	import flash.ui.Keyboard;
 	import starling.display.DisplayObjectContainer;
@@ -53,7 +54,7 @@ package ui.sounds
 			this.localSave.data.sound.muted = !this.localSave.data.sound.muted;
 		}
 		
-		public function keyUp(keyCode:uint):void
+		update function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.M)
 				this.toggleMute();

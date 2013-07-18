@@ -1,5 +1,6 @@
 package game.actors.view 
 {
+	import chaotic.core.update;
 	import game.actors.ActorsFeature;
 	import game.actors.view.DrawenActor;
 	import game.time.Time;
@@ -44,13 +45,13 @@ package game.actors.view
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
 		}
 		
-		public function prerestore():void
+		update function prerestore():void
 		{
 			this.container.removeChildren();
 			this.atlas = this.assets.getTextureAtlas("gameAtlas"); //TODO: can remove the entire method
 		}
 		
-		public function quitGame():void
+		update function quitGame():void
 		{
 			this.container.removeChildren();
 		}
@@ -143,7 +144,7 @@ package game.actors.view
 		
 		
 		
-		public function getInformerFrom(table:IGiveInformers):void
+		update function getInformerFrom(table:IGiveInformers):void
 		{
 			this.assets = table.getInformer(AssetManager);
 			this.juggler = table.getInformer(Juggler);

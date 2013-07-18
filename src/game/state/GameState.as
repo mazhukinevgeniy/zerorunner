@@ -1,6 +1,7 @@
 package game.state 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.informers.IStoreInformers;
 	import game.ZeroRunner;
 	
@@ -17,17 +18,17 @@ package game.state
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 		}
 		
-		public function restore():void
+		update function restore():void
 		{
 			this.ticks = 0;
 		}
 		
-		public function tick():void
+		update function tick():void
 		{
 			this.ticks++;
 		}
 		
-		public function addInformerTo(table:IStoreInformers):void
+		update function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(IGameState, this);
 		}

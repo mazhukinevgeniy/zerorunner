@@ -1,6 +1,7 @@
 package game.time 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import game.ui.panel.Panel;
 	import ui.ChaoticUI;
 	import game.ZeroRunner;
@@ -27,7 +28,7 @@ package game.time
 			this.flow = flow;
 		}
 		
-		public function newGame():void
+		update function newGame():void
 		{
 			this.pauseToggled = false;
 			this.isInUse = false;
@@ -35,26 +36,26 @@ package game.time
 			
 			this.setPause();
 		}
-		public function gameOver():void
+		update function gameOver():void
 		{
 			this.pauseToggled = true;
 			this.isOutOfSight = true;
 			this.isInUse = true;
 		}
 		
-		public function panel_RollOver():void
+		update function panel_RollOver():void
 		{
 			this.isInUse = true;
 			
 			this.setPause();
 		}
-		public function panel_RollOut():void
+		update function panel_RollOut():void
 		{
 			this.isInUse = false;
 			
 			this.setPause();
 		}
-		public function keyUp(keyCode:uint):void
+		update function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.P)
 			{

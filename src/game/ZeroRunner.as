@@ -1,5 +1,6 @@
 package game 
 {
+	import chaotic.core.update;
 	import chaotic.core.UpdateManager;
 	import chaotic.informers.InformerManager;
 	import game.actors.ActorsFeature;
@@ -64,7 +65,7 @@ package game
 			this.informers.addInformer(AssetManager, assets);
 		}
 		
-		public function setGameContainer(viewRoot:Sprite):void
+		update function setGameContainer(viewRoot:Sprite):void
 		{
 			this.displayRoot = viewRoot;
 			
@@ -93,18 +94,18 @@ package game
 		}
 		
 		
-		public function newGame():void
+		update function newGame():void
 		{
 			this.dispatchUpdate(ZeroRunner.prerestore);
 			this.dispatchUpdate(ZeroRunner.restore);
 		}
 		
-		public function quitGame():void
+		update function quitGame():void
 		{
 			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, ZeroRunner.quitGame);
 		}
 		
-		final public function addToTheHUD(item:DisplayObject):void
+		final update function addToTheHUD(item:DisplayObject):void
 		{
 			this.displayRoot.addChild(item);
 		}

@@ -1,6 +1,7 @@
 package game.scene 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
 	import game.actors.core.ISearcher;
 	import game.metric.CellXY;
@@ -46,7 +47,7 @@ package game.scene
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.SCENE, this.container);
 		}
 		
-		public function tick():void
+		update function tick():void
 		{
 			this.container.removeChildren();
 			this.pull.nothingIsInUse();
@@ -172,20 +173,20 @@ package game.scene
 			}
 		}
 		
-		public function quitGame():void
+		update function quitGame():void
 		{
 			this.container.removeChildren();
 			this.pull.nothingIsInUse();
 		}
 		
-		public function getInformerFrom(table:IGiveInformers):void
+		update function getInformerFrom(table:IGiveInformers):void
 		{
 			this.assets = table.getInformer(AssetManager);
 			this.searcher = table.getInformer(ISearcher);
 			this.scene = table.getInformer(IScene);
 		}
 		
-		public function prerestore():void
+		update function prerestore():void
 		{
 			if (this.pull == null) this.pull = new TilePull(this.assets);
 		}

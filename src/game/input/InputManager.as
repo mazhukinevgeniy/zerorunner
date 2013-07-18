@@ -1,6 +1,7 @@
 package game.input
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.informers.IStoreInformers;
 	import game.metric.DCellXY;
 	import game.ZeroRunner;
@@ -19,7 +20,8 @@ package game.input
 		{
 			super();
 			
-			this.restore();
+			///this.restore();
+			// TODO: delete if works
 			
 			flow.workWithUpdateListener(this);
 			
@@ -37,7 +39,7 @@ package game.input
 			}
 		}
 		
-		public function purgeClicks():void
+		update function purgeClicks():void
  		{
 			for (var i:int = 9; i < 17; i++)
 				this.order[i] = -1;
@@ -85,7 +87,7 @@ package game.input
 			return arr;
 		}
 		
-		public function restore():void
+		update function restore():void
 		{
 			this.order = new Vector.<int>(17, true);
 			this.order[InputManager.NO_DIRECTION] = 0;
@@ -96,7 +98,7 @@ package game.input
 				this.order[i] = -1;
 		}
 		
-		public function newInputPiece(item:InputPiece):void
+		update function newInputPiece(item:InputPiece):void
 		{	
 			var tmp:int = 0;
 			
@@ -136,7 +138,7 @@ package game.input
 			this.order[value] = -1;
 		}
 		
-		public function addInformerTo(table:IStoreInformers):void
+		update function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(IKnowInput, this);
 		}

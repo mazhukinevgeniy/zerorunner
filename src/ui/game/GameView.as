@@ -1,6 +1,7 @@
 package ui.game 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.core.UpdateManager;
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
@@ -26,12 +27,12 @@ package ui.game
 									ZeroRunner.setGameContainer, this.container);
 		}
 		
-		public function newGame():void
+		update function newGame():void
 		{
 			this.container.visible = true;
 		}
 		
-		public function quitGame():void
+		update function quitGame():void
 		{
 			this.container.visible = false;
 		}

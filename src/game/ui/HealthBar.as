@@ -2,6 +2,7 @@ package game.ui
 {
 	import game.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
 	import game.ZeroRunner;
 	import starling.display.Quad;
@@ -32,7 +33,7 @@ package game.ui
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
 		}
 		
-		public function setHeroHP(hp:int):void
+		update function setHeroHP(hp:int):void
 		{
 			this.healthPoints = hp;
 			
@@ -52,7 +53,7 @@ package game.ui
 			}
 		}
 		
-		public function heroDamaged(damage:int):void
+		update function heroDamaged(damage:int):void
 		{
 			while (damage > 0 && this.points.length > 0)
 			{

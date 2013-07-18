@@ -1,6 +1,7 @@
 package game.statistics 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	
 	internal class TemporaryEmitter 
 	{
@@ -15,7 +16,7 @@ package game.statistics
 			this.flow = flow;
 		}
 		
-		public function emitStatistics(requester:ITakeStatistics):void
+		update function emitStatistics(requester:ITakeStatistics):void
 		{
 			 requester.takeStatistics(new StatisticsPiece(new < String > ["hey hey hey", "dinosaurs", "dinosours", "dinozurs", "dinosavr", "dinosourse"]));
 		}

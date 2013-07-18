@@ -4,6 +4,7 @@ package game.ui
 	import game.time.Time;
 	import game.ZeroRunner;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -48,20 +49,15 @@ package game.ui
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
 		}
 		
-		public function setCenter(center:CellXY):void
+		update function setCenter(center:CellXY):void
 		{
 			this.container.x = -center.x * Metric.CELL_WIDTH + (Main.WIDTH - Metric.CELL_WIDTH) / 2;
             this.container.y = -center.y * Metric.CELL_HEIGHT + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;
 		}
 		
-		public function moveCenter(change:DCellXY, ticksToGo:int):void 
+		update function moveCenter(change:DCellXY, ticksToGo:int):void 
 		{
-			this.moveCenterGently(change, ticksToGo * Time.TIME_BETWEEN_TICKS);
-		}
-		
-		private function moveCenterGently(change:DCellXY, time:Number):void 
-		{ 
-			var tween:Tween = new Tween(this.container, time);
+			var tween:Tween = new Tween(this.container, ticksToGo * Time.TIME_BETWEEN_TICKS);
 			tween.moveTo(this.container.x - change.x * Metric.CELL_WIDTH, this.container.y - change.y * Metric.CELL_HEIGHT);
 			
 			tween.roundToInt = true;
@@ -70,12 +66,12 @@ package game.ui
 		}
 		
 		
-		public function addToTheLayer(number:int, object:DisplayObject):void
+		update function addToTheLayer(number:int, object:DisplayObject):void
 		{
 			this.layers[number].addChild(object);
 		}
 		
-		public function getInformerFrom(table:IGiveInformers):void
+		update function getInformerFrom(table:IGiveInformers):void
 		{
 			this.juggler = table.getInformer(Juggler);
 		}

@@ -1,6 +1,7 @@
 package ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
@@ -54,7 +55,7 @@ package ui
 			
 		}
 		
-		public function openWindow(target:String):void
+		update function openWindow(target:String):void
 		{
 			for (var i:int = 0; i < this.windows.length; ++i)
 			{
@@ -70,7 +71,7 @@ package ui
 			}
 		}
 		
-		public function  newGame():void
+		update function newGame():void
 		{
 			for (var i:int = 0; i < this.windows.length; ++i)
 			{
@@ -78,7 +79,7 @@ package ui
 			}
 		}
 		
-		public function quitGame():void
+		update function quitGame():void
 		{
 			for (var i:int = 0; i < this.windows.length; ++i)
 			{

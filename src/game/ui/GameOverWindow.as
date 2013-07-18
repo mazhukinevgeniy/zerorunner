@@ -1,6 +1,7 @@
 package game.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import game.ZeroRunner;
@@ -61,12 +62,12 @@ package game.ui
 			this.flow.dispatchUpdate(ZeroRunner.quitGame);
 		}
 		
-		public function restore():void
+		update function restore():void
 		{
 			this.message.visible = false;
 		}
 		
-		public function gameOver():void
+		update function gameOver():void
 		{
 			this.message.visible = true;	
 		}

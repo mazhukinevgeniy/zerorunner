@@ -3,6 +3,7 @@ package game.scene
 	import chaotic.informers.IGiveInformers;
 	import game.actors.ActorsFeature;
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import chaotic.informers.IStoreInformers;
 	import game.actors.core.ISearcher;
 	import game.metric.CellXY;
@@ -90,7 +91,7 @@ package game.scene
 			cell.applyChanges(this.unmodificate);
 		}
 		
-		public function aftertick():void
+		update function aftertick():void
 		{
 			this.searcher.getCharacterCell(this.tLC);
 			this.tLC.applyChanges(this.toTLC);
@@ -103,7 +104,7 @@ package game.scene
 			return this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y);
 		}
 		
-		public function prerestore():void
+		update function prerestore():void
 		{
 			for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
 			{
@@ -115,12 +116,12 @@ package game.scene
 			this.cache();
 		}
 		
-		public function addInformerTo(table:IStoreInformers):void
+		update function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(IScene, this);
 		}
 		
-		public function getInformerFrom(table:IGiveInformers):void
+		update function getInformerFrom(table:IGiveInformers):void
 		{
 			this.searcher = table.getInformer(ISearcher);
 		}

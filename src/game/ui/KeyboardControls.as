@@ -1,6 +1,7 @@
 package game.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import game.input.InputManager;
 	import game.input.InputPiece;
 	import game.metric.DCellXY;
@@ -28,7 +29,7 @@ package game.ui
 			flow.addUpdateListener(KeyboardControls.addKeyboardEventListenersTo);
 		}
 		
-		public function addKeyboardEventListenersTo(item:EventDispatcher):void
+		update function addKeyboardEventListenersTo(item:EventDispatcher):void
 		{
 			item.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);
 			item.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
