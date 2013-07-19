@@ -64,6 +64,7 @@ package game.actors.view.pull
 			{
 				actor.scaleX = 1;
 				actor.scaleY = 1;
+				actor.visible = true;
 			}
 			
 			return actor;
