@@ -60,6 +60,11 @@ package game.actors.view.pull
 			{
 				actor = new this.types[type]();
 			}
+			else
+			{
+				actor.scaleX = 1;
+				actor.scaleY = 1;
+			}
 			
 			return actor;
 		}
