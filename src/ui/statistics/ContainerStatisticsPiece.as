@@ -143,13 +143,18 @@ package ui.statistics
 		
 		private function handleContainer(event:TouchEvent):void 
 		{
-			var touch:Touch = event.getTouch(this, TouchPhase.MOVED)
+			var touchMoved:Touch = event.getTouch(this, TouchPhase.MOVED)
+			var touchHover:Touch = event.getTouch(this, TouchPhase.HOVER)
 			
-			if (touch)
+			if (touchMoved)
 			{
 				var dragData:DragData = new DragData();
 				dragData.setDataForFormat("display-object-drag-format", this);
-				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touch, dragData);
+				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touchMoved, dragData);
+			}
+			if (touchHover)
+			{
+				this.flow.dispatchUpdate(StatisticsWindow.touchStatisticsPiece, this);
 			}
 			
 		}

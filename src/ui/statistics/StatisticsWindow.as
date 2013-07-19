@@ -20,6 +20,8 @@ package ui.statistics
 	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
 	{	
 		public static const moveStatisticsPiece:String = "moveStatisticsPiece";
+		public static const touchStatisticsPiece:String = "touchStatisticsPiece";
+		//public static const changeLastTouch:String = "changeLastTouch";
 		
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
@@ -30,6 +32,9 @@ package ui.statistics
 		private var flow:IUpdateDispatcher;
 		
 		private var data:Vector.<ContainerStatisticsPiece>;
+		
+		private var lastTouch:int;
+		private var touchedContainer:ContainerStatisticsPiece;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
@@ -52,14 +57,10 @@ package ui.statistics
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(StatisticsFeature.showStatistics);
 			this.flow.addUpdateListener(StatisticsWindow.moveStatisticsPiece);
+			this.flow.addUpdateListener(StatisticsWindow.touchStatisticsPiece);
 			
 			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
 			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
-		}
-		
-		update function showStatistics():void
-		{
-			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
 		}
 		
 		public function takeStatistics(newItem:StatisticsPiece):void
@@ -71,6 +72,35 @@ package ui.statistics
 			if (this.getChildIndex(this.data[lastIndex]) == -1)
 			{
 				this.addChild(this.data[lastIndex]);
+			}
+		}
+		
+		update function showStatistics():void
+		{
+			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
+		}
+		
+		update function moveStatisticsPiece(moved:ContainerStatisticsPiece, touch:Touch, dragData:DragData):void
+		{
+			DragDropManager.startDrag(moved, touch, dragData, moved);
+		}
+		
+		update function touchStatisticsPiece(touched:ContainerStatisticsPiece):void
+		{
+			var newTouchIndex:int = this.getChildIndex(touched);
+			if (this.lastTouch != newTouchIndex)
+			{
+				this.lastTouch = newTouchIndex;
+				if (this.touchedContainer != null)
+					this.childReshuffle();
+			} 
+		}
+		
+		private function childReshuffle():void
+		{
+			for (var i:int = lastTouch;  i < this.data.length; ++i)
+			{
+				
 			}
 		}
 		
@@ -102,11 +132,6 @@ package ui.statistics
 			return layout;
 		}
 		
-		update function moveStatisticsPiece(moved:ContainerStatisticsPiece, touch:Touch, dragData:DragData):void
-		{
-			DragDropManager.startDrag(moved, touch, dragData, moved);
-		}
-		
 		private function checkFormat(event:DragDropEvent, dragData:DragData):void
 		{
 			if(dragData.hasDataForFormat("display-object-drag-format"))
@@ -117,7 +142,8 @@ package ui.statistics
 		
 		private function dropContainer(event:DragDropEvent, dragData:DragData):void
 		{
-			this.addChild(dragData.getDataForFormat("display-object-drag-format"));
+			this.touchedContainer = dragData.getDataForFormat("display-object-drag-format");
+			trace(this.lastTouch);
 		}
 		
 	}

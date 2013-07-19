@@ -13,6 +13,7 @@ package game.statistics
 		{
 			new StatisticsView(flow);
 			new TemporaryEmitter(flow);
+			new DoubleTemporaryEmitter(flow);
 		}
 		
 		
