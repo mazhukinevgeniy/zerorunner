@@ -7,6 +7,7 @@ package ui.statistics
 	import feathers.dragDrop.DragData;
 	import feathers.dragDrop.DragDropManager;
 	import feathers.dragDrop.IDropTarget;
+	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
 	import game.statistics.ITakeStatistics;
 	import starling.display.DisplayObject;
@@ -30,8 +31,6 @@ package ui.statistics
 		
 		private var data:Vector.<ContainerStatisticsPiece>;
 		
-		private var dragDropManager:DragDropManager;
-		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
 			this.name =  name;
@@ -54,7 +53,7 @@ package ui.statistics
 			this.flow.addUpdateListener(StatisticsFeature.showStatistics);
 			this.flow.addUpdateListener(StatisticsWindow.moveStatisticsPiece);
 			
-			this.dragDropManager = new DragDropManager();
+			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
 		}
 		
 		update function showStatistics():void
@@ -102,11 +101,18 @@ package ui.statistics
 			return layout;
 		}
 		
-		update function moveStatisticsPiece(moved:ContainerStatisticsPiece, touch:Touch):void
+		update function moveStatisticsPiece(moved:ContainerStatisticsPiece, touch:Touch, dragData:DragData):void
 		{
-			var dragData:DragData = new DragData();
-			dragData.setDataForFormat("display-object-drag-format", ContainerStatisticsPiece);
 			DragDropManager.startDrag(moved, touch, dragData, moved);
+		}
+		
+		private function checkFormat(event:DragDropEvent, dragData:DragData):void
+		{
+			if(dragData.hasDataForFormat("display-object-drag-format"))
+			{
+				DragDropManager.acceptDrag(this);
+				trace("r");
+			}
 		}
 		
 	}

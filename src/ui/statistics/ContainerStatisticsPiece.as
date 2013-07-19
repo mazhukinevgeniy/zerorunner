@@ -6,6 +6,7 @@ package ui.statistics
 	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
 	import feathers.data.ListCollection;
+	import feathers.dragDrop.DragData;
 	import feathers.dragDrop.IDragSource;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
@@ -144,8 +145,12 @@ package ui.statistics
 		{
 			var touch:Touch = event.getTouch(this, TouchPhase.MOVED)
 			
-			if(touch)
-				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touch);
+			if (touch)
+			{
+				var dragData:DragData = new DragData();
+				dragData.setDataForFormat("display-object-drag-format", ContainerStatisticsPiece);
+				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touch, dragData);
+			}
 			
 		}
 	}
