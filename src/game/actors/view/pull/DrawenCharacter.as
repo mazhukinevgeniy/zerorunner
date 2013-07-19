@@ -21,6 +21,7 @@ package game.actors.view.pull
 		override protected function draw():void
 		{
 			this.sideWalking = new MovieClip(this.atlas.getTextures("hero_side_"), 1);
+			this.sideWalking.setFrameDuration(0, 0);
 			this.sideWalking.loop = false;
 			this.addChild(this.sideWalking);
 			

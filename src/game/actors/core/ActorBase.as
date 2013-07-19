@@ -78,12 +78,12 @@ package game.actors.core
 		{
 			this.onActing();
 			
-			if (this.actingCooldown < 0)
+			if (this.actingCooldown == 0)
 				this.onCanAct();
 			else
 				this.actingCooldown--;
 			
-			if (this.movingCooldown < 0)
+			if (this.movingCooldown == 0)
 				this.onCanMove();
 			else
 				this.movingCooldown--;
