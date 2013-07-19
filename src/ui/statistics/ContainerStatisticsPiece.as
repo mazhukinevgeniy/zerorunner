@@ -5,13 +5,15 @@ package ui.statistics
 	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
 	import feathers.data.ListCollection;
+	import feathers.layout.AnchorLayout;
+	import feathers.layout.AnchorLayoutData;
 	import game.statistics.StatisticsPiece;
+	import starling.display.DisplayObject;
 	import starling.events.Event;
 	import ui.themes.ExtendedTheme;
 	
 	public class ContainerStatisticsPiece extends ScrollContainer
 	{
-		private static const SIZE_ROLL_BUTTON:Number = 15;
 		private static const INTERVAL:Number = 3;
 		private static const LABEL_Y:Number = -5;
 		
@@ -24,30 +26,30 @@ package ui.statistics
 		private var fullHeight:Number;
 		
 		public function ContainerStatisticsPiece(newItem:StatisticsPiece) 
-		{			
+		{		
+			this.layout = new AnchorLayout();
+			
 			this.rollButton = new Button();
 			this.rollButton.label = "-";
-			this.rollButton.width = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
-			this.rollButton.height = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
+			this.rollButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_ROLL);
+			this.rollButton.layoutData = this.createLayoutData();
 			this.addChild(this.rollButton);
 			
 			this.fixButton = new Button();
-			this.fixButton.width = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
-			this.fixButton.height = ContainerStatisticsPiece.SIZE_ROLL_BUTTON;
-			this.fixButton.x = ContainerStatisticsPiece.SIZE_ROLL_BUTTON + ContainerStatisticsPiece.INTERVAL;
+			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
+			this.fixButton.layoutData = this.createLayoutData(this.rollButton, ContainerStatisticsPiece.INTERVAL)
 			this.addChild(this.fixButton);
 			
 			this.label = new Label();
 			this.label.text = newItem.title;
-			this.label.x = 2 * ContainerStatisticsPiece.SIZE_ROLL_BUTTON + ContainerStatisticsPiece.INTERVAL;
-			this.label.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW - this.label.x;
-			this.label.y = ContainerStatisticsPiece.LABEL_Y;
 			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
+			this.label.layoutData = this.createLayoutData(this.fixButton, ContainerStatisticsPiece.INTERVAL,
+														  null, ContainerStatisticsPiece.LABEL_Y);
 			this.addChild(this.label);
 			
 			this.list = writeInList(newItem);
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
-			this.list.y = ContainerStatisticsPiece.SIZE_ROLL_BUTTON + ContainerStatisticsPiece.INTERVAL;
+			this.list.layoutData = this.createLayoutData(null, 0, this.rollButton, ContainerStatisticsPiece.INTERVAL);
 			this.addChild(this.list);
 			
 			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered)
@@ -64,6 +66,22 @@ package ui.statistics
 		{
 			var newList:List = this.writeInList(newItem);
 			this.list.dataProvider = newList.dataProvider;
+		}
+		
+		private function createLayoutData(leftAnchor:DisplayObject = null, left:Number = 0,
+										  topAnchor:DisplayObject = null, top:Number = 0):AnchorLayoutData
+		{
+			var layoutData:AnchorLayoutData = new AnchorLayoutData();
+			if(leftAnchor != null)
+				layoutData.leftAnchorDisplayObject = leftAnchor;
+				
+			if (topAnchor != null)
+				layoutData.topAnchorDisplayObject = topAnchor;
+
+			layoutData.left = left;
+			layoutData.top = top;
+			
+			return layoutData;
 		}
 		
 		private function writeInList(newItem:StatisticsPiece):List
@@ -90,7 +108,7 @@ package ui.statistics
 				this.list.visible = false;
 				this.rollButton.label = "+"
 				this.fullHeight = this.height;
-				this.height = this.label.height;
+				this.height = this.rollButton.height;
 			}
 			else
 			{
