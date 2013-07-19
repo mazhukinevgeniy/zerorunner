@@ -54,6 +54,7 @@ package ui.statistics
 			this.flow.addUpdateListener(StatisticsWindow.moveStatisticsPiece);
 			
 			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
+			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
 		}
 		
 		update function showStatistics():void
@@ -111,8 +112,12 @@ package ui.statistics
 			if(dragData.hasDataForFormat("display-object-drag-format"))
 			{
 				DragDropManager.acceptDrag(this);
-				trace("r");
 			}
+		}
+		
+		private function dropContainer(event:DragDropEvent, dragData:DragData):void
+		{
+			this.addChild(dragData.getDataForFormat("display-object-drag-format"));
 		}
 		
 	}

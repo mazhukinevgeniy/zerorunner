@@ -148,7 +148,7 @@ package ui.statistics
 			if (touch)
 			{
 				var dragData:DragData = new DragData();
-				dragData.setDataForFormat("display-object-drag-format", ContainerStatisticsPiece);
+				dragData.setDataForFormat("display-object-drag-format", this);
 				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touch, dragData);
 			}
 			
