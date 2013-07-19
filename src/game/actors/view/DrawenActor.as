@@ -17,7 +17,14 @@ package game.actors.view
 		
 		public function DrawenActor()
 		{
-			var image:Image = new Image(this.atlas.getTexture("badsprite" + type));
+			super();
+			this.draw();
+		}
+		
+		protected function draw():void
+		{
+			var image:Image = new Image(DrawenActor.iAtlas.getTexture("unimplemented"));
+			this.addChild(image);
 		}
 		
 		public function standOn(cell:CellXY):void
@@ -75,7 +82,7 @@ package game.actors.view
 		{
 			return DrawenActor.iJuggler;
 		}
-		final protected function get atlas():Juggler
+		final protected function get atlas():TextureAtlas
 		{
 			return DrawenActor.iAtlas;
 		}

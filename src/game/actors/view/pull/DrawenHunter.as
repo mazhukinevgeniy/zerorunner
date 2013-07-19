@@ -1,10 +1,8 @@
 package game.actors.view.pull 
 {
-	/**
-	 * ...
-	 * @author 
-	 */
-	public class DrawenHunter 
+	import game.actors.view.DrawenActor;
+	
+	public class DrawenHunter extends DrawenActor
 	{
 		
 		public function DrawenHunter() 

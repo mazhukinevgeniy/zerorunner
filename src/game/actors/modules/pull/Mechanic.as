@@ -1,5 +1,6 @@
 package game.actors.modules.pull 
 {
+	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
 	
 	internal class Mechanic extends ActorBase
@@ -13,6 +14,10 @@ package game.actors.modules.pull
 			super(Mechanic.HP, Mechanic.MOVE_SPEED, Mechanic.ACTION_SPEED);
 		}
 		
+		override protected function onSpawned(id:int):void
+		{
+			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.MECHANIC);
+		}
 		
 	}
 
