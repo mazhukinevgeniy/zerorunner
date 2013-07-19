@@ -6,6 +6,7 @@ package game.actors.view.pull
 	import game.metric.Metric;
 	import game.time.Time;
 	import starling.animation.Tween;
+	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.MovieClip;
 	import starling.events.Event;
@@ -14,7 +15,9 @@ package game.actors.view.pull
 	{
 		private var stand:Image;
 		
-		private var sideWalking:MovieClip;
+		private var sideWalking:Vector.<MovieClip>;
+		
+		private var sidewalk:int;
 		
 		public function DrawenCharacter() 
 		{
@@ -26,18 +29,27 @@ package game.actors.view.pull
 			this.stand = new Image(this.atlas.getTexture("hero_stand"));
 			this.addChild(this.stand);
 			
-			this.sideWalking = new MovieClip(this.atlas.getTextures("hero_side_"), 1);
-			this.sideWalking.loop = false;
-			this.addChild(this.sideWalking);
+			this.sideWalking = new Vector.<MovieClip>(2, true);
 			
-			this.sideWalking.visible = false;
-			this.sideWalking.addEventListener(Event.COMPLETE, this.handleWalkingComplete);
+			for (var i:int = 0; i < 2; i++)
+			{
+				var animation:MovieClip = new MovieClip(this.atlas.getTextures("hero_side_" + String(i)), 1);
+				animation.loop = false;
+				this.addChild(animation);
+				
+				animation.visible = false;
+				animation.addEventListener(Event.COMPLETE, this.handleWalkingComplete);
+				
+				this.sideWalking[i] = animation;
+			}
+			
+			this.sidewalk = 0;
 		}
 		
-		protected function handleWalkingComplete():void
+		protected function handleWalkingComplete(event:Event):void
 		{
 			this.stand.visible = true;
-			this.sideWalking.visible = false;
+			(event.target as DisplayObject).visible = false;
 		}
 		
 		override public function standOn(cell:CellXY):void
@@ -62,17 +74,23 @@ package game.actors.view.pull
 			else
 			{
 				this.stand.visible = false;
-				this.sideWalking.visible = true;
 				
-				this.sideWalking.fps = Number(this.sideWalking.numFrames / (delay * Time.TIME_BETWEEN_TICKS));
-				this.sideWalking.stop();
-				this.juggler.add(this.sideWalking);
-				this.sideWalking.play();
+				var animation:MovieClip = this.sideWalking[this.sidewalk];
+				
+				this.sidewalk++;
+				this.sidewalk %= 2;
+				
+				animation.visible = true;
+				
+				animation.fps = Number(animation.numFrames / (delay * Time.TIME_BETWEEN_TICKS));
+				animation.stop();
+				this.juggler.add(animation);
+				animation.play();
 				
 				var oldSX:int = this.scaleX;
 				this.scaleX = change.x > 0 ? -1 : 1;
 				
-				this.x += this.sideWalking.width * (oldSX - this.scaleX) / 2;
+				this.x += animation.width * (oldSX - this.scaleX) / 2;
 				
 				tween = new Tween(this, delay * Time.TIME_BETWEEN_TICKS);
 				tween.moveTo(this.x + change.x * Metric.CELL_WIDTH, this.y);
