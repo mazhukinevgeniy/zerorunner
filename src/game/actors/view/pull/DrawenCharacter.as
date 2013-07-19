@@ -8,9 +8,12 @@ package game.actors.view.pull
 	import starling.animation.Tween;
 	import starling.display.Image;
 	import starling.display.MovieClip;
+	import starling.events.Event;
 	
 	public class DrawenCharacter extends DrawenActor
 	{
+		private var stand:Image;
+		
 		private var sideWalking:MovieClip;
 		
 		public function DrawenCharacter() 
@@ -20,13 +23,21 @@ package game.actors.view.pull
 		
 		override protected function draw():void
 		{
+			this.stand = new Image(this.atlas.getTexture("hero_stand"));
+			this.addChild(this.stand);
+			
 			this.sideWalking = new MovieClip(this.atlas.getTextures("hero_side_"), 1);
-			this.sideWalking.setFrameDuration(0, 0);
 			this.sideWalking.loop = false;
 			this.addChild(this.sideWalking);
 			
-			this.juggler.add(this.sideWalking);
-			this.sideWalking.play();
+			this.sideWalking.visible = false;
+			this.sideWalking.addEventListener(Event.COMPLETE, this.handleWalkingComplete);
+		}
+		
+		protected function handleWalkingComplete():void
+		{
+			this.stand.visible = true;
+			this.sideWalking.visible = false;
 		}
 		
 		override public function standOn(cell:CellXY):void
@@ -50,15 +61,18 @@ package game.actors.view.pull
 			}
 			else
 			{
+				this.stand.visible = false;
+				this.sideWalking.visible = true;
+				
 				this.sideWalking.fps = Number(this.sideWalking.numFrames / (delay * Time.TIME_BETWEEN_TICKS));
 				this.sideWalking.stop();
 				this.juggler.add(this.sideWalking);
 				this.sideWalking.play();
 				
-				var oldSX:int = this.sideWalking.scaleX;
-				this.sideWalking.scaleX = change.x > 0 ? -1 : 1;
+				var oldSX:int = this.scaleX;
+				this.scaleX = change.x > 0 ? -1 : 1;
 				
-				this.x += this.sideWalking.width * (oldSX - this.sideWalking.scaleX) / 2;
+				this.x += this.sideWalking.width * (oldSX - this.scaleX) / 2;
 				
 				tween = new Tween(this, delay * Time.TIME_BETWEEN_TICKS);
 				tween.moveTo(this.x + change.x * Metric.CELL_WIDTH, this.y);
