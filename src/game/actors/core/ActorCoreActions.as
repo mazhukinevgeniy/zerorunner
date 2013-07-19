@@ -35,7 +35,7 @@ package game.actors.core
 		
 		final protected function jump(change:DCellXY, multiplier:int):void
 		{
-			this.movingCooldown = this.moveSpeed * multiplier;
+			this.movingCooldown = 2 * this.moveSpeed * multiplier;
 			
 			var jChange:DCellXY = new DCellXY(change.x * multiplier, change.y * multiplier);//TODO: do not allocate
 			
@@ -53,7 +53,7 @@ package game.actors.core
 			
 			ActorBase.iListener.actorJumped(this.id, jChange, this.movingCooldown + 1);
 			
-			this.onMoved(jChange, this.movingCooldown + 1);
+			this.onMoved(jChange, this.movingCooldown);
 		}
 		
 		final protected function isOnTheGround(item:ActorBase):void

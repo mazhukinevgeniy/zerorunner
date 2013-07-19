@@ -1,5 +1,6 @@
 package game.actors.modules.pull 
 {
+	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -51,7 +52,7 @@ package game.actors.modules.pull
 		
 		override protected function onSpawned(id:int):void
 		{
-			this.listener.actorSpawned(id, this.giveCell(), 1);
+			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.HUNTER);
 			
 			this.previousCell.setValue(0, 0);
 			this.goal.setValue(0, 0);

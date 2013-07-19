@@ -8,7 +8,7 @@ package game.actors.modules.pull
 		private const TICKS_BEFORE_NEXT:int = 200;
 		
 		
-		private var types:Vector.<Class> = new <Class>[Character, Destroyer, Guardian, Hunter];
+		private var types:Vector.<Class> = new <Class>[Character, ResearchDroid, Dog, Mechanic, Mine, Rocket, Robot, Hunter, Turret];
 		
 		private var pull:Vector.<Vector.<ActorBase>>;
 		

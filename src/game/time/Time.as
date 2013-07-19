@@ -23,7 +23,7 @@ package game.time
 		public static const addCacher:String = "addCacher";
 		
 		private static var TBT:Number;
-		public static function get TIME_BETWEEN_TICKS():Number //:Number = 0.12;
+		public static function get TIME_BETWEEN_TICKS():Number
 		{
 			return Time.TBT;
 		}
