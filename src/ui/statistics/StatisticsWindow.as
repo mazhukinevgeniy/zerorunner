@@ -4,16 +4,19 @@ package ui.statistics
 	import chaotic.core.update;
 	import chaotic.core.UpdateManager;
 	import feathers.controls.ScrollContainer;
+	import feathers.dragDrop.DragDropManager;
+	import feathers.dragDrop.IDropTarget;
 	import feathers.layout.VerticalLayout;
 	import game.statistics.ITakeStatistics;
+	import starling.display.DisplayObject;
 	import starling.display.Quad;
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
 	
-	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics
+	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
 	{	
-		private var flow:IUpdateDispatcher;
+		public static const moveStatisticsPiece:String = "moveStatisticsPiece";
 		
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
@@ -21,7 +24,11 @@ package ui.statistics
 		private static const SPACE_BEETWEEN_LIST:Number = 5;
 		private static const PAGGING:Number = 5;
 		
+		private var flow:IUpdateDispatcher;
+		
 		private var data:Vector.<ContainerStatisticsPiece>;
+		
+		private var dragDropManager:DragDropManager;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
@@ -43,6 +50,9 @@ package ui.statistics
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(StatisticsFeature.showStatistics);
+			this.flow.addUpdateListener(StatisticsWindow.moveStatisticsPiece);
+			
+			this.dragDropManager = new DragDropManager();
 		}
 		
 		update function showStatistics():void
@@ -56,8 +66,10 @@ package ui.statistics
 			
 			this.updateData(newItem);
 			lastIndex = this.data.length - 1;
-			if(this.getChildIndex(this.data[lastIndex]) == -1)
+			if (this.getChildIndex(this.data[lastIndex]) == -1)
+			{
 				this.addChild(this.data[lastIndex]);
+			}
 		}
 		
 		private function updateData(newItem:StatisticsPiece):void
@@ -75,7 +87,7 @@ package ui.statistics
 			}
 			
 			if (!isPiece)
-				this.data.push(new ContainerStatisticsPiece(newItem));
+				this.data.push(new ContainerStatisticsPiece(newItem, this.flow));
 		}
 		
 		private function createLayout():VerticalLayout
@@ -88,7 +100,10 @@ package ui.statistics
 			return layout;
 		}
 		
-		
+		update function moveStatisticsPiece(moved:DisplayObject):void
+		{
+			trace("do");
+		}
 		
 	}
 
