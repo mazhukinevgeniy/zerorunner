@@ -70,8 +70,11 @@ package game
 			this.displayRoot = viewRoot;
 			
 			var image:Image = new Image(this.informers.getInformer(AssetManager).getTextureAtlas("gameAtlas").getTexture("fall"));
-			image.scaleX = Main.WIDTH / image.width;
-			image.scaleY = Main.HEIGHT / image.height;
+			image.scaleX = 2 * Main.WIDTH / image.width;
+			image.scaleY = 2 * Main.HEIGHT / image.height;
+			
+			image.x = -50;
+			image.y = -50;
 			
 			viewRoot.addChild(image);
 			
