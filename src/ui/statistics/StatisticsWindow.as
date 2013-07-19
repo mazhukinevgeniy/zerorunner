@@ -4,6 +4,7 @@ package ui.statistics
 	import chaotic.core.update;
 	import chaotic.core.UpdateManager;
 	import feathers.controls.ScrollContainer;
+	import feathers.dragDrop.DragData;
 	import feathers.dragDrop.DragDropManager;
 	import feathers.dragDrop.IDropTarget;
 	import feathers.layout.VerticalLayout;
@@ -13,6 +14,7 @@ package ui.statistics
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
+	import starling.events.Touch;
 	
 	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
 	{	
@@ -100,9 +102,11 @@ package ui.statistics
 			return layout;
 		}
 		
-		update function moveStatisticsPiece(moved:DisplayObject):void
+		update function moveStatisticsPiece(moved:ContainerStatisticsPiece, touch:Touch):void
 		{
-			trace("do");
+			var dragData:DragData = new DragData();
+			dragData.setDataForFormat("display-object-drag-format", ContainerStatisticsPiece);
+			DragDropManager.startDrag(moved, touch, dragData, moved);
 		}
 		
 	}

@@ -145,7 +145,7 @@ package ui.statistics
 			var touch:Touch = event.getTouch(this, TouchPhase.MOVED)
 			
 			if(touch)
-				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this);
+				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touch);
 			
 		}
 	}
