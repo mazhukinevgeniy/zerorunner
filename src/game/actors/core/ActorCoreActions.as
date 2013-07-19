@@ -53,7 +53,7 @@ package game.actors.core
 			
 			ActorBase.iListener.actorJumped(this.id, jChange, this.movingCooldown + 1);
 			
-			this.onMoved(jChange, this.movingCooldown + 1);
+			this.onMoved(jChange, this.movingCooldown);
 		}
 		
 		final protected function isOnTheGround(item:ActorBase):void

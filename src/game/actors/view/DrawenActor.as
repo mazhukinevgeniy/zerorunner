@@ -51,13 +51,9 @@ package game.actors.view
 			{
 				tween = new Tween(this, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
 				tween.animate("y", this.y + change.y * Metric.CELL_HEIGHT / 2);
-				tween.animate("scaleX", this.scaleX * 1.5);
-				tween.animate("scaleY", this.scaleY * 1.5);
 				
 				secondTween = new Tween(this, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
 				secondTween.animate("y", this.y + change.y * Metric.CELL_HEIGHT);
-				tween.animate("scaleX", this.scaleX);
-				tween.animate("scaleY", this.scaleY);
 				
 				tween.nextTween = secondTween;
 				
