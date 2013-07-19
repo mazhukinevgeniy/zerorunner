@@ -22,18 +22,15 @@ package game.actors.view
 	
 	public class ActiveCanvas implements IActorListener
 	{
-		private var assets:AssetManager;
 		private var atlas:TextureAtlas;
 		
-		private var juggler:Juggler;
-		
-		private var objects:Vector.<Image>;
+		private var objects:Vector.<DrawenActor>;
 		
 		private var container:Sprite;
 		
 		public function ActiveCanvas(flow:IUpdateDispatcher)
 		{
-			this.objects = new Vector.<Image>(ActorsFeature.CAP + 1, true);
+			this.objects = new Vector.<DrawenActor>(ActorsFeature.CAP + 1, true);
 			this.container = new Sprite();
 			
 			flow.workWithUpdateListener(this);
@@ -68,57 +65,14 @@ package game.actors.view
 		
 		public function actorMovedNormally(id:int, change:DCellXY, delay:int):void
 		{
-			var image:Image = this.objects[id];
-			
-			var tween:Tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(image.x + change.x * Metric.CELL_WIDTH, image.y + change.y * Metric.CELL_HEIGHT);
-			
-			tween.roundToInt = true;
-			
-			this.juggler.add(tween);
+			this.objects[id].moveNormally(change, delay)
 		}
 		
 		public function actorJumped(id:int, change:DCellXY, delay:int):void
 		{
-			var image:Image = this.objects[id];
-			
-			var tween:Tween, secondTween:Tween;
-			
-			if (change.y != 0)
-			{
-				tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
-				tween.animate("y", image.y + change.y * Metric.CELL_HEIGHT / 2);
-				tween.scaleTo(1.5);
-				
-				secondTween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
-				secondTween.animate("y", image.y + change.y * Metric.CELL_HEIGHT);
-				secondTween.scaleTo(1);
-				
-				tween.nextTween = secondTween;
-				
-				this.juggler.add(tween);
-			}
-			else
-			{
-				tween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
-				tween.animate("y", image.y - Metric.CELL_HEIGHT / 2);
-				tween.animate("x", image.x + change.x * Metric.CELL_WIDTH / 2);
-				
-				secondTween = new Tween(image, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
-				secondTween.animate("y", image.y);
-				secondTween.animate("x", image.x + change.x * Metric.CELL_WIDTH);
-				
-				tween.nextTween = secondTween;
-				
-				this.juggler.add(tween);
-			}
+			this.objects[id].jump(change, delay);
 		}
 		
-		
-		public function actorDisappeared(id:int):void
-		{
-			this.unparent(this.objects[id]);
-		}
 		
 		public function actorDeadlyDamaged(id:int):void
 		{
@@ -129,12 +83,17 @@ package game.actors.view
 			tween.onComplete = this.unparent;
 			tween.onCompleteArgs = [image];
 			
-			this.juggler.add(tween);
+			DrawenActor.iJuggler.add(tween);
 		}
 		
 		public function actorFallen(id:int):void
 		{
 			this.actorDisappeared(id);
+		}
+		
+		public function actorDisappeared(id:int):void
+		{
+			this.unparent(this.objects[id]);
 		}
 		
 		private function unparent(item:DisplayObject):void
@@ -147,7 +106,7 @@ package game.actors.view
 		update function getInformerFrom(table:IGiveInformers):void
 		{
 			this.assets = table.getInformer(AssetManager);
-			this.juggler = table.getInformer(Juggler);
+			DrawenActor.iJuggler = table.getInformer(Juggler);
 		}
 	}
 
