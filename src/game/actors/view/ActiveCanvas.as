@@ -36,17 +36,22 @@ package game.actors.view
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			flow.addUpdateListener(ZeroRunner.quitGame);
+			flow.addUpdateListener(ZeroRunner.prerestore);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
 			
 			this.pull = new DActorPull();
 		}
 		
-		update function quitGame():void
+		update function prerestore():void
 		{
-			this.container.removeChildren();
-			//TODO: can stash
+			var length:int = this.objects.length;
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				if (this.objects[i])
+					this.unparent(this.objects[i]);
+			}
 		}
 		
 		public function actorSpawned(id:int, cell:CellXY, type:int):void
