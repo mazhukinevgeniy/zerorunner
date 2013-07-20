@@ -98,6 +98,10 @@ package game.actors.view
 			this.container.removeChild(item);
 		}
 		
+		public function setLayerOf(id:int, layer:int):void
+		{
+			this.container.setChildIndex(this.objects[id], layer);
+		}
 		
 		
 		update function getInformerFrom(table:IGiveInformers):void

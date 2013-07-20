@@ -114,6 +114,17 @@ package game.actors.core
 						actor.isActive = false;
 					}
 				}
+				
+				for (var j:int = 0; j < this.cacheLength; j++)
+				{
+					actor = this.cacheV[this.cacheLength - (1 + j)];
+					
+					if (actor)
+					{
+						this.listener.setLayerOf(actor.id, i);
+						i--;
+					}
+				}
 			}
 			else
 			{

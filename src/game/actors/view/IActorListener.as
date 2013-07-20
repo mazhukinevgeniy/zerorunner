@@ -5,6 +5,9 @@ package game.actors.view
 	
 	public interface IActorListener 
 	{
+		function setLayerOf(id:int, layer:int):void;
+		
+		
 		/**
 		 * Call if actor is created and finalized (no cell changes out of mechanics etc).
 		 * 
