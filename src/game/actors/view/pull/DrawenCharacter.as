@@ -11,7 +11,7 @@ package game.actors.view.pull
 	import starling.display.MovieClip;
 	import starling.events.Event;
 	
-	public class DrawenCharacter extends DrawenActor
+	internal class DrawenCharacter extends DrawenActor
 	{
 		private var stand:Image;
 		
