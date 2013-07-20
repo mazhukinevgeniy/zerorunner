@@ -4,14 +4,12 @@ package game.scene.patterns
 	
 	public function getPattern():IPattern
 	{
-		if (Math.random() < 20 / 100)
+		if (Math.random() < 25 / 100)
 				return new HorizontalPattern();
-			else if (Math.random() < 20 / 80)
+			else if (Math.random() < 25 / 75)
 				return new VerticalPattern();
-			else if (Math.random() < 20 / 60)
+			else if (Math.random() < 25 / 50)
 				return new ThinGridPattern();
-			else  if (Math.random() < 20 / 40)
-				return new FlatPattern();
 			else
 				return new CirclePattern();
 	}

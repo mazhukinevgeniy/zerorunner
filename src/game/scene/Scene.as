@@ -9,6 +9,7 @@ package game.scene
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
+	import game.scene.patterns.FlatPattern;
 	import game.scene.patterns.getPattern;
 	import game.scene.patterns.IPattern;
 	import game.time.ICacher;
@@ -106,9 +107,17 @@ package game.scene
 		
 		update function prerestore():void
 		{
+			var specN1:int = Math.random() * SceneFeature.NUMBER_OF_PATTERNS;
+			var specN2:int = specN1;
+			while (specN1 == specN2)
+				specN2 = Math.random() * SceneFeature.NUMBER_OF_PATTERNS;
+			
 			for (var i:int = 0; i < SceneFeature.NUMBER_OF_PATTERNS; i++)
 			{
-				this.patterns[i] = getPattern();
+				if (i == specN1 || i == specN2)
+					this.patterns[i] = new FlatPattern();
+				else
+					this.patterns[i] = getPattern();
 			}
 			
 			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
