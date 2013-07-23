@@ -18,7 +18,7 @@ package ui.statistics
 	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
 	
-	public class ContainerStatisticsPiece extends ScrollContainer implements IDragSource
+	public class ChunkList extends ScrollContainer implements IDragSource
 	{
 		private static const INTERVAL:Number = 3;
 		private static const LABEL_Y:Number = -5;
@@ -33,7 +33,7 @@ package ui.statistics
 		
 		private var fullHeight:Number;
 		
-		public function ContainerStatisticsPiece(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
+		public function ChunkList(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
 		{		
 			this.layout = new AnchorLayout();
 			
@@ -45,19 +45,19 @@ package ui.statistics
 			
 			this.fixButton = new Button();
 			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
-			this.fixButton.layoutData = this.createLayoutData(this.rollButton, ContainerStatisticsPiece.INTERVAL)
+			this.fixButton.layoutData = this.createLayoutData(this.rollButton, ChunkList.INTERVAL)
 			this.addChild(this.fixButton);
 			
 			this.label = new Label();
 			this.label.text = newItem.title;
 			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
-			this.label.layoutData = this.createLayoutData(this.fixButton, ContainerStatisticsPiece.INTERVAL,
-														  null, ContainerStatisticsPiece.LABEL_Y);
+			this.label.layoutData = this.createLayoutData(this.fixButton, ChunkList.INTERVAL,
+														  null, ChunkList.LABEL_Y);
 			this.addChild(this.label);
 			
 			this.list = writeInList(newItem);
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
-			this.list.layoutData = this.createLayoutData(null, 0, this.rollButton, ContainerStatisticsPiece.INTERVAL);
+			this.list.layoutData = this.createLayoutData(null, 0, this.rollButton, ChunkList.INTERVAL);
 			this.addChild(this.list);
 			
 			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);

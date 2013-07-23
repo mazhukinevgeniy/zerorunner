@@ -14,6 +14,7 @@ package ui.statistics
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
+	import starling.events.Touch;
 
 	
 	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
@@ -28,10 +29,10 @@ package ui.statistics
 		
 		private var flow:IUpdateDispatcher;
 		
-		private var data:Vector.<ContainerStatisticsPiece>;
+		private var data:Vector.<ChunkList>;
 		
 		private var lastTouchIndex:int;
-		private var movedContainer:ContainerStatisticsPiece;
+		private var movedContainer:ChunkList;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
@@ -47,7 +48,7 @@ package ui.statistics
 			this.visible = false;
 			this.layout = this.createLayout();
 			
-			this.data = new Vector.<ContainerStatisticsPiece>();
+			this.data = new Vector.<ChunkList>();
 			
 			this.flow = flow;
 			
@@ -76,12 +77,12 @@ package ui.statistics
 			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
 		}
 		
-		update function moveStatisticsPiece(moved:ContainerStatisticsPiece, touch:Touch, dragData:DragData):void
+		update function moveStatisticsPiece(moved:ChunkList, touch:Touch, dragData:DragData):void
 		{
 			DragDropManager.startDrag(moved, touch, dragData, moved);
 		}
 		
-		private function redraw(movedContainer:ContainerStatisticsPiece, indexItemToMove:int):void
+		private function redraw(movedContainer:ChunkList, indexItemToMove:int):void
 		{	
 			var lenght:int = this.data.length;
 			
@@ -115,7 +116,7 @@ package ui.statistics
 			}
 			
 			if (!isPiece)
-				this.data.push(new ContainerStatisticsPiece(newItem, this.flow));
+				this.data.push(new ChunkList(newItem, this.flow));
 		}
 		
 		private function createLayout():VerticalLayout
@@ -138,7 +139,7 @@ package ui.statistics
 		
 		private function dropContainer(event:DragDropEvent, dragData:DragData):void
 		{
-			var movedContainer:ContainerStatisticsPiece = dragData.getDataForFormat("display-object-drag-format");
+			var movedContainer:ChunkList = dragData.getDataForFormat("display-object-drag-format");
 			var statisticsPieceY:Number;
 			var statisticsPieceHeight:Number;
 			
