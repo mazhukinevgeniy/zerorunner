@@ -1,21 +1,29 @@
 package ui.statistics 
 {
+	import chaotic.core.IUpdateDispatcher;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
 	import feathers.data.ListCollection;
+	import feathers.dragDrop.DragData;
+	import feathers.dragDrop.IDragSource;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import game.statistics.StatisticsPiece;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
 	
-	public class ContainerStatisticsPiece extends ScrollContainer
+	public class ChunkList extends ScrollContainer implements IDragSource
 	{
 		private static const INTERVAL:Number = 3;
 		private static const LABEL_Y:Number = -5;
+		
+		private var flow:IUpdateDispatcher;
 		
 		private var list:List;
 		private var rollButton:Button;
@@ -25,35 +33,38 @@ package ui.statistics
 		
 		private var fullHeight:Number;
 		
-		public function ContainerStatisticsPiece(newItem:StatisticsPiece) 
+		public function ChunkList(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
 		{		
 			this.layout = new AnchorLayout();
 			
 			this.rollButton = new Button();
-			this.rollButton.label = "-";
 			this.rollButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_ROLL);
 			this.rollButton.layoutData = this.createLayoutData();
 			this.addChild(this.rollButton);
 			
+			
 			this.fixButton = new Button();
 			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
-			this.fixButton.layoutData = this.createLayoutData(this.rollButton, ContainerStatisticsPiece.INTERVAL)
+			this.fixButton.layoutData = this.createLayoutData(this.rollButton, ChunkList.INTERVAL)
 			this.addChild(this.fixButton);
 			
 			this.label = new Label();
 			this.label.text = newItem.title;
 			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
-			this.label.layoutData = this.createLayoutData(this.fixButton, ContainerStatisticsPiece.INTERVAL,
-														  null, ContainerStatisticsPiece.LABEL_Y);
+			this.label.layoutData = this.createLayoutData(this.fixButton, ChunkList.INTERVAL,
+														  null, ChunkList.LABEL_Y);
 			this.addChild(this.label);
 			
 			this.list = writeInList(newItem);
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
-			this.list.layoutData = this.createLayoutData(null, 0, this.rollButton, ContainerStatisticsPiece.INTERVAL);
+			this.list.layoutData = this.createLayoutData(null, 0, this.rollButton, ChunkList.INTERVAL);
 			this.addChild(this.list);
 			
-			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered)
-			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered)
+			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);
+			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered);
+			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
+			
+			this.flow = flow;
 			
 		}
 		
@@ -106,14 +117,12 @@ package ui.statistics
 			if (this.list.visible)
 			{
 				this.list.visible = false;
-				this.rollButton.label = "+"
 				this.fullHeight = this.height;
 				this.height = this.rollButton.height;
 			}
 			else
 			{
 				this.list.visible = true;
-				this.rollButton.label = "-";
 				this.height = this.fullHeight;
 			}
 		}
@@ -128,6 +137,19 @@ package ui.statistics
 			{
 				this.rollButton.isEnabled = true;
 			}
+		}
+		
+		private function handleContainerTouch(event:TouchEvent):void 
+		{
+			var touchMoved:Touch = event.getTouch(this, TouchPhase.MOVED)
+			
+			if (touchMoved)
+			{
+				var dragData:DragData = new DragData();
+				dragData.setDataForFormat("display-object-drag-format", this);
+				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touchMoved, dragData);
+			}
+			
 		}
 	}
 
