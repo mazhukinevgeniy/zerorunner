@@ -1,10 +1,11 @@
-package utils 
+package game.achievements 
 {
 	import chaotic.utils.SaveBase;
 	
-	public class AchievementBase extends SaveBase
+	internal class AchievementBase extends SaveBase
 	{
 		private var locked:Boolean = true;
+		private var next:Vector.<AchievementBase>;
 		
 		public function AchievementBase() 
 		{
@@ -21,6 +22,11 @@ package utils
 			
 			if (!this.localSave.data.achievements.actors)
 				this.localSave.data.achievements.actors = new Object();*/
+		}
+		
+		public function checkIfUnlocked(data:Object):void
+		{
+			//TODO: check and, if required, do something like dispatching updates
 		}
 		
 		public function get unlocked():Boolean

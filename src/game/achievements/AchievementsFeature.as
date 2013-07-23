@@ -8,11 +8,13 @@ package game.achievements
 	import game.statistics.ITakeStatistics;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
+	import game.time.ICacher;
+	import game.time.Time;
 	import game.ZeroRunner;
 	
-	public class AchievementsFeature extends SaveBase implements IActorStatistic
+	public class AchievementsFeature extends SaveBase implements ICacher, IActorStatistic
 	{
-		
+		private var activeAchievements:Vector.<AchievementBase>;
 		
 		
 		public function AchievementsFeature(flow:IUpdateDispatcher) 
@@ -22,6 +24,8 @@ package game.achievements
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(StatisticsFeature.emitStatistics);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			
+			flow.dispatchUpdate(Time.addCacher, this);
 		}
 		
 		override protected function checkLocalSave():void
@@ -37,6 +41,18 @@ package game.achievements
 				lifetime.distance = 0;
 				
 				this.localSave.data.statistics.actors.lifetime = lifetime;
+			}
+			
+			activeAchievements = new Vector.<AchievementBase>(); //TODO: actually implement
+		}
+		
+		public function cache():void
+		{
+			var length:int = this.activeAchievements.length;
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				this.activeAchievements[i].checkIfUnlocked(this.localSave.data);
 			}
 		}
 		
