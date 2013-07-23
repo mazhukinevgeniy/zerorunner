@@ -11,6 +11,8 @@ package game.actors.statistics
 	public class ActorAchievements extends SaveBase implements IActorStatistic
 	{
 		
+		
+		
 		public function ActorAchievements(flow:IUpdateDispatcher) 
 		{
 			super();
