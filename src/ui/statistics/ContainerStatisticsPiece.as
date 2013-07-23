@@ -38,10 +38,10 @@ package ui.statistics
 			this.layout = new AnchorLayout();
 			
 			this.rollButton = new Button();
-			this.rollButton.label = "-";
 			this.rollButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_ROLL);
 			this.rollButton.layoutData = this.createLayoutData();
 			this.addChild(this.rollButton);
+			
 			
 			this.fixButton = new Button();
 			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
@@ -62,7 +62,7 @@ package ui.statistics
 			
 			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);
 			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered);
-			this.addEventListener(TouchEvent.TOUCH, this.handleContainer);
+			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
 			
 			this.flow = flow;
 			
@@ -117,14 +117,12 @@ package ui.statistics
 			if (this.list.visible)
 			{
 				this.list.visible = false;
-				this.rollButton.label = "+"
 				this.fullHeight = this.height;
 				this.height = this.rollButton.height;
 			}
 			else
 			{
 				this.list.visible = true;
-				this.rollButton.label = "-";
 				this.height = this.fullHeight;
 			}
 		}
@@ -141,20 +139,15 @@ package ui.statistics
 			}
 		}
 		
-		private function handleContainer(event:TouchEvent):void 
+		private function handleContainerTouch(event:TouchEvent):void 
 		{
 			var touchMoved:Touch = event.getTouch(this, TouchPhase.MOVED)
-			var touchHover:Touch = event.getTouch(this, TouchPhase.HOVER)
 			
 			if (touchMoved)
 			{
 				var dragData:DragData = new DragData();
 				dragData.setDataForFormat("display-object-drag-format", this);
 				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touchMoved, dragData);
-			}
-			if (touchHover)
-			{
-				this.flow.dispatchUpdate(StatisticsWindow.touchStatisticsPiece, this);
 			}
 			
 		}

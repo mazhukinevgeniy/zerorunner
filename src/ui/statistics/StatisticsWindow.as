@@ -10,31 +10,28 @@ package ui.statistics
 	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
 	import game.statistics.ITakeStatistics;
-	import starling.display.DisplayObject;
 	import starling.display.Quad;
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
-	import starling.events.Touch;
+
 	
 	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
 	{	
 		public static const moveStatisticsPiece:String = "moveStatisticsPiece";
 		public static const touchStatisticsPiece:String = "touchStatisticsPiece";
-		//public static const changeLastTouch:String = "changeLastTouch";
 		
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
-		private static const SPACE_BEETWEEN_LIST:Number = 5;
 		private static const PAGGING:Number = 5;
 		
 		private var flow:IUpdateDispatcher;
 		
 		private var data:Vector.<ContainerStatisticsPiece>;
 		
-		private var lastTouch:int;
-		private var touchedContainer:ContainerStatisticsPiece;
+		private var lastTouchIndex:int;
+		private var movedContainer:ContainerStatisticsPiece;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
@@ -57,7 +54,6 @@ package ui.statistics
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(StatisticsFeature.showStatistics);
 			this.flow.addUpdateListener(StatisticsWindow.moveStatisticsPiece);
-			this.flow.addUpdateListener(StatisticsWindow.touchStatisticsPiece);
 			
 			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
 			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
@@ -71,7 +67,7 @@ package ui.statistics
 			lastIndex = this.data.length - 1;
 			if (this.getChildIndex(this.data[lastIndex]) == -1)
 			{
-				this.addChild(this.data[lastIndex]);
+				this.addChild(this.data[lastIndex]);	
 			}
 		}
 		
@@ -85,22 +81,22 @@ package ui.statistics
 			DragDropManager.startDrag(moved, touch, dragData, moved);
 		}
 		
-		update function touchStatisticsPiece(touched:ContainerStatisticsPiece):void
-		{
-			var newTouchIndex:int = this.getChildIndex(touched);
-			if (this.lastTouch != newTouchIndex)
+		private function redraw(movedContainer:ContainerStatisticsPiece, indexItemToMove:int):void
+		{	
+			var lenght:int = this.data.length;
+			
+			this.data.splice(this.data.indexOf(movedContainer), 1);
+			
+			if (indexItemToMove == -1)
+				this.data.unshift(movedContainer)
+			else
+				this.data.splice(indexItemToMove, 0, movedContainer);
+			
+			this.removeChildren();
+			
+			for (var i:int = 0;  i < lenght; ++i)
 			{
-				this.lastTouch = newTouchIndex;
-				if (this.touchedContainer != null)
-					this.childReshuffle();
-			} 
-		}
-		
-		private function childReshuffle():void
-		{
-			for (var i:int = lastTouch;  i < this.data.length; ++i)
-			{
-				
+				this.addChild(this.data[i]);
 			}
 		}
 		
@@ -125,7 +121,7 @@ package ui.statistics
 		private function createLayout():VerticalLayout
 		{
 			var layout:VerticalLayout = new VerticalLayout();
-			layout.gap = StatisticsWindow.SPACE_BEETWEEN_LIST;
+			layout.gap = StatisticsWindow.PAGGING;
 			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_LEFT;
 			layout.padding = StatisticsWindow.PAGGING;
 			
@@ -142,8 +138,26 @@ package ui.statistics
 		
 		private function dropContainer(event:DragDropEvent, dragData:DragData):void
 		{
-			this.touchedContainer = dragData.getDataForFormat("display-object-drag-format");
-			trace(this.lastTouch);
+			var movedContainer:ContainerStatisticsPiece = dragData.getDataForFormat("display-object-drag-format");
+			var statisticsPieceY:Number;
+			var statisticsPieceHeight:Number;
+			
+			for (var i:int = 0; i < this.data.length; ++i)
+			{
+				statisticsPieceY = this.data[i].y;
+				statisticsPieceHeight = this.data[i].height;
+				
+				if (statisticsPieceY - StatisticsWindow.PAGGING < event.localY &&
+					event.localY <= statisticsPieceY + (statisticsPieceHeight / 2) )
+				{
+					this.redraw(movedContainer, i - 1);
+				}
+				else if (statisticsPieceY + (statisticsPieceHeight / 2) < event.localY &&
+						 event.localY <= statisticsPieceY + statisticsPieceHeight )
+				{
+					this.redraw(movedContainer, i);
+				}
+			}
 		}
 		
 	}
