@@ -43,7 +43,6 @@ package game.actors.core
 			if (unluckyGuy)
 			{
 				this.destroyActor(unluckyGuy);
-				ActorBase.iListener.actorDeadlyDamaged(unluckyGuy.id);
 			}
 			
 			
@@ -60,8 +59,6 @@ package game.actors.core
 		{
 			if (ActorBase.iScene.getSceneCell(item.x, item.y) == SceneFeature.FALL)
 			{
-				ActorBase.iListener.actorFallen(item.id);
-				
 				this.destroyActor(item);
 			}
 		}
@@ -79,8 +76,6 @@ package game.actors.core
 				else
 				{
 					this.destroyActor(item);
-					
-					ActorBase.iListener.actorDeadlyDamaged(item.id);
 				}
 				
 				this.actingCooldown = this.actionSpeed;
@@ -96,6 +91,8 @@ package game.actors.core
 				ActorBase.iSearcher.putInCell(item.x, item.y);
 				
 				item.onDestroyed();
+				
+				ActorBase.iListener.unparent(item.id);
 			}
 		}
 	}

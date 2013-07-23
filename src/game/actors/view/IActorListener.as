@@ -50,20 +50,9 @@ package game.actors.view
 		
 		
 		/**
-		 * Call if want to unshow something immediately:
-		 * if it was too far from the character, for example.
+		 * Call if want to unshow something immediately.
 		**/
-		function actorDisappeared(id:int):void; 
-		
-		/**
-		 * Call if something died because of damage.
-		**/
-		function actorDeadlyDamaged(id:int):void;
-		
-		/**
-		 * Call if something died because of falling down.
-		**/
-		function actorFallen(id:int):void;
+		function unparent(id:int):void;
 	}
 	
 }

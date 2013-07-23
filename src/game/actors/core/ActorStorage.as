@@ -106,9 +106,9 @@ package game.actors.core
 					{
 						this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
 					}
-					else
+					else if (actor.isActive)
 					{
-						this.listener.actorDisappeared(actor.id);
+						this.listener.unparent(actor.id);
 						
 						actor.isActive = false;
 					}
