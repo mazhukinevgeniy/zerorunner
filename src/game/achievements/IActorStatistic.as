@@ -1,4 +1,4 @@
-package game.actors.statistics 
+package game.achievements 
 {
 	import game.metric.DCellXY;
 	
