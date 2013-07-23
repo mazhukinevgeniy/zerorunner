@@ -2,7 +2,6 @@ package game.actors.modules.pull
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
-	import game.input.InputManager;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.SceneFeature;
@@ -63,14 +62,12 @@ package game.actors.modules.pull
 				if (this.scene.getSceneCell(this.x + action.x, this.y + action.y) != SceneFeature.FALL)
 				{
 					this.tryMove(action);
-					this.forceUpdate(InputManager.purgeClicks);
 					
 					return;
 				}
 				else if (this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != SceneFeature.FALL)
 				{
 					this.jump(action, 2);
-					this.forceUpdate(InputManager.purgeClicks);
 					
 					return;
 				}

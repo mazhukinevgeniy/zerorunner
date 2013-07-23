@@ -9,7 +9,6 @@ package game.input
 	public class InputManager implements IKnowInput
 	{
 		public static const newInputPiece:String = "newInputPiece";
-		public static const purgeClicks:String = "purgeClicks";
 		
 		private var order:Vector.<int>;
 		private var maxI:int;
@@ -20,15 +19,12 @@ package game.input
 		{
 			super();
 			
-			///this.restore();
-			// TODO: delete if works
-			
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(InputManager.newInputPiece);
-			flow.addUpdateListener(InputManager.purgeClicks);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			flow.addUpdateListener(ZeroRunner.aftertick);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
 			
@@ -39,11 +35,11 @@ package game.input
 			}
 		}
 		
-		update function purgeClicks():void
- 		{
+		update function aftertick():void
+		{
 			for (var i:int = 9; i < 17; i++)
 				this.order[i] = -1;
- 		}
+		}
 		
 		public function getInputCopy():Vector.<DCellXY>
 		{
