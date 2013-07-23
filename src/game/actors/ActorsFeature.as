@@ -1,7 +1,7 @@
 package game.actors 
 {
 	import game.actors.core.ActorStorage;
-	import game.actors.statistics.ActorStatistic;
+	import game.actors.statistics.ActorAchievements;
 	import game.actors.view.ActiveCanvas;
 	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;
@@ -37,7 +37,7 @@ package game.actors
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{
 			var view:ActiveCanvas = new ActiveCanvas(flow);
-			var stat:ActorStatistic = new ActorStatistic(flow);
+			var stat:ActorAchievements = new ActorAchievements(flow);
 			new ActorStorage(view, stat, flow);
 		}
 		

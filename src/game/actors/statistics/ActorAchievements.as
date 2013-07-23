@@ -4,15 +4,14 @@ package game.actors.statistics
 	import chaotic.core.update;
 	import chaotic.utils.SaveBase;
 	import game.metric.DCellXY;
-	import game.metric.Metric;
 	import game.statistics.ITakeStatistics;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
 	
-	public class ActorStatistic extends SaveBase implements IActorStatistic
+	public class ActorAchievements extends SaveBase implements IActorStatistic
 	{
 		
-		public function ActorStatistic(flow:IUpdateDispatcher) 
+		public function ActorAchievements(flow:IUpdateDispatcher) 
 		{
 			super();
 			
