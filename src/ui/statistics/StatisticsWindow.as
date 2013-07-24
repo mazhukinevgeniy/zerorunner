@@ -14,13 +14,11 @@ package ui.statistics
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
-	import starling.events.Touch;
 
 	
 	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
 	{	
-		public static const moveStatisticsPiece:String = "moveStatisticsPiece";
-		public static const touchStatisticsPiece:String = "touchStatisticsPiece";
+		public static const dropMiss:String = "dropMiss";
 		
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
@@ -33,6 +31,7 @@ package ui.statistics
 		
 		private var lastTouchIndex:int;
 		private var movedContainer:ChunkList;
+		private var isDragging:Boolean;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
@@ -50,11 +49,12 @@ package ui.statistics
 			
 			this.data = new Vector.<ChunkList>();
 			
+			this.isDragging = false;
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(StatisticsFeature.showStatistics);
-			this.flow.addUpdateListener(StatisticsWindow.moveStatisticsPiece);
+			this.flow.addUpdateListener(StatisticsWindow.dropMiss);
 			
 			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
 			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
@@ -77,23 +77,27 @@ package ui.statistics
 			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
 		}
 		
-		update function moveStatisticsPiece(moved:ChunkList, touch:Touch, dragData:DragData):void
+		update function dropMiss():void
 		{
-			DragDropManager.startDrag(moved, touch, dragData, moved);
+			this.redraw();
 		}
 		
-		private function redraw(movedContainer:ChunkList, indexItemToMove:int):void
+		private function redraw(movedContainer:ChunkList = null, indexItemToMove:int = -1):void
 		{	
 			var lenght:int = this.data.length;
 			
-			this.data.splice(this.data.indexOf(movedContainer), 1);
-			
-			if (indexItemToMove == -1)
-				this.data.unshift(movedContainer)
-			else
-				this.data.splice(indexItemToMove, 0, movedContainer);
-			
-			this.removeChildren();
+			if (movedContainer != null)
+			{
+				this.data.splice(this.data.indexOf(movedContainer), 1);
+				
+				if (indexItemToMove == -1)
+					this.data.unshift(movedContainer)
+				else
+					this.data.splice(indexItemToMove, 0, movedContainer);
+				
+				this.removeChildren();
+			}
+				
 			
 			for (var i:int = 0;  i < lenght; ++i)
 			{
