@@ -7,7 +7,9 @@ package ui.statistics
 	import feathers.controls.ScrollContainer;
 	import feathers.data.ListCollection;
 	import feathers.dragDrop.DragData;
+	import feathers.dragDrop.DragDropManager;
 	import feathers.dragDrop.IDragSource;
+	import feathers.events.DragDropEvent;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import game.statistics.StatisticsPiece;
@@ -32,6 +34,8 @@ package ui.statistics
 		private var label:Label;
 		
 		private var fullHeight:Number;
+		
+		private var isDragging:Boolean;
 		
 		public function ChunkList(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
 		{		
@@ -62,7 +66,11 @@ package ui.statistics
 			
 			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);
 			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered);
+			
 			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
+			this.addEventListener(DragDropEvent.DRAG_COMPLETE, this.dropComplete);
+			
+			this.isDragging = false;
 			
 			this.flow = flow;
 			
@@ -112,7 +120,7 @@ package ui.statistics
 			return list;
 		}
 		
-		private function handleRollButtonTriggered(event:Event):void
+		private function handleRollButtonTriggered(event:Event = null):void
 		{
 			if (this.list.visible)
 			{
@@ -127,7 +135,7 @@ package ui.statistics
 			}
 		}
 		
-		private function handleFixButtonTriggered():void
+		private function handleFixButtonTriggered(event:Event):void
 		{
 			if (this.rollButton.isEnabled)
 			{
@@ -147,10 +155,26 @@ package ui.statistics
 			{
 				var dragData:DragData = new DragData();
 				dragData.setDataForFormat("display-object-drag-format", this);
-				this.flow.dispatchUpdate(StatisticsWindow.moveStatisticsPiece, this, touchMoved, dragData);
+				if (!this.isDragging)
+				{
+					DragDropManager.startDrag(this, touchMoved, dragData, this);
+					this.isDragging = true;
+				}
 			}
 			
 		}
+		
+		private function dropComplete(event:DragDropEvent, dragData:DragData):void
+		{
+			this.isDragging = false;
+			if (!event.isDropped) 
+			{
+				if (this.list.visible) 
+					this.handleRollButtonTriggered();
+				this.flow.dispatchUpdate(StatisticsWindow.dropMiss);
+			}
+		}
+		
 	}
 
 }
