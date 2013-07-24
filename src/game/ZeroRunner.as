@@ -3,6 +3,7 @@ package game
 	import chaotic.core.update;
 	import chaotic.core.UpdateManager;
 	import chaotic.informers.InformerManager;
+	import game.achievements.AchievementsFeature;
 	import game.actors.ActorsFeature;
 	import game.input.InputManager;
 	import game.metric.CellXY;
@@ -88,7 +89,8 @@ package game
 			new SceneFeature(this);
 			new ActorsFeature(this);
 			
-			new StatisticsFeature(this);
+			new StatisticsFeature(this); //TODO: rename or not keep at all
+			new AchievementsFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
 			

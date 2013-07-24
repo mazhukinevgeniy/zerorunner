@@ -50,7 +50,7 @@ package game.actors.view
 			for (var i:int = 0; i < length; i++)
 			{
 				if (this.objects[i])
-					this.unparent(this.objects[i]);
+					this.unparent(i);
 			}
 		}
 		
@@ -74,32 +74,24 @@ package game.actors.view
 			this.objects[id].jump(change, delay);
 		}
 		
-		
+		/*
 		public function actorDeadlyDamaged(id:int):void
 		{
 			var image:Sprite = this.objects[id];
 			var tween:Tween = new Tween(image, 0.5);
 			tween.scaleTo(0);
 			tween.moveTo(image.x + image.width / 2, image.y + image.height / 2);
-			tween.onComplete = this.unparent;
+			tween.onComplete = this.unparent; //TODO: can went wrong
 			tween.onCompleteArgs = [image];
 			
 			DrawenActor.iJuggler.add(tween);
-		}
+		}*/
 		
-		public function actorFallen(id:int):void
+		public function unparent(id:int):void
 		{
-			this.actorDisappeared(id);
-		}
-		
-		public function actorDisappeared(id:int):void
-		{
-			this.unparent(this.objects[id]);
-		}
-		
-		private function unparent(item:DisplayObject):void
-		{
-			this.pull.stash(item as DrawenActor);
+			var item:DrawenActor = this.objects[id];
+			
+			this.pull.stash(item);
 			this.container.removeChild(item);
 		}
 		

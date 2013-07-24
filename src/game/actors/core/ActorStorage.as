@@ -4,9 +4,9 @@ package game.actors.core
 	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
+	import game.achievements.statistics.IActorStatistic;
 	import game.actors.ActorsFeature;
 	import game.actors.modules.ActorManipulator;
-	import game.actors.statistics.IActorStatistic;
 	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
@@ -40,10 +40,9 @@ package game.actors.core
 		private var tLC:CellXY;
 		private var toTLC:DCellXY = new DCellXY( - Metric.xDistanceActorsAllowed, - Metric.yDistanceActorsAllowed);
 		
-		public function ActorStorage(view:IActorListener, stat:IActorStatistic, flow:IUpdateDispatcher) 
+		public function ActorStorage(view:IActorListener, flow:IUpdateDispatcher) 
 		{
 			this.listener = view;
-			ActorBase.iStat = stat;
 			
 			flow.workWithUpdateListener(this);
 			
@@ -107,9 +106,9 @@ package game.actors.core
 					{
 						this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
 					}
-					else
+					else if (actor.isActive)
 					{
-						this.listener.actorDisappeared(actor.id);
+						this.listener.unparent(actor.id);
 						
 						actor.isActive = false;
 					}
@@ -174,6 +173,7 @@ package game.actors.core
 			ActorBase.iFlow = this.flow;
 			ActorBase.iSearcher = this;
 			ActorBase.iScene = table.getInformer(IScene);
+			ActorBase.iStat = table.getInformer(IActorStatistic);
 			ActorBase.iListener = this.listener;
 			ActorBase.iInput = table.getInformer(IKnowInput);
 			
