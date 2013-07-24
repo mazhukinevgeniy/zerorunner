@@ -1,7 +1,7 @@
 package game.actors.core 
 {
 	import chaotic.core.IUpdateDispatcher;
-	import game.achievements.IActorStatistic;
+	import game.achievements.statistics.IActorStatistic;
 	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;

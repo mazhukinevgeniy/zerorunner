@@ -4,7 +4,7 @@ package game.actors.core
 	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
-	import game.achievements.IActorStatistic;
+	import game.achievements.statistics.IActorStatistic;
 	import game.actors.ActorsFeature;
 	import game.actors.modules.ActorManipulator;
 	import game.actors.view.IActorListener;
