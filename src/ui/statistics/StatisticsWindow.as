@@ -3,6 +3,8 @@ package ui.statistics
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.update;
 	import chaotic.core.UpdateManager;
+	import feathers.controls.IScrollBar;
+	import feathers.controls.ScrollBar;
 	import feathers.controls.ScrollContainer;
 	import feathers.dragDrop.DragData;
 	import feathers.dragDrop.DragDropManager;
@@ -31,7 +33,6 @@ package ui.statistics
 		
 		private var lastTouchIndex:int;
 		private var movedContainer:ChunkList;
-		private var isDragging:Boolean;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
 		{
@@ -47,9 +48,18 @@ package ui.statistics
 			this.visible = false;
 			this.layout = this.createLayout();
 			
+			this.scrollBarDisplayMode = ScrollContainer.SCROLL_BAR_DISPLAY_MODE_FIXED;
+			this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
+			trace(this.verticalScrollBarProperties.minimum);// = 0;
+			/*this.verticalScrollBarFactory = function():IScrollBar
+			{
+				var newScrollBar:ScrollBar = new ScrollBar();
+				//newScrollBar.minTouchHeight = 0;
+				return newScrollBar;
+			}*/
+			
 			this.data = new Vector.<ChunkList>();
 			
-			this.isDragging = false;
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
