@@ -94,10 +94,9 @@ package ui.statistics
 					this.data.unshift(movedContainer)
 				else
 					this.data.splice(indexItemToMove, 0, movedContainer);
-				
-				this.removeChildren();
 			}
-				
+			
+			this.removeChildren();
 			
 			for (var i:int = 0;  i < lenght; ++i)
 			{
