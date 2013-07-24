@@ -16,6 +16,9 @@ package game.achievements
 	
 	public class AchievementsFeature extends SaveBase implements ICacher
 	{
+		public static const unlockAchievement:String = "unlockAchievement";
+		
+		
 		private var activeAchievements:Vector.<AchievementBase>;
 		
 		private var actorStat:ActorStatistic;
@@ -28,6 +31,7 @@ package game.achievements
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			flow.addUpdateListener(AchievementsFeature.unlockAchievement);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
 		}
@@ -47,6 +51,14 @@ package game.achievements
 			{
 				this.activeAchievements[i].checkIfUnlocked(this.localSave.data);
 			}
+		}
+		
+		
+		update function unlockAchievement(id:int):void
+		{
+			// TODO: do stuff and, if required, refill your activeAchievements vector
+			
+			//TODO: also add some feature to show pop-up with the heartwarming notify
 		}
 		
 		update function addInformerTo(table:IStoreInformers):void

@@ -1,39 +1,28 @@
 package game.achievements 
 {
-	import chaotic.utils.SaveBase;
 	
-	public class AchievementBase extends SaveBase
-	{
+	public class AchievementBase
+	{		
 		private var locked:Boolean = true;
 		private var next:Vector.<AchievementBase>;
 		
 		public function AchievementBase() 
 		{
-			super();
-		}
-		
-		override protected function checkLocalSave():void
-		{
-			if (!this.localSave.data.achievements)
-				this.localSave.data.achievements = new Object();
-			/*
-			if (!this.localSave.data.achievements.actors)
-				this.localSave.data.achievements.actors = new Object();
+			//TODO: add data and cool stuff
 			
-			if (!this.localSave.data.achievements.actors)
-				this.localSave.data.achievements.actors = new Object();*/
+			//TODO: add ids
 		}
 		
-		public function checkIfUnlocked(data:Object):void
+		internal function checkIfUnlocked(data:Object):void
 		{
-			//TODO: check and, if required, do something like dispatching updates
+			//TODO: check and, if required, generate this.next and do something like dispatching updates
 		}
 		
 		public function get unlocked():Boolean
 		{
 			return !this.locked;
 		}
-		
+		//TODO: add more getters
 	}
 
 }
