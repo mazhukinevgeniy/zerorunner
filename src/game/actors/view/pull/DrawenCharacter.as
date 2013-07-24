@@ -5,11 +5,11 @@ package game.actors.view.pull
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.time.Time;
-	import starling.animation.Tween;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.MovieClip;
 	import starling.events.Event;
+	import utils.PixelPerfectTween;
 	
 	internal class DrawenCharacter extends DrawenActor
 	{
@@ -60,14 +60,12 @@ package game.actors.view.pull
 		
 		override public function moveNormally(change:DCellXY, delay:int):void
 		{
-			var tween:Tween;
+			var tween:PixelPerfectTween;
 			
 			if (change.x == 0)
 			{
-				tween = new Tween(this, delay * Time.TIME_BETWEEN_TICKS);
+				tween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
 				tween.moveTo(this.x, this.y + change.y * Metric.CELL_HEIGHT);
-				
-				tween.roundToInt = true;
 				
 				this.juggler.add(tween);
 			}
@@ -92,10 +90,8 @@ package game.actors.view.pull
 				
 				this.x += animation.width * (oldSX - this.scaleX) / 2;
 				
-				tween = new Tween(this, delay * Time.TIME_BETWEEN_TICKS);
+				tween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
 				tween.moveTo(this.x + change.x * Metric.CELL_WIDTH, this.y);
-				
-				tween.roundToInt = true;
 				
 				this.juggler.add(tween);
 			}

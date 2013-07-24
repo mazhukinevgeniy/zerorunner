@@ -14,7 +14,6 @@ package game.actors.view
 	import game.ui.Camera;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
-	import starling.animation.Tween;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -78,7 +77,7 @@ package game.actors.view
 		public function actorDeadlyDamaged(id:int):void
 		{
 			var image:Sprite = this.objects[id];
-			var tween:Tween = new Tween(image, 0.5);
+			var tween:Tween = new PixelPerfectTween(image, 0.5);
 			tween.scaleTo(0);
 			tween.moveTo(image.x + image.width / 2, image.y + image.height / 2);
 			tween.onComplete = this.unparent; //TODO: can went wrong
