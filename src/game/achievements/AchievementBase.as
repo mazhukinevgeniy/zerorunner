@@ -2,7 +2,7 @@ package game.achievements
 {
 	import chaotic.utils.SaveBase;
 	
-	internal class AchievementBase extends SaveBase
+	public class AchievementBase extends SaveBase
 	{
 		private var locked:Boolean = true;
 		private var next:Vector.<AchievementBase>;
