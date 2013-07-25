@@ -22,8 +22,8 @@ package ui.statistics
 	
 	public class ChunkList extends ScrollContainer implements IDragSource
 	{
-		private static const INTERVAL:Number = 3;
-		private static const LABEL_Y:Number = -5;
+		private static const GAP:Number = 3;
+		private static const BUTTON_PADDING_TOP:Number = 5;
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -36,6 +36,7 @@ package ui.statistics
 		private var fullHeight:Number;
 		
 		private var isDragging:Boolean;
+		private var isRoll:Boolean;
 		
 		public function ChunkList(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
 		{		
@@ -43,26 +44,26 @@ package ui.statistics
 			
 			this.rollButton = new Button();
 			this.rollButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_ROLL);
-			this.rollButton.layoutData = this.createLayoutData();
+			this.rollButton.layoutData = this.createLayoutData(null, ChunkList.BUTTON_PADDING_TOP);
 			this.addChild(this.rollButton);
 			
 			
 			this.fixButton = new Button();
 			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
-			this.fixButton.layoutData = this.createLayoutData(this.rollButton, ChunkList.INTERVAL)
+			this.fixButton.layoutData = this.createLayoutData(null, ChunkList.BUTTON_PADDING_TOP, this.rollButton, ChunkList.GAP)
 			this.addChild(this.fixButton);
 			
 			this.label = new Label();
 			this.label.text = newItem.title;
 			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
-			this.label.layoutData = this.createLayoutData(this.fixButton, ChunkList.INTERVAL,
-														  null, ChunkList.LABEL_Y);
+			this.label.layoutData = this.createLayoutData(null, 0, this.fixButton, ChunkList.GAP)
 			this.addChild(this.label);
 			
 			this.list = writeInList(newItem);
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
-			this.list.layoutData = this.createLayoutData(null, 0, this.rollButton, ChunkList.INTERVAL);
+			this.list.layoutData = this.createLayoutData(this.label, ChunkList.GAP);
 			this.addChild(this.list);
+			this.isRoll = false;
 			
 			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);
 			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered);
@@ -87,8 +88,8 @@ package ui.statistics
 			this.list.dataProvider = newList.dataProvider;
 		}
 		
-		private function createLayoutData(leftAnchor:DisplayObject = null, left:Number = 0,
-										  topAnchor:DisplayObject = null, top:Number = 0):AnchorLayoutData
+		private function createLayoutData(topAnchor:DisplayObject = null, top:Number = 0,
+										  leftAnchor:DisplayObject = null, left:Number = 0):AnchorLayoutData
 		{
 			var layoutData:AnchorLayoutData = new AnchorLayoutData();
 			if(leftAnchor != null)
@@ -122,15 +123,17 @@ package ui.statistics
 		
 		private function handleRollButtonTriggered(event:Event = null):void
 		{
-			if (this.list.visible)
+			if (!this.isRoll)
 			{
-				this.list.visible = false;
+				this.removeChild(this.list);
+				this.isRoll = true;
 				this.fullHeight = this.height;
-				this.height = this.rollButton.height;
+				this.height = this.label.height;
 			}
 			else
 			{
-				this.list.visible = true;
+				this.addChild(this.list);
+				this.isRoll = false;
 				this.height = this.fullHeight;
 			}
 		}
@@ -169,7 +172,7 @@ package ui.statistics
 			this.isDragging = false;
 			if (!event.isDropped) 
 			{
-				if (this.list.visible) 
+				if (!this.isRoll) 
 					this.handleRollButtonTriggered();
 				this.flow.dispatchUpdate(StatisticsWindow.dropMiss);
 			}
