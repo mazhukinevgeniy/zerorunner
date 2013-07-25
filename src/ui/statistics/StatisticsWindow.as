@@ -155,10 +155,11 @@ package ui.statistics
 		private function dropContainer(event:DragDropEvent, dragData:DragData):void
 		{
 			var movedContainer:ChunkList = dragData.getDataForFormat("display-object-drag-format");
+			var dataLenght:int = this.data.length;
 			var statisticsPieceY:Number;
 			var statisticsPieceHeight:Number;
 			
-			for (var i:int = 0; i < this.data.length; ++i)
+			for (var i:int = 0; i < dataLenght; ++i)
 			{
 				statisticsPieceY = this.data[i].y;
 				statisticsPieceHeight = this.data[i].height;
@@ -173,6 +174,12 @@ package ui.statistics
 				{
 					this.redraw(movedContainer, i);
 				}
+			}
+			
+			if (this.height - 2 * this.padding < event.localY &&
+				event.localY <= this.height)
+			{
+				this.redraw(movedContainer, dataLenght - 1);
 			}
 		}
 		
