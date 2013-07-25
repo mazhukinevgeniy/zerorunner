@@ -20,27 +20,33 @@ package ui
 		private static const WINDOWS_REGION_WIDTH:Number = Main.WIDTH - WindowsController.INDENT - WindowsController.WINDOWS_REGION_X;
 		private static const WINDOWS_REGION_HEIGHT:Number = Main.HEIGHT - 2 * WindowsController.INDENT;
 		
+		private static const NONEXISTEN:int = -1;
 		
 		private var windows:Vector.<ScrollContainer>;
 		private var flow:IUpdateDispatcher;
 		private var frame:ScrollContainer;
+		private var root:DisplayObjectContainer;
+		
+		private var idLastOpenedWindow:int;
 		
 		public function WindowsController(root:DisplayObjectContainer, flow:IUpdateDispatcher, windows:Vector.<ScrollContainer>) 
 		{
 			this.windows = windows;
 			this.frame = this.createRegionWindows();
+			this.root = root;
+			
+			this.idLastOpenedWindow = WindowsController.NONEXISTEN;
 			
 			var windowsLayoutData:AnchorLayoutData = this.createWindowsLayoutData();
+			var lenght:int = this.windows.length;
 			
-			for (var i:int = 0; i < this.windows.length; ++i)
+			for (var id:int = 0; id < lenght; ++id)
 			{
-				if (i != WindowsFeature.MENU)
-				{
-					this.frame.addChild(this.windows[i]);
-					this.windows[i].layoutData = windowsLayoutData;
-				}
+				if (id != WindowsFeature.MENU)
+					this.windows[id].layoutData = windowsLayoutData;
 				else
-					root.addChild(this.windows[i]);
+					this.root.addChild(this.windows[id]);
+				
 			}
 			
 			root.addChild(this.frame);
@@ -54,17 +60,16 @@ package ui
 			
 		}
 		
-		update function openWindow(targetId:int):void
+		update function openWindow(idTarget:int):void
 		{
-			for (var id:int = 0; id < this.windows.length; ++id)
+			if (idTarget != this.idLastOpenedWindow)
 			{
-				if ((targetId == id) || id == WindowsFeature.MENU)
-					this.windows[id].visible = true;
-				else
-					this.windows[id].visible = false;
+				this.closelastOpenedWindow();
+				this.frame.addChild(this.windows[idTarget])
+				this.idLastOpenedWindow = idTarget;
 			}
 			
-			if (targetId == WindowsFeature.STATISTICS)
+			if (idTarget == WindowsFeature.STATISTICS)
 			{
 				this.flow.dispatchUpdate(StatisticsFeature.showStatistics);
 			}
@@ -72,19 +77,14 @@ package ui
 		
 		update function newGame():void
 		{
-			for (var id:int = 0; id < this.windows.length; ++id)
-			{
-				this.windows[id].visible = false;
-			}
+			this.closelastOpenedWindow();
+			this.root.removeChild(this.windows[WindowsFeature.MENU]);
+			this.idLastOpenedWindow = WindowsController.NONEXISTEN;
 		}
 		
 		update function quitGame():void
 		{
-			for (var id:int = 0; id < this.windows.length; ++id)
-			{
-				if(id == WindowsFeature.MENU)
-					this.windows[id].visible = true;
-			}
+			this.root.addChild(this.windows[WindowsFeature.MENU]);
 		}
 		
 		private function createRegionWindows():ScrollContainer
@@ -108,6 +108,12 @@ package ui
 			layoutData.verticalCenter = 0;
 			
 			return layoutData;
+		}
+		
+		private function closelastOpenedWindow():void
+		{
+			if (this.idLastOpenedWindow != WindowsController.NONEXISTEN)
+				this.frame.removeChild(this.windows[this.idLastOpenedWindow]);
 		}
 	}
 

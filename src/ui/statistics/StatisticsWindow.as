@@ -43,7 +43,6 @@ package ui.statistics
 			tmp.alpha = 0.85;
 			this.backgroundSkin = tmp;
 			
-			this.visible = false;
 			this.layout = this.createLayout();
 			
 			this.scrollBarDisplayMode = ScrollContainer.SCROLL_BAR_DISPLAY_MODE_FIXED;
