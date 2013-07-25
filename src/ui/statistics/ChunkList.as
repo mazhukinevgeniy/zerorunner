@@ -30,8 +30,9 @@ package ui.statistics
 		private var list:List;
 		private var rollButton:Button;
 		private var fixButton:Button;
-		
 		private var label:Label;
+		
+		private var save:SaveStatisticsPiece;
 		
 		private var fullHeight:Number;
 		
@@ -121,7 +122,7 @@ package ui.statistics
 			return list;
 		}
 		
-		private function handleRollButtonTriggered(event:Event = null):void
+		public function handleRollButtonTriggered(event:Event = null):void
 		{
 			if (!this.isRoll)
 			{
@@ -138,7 +139,7 @@ package ui.statistics
 			}
 		}
 		
-		private function handleFixButtonTriggered(event:Event):void
+		public function handleFixButtonTriggered(event:Event = null):void
 		{
 			if (this.rollButton.isEnabled)
 			{
