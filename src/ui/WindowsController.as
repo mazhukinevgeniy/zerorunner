@@ -24,32 +24,33 @@ package ui
 		
 		private var windows:Vector.<ScrollContainer>;
 		private var flow:IUpdateDispatcher;
-		private var frame:ScrollContainer;
-		private var root:DisplayObjectContainer;
 		
 		private var idLastOpenedWindow:int;
 		
 		public function WindowsController(root:DisplayObjectContainer, flow:IUpdateDispatcher, windows:Vector.<ScrollContainer>) 
 		{
 			this.windows = windows;
-			this.frame = this.createRegionWindows();
-			this.root = root;
 			
 			this.idLastOpenedWindow = WindowsController.NONEXISTEN;
 			
+			var frame:ScrollContainer = this.createRegionWindows();
 			var windowsLayoutData:AnchorLayoutData = this.createWindowsLayoutData();
 			var lenght:int = this.windows.length;
 			
 			for (var id:int = 0; id < lenght; ++id)
 			{
 				if (id != WindowsFeature.MENU)
+				{
 					this.windows[id].layoutData = windowsLayoutData;
+					this.windows[id].visible = false;
+					frame.addChild(this.windows[id]);
+				}
 				else
-					this.root.addChild(this.windows[id]);
+					root.addChild(this.windows[id]);
 				
 			}
 			
-			root.addChild(this.frame);
+			root.addChild(frame);
 			
 			this.flow = flow;
 			this.flow.workWithUpdateListener(this);
@@ -65,7 +66,7 @@ package ui
 			if (idTarget != this.idLastOpenedWindow)
 			{
 				this.closelastOpenedWindow();
-				this.frame.addChild(this.windows[idTarget])
+				this.windows[idTarget].visible = true;
 				this.idLastOpenedWindow = idTarget;
 			}
 			
@@ -78,13 +79,13 @@ package ui
 		update function newGame():void
 		{
 			this.closelastOpenedWindow();
-			this.root.removeChild(this.windows[WindowsFeature.MENU]);
+			this.windows[WindowsFeature.MENU].visible = false;
 			this.idLastOpenedWindow = WindowsController.NONEXISTEN;
 		}
 		
 		update function quitGame():void
 		{
-			this.root.addChild(this.windows[WindowsFeature.MENU]);
+			this.windows[WindowsFeature.MENU].visible = true;
 		}
 		
 		private function createRegionWindows():ScrollContainer
@@ -113,7 +114,7 @@ package ui
 		private function closelastOpenedWindow():void
 		{
 			if (this.idLastOpenedWindow != WindowsController.NONEXISTEN)
-				this.frame.removeChild(this.windows[this.idLastOpenedWindow]);
+				this.windows[this.idLastOpenedWindow].visible = false;
 		}
 	}
 
