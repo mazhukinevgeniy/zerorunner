@@ -154,12 +154,13 @@ package ui.statistics
 		{
 			var touchMoved:Touch = event.getTouch(this, TouchPhase.MOVED)
 			
-			if (touchMoved)
+			if (touchMoved && event.target != this.rollButton && event.target != this.fixButton)
 			{
-				var dragData:DragData = new DragData();
-				dragData.setDataForFormat("display-object-drag-format", this);
+				
 				if (!this.isDragging)
 				{
+					var dragData:DragData = new DragData();
+					dragData.setDataForFormat("display-object-drag-format", this);
 					DragDropManager.startDrag(this, touchMoved, dragData, this);
 					this.isDragging = true;
 				}
