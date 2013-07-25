@@ -50,13 +50,15 @@ package ui.statistics
 			
 			this.scrollBarDisplayMode = ScrollContainer.SCROLL_BAR_DISPLAY_MODE_FIXED;
 			this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
-			trace(this.verticalScrollBarProperties.minimum);// = 0;
-			/*this.verticalScrollBarFactory = function():IScrollBar
+			this.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_AUTO;
+			this.interactionMode = ScrollContainer.INTERACTION_MODE_MOUSE;
+			this.verticalScrollBarFactory = function():IScrollBar
 			{
 				var newScrollBar:ScrollBar = new ScrollBar();
-				//newScrollBar.minTouchHeight = 0;
-				return newScrollBar;
-			}*/
+				newScrollBar.direction = ScrollBar.DIRECTION_VERTICAL;
+				
+				return newScrollBar; 
+			}
 			
 			this.data = new Vector.<ChunkList>();
 			
@@ -137,7 +139,7 @@ package ui.statistics
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = StatisticsWindow.PAGGING;
 			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_LEFT;
-			layout.padding = StatisticsWindow.PAGGING;
+			this.padding = StatisticsWindow.PAGGING;
 			
 			return layout;
 		}
