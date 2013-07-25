@@ -34,8 +34,7 @@ package ui
 			
 			for (var i:int = 0; i < this.windows.length; ++i)
 			{
-				
-				if (!(this.windows[i].name == WindowsFeature.MENU))
+				if (i != WindowsFeature.MENU)
 				{
 					this.frame.addChild(this.windows[i]);
 					this.windows[i].layoutData = windowsLayoutData;
@@ -55,17 +54,17 @@ package ui
 			
 		}
 		
-		update function openWindow(target:String):void
+		update function openWindow(targetId:int):void
 		{
-			for (var i:int = 0; i < this.windows.length; ++i)
+			for (var id:int = 0; id < this.windows.length; ++id)
 			{
-				if ((target == this.windows[i].name) || this.windows[i].name == WindowsFeature.MENU)
-					this.windows[i].visible = true;
+				if ((targetId == id) || id == WindowsFeature.MENU)
+					this.windows[id].visible = true;
 				else
-					this.windows[i].visible = false;
+					this.windows[id].visible = false;
 			}
 			
-			if (target == WindowsFeature.STATISTICS)
+			if (targetId == WindowsFeature.STATISTICS)
 			{
 				this.flow.dispatchUpdate(StatisticsFeature.showStatistics);
 			}
@@ -73,18 +72,18 @@ package ui
 		
 		update function newGame():void
 		{
-			for (var i:int = 0; i < this.windows.length; ++i)
+			for (var id:int = 0; id < this.windows.length; ++id)
 			{
-				this.windows[i].visible = false;
+				this.windows[id].visible = false;
 			}
 		}
 		
 		update function quitGame():void
 		{
-			for (var i:int = 0; i < this.windows.length; ++i)
+			for (var id:int = 0; id < this.windows.length; ++id)
 			{
-				if(this.windows[i].name == WindowsFeature.MENU)
-					this.windows[i].visible = true;
+				if(id == WindowsFeature.MENU)
+					this.windows[id].visible = true;
 			}
 		}
 		

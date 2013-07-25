@@ -34,10 +34,8 @@ package ui.statistics
 		private var lastTouchIndex:int;
 		private var movedContainer:ChunkList;
 		
-		public function StatisticsWindow(flow:IUpdateDispatcher, name:String = "StatisticsWindow") 
+		public function StatisticsWindow(flow:IUpdateDispatcher) 
 		{
-			this.name =  name;
-			
 			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
 			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
 			

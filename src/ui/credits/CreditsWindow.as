@@ -11,10 +11,8 @@ package ui.credits
 		public static const WIDTH_CREDITS_WINDOW:Number = 150;
 		public static const HEIGHT_CREDITS_WINDOW:Number = 100;
 		
-		public function CreditsWindow(flow:IUpdateDispatcher, name:String = "CreditsWindow") 
+		public function CreditsWindow(flow:IUpdateDispatcher) 
 		{
-			this.name = name;
-			
 			this.width = CreditsWindow.WIDTH_CREDITS_WINDOW;
 			this.height = CreditsWindow.HEIGHT_CREDITS_WINDOW;
 			

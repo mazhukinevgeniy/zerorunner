@@ -33,10 +33,8 @@ package ui.mainMenu
 					creditsButton:Button;
 		
 		
-		public function MainMenu( flow:IUpdateDispatcher, assets:AssetManager, name:String = "MainMenu") 
+		public function MainMenu( flow:IUpdateDispatcher, assets:AssetManager) 
 		{
-			this.name = name;
-			
 			this.width = MainMenu.WIDTH_MAIN_MENU;
 			this.height = MainMenu.HEIGHT_MAIN_MENU;
 			

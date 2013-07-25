@@ -17,10 +17,8 @@ package ui.achievements
 		public static const WIDTH_ACHIEVMENTS_WINDOW:Number = 350;
 		public static const HEIGHT_ACHIEVMENTS_WINDOW:Number = 400;
 		
-		public function AchievementsWindow(flow:IUpdateDispatcher, name:String = "AchievementsWindow") 
+		public function AchievementsWindow(flow:IUpdateDispatcher) 
 		{
-			this.name = name; //TODO: what are you doing? i guess, extra parameter is not required
-			
 			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
 			

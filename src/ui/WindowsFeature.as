@@ -13,25 +13,22 @@ package ui
 	{
 		public static const PLAY:String = "Play";
 		
-		public static const MENU:String = "Menu";
-		public static const STATISTICS:String = "Statistics";
-		public static const ACHIEVEMENTS:String = "Achievements";
-		public static const CREDITS:String = "Credits";
+		public static const MENU:int = 0;
+		public static const STATISTICS:int = 1;
+		public static const ACHIEVEMENTS:int = 2;
+		public static const CREDITS:int = 3;
 		
-		private var flow:IUpdateDispatcher;
-		private var assets:AssetManager;
+		private static const NUMBER_WINDOWS:int = 4;
 		
 		public function WindowsFeature(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
 		{
-			this.flow = flow;
-			this.assets = assets;
-			
 			var windows:Vector.<ScrollContainer> = new Vector.<ScrollContainer>();
+			windows.length = WindowsFeature.NUMBER_WINDOWS;
 			
-			windows.push(new MainMenu(flow, assets, WindowsFeature.MENU));
-			windows.push(new StatisticsWindow(flow, WindowsFeature.STATISTICS));
-			windows.push(new AchievementsWindow(flow, WindowsFeature.ACHIEVEMENTS));
-			windows.push(new CreditsWindow(flow, WindowsFeature.CREDITS));
+			windows[WindowsFeature.MENU] = new MainMenu(flow, assets);
+			windows[WindowsFeature.STATISTICS] = new StatisticsWindow(flow);
+			windows[WindowsFeature.ACHIEVEMENTS] = new AchievementsWindow(flow);
+			windows[WindowsFeature.CREDITS] = new CreditsWindow(flow);
 			
 			new WindowsController(root, flow, windows);
 			
