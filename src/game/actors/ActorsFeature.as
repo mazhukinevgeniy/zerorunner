@@ -1,6 +1,6 @@
 package game.actors 
 {
-	import game.actors.core.ActorStorage;
+	import game.actors.core.ActorManipulator;
 	import game.actors.view.ActiveCanvas;
 	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;
@@ -36,7 +36,7 @@ package game.actors
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{
 			var view:ActiveCanvas = new ActiveCanvas(flow);
-			new ActorStorage(view, flow);
+			new ActorManipulator(view, flow);
 		}
 		
 		

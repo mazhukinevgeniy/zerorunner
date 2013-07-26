@@ -1,4 +1,4 @@
-package game.actors.modules 
+package game.actors.core 
 {
 	import game.actors.core.ActorBase;
 	import game.actors.core.ActorStorage;
@@ -6,7 +6,7 @@ package game.actors.modules
 	import game.actors.view.IActorListener;
 	import game.state.IGameState;
 	
-	public class ActorManipulator
+	public class ActorManipulator extends ActorStorage
 	{
 		private var pool:ActorPull;
 		private var cache:ActorStorage;
