@@ -23,11 +23,14 @@ package game.actors.modules.pull
 			super(Dog.HP, Dog.MOVE_SPEED, Dog.ACTION_SPEED);
 		}
 		
-		override protected function onSpawned(id:int):void
+		override protected function onSpawned():void
 		{
-			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.DOG);
-			
 			this.forward = Metric.getRandomDCell();
+		}
+		
+		override public function getClassCode():int
+		{
+			return ActorsFeature.DOG;
 		}
 		
 		override protected function onActing():void

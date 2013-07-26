@@ -58,7 +58,7 @@ package game.actors.view.pull
 			this.y = (cell.y - 1) * Metric.CELL_HEIGHT;
 		}
 		
-		override public function moveNormally(change:DCellXY, delay:int):void
+		override public function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
 		{
 			var tween:PixelPerfectTween;
 			
@@ -92,6 +92,7 @@ package game.actors.view.pull
 				
 				tween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
 				tween.moveTo(this.x + change.x * Metric.CELL_WIDTH, this.y);
+				//TODO: must use image size in the image positioning, not here
 				
 				this.juggler.add(tween);
 			}

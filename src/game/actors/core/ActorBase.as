@@ -1,6 +1,7 @@
 package game.actors.core 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.errors.AbstractClassError;
 	import game.achievements.statistics.IActorStatistic;
 	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
@@ -12,7 +13,7 @@ package game.actors.core
 	public class ActorBase extends ActorCoreActions
 	{
 		internal static var iFlow:IUpdateDispatcher;
-		internal static var iSearcher:ActorStorage;
+		internal static var iSearcher:ISearcher;
 		internal static var iScene:IScene;
 		internal static var iStat:IActorStatistic;
 		internal static var iListener:IActorListener;
@@ -40,9 +41,12 @@ package game.actors.core
 			
 			this.setSpawningCell();
 			
-			ActorBase.iSearcher.putInCell(this.cell.x, this.cell.y, this);
-			
-			this.onSpawned(id);
+			this.onSpawned();
+		}
+		
+		public function getClassCode():int
+		{
+			throw new AbstractClassError();
 		}
 		
 		protected function setSpawningCell():void

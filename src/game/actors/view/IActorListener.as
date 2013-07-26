@@ -8,17 +8,6 @@ package game.actors.view
 		function setLayerOf(id:int, layer:int):void;
 		
 		
-		/**
-		 * Call if actor is created and finalized (no cell changes out of mechanics etc).
-		 * 
-		 * @param type Number which represents what sprite set should be used.
-		**/
-		function actorSpawned(id:int, cell:CellXY, type:int):void;
-		
-		
-		
-		
-		
 		
 		/**
 		 * MOVING OPTIONS
@@ -31,7 +20,7 @@ package game.actors.view
 		 * @param delay Produced cooldown. 
 		 * If not interrupted, that's how many ticks sprite will be moving to its next position.
 		**/
-		function actorMovedNormally(id:int, change:DCellXY, delay:int):void; 
+		function actorMovedNormally(id:int, goal:CellXY, change:DCellXY, delay:int):void; 
 		
 		/**
 		 * Call if actor jumps.

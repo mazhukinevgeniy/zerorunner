@@ -63,9 +63,9 @@ package game.actors.view
 		}
 		
 		
-		public function actorMovedNormally(id:int, change:DCellXY, delay:int):void
+		public function actorMovedNormally(id:int, goal:CellXY, change:DCellXY, delay:int):void
 		{
-			this.objects[id].moveNormally(change, delay)
+			this.objects[id].moveNormally(goal, change, delay)
 		}
 		
 		public function actorJumped(id:int, change:DCellXY, delay:int):void

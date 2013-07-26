@@ -31,12 +31,14 @@ package game.actors.view
 		{
 			this.x = cell.x * Metric.CELL_WIDTH;
 			this.y = cell.y * Metric.CELL_HEIGHT;
+			
+			trace(this.x, this.y);
 		}
 		
-		public function moveNormally(change:DCellXY, delay:int):void
+		public function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
 		{
 			var tween:PixelPerfectTween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(this.x + change.x * Metric.CELL_WIDTH, this.y + change.y * Metric.CELL_HEIGHT);
+			tween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
 			
 			DrawenActor.iJuggler.add(tween);
 		}

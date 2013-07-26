@@ -1,16 +1,22 @@
 package game.actors.modules 
 {
 	import game.actors.core.ActorBase;
+	import game.actors.core.ActorStorage;
 	import game.actors.modules.pull.ActorPull;
+	import game.actors.view.IActorListener;
 	import game.state.IGameState;
 	
 	public class ActorManipulator
 	{
 		private var pool:ActorPull;
+		private var cache:ActorStorage;
+		private var listener:IActorListener;
 		
-		public function ActorManipulator(state:IGameState) 
+		public function ActorManipulator(cache:ActorStorage, state:IGameState, listener:IActorListener) 
 		{
 			this.pool = new ActorPull(state);
+			this.cache = cache;
+			this.listener = listener;
 		}
 		
 		/**
@@ -32,11 +38,19 @@ package game.actors.modules
 						this.pool.stash(actor);
 						
 						vector[i] = this.pool.getActor(i);
+						
+						actor = vector[i];
+						
+						this.listener.actorSpawned(actor.getID(), actor.giveCell(), actor.getClassCode());
 					}
 				}
 				else
 				{
 					vector[i] = this.pool.getActor(i);
+					
+					actor = vector[i];
+					
+					this.listener.actorSpawned(actor.getID(), actor.giveCell(), actor.getClassCode());
 				}
 			}
 		}

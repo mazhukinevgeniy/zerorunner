@@ -20,11 +20,14 @@ package game.actors.modules.pull
 		}
 		
 		
-		override protected function onSpawned(id:int):void
+		override protected function onSpawned():void
 		{
-			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.RESEARCH_DROID);
-			
 			this.forward = Metric.getRandomDCell();
+		}
+		
+		override public function getClassCode():int
+		{
+			return ActorsFeature.RESEARCH_DROID;
 		}
 		
 		override protected function onCanMove():void

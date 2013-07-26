@@ -43,11 +43,15 @@ package game.actors.core
 			return this.hp;
 		}
 		
+		final public function getID():int
+		{
+			return this.id;
+		}
 		
 		/**
 		 * DANGER: it gives link to te ACTUAL cell of you! Fair use only, or you'll die painfully.
 		**/
-		final protected function giveCell():CellXY
+		final public function giveCell():CellXY
 		{
 			return this.cell;
 		}

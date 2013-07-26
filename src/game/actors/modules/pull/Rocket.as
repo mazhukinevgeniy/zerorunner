@@ -13,9 +13,10 @@ package game.actors.modules.pull
 		}
 		
 		
-		override protected function onSpawned(id:int):void
+		
+		override public function getClassCode():int
 		{
-			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.ROCKET);
+			return ActorsFeature.ROCKET;
 		}
 	}
 

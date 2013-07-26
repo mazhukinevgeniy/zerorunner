@@ -7,6 +7,7 @@ package game.actors.core
 	import game.achievements.statistics.IActorStatistic;
 	import game.actors.ActorsFeature;
 	import game.actors.modules.ActorManipulator;
+	import game.actors.view.ActiveCanvas;
 	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
@@ -35,14 +36,14 @@ package game.actors.core
 		private var flow:IUpdateDispatcher;
 		
 		private var command:ActorManipulator;
-		private var listener:IActorListener;
+		private var view:ActiveCanvas;
 		
 		private var tLC:CellXY;
 		private var toTLC:DCellXY = new DCellXY( - Metric.xDistanceActorsAllowed, - Metric.yDistanceActorsAllowed);
 		
-		public function ActorStorage(view:IActorListener, flow:IUpdateDispatcher) 
+		public function ActorStorage(view:ActiveCanvas, flow:IUpdateDispatcher) 
 		{
-			this.listener = view;
+			this.view = view;
 			
 			flow.workWithUpdateListener(this);
 			
@@ -69,10 +70,40 @@ package game.actors.core
 			
 			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
+			for (i = 0; i < this.cacheLength; i++)
+				this.cacheV[i] = null;
+			
 			this.command.refill(this.actors, true);
 			
-			this.cache(); 
-			this.cache();
+			
+			
+			var i:int, x:int, y:int;
+			var actor:ActorBase;
+			
+			for (i = 0; i < ActorsFeature.CAP; i++)
+			{
+				actor = this.actors[i];
+				x = actor.x; y = actor.y;
+				
+				if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+					&&
+					!(y < this.tLC.y) && (y < this.tLC.y + this.height))
+				{
+					if (this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width])
+					{
+						actor.isActive = false;
+						this.listener.unparent(actor.id);
+					}
+					else
+						this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
+				}
+				else if (actor.isActive)
+				{
+					this.listener.unparent(actor.id);
+					
+					actor.isActive = false;
+				}
+			}
 		}
 		
 		update function tick():void
@@ -104,7 +135,13 @@ package game.actors.core
 						&&
 						!(y < this.tLC.y) && (y < this.tLC.y + this.height))
 					{
-						this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
+						if (this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width])
+						{
+							actor.isActive = false;
+							this.listener.unparent(actor.id);
+						}
+						else
+							this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
 					}
 					else if (actor.isActive)
 					{
@@ -118,7 +155,7 @@ package game.actors.core
 				{
 					actor = this.cacheV[this.cacheLength - (1 + j)];
 					
-					if (actor)
+					if (actor && actor.active)
 					{
 						this.listener.setLayerOf(actor.id, i);
 						i--;
@@ -177,7 +214,7 @@ package game.actors.core
 			ActorBase.iListener = this.listener;
 			ActorBase.iInput = table.getInformer(IKnowInput);
 			
-			this.command = new ActorManipulator(table.getInformer(IGameState));
+			this.command = new ActorManipulator(this, table.getInformer(IGameState), this.listener);
 		}
 	}
 
