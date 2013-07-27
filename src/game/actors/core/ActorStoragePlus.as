@@ -1,30 +1,45 @@
 package game.actors.core 
 {
+	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
+	import chaotic.informers.IGiveInformers;
+	import game.achievements.statistics.IActorStatistic;
 	import game.actors.core.ActorBase;
 	import game.actors.core.ActorStorage;
 	import game.actors.core.pull.ActorPull;
-	import game.actors.view.IActorListener;
+	import game.actors.view.ActiveCanvas;
+	import game.input.IKnowInput;
+	import game.scene.IScene;
 	import game.state.IGameState;
+	import game.ZeroRunner;
+	
+	use namespace update;
 	
 	public class ActorStoragePlus extends ActorStorage
 	{
 		private var pool:ActorPull;
-		private var listener:IActorListener;
+		
+		private var flow:IUpdateDispatcher;
+		private var view:ActiveCanvas;
 		
 		public function ActorStoragePlus(view:ActiveCanvas, flow:IUpdateDispatcher) 
 		{
 			this.view = view;
 			this.flow = flow;
 			
-			super();
-			
-			this.pool = new ActorPull(state);
-			this.listener = listener;
+			super(flow);
 			
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(ZeroRunner.tick);
+			//this.flow.addUpdateListener(ZeroRunner.tick); //TODO: allow actors acting
 			this.flow.addUpdateListener(ZeroRunner.getInformerFrom);
+		}
+		
+		final override update function aftertick():void
+		{
+			super.update::aftertick();
+			
+			this.refill(this.actors);
 		}
 		
 		/**
@@ -78,6 +93,18 @@ package game.actors.core
 				vector[i].act();
 		}
 		
+		
+		update function getInformerFrom(table:IGiveInformers):void
+		{
+			ActorBase.iFlow = this.flow;
+			ActorBase.iSearcher = this;
+			ActorBase.iScene = table.getInformer(IScene);
+			ActorBase.iStat = table.getInformer(IActorStatistic);
+			ActorBase.iListener = this.listener;
+			ActorBase.iInput = table.getInformer(IKnowInput);
+			
+			this.pool = new ActorPull(table.getInformer(IGameState));
+		}
 	}
 
 }

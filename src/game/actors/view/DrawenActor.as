@@ -35,12 +35,12 @@ package game.actors.view
 			trace(this.x, this.y);
 		}
 		
-		protected function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
+		public function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
 		{
 			
 		}
 		
-		protected function jump(change:DCellXY, delay:int):void
+		public function jump(change:DCellXY, delay:int):void
 		{
 			
 		}

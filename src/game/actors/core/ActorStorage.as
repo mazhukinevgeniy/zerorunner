@@ -2,25 +2,19 @@ package game.actors.core
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
-	import game.achievements.statistics.IActorStatistic;
 	import game.actors.ActorsFeature;
-	import game.actors.modules.ActorManipulator;
-	import game.actors.view.ActiveCanvas;
-	import game.actors.view.IActorListener;
-	import game.input.IKnowInput;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
-	import game.scene.IScene;
-	import game.state.IGameState;
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
 	
-	public class ActorStorage implements ICacher, ISearcher
+	use namespace update;
+	
+	internal class ActorStorage implements ICacher, ISearcher
 	{
 		private var actors:Vector.<ActorBase>;
 		
@@ -33,19 +27,17 @@ package game.actors.core
 		
 		private var cacheIsCleared:Boolean;
 		
-		protected var flow:IUpdateDispatcher;
-		protected var view:ActiveCanvas;
 		
 		private var tLC:CellXY;
 		private var toTLC:DCellXY = new DCellXY( - Metric.xDistanceActorsAllowed, - Metric.yDistanceActorsAllowed);
 		
-		public function ActorStorage() 
+		public function ActorStorage(flow:IUpdateDispatcher) 
 		{
-			this.flow.workWithUpdateListener(this);
+			flow.workWithUpdateListener(this);
 			
-			this.flow.addUpdateListener(ZeroRunner.prerestore);
-			this.flow.addUpdateListener(ZeroRunner.addInformerTo);
-			this.flow.addUpdateListener(ZeroRunner.aftertick);
+			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			flow.addUpdateListener(ZeroRunner.aftertick);
 			
 			this.cacheLength = this.width * this.height;
 			
@@ -102,8 +94,6 @@ package game.actors.core
 		{
 			this.getCharacterCell(this.tLC);
 			this.tLC.applyChanges(this.toTLC);
-			
-			this.command.refill(this.actors);
 		}
 		
 		public function cache():void
@@ -158,7 +148,7 @@ package game.actors.core
 			this.cacheIsCleared = !this.cacheIsCleared;
 		}
 		
-		public function findObjectByCell(x:int, y:int):ActorBase
+		final public function findObjectByCell(x:int, y:int):ActorBase
 		{
 			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
 				&&
@@ -167,12 +157,12 @@ package game.actors.core
 			else return null;
 		}
 		
-		public function getCharacterCell(cell:CellXY):void
+		final public function getCharacterCell(cell:CellXY):void
 		{
 			var ccell:CellXY = this.actors[0].cell;
 			cell.setValue(ccell.x, ccell.y);
 		}
-		public function get character():ICoordinated
+		final public function get character():ICoordinated //TODO: check if it's shrinkable
 		{
 			return this.actors[0];
 		}
@@ -187,21 +177,9 @@ package game.actors.core
 		
 		
 		
-		update function addInformerTo(table:IStoreInformers):void
+		final update function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(ISearcher, this);
-		}
-		
-		update function getInformerFrom(table:IGiveInformers):void
-		{
-			ActorBase.iFlow = this.flow;
-			ActorBase.iSearcher = this;
-			ActorBase.iScene = table.getInformer(IScene);
-			ActorBase.iStat = table.getInformer(IActorStatistic);
-			ActorBase.iListener = this.listener;
-			ActorBase.iInput = table.getInformer(IKnowInput);
-			
-			this.command = new ActorManipulator(this, table.getInformer(IGameState), this.listener);
 		}
 	}
 
