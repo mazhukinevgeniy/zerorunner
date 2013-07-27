@@ -6,12 +6,12 @@ package game.actors.core
 	import game.actors.view.IActorListener;
 	import game.state.IGameState;
 	
-	public class ActorManipulator extends ActorStorage
+	public class ActorStoragePlus extends ActorStorage
 	{
 		private var pool:ActorPull;
 		private var listener:IActorListener;
 		
-		public function ActorManipulator(view:ActiveCanvas, flow:IUpdateDispatcher) 
+		public function ActorStoragePlus(view:ActiveCanvas, flow:IUpdateDispatcher) 
 		{
 			this.view = view;
 			this.flow = flow;
