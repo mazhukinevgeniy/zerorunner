@@ -2,6 +2,7 @@ package game.actors.view
 {
 	import chaotic.core.update;
 	import game.actors.ActorsFeature;
+	import game.actors.core.ActorPuppet;
 	import game.actors.view.DrawenActor;
 	import game.actors.view.pull.DActorPull;
 	import game.time.Time;
@@ -19,6 +20,7 @@ package game.actors.view
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import utils.PixelPerfectTween;
 	
 	public class ActiveCanvas implements IActorListener
 	{
@@ -36,6 +38,9 @@ package game.actors.view
 			
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ActorsFeature.moveActor);
+			flow.addUpdateListener(ActorsFeature.removeActor);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
 			
@@ -53,40 +58,26 @@ package game.actors.view
 			}
 		}
 		
-		public function actorSpawned(id:int, cell:CellXY, type:int):void
+		update function addActor(item:ActorPuppet):void
 		{
-			var image:DrawenActor = this.objects[id] = this.pull.getDrawenActor(type);
+			var image:DrawenActor = this.objects[item.getID()] = this.pull.getDrawenActor(item.getClassCode());
 			
-			image.standOn(cell);
+			image.standOn(item.giveCell());
 			
 			this.container.addChild(image);
 		}
 		
-		
-		public function actorMovedNormally(id:int, goal:CellXY, change:DCellXY, delay:int):void
+		update function moveActor(id:int, goal:CellXY, change:DCellXY, delay:int):void
 		{
-			this.objects[id].moveNormally(goal, change, delay)
-		}
-		
-		public function actorJumped(id:int, change:DCellXY, delay:int):void
-		{
-			this.objects[id].jump(change, delay);
-		}
-		
-		/*
-		public function actorDeadlyDamaged(id:int):void
-		{
-			var image:Sprite = this.objects[id];
-			var tween:Tween = new PixelPerfectTween(image, 0.5);
-			tween.scaleTo(0);
-			tween.moveTo(image.x + image.width / 2, image.y + image.height / 2);
-			tween.onComplete = this.unparent; //TODO: can went wrong
-			tween.onCompleteArgs = [image];
+			var tween:PixelPerfectTween = new PixelPerfectTween(this.objects[id], delay * Time.TIME_BETWEEN_TICKS);
+			tween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
 			
 			DrawenActor.iJuggler.add(tween);
-		}*/
+			
+			this.objects[id].moveNormally(goal, change, delay);
+		}
 		
-		public function unparent(id:int):void
+		update function removeActor(id:int):void
 		{
 			var item:DrawenActor = this.objects[id];
 			
@@ -97,6 +88,12 @@ package game.actors.view
 		public function setLayerOf(id:int, layer:int):void
 		{
 			this.container.setChildIndex(this.objects[id], layer);
+		}
+		
+		
+		public function actorJumped(id:int, change:DCellXY, delay:int):void
+		{
+			this.objects[id].jump(change, delay);
 		}
 		
 		

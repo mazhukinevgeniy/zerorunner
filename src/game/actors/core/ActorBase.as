@@ -44,11 +44,6 @@ package game.actors.core
 			this.onSpawned();
 		}
 		
-		public function getClassCode():int
-		{
-			throw new AbstractClassError();
-		}
-		
 		protected function setSpawningCell():void
 		{
 			var dX:int;

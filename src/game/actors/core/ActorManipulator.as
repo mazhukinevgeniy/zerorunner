@@ -2,20 +2,18 @@ package game.actors.core
 {
 	import game.actors.core.ActorBase;
 	import game.actors.core.ActorStorage;
-	import game.actors.modules.pull.ActorPull;
+	import game.actors.core.pull.ActorPull;
 	import game.actors.view.IActorListener;
 	import game.state.IGameState;
 	
 	public class ActorManipulator extends ActorStorage
 	{
 		private var pool:ActorPull;
-		private var cache:ActorStorage;
 		private var listener:IActorListener;
 		
-		public function ActorManipulator(cache:ActorStorage, state:IGameState, listener:IActorListener) 
+		public function ActorManipulator(state:IGameState, listener:IActorListener) 
 		{
 			this.pool = new ActorPull(state);
-			this.cache = cache;
 			this.listener = listener;
 		}
 		

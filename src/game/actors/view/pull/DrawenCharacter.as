@@ -8,6 +8,7 @@ package game.actors.view.pull
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.MovieClip;
+	import starling.display.Sprite;
 	import starling.events.Event;
 	import utils.PixelPerfectTween;
 	
@@ -19,15 +20,19 @@ package game.actors.view.pull
 		
 		private var sidewalk:int;
 		
+		private var container:Sprite;
+		
 		public function DrawenCharacter() 
 		{
+			this.container = new Sprite();
 			
+			this.addChild(this.container);
 		}
 		
 		override protected function draw():void
 		{
 			this.stand = new Image(this.atlas.getTexture("hero_stand"));
-			this.addChild(this.stand);
+			this.container.addChild(this.stand);
 			
 			this.sideWalking = new Vector.<MovieClip>(2, true);
 			
@@ -35,7 +40,7 @@ package game.actors.view.pull
 			{
 				var animation:MovieClip = new MovieClip(this.atlas.getTextures("hero_side_" + String(i)), 1);
 				animation.loop = false;
-				this.addChild(animation);
+				this.container.addChild(animation);
 				
 				animation.visible = false;
 				animation.addEventListener(Event.COMPLETE, this.handleWalkingComplete);
@@ -60,14 +65,9 @@ package game.actors.view.pull
 		
 		override public function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
 		{
-			var tween:PixelPerfectTween;
-			
 			if (change.x == 0)
 			{
-				tween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
-				tween.moveTo(this.x, this.y + change.y * Metric.CELL_HEIGHT);
 				
-				this.juggler.add(tween);
 			}
 			else
 			{
@@ -85,16 +85,10 @@ package game.actors.view.pull
 				this.juggler.add(animation);
 				animation.play();
 				
-				var oldSX:int = this.scaleX;
-				this.scaleX = change.x > 0 ? -1 : 1;
+				var oldSX:int = this.container.scaleX;
+				this.container.scaleX = change.x > 0 ? -1 : 1;
 				
-				this.x += animation.width * (oldSX - this.scaleX) / 2;
-				
-				tween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
-				tween.moveTo(this.x + change.x * Metric.CELL_WIDTH, this.y);
-				//TODO: must use image size in the image positioning, not here
-				
-				this.juggler.add(tween);
+				this.container.x += animation.width * (oldSX - this.container.scaleX) / 2;
 			}
 		}
 	}

@@ -20,6 +20,11 @@ package game.actors
 		public static const TURRET:int = 8;
 		
 		
+		public static const addActor:String = "addActor";
+		public static const moveActor:String = "moveActor";
+		public static const removeActor:String = "removeActor";
+		
+		
 		public static const setHeroHP:String = "setHeroHP";
 		public static const heroDamaged:String = "heroDamaged";
 		

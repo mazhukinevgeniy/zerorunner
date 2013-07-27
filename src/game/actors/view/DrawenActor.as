@@ -35,44 +35,14 @@ package game.actors.view
 			trace(this.x, this.y);
 		}
 		
-		public function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
+		protected function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
 		{
-			var tween:PixelPerfectTween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
 			
-			DrawenActor.iJuggler.add(tween);
 		}
 		
-		public function jump(change:DCellXY, delay:int):void
+		protected function jump(change:DCellXY, delay:int):void
 		{
-			var tween:PixelPerfectTween, secondTween:PixelPerfectTween;
 			
-			if (change.y != 0)
-			{
-				tween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
-				tween.animate("y", this.y + change.y * Metric.CELL_HEIGHT / 2);
-				
-				secondTween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
-				secondTween.animate("y", this.y + change.y * Metric.CELL_HEIGHT);
-				
-				tween.nextTween = secondTween;
-				
-				DrawenActor.iJuggler.add(tween);
-			}
-			else
-			{
-				tween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS / 2, "easeIn");
-				tween.animate("y", this.y - Metric.CELL_HEIGHT / 2);
-				tween.animate("x", this.x + change.x * Metric.CELL_WIDTH / 2);
-				
-				secondTween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS / 2, "easeOut");
-				secondTween.animate("y", this.y);
-				secondTween.animate("x", this.x + change.x * Metric.CELL_WIDTH);
-				
-				tween.nextTween = secondTween;
-				
-				DrawenActor.iJuggler.add(tween);
-			}
 		}
 		
 		

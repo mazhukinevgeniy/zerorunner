@@ -1,9 +1,10 @@
 package game.actors.core 
 {
+	import chaotic.errors.AbstractClassError;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	
-	internal class ActorPuppet extends ActorReactor implements ICoordinated
+	public class ActorPuppet extends ActorReactor implements ICoordinated
 	{
 		internal var id:int;
 		internal var hp:int;
@@ -21,6 +22,11 @@ package game.actors.core
 		public function ActorPuppet() 
 		{
 			
+		}
+		
+		public function getClassCode():int
+		{
+			throw new AbstractClassError();
 		}
 		
 		
