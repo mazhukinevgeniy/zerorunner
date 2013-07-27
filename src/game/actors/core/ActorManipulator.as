@@ -11,10 +11,20 @@ package game.actors.core
 		private var pool:ActorPull;
 		private var listener:IActorListener;
 		
-		public function ActorManipulator(state:IGameState, listener:IActorListener) 
+		public function ActorManipulator(view:ActiveCanvas, flow:IUpdateDispatcher) 
 		{
+			this.view = view;
+			this.flow = flow;
+			
+			super();
+			
 			this.pool = new ActorPull(state);
 			this.listener = listener;
+			
+			
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(ZeroRunner.tick);
+			this.flow.addUpdateListener(ZeroRunner.getInformerFrom);
 		}
 		
 		/**
@@ -51,6 +61,13 @@ package game.actors.core
 					this.listener.actorSpawned(actor.getID(), actor.giveCell(), actor.getClassCode());
 				}
 			}
+		}
+		
+		
+		
+		update function tick():void
+		{
+			this.command.act(this.actors);
 		}
 		
 		public function act(vector:Vector.<ActorBase>):void

@@ -33,27 +33,19 @@ package game.actors.core
 		
 		private var cacheIsCleared:Boolean;
 		
-		private var flow:IUpdateDispatcher;
-		
-		private var command:ActorManipulator;
-		private var view:ActiveCanvas;
+		protected var flow:IUpdateDispatcher;
+		protected var view:ActiveCanvas;
 		
 		private var tLC:CellXY;
 		private var toTLC:DCellXY = new DCellXY( - Metric.xDistanceActorsAllowed, - Metric.yDistanceActorsAllowed);
 		
-		public function ActorStorage(view:ActiveCanvas, flow:IUpdateDispatcher) 
+		public function ActorStorage() 
 		{
-			this.view = view;
+			this.flow.workWithUpdateListener(this);
 			
-			flow.workWithUpdateListener(this);
-			
-			flow.addUpdateListener(ZeroRunner.prerestore);
-			flow.addUpdateListener(ZeroRunner.tick);
-			flow.addUpdateListener(ZeroRunner.aftertick);
-			flow.addUpdateListener(ZeroRunner.addInformerTo);
-			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			
-			this.flow = flow;
+			this.flow.addUpdateListener(ZeroRunner.prerestore);
+			this.flow.addUpdateListener(ZeroRunner.addInformerTo);
+			this.flow.addUpdateListener(ZeroRunner.aftertick);
 			
 			this.cacheLength = this.width * this.height;
 			
@@ -104,11 +96,6 @@ package game.actors.core
 					actor.isActive = false;
 				}
 			}
-		}
-		
-		update function tick():void
-		{
-			this.command.act(this.actors);
 		}
 		
 		update function aftertick():void
@@ -190,7 +177,7 @@ package game.actors.core
 			return this.actors[0];
 		}
 		
-		public function putInCell(x:int, y:int, item:ActorBase = null):void
+		final protected function putInCell(x:int, y:int, item:ActorBase = null):void
 		{
 			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
 				&&
