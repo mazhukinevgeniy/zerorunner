@@ -29,10 +29,7 @@ package ui.statistics
 		
 		private var flow:IUpdateDispatcher;
 		
-		private var data:Vector.<ChunkList>;
-		
-		private var lastTouchIndex:int;
-		private var movedContainer:ChunkList;
+		private var data:Vector.<ChunkStatistics>;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher) 
 		{
@@ -57,7 +54,7 @@ package ui.statistics
 				return newScrollBar; 
 			}
 			
-			this.data = new Vector.<ChunkList>();
+			this.data = new Vector.<ChunkStatistics>();
 			
 			this.flow = flow;
 			
@@ -91,7 +88,7 @@ package ui.statistics
 			this.redraw();
 		}
 		
-		private function redraw(movedContainer:ChunkList = null, indexItemToMove:int = -1):void
+		private function redraw(movedContainer:ChunkStatistics = null, indexItemToMove:int = -1):void
 		{	
 			var lenght:int = this.data.length;
 			
@@ -128,7 +125,7 @@ package ui.statistics
 			}
 			
 			if (!isPiece)
-				this.data.push(new ChunkList(newItem, this.flow));
+				this.data.push(new ChunkStatistics(newItem, this.flow));
 		}
 		
 		private function createLayout():VerticalLayout
@@ -151,7 +148,7 @@ package ui.statistics
 		
 		private function dropContainer(event:DragDropEvent, dragData:DragData):void
 		{
-			var movedContainer:ChunkList = dragData.getDataForFormat("display-object-drag-format");
+			var movedContainer:ChunkStatistics = dragData.getDataForFormat("display-object-drag-format");
 			var dataLenght:int = this.data.length;
 			var statisticsPieceY:Number;
 			var statisticsPieceHeight:Number;

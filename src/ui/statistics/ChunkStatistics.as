@@ -21,7 +21,7 @@ package ui.statistics
 	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
 	
-	public class ChunkList extends ScrollContainer implements ITakeSaveFormStatistics, IDragSource
+	public class ChunkStatistics extends ScrollContainer implements ITakeSaveForm, IDragSource
 	{
 		private static const GAP:Number = 3;
 		private static const BUTTON_PADDING_TOP:Number = 5;
@@ -34,39 +34,40 @@ package ui.statistics
 		private var label:Label;
 		
 		private var fullHeight:Number;
+		private var rollHeight:Number;
 		
 		private var isDragging:Boolean;
 		private var isRoll:Boolean;
 		
 		private var saveRoll:Boolean;
 		private var saveFix:Boolean;
-		private var saveNumber:int;
+		private var saveOrder:int;
 		
 		
-		public function ChunkList(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
+		public function ChunkStatistics(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
 		{		
 			this.layout = new AnchorLayout();
 			
 			this.rollButton = new Button();
 			this.rollButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_ROLL);
-			this.rollButton.layoutData = this.createLayoutData(null, ChunkList.BUTTON_PADDING_TOP);
+			this.rollButton.layoutData = this.createLayoutData(null, ChunkStatistics.BUTTON_PADDING_TOP);
 			this.addChild(this.rollButton);
 			
 			
 			this.fixButton = new Button();
 			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
-			this.fixButton.layoutData = this.createLayoutData(null, ChunkList.BUTTON_PADDING_TOP, this.rollButton, ChunkList.GAP)
+			this.fixButton.layoutData = this.createLayoutData(null, ChunkStatistics.BUTTON_PADDING_TOP, this.rollButton, ChunkStatistics.GAP)
 			this.addChild(this.fixButton);
 			
 			this.label = new Label();
 			this.label.text = newItem.title;
 			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
-			this.label.layoutData = this.createLayoutData(null, 0, this.fixButton, ChunkList.GAP)
+			this.label.layoutData = this.createLayoutData(null, 0, this.fixButton, ChunkStatistics.GAP)
 			this.addChild(this.label);
 			
 			this.list = writeInList(newItem);
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
-			this.list.layoutData = this.createLayoutData(this.label, ChunkList.GAP);
+			this.list.layoutData = this.createLayoutData(this.label, ChunkStatistics.GAP);
 			this.addChild(this.list);
 			this.isRoll = false;
 			
@@ -81,7 +82,7 @@ package ui.statistics
 			
 			this.flow = flow;
 			
-			new SaveFormStatistics(this, this.flow);
+			new FormChunkStatistics(this, this.flow);
 		}
 		
 		public function get title():String
@@ -95,9 +96,9 @@ package ui.statistics
 			this.list.dataProvider = newList.dataProvider;
 		}
 		
-		public function takeSave(number:int, roll:Boolean, fix:Boolean):void
+		public function takeSave(order:int, roll:Boolean, fix:Boolean):void
 		{
-			this.saveNumber = number;
+			this.saveOrder = order;
 			this.saveRoll = roll;
 			this.saveFix = fix;
 		}
@@ -106,6 +107,8 @@ package ui.statistics
 		{
 			if (this.label.height != 0)
 			{
+				this.rollHeight = this.label.height;
+				
 				if (this.saveRoll)
 					this.handleRollButtonTriggered();
 				
@@ -151,19 +154,19 @@ package ui.statistics
 		{
 			if (!this.isRoll)
 			{
-				this.removeChild(this.list);
+				this.list.visible = false;
 				this.isRoll = true;
 				this.fullHeight = this.height;
-				this.height = this.label.height;
+				this.height = this.rollHeight;
 			}
 			else
 			{
-				this.addChild(this.list);
+				this.list.visible = true;
 				this.isRoll = false;
 				this.height = this.fullHeight;
 			}
 			
-			this.flow.dispatchUpdate(SaveFormStatistics.toggleRoll, this.title);
+			this.flow.dispatchUpdate(FormChunkStatistics.toggleRoll, this.title);
 		}
 		
 		private function handleFixButtonTriggered(event:Event = null):void
@@ -177,7 +180,7 @@ package ui.statistics
 				this.rollButton.isEnabled = true;
 			}
 			
-			this.flow.dispatchUpdate(SaveFormStatistics.toggleFix, this.title);
+			this.flow.dispatchUpdate(FormChunkStatistics.toggleFix, this.title);
 		}
 		
 		private function handleContainerTouch(event:TouchEvent):void 
