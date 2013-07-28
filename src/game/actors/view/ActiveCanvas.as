@@ -54,7 +54,7 @@ package game.actors.view
 			for (var i:int = 0; i < length; i++)
 			{
 				if (this.objects[i])
-					this.unparent(i);
+					this.removeActor(i);
 			}
 		}
 		
@@ -67,7 +67,7 @@ package game.actors.view
 			this.container.addChild(image);
 		}
 		
-		update function moveActor(id:int, goal:CellXY, change:DCellXY, delay:int):void
+		update function moveActor(item:ActorPuppet, change:DCellXY, delay:int):void
 		{
 			var tween:PixelPerfectTween = new PixelPerfectTween(this.objects[id], delay * Time.TIME_BETWEEN_TICKS);
 			tween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
@@ -82,7 +82,7 @@ package game.actors.view
 			var item:DrawenActor = this.objects[id];
 			
 			this.pull.stash(item);
-			this.container.removeChild(item);
+			if (item.parent == this.container) this.container.removeChild(item);
 		}
 		
 		public function setLayerOf(id:int, layer:int):void

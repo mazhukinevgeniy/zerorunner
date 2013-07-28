@@ -1,5 +1,6 @@
 package game.actors.core 
 {
+	import game.actors.ActorsFeature;
 	import game.actors.view.IActorListener;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -21,11 +22,8 @@ package game.actors.core
 			{
 				this.movingCooldown = this.moveSpeed;
 				
-				ActorBase.iSearcher.putInCell(this.x, this.y);
 				this.cell.applyChanges(change);
-				ActorBase.iSearcher.putInCell(this.x, this.y, this as ActorBase);
-				
-				ActorBase.iListener.actorMovedNormally(this.id, this.giveCell(), change, this.moveSpeed + 1);
+				ActorBase.iFlow.dispatchUpdate(ActorsFeature.moveActor, this, change, this.movingCooldown + 1);
 				
 				this.onMoved(change, this.moveSpeed);
 			}
@@ -45,12 +43,10 @@ package game.actors.core
 				this.destroyActor(unluckyGuy);
 			}
 			
+			this.cell.applyChanges(jChange);
+			ActorBase.iFlow.dispatchUpdate(ActorsFeature.moveActor, this, jChange, this.movingCooldown + 1);
 			
-			ActorBase.iSearcher.putInCell(this.x, this.y);
-			this.cell.setValue(this.x + jChange.x, this.y + jChange.y);
-			ActorBase.iSearcher.putInCell(this.x, this.y, this as ActorBase);
-			
-			ActorBase.iListener.actorJumped(this.id, jChange, this.movingCooldown + 1);
+			ActorBase.iListener.actorJumped(this.id, jChange, this.movingCooldown + 1); //TODO: ensure that moveNormally is overridable
 			
 			this.onMoved(jChange, this.movingCooldown);
 		}
@@ -87,12 +83,9 @@ package game.actors.core
 		{
 			if (item.isActive)
 			{
-				item.isActive = false;
-				ActorBase.iSearcher.putInCell(item.x, item.y);
+				ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, item.id);
 				
 				item.onDestroyed();
-				
-				ActorBase.iListener.unparent(item.id);
 			}
 		}
 	}

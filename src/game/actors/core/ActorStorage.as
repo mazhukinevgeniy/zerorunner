@@ -4,6 +4,7 @@ package game.actors.core
 	import chaotic.core.update;
 	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
+	import game.actors.view.ActiveCanvas;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
@@ -17,6 +18,8 @@ package game.actors.core
 	internal class ActorStorage implements ICacher, ISearcher
 	{
 		private var actors:Vector.<ActorBase>;
+		
+		protected var view:ActiveCanvas;
 		
 		
 		private var cacheV:Vector.<ActorBase>;
@@ -38,6 +41,9 @@ package game.actors.core
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.aftertick);
+			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ActorsFeature.moveActor);
+			flow.addUpdateListener(ActorsFeature.removeActor);
 			
 			this.cacheLength = this.width * this.height;
 			
@@ -54,13 +60,12 @@ package game.actors.core
 			
 			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
-			for (i = 0; i < this.cacheLength; i++)
+			for (var i:int = 0; i < this.cacheLength; i++)
 				this.cacheV[i] = null;
-			
-			this.command.refill(this.actors, true);
-			
-			
-			
+		}
+		
+		final protected function initializeCache():void
+		{
 			var i:int, x:int, y:int;
 			var actor:ActorBase;
 			
@@ -75,17 +80,16 @@ package game.actors.core
 				{
 					if (this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width])
 					{
-						actor.isActive = false;
-						this.listener.unparent(actor.id);
+						ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
 					}
 					else
+					{
 						this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
+					}
 				}
 				else if (actor.isActive)
 				{
-					this.listener.unparent(actor.id);
-					
-					actor.isActive = false;
+					ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
 				}
 			}
 		}
@@ -114,17 +118,16 @@ package game.actors.core
 					{
 						if (this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width])
 						{
-							actor.isActive = false;
-							this.listener.unparent(actor.id);
+							ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
 						}
 						else
+						{
 							this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
+						} //TODO: overcome doublecode
 					}
 					else if (actor.isActive)
 					{
-						this.listener.unparent(actor.id);
-						
-						actor.isActive = false;
+						ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
 					}
 				}
 				
@@ -134,7 +137,7 @@ package game.actors.core
 					
 					if (actor && actor.active)
 					{
-						this.listener.setLayerOf(actor.id, i);
+						this.view.setLayerOf(actor.id, i);
 						i--;
 					}
 				}
@@ -165,6 +168,20 @@ package game.actors.core
 		final public function get character():ICoordinated //TODO: check if it's shrinkable
 		{
 			return this.actors[0];
+		}
+		
+		update function moveActor(actor:ActorBase, change:DCellXY, delay:int):void
+		{
+			this.putInCell(actor.x - change.x, actor.y - change.y);
+			this.putInCell(actor.x, actor.y, actor);
+		}
+		
+		update function removeActor(id:int):void
+		{
+			var actor:ActorBase = this.actors[id];
+			
+			actor.isActive = false;
+			this.putInCell(actor.x, actor.y);
 		}
 		
 		final protected function putInCell(x:int, y:int, item:ActorBase = null):void

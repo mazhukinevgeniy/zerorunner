@@ -20,7 +20,6 @@ package game.actors.core
 		private var pool:ActorPull;
 		
 		private var flow:IUpdateDispatcher;
-		private var view:ActiveCanvas;
 		
 		public function ActorStoragePlus(view:ActiveCanvas, flow:IUpdateDispatcher) 
 		{
@@ -40,6 +39,15 @@ package game.actors.core
 			super.update::aftertick();
 			
 			this.refill(this.actors);
+		}
+		
+		override update function prerestore():void
+		{
+			super.update::prerestore();
+			
+			this.command.refill(this.actors, true);
+			
+			this.initializeCache();
 		}
 		
 		/**
