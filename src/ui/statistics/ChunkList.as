@@ -1,6 +1,7 @@
 package ui.statistics 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.core.update;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import feathers.controls.List;
@@ -20,7 +21,7 @@ package ui.statistics
 	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
 	
-	public class ChunkList extends ScrollContainer implements IDragSource
+	public class ChunkList extends ScrollContainer implements ITakeSaveFormStatistics, IDragSource
 	{
 		private static const GAP:Number = 3;
 		private static const BUTTON_PADDING_TOP:Number = 5;
@@ -32,12 +33,15 @@ package ui.statistics
 		private var fixButton:Button;
 		private var label:Label;
 		
-		private var save:SaveStatisticsPiece;
-		
 		private var fullHeight:Number;
 		
 		private var isDragging:Boolean;
 		private var isRoll:Boolean;
+		
+		private var saveRoll:Boolean;
+		private var saveFix:Boolean;
+		private var saveNumber:int;
+		
 		
 		public function ChunkList(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
 		{		
@@ -69,6 +73,7 @@ package ui.statistics
 			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);
 			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered);
 			
+			this.label.addEventListener(Event.ADDED, this.changeForm);
 			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
 			this.addEventListener(DragDropEvent.DRAG_COMPLETE, this.dropComplete);
 			
@@ -76,6 +81,7 @@ package ui.statistics
 			
 			this.flow = flow;
 			
+			new SaveFormStatistics(this, this.flow);
 		}
 		
 		public function get title():String
@@ -87,6 +93,25 @@ package ui.statistics
 		{
 			var newList:List = this.writeInList(newItem);
 			this.list.dataProvider = newList.dataProvider;
+		}
+		
+		public function takeSave(number:int, roll:Boolean, fix:Boolean):void
+		{
+			this.saveNumber = number;
+			this.saveRoll = roll;
+			this.saveFix = fix;
+		}
+		
+		private function changeForm(event:Event):void
+		{
+			if (this.label.height != 0)
+			{
+				if (this.saveRoll)
+					this.handleRollButtonTriggered();
+				
+				if (this.saveFix)
+					this.handleFixButtonTriggered();
+			}
 		}
 		
 		private function createLayoutData(topAnchor:DisplayObject = null, top:Number = 0,
@@ -122,7 +147,7 @@ package ui.statistics
 			return list;
 		}
 		
-		public function handleRollButtonTriggered(event:Event = null):void
+		private function handleRollButtonTriggered(event:Event = null):void
 		{
 			if (!this.isRoll)
 			{
@@ -137,9 +162,11 @@ package ui.statistics
 				this.isRoll = false;
 				this.height = this.fullHeight;
 			}
+			
+			this.flow.dispatchUpdate(SaveFormStatistics.toggleRoll, this.title);
 		}
 		
-		public function handleFixButtonTriggered(event:Event = null):void
+		private function handleFixButtonTriggered(event:Event = null):void
 		{
 			if (this.rollButton.isEnabled)
 			{
@@ -149,6 +176,8 @@ package ui.statistics
 			{
 				this.rollButton.isEnabled = true;
 			}
+			
+			this.flow.dispatchUpdate(SaveFormStatistics.toggleFix, this.title);
 		}
 		
 		private function handleContainerTouch(event:TouchEvent):void 
