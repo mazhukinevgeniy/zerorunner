@@ -176,8 +176,7 @@ package ui.statistics
 				this.height = this.fullHeight;
 			}
 			
-			this.flow.dispatchUpdate(FormChunkStatistics.toggleRoll, this.title);
-			trace(this.title);
+			this.flow.dispatchUpdate(FormChunkStatistics.toggleRoll, this.isRoll, this.title);
 		}
 		
 		private function handleFixButtonTriggered(event:Event = null):void
@@ -191,7 +190,7 @@ package ui.statistics
 				this.rollButton.isEnabled = true;
 			}
 			
-			this.flow.dispatchUpdate(FormChunkStatistics.toggleFix, this.title);
+			this.flow.dispatchUpdate(FormChunkStatistics.toggleFix, !this.rollButton.isEnabled, this.title);
 		}
 		
 		private function handleContainerTouch(event:TouchEvent):void 

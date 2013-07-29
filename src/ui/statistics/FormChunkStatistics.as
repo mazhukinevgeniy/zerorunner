@@ -53,16 +53,16 @@ package ui.statistics
 			this.chunk.takeSave(order, isRoll, isFix);
 		}
 		
-		update function toggleRoll(requesterTitle:String):void 
+		update function toggleRoll(newIsRoll:Boolean, requesterTitle:String):void 
 		{
 			if(requesterTitle == this.chunkTitle)
-				this.localSave.data[this.chunkTitle].isRoll = !this.localSave.data[this.chunkTitle].isRoll;
+				this.localSave.data[this.chunkTitle].isRoll = newIsRoll;
 		}
 		
-		update function toggleFix(requesterTitle:String):void 
+		update function toggleFix(newIsFix:Boolean, requesterTitle:String):void 
 		{
 			if(requesterTitle == this.chunkTitle)
-				this.localSave.data[this.chunkTitle].isFix = !this.localSave.data[this.chunkTitle].isFix;
+				this.localSave.data[this.chunkTitle].isFix = newIsFix
 		}
 		
 		update function changeOrder(newOrder:int, requesterTitle:String):void
