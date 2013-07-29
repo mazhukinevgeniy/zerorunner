@@ -39,7 +39,7 @@ package game.actors.view.pull
 		
 		public function stash(actor:DrawenActor):void
 		{
-			//TODO: debag
+			//TODO: debug
 			return;
 			
 			var length:int = this.types.length;
@@ -62,12 +62,6 @@ package game.actors.view.pull
 			if (!actor)
 			{
 				actor = new this.types[type]();
-			}
-			else
-			{
-				actor.scaleX = 1;
-				actor.scaleY = 1;
-				actor.visible = true;
 			}
 			
 			return actor;

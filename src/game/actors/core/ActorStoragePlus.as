@@ -62,7 +62,7 @@ package game.actors.core
 				
 				if (actor)
 				{
-					if (!actor.active || forceRespawn)
+					if (!actor.isActive || (forceRespawn && actor.isActive))
 					{
 						this.pool.stash(actor);
 						

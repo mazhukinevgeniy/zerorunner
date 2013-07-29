@@ -83,8 +83,11 @@ package game.actors.view
 		{
 			var item:DrawenActor = this.objects[id];
 			
-			this.pull.stash(item);
-			if (item.parent == this.container) this.container.removeChild(item);
+			if (item.parent == this.container)
+			{
+				this.pull.stash(item);
+				this.container.removeChild(item);
+			}
 		}
 		
 		public function setLayerOf(id:int, layer:int):void
