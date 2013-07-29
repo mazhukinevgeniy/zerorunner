@@ -61,8 +61,10 @@ package game.actors.view.pull
 		
 		override public function standOn(cell:CellXY):void
 		{
-			this.x = cell.x * Metric.CELL_WIDTH + (Metric.CELL_WIDTH - this.width) / 2;
-			this.y = (cell.y - 1) * Metric.CELL_HEIGHT;
+			this.x = cell.x * Metric.CELL_WIDTH;
+			this.y = cell.y * Metric.CELL_HEIGHT;
+			
+			this.container.y = - Metric.CELL_HEIGHT;
 		}
 		
 		override public function moveNormally(goal:CellXY, change:DCellXY, delay:int):void

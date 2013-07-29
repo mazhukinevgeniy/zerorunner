@@ -31,7 +31,7 @@ package game.actors.core
 			
 			
 			this.flow.workWithUpdateListener(this);
-			//this.flow.addUpdateListener(ZeroRunner.tick); //TODO: allow actors acting
+			this.flow.addUpdateListener(ZeroRunner.tick);
 			this.flow.addUpdateListener(ZeroRunner.getInformerFrom);
 		}
 		
