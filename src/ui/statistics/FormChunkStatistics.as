@@ -20,15 +20,36 @@ package ui.statistics
 		}
 		
 		override protected function checkLocalSave():void
-		{			
-			if (this.localSave.data[this.chunkTitle] == null)
+		{
+			
+			if (this.localSave.data.statistics == null)
 			{		
-				this.localSave.data[this.chunkTitle] = new Object();
-				this.localSave.data[this.chunkTitle].order = FormChunkStatistics.UNDETERMINED;
-				this.localSave.data[this.chunkTitle].isRoll = false;
-				this.localSave.data[this.chunkTitle].isFix = false;
+				this.createStatisticsSave();
 			}
 			
+			if (this.localSave.data.statistics[this.chunkTitle] == null)
+			{	
+				this.createNewSave();	
+			}
+			
+			this.readSave();
+		}
+		
+		private function createStatisticsSave():void
+		{
+			this.localSave.data.statistics = new Object();
+		}
+		
+		private function createNewSave():void
+		{
+			this.localSave.data[this.chunkTitle] = new Object();
+			this.localSave.data[this.chunkTitle].order = FormChunkStatistics.UNDETERMINED;
+			this.localSave.data[this.chunkTitle].isRoll = false;
+			this.localSave.data[this.chunkTitle].isFix = false;
+		}
+		
+		private function readSave():void
+		{
 			this.saveOrder = this.localSave.data[this.chunkTitle].order;
 			this.saveIsRoll = this.localSave.data[this.chunkTitle].isRoll;
 			this.saveIsFix = this.localSave.data[this.chunkTitle].isFix;
