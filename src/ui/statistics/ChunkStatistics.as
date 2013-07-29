@@ -21,7 +21,7 @@ package ui.statistics
 	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
 	
-	public class ChunkStatistics extends ScrollContainer implements ITakeSaveForm, IDragSource
+	public class ChunkStatistics extends ScrollContainer implements IDragSource
 	{
 		private static const GAP:Number = 3;
 		private static const BUTTON_PADDING_TOP:Number = 5;
@@ -39,9 +39,8 @@ package ui.statistics
 		private var isDragging:Boolean;
 		private var isRoll:Boolean;
 		
-		private var saveRoll:Boolean;
-		private var saveFix:Boolean;
-		private var saveOrder:int;
+		private var saveForm:FormChunkStatistics;
+		private var firstReadSave:Boolean;
 		
 		
 		public function ChunkStatistics(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
@@ -80,9 +79,12 @@ package ui.statistics
 			
 			this.isDragging = false;
 			
+			this.saveForm = new FormChunkStatistics(this.title);
+			this.firstReadSave = true;
+			
 			this.flow = flow;
 			
-			new FormChunkStatistics(this, this.flow);
+			
 		}
 		
 		public function get title():String
@@ -92,12 +94,12 @@ package ui.statistics
 		
 		public function get order():int
 		{
-			return this.saveOrder;
+			return this.saveForm.order;
 		}
 		
 		public function set order(newOrder:int):void
 		{
-			this.flow.dispatchUpdate(FormChunkStatistics.changeOrder, newOrder, this.title);
+			this.saveForm.order = newOrder;
 		}
 		
 		public function updateData(newItem:StatisticsPiece):void
@@ -106,30 +108,23 @@ package ui.statistics
 			this.list.dataProvider = newList.dataProvider;
 		}
 		
-		public function takeSave(order:int, roll:Boolean, fix:Boolean):void
-		{
-			this.saveOrder = order;
-			this.saveRoll = roll;
-			this.saveFix = fix;
-		}
-		
 		private function changeForm(event:Event):void
 		{
-			if (this.label.height != 0)
+			if (this.firstReadSave && this.label.height != 0)
 			{
 				this.rollHeight = this.label.height;
 				
-				if (this.saveRoll)
+				if (this.saveForm.isRoll)
 				{
 					this.handleRollButtonTriggered();
-					this.saveRoll = false;
 				}
 				
-				if (this.saveFix)
+				if (this.saveForm.isFix)
 				{
 					this.handleFixButtonTriggered();
-					this.saveFix = false;
 				}
+				
+				this.firstReadSave = false;
 			}
 		}
 		
@@ -182,7 +177,7 @@ package ui.statistics
 				this.height = this.fullHeight;
 			}
 			
-			this.flow.dispatchUpdate(FormChunkStatistics.toggleRoll, this.isRoll, this.title);
+			this.saveForm.isRoll = this.isRoll;
 		}
 		
 		private function handleFixButtonTriggered(event:Event = null):void
@@ -196,7 +191,7 @@ package ui.statistics
 				this.rollButton.isEnabled = true;
 			}
 			
-			this.flow.dispatchUpdate(FormChunkStatistics.toggleFix, !this.rollButton.isEnabled, this.title);
+			this.saveForm.isFix = !this.rollButton.isEnabled
 		}
 		
 		private function handleContainerTouch(event:TouchEvent):void 

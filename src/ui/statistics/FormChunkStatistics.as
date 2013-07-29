@@ -1,43 +1,26 @@
 package ui.statistics 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
 	import chaotic.utils.SaveBase;
 
 	public class FormChunkStatistics extends SaveBase
-	{
-		public static const toggleRoll:String = "toggleRoll";
-		public static const toggleFix:String = "toggleFix";
-		public static const changeOrder:String = "changeOrder";
-		
+	{		
 		private static const UNDETERMINED:int = -1;
 		
-		private var chunk:ITakeSaveForm;
 		private var chunkTitle:String;
 		
-		private var flow:IUpdateDispatcher;
+		private var saveOrder:int;
+		private var saveIsRoll:Boolean;
+		private var saveIsFix:Boolean;
 		
-		public function FormChunkStatistics(chunk:ITakeSaveForm, flow:IUpdateDispatcher) 
+		public function FormChunkStatistics(chunkTitle:String) 
 		{
-			this.chunk = chunk;
-			this.chunkTitle = this.chunk.title;
-			
-			this.flow = flow;
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(FormChunkStatistics.toggleRoll);
-			this.flow.addUpdateListener(FormChunkStatistics.toggleFix);
-			this.flow.addUpdateListener(FormChunkStatistics.changeOrder);
+			this.chunkTitle = chunkTitle;
 			
 			super();
 		}
 		
 		override protected function checkLocalSave():void
-		{
-			var order:int;
-			var isRoll:Boolean;
-			var isFix:Boolean;
-			
+		{			
 			if (this.localSave.data[this.chunkTitle] == null)
 			{		
 				this.localSave.data[this.chunkTitle] = new Object();
@@ -46,29 +29,39 @@ package ui.statistics
 				this.localSave.data[this.chunkTitle].isFix = false;
 			}
 			
-			order = this.localSave.data[this.chunkTitle].order;
-			isRoll = this.localSave.data[this.chunkTitle].isRoll;
-			isFix = this.localSave.data[this.chunkTitle].isFix;
-			
-			this.chunk.takeSave(order, isRoll, isFix);
+			this.saveOrder = this.localSave.data[this.chunkTitle].order;
+			this.saveIsRoll = this.localSave.data[this.chunkTitle].isRoll;
+			this.saveIsFix = this.localSave.data[this.chunkTitle].isFix;
 		}
 		
-		update function toggleRoll(newIsRoll:Boolean, requesterTitle:String):void 
+		public function get order():int
 		{
-			if(requesterTitle == this.chunkTitle)
-				this.localSave.data[this.chunkTitle].isRoll = newIsRoll;
+			return this.saveOrder;
 		}
 		
-		update function toggleFix(newIsFix:Boolean, requesterTitle:String):void 
+		public function get isRoll():Boolean
 		{
-			if(requesterTitle == this.chunkTitle)
-				this.localSave.data[this.chunkTitle].isFix = newIsFix
+			return this.saveIsRoll;
 		}
 		
-		update function changeOrder(newOrder:int, requesterTitle:String):void
+		public function get isFix():Boolean
 		{
-			if(requesterTitle == this.chunkTitle)
-				this.localSave.data[this.chunkTitle].order = newOrder;
+			return this.saveIsFix;
+		}
+		
+		public function set isRoll(newIsRoll:Boolean):void 
+		{
+			this.localSave.data[this.chunkTitle].isRoll = newIsRoll;
+		}
+		
+		public function set isFix(newIsFix:Boolean):void 
+		{
+			this.localSave.data[this.chunkTitle].isFix = newIsFix
+		}
+		
+		public function set order(newOrder:int):void
+		{
+			this.localSave.data[this.chunkTitle].order = newOrder;
 		}
 		
 	}
