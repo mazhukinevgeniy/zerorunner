@@ -42,17 +42,17 @@ package ui.statistics
 		
 		private function createNewSave():void
 		{
-			this.localSave.data[this.chunkTitle] = new Object();
-			this.localSave.data[this.chunkTitle].order = FormChunkStatistics.UNDETERMINED;
-			this.localSave.data[this.chunkTitle].isRoll = false;
-			this.localSave.data[this.chunkTitle].isFix = false;
+			this.localSave.data.statistics[this.chunkTitle] = new Object();
+			this.localSave.data.statistics[this.chunkTitle].order = FormChunkStatistics.UNDETERMINED;
+			this.localSave.data.statistics[this.chunkTitle].isRoll = false;
+			this.localSave.data.statistics[this.chunkTitle].isFix = false;
 		}
 		
 		private function readSave():void
 		{
-			this.saveOrder = this.localSave.data[this.chunkTitle].order;
-			this.saveIsRoll = this.localSave.data[this.chunkTitle].isRoll;
-			this.saveIsFix = this.localSave.data[this.chunkTitle].isFix;
+			this.saveOrder = this.localSave.data.statistics[this.chunkTitle].order;
+			this.saveIsRoll = this.localSave.data.statistics[this.chunkTitle].isRoll;
+			this.saveIsFix = this.localSave.data.statistics[this.chunkTitle].isFix;
 		}
 		
 		public function get order():int
@@ -72,17 +72,17 @@ package ui.statistics
 		
 		public function set isRoll(newIsRoll:Boolean):void 
 		{
-			this.localSave.data[this.chunkTitle].isRoll = newIsRoll;
+			this.localSave.data.statistics[this.chunkTitle].isRoll = newIsRoll;
 		}
 		
 		public function set isFix(newIsFix:Boolean):void 
 		{
-			this.localSave.data[this.chunkTitle].isFix = newIsFix
+			this.localSave.data.statistics[this.chunkTitle].isFix = newIsFix
 		}
 		
 		public function set order(newOrder:int):void
 		{
-			this.localSave.data[this.chunkTitle].order = newOrder;
+			this.localSave.data.statistics[this.chunkTitle].order = newOrder;
 		}
 		
 	}
