@@ -60,7 +60,7 @@ package game.actors.view
 		
 		update function addActor(item:ActorPuppet):void
 		{
-			var image:DrawenActor = this.objects[item.getID()] = this.pull.getDrawenActor(item.getClassCode());
+			var image:DrawenActor = (this.objects[item.getID()] = this.pull.getDrawenActor(item.getClassCode()));
 			
 			image.standOn(item.giveCell());
 			
@@ -85,7 +85,9 @@ package game.actors.view
 			
 			if (item.parent == this.container)
 			{
-				this.pull.stash(item);
+				//TODO: return pull if possible
+				
+				//this.pull.stash(item);
 				this.container.removeChild(item);
 			}
 		}

@@ -47,8 +47,6 @@ package game.actors.core
 			super.update::prerestore();
 			
 			this.refillActors(true);
-			
-			this.initializeCache();
 		}
 		
 		private function refillActors(forceRespawn:Boolean = false):void
@@ -79,8 +77,16 @@ package game.actors.core
 		private function createActor(id:int):void
 		{
 			var actor:ActorBase;
+			actor = this.pool.getActor(id);
 			
-			this.actors[id] = actor = this.pool.getActor(id);
+			while (!this.canBeCached(actor))
+			{
+				this.pool.stash(actor);
+				actor = this.pool.getActor(id);
+			}
+			
+			this.actors[id] = actor;
+			
 			this.putInCell(actor.x, actor.y, actor);
 			
 			ActorBase.iFlow.dispatchUpdate(ActorsFeature.addActor, actor);

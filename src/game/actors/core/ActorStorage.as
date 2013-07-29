@@ -63,36 +63,6 @@ package game.actors.core
 				this.cacheV[i] = null;
 		}
 		
-		final protected function initializeCache():void
-		{
-			var i:int, x:int, y:int;
-			var actor:ActorBase;
-			
-			for (i = 0; i < ActorsFeature.CAP; i++)
-			{
-				actor = this.actors[i];
-				x = actor.x; y = actor.y;
-				
-				if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
-					&&
-					!(y < this.tLC.y) && (y < this.tLC.y + this.height))
-				{
-					if (this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width])
-					{
-						ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
-					}
-					else
-					{
-						this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
-					}
-				}
-				else if (actor.isActive)
-				{
-					ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
-				}
-			}
-		}
-		
 		update function aftertick():void
 		{
 			this.getCharacterCell(this.tLC);
@@ -109,20 +79,20 @@ package game.actors.core
 				for (i = 0; i < ActorsFeature.CAP; i++)
 				{
 					actor = this.actors[i];
-					x = actor.x; y = actor.y;
 					
-					if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
-						&&
-						!(y < this.tLC.y) && (y < this.tLC.y + this.height))
+					if (this.canBeCached(actor))
 					{
+						x = actor.x; y = actor.y;
+						
 						if (this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width])
 						{
 							ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
+							//TODO: remove check if it never returns true
 						}
 						else
 						{
 							this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
-						} //TODO: overcome doublecode
+						}
 					}
 					else if (actor.isActive)
 					{
@@ -148,6 +118,16 @@ package game.actors.core
 			}
 			
 			this.cacheIsCleared = !this.cacheIsCleared;
+		}
+		
+		final protected function canBeCached(actor:ActorBase):Boolean
+		{
+			var x:int = actor.x;
+			var y:int = actor.y;
+			
+			return (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+					&&
+					!(y < this.tLC.y) && (y < this.tLC.y + this.height));
 		}
 		
 		final public function findObjectByCell(x:int, y:int):ActorBase

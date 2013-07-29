@@ -39,9 +39,6 @@ package game.actors.view.pull
 		
 		public function stash(actor:DrawenActor):void
 		{
-			//TODO: debug
-			return;
-			
 			var length:int = this.types.length;
 			
 			for (var i:int = 0; i < length; i++)
@@ -52,6 +49,8 @@ package game.actors.view.pull
 					return;
 				}
 			}
+			
+			throw new Error();
 		}
 		
 		public function getDrawenActor(type:int):DrawenActor
