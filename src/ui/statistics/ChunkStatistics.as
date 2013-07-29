@@ -90,6 +90,16 @@ package ui.statistics
 			return this.label.text;
 		}
 		
+		public function get order():int
+		{
+			return this.saveOrder;
+		}
+		
+		public function set order(newOrder:int):void
+		{
+			this.flow.dispatchUpdate(FormChunkStatistics.changeOrder, newOrder, this.title);
+		}
+		
 		public function updateData(newItem:StatisticsPiece):void
 		{
 			var newList:List = this.writeInList(newItem);
@@ -167,6 +177,7 @@ package ui.statistics
 			}
 			
 			this.flow.dispatchUpdate(FormChunkStatistics.toggleRoll, this.title);
+			trace(this.title);
 		}
 		
 		private function handleFixButtonTriggered(event:Event = null):void

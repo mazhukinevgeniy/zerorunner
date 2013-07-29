@@ -8,6 +8,7 @@ package ui.statistics
 	{
 		public static const toggleRoll:String = "toggleRoll";
 		public static const toggleFix:String = "toggleFix";
+		public static const changeOrder:String = "changeOrder";
 		
 		private static const UNDETERMINED:int = -1;
 		
@@ -26,6 +27,7 @@ package ui.statistics
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(FormChunkStatistics.toggleRoll);
 			this.flow.addUpdateListener(FormChunkStatistics.toggleFix);
+			this.flow.addUpdateListener(FormChunkStatistics.changeOrder);
 			
 			super();
 		}
@@ -59,8 +61,14 @@ package ui.statistics
 		
 		update function toggleFix(requesterTitle:String):void 
 		{
-			if(requesterTitle == this..chunkTitle)
-				this.localSave.data[this..chunkTitle].isFix = !this.localSave.data[this.chunkTitle].isFix;
+			if(requesterTitle == this.chunkTitle)
+				this.localSave.data[this.chunkTitle].isFix = !this.localSave.data[this.chunkTitle].isFix;
+		}
+		
+		update function changeOrder(newOrder:int, requesterTitle:String):void
+		{
+			if(requesterTitle == this.chunkTitle)
+				this.localSave.data[this.chunkTitle].order = newOrder;
 		}
 		
 	}

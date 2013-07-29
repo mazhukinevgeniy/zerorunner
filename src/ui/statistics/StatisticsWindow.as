@@ -72,10 +72,6 @@ package ui.statistics
 			
 			this.updateData(newItem);
 			lastIndex = this.data.length - 1;
-			if (this.getChildIndex(this.data[lastIndex]) == -1)
-			{
-				this.addChild(this.data[lastIndex]);	
-			}
 		}
 		
 		update function showStatistics():void
@@ -107,6 +103,7 @@ package ui.statistics
 			for (var i:int = 0;  i < lenght; ++i)
 			{
 				this.addChild(this.data[i]);
+				this.data[i].order = i;
 			}
 		}
 		
@@ -125,7 +122,27 @@ package ui.statistics
 			}
 			
 			if (!isPiece)
-				this.data.push(new ChunkStatistics(newItem, this.flow));
+			{
+				var newChunk:ChunkStatistics = new ChunkStatistics(newItem, this.flow)
+				if (newChunk.order != -1)
+				{
+					var order:int = newChunk.order;
+					var lenght:int = this.data.length;
+					
+					if(order < lenght)
+						this.data[order] = newChunk;
+					else
+						for (var j:int = 0; j < order - lenght + 1; ++j)
+							this.data.push(newChunk);
+					
+				}
+				else
+				{
+					this.data.push(newChunk);
+				}
+					
+				this.redraw();
+			}
 		}
 		
 		private function createLayout():VerticalLayout
