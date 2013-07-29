@@ -23,6 +23,8 @@ package ui.statistics
 	
 	public class ChunkStatistics extends ScrollContainer implements IDragSource
 	{
+		public static const CHUNK_STATISTICS_DRAG_FORMAT:String = "chunk-statistics-drag-format"
+		
 		private static const GAP:Number = 3;
 		private static const BUTTON_PADDING_TOP:Number = 5;
 		
@@ -43,69 +45,90 @@ package ui.statistics
 		private var firstReadSave:Boolean;
 		
 		
-		public function ChunkStatistics(newItem:StatisticsPiece, flow:IUpdateDispatcher) 
+		public function ChunkStatistics(newData:StatisticsPiece, flow:IUpdateDispatcher) 
 		{		
-			this.layout = new AnchorLayout();
+			this.initializationRollButton();
+			this.initializationFixButton();
+			this.initializationTitle(newData.title);
+			this.initializationList(newData);
 			
+			this.initializationFields(flow);
+			
+			this.initializationEventListeners();
+		}
+		
+		private function initializationRollButton():void
+		{
 			this.rollButton = new Button();
 			this.rollButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_ROLL);
 			this.rollButton.layoutData = this.createLayoutData(null, ChunkStatistics.BUTTON_PADDING_TOP);
 			this.addChild(this.rollButton);
 			
+			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);
+		}
+		
+		private function handleRollButtonTriggered(event:Event = null):void
+		{
+			if (!this.isRoll)
+			{
+				this.makeListInvisible();
+			}
+			else
+			{
+				this.makeListVisible();
+			}
 			
+			this.saveForm.isRoll = this.isRoll;
+		}
+
+		private function makeListInvisible():void
+		{
+			this.list.visible = false;
+			this.isRoll = true;
+			this.fullHeight = this.height;
+			this.height = this.rollHeight;
+		}
+		
+		private function makeListVisible():void
+		{
+			this.list.visible = true;
+			this.isRoll = false;
+			this.height = this.fullHeight;
+		}
+		
+		private function initializationFixButton():void
+		{
 			this.fixButton = new Button();
 			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
 			this.fixButton.layoutData = this.createLayoutData(null, ChunkStatistics.BUTTON_PADDING_TOP, this.rollButton, ChunkStatistics.GAP)
 			this.addChild(this.fixButton);
 			
+			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered);
+		}
+		
+		private function handleFixButtonTriggered(event:Event = null):void
+		{
+			if (this.rollButton.isEnabled)
+			{
+				this.rollButton.isEnabled = false;
+			}
+			else
+			{
+				this.rollButton.isEnabled = true;
+			}
+			
+			this.saveForm.isFix = !this.rollButton.isEnabled
+		}
+		
+		private function initializationTitle(newTitle:String):void
+		{
 			this.label = new Label();
-			this.label.text = newItem.title;
+			this.label.text = newTitle;
 			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
 			this.label.layoutData = this.createLayoutData(null, 0, this.fixButton, ChunkStatistics.GAP)
 			this.addChild(this.label);
 			
-			this.list = writeInList(newItem);
-			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
-			this.list.layoutData = this.createLayoutData(this.label, ChunkStatistics.GAP);
-			this.addChild(this.list);
-			this.isRoll = false;
-			
-			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);
-			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered);
-			
 			this.label.addEventListener(Event.ADDED, this.changeForm);
-			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
-			this.addEventListener(DragDropEvent.DRAG_COMPLETE, this.dropComplete);
-			
-			this.isDragging = false;
-			
-			this.saveForm = new FormChunkStatistics(this.title);
-			this.firstReadSave = true;
-			
-			this.flow = flow;
-			
-			
-		}
-		
-		public function get title():String
-		{
-			return this.label.text;
-		}
-		
-		public function get order():int
-		{
-			return this.saveForm.order;
-		}
-		
-		public function set order(newOrder:int):void
-		{
-			this.saveForm.order = newOrder;
-		}
-		
-		public function updateData(newItem:StatisticsPiece):void
-		{
-			var newList:List = this.writeInList(newItem);
-			this.list.dataProvider = newList.dataProvider;
 		}
 		
 		private function changeForm(event:Event):void
@@ -128,6 +151,30 @@ package ui.statistics
 			}
 		}
 		
+		private function initializationList(newData:StatisticsPiece):void
+		{
+			this.list = writeInList(newData);
+			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
+			this.list.layoutData = this.createLayoutData(this.label, ChunkStatistics.GAP);
+			this.addChild(this.list);
+		}
+		
+		private function writeInList(newData:StatisticsPiece):List
+		{
+			var list:List = new List();
+			var data:Vector.<Object> = new Vector.<Object>;
+			
+			list.dataProvider = new ListCollection(data);
+			
+			for (var i:int = 0; i < newData.length; ++i)
+			{
+				var string:String = newData.entry[i];
+				data.push(string);
+			}
+			
+			return list;
+		}
+		
 		private function createLayoutData(topAnchor:DisplayObject = null, top:Number = 0,
 										  leftAnchor:DisplayObject = null, left:Number = 0):AnchorLayoutData
 		{
@@ -144,54 +191,23 @@ package ui.statistics
 			return layoutData;
 		}
 		
-		private function writeInList(newItem:StatisticsPiece):List
+		private function initializationFields(flow:IUpdateDispatcher):void
 		{
-			var list:List = new List();
-			var data:Vector.<Object> = new Vector.<Object>;
+			this.layout = new AnchorLayout();
 			
-			list.dataProvider = new ListCollection(data);
-			list.itemRendererProperties.labelField = "text";
+			this.isRoll = false;
+			this.isDragging = false;
 			
-			for (var i:int = 0; i < newItem.length; ++i)
-			{
-				var string:String = newItem.entry[i];
-				data.push(string);
-			}
+			this.saveForm = new FormChunkStatistics(this.title);
+			this.firstReadSave = true;
 			
-			return list;
+			this.flow = flow;
 		}
 		
-		private function handleRollButtonTriggered(event:Event = null):void
+		private function initializationEventListeners():void
 		{
-			if (!this.isRoll)
-			{
-				this.list.visible = false;
-				this.isRoll = true;
-				this.fullHeight = this.height;
-				this.height = this.rollHeight;
-			}
-			else
-			{
-				this.list.visible = true;
-				this.isRoll = false;
-				this.height = this.fullHeight;
-			}
-			
-			this.saveForm.isRoll = this.isRoll;
-		}
-		
-		private function handleFixButtonTriggered(event:Event = null):void
-		{
-			if (this.rollButton.isEnabled)
-			{
-				this.rollButton.isEnabled = false;
-			}
-			else
-			{
-				this.rollButton.isEnabled = true;
-			}
-			
-			this.saveForm.isFix = !this.rollButton.isEnabled
+			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
+			this.addEventListener(DragDropEvent.DRAG_COMPLETE, this.dropComplete);
 		}
 		
 		private function handleContainerTouch(event:TouchEvent):void 
@@ -203,13 +219,18 @@ package ui.statistics
 				
 				if (!this.isDragging)
 				{
-					var dragData:DragData = new DragData();
-					dragData.setDataForFormat("display-object-drag-format", this);
-					DragDropManager.startDrag(this, touchMoved, dragData, this);
-					this.isDragging = true;
+					this.startDrag(touchMoved);
 				}
-			}
+			}	
+		}
+		
+		private function startDrag(touch:Touch):void
+		{
+			var dragData:DragData = new DragData();
 			
+			dragData.setDataForFormat(ChunkStatistics.CHUNK_STATISTICS_DRAG_FORMAT, this);
+			DragDropManager.startDrag(this, touch, dragData, this);
+			this.isDragging = true;
 		}
 		
 		private function dropComplete(event:DragDropEvent, dragData:DragData):void
@@ -217,10 +238,36 @@ package ui.statistics
 			this.isDragging = false;
 			if (!event.isDropped) 
 			{
-				if (!this.isRoll) 
-					this.handleRollButtonTriggered();
-				this.flow.dispatchUpdate(StatisticsWindow.dropMiss);
+				this.processDropMiss();
 			}
+		}
+		
+		private function processDropMiss():void
+		{
+			if (!this.isRoll) 
+				this.handleRollButtonTriggered();
+			this.flow.dispatchUpdate(StatisticsWindow.dropMiss);
+		}
+		
+		public function get title():String
+		{
+			return this.label.text;
+		}
+		
+		public function get order():int
+		{
+			return this.saveForm.order;
+		}
+		
+		public function set order(newOrder:int):void
+		{
+			this.saveForm.order = newOrder;
+		}
+		
+		public function updateData(newItem:StatisticsPiece):void
+		{
+			var newList:List = this.writeInList(newItem);
+			this.list.dataProvider = newList.dataProvider;
 		}
 		
 	}

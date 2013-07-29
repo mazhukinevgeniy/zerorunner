@@ -157,7 +157,7 @@ package ui.statistics
 		
 		private function checkFormat(event:DragDropEvent, dragData:DragData):void
 		{
-			if(dragData.hasDataForFormat("display-object-drag-format"))
+			if(dragData.hasDataForFormat(ChunkStatistics.CHUNK_STATISTICS_DRAG_FORMAT))
 			{
 				DragDropManager.acceptDrag(this);
 			}
@@ -165,7 +165,7 @@ package ui.statistics
 		
 		private function dropContainer(event:DragDropEvent, dragData:DragData):void
 		{
-			var movedContainer:ChunkStatistics = dragData.getDataForFormat("display-object-drag-format");
+			var movedContainer:ChunkStatistics = dragData.getDataForFormat(ChunkStatistics.CHUNK_STATISTICS_DRAG_FORMAT);
 			var dataLenght:int = this.data.length;
 			var statisticsPieceY:Number;
 			var statisticsPieceHeight:Number;
