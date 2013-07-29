@@ -120,10 +120,16 @@ package ui.statistics
 				this.rollHeight = this.label.height;
 				
 				if (this.saveRoll)
+				{
 					this.handleRollButtonTriggered();
+					this.saveRoll = false;
+				}
 				
 				if (this.saveFix)
+				{
 					this.handleFixButtonTriggered();
+					this.saveFix = false;
+				}
 			}
 		}
 		
