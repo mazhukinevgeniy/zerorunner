@@ -26,6 +26,8 @@ package game.actors.view.pull
 		{
 			this.container = new Sprite();
 			
+			super();
+			
 			this.addChild(this.container);
 		}
 		

@@ -54,7 +54,7 @@ package game.actors.view
 			for (var i:int = 0; i < length; i++)
 			{
 				if (this.objects[i])
-					this.removeActor(i);
+					this.update::removeActor(i);
 			}
 		}
 		
@@ -69,12 +69,14 @@ package game.actors.view
 		
 		update function moveActor(item:ActorPuppet, change:DCellXY, delay:int):void
 		{
+			var id:int = item.getID();
+			
 			var tween:PixelPerfectTween = new PixelPerfectTween(this.objects[id], delay * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
+			tween.moveTo(item.x * Metric.CELL_WIDTH, item.y * Metric.CELL_HEIGHT);
 			
 			DrawenActor.iJuggler.add(tween);
 			
-			this.objects[id].moveNormally(goal, change, delay);
+			this.objects[id].moveNormally(item.giveCell(), change, delay);
 		}
 		
 		update function removeActor(id:int):void

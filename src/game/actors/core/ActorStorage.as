@@ -17,7 +17,7 @@ package game.actors.core
 	
 	internal class ActorStorage implements ICacher, ISearcher
 	{
-		private var actors:Vector.<ActorBase>;
+		protected var actors:Vector.<ActorBase>;
 		
 		protected var view:ActiveCanvas;
 		
@@ -41,7 +41,6 @@ package game.actors.core
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.aftertick);
-			flow.addUpdateListener(ActorsFeature.addActor);
 			flow.addUpdateListener(ActorsFeature.moveActor);
 			flow.addUpdateListener(ActorsFeature.removeActor);
 			

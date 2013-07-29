@@ -4,6 +4,7 @@ package game.actors.core
 	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
 	import game.achievements.statistics.IActorStatistic;
+	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
 	import game.actors.core.ActorStorage;
 	import game.actors.core.pull.ActorPull;
@@ -38,67 +39,61 @@ package game.actors.core
 		{
 			super.update::aftertick();
 			
-			this.refill(this.actors);
+			this.refillActors();
 		}
 		
 		override update function prerestore():void
 		{
 			super.update::prerestore();
 			
-			this.command.refill(this.actors, true);
+			this.refillActors(true);
 			
 			this.initializeCache();
 		}
 		
-		/**
-		 * @param force If true, forces recreation of active actors as well
-		**/
-		public function refill(vector:Vector.<ActorBase>, force:Boolean = false):void
+		private function refillActors(forceRespawn:Boolean = false):void
 		{
-			var length:int = vector.length;
+			var length:int = this.actors.length;
 			var actor:ActorBase;
 			
 			for (var i:int = 0; i < length; i++)
 			{
-				actor = vector[i];
+				actor = this.actors[i];
 				
 				if (actor)
 				{
-					if (!actor.active || force)
+					if (!actor.active || forceRespawn)
 					{
 						this.pool.stash(actor);
 						
-						vector[i] = this.pool.getActor(i);
-						
-						actor = vector[i];
-						
-						this.listener.actorSpawned(actor.getID(), actor.giveCell(), actor.getClassCode());
+						this.createActor(i);
 					}
 				}
 				else
 				{
-					vector[i] = this.pool.getActor(i);
-					
-					actor = vector[i];
-					
-					this.listener.actorSpawned(actor.getID(), actor.giveCell(), actor.getClassCode());
+					this.createActor(i);
 				}
 			}
+		}
+		
+		private function createActor(id:int):void
+		{
+			var actor:ActorBase;
+			
+			this.actors[id] = actor = this.pool.getActor(id);
+			this.putInCell(actor.x, actor.y, actor);
+			
+			ActorBase.iFlow.dispatchUpdate(ActorsFeature.addActor, actor);
 		}
 		
 		
 		
 		update function tick():void
 		{
-			this.command.act(this.actors);
-		}
-		
-		public function act(vector:Vector.<ActorBase>):void
-		{
-			var length:int = vector.length;
+			var length:int = this.actors.length;
 			
 			for (var i:int = 0; i < length; i++)
-				vector[i].act();
+				this.actors[i].act();
 		}
 		
 		
@@ -108,7 +103,7 @@ package game.actors.core
 			ActorBase.iSearcher = this;
 			ActorBase.iScene = table.getInformer(IScene);
 			ActorBase.iStat = table.getInformer(IActorStatistic);
-			ActorBase.iListener = this.listener;
+			ActorBase.iListener = this.view;
 			ActorBase.iInput = table.getInformer(IKnowInput);
 			
 			this.pool = new ActorPull(table.getInformer(IGameState));
