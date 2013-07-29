@@ -49,6 +49,8 @@ package game.actors.view.pull
 					return;
 				}
 			}
+			
+			throw new Error();
 		}
 		
 		public function getDrawenActor(type:int):DrawenActor
@@ -59,12 +61,6 @@ package game.actors.view.pull
 			if (!actor)
 			{
 				actor = new this.types[type]();
-			}
-			else
-			{
-				actor.scaleX = 1;
-				actor.scaleY = 1;
-				actor.visible = true;
 			}
 			
 			return actor;

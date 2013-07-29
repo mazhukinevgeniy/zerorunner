@@ -1,4 +1,4 @@
-package game.actors.modules.pull 
+package game.actors.core.pull 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
@@ -24,12 +24,15 @@ package game.actors.modules.pull
 			this.giveCell().setValue(c.x, c.y);
 		}
 		
-		override protected function onSpawned(id:int):void
+		override protected function onSpawned():void
 		{
 			this.forceUpdate(ActorsFeature.setCenter, this.giveCell());
 			this.forceUpdate(ActorsFeature.setHeroHP, this.health);
-			
-			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.CHARACTER);
+		}
+		
+		override public function getClassCode():int
+		{
+			return ActorsFeature.CHARACTER;
 		}
 		
 		override protected function onMoved(change:DCellXY, delay:int):void

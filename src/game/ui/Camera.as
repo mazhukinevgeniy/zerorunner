@@ -11,9 +11,9 @@ package game.ui
 	import game.metric.Metric;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
-	import starling.animation.Tween;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
+	import utils.PixelPerfectTween;
 	
 	public class Camera
 	{
@@ -57,10 +57,8 @@ package game.ui
 		
 		update function moveCenter(change:DCellXY, ticksToGo:int):void 
 		{
-			var tween:Tween = new Tween(this.container, ticksToGo * Time.TIME_BETWEEN_TICKS);
+			var tween:PixelPerfectTween = new PixelPerfectTween(this.container, ticksToGo * Time.TIME_BETWEEN_TICKS);
 			tween.moveTo(this.container.x - change.x * Metric.CELL_WIDTH, this.container.y - change.y * Metric.CELL_HEIGHT);
-			
-			tween.roundToInt = true;
 			
 			this.juggler.add(tween);
 		}

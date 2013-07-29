@@ -1,4 +1,4 @@
-package game.actors.modules.pull 
+package game.actors.core.pull 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
@@ -14,9 +14,9 @@ package game.actors.modules.pull
 			super(Mine.HP, Mine.MOVE_SPEED, Mine.ACTION_SPEED);
 		}
 		
-		override protected function onSpawned(id:int):void
+		override public function getClassCode():int
 		{
-			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.MINE);
+			return ActorsFeature.MINE;
 		}
 		
 	}

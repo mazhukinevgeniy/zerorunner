@@ -2,26 +2,24 @@ package game.actors.core
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
 	import chaotic.informers.IStoreInformers;
-	import game.achievements.statistics.IActorStatistic;
 	import game.actors.ActorsFeature;
-	import game.actors.modules.ActorManipulator;
-	import game.actors.view.IActorListener;
-	import game.input.IKnowInput;
+	import game.actors.view.ActiveCanvas;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
-	import game.scene.IScene;
-	import game.state.IGameState;
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
 	
-	public class ActorStorage implements ICacher, ISearcher
+	use namespace update;
+	
+	internal class ActorStorage implements ICacher, ISearcher
 	{
-		private var actors:Vector.<ActorBase>;
+		protected var actors:Vector.<ActorBase>;
+		
+		protected var view:ActiveCanvas;
 		
 		
 		private var cacheV:Vector.<ActorBase>;
@@ -32,27 +30,19 @@ package game.actors.core
 		
 		private var cacheIsCleared:Boolean;
 		
-		private var flow:IUpdateDispatcher;
-		
-		private var command:ActorManipulator;
-		private var listener:IActorListener;
 		
 		private var tLC:CellXY;
 		private var toTLC:DCellXY = new DCellXY( - Metric.xDistanceActorsAllowed, - Metric.yDistanceActorsAllowed);
 		
-		public function ActorStorage(view:IActorListener, flow:IUpdateDispatcher) 
+		public function ActorStorage(flow:IUpdateDispatcher) 
 		{
-			this.listener = view;
-			
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
-			flow.addUpdateListener(ZeroRunner.tick);
-			flow.addUpdateListener(ZeroRunner.aftertick);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
-			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			
-			this.flow = flow;
+			flow.addUpdateListener(ZeroRunner.aftertick);
+			flow.addUpdateListener(ActorsFeature.moveActor);
+			flow.addUpdateListener(ActorsFeature.removeActor);
 			
 			this.cacheLength = this.width * this.height;
 			
@@ -69,23 +59,14 @@ package game.actors.core
 			
 			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
-			this.command.refill(this.actors, true);
-			
-			this.cache(); 
-			this.cache();
-		}
-		
-		update function tick():void
-		{
-			this.command.act(this.actors);
+			for (var i:int = 0; i < this.cacheLength; i++)
+				this.cacheV[i] = null;
 		}
 		
 		update function aftertick():void
 		{
 			this.getCharacterCell(this.tLC);
 			this.tLC.applyChanges(this.toTLC);
-			
-			this.command.refill(this.actors);
 		}
 		
 		public function cache():void
@@ -98,19 +79,24 @@ package game.actors.core
 				for (i = 0; i < ActorsFeature.CAP; i++)
 				{
 					actor = this.actors[i];
-					x = actor.x; y = actor.y;
 					
-					if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
-						&&
-						!(y < this.tLC.y) && (y < this.tLC.y + this.height))
+					if (this.canBeCached(actor))
 					{
-						this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
+						x = actor.x; y = actor.y;
+						
+						if (this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width])
+						{
+							ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
+							//TODO: remove check if it never returns true
+						}
+						else
+						{
+							this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width] = actor;
+						}
 					}
 					else if (actor.isActive)
 					{
-						this.listener.unparent(actor.id);
-						
-						actor.isActive = false;
+						ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
 					}
 				}
 				
@@ -118,9 +104,9 @@ package game.actors.core
 				{
 					actor = this.cacheV[this.cacheLength - (1 + j)];
 					
-					if (actor)
+					if (actor && actor.active)
 					{
-						this.listener.setLayerOf(actor.id, i);
+						this.view.setLayerOf(actor.id, i);
 						i--;
 					}
 				}
@@ -134,7 +120,17 @@ package game.actors.core
 			this.cacheIsCleared = !this.cacheIsCleared;
 		}
 		
-		public function findObjectByCell(x:int, y:int):ActorBase
+		final protected function canBeCached(actor:ActorBase):Boolean
+		{
+			var x:int = actor.x;
+			var y:int = actor.y;
+			
+			return (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+					&&
+					!(y < this.tLC.y) && (y < this.tLC.y + this.height));
+		}
+		
+		final public function findObjectByCell(x:int, y:int):ActorBase
 		{
 			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
 				&&
@@ -143,17 +139,31 @@ package game.actors.core
 			else return null;
 		}
 		
-		public function getCharacterCell(cell:CellXY):void
+		final public function getCharacterCell(cell:CellXY):void
 		{
 			var ccell:CellXY = this.actors[0].cell;
 			cell.setValue(ccell.x, ccell.y);
 		}
-		public function get character():ICoordinated
+		final public function get character():ICoordinated //TODO: check if it's shrinkable
 		{
 			return this.actors[0];
 		}
 		
-		public function putInCell(x:int, y:int, item:ActorBase = null):void
+		update function moveActor(actor:ActorBase, change:DCellXY, delay:int):void
+		{
+			this.putInCell(actor.x - change.x, actor.y - change.y);
+			this.putInCell(actor.x, actor.y, actor);
+		}
+		
+		update function removeActor(id:int):void
+		{
+			var actor:ActorBase = this.actors[id];
+			
+			actor.isActive = false;
+			this.putInCell(actor.x, actor.y);
+		}
+		
+		final protected function putInCell(x:int, y:int, item:ActorBase = null):void
 		{
 			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
 				&&
@@ -163,21 +173,9 @@ package game.actors.core
 		
 		
 		
-		update function addInformerTo(table:IStoreInformers):void
+		final update function addInformerTo(table:IStoreInformers):void
 		{
 			table.addInformer(ISearcher, this);
-		}
-		
-		update function getInformerFrom(table:IGiveInformers):void
-		{
-			ActorBase.iFlow = this.flow;
-			ActorBase.iSearcher = this;
-			ActorBase.iScene = table.getInformer(IScene);
-			ActorBase.iStat = table.getInformer(IActorStatistic);
-			ActorBase.iListener = this.listener;
-			ActorBase.iInput = table.getInformer(IKnowInput);
-			
-			this.command = new ActorManipulator(table.getInformer(IGameState));
 		}
 	}
 

@@ -2,6 +2,7 @@ package game.actors.view
 {
 	import chaotic.core.update;
 	import game.actors.ActorsFeature;
+	import game.actors.core.ActorPuppet;
 	import game.actors.view.DrawenActor;
 	import game.actors.view.pull.DActorPull;
 	import game.time.Time;
@@ -14,12 +15,12 @@ package game.actors.view
 	import game.ui.Camera;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
-	import starling.animation.Tween;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import utils.PixelPerfectTween;
 	
 	public class ActiveCanvas implements IActorListener
 	{
@@ -37,6 +38,9 @@ package game.actors.view
 			
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ActorsFeature.moveActor);
+			flow.addUpdateListener(ActorsFeature.removeActor);
 			
 			flow.dispatchUpdate(Camera.addToTheLayer, Camera.ACTORS, this.container);
 			
@@ -50,54 +54,53 @@ package game.actors.view
 			for (var i:int = 0; i < length; i++)
 			{
 				if (this.objects[i])
-					this.unparent(i);
+					this.update::removeActor(i);
 			}
 		}
 		
-		public function actorSpawned(id:int, cell:CellXY, type:int):void
+		update function addActor(item:ActorPuppet):void
 		{
-			var image:DrawenActor = this.objects[id] = this.pull.getDrawenActor(type);
+			var image:DrawenActor = (this.objects[item.getID()] = this.pull.getDrawenActor(item.getClassCode()));
 			
-			image.standOn(cell);
+			image.standOn(item.giveCell());
 			
 			this.container.addChild(image);
 		}
 		
-		
-		public function actorMovedNormally(id:int, change:DCellXY, delay:int):void
+		update function moveActor(item:ActorPuppet, change:DCellXY, delay:int):void
 		{
-			this.objects[id].moveNormally(change, delay)
-		}
-		
-		public function actorJumped(id:int, change:DCellXY, delay:int):void
-		{
-			this.objects[id].jump(change, delay);
-		}
-		
-		/*
-		public function actorDeadlyDamaged(id:int):void
-		{
-			var image:Sprite = this.objects[id];
-			var tween:Tween = new Tween(image, 0.5);
-			tween.scaleTo(0);
-			tween.moveTo(image.x + image.width / 2, image.y + image.height / 2);
-			tween.onComplete = this.unparent; //TODO: can went wrong
-			tween.onCompleteArgs = [image];
+			var id:int = item.getID();
+			
+			var tween:PixelPerfectTween = new PixelPerfectTween(this.objects[id], delay * Time.TIME_BETWEEN_TICKS);
+			tween.moveTo(item.x * Metric.CELL_WIDTH, item.y * Metric.CELL_HEIGHT);
 			
 			DrawenActor.iJuggler.add(tween);
-		}*/
+			
+			this.objects[id].moveNormally(item.giveCell(), change, delay);
+		}
 		
-		public function unparent(id:int):void
+		update function removeActor(id:int):void
 		{
 			var item:DrawenActor = this.objects[id];
 			
-			this.pull.stash(item);
-			this.container.removeChild(item);
+			if (item.parent == this.container)
+			{
+				//TODO: return pull if possible
+				
+				//this.pull.stash(item);
+				this.container.removeChild(item);
+			}
 		}
 		
 		public function setLayerOf(id:int, layer:int):void
 		{
 			this.container.setChildIndex(this.objects[id], layer);
+		}
+		
+		
+		public function actorJumped(id:int, change:DCellXY, delay:int):void
+		{
+			this.objects[id].jump(change, delay);
 		}
 		
 		

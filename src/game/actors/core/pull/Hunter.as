@@ -1,4 +1,4 @@
-package game.actors.modules.pull 
+package game.actors.core.pull 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
@@ -50,12 +50,15 @@ package game.actors.modules.pull
 			this.bypassStartingPoint = new CellXY(0, 0);
 		}
 		
-		override protected function onSpawned(id:int):void
+		override protected function onSpawned():void
 		{
-			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.HUNTER);
-			
 			this.previousCell.setValue(0, 0);
 			this.goal.setValue(0, 0);
+		}
+		
+		override public function getClassCode():int
+		{
+			return ActorsFeature.HUNTER;
 		}
 		
 		override protected function onActing():void

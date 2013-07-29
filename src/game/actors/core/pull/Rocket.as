@@ -1,4 +1,4 @@
-package game.actors.modules.pull 
+package game.actors.core.pull 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
@@ -13,9 +13,10 @@ package game.actors.modules.pull
 		}
 		
 		
-		override protected function onSpawned(id:int):void
+		
+		override public function getClassCode():int
 		{
-			this.listener.actorSpawned(id, this.giveCell(), ActorsFeature.ROCKET);
+			return ActorsFeature.ROCKET;
 		}
 	}
 

@@ -1,9 +1,10 @@
 package game.actors.core 
 {
+	import chaotic.errors.AbstractClassError;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	
-	internal class ActorPuppet extends ActorReactor implements ICoordinated
+	public class ActorPuppet extends ActorReactor implements ICoordinated
 	{
 		internal var id:int;
 		internal var hp:int;
@@ -21,6 +22,11 @@ package game.actors.core
 		public function ActorPuppet() 
 		{
 			
+		}
+		
+		public function getClassCode():int
+		{
+			throw new AbstractClassError();
 		}
 		
 		
@@ -43,11 +49,15 @@ package game.actors.core
 			return this.hp;
 		}
 		
+		final public function getID():int
+		{
+			return this.id;
+		}
 		
 		/**
 		 * DANGER: it gives link to te ACTUAL cell of you! Fair use only, or you'll die painfully.
 		**/
-		final protected function giveCell():CellXY
+		final public function giveCell():CellXY
 		{
 			return this.cell;
 		}

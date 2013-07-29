@@ -1,6 +1,7 @@
 package game.actors.core 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import chaotic.errors.AbstractClassError;
 	import game.achievements.statistics.IActorStatistic;
 	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
@@ -12,12 +13,13 @@ package game.actors.core
 	public class ActorBase extends ActorCoreActions
 	{
 		internal static var iFlow:IUpdateDispatcher;
-		internal static var iSearcher:ActorStorage;
+		internal static var iSearcher:ISearcher;
 		internal static var iScene:IScene;
 		internal static var iStat:IActorStatistic;
 		internal static var iListener:IActorListener;
 		internal static var iInput:IKnowInput;
 		
+		private var helperCharacter:CellXY;
 		
 		public function ActorBase(hp:int, moveSpeed:int, actionSpeed:int) 
 		{
@@ -27,6 +29,7 @@ package game.actors.core
 			this.actionSpeed = actionSpeed;
 			
 			this.cell = new CellXY(0, 0);
+			this.helperCharacter = new CellXY(0, 0);//TODO: optimize
 		}
 		
 		final public function reset(id:int):void
@@ -40,36 +43,22 @@ package game.actors.core
 			
 			this.setSpawningCell();
 			
-			ActorBase.iSearcher.putInCell(this.cell.x, this.cell.y, this);
-			
-			this.onSpawned(id);
+			this.onSpawned();
 		}
 		
 		protected function setSpawningCell():void
 		{
-			var dX:int;
-			var dY:int;
+			var x:int = ActorBase.iSearcher.character.x - Metric.xDistanceActorsAllowed / 2;
+			var y:int = ActorBase.iSearcher.character.y - Metric.yDistanceActorsAllowed / 2;
 			
-			var x:int = ActorBase.iSearcher.character.x;
-			var y:int = ActorBase.iSearcher.character.y;
+			ActorBase.iSearcher.getCharacterCell(this.helperCharacter); 
 			
 			do 
 			{
-				do
-				{
-					dX = -Metric.xDistanceActorsAllowed + Math.random() * (2 * Metric.xDistanceActorsAllowed);
-				}
-				while (Math.abs(dX) < 6);
-				
-				do
-				{
-					dY = -Metric.yDistanceActorsAllowed + Math.random() * (2 * Metric.yDistanceActorsAllowed);
-				}
-				while (Math.abs(dY) < 6);
+				this.cell.setValue(x + Metric.xDistanceActorsAllowed * Math.random(),
+								   y + Metric.yDistanceActorsAllowed * Math.random());
 			}
-			while (ActorBase.iSearcher.findObjectByCell(x + dX, y + dY) != null);
-			
-			this.cell.setValue(x + dX, y + dY);
+			while (Metric.distance(this.helperCharacter, this.cell) < 6 || ActorBase.iSearcher.findObjectByCell(this.x, this.y) != null);
 		}
 		
 		

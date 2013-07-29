@@ -1,6 +1,6 @@
 package game.actors 
 {
-	import game.actors.core.ActorStorage;
+	import game.actors.core.ActorStoragePlus;
 	import game.actors.view.ActiveCanvas;
 	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;
@@ -20,6 +20,11 @@ package game.actors
 		public static const TURRET:int = 8;
 		
 		
+		public static const addActor:String = "addActor";
+		public static const moveActor:String = "moveActor";
+		public static const removeActor:String = "removeActor";
+		
+		
 		public static const setHeroHP:String = "setHeroHP";
 		public static const heroDamaged:String = "heroDamaged";
 		
@@ -36,7 +41,7 @@ package game.actors
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{
 			var view:ActiveCanvas = new ActiveCanvas(flow);
-			new ActorStorage(view, flow);
+			new ActorStoragePlus(view, flow);
 		}
 		
 		
