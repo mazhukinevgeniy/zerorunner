@@ -80,7 +80,7 @@ package ui
 			return layoutData;
 		}
 		
-		private function initializationUsingFlow(flow:IUpdateDispatcher)
+		private function initializationUsingFlow(flow:IUpdateDispatcher):void
 		{
 			this.flow = flow;
 			this.flow.workWithUpdateListener(this);

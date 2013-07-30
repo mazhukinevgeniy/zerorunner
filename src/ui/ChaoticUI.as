@@ -36,29 +36,38 @@ package ui
 		public function ChaoticUI(displayRoot:DisplayObjectContainer, assets:AssetManager) 
 		{
 			this.gameIsActive = false;
-			
-			this.root = new Sprite();
-			displayRoot.addChild(this.root);
-			
 			this.assets = assets;
 			
 			super(ChaoticUI.flowName);
 			
-		    new ExtendedTheme(displayRoot);
+			this.initializationRootGUI(displayRoot);
+		    this.initializationFeatures(displayRoot);
+			this.initializationUsingFlow();
 			
+			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
+		}
+		
+		private function initializationRootGUI(displayRoot:DisplayObjectContainer):void
+		{
+			this.root = new Sprite();
+			displayRoot.addChild(this.root);
+		}
+			
+		private function initializationFeatures(displayRoot:DisplayObjectContainer):void
+		{
+			new ExtendedTheme(displayRoot);
 			new Background(this.root);
 			new GameView(displayRoot, this);
 			new Sounds(this.root, this, this.assets);
-			
 			new WindowsFeature(this.root, this, this.assets);
-			
+		}
+		
+		private function initializationUsingFlow():void
+		{
 			this.workWithUpdateListener(this);
 			this.addUpdateListener(ChaoticUI.newGame);
 			this.addUpdateListener(ZeroRunner.quitGame);
 			this.addUpdateListener(ChaoticUI.keyUp);
-			
-			
-			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void

@@ -38,8 +38,24 @@ package ui.mainMenu
 			this.width = MainMenu.WIDTH_MAIN_MENU;
 			this.height = MainMenu.HEIGHT_MAIN_MENU;
 			
-			this.layout = this.createLayout();
+			this.initialiazationLayout();
+			this.initializationButtons();
 			
+			this.flow = flow;
+		}
+		
+		private function initialiazationLayout():void
+		{
+			var layout:VerticalLayout = new VerticalLayout();
+			layout.gap = MainMenu.SPACE_BEETWEEN_BUTTON;
+			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER
+			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
+			
+			this.layout = layout;
+		}
+		
+		private function initializationButtons():void 
+		{
 			this.playButton = ButtonMainMenuFactory.create("New game");
 			this.addChild(this.playButton);
 			
@@ -56,8 +72,6 @@ package ui.mainMenu
 			this.statisticsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
-			
-			this.flow = flow;
 		}
 		
 		private function handleMenuTriggered(event:Event):void
@@ -79,17 +93,6 @@ package ui.mainMenu
 				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.CREDITS);
 			}
 		}
-		
-		private function createLayout():VerticalLayout
-		{
-			var layout:VerticalLayout = new VerticalLayout();
-			layout.gap = MainMenu.SPACE_BEETWEEN_BUTTON;
-			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER
-			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
-			
-			return layout;
-		}
-		
 		
 	}
 
