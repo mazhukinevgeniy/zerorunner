@@ -3,18 +3,20 @@ package ui.sounds
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.update;
 	import chaotic.utils.SaveBase;
+	import feathers.controls.Button;
 	import flash.ui.Keyboard;
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
+	import ui.themes.ExtendedTheme;
 	
 	public class Sounds extends SaveBase
 	{
 		private var music:MusicManager;
 		private var sound:SoundManager;
 		
-		private var muteButton:MuteButton;
+		private var muteButton:Button;
 		
 		public function Sounds(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
 		{
@@ -35,8 +37,12 @@ package ui.sounds
 		
 		private function initializationMuteButton(root:DisplayObjectContainer):void
 		{
-			this.muteButton = new MuteButton();
+			this.muteButton = new Button();
+			this.muteButton.nameList.add(ExtendedTheme.MUTE_BUTTON);
 			root.addChild(this.muteButton);
+			
+			this.muteButton.x = Main.WIDTH - this.muteButton.width;
+			this.muteButton.y = Main.HEIGHT - this.muteButton.height;
 			
 			this.muteButton.addEventListener(Event.TRIGGERED, this.toggleMute);
 		}
@@ -66,9 +72,21 @@ package ui.sounds
 		{
 			this.music.toggleSound();
 			this.sound.toggleSound();
-			this.muteButton.toggleTitle();
+			this.toggleTitleMuteButton();
 			
 			this.localSave.data.sound.muted = !this.localSave.data.sound.muted;
+		}
+		
+		private function toggleTitleMuteButton():void
+		{
+			if (this.muteButton.label == "Mute")
+			{
+				this.muteButton.label = "Unmute";
+			}
+			else
+			{
+				this.muteButton.label = "Mute";
+			}
 		}
 		
 		update function keyUp(keyCode:uint):void

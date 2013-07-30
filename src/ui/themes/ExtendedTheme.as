@@ -9,6 +9,7 @@ package ui.themes
 	public class ExtendedTheme extends AeonDesktopTheme
 	{
 		public static const BUTTON_MAIN_MENU:String = "button-main-menu";
+		public static const MUTE_BUTTON:String = "mute-button";
 		public static const TITLE_STATICTICS_PIECE:String = "title-statistics-piece";
 		public static const BUTTON_STATISTICS_ROLL:String = "button-statistics-roll";
 		public static const BUTTON_STATISTICS_FIX:String = "button-statistics-fix";
@@ -17,6 +18,9 @@ package ui.themes
 		private static const DISABLE_TEXT_FORMAT:TextFormat = new TextFormat("HiLo-Deco", 18, AeonDesktopTheme.DISABLED_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 		
 		private static const SIZE_STATISTICS_BUTTON:Number = 15;
+		
+		private static const MUTE_BUTTON_WIDTH:int = 80;
+		private static const MUTE_BUTTON_HEIGHT:int = 20;
 		
 		public function ExtendedTheme(root:DisplayObjectContainer)
 		{
@@ -31,6 +35,7 @@ package ui.themes
 			this.disabledTextFormat = ExtendedTheme.DISABLE_TEXT_FORMAT;
 			
 			this.setInitializerForClass( Button, this.buttonMainMenu, ExtendedTheme.BUTTON_MAIN_MENU );
+			this.setInitializerForClass( Button, this.muteButton, ExtendedTheme.MUTE_BUTTON );
 			this.setInitializerForClass( Button, this.buttonStatisticsRoll, ExtendedTheme.BUTTON_STATISTICS_ROLL);
 			this.setInitializerForClass( Button, this.buttonStatisticsFix, ExtendedTheme.BUTTON_STATISTICS_FIX);
 			
@@ -42,6 +47,16 @@ package ui.themes
 			this.buttonInitializer(button);
 			
 			button.defaultLabelProperties.embedFonts = true;
+		}
+		
+		private function muteButton(button:Button):void
+		{
+			this.buttonInitializer(button);
+			
+			button.defaultLabelProperties.embedFonts = true;
+			button.label = "Mute";
+			button.width = ExtendedTheme.MUTE_BUTTON_WIDTH;
+			button.height = ExtendedTheme.MUTE_BUTTON_HEIGHT;
 		}
 		
 		private function buttonStatisticsRoll(button:Button):void
