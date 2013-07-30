@@ -14,8 +14,6 @@ package ui.sounds
 		private var music:MusicManager;
 		private var sound:SoundManager;
 		
-		private var isMute:Boolean;
-		
 		private var muteButton:MuteButton;
 		
 		public function Sounds(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
@@ -27,8 +25,6 @@ package ui.sounds
 			this.sound = new SoundManager(assets);
 			
 			this.music.playMusic();
-			
-			this.isMute = false;
 			
 			this.muteButton = new MuteButton();
 			root.addChild(this.muteButton);
@@ -46,7 +42,10 @@ package ui.sounds
 			}
 			
 			if (this.localSave.data.sound.muted)
+			{
 				this.toggleMute();
+				this.localSave.data.sound.muted = true;
+			}
 		}
 		
 		private function toggleMute():void
@@ -55,8 +54,7 @@ package ui.sounds
 			this.sound.toggleSound();
 			this.muteButton.toggleTitle();
 			
-			this.isMute = !this.isMute;
-			this.localSave.data.sound.muted = this.isMute;
+			this.localSave.data.sound.muted = !this.localSave.data.sound.muted;
 		}
 		
 		update function keyUp(keyCode:uint):void
