@@ -87,7 +87,6 @@ package game.actors.core
 						if (this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width])
 						{
 							ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
-							//TODO: remove check if it never returns true
 						}
 						else
 						{
