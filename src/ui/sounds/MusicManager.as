@@ -16,10 +16,15 @@ package ui.sounds
 			
 			this.volume = newVolume;
 			
-			this.addSound("1", assets.getSound("Veloma"));
-			this.countTrack++;
+			this.initializationTracks();
 			
 			this.currentTrack = this.nextTrack((int)(Math.random() * 100));
+		}
+		
+		private function initializationTracks(assets:AssetManager):void
+		{
+			this.addSound("1", assets.getSound("Veloma"));
+			this.countTrack++;
 		}
 		
 		private function nextTrack(nowTrack:int):int
@@ -34,7 +39,6 @@ package ui.sounds
 			
 			this.getSoundChannel((String)(this.currentTrack)).addEventListener(Event.SOUND_COMPLETE, this.trackComplete);
 		}
-		
 		
 		private function trackComplete(event:Event):void
 		{

@@ -18,19 +18,33 @@ package ui.sounds
 		
 		public function Sounds(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
 		{
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(ChaoticUI.keyUp);
+			this.initializationSoundsManagers(assets);
+			this.initializationMuteButton(root);
+			this.initializationUsingFlow(flow);
 			
+			super();
+		}
+		
+		private function initializationSoundsManagers(assets:AssetManager):void
+		{
 			this.music = new MusicManager(assets);
 			this.sound = new SoundManager(assets);
 			
 			this.music.playMusic();
-			
+		}
+		
+		private function initializationMuteButton(root:DisplayObjectContainer):void
+		{
 			this.muteButton = new MuteButton();
 			root.addChild(this.muteButton);
-			this.muteButton.addEventListener(Event.TRIGGERED, this.toggleMute);
 			
-			super();
+			this.muteButton.addEventListener(Event.TRIGGERED, this.toggleMute);
+		}
+		
+		private function initializationUsingFlow(flow:IUpdateDispatcher):void
+		{
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(ChaoticUI.keyUp);
 		}
 		
 		override protected function checkLocalSave():void
