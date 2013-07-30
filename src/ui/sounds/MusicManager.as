@@ -16,7 +16,7 @@ package ui.sounds
 			
 			this.volume = newVolume;
 			
-			this.initializationTracks();
+			this.initializationTracks(assets);
 			
 			this.currentTrack = this.nextTrack((int)(Math.random() * 100));
 		}
