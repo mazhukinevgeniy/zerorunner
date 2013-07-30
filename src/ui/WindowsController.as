@@ -20,7 +20,7 @@ package ui
 		private static const WINDOWS_REGION_WIDTH:Number = Main.WIDTH - WindowsController.INDENT - WindowsController.WINDOWS_REGION_X;
 		private static const WINDOWS_REGION_HEIGHT:Number = Main.HEIGHT - 2 * WindowsController.INDENT;
 		
-		private static const NONEXISTEN:int = -1;
+		private static const UNDETERMINED:int = -1;
 		
 		private var windows:Vector.<ScrollContainer>;
 		private var flow:IUpdateDispatcher;
@@ -31,7 +31,7 @@ package ui
 		{
 			this.windows = windows;
 			
-			this.idLastOpenedWindow = WindowsController.NONEXISTEN;
+			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
 			
 			var frame:ScrollContainer = this.createRegionWindows();
 			var windowsLayoutData:AnchorLayoutData = this.createWindowsLayoutData();
@@ -80,7 +80,7 @@ package ui
 		{
 			this.closelastOpenedWindow();
 			this.windows[WindowsFeature.MENU].visible = false;
-			this.idLastOpenedWindow = WindowsController.NONEXISTEN;
+			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
 		}
 		
 		update function quitGame():void
@@ -113,7 +113,7 @@ package ui
 		
 		private function closelastOpenedWindow():void
 		{
-			if (this.idLastOpenedWindow != WindowsController.NONEXISTEN)
+			if (this.idLastOpenedWindow != WindowsController.UNDETERMINED)
 				this.windows[this.idLastOpenedWindow].visible = false;
 		}
 	}

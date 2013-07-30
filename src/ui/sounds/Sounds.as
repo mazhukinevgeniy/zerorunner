@@ -42,7 +42,10 @@ package ui.sounds
 			}
 			
 			if (this.localSave.data.sound.muted)
+			{
 				this.toggleMute();
+				this.localSave.data.sound.muted = true;
+			}
 		}
 		
 		private function toggleMute():void
