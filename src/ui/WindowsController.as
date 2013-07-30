@@ -6,7 +6,6 @@ package ui
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import game.ZeroRunner;
-	import game.statistics.StatisticsFeature;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -68,11 +67,6 @@ package ui
 				this.closelastOpenedWindow();
 				this.windows[idTarget].visible = true;
 				this.idLastOpenedWindow = idTarget;
-			}
-			
-			if (idTarget == WindowsFeature.STATISTICS)
-			{
-				this.flow.dispatchUpdate(StatisticsFeature.showStatistics);
 			}
 		}
 		

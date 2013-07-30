@@ -22,6 +22,7 @@ package ui.statistics
 	{	
 		public static const dropMiss:String = "dropMiss";
 		
+		public static const COUNT_STATISTICS_PIECE:int = 3;
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
@@ -30,6 +31,8 @@ package ui.statistics
 		private var flow:IUpdateDispatcher;
 		
 		private var data:Vector.<ChunkStatistics>;
+		
+		private var comeStatisticsPiece:int;
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher) 
 		{
@@ -55,11 +58,13 @@ package ui.statistics
 			}
 			
 			this.data = new Vector.<ChunkStatistics>();
+			this.data.length = StatisticsWindow.COUNT_STATISTICS_PIECE;
+			
+			this.comeStatisticsPiece = 0;
 			
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(StatisticsFeature.showStatistics);
 			this.flow.addUpdateListener(StatisticsWindow.dropMiss);
 			
 			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
@@ -68,15 +73,22 @@ package ui.statistics
 		
 		public function takeStatistics(newItem:StatisticsPiece):void
 		{
-			var lastIndex:int;
-			
 			this.updateData(newItem);
-			lastIndex = this.data.length - 1;
+			this.comeStatisticsPiece++;
+			
+			if (this.comeStatisticsPiece == StatisticsWindow.COUNT_STATISTICS_PIECE)
+			{
+				this.comeStatisticsPiece = 0;
+				this.redraw();
+			}
 		}
 		
-		update function showStatistics():void
+		public override function set visible(newValue:Boolean):void
 		{
-			this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
+			if(newValue)
+				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
+			
+			super.visible = newValue;
 		}
 		
 		update function dropMiss():void
@@ -113,7 +125,7 @@ package ui.statistics
 			
 			for (var i:int = 0; i < this.data.length;  ++i)
 			{
-				if (this.data[i].title == newItem.title)
+				if (this.data[i] != null && this.data[i].title == newItem.title)
 				{
 					isPiece = true;
 					this.data[i].updateData(newItem);
@@ -127,21 +139,12 @@ package ui.statistics
 				if (newChunk.order != -1)
 				{
 					var order:int = newChunk.order;
-					var lenght:int = this.data.length;
-					
-					if(order < lenght)
-						this.data[order] = newChunk;
-					else
-						for (var j:int = 0; j < order - lenght + 1; ++j)
-							this.data.push(newChunk);
-					
+					this.data[order] = newChunk;
 				}
 				else
 				{
 					this.data.push(newChunk);
 				}
-					
-				this.redraw();
 			}
 		}
 		
