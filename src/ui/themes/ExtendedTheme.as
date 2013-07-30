@@ -17,6 +17,8 @@ package ui.themes
 		private static const DEFAULT_TEXT_FORMAT:TextFormat = new TextFormat("HiLo-Deco", 18, AeonDesktopTheme.PRIMARY_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 		private static const DISABLE_TEXT_FORMAT:TextFormat = new TextFormat("HiLo-Deco", 18, AeonDesktopTheme.DISABLED_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 		
+		private static const STATISTICS_TITLE_TEXT_FORMAT:TextFormat = new TextFormat("HiLo-Deco", 20, AeonDesktopTheme.PRIMARY_TEXT_COLOR, true, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
+		
 		private static const SIZE_STATISTICS_BUTTON:Number = 15;
 		
 		private static const MUTE_BUTTON_WIDTH:int = 80;
@@ -34,6 +36,11 @@ package ui.themes
 			this.defaultTextFormat = ExtendedTheme.DEFAULT_TEXT_FORMAT;
 			this.disabledTextFormat = ExtendedTheme.DISABLE_TEXT_FORMAT;
 			
+			this.setNewInitializersForClasses();
+		}
+		
+		private function setNewInitializersForClasses():void
+		{
 			this.setInitializerForClass( Button, this.buttonMainMenu, ExtendedTheme.BUTTON_MAIN_MENU );
 			this.setInitializerForClass( Button, this.muteButton, ExtendedTheme.MUTE_BUTTON );
 			this.setInitializerForClass( Button, this.buttonStatisticsRoll, ExtendedTheme.BUTTON_STATISTICS_ROLL);
@@ -80,7 +87,7 @@ package ui.themes
 			this.labelInitializer(label);
 			
 			label.textRendererProperties.embedFonts = true;
-			label.textRendererProperties.textFormat = new TextFormat("HiLo-Deco", 20, AeonDesktopTheme.PRIMARY_TEXT_COLOR, true, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
+			label.textRendererProperties.textFormat = ExtendedTheme.STATISTICS_TITLE_TEXT_FORMAT;
 		}
 	}
 
