@@ -31,7 +31,7 @@ package game.actors.view
 		
 		public function ActiveCanvas(flow:IUpdateDispatcher)
 		{
-			this.objects = new Vector.<DrawenActor>(ActorsFeature.CAP + 1, true);
+			this.objects = new Vector.<DrawenActor>(ActorsFeature.CAP, true);
 			this.container = new Sprite();
 			
 			flow.workWithUpdateListener(this);

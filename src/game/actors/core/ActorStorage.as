@@ -9,6 +9,7 @@ package game.actors.core
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
+	import game.state.IGameState;
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
@@ -20,6 +21,7 @@ package game.actors.core
 		protected var actors:Vector.<ActorBase>;
 		
 		protected var view:ActiveCanvas;
+		protected var state:IGameState;
 		
 		
 		private var cacheV:Vector.<ActorBase>;
@@ -76,7 +78,7 @@ package game.actors.core
 			
 			if (this.cacheIsCleared)
 			{
-				for (i = 0; i < ActorsFeature.CAP; i++)
+				for (i = 0; i < this.state.actualActorsCap; i++)
 				{
 					actor = this.actors[i];
 					

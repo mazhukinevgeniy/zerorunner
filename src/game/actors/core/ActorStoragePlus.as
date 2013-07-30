@@ -11,7 +11,7 @@ package game.actors.core
 	import game.actors.view.ActiveCanvas;
 	import game.input.IKnowInput;
 	import game.scene.IScene;
-	//import game.state.IGameState; //TODO: use to determine refill power
+	import game.state.IGameState;
 	import game.ZeroRunner;
 	
 	use namespace update;
@@ -46,12 +46,27 @@ package game.actors.core
 		{
 			super.update::prerestore();
 			
-			this.refillActors(true);
+			var length:int = ActorsFeature.CAP;
+			var actor:ActorBase;
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				actor = this.actors[i];
+				
+				if (actor && actor.isActive)
+				{
+					this.pool.stash(actor);
+				}
+				
+				this.actors[i] = null;
+			}
+			
+			this.refillActors();
 		}
 		
-		private function refillActors(forceRespawn:Boolean = false):void
-		{
-			var length:int = this.actors.length;
+		private function refillActors():void
+		{			
+			var length:int = this.state.actualActorsCap;
 			var actor:ActorBase;
 			
 			for (var i:int = 0; i < length; i++)
@@ -60,7 +75,7 @@ package game.actors.core
 				
 				if (actor)
 				{
-					if (!actor.isActive || (forceRespawn && actor.isActive))
+					if (!actor.isActive)
 					{
 						this.pool.stash(actor);
 						
@@ -96,7 +111,7 @@ package game.actors.core
 		
 		update function tick():void
 		{
-			var length:int = this.actors.length;
+			var length:int = this.state.actualActorsCap;
 			
 			for (var i:int = 0; i < length; i++)
 				this.actors[i].act();
@@ -113,6 +128,7 @@ package game.actors.core
 			ActorBase.iInput = table.getInformer(IKnowInput);
 			
 			this.pool = new ActorPull();
+			this.state = table.getInformer(IGameState);
 		}
 	}
 
