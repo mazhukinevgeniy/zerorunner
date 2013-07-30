@@ -32,7 +32,7 @@ package game.actors
 		
 		public static const MAXIMUM_DAMAGE:int = 1000;
 		
-		public static const CAP:int = 250;
+		public static const CAP:int = 500;
 		
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{

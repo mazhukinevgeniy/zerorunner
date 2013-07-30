@@ -11,7 +11,7 @@ package game.actors.core
 	import game.actors.view.ActiveCanvas;
 	import game.input.IKnowInput;
 	import game.scene.IScene;
-	import game.state.IGameState;
+	//import game.state.IGameState; //TODO: use to determine refill power
 	import game.ZeroRunner;
 	
 	use namespace update;
@@ -112,7 +112,7 @@ package game.actors.core
 			ActorBase.iListener = this.view;
 			ActorBase.iInput = table.getInformer(IKnowInput);
 			
-			this.pool = new ActorPull(table.getInformer(IGameState));
+			this.pool = new ActorPull();
 		}
 	}
 
