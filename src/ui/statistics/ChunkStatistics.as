@@ -52,7 +52,7 @@ package ui.statistics
 			this.initializationTitle(newData.title);
 			this.initializationList(newData);
 			
-			this.initializationFields(flow);
+			this.initializationOtherFields(flow);
 			
 			this.initializationEventListeners();
 		}
@@ -191,7 +191,7 @@ package ui.statistics
 			return layoutData;
 		}
 		
-		private function initializationFields(flow:IUpdateDispatcher):void
+		private function initializationOtherFields(flow:IUpdateDispatcher):void
 		{
 			this.layout = new AnchorLayout();
 			
