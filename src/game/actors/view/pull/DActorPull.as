@@ -9,21 +9,17 @@ package game.actors.view.pull
 		
 		private var pull:Vector.<Vector.<DrawenActor>>;
 		
-		private const NUMBER_OF_CLASSES:int = 9;
+		private const NUMBER_OF_CLASSES:int = 5;
 		
 		public function DActorPull()
 		{
 			var types:Vector.<Class> = new Vector.<Class>(this.NUMBER_OF_CLASSES, true);
 			
-			types[ActorsFeature.TURRET] = DrawenTurret;
 			types[ActorsFeature.CHARACTER] = DrawenCharacter;
 			types[ActorsFeature.DOG] = DrawenDog;
-			types[ActorsFeature.ROCKET] = DrawenRocket;
-			types[ActorsFeature.HUNTER] = DrawenHunter;
 			types[ActorsFeature.MECHANIC] = DrawenMechanic;
-			types[ActorsFeature.MINE] = DrawenMine;
 			types[ActorsFeature.RESEARCH_DROID] = DrawenResearchDroid;
-			types[ActorsFeature.ROBOT] = DrawenRobot;
+			types[ActorsFeature.BATTLE_DROID] = DrawenBattleDroid;
 			
 			this.types = types;
 			
