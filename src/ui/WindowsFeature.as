@@ -31,7 +31,6 @@ package ui
 			windows[WindowsFeature.CREDITS] = new CreditsWindow(flow);
 			
 			new WindowsController(root, flow, windows);
-			
 		}
 		
 	}

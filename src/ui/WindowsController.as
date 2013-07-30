@@ -6,9 +6,7 @@ package ui
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import game.ZeroRunner;
-	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
-	import starling.display.Sprite;
 	import ui.mainMenu.MainMenu;
 	
 	internal class WindowsController 
@@ -32,6 +30,14 @@ package ui
 			
 			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
 			
+			this.initializationStartStateWindows(root);
+			this.initializationUsingFlow(flow);
+			
+			
+		}
+		
+		private function initializationStartStateWindows(root:DisplayObjectContainer):void
+		{
 			var frame:ScrollContainer = this.createRegionWindows();
 			var windowsLayoutData:AnchorLayoutData = this.createWindowsLayoutData();
 			var lenght:int = this.windows.length;
@@ -46,40 +52,9 @@ package ui
 				}
 				else
 					root.addChild(this.windows[id]);
-				
 			}
 			
 			root.addChild(frame);
-			
-			this.flow = flow;
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(ChaoticUI.openWindow);
-			this.flow.addUpdateListener(ChaoticUI.newGame);
-			this.flow.addUpdateListener(ZeroRunner.quitGame);
-			
-			
-		}
-		
-		update function openWindow(idTarget:int):void
-		{
-			if (idTarget != this.idLastOpenedWindow)
-			{
-				this.closelastOpenedWindow();
-				this.windows[idTarget].visible = true;
-				this.idLastOpenedWindow = idTarget;
-			}
-		}
-		
-		update function newGame():void
-		{
-			this.closelastOpenedWindow();
-			this.windows[WindowsFeature.MENU].visible = false;
-			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
-		}
-		
-		update function quitGame():void
-		{
-			this.windows[WindowsFeature.MENU].visible = true;
 		}
 		
 		private function createRegionWindows():ScrollContainer
@@ -105,11 +80,45 @@ package ui
 			return layoutData;
 		}
 		
+		private function initializationUsingFlow(flow:IUpdateDispatcher)
+		{
+			this.flow = flow;
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(ChaoticUI.openWindow);
+			this.flow.addUpdateListener(ChaoticUI.newGame);
+			this.flow.addUpdateListener(ZeroRunner.quitGame);
+		}
+		
+		
+		update function openWindow(idTarget:int):void
+		{
+			if (idTarget != this.idLastOpenedWindow)
+			{
+				this.closelastOpenedWindow();
+				this.windows[idTarget].visible = true;
+				this.idLastOpenedWindow = idTarget;
+			}
+		}
+		
+		update function newGame():void
+		{
+			this.closelastOpenedWindow();
+			this.windows[WindowsFeature.MENU].visible = false;
+			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
+		}
+		
 		private function closelastOpenedWindow():void
 		{
 			if (this.idLastOpenedWindow != WindowsController.UNDETERMINED)
 				this.windows[this.idLastOpenedWindow].visible = false;
 		}
+		
+		update function quitGame():void
+		{
+			this.windows[WindowsFeature.MENU].visible = true;
+		}
+		
+		
 	}
 
 }
