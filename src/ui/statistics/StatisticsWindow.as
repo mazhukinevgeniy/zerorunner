@@ -280,6 +280,8 @@ package ui.statistics
 			for (var i:int = 0;  i < lenght; ++i)
 			{
 				this.addChild(this.data[i]);
+				
+				//В данном месте программа вылетает по ходу инициализации (пытаемся добавить в дети нулл). Срочно надо починить. Как этот код лежит в девелопе?
 				this.data[i].order = i;
 			}
 		}
