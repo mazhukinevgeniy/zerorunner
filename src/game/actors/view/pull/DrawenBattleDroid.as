@@ -2,10 +2,10 @@ package game.actors.view.pull
 {
 	import game.actors.view.DrawenActor;
 	
-	internal class DrawenRocket extends DrawenActor
+	internal class DrawenBattleDroid extends DrawenActor
 	{
 		
-		public function DrawenRocket() 
+		public function DrawenBattleDroid() 
 		{
 			
 		}

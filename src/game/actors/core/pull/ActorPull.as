@@ -1,23 +1,15 @@
 package game.actors.core.pull 
 {
 	import game.actors.core.ActorBase;
-	import game.state.IGameState;
 	
 	public class ActorPull 
 	{
-		private const TICKS_BEFORE_NEXT:int = 200;
-		
-		
-		private var types:Vector.<Class> = new <Class>[Character, ResearchDroid, Dog, Mechanic, Mine, Rocket, Robot, Hunter, Turret];
+		private var types:Vector.<Class> = new <Class>[Character, ResearchDroid, BattleDroid, Dog, Mechanic];
 		
 		private var pull:Vector.<Vector.<ActorBase>>;
 		
-		private var state:IGameState;
-		
-		public function ActorPull(state:IGameState)
+		public function ActorPull()
 		{
-			this.state = state;
-			
 			var length:int = this.types.length;
 			this.pull = new Vector.<Vector.<ActorBase>>(length, true);
 			
@@ -45,7 +37,7 @@ package game.actors.core.pull
 		{
 			var actor:ActorBase;
 			
-			var type:int = this.chooseTypeToReturn(id);
+			var type:int = int(Boolean(id)) * (1 + int(Math.random() * 4));
 			actor = this.pull[type].pop();
 			
 			if (!actor)
@@ -58,15 +50,6 @@ package game.actors.core.pull
 			return actor;
 		}
 		
-		private function chooseTypeToReturn(id:int):int
-		{
-			return int(Boolean(id)) + 
-						(id * id * this.state.ticksPassed) 
-						% 
-						Math.min(this.types.length - 1, 
-								 1 + int(this.state.ticksPassed / this.TICKS_BEFORE_NEXT)); 
-			//TODO: remove odd/even assimethry
-		}
 	}
 
 }
