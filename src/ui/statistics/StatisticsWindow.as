@@ -195,7 +195,7 @@ package ui.statistics
 		
 		public override function set visible(newValue:Boolean):void
 		{
-			if (newValue || this.data[0] == null)
+			if (newValue) //|| this.data[0] == null)
 			{
 				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
 			}
