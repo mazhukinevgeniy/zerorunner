@@ -87,8 +87,7 @@ package ui.statistics
 		
 		private function initializationPlaceForStatisticsPiece():void
 		{
-			this.data = null; new Vector.<ChunkStatistics>();
-			//this.data.length = StatisticsWindow.COUNT_STATISTICS_PIECE;
+			this.data = new Vector.<ChunkStatistics>();
 			
 			this.comeStatisticsPiece = 0;
 		}
@@ -195,12 +194,8 @@ package ui.statistics
 		
 		public override function set visible(newValue:Boolean):void
 		{
-			if (newValue || this.data == null)
+			if (newValue || this.data.length == 0)
 			{
-				if (this.data == null)
-				{
-					this.data = new Vector.<ChunkStatistics>();
-				}
 				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
 			}
 			
@@ -278,15 +273,12 @@ package ui.statistics
 		private function redraw():void
 		{
 			var lenght:int = this.data.length;
-			trace("lenght = ", lenght);
 			
 			this.removeChildren();
 			
 			for (var i:int = 0;  i < lenght; ++i)
 			{
 				this.addChild(this.data[i]);
-				
-				//В данном месте программа вылетает по ходу инициализации (пытаемся добавить в дети нулл). Срочно надо починить. Как этот код лежит в девелопе?
 				this.data[i].order = i;
 			}
 		}
