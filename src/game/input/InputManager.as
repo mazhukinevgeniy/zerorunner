@@ -33,6 +33,8 @@ package game.input
 				this.changes[i] = new DCellXY(	i == 1 ? 1 : i == 3 ? -1 : 0,
 												i == 2 ? 1 : i == 4 ? -1 : 0);
 			}
+			
+			this.update::restore();
 		}
 		
 		update function aftertick():void
