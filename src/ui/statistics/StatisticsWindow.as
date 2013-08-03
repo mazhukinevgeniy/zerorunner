@@ -87,8 +87,8 @@ package ui.statistics
 		
 		private function initializationPlaceForStatisticsPiece():void
 		{
-			this.data = new Vector.<ChunkStatistics>();
-			this.data.length = StatisticsWindow.COUNT_STATISTICS_PIECE;
+			this.data = null; new Vector.<ChunkStatistics>();
+			//this.data.length = StatisticsWindow.COUNT_STATISTICS_PIECE;
 			
 			this.comeStatisticsPiece = 0;
 		}
@@ -195,8 +195,12 @@ package ui.statistics
 		
 		public override function set visible(newValue:Boolean):void
 		{
-			if (newValue) //|| this.data[0] == null)
+			if (newValue || this.data == null)
 			{
+				if (this.data == null)
+				{
+					this.data = new Vector.<ChunkStatistics>();
+				}
 				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
 			}
 			
@@ -274,6 +278,7 @@ package ui.statistics
 		private function redraw():void
 		{
 			var lenght:int = this.data.length;
+			trace("lenght = ", lenght);
 			
 			this.removeChildren();
 			
