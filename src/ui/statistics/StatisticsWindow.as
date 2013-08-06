@@ -262,11 +262,26 @@ package ui.statistics
 			
 			if (order != -1)
 			{
-				this.data[order] = newChunk;
+				this.putAtIndexInVector(newChunk, order);
 			}
 			else
 			{
 				this.data.push(newChunk);
+			}
+		}
+		
+		private function putAtIndexInVector(newChunk:ChunkStatistics, index:int):void
+		{
+			var lenght:int = this.data.length;
+			
+			if (lenght <= index)
+			{
+				for (var i:int = 0; i <= index - lenght; ++i)
+					this.data.push(newChunk);
+			}
+			else
+			{
+				this.data[index] = newChunk;
 			}
 		}
 		
