@@ -1,4 +1,4 @@
-package game.actors.core 
+package game.actors.base 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.AbstractClassError;

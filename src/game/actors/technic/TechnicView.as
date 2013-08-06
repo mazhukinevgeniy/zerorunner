@@ -1,4 +1,4 @@
-package game.actors.view.pull 
+package game.actors.technic 
 {
 	import game.actors.view.DrawenActor;
 	

@@ -1,4 +1,4 @@
-package game.actors.core.pull 
+package game.actors.character 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;

@@ -1,4 +1,4 @@
-package game.actors.view 
+package game.actors.base 
 {
 	import game.metric.CellXY;
 	import game.metric.DCellXY;

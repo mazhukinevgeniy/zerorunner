@@ -9,13 +9,6 @@ package game.actors
 	
 	public class ActorsFeature
 	{
-		public static const CHARACTER:int = 0;
-		public static const DOG:int = 1;
-		public static const MECHANIC:int = 2;
-		public static const RESEARCH_DROID:int = 3;
-		public static const BATTLE_DROID:int = 4;
-		
-		
 		public static const addActor:String = "addActor";
 		public static const moveActor:String = "moveActor";
 		public static const removeActor:String = "removeActor";
