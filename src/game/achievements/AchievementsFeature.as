@@ -2,10 +2,8 @@ package game.achievements
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.update;
-	import chaotic.informers.IStoreInformers;
 	import chaotic.utils.SaveBase;
 	import game.achievements.statistics.ActorStatistic;
-	import game.achievements.statistics.IActorStatistic;
 	import game.metric.DCellXY;
 	import game.statistics.ITakeStatistics;
 	import game.statistics.StatisticsFeature;
@@ -30,7 +28,6 @@ package game.achievements
 			this.actorStat = new ActorStatistic(flow);
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(AchievementsFeature.unlockAchievement);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
@@ -59,11 +56,6 @@ package game.achievements
 			// TODO: do stuff and, if required, refill your activeAchievements vector
 			
 			//TODO: also add some feature to show pop-up with the heartwarming notify
-		}
-		
-		update function addInformerTo(table:IStoreInformers):void
-		{
-			table.addInformer(IActorStatistic, this.actorStat);
 		}
 	}
 

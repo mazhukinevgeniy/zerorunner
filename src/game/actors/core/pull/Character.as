@@ -38,8 +38,6 @@ package game.actors.core.pull
 		override protected function onMoved(change:DCellXY, delay:int):void
 		{
 			this.forceUpdate(ActorsFeature.moveCenter, change, delay + 1);
-			
-			this.statistic.heroMoved(change);
 		}
 		
 		override protected function onDestroyed():void

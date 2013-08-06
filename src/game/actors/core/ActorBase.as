@@ -2,7 +2,6 @@ package game.actors.core
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.errors.AbstractClassError;
-	import game.achievements.statistics.IActorStatistic;
 	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
@@ -15,7 +14,6 @@ package game.actors.core
 		internal static var iFlow:IUpdateDispatcher;
 		internal static var iSearcher:ISearcher;
 		internal static var iScene:IScene;
-		internal static var iStat:IActorStatistic;
 		internal static var iListener:IActorListener;
 		internal static var iInput:IKnowInput;
 		
@@ -98,10 +96,6 @@ package game.actors.core
 		final protected function get input():IKnowInput
 		{
 			return ActorBase.iInput;
-		}
-		final protected function get statistic():IActorStatistic
-		{
-			return ActorBase.iStat;
 		}
 		
 		

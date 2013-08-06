@@ -27,7 +27,8 @@ package game.actors
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
-		public static const PROTAGONIST_ID:int = 0;
+		public static const PROTAGONIST_ID:int = 0; 
+		//TODO: check if it's used everywhere it must be used
 		
 		
 		public static const MAXIMUM_DAMAGE:int = 1000;

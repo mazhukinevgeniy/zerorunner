@@ -3,7 +3,6 @@ package game.actors.core
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.update;
 	import chaotic.informers.IGiveInformers;
-	import game.achievements.statistics.IActorStatistic;
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
 	import game.actors.core.ActorStorage;
@@ -123,7 +122,6 @@ package game.actors.core
 			ActorBase.iFlow = this.flow;
 			ActorBase.iSearcher = this;
 			ActorBase.iScene = table.getInformer(IScene);
-			ActorBase.iStat = table.getInformer(IActorStatistic);
 			ActorBase.iListener = this.view;
 			ActorBase.iInput = table.getInformer(IKnowInput);
 			
