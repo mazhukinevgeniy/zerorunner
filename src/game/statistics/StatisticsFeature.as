@@ -12,8 +12,6 @@ package game.statistics
 		public function StatisticsFeature(flow:IUpdateDispatcher) 
 		{
 			new StatisticsView(flow);
-			new TemporaryEmitter(flow);
-			new DoubleTemporaryEmitter(flow);
 		}
 		
 		

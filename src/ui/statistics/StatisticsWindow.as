@@ -22,7 +22,7 @@ package ui.statistics
 	{	
 		public static const dropMiss:String = "dropMiss";
 		
-		public static const COUNT_STATISTICS_PIECE:int = 3;
+		public static const COUNT_STATISTICS_PIECE:int = 1;
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
