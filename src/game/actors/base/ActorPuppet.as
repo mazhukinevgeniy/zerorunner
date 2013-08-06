@@ -1,4 +1,4 @@
-package game.actors.core 
+package game.actors.base 
 {
 	import chaotic.errors.AbstractClassError;
 	import game.metric.CellXY;
@@ -6,7 +6,6 @@ package game.actors.core
 	
 	public class ActorPuppet extends ActorReactor implements ICoordinated
 	{
-		internal var id:int;
 		internal var hp:int;
 		
 		internal var moveSpeed:int;
@@ -22,11 +21,6 @@ package game.actors.core
 		public function ActorPuppet() 
 		{
 			
-		}
-		
-		public function getClassCode():int
-		{
-			throw new AbstractClassError();
 		}
 		
 		
@@ -47,11 +41,6 @@ package game.actors.core
 		final public function get health():int
 		{
 			return this.hp;
-		}
-		
-		final public function getID():int
-		{
-			return this.id;
 		}
 		
 		/**
