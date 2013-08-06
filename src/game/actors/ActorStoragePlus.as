@@ -1,4 +1,4 @@
-package game.actors.base 
+package game.actors 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.update;
