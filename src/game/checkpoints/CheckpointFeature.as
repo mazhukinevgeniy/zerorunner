@@ -7,7 +7,7 @@ package game.checkpoints
 		
 		public function CheckpointFeature(flow:IUpdateDispatcher) 
 		{
-			
+			new Spawner(flow);
 		}
 		
 	}
