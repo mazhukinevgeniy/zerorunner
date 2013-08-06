@@ -25,6 +25,9 @@ package game.checkpoints
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			flow.addUpdateListener(ActorsFeature.moveCenter);
+			
+			this.lastCheckpoint = new CellXY(0, 0);
+			this.cellHelper = new CellXY(0, 0);
 		}
 		
 		update function getInformerFrom(table:IGiveInformers):void
