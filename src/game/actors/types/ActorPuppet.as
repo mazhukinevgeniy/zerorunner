@@ -1,4 +1,4 @@
-package game.actors.types.base 
+package game.actors.types 
 {
 	import chaotic.errors.AbstractClassError;
 	import game.metric.CellXY;
