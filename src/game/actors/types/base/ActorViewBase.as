@@ -1,4 +1,4 @@
-package game.actors.broods.base 
+package game.actors.types.base 
 {
 	import game.metric.CellXY;
 	import game.metric.DCellXY;

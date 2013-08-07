@@ -1,4 +1,4 @@
-package game.actors.broods.base 
+package game.actors.types.base 
 {
 	import game.actors.core.ActorBase;
 	

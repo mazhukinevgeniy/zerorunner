@@ -1,4 +1,4 @@
-package game.actors.broods 
+package game.actors.types 
 {
 	
 	public class BroodmotherBase 
