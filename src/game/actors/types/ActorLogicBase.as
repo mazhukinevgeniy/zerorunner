@@ -11,11 +11,6 @@ package game.actors.types
 	
 	public class ActorLogicBase extends ActorPuppet
 	{
-		internal static var iFlow:IUpdateDispatcher;
-		internal static var iSearcher:ISearcher;
-		internal static var iScene:IScene;
-		internal static var iListener:IActorListener;
-		internal static var iInput:IKnowInput;
 		
 		public function ActorLogicBase(moveSpeed:int, actionSpeed:int) 
 		{
@@ -72,33 +67,6 @@ package game.actors.types
 		}
 		
 		
-		/**
-		 * Informer access methods
-		 */
-		
-		final protected function get scene():IScene
-		{
-			return ActorBase.iScene;
-		}
-		final protected function get searcher():ISearcher
-		{
-			return ActorBase.iSearcher;
-		}
-		final protected function get listener():IActorListener
-		{
-			return ActorBase.iListener;
-		}
-		final protected function get input():IKnowInput
-		{
-			return ActorBase.iInput;
-		}
-		
-		
-		
-		final protected function forceUpdate(... args):void
-		{
-			ActorBase.iFlow.dispatchUpdate.apply(ActorBase.iFlow, args);
-		}
 		
 		//TODO: organize code
 		

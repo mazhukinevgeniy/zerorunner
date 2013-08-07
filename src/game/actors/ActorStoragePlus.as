@@ -119,6 +119,10 @@ package game.actors
 		
 		update function getInformerFrom(table:IGiveInformers):void
 		{
+			var informers:Object = new Object();
+			
+			informers[IUpdateDispatcher] = this.flow; //TODO: etc; pass on every actor initialization
+			
 			ActorBase.iFlow = this.flow;
 			ActorBase.iSearcher = this;
 			ActorBase.iScene = table.getInformer(IScene);

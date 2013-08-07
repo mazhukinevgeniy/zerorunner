@@ -8,51 +8,15 @@ package game.actors.types
 		
 		private var mode:int;
 		
-		private var types:Vector.<Class> = new <Class>[Character, ResearchDroid, BattleDroid, Dog, Mechanic];
+		private var type:Class;
 		
-		private var pull:Vector.<Vector.<ActorBase>>;
+		private var pull:Vector.<ActorBase>;
 		
-		public function ActorPull()
+		public function BroodmotherBase()
 		{
-			var length:int = this.types.length;
-			this.pull = new Vector.<Vector.<ActorBase>>(length, true);
 			
-			for (var i:int = 0; i < length; i++)
-			{
-				this.pull[i] = new Vector.<ActorBase>();
-			}
 		}
 		
-		public function stash(actor:ActorBase):void
-		{
-			var length:int = this.types.length;
-			
-			for (var i:int = 0; i < length; i++)
-			{
-				if (actor is this.types[i])
-				{
-					this.pull[i].push(actor);
-					return;
-				}
-			}
-		}
-		
-		public function getActor(id:int):ActorBase
-		{
-			var actor:ActorBase;
-			
-			var type:int = int(Boolean(id)) * (1 + int(Math.random() * 4));
-			actor = this.pull[type].pop();
-			
-			if (!actor)
-			{
-				actor = new this.types[type]();
-			}
-			
-			actor.reset(id);
-			
-			return actor;
-		}
 		
 	}
 

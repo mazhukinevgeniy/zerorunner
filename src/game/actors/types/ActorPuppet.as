@@ -2,6 +2,7 @@ package game.actors.types
 {
 	import chaotic.errors.AbstractClassError;
 	import game.metric.CellXY;
+	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	
 	public class ActorPuppet implements ICoordinated
@@ -65,7 +66,8 @@ package game.actors.types
 		{
 			if (this.isActive)
 			{
-				ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, item.id);
+				//this.flow.dispatchUpdate(ActorsFeature.removeActor, item.id);
+				//TODO: do it correct way
 				
 				this.onDestroyed();
 			}
