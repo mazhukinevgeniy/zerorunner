@@ -9,7 +9,7 @@ package game.actors.types
 	import game.metric.Metric;
 	import game.scene.IScene;
 	
-	public class ActorBase extends ActorCoreActions
+	public class ActorLogicBase extends ActorPuppet
 	{
 		internal static var iFlow:IUpdateDispatcher;
 		internal static var iSearcher:ISearcher;
@@ -17,22 +17,17 @@ package game.actors.types
 		internal static var iListener:IActorListener;
 		internal static var iInput:IKnowInput;
 		
-		private var helperCharacter:CellXY;
-		
-		public function ActorBase(hp:int, moveSpeed:int, actionSpeed:int) 
+		public function ActorLogicBase(moveSpeed:int, actionSpeed:int) 
 		{
-			this.hp = hp;
-			
 			this.moveSpeed = moveSpeed;
 			this.actionSpeed = actionSpeed;
 			
 			this.cell = new CellXY(0, 0);
-			this.helperCharacter = new CellXY(0, 0);//TODO: optimize
 		}
 		
-		final public function reset(id:int):void
+		final public function reset(hp:int):void
 		{
-			this.id = id;
+			this.hp = hp;
 			
 			this.isActive = true;
 			
@@ -99,14 +94,6 @@ package game.actors.types
 		}
 		
 		
-		/**
-		 * DANGER: force methods
-		 */
-		
-		final protected function forceActive(value:Boolean):void
-		{
-			this.isActive = value;
-		}
 		
 		final protected function forceUpdate(... args):void
 		{
@@ -150,6 +137,17 @@ package game.actors.types
 			this.onMoved(jChange, this.movingCooldown);
 		}
 		
+		/********
+		 ** SETUP
+		 *******/
+		
+		
+		
+		
+		/*********
+		 ** CHECKS
+		 ********/
+		
 		final protected function isOnTheGround(item:ActorBase):void
 		{
 			if (ActorBase.iScene.getSceneCell(item.x, item.y) == SceneFeature.FALL)
@@ -158,96 +156,11 @@ package game.actors.types
 			}
 		}
 		
-		final protected function damageActor(item:ActorBase, damage:int):void
-		{
-			if (this.actingCooldown < 0)
-			{
-				item.hp -= damage;
-				
-				if (item.hp > 0)
-				{
-					item.onDamaged(damage);
-				}
-				else
-				{
-					this.destroyActor(item);
-				}
-				
-				this.actingCooldown = this.actionSpeed;
-			}
-			else this.actingCooldown--;
-		}
-		
-		private function destroyActor(item:ActorBase):void
-		{
-			if (item.isActive)
-			{
-				ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, item.id);
-				
-				item.onDestroyed();
-			}
-		}
-		
-		/**
-		 * Called in the end of reset.
-		 */
-		protected function onSpawned():void
-		{ 
-			
-		}
+		/**********
+		 ** ACTIONS
+		 *********/
 		
 		
-		/**
-		 * Called in the begging of act().
-		 */
-		protected function onActing():void
-		{ 
-			
-		}
-		/**
-		 * Called if action cooldown expired.
-		 */
-		protected function onCanAct():void
-		{
-			
-		}
-		/**
-		 * Called if moving cooldown expired.
-		 */
-		protected function onCanMove():void
-		{
-			
-		}
-		/**
-		 * Called if moved succesfully
-		 */
-		protected function onMoved(change:DCellXY, delay:int):void
-		{
-			
-		}
-		/**
-		 * Called if can not move
-		 */
-		protected function onBlocked(change:DCellXY):void
-		{
-			
-		}
-		
-		/**
-		 * Called if damaged and survived that damage.
-		**/
-		protected function onDamaged(damage:int):void
-		{
-			
-		}
-		
-		/**
-		 * Called if actor is destroyed by something.
-		 */
-		protected function onDestroyed():void
-		{
-			
-		}
 	}
 
 }

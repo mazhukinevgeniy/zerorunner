@@ -1,4 +1,4 @@
-package game.actors.view 
+package game.actors 
 {
 	import chaotic.core.update;
 	import game.actors.ActorsFeature;

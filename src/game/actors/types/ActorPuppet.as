@@ -4,19 +4,19 @@ package game.actors.types
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	
-	public class ActorPuppet extends ActorReactor implements ICoordinated
+	public class ActorPuppet implements ICoordinated
 	{
-		internal var hp:int;
+		protected var hp:int;
 		
-		internal var moveSpeed:int;
-		internal var movingCooldown:int;
+		protected var moveSpeed:int;
+		protected var movingCooldown:int;
 		
-		internal var actionSpeed:int;
-		internal var actingCooldown:int;
+		protected var actionSpeed:int;
+		protected var actingCooldown:int;
 		
-		internal var cell:CellXY;
+		protected var cell:CellXY;
 		
-		internal var isActive:Boolean;
+		protected var isActive:Boolean;
 		
 		public function ActorPuppet() 
 		{
@@ -43,13 +43,62 @@ package game.actors.types
 			return this.hp;
 		}
 		
-		/**
-		 * DANGER: it gives link to te ACTUAL cell of you! Fair use only, or you'll die painfully.
-		**/
-		final public function giveCell():CellXY
+		/*********************
+		** What you can suffer
+		*********************/
+		
+		final public function applyDamage(damage:int):void
 		{
-			return this.cell;
+			this.hp -= damage;
+			
+			if (this.hp > 0)
+			{
+				this.onDamaged(damage);
+			}
+			else
+			{
+				this.applyDestruction();
+			}
 		}
+		
+		final public function applyDestruction():void
+		{
+			if (this.isActive)
+			{
+				ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, item.id);
+				
+				this.onDestroyed();
+			}
+		}
+		
+		/****************
+		**** Overridables
+		****************/
+		
+		
+		/** Called in the end of reset. */
+		protected function onSpawned():void;
+		
+		/** Called in the begging of act(). */
+		protected function onActing():void;
+		
+		/** Called if action cooldown expired. */
+		protected function onCanAct():void;
+		
+		/** Called if moving cooldown expired. */
+		protected function onCanMove():void;
+		
+		/** Called if moved succesfully */
+		protected function onMoved(change:DCellXY, delay:int):void;
+		
+		/** Called if can not move */
+		protected function onBlocked(change:DCellXY):void;
+		
+		/** Called if damaged and survived that damage. */
+		protected function onDamaged(damage:int):void;
+		
+		/** Called if actor is destroyed by something. */
+		protected function onDestroyed():void;
 	}
 
 }
