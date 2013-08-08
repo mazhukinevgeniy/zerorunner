@@ -22,7 +22,7 @@ package ui
 		
 		public function WindowsFeature(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
 		{
-			var windows:Vector.<ScrollContainer> = new Vector.<ScrollContainer>(WindowsFeature.NUMBER_WINDOWS, true);
+			var windows:Vector.<ScrollContainer> = new Vector.<ScrollContainer>(WindowsFeature.NUMBER_OF_WINDOWS, true);
 			
 			windows[WindowsFeature.MENU] = new MainMenu(flow, assets);
 			windows[WindowsFeature.STATISTICS] = new StatisticsWindow(flow);

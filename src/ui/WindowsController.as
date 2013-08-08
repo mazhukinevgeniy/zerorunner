@@ -1,13 +1,13 @@
 package ui 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import ui.mainMenu.MainMenu;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	internal class WindowsController 
 	{

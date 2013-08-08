@@ -1,12 +1,8 @@
 package game.ui.camera 
 {
-	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
 	import game.time.Time;
 	import game.ZeroRunner;
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -14,7 +10,11 @@ package game.ui.camera
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
+	import utils.informers.IGiveInformers;
+	import utils.informers.IStoreInformers;
 	import utils.PixelPerfectTween;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class Camera implements ILines
 	{

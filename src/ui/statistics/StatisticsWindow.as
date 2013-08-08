@@ -15,6 +15,7 @@ package ui.statistics
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
+	import utils.updates.UpdateManager;
 
 	
 	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget

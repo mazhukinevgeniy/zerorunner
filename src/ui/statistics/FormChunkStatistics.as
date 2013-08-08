@@ -1,6 +1,6 @@
 package ui.statistics 
 {
-	import chaotic.utils.SaveBase;
+	import utils.SaveBase;
 
 	public class FormChunkStatistics extends SaveBase
 	{		

@@ -1,7 +1,5 @@
 package ui.statistics 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import feathers.controls.List;
@@ -20,6 +18,7 @@ package ui.statistics
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class ChunkStatistics extends ScrollContainer implements IDragSource
 	{
