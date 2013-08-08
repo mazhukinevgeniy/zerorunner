@@ -1,11 +1,26 @@
 package game.actors.types 
 {
+	import game.actors.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
+	import game.metric.Metric;
+	import game.scene.IScene;
+	import utils.errors.AbstractClassError;
 	
 	public class ActorPuppet implements ICoordinated
 	{
+		/**
+		 * To set
+		 */
+		
+		protected var searcher:ISearcher;
+		protected var scene:IScene;
+		
+		/**
+		 * 
+		 */
+		
 		protected var moveSpeed:int;
 		protected var movingCooldown:int;
 		
@@ -23,14 +38,50 @@ package game.actors.types
 			
 		}
 		
+		final public function reset():void
+		{
+			this._hp = this.getBaseHP();
+			
+			this._active = true;
+			
+			this.actingCooldown = 0;
+			this.movingCooldown = 0;
+			
+			var cell:CellXY = this.getSpawningCell();
+			this._x = cell.x;
+			this._y = cell.y;
+			
+			this.onSpawned();
+		}
+		
+		protected function getSpawningCell():CellXY
+		{
+			var x:int = character.x - Metric.xDistanceActorsAllowed / 2;
+			var y:int = character.y - Metric.yDistanceActorsAllowed / 2;
+			
+			var character:ICoordinated = this.searcher.character;
+			
+			var cell:CellXY = new CellXY(0, 0);
+			
+			do 
+			{
+				cell.setValue(x + Metric.xDistanceActorsAllowed * Math.random(),
+							  y + Metric.yDistanceActorsAllowed * Math.random());
+			}
+			while (Metric.distance(character, cell) < 6 || this.searcher.findObjectByCell(cell.x, cell.y) != null);
+			
+			return cell;
+		}
+		
+		protected function getBaseHP():int
+		{
+			throw new AbstractClassError();
+		}
 		
 		final public function get x():int {	return this._x;	}
 		final public function get y():int {	return this._y;	}
 		
 		final public function get active():Boolean { return this._active; }
-		
-		//final public function get hp():int { return this._hp; }
-		//TODO: might delete
 		
 		/*********************
 		** What you can suffer
@@ -59,6 +110,23 @@ package game.actors.types
 				
 				this.onDestroyed();
 			}
+		}
+		
+		final public function applyMove(change:DCellXY):void
+		{
+			if (!this.searcher.findObjectByCell(this.x + change.x, this.y + change.y))
+			{
+				this.movingCooldown = this.moveSpeed;
+				
+				this._x += change.x;
+				this._y += change.y;
+				//ActorBase.iFlow.dispatchUpdate(ActorsFeature.moveActor, this, change, this.movingCooldown + 1);
+				//TODO: draw
+				
+				this.onMoved(change, this.moveSpeed);
+			}
+			else
+				this.onBlocked(change);
 		}
 		
 		/****************

@@ -5,6 +5,7 @@ package game.actors.types
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.IScene;
+	import game.scene.SceneFeature;
 	import utils.errors.AbstractClassError;
 	
 	public class ActorLogicBase extends ActorPuppet
@@ -14,42 +15,6 @@ package game.actors.types
 		{
 			this.moveSpeed = moveSpeed;
 			this.actionSpeed = actionSpeed;
-			
-			this.cell = new CellXY(0, 0);
-		}
-		
-		final public function reset(hp:int):void
-		{
-			this.hp = this.getBaseHP();
-			
-			this.isActive = true;
-			
-			this.actingCooldown = 0;
-			this.movingCooldown = 0;
-			
-			this.setSpawningCell();
-			
-			this.onSpawned();
-		}
-		
-		protected function getBaseHP():int
-		{
-			throw new AbstractClassError();
-		}
-		
-		protected function setSpawningCell():void
-		{
-			var x:int = ActorBase.iSearcher.character.x - Metric.xDistanceActorsAllowed / 2;
-			var y:int = ActorBase.iSearcher.character.y - Metric.yDistanceActorsAllowed / 2;
-			
-			ActorBase.iSearcher.getCharacterCell(this.helperCharacter); 
-			
-			do 
-			{
-				this.cell.setValue(x + Metric.xDistanceActorsAllowed * Math.random(),
-								   y + Metric.yDistanceActorsAllowed * Math.random());
-			}
-			while (Metric.distance(this.helperCharacter, this.cell) < 6 || ActorBase.iSearcher.findObjectByCell(this.x, this.y) != null);
 		}
 		
 		
@@ -73,23 +38,9 @@ package game.actors.types
 		
 		//TODO: organize code
 		
-		final protected function tryMove(change:DCellXY):void
-		{
-			if (!ActorBase.iSearcher.findObjectByCell(this.x + change.x, this.y + change.y))
-			{
-				this.movingCooldown = this.moveSpeed;
-				
-				this.cell.applyChanges(change);
-				ActorBase.iFlow.dispatchUpdate(ActorsFeature.moveActor, this, change, this.movingCooldown + 1);
-				
-				this.onMoved(change, this.moveSpeed);
-			}
-			else
-				this.onBlocked(change);
-		}
-		
 		final protected function jump(change:DCellXY, multiplier:int):void
 		{
+			/*
 			this.movingCooldown = 2 * this.moveSpeed * multiplier;
 			
 			var jChange:DCellXY = new DCellXY(change.x * multiplier, change.y * multiplier);//TODO: do not allocate
@@ -106,6 +57,7 @@ package game.actors.types
 			ActorBase.iListener.actorJumped(this.id, jChange, this.movingCooldown + 1); //TODO: ensure that moveNormally is overridable
 			
 			this.onMoved(jChange, this.movingCooldown);
+			*/
 		}
 		
 		/********
@@ -119,11 +71,11 @@ package game.actors.types
 		 ** CHECKS
 		 ********/
 		
-		final protected function isOnTheGround(item:ActorBase):void
+		final protected function isOnTheGround():void
 		{
-			if (ActorBase.iScene.getSceneCell(item.x, item.y) == SceneFeature.FALL)
+			if (this.scene.getSceneCell(this.x, this.y) == SceneFeature.FALL)
 			{
-				this.destroyActor(item);
+				this.applyDestruction();
 			}
 		}
 		

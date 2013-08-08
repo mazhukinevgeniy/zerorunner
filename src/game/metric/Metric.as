@@ -55,7 +55,7 @@ package game.metric
 			return Metric.randomDCells[int(Math.random() * 4)];
 		}
 		
-		public static function distance(p1:CellXY, p2:CellXY):int
+		public static function distance(p1:*, p2:*):int
 		{
 			return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)
 		}

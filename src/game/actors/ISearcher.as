@@ -8,7 +8,7 @@ package game.actors
 	{
 		function findObjectByCell(x:int, y:int):ActorPuppet;
 		
-		function getCharacterCell(storeIn:CellXY):void;
+		function get character():ICoordinated;
 	}
 	
 }

@@ -1,7 +1,7 @@
 package game.metric 
 {
 	
-	public class CellXY extends XYPairBase
+	public class CellXY extends XYPairBase implements ICoordinated
 	{
 		
 		public function CellXY(x:int, y:int) 

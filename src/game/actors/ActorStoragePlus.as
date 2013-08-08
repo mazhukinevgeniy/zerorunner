@@ -124,8 +124,6 @@ package game.actors
 			ActorBase.iListener = this.view;
 			ActorBase.iInput = table.getInformer(IKnowInput);
 			*/
-			
-			this.state = table.getInformer(IGameState);
 		}
 		
 		/*

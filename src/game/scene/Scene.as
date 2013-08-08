@@ -94,7 +94,7 @@ package game.scene
 		
 		update function aftertick():void
 		{
-			this.searcher.getCharacterCell(this.tLC);
+			this.tLC.setValue(this.searcher.character.x, this.searcher.character.y);
 			this.tLC.applyChanges(this.toTLC);
 		}
 		

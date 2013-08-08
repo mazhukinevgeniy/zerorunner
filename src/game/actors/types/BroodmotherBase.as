@@ -5,7 +5,7 @@ package game.actors.types
 	{
 		private var type:Class;
 		
-		private var pull:Vector.<ActorBase>;
+		private var pull:Vector.<ActorLogicBase>;
 		
 		public function BroodmotherBase()
 		{

@@ -1,7 +1,9 @@
 package game.actors 
 {
 	import game.actors.ActorsFeature;
+	import game.actors.types.ActorLogicBase;
 	import game.actors.types.ActorPuppet;
+	import game.actors.types.BroodmotherBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
@@ -18,12 +20,10 @@ package game.actors
 	
 	internal class ActorStorage implements ICacher, ISearcher
 	{
-		//protected var actors:Vector.<ActorBase>;
-		
-		protected var state:IGameState;
+		protected var broods:Vector.<BroodmotherBase>;
 		
 		
-		//private var cacheV:Vector.<ActorBase>;
+		private var cacheV:Vector.<ActorLogicBase>;
 		
 		private var width:int = Metric.xDistanceActorsAllowed * 2;
 		private var height:int = Metric.yDistanceActorsAllowed * 2;
@@ -34,6 +34,8 @@ package game.actors
 		
 		private var tLC:CellXY;
 		private var toTLC:DCellXY = new DCellXY( - Metric.xDistanceActorsAllowed, - Metric.yDistanceActorsAllowed);
+		
+		private var center:CellXY;
 		
 		public function ActorStorage(flow:IUpdateDispatcher) 
 		{
@@ -55,6 +57,7 @@ package game.actors
 		{
 			this.cacheIsCleared = false;
 			
+			this.center = ActorsFeature.SPAWN_CELL;
 			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
 			for (var i:int = 0; i < this.cacheLength; i++)
@@ -63,7 +66,7 @@ package game.actors
 		
 		update function aftertick():void
 		{
-			this.getCharacterCell(this.tLC);
+			this.tLC.setValue(this.center.x, this.center.y);
 			this.tLC.applyChanges(this.toTLC);
 		}
 		
@@ -139,10 +142,9 @@ package game.actors
 		}
 		
 		
-		final public function getCharacterCell(cell:CellXY):void
+		final public function get character():ICoordinated
 		{
-			//var ccell:CellXY = this.actors[0].cell;
-		//	cell.setValue(ccell.x, ccell.y);
+			return this.center;
 		}
 		/*
 		update function moveActor(actor:ActorBase, change:DCellXY, delay:int):void
