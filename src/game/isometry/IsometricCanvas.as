@@ -22,7 +22,7 @@ package game.isometry
 			this.lines = new Vector.<Sprite>(Metric.yDistanceActorsAllowed * 2, true);
 		}
 		
-		update function addToChildOfLine(object:DisplayObject, line:int):void
+		public function addChildTo(object:DisplayObject, line:int):void
 		{
 			//if line is not suitable, ignore it
 			

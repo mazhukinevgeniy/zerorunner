@@ -30,7 +30,8 @@ package game.actors.types
 		
 		final public function get active():Boolean { return this._active; }
 		
-		final public function get hp():int { return this._hp; }
+		//final public function get hp():int { return this._hp; }
+		//TODO: might delete
 		
 		/*********************
 		** What you can suffer
@@ -38,9 +39,9 @@ package game.actors.types
 		
 		final public function applyDamage(damage:int):void
 		{
-			this.hp -= damage;
+			this._hp -= damage;
 			
-			if (this.hp > 0)
+			if (this._hp > 0)
 			{
 				this.onDamaged(damage);
 			}
