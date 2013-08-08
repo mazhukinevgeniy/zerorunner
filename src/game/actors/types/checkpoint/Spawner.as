@@ -1,4 +1,4 @@
-package game.checkpoints 
+package game.actors.types.checkpoint 
 {
 	import chaotic.core.IUpdateDispatcher;
 	import chaotic.core.update;

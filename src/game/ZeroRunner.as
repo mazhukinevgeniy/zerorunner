@@ -5,7 +5,7 @@ package game
 	import chaotic.informers.InformerManager;
 	import game.achievements.AchievementsFeature;
 	import game.actors.ActorsFeature;
-	import game.checkpoints.CheckpointFeature;
+	import game.hazards.HazardFeature;
 	import game.input.InputManager;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -89,7 +89,10 @@ package game
 			
 			new SceneFeature(this);
 			new ActorsFeature(this);
-			new CheckpointFeature(this);
+			new HazardFeature(this);
+			/**
+			 * Please note: order above is important. You don't change it.
+			 */
 			
 			new StatisticsFeature(this); //TODO: rename or not keep at all
 			new AchievementsFeature(this);
