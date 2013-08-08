@@ -26,7 +26,7 @@ package ui
 			
 			windows[WindowsFeature.MENU] = new MainMenu(flow, assets);
 			windows[WindowsFeature.STATISTICS] = new StatisticsWindow(flow);
-			windows[WindowsFeature.ACHIEVEMENTS] = new AchievementsWindow(flow);
+			windows[WindowsFeature.ACHIEVEMENTS] = new AchievementsWindow(flow, assets);
 			windows[WindowsFeature.CREDITS] = new CreditsWindow(flow);
 			
 			new WindowsController(root, flow, windows);

@@ -5,6 +5,7 @@ package ui.achievements
 	import feathers.controls.ScrollContainer;
 	import game.achievements.AchievementBase;
 	import starling.display.Quad;
+	import starling.utils.AssetManager;
 	
 	public class AchievementsWindow  extends ScrollContainer
 	{	
@@ -19,7 +20,7 @@ package ui.achievements
 		
 		internal static const NUMBER_CELLS_IN_HEIGHT:int = 5;
 		
-		public function AchievementsWindow(flow:IUpdateDispatcher) 
+		public function AchievementsWindow(flow:IUpdateDispatcher, assets:AssetManager) 
 		{
 			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
@@ -28,7 +29,7 @@ package ui.achievements
 			tmp.alpha = 0.85;
 			this.backgroundSkin = tmp;
 			
-			this.addChild(new HexagonalGrid());
+			this.addChild(new HexagonalGrid(assets));
 			
 			this.flow = flow;
 			

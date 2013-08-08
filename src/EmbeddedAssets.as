@@ -8,6 +8,9 @@ package
 		[Embed(source="../res/assets/textures/atlases/sprites0.png")]
 		public static const sprites0:Class;
 		
+		[Embed(source="../res/assets/textures/hexagon.png")]
+		public static const hexagon:Class;
+		
 		//Sounds
 		
 		[Embed(source="../res/assets/sounds/Veloma.mp3")]
