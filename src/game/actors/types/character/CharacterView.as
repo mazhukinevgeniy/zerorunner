@@ -1,4 +1,4 @@
-package game.actors.view.pull 
+package game.actors.types.character 
 {
 	import game.actors.view.DrawenActor;
 	import game.metric.CellXY;
@@ -12,7 +12,7 @@ package game.actors.view.pull
 	import starling.events.Event;
 	import utils.PixelPerfectTween;
 	
-	internal class DrawenCharacter extends DrawenActor
+	internal class CharacterView extends DrawenActor
 	{
 		private var stand:Image;
 		
@@ -22,7 +22,7 @@ package game.actors.view.pull
 		
 		private var container:Sprite;
 		
-		public function DrawenCharacter() 
+		public function CharacterView() 
 		{
 			this.container = new Sprite();
 			

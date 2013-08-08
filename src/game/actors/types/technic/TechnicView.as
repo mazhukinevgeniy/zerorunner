@@ -1,4 +1,4 @@
-package game.actors.technic 
+package game.actors.types.technic 
 {
 	import game.actors.view.DrawenActor;
 	

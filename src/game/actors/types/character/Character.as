@@ -1,4 +1,4 @@
-package game.actors.character 
+package game.actors.types.character 
 {
 	
 	public class Character 

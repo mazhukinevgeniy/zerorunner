@@ -1,4 +1,4 @@
-package game.actors.character 
+package game.actors.types.character 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;
@@ -7,13 +7,13 @@ package game.actors.character
 	import game.scene.SceneFeature;
 	import game.ZeroRunner;
 	
-	internal class Character extends ActorBase
+	internal class CharacterLogic extends ActorBase
 	{
 		private static const HP:int = 100;
 		private static const MOVE_SPEED:int = 1;
 		private static const ACTION_SPEED:int = 1000;
 		
-		public function Character() 
+		public function CharacterLogic() 
 		{
 			super(Character.HP, Character.MOVE_SPEED, Character.ACTION_SPEED);
 		}

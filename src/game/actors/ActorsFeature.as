@@ -22,7 +22,7 @@ package game.actors
 		
 		public static function get SPAWN_CELL():CellXY
 		{
-			return new CellXY(- 10000, -10000);
+			return new CellXY(-10000, -10000);
 		}
 	}
 
