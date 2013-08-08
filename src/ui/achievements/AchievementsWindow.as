@@ -14,8 +14,10 @@ package ui.achievements
 		
 		private var flow:IUpdateDispatcher;
 		
-		public static const WIDTH_ACHIEVMENTS_WINDOW:Number = 350;
-		public static const HEIGHT_ACHIEVMENTS_WINDOW:Number = 400;
+		public static const WIDTH_ACHIEVMENTS_WINDOW:Number = Main.WIDTH + 150;
+		public static const HEIGHT_ACHIEVMENTS_WINDOW:Number = Main.HEIGHT;
+		
+		internal static const NUMBER_CELLS_IN_HEIGHT:int = 5;
 		
 		public function AchievementsWindow(flow:IUpdateDispatcher) 
 		{

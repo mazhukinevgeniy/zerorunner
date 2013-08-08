@@ -7,24 +7,29 @@ package ui.achievements
 	import starling.textures.Texture;
 	
 	public class HexagonalGrid extends Sprite
-	{
+	{	
+		private static const NUMBER_POLYGONS_IN_HEIGHT:Number = AchievementsWindow.NUMBER_CELLS_IN_HEIGHT + 0.8;
 		
-		private static const HEXAGON_SIZE:Number = 40;
-		private static const NUMBER_EDGES:int = 6;
-		private static const HEXAGON_BACKGROUND:uint = 0xff9911;
-		
-		private static const GRID_COLOR:uint = 0xff000000;
-		
+		private static const HEIGHT_CELL:Number = (Main.HEIGHT / HexagonalGrid.NUMBER_POLYGONS_IN_HEIGHT) - HexagonalGrid.GAP; //2 * Math.sqrt(HexagonalGrid.HEXAGON_SIZE * HexagonalGrid.HEXAGON_SIZE * (3 / 4));
+		private static const HEXAGON_SIZE:Number = HexagonalGrid.HEIGHT_CELL / Math.sqrt(3); //54.3;
 		private static const WIDTH_CELL:Number = 2 * HexagonalGrid.HEXAGON_SIZE;
-		private static const HEIGHT_CELL:Number = 2 * Math.sqrt(HexagonalGrid.HEXAGON_SIZE * HexagonalGrid.HEXAGON_SIZE * (3 / 4));
-		private static const GAP:Number = 1;
-		private static const PADDING_IN_POLYGONS:int = 3;
 		
+		private static const GAP:Number = 2;
+		private static const PADDING_IN_POLYGONS:int = 2;
+		private static const NUMBER_OF_EDGES:int = 6;
+		private static const HEXAGON_BACKGROUND:uint = 0xff9911;
+		private static const GRID_COLOR:uint = 0xff000000;
 		
 		public function HexagonalGrid() 
 		{
 			this.initializationGridBackground();
 			this.initializationPolygons();
+			
+			trace("size", HexagonalGrid.HEXAGON_SIZE);
+			trace("height", HexagonalGrid.HEIGHT_CELL);
+			trace("width", HexagonalGrid.WIDTH_CELL);
+			trace("gap", HexagonalGrid.GAP);
+			trace("number 5 x 8");
 		}
 		
 		private function initializationGridBackground():void
@@ -40,8 +45,8 @@ package ui.achievements
 		{
 			var widthCellPlusGap:Number =  HexagonalGrid.WIDTH_CELL + HexagonalGrid.GAP;
 			var heightCellPlusGap:Number = HexagonalGrid.HEIGHT_CELL + HexagonalGrid.GAP;
-			var widthInPolygons:int = (int)(Math.floor(this.width / (1.5 * widthCellPlusGap))) + HexagonalGrid.PADDING_IN_POLYGONS;
-			var heightInPolygons:int = (int)(Math.floor(this.height / heightCellPlusGap) * 2) + HexagonalGrid.PADDING_IN_POLYGONS;
+			var widthInPolygons:int = 8 + HexagonalGrid.PADDING_IN_POLYGONS;
+			var heightInPolygons:int = 2 * (AchievementsWindow.NUMBER_CELLS_IN_HEIGHT + HexagonalGrid.PADDING_IN_POLYGONS);
 			
 			for (var i:int = 0; i < widthInPolygons; ++i)
 			{
@@ -64,9 +69,9 @@ package ui.achievements
 		
 		private function createHexagon(x:Number = 0, y:Number = 0):Polygon
 		{
-			var polygon:Polygon = new Polygon(HexagonalGrid.HEXAGON_SIZE, HexagonalGrid.NUMBER_EDGES, HexagonalGrid.HEXAGON_BACKGROUND);
+			var polygon:Polygon = new Polygon(HexagonalGrid.HEXAGON_SIZE, HexagonalGrid.NUMBER_OF_EDGES, HexagonalGrid.HEXAGON_BACKGROUND);
 			polygon.x = x;
-			polygon.y = y;
+			polygon.y = y - HexagonalGrid.HEXAGON_SIZE * 2 / 3;
 			
 			return polygon;
 		}
