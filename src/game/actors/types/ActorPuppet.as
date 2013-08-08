@@ -7,17 +7,17 @@ package game.actors.types
 	
 	public class ActorPuppet implements ICoordinated
 	{
-		protected var hp:int;
-		
 		protected var moveSpeed:int;
 		protected var movingCooldown:int;
 		
 		protected var actionSpeed:int;
 		protected var actingCooldown:int;
 		
-		protected var cell:CellXY;
+		private var _x:int;
+		private var _y:int;
 		
-		protected var isActive:Boolean;
+		private var _active:Boolean;
+		private var _hp:int;
 		
 		public function ActorPuppet() 
 		{
@@ -25,24 +25,12 @@ package game.actors.types
 		}
 		
 		
-		final public function get x():int
-		{
-			return this.cell.x;
-		}
-		final public function get y():int
-		{
-			return this.cell.y;
-		}
+		final public function get x():int {	return this._x;	}
+		final public function get y():int {	return this._y;	}
 		
-		final public function get active():Boolean
-		{
-			return this.isActive;
-		}
+		final public function get active():Boolean { return this._active; }
 		
-		final public function get health():int
-		{
-			return this.hp;
-		}
+		final public function get hp():int { return this._hp; }
 		
 		/*********************
 		** What you can suffer
