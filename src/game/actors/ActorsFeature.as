@@ -4,7 +4,6 @@ package game.actors
 	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;
 	import game.metric.Metric;
-	import chaotic.utils.XMLByClass;
 	
 	public class ActorsFeature
 	{		

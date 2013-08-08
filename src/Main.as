@@ -1,5 +1,6 @@
 package 
 {
+	import chaotic.utils.adaptTextureAtlasMakerXML;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
@@ -11,7 +12,6 @@ package
 	import starling.events.Event;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
-	import starling.utils.adaptTextureAtlasMakerXML;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
 	
