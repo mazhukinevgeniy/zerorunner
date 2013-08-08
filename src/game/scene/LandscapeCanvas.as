@@ -1,20 +1,17 @@
 package game.scene 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
 	import game.actors.core.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.time.Time;
-	import game.ui.Camera;
 	import game.ZeroRunner;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import utils.updates.IUpdateDispatcher;
 	
 	internal class LandscapeCanvas
 	{

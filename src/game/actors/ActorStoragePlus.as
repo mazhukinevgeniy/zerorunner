@@ -1,13 +1,7 @@
 package game.actors 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
 	import game.actors.ActorsFeature;
-	import game.actors.core.ActorBase;
 	import game.actors.core.ActorStorage;
-	import game.actors.core.pull.ActorPull;
-	import game.actors.view.ActiveCanvas;
 	import game.input.IKnowInput;
 	import game.scene.IScene;
 	import game.state.IGameState;

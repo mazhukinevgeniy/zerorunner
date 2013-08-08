@@ -1,8 +1,5 @@
 package game 
 {
-	import chaotic.core.update;
-	import chaotic.core.UpdateManager;
-	import chaotic.informers.InformerManager;
 	import game.achievements.AchievementsFeature;
 	import game.actors.ActorsFeature;
 	import game.hazards.HazardFeature;
@@ -24,6 +21,9 @@ package game
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
+	import utils.informers.InformerManager;
+	import utils.updates.update;
+	import utils.updates.UpdateManager;
 	
 	public class ZeroRunner extends UpdateManager
 	{
