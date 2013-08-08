@@ -1,4 +1,4 @@
-package game.isometry 
+package game.ui.camera 
 {
 	import flash.display.DisplayObject;
 	

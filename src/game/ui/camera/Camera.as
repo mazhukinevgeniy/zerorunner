@@ -1,4 +1,4 @@
-package game.ui 
+package game.ui.camera 
 {
 	import game.actors.ActorsFeature;
 	import game.time.Time;
@@ -21,6 +21,11 @@ package game.ui
 		public static const ACTORS:int = 1;
 		public static const GRINDERS:int = 2;
 		
+		private var lines:Vector.<Sprite>;
+		private var topLine:int;
+		
+		private var searcher:ISearcher;
+		
 		private static const NUMBER_OF_LAYERS:int = 3;
 		
 		public static const addToTheLayer:String = "addToTheLayer";
@@ -32,6 +37,11 @@ package game.ui
 		
 		public function Camera(flow:IUpdateDispatcher) 
 		{
+			var numberOfLines:int = Metric.CELLS_IN_VISIBLE_HEIGHT + 3 + (Metric.CELLS_IN_VISIBLE_HEIGHT % 2 == 0 ? 1 : 0);
+			
+			this.lines = new Vector.<Sprite>(Metric.yDistanceActorsAllowed * 2, true);
+			
+			
 			this.container = new Sprite();
 			
 			this.layers = new Vector.<Sprite>(Camera.NUMBER_OF_LAYERS, true);
@@ -47,6 +57,14 @@ package game.ui
 			flow.addUpdateListener(Camera.addToTheLayer);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+		}
+		
+		public function addChildTo(object:DisplayObject, line:int):void
+		{
+			//if line is not suitable, ignore it
+			
+			//lol what? ignore nothing, useless requests are not required
+			
 		}
 		
 		update function setCenter(center:CellXY):void
