@@ -1,7 +1,5 @@
 package ui.mainMenu 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
 	import feathers.controls.Button;
@@ -12,6 +10,7 @@ package ui.mainMenu
 	import ui.ChaoticUI;
 	import ui.WindowsFeature;
 	import game.ZeroRunner;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class MainMenu  extends ScrollContainer
 	{	
@@ -33,7 +32,7 @@ package ui.mainMenu
 					creditsButton:Button;
 		
 		
-		public function MainMenu( flow:IUpdateDispatcher, assets:AssetManager) 
+		public function MainMenu(flow:IUpdateDispatcher, assets:AssetManager) 
 		{
 			this.width = MainMenu.WIDTH_MAIN_MENU;
 			this.height = MainMenu.HEIGHT_MAIN_MENU;

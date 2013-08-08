@@ -1,13 +1,13 @@
 package game.achievements.statistics 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.utils.SaveBase;
 	import game.actors.ActorsFeature;
 	import game.metric.DCellXY;
 	import game.statistics.ITakeStatistics;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
+	import utils.SaveBase;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class ActorStatistic extends SaveBase
 	{

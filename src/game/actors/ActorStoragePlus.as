@@ -6,6 +6,7 @@ package game.actors
 	import game.scene.IScene;
 	import game.state.IGameState;
 	import game.ZeroRunner;
+	import utils.updates.update;
 	
 	use namespace update;
 	

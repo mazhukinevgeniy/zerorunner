@@ -7,6 +7,7 @@ package game.ui
 	import starling.textures.Texture;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class PauseView
 	{

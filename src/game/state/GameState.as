@@ -1,10 +1,10 @@
 package game.state 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
 	import game.ZeroRunner;
+	import utils.informers.IStoreInformers;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class GameState implements IGameState
 	{

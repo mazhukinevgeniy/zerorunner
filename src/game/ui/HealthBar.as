@@ -1,12 +1,11 @@
 package game.ui 
 {
 	import game.actors.ActorsFeature;
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
 	import game.ZeroRunner;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	internal class HealthBar 
 	{

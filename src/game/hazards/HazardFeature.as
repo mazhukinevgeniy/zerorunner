@@ -1,6 +1,6 @@
 package game.hazards 
 {
-	import chaotic.core.IUpdateDispatcher;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class HazardFeature 
 	{

@@ -1,6 +1,5 @@
 package ui 
 {
-	import chaotic.core.IUpdateDispatcher;
 	import feathers.controls.ScrollContainer;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
@@ -8,6 +7,7 @@ package ui
 	import ui.achievements.AchievementsWindow;
 	import ui.credits.CreditsWindow;
 	import ui.mainMenu.MainMenu;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class WindowsFeature
 	{
@@ -18,7 +18,7 @@ package ui
 		public static const ACHIEVEMENTS:int = 2;
 		public static const CREDITS:int = 3;
 		
-		private static const NUMBER_WINDOWS:int = 4;
+		private static const NUMBER_OF_WINDOWS:int = 4;
 		
 		public function WindowsFeature(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
 		{

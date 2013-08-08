@@ -1,6 +1,5 @@
 package 
 {
-	import chaotic.utils.adaptTextureAtlasMakerXML;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
@@ -14,6 +13,7 @@ package
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
+	import utils.adaptTextureAtlasMakerXML;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]

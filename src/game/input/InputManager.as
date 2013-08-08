@@ -1,10 +1,10 @@
 package game.input
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IStoreInformers;
 	import game.metric.DCellXY;
 	import game.ZeroRunner;
+	import utils.informers.IStoreInformers;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class InputManager implements IKnowInput
 	{

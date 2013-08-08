@@ -1,11 +1,11 @@
 package game.time 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
 	import game.ui.panel.Panel;
 	import ui.ChaoticUI;
 	import game.ZeroRunner;
 	import flash.ui.Keyboard;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	internal class PauseTypes 
 	{

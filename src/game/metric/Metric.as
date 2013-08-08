@@ -1,7 +1,6 @@
 package game.metric 
 {
-	import chaotic.errors.StaticClassError;
-	import chaotic.errors.UnresolvedRequestError;
+	import utils.errors.StaticClassError;
 	
 	public class Metric
 	{
@@ -34,6 +33,8 @@ package game.metric
 		public function Metric() 
 		{
 			throw new StaticClassError();
+			
+			//TODO: not cool, man; how about YOU fix it?
 		}
 		
 		public static function initialize(cW:int = 24, cH:int = 24, tW:int = 81, tH:int = 81):void

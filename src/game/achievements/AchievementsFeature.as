@@ -1,8 +1,5 @@
 package game.achievements 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.utils.SaveBase;
 	import game.achievements.statistics.ActorStatistic;
 	import game.metric.DCellXY;
 	import game.statistics.ITakeStatistics;
@@ -11,6 +8,9 @@ package game.achievements
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
+	import utils.SaveBase;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class AchievementsFeature extends SaveBase implements ICacher
 	{

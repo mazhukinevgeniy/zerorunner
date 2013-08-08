@@ -1,6 +1,5 @@
 package utils.informers 
 {
-	import chaotic.errors.UnresolvedRequestError;
 	import flash.utils.Dictionary;
 	
 	public class InformerManager implements IGiveInformers, IStoreInformers
@@ -28,7 +27,7 @@ package utils.informers
 			if (item != null)
 				return item;
 			
-			throw new UnresolvedRequestError();
+			throw new Error();
 		}
 	}
 

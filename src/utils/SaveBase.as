@@ -1,7 +1,7 @@
 package utils 
 {
-	import chaotic.errors.AbstractClassError;
 	import flash.net.SharedObject;
+	import utils.errors.AbstractClassError;
 	
 	public class SaveBase 
 	{

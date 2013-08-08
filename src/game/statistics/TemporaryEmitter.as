@@ -1,7 +1,7 @@
 package game.statistics 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	internal class TemporaryEmitter 
 	{

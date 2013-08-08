@@ -1,6 +1,5 @@
 package game.scene 
 {
-	import game.actors.core.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -11,7 +10,9 @@ package game.scene
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import utils.informers.IGiveInformers;
 	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	internal class LandscapeCanvas
 	{

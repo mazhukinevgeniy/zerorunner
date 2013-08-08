@@ -1,14 +1,13 @@
 package game.time 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
-	import chaotic.informers.IStoreInformers;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
+	import utils.informers.IStoreInformers;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class Time
 	{

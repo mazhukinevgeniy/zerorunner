@@ -1,10 +1,6 @@
 package game.scene 
 {
-	import chaotic.informers.IGiveInformers;
 	import game.actors.ActorsFeature;
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IStoreInformers;
 	import game.actors.core.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -15,6 +11,10 @@ package game.scene
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
+	import utils.informers.IGiveInformers;
+	import utils.informers.IStoreInformers;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	internal class Scene implements ICacher, IScene
 	{		

@@ -1,6 +1,5 @@
 package game.ui.panel 
 {
-	import chaotic.core.IUpdateDispatcher;
 	import flash.display.Stage;
 	import flash.geom.Point;
 	import game.statistics.StatisticsFeature;
@@ -14,6 +13,7 @@ package game.ui.panel
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class Panel extends Sprite
 	{
