@@ -1,13 +1,11 @@
 package game.actors.types 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.errors.AbstractClassError;
-	import game.actors.view.IActorListener;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.IScene;
+	import utils.errors.AbstractClassError;
 	
 	public class ActorLogicBase extends ActorPuppet
 	{
@@ -22,7 +20,7 @@ package game.actors.types
 		
 		final public function reset(hp:int):void
 		{
-			this.hp = hp;
+			this.hp = this.getBaseHP();
 			
 			this.isActive = true;
 			
@@ -32,6 +30,11 @@ package game.actors.types
 			this.setSpawningCell();
 			
 			this.onSpawned();
+		}
+		
+		protected function getBaseHP():int
+		{
+			throw new AbstractClassError();
 		}
 		
 		protected function setSpawningCell():void

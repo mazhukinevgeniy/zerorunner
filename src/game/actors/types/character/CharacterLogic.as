@@ -9,13 +9,17 @@ package game.actors.types.character
 	
 	internal class CharacterLogic extends ActorLogicBase
 	{
-		private static const HP:int = 100;
 		private static const MOVE_SPEED:int = 1;
 		private static const ACTION_SPEED:int = 1000;
 		
 		public function CharacterLogic() 
 		{
-			super(Character.HP, Character.MOVE_SPEED, Character.ACTION_SPEED);
+			super(Character.MOVE_SPEED, Character.ACTION_SPEED);
+		}
+		
+		override protected function getBaseHP():int
+		{
+			return 100;
 		}
 		
 		override protected function setSpawningCell():void
