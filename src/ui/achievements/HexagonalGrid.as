@@ -12,17 +12,22 @@ package ui.achievements
 		{
 			var texture:Texture = assets.getTexture("hexagon");
 			
-			texture.repeat = true;
 			trace(texture.width, texture.height);
 			super(texture);
 			
-			trace(this.width, this.height);
+			texture.repeat = true;
 			
-			//this.setTexCoords(0, new Point(0, 0));
-			this.setTexCoords(1, new Point(3, 0));
-			this.setTexCoords(2, new Point(0, 3));
-			this.setTexCoords(3, new Point(3, 3));
+			this.setTexCoords(1, new Point(5, 0));
+			this.setTexCoords(2, new Point(0, 7));
+			this.setTexCoords(3, new Point(5, 7));
 			
+			this.width *= 5;
+			this.height *= 7;
+			
+			this.y = -26;
+			this.x = -20;
+			this.scaleX *= 1.094;
+			this.scaleY *= 1.266;
 
 			
 			

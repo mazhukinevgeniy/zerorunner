@@ -22,7 +22,7 @@ package ui.achievements
 		
 		public function AchievementsWindow(flow:IUpdateDispatcher, assets:AssetManager) 
 		{
-			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
+			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW + 150;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
 			
 			var tmp:Quad = new Quad(AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW, AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW, 0xFFFFFF);
