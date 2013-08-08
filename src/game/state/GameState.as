@@ -40,15 +40,6 @@ package game.state
 		//}
 		//TODO: remove if never required
 		
-		public function get actualActorsCap():uint
-		{
-			const INF:int = 50;
-			const TICK_STEP:int = 300;
-			const ACTOR_STEP:int = 25;
-			
-			return Math.min(INF + (this.ticks / TICK_STEP) * ACTOR_STEP, ActorsFeature.CAP);
-		}
-		
 	}
 
 }

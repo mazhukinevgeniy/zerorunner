@@ -1,10 +1,7 @@
 package game.actors 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
-	import game.actors.view.ActiveCanvas;
+	import game.actors.types.ActorPuppet;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
@@ -13,18 +10,20 @@ package game.actors
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
+	import utils.informers.IStoreInformers;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	use namespace update;
 	
 	internal class ActorStorage implements ICacher, ISearcher
 	{
-		protected var actors:Vector.<ActorBase>;
+		//protected var actors:Vector.<ActorBase>;
 		
-		protected var view:ActiveCanvas;
 		protected var state:IGameState;
 		
 		
-		private var cacheV:Vector.<ActorBase>;
+		//private var cacheV:Vector.<ActorBase>;
 		
 		private var width:int = Metric.xDistanceActorsAllowed * 2;
 		private var height:int = Metric.yDistanceActorsAllowed * 2;
@@ -43,13 +42,10 @@ package game.actors
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.aftertick);
-			flow.addUpdateListener(ActorsFeature.moveActor);
-			flow.addUpdateListener(ActorsFeature.removeActor);
 			
 			this.cacheLength = this.width * this.height;
 			
-			this.actors = new Vector.<ActorBase>(ActorsFeature.CAP, true);
-			this.cacheV = new Vector.<ActorBase>(this.cacheLength, true);
+			//this.cacheV = new Vector.<ActorBase>(this.cacheLength, true);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
 			flow.dispatchUpdate(Time.addCacher, this);
@@ -62,7 +58,7 @@ package game.actors
 			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
 			for (var i:int = 0; i < this.cacheLength; i++)
-				this.cacheV[i] = null;
+				return;//this.cacheV[i] = null;
 		}
 		
 		update function aftertick():void
@@ -73,7 +69,7 @@ package game.actors
 		
 		public function cache():void
 		{
-			var i:int, x:int, y:int;
+			/*var i:int, x:int, y:int;
 			var actor:ActorBase;
 			
 			if (this.cacheIsCleared)
@@ -117,10 +113,10 @@ package game.actors
 				for (i = 0; i < this.cacheLength; i++)
 					this.cacheV[i] = null;
 			}
-			
+			*/
 			this.cacheIsCleared = !this.cacheIsCleared;
 		}
-		
+		/*
 		final protected function canBeCached(actor:ActorBase):Boolean
 		{
 			var x:int = actor.x;
@@ -131,25 +127,24 @@ package game.actors
 					!(y < this.tLC.y) && (y < this.tLC.y + this.height));
 		}
 		
-		final public function findObjectByCell(x:int, y:int):ActorBase
+		*/
+		
+		final public function findObjectByCell(x:int, y:int):ActorPuppet
 		{
-			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+			/*if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
 				&&
 				!(y < this.tLC.y) && (y < this.tLC.y + this.height))
 				return this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width];
-			else return null;
+			else*/ return null;
 		}
+		
 		
 		final public function getCharacterCell(cell:CellXY):void
 		{
-			var ccell:CellXY = this.actors[0].cell;
-			cell.setValue(ccell.x, ccell.y);
+			//var ccell:CellXY = this.actors[0].cell;
+		//	cell.setValue(ccell.x, ccell.y);
 		}
-		final public function get character():ICoordinated //TODO: check if it's shrinkable
-		{
-			return this.actors[0];
-		}
-		
+		/*
 		update function moveActor(actor:ActorBase, change:DCellXY, delay:int):void
 		{
 			this.putInCell(actor.x - change.x, actor.y - change.y);
@@ -171,7 +166,7 @@ package game.actors
 				!(y < this.tLC.y) && (y < this.tLC.y + this.height))
 			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.width] = item;
 		}
-		
+		*/
 		
 		
 		final update function addInformerTo(table:IStoreInformers):void

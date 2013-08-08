@@ -1,7 +1,7 @@
 package game.scene 
 {
 	import game.actors.ActorsFeature;
-	import game.actors.core.ISearcher;
+	import game.actors.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;

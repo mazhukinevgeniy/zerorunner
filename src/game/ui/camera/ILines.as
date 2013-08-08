@@ -1,6 +1,6 @@
 package game.ui.camera 
 {
-	import flash.display.DisplayObject;
+	import starling.display.DisplayObject;
 	
 	public interface ILines 
 	{

@@ -1,24 +1,22 @@
 package game.actors 
 {
 	import game.actors.ActorsFeature;
-	import game.actors.core.ActorStorage;
 	import game.input.IKnowInput;
 	import game.scene.IScene;
 	import game.state.IGameState;
 	import game.ZeroRunner;
+	import utils.informers.IGiveInformers;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	use namespace update;
 	
 	public class ActorStoragePlus extends ActorStorage
 	{
-		private var pool:ActorPull;
-		
 		private var flow:IUpdateDispatcher;
 		
-		public function ActorStoragePlus(view:ActiveCanvas, flow:IUpdateDispatcher) 
+		public function ActorStoragePlus(flow:IUpdateDispatcher) 
 		{
-			this.view = view;
 			this.flow = flow;
 			
 			super(flow);
@@ -28,6 +26,8 @@ package game.actors
 			this.flow.addUpdateListener(ZeroRunner.tick);
 			this.flow.addUpdateListener(ZeroRunner.getInformerFrom);
 		}
+		
+		/*
 		
 		final override update function aftertick():void
 		{
@@ -57,10 +57,10 @@ package game.actors
 			
 			this.refillActors();
 		}
-		
+		*/
 		private function refillActors():void
 		{			
-			var length:int = this.state.actualActorsCap;
+			/*var length:int = this.state.actualActorsCap;
 			var actor:ActorBase;
 			
 			for (var i:int = 0; i < length; i++)
@@ -80,12 +80,12 @@ package game.actors
 				{
 					this.createActor(i);
 				}
-			}
+			}*/
 		}
 		
 		private function createActor(id:int):void
 		{
-			var actor:ActorBase;
+			/*var actor:ActorBase;
 			actor = this.pool.getActor(id);
 			
 			while (!this.canBeCached(actor))
@@ -98,17 +98,17 @@ package game.actors
 			
 			this.putInCell(actor.x, actor.y, actor);
 			
-			ActorBase.iFlow.dispatchUpdate(ActorsFeature.addActor, actor);
+			ActorBase.iFlow.dispatchUpdate(ActorsFeature.addActor, actor);*/
 		}
 		
 		
 		
 		update function tick():void
 		{
-			var length:int = this.state.actualActorsCap;
+			var length:int = 0;//this.state.actualActorsCap;
 			
 			for (var i:int = 0; i < length; i++)
-				this.actors[i].act();
+				return;//this.actors[i].act();
 		}
 		
 		
@@ -117,14 +117,14 @@ package game.actors
 			var informers:Object = new Object();
 			
 			informers[IUpdateDispatcher] = this.flow; //TODO: etc; pass on every actor initialization
-			
+			/*
 			ActorBase.iFlow = this.flow;
 			ActorBase.iSearcher = this;
 			ActorBase.iScene = table.getInformer(IScene);
 			ActorBase.iListener = this.view;
 			ActorBase.iInput = table.getInformer(IKnowInput);
+			*/
 			
-			this.pool = new ActorPull();
 			this.state = table.getInformer(IGameState);
 		}
 		

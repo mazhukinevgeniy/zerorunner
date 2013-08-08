@@ -1,9 +1,8 @@
 package game.actors 
 {
-	import game.actors.core.ActorStoragePlus;
-	import chaotic.core.IUpdateDispatcher;
 	import game.metric.CellXY;
 	import game.metric.Metric;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class ActorsFeature
 	{		
