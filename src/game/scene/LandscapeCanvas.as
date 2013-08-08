@@ -1,5 +1,6 @@
 package game.scene 
 {
+	import game.actors.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;

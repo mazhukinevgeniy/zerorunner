@@ -1,6 +1,5 @@
 package game.actors.types 
 {
-	import chaotic.errors.AbstractClassError;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
@@ -53,7 +52,7 @@ package game.actors.types
 		
 		final public function applyDestruction():void
 		{
-			if (this.isActive)
+			if (this._active)
 			{
 				//this.flow.dispatchUpdate(ActorsFeature.removeActor, item.id);
 				//TODO: do it correct way
@@ -68,28 +67,28 @@ package game.actors.types
 		
 		
 		/** Called in the end of reset. */
-		protected function onSpawned():void;
+		protected function onSpawned():void { }
 		
 		/** Called in the begging of act(). */
-		protected function onActing():void;
+		protected function onActing():void { }
 		
 		/** Called if action cooldown expired. */
-		protected function onCanAct():void;
+		protected function onCanAct():void { }
 		
 		/** Called if moving cooldown expired. */
-		protected function onCanMove():void;
+		protected function onCanMove():void { }
 		
 		/** Called if moved succesfully */
-		protected function onMoved(change:DCellXY, delay:int):void;
+		protected function onMoved(change:DCellXY, delay:int):void { }
 		
 		/** Called if can not move */
-		protected function onBlocked(change:DCellXY):void;
+		protected function onBlocked(change:DCellXY):void { }
 		
 		/** Called if damaged and survived that damage. */
-		protected function onDamaged(damage:int):void;
+		protected function onDamaged(damage:int):void { }
 		
 		/** Called if actor is destroyed by something. */
-		protected function onDestroyed():void;
+		protected function onDestroyed():void { }
 	}
 
 }
