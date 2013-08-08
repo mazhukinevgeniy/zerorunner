@@ -47,7 +47,7 @@ package game.actors
 			
 			this.cacheLength = this.width * this.height;
 			
-			//this.cacheV = new Vector.<ActorBase>(this.cacheLength, true);
+			this.cacheV = new Vector.<ActorLogicBase>(this.cacheLength, true);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
 			flow.dispatchUpdate(Time.addCacher, this);
@@ -61,7 +61,7 @@ package game.actors
 			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
 			for (var i:int = 0; i < this.cacheLength; i++)
-				return;//this.cacheV[i] = null;
+				this.cacheV[i] = null;
 		}
 		
 		update function aftertick():void
@@ -72,11 +72,11 @@ package game.actors
 		
 		public function cache():void
 		{
-			/*var i:int, x:int, y:int;
-			var actor:ActorBase;
+			var i:int, x:int, y:int;
+			var actor:ActorLogicBase;
 			
 			if (this.cacheIsCleared)
-			{
+			{/*
 				for (i = 0; i < this.state.actualActorsCap; i++)
 				{
 					actor = this.actors[i];
@@ -99,28 +99,17 @@ package game.actors
 						ActorBase.iFlow.dispatchUpdate(ActorsFeature.removeActor, actor.id);
 					}
 				}
-				
-				for (var j:int = 0; j < this.cacheLength; j++)
-				{
-					actor = this.cacheV[this.cacheLength - (1 + j)];
-					
-					if (actor && actor.active)
-					{
-						this.view.setLayerOf(actor.id, i);
-						i--;
-					}
-				}
+			*/
 			}
 			else
 			{
 				for (i = 0; i < this.cacheLength; i++)
 					this.cacheV[i] = null;
 			}
-			*/
 			this.cacheIsCleared = !this.cacheIsCleared;
 		}
-		/*
-		final protected function canBeCached(actor:ActorBase):Boolean
+		
+		final protected function canBeCached(actor:ICoordinated):Boolean
 		{
 			var x:int = actor.x;
 			var y:int = actor.y;
@@ -130,15 +119,13 @@ package game.actors
 					!(y < this.tLC.y) && (y < this.tLC.y + this.height));
 		}
 		
-		*/
-		
 		final public function findObjectByCell(x:int, y:int):ActorPuppet
 		{
-			/*if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
+			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
 				&&
 				!(y < this.tLC.y) && (y < this.tLC.y + this.height))
 				return this.cacheV[(x - this.tLC.x) + (y - this.tLC.y) * this.width];
-			else*/ return null;
+			else return null;
 		}
 		
 		
