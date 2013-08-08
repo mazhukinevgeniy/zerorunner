@@ -10,12 +10,12 @@ package game.actors.types
 	import starling.textures.TextureAtlas;
 	import utils.PixelPerfectTween;
 	
-	public class DrawenActor extends Sprite
+	public class ActorViewBase extends Sprite
 	{
 		internal static var iJuggler:Juggler;
 		internal static var iAtlas:TextureAtlas;
 		
-		public function DrawenActor()
+		public function ActorViewBase()
 		{
 			super();
 			this.draw();

@@ -1,6 +1,6 @@
 package game.actors.types.character 
 {
-	import game.actors.view.DrawenActor;
+	import game.actors.types.ActorViewBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -12,7 +12,7 @@ package game.actors.types.character
 	import starling.events.Event;
 	import utils.PixelPerfectTween;
 	
-	internal class CharacterView extends DrawenActor
+	internal class CharacterView extends ActorViewBase
 	{
 		private var stand:Image;
 		

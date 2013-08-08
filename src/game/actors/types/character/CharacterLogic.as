@@ -1,13 +1,13 @@
 package game.actors.types.character 
 {
 	import game.actors.ActorsFeature;
-	import game.actors.core.ActorBase;
+	import game.actors.types.ActorLogicBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.SceneFeature;
 	import game.ZeroRunner;
 	
-	internal class CharacterLogic extends ActorBase
+	internal class CharacterLogic extends ActorLogicBase
 	{
 		private static const HP:int = 100;
 		private static const MOVE_SPEED:int = 1;
