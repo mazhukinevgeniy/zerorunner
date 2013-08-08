@@ -1,5 +1,6 @@
 package game.ui.camera 
 {
+	import chaotic.informers.IStoreInformers;
 	import game.actors.ActorsFeature;
 	import game.time.Time;
 	import game.ZeroRunner;
@@ -15,48 +16,46 @@ package game.ui.camera
 	import starling.display.Sprite;
 	import utils.PixelPerfectTween;
 	
-	public class Camera
+	public class Camera implements ILines
 	{
-		public static const SCENE:int = 0;
-		public static const ACTORS:int = 1;
-		public static const GRINDERS:int = 2;
-		
 		private var lines:Vector.<Sprite>;
 		private var topLine:int;
 		
-		private var searcher:ISearcher;
-		
-		private static const NUMBER_OF_LAYERS:int = 3;
-		
-		public static const addToTheLayer:String = "addToTheLayer";
+		private var juggler:Juggler;
 		
 		private var container:Sprite;
-		private var layers:Vector.<Sprite>;
-		
-		private var juggler:Juggler;
 		
 		public function Camera(flow:IUpdateDispatcher) 
 		{
 			var numberOfLines:int = Metric.CELLS_IN_VISIBLE_HEIGHT + 3 + (Metric.CELLS_IN_VISIBLE_HEIGHT % 2 == 0 ? 1 : 0);
 			
-			this.lines = new Vector.<Sprite>(Metric.yDistanceActorsAllowed * 2, true);
+			this.lines = new Vector.<Sprite>(numberOfLines, true);
 			
 			
 			this.container = new Sprite();
 			
-			this.layers = new Vector.<Sprite>(Camera.NUMBER_OF_LAYERS, true);
-			
-			for (var i:int = 0; i < Camera.NUMBER_OF_LAYERS; i++)
-				this.container.addChild(this.layers[i] = new Sprite());
+			for (var i:int = 0; i < numberOfLines; i++)
+				this.container.addChild(this.lines[i] = new Sprite());
 			
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ActorsFeature.moveCenter);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			flow.addUpdateListener(Camera.addToTheLayer);
+			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			flow.addUpdateListener(ZeroRunner.redraw);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+		}
+		
+		update function redraw():void
+		{
+			var length:int = this.lines.length;
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				this.lines[i].removeChildren();
+			}
 		}
 		
 		public function addChildTo(object:DisplayObject, line:int):void
@@ -82,14 +81,13 @@ package game.ui.camera
 		}
 		
 		
-		update function addToTheLayer(number:int, object:DisplayObject):void
-		{
-			this.layers[number].addChild(object);
-		}
-		
 		update function getInformerFrom(table:IGiveInformers):void
 		{
 			this.juggler = table.getInformer(Juggler);
+		}
+		update function addInformerTo(table:IStoreInformers):void
+		{
+			table.addInformer(ILines, this);
 		}
 	}
 	

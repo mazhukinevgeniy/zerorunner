@@ -111,6 +111,7 @@ package game.time
 				{
 					this.frameCount++;
 					
+					this.updateFlow.dispatchUpdate(ZeroRunner.redraw);
 					//TODO: force redraw, ie removeChildren() and addChildAtLine(..)
 				}
 				else

@@ -1,6 +1,7 @@
 package game.ui 
 {
 	import chaotic.core.IUpdateDispatcher;
+	import game.ui.camera.Camera;
 	import game.ui.panel.Panel;
 	
 	public class UIExtendsions
