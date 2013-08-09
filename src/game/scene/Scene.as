@@ -1,88 +1,36 @@
 package game.scene 
 {
-	import game.actors.ActorsFeature;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.Metric;
+	import game.metric.ICoordinated;
 	import game.scene.patterns.FlatPattern;
 	import game.scene.patterns.getPattern;
 	import game.scene.patterns.IPattern;
-	import game.time.ICacher;
-	import game.time.Time;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class Scene implements ICacher
+	internal class Scene
 	{		
 		private var patterns:Vector.<IPattern>;
 		
-		private var cacheVector:Vector.<int>;
-		
-		private const width:int = 2 * Metric.xDistanceSceneAllowed;
-		private const height:int = 2 * Metric.yDistanceSceneAllowed;
-		
-		private var tLC:CellXY;
-		
-		private var nextY:DCellXY = new DCellXY(0, 1);
-		private var nextColumn:DCellXY;
-		private var unmodificate:DCellXY;
-		
-		private var toTLC:DCellXY;
-		
-		public function Scene(flow:IUpdateDispatcher) 
+		public function Scene(flow:IUpdateDispatcher)
 		{
-			this.nextColumn = new DCellXY(1, -this.height);
-			
-			this.toTLC = new DCellXY( -Metric.xDistanceSceneAllowed, -Metric.yDistanceSceneAllowed);
-			
-			this.unmodificate = new DCellXY( -this.width, 0);
-			
-			this.cacheVector = new Vector.<int>(this.width * this.height, true);
-			
 			this.patterns = new Vector.<IPattern>(SceneFeature.NUMBER_OF_PATTERNS, true);
 			
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.prerestore);
-			
-			flow.dispatchUpdate(Time.addCacher, this);
 		}
 		
-		public function getSceneCell(x:int, y:int):int
-		{
-			if ((!(x < this.tLC.x)) && (x < this.tLC.x + this.width)
-				&&
-			    (!(y < this.tLC.y)) && (y < this.tLC.y + this.height))
-			{
-				x -= this.tLC.x;
-				y -= this.tLC.y;
-				
-				return this.cacheVector[x + y * this.width];
-			}
-			else return SceneFeature.FALL;
-		}
-		
-		public function cache():void
-		{
-			var cell:CellXY = this.tLC;
+		update function cacheScene(cache:Vector.<int>, center:ICoordinated, width:int, height:int):void
+		{			
+			var tlcX:int = center.x - width / 2;
+			var tlcY:int = center.y - height / 2;
 			
-			/**
-			 * It's nice to enumerate from 0 to width-1, because it gives the easiest [i + j * width] access.
-			 */
-			for (var i:int = 0; i < this.width; i++)
-			{
-				for (var j:int = 0; j < this.height; j++)
+			for (var i:int = 0; i < width; i++)
+				for (var j:int = 0; j < height; j++)
 				{
-					this.cacheVector[i + j * this.width] = this.getCell(cell.x, cell.y);
-					
-					cell.applyChanges(this.nextY);
+					cache[i + j * width] = this.getCell(i + tlcX, j + tlcY);
 				}
-				
-				cell.applyChanges(this.nextColumn);
-			}
-			
-			cell.applyChanges(this.unmodificate);
 		}
 		
 		private function getCell(x:int, y:int):int
@@ -104,10 +52,6 @@ package game.scene
 				else
 					this.patterns[i] = getPattern();
 			}
-			
-			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
-			
-			this.cache();
 		}
 		
 		/*

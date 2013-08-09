@@ -4,7 +4,9 @@ package game.searcher
 	import game.actors.types.ActorLogicBase;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
+	import game.scene.SceneFeature;
 	import game.time.ICacher;
+	import game.time.Time;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -34,6 +36,8 @@ package game.searcher
 			
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ZeroRunner.restore);
+			
+			flow.dispatchUpdate(Time.addCacher, this);
 		}
 		
 		update function restore():void
@@ -61,7 +65,16 @@ package game.searcher
 		
 		public function getSceneCell(x:int, y:int):int
 		{
-			return 3;
+			if ((!(x < this.cacheCenter.x - this.sceneCacheWidth / 2)) && (x < this.cacheCenter.x + this.sceneCacheWidth / 2)
+				&&
+			    (!(y < this.cacheCenter.y - this.sceneCacheHeight / 2)) && (y < this.cacheCenter.y + this.sceneCacheHeight / 2))
+			{
+				x -= this.cacheCenter.x - this.sceneCacheWidth / 2;
+				y -= this.cacheCenter.y - this.sceneCacheHeight / 2;
+				
+				return this.sceneCache[x + y * this.sceneCacheWidth];
+			}
+			else return SceneFeature.FALL;
 		}
 		
 		/**
@@ -79,7 +92,8 @@ package game.searcher
 		
 		private function cache0():void
 		{
-			this.cacheCenter.setValue(this.center.x, this.center.y);
+			//this.cacheCenter.setValue(this.center.x, this.center.y);
+			//TODO: uncomment when this.center is stable
 		}
 		
 		private function cache1():void
