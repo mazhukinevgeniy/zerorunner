@@ -30,7 +30,7 @@ package game.actors.types.character
 		
 		override protected function onSpawned():void
 		{
-			this.forceUpdate(ActorsFeature.setCenter, this.giveCell());
+			this.forceUpdate(ActorsFeature.setCenter, this);
 			this.forceUpdate(ActorsFeature.setHeroHP, this.health);
 		}
 		
