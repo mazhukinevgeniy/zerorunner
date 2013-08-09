@@ -10,8 +10,6 @@ package game.scene
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
-	import utils.informers.IGiveInformers;
-	import utils.informers.IStoreInformers;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -46,10 +44,7 @@ package game.scene
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ZeroRunner.aftertick);
 			flow.addUpdateListener(ZeroRunner.prerestore);
-			flow.addUpdateListener(ZeroRunner.addInformerTo);
-			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
 		}
@@ -90,12 +85,6 @@ package game.scene
 			cell.applyChanges(this.unmodificate);
 		}
 		
-		update function aftertick():void
-		{
-			this.tLC.setValue(this.searcher.character.x, this.searcher.character.y);
-			this.tLC.applyChanges(this.toTLC);
-		}
-		
 		private function getCell(x:int, y:int):int
 		{
 			return this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y);
@@ -119,16 +108,6 @@ package game.scene
 			this.tLC = ActorsFeature.SPAWN_CELL.applyChanges(this.toTLC);
 			
 			this.cache();
-		}
-		
-		update function addInformerTo(table:IStoreInformers):void
-		{
-			table.addInformer(IScene, this);
-		}
-		
-		update function getInformerFrom(table:IGiveInformers):void
-		{
-			this.searcher = table.getInformer(ISearcher);
 		}
 		
 		/*

@@ -1,13 +1,12 @@
 package game.actors.types 
 {
-	import game.actors.ISearcher;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
-	import game.scene.IScene;
 	import game.scene.SceneFeature;
+	import game.searcher.ISearcher;
 	import utils.errors.AbstractClassError;
 	
 	public class ActorLogicBase implements ICoordinated
@@ -16,8 +15,7 @@ package game.actors.types
 		 * To set
 		 */
 		
-		private var searcher:ISearcher;
-		private var scene:IScene;
+		private var world:ISearcher;
 		
 		/**
 		 * 
@@ -35,9 +33,9 @@ package game.actors.types
 		private var _active:Boolean;
 		private var _hp:int;
 		
-		public function ActorLogicBase(informers:Object) 
+		public function ActorLogicBase(world:ISearcher) 
 		{
-			this.searcher = informers.searcher;
+			this.world = world;
 		}
 		
 		
@@ -98,7 +96,7 @@ package game.actors.types
 			var x:int = character.x - Metric.xDistanceActorsAllowed / 2;
 			var y:int = character.y - Metric.yDistanceActorsAllowed / 2;
 			
-			var character:ICoordinated = this.searcher.character;
+			var character:ICoordinated = this.world.getCenter();
 			
 			var cell:CellXY = new CellXY(0, 0);
 			
@@ -107,7 +105,7 @@ package game.actors.types
 				cell.setValue(x + Metric.xDistanceActorsAllowed * Math.random(),
 							  y + Metric.yDistanceActorsAllowed * Math.random());
 			}
-			while (Metric.distance(character, cell) < 6 || this.searcher.findObjectByCell(cell.x, cell.y) != null);
+			while (Metric.distance(character, cell) < 6 || this.world.findObjectByCell(cell.x, cell.y) != null);
 			
 			return cell;
 		}
@@ -123,7 +121,7 @@ package game.actors.types
 		
 		final protected function isOnTheGround():void
 		{
-			if (this.scene.getSceneCell(this.x, this.y) == SceneFeature.FALL)
+			if (this.world.getSceneCell(this.x, this.y) == SceneFeature.FALL)
 			{
 				this.applyDestruction();
 			}
@@ -160,7 +158,7 @@ package game.actors.types
 		
 		final public function applyMove(change:DCellXY):void
 		{
-			if (!this.searcher.findObjectByCell(this.x + change.x, this.y + change.y))
+			if (!this.world.findObjectByCell(this.x + change.x, this.y + change.y))
 			{
 				this.movingCooldown = this.moveSpeed;
 				

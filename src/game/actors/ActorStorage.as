@@ -12,7 +12,6 @@ package game.actors
 	import game.time.Time;
 	import game.ZeroRunner;
 	import utils.informers.IGiveInformers;
-	import utils.informers.IStoreInformers;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -49,7 +48,6 @@ package game.actors
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.tick);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.aftertick);
 			
 			this.cacheLength = this.width * this.height;
@@ -163,12 +161,6 @@ package game.actors
 			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.width] = item;
 		}
 		*/
-		
-		
-		final update function addInformerTo(table:IStoreInformers):void
-		{
-			table.addInformer(ISearcher, this);
-		}
 		
 		/*
 		
