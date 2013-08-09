@@ -2,7 +2,6 @@ package game.actors
 {
 	import game.actors.ActorsFeature;
 	import game.actors.types.ActorLogicBase;
-	import game.actors.types.ActorPuppet;
 	import game.actors.types.BroodmotherBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -119,7 +118,7 @@ package game.actors
 					!(y < this.tLC.y) && (y < this.tLC.y + this.height));
 		}
 		
-		final public function findObjectByCell(x:int, y:int):ActorPuppet
+		final public function findObjectByCell(x:int, y:int):ActorLogicBase
 		{
 			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
 				&&
