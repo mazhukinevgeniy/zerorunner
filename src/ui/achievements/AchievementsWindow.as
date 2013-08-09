@@ -29,6 +29,8 @@ package ui.achievements
 			tmp.alpha = 0.85;
 			this.backgroundSkin = tmp;
 			
+			this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_ON;
+			
 			this.addChild(new HexagonalGrid(assets));
 			
 			this.flow = flow;

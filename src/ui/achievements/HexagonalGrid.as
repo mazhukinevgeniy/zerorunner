@@ -8,26 +8,44 @@ package ui.achievements
 	public class HexagonalGrid extends Image
 	{
 		
+		private static const NUMBER_OF_TEXTURES_IN_WIDTH:Number = 5;
+		private static const NUMBER_OF_TEXTURES_IN_HEIGHT:Number = 7;
+		
+		private static const DISPLAYED_WIDTH_CELL:Number = 140;
+		private static const DISPLAYED_HEIGHT_CELL:Number = 80.5;
+		
+		private static const HEXAGON_SIZE:Number = HexagonalGrid.DISPLAYED_WIDTH_CELL / 3;
+		
+		private var nativeWidthCell:Number;
+		private var nativeHeightCell:Number;
+		
 		public function HexagonalGrid(assets:AssetManager) 
 		{
 			var texture:Texture = assets.getTexture("hexagon");
 			
-			trace(texture.width, texture.height);
+			this.nativeWidthCell = texture.nativeWidth;
+			this.nativeHeightCell = texture.nativeHeight;
+			
 			super(texture);
-			
+		
 			texture.repeat = true;
+			this.setTexCoords(0, new Point(0, 0));
+			this.setTexCoords(1, new Point(HexagonalGrid.NUMBER_OF_TEXTURES_IN_WIDTH, 0));
+			this.setTexCoords(2, new Point(0, HexagonalGrid.NUMBER_OF_TEXTURES_IN_HEIGHT));
+			this.setTexCoords(3, new Point(HexagonalGrid.NUMBER_OF_TEXTURES_IN_WIDTH, HexagonalGrid.NUMBER_OF_TEXTURES_IN_HEIGHT));
 			
-			this.setTexCoords(1, new Point(5, 0));
-			this.setTexCoords(2, new Point(0, 7));
-			this.setTexCoords(3, new Point(5, 7));
+			this.scaleX *= HexagonalGrid.DISPLAYED_WIDTH_CELL / this.nativeWidthCell;
+			this.scaleY *= HexagonalGrid.DISPLAYED_HEIGHT_CELL / this.nativeHeightCell;
 			
-			this.width *= 5;
-			this.height *= 7;
+			this.width *= HexagonalGrid.NUMBER_OF_TEXTURES_IN_WIDTH;
+			this.height *= HexagonalGrid.NUMBER_OF_TEXTURES_IN_HEIGHT;
 			
-			this.y = -26;
-			this.x = -20;
-			this.scaleX *= 1.094;
-			this.scaleY *= 1.266;
+			this.y = - HexagonalGrid.HEXAGON_SIZE / 2;
+			this.x = - HexagonalGrid.HEXAGON_SIZE / 2;
+			
+			trace(HexagonalGrid.HEXAGON_SIZE);
+			trace(this.nativeWidthCell * (HexagonalGrid.DISPLAYED_WIDTH_CELL / this.nativeWidthCell) / 3);
+			
 
 			
 			
