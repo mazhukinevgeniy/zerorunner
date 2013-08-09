@@ -8,6 +8,7 @@ package game
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
+	import game.searcher.SearcherFeature;
 	import game.state.GameState;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
@@ -95,6 +96,8 @@ package game
 			/**
 			 * Please note: order above is important. You don't change it.
 			 */
+			
+			new SearcherFeature(this);
 			
 			new StatisticsFeature(this); //TODO: rename or not keep at all
 			new AchievementsFeature(this);

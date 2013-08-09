@@ -1,14 +1,14 @@
-package game.actors 
+package game.searcher 
 {
 	import game.actors.types.ActorLogicBase;
-	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	
-	public interface ISearcher
+	public interface ISearcher 
 	{
 		function findObjectByCell(x:int, y:int):ActorLogicBase;
+		function getCenter():ICoordinated;
 		
-		function get character():ICoordinated;
+		function getSceneCell(x:int, y:int):int;
 	}
 	
 }

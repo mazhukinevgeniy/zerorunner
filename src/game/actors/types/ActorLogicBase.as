@@ -16,18 +16,18 @@ package game.actors.types
 		 * To set
 		 */
 		
-		protected var searcher:ISearcher;
-		protected var scene:IScene;
+		private var searcher:ISearcher;
+		private var scene:IScene;
 		
 		/**
 		 * 
 		 */
 		
-		protected var moveSpeed:int;
-		protected var movingCooldown:int;
+		private var moveSpeed:int;
+		private var movingCooldown:int;
 		
-		protected var actionSpeed:int;
-		protected var actingCooldown:int;
+		private var actionSpeed:int;
+		private var actingCooldown:int;
 		
 		private var _x:int;
 		private var _y:int;
@@ -35,15 +35,51 @@ package game.actors.types
 		private var _active:Boolean;
 		private var _hp:int;
 		
-		public function ActorLogicBase(moveSpeed:int, actionSpeed:int) 
+		public function ActorLogicBase(informers:Object) 
 		{
-			this.moveSpeed = moveSpeed;
-			this.actionSpeed = actionSpeed;
+			this.searcher = informers.searcher;
 		}
+		
+		
+		
+		final public function get x():int {	return this._x;	}
+		final public function get y():int {	return this._y;	}
+		
+		final public function get active():Boolean { return this._active; }
+		
+		
+		final public function act():void
+		{
+			this.onActing();
+			
+			if (this.actingCooldown == 0)
+				this.onCanAct();
+			else
+				this.actingCooldown--;
+			
+			if (this.movingCooldown == 0)
+				this.onCanMove();
+			else
+				this.movingCooldown--;
+		}
+		
+		
+		
+		//TODO: organize code
+		
+		
+		
+		/********
+		 ** SETUP
+		 *******/
 		
 		final public function reset():void
 		{
-			this._hp = this.getBaseHP();
+			var config:Object = this.getConfig();
+			
+			this._hp = config.hp;
+			this.moveSpeed = config.moveSpeed;
+			this.actionSpeed = config.actionSpeed;
 			
 			this._active = true;
 			
@@ -76,19 +112,26 @@ package game.actors.types
 			return cell;
 		}
 		
-		protected function getBaseHP():int
+		protected function getConfig():Object
 		{
 			throw new AbstractClassError();
 		}
 		
-		final public function get x():int {	return this._x;	}
-		final public function get y():int {	return this._y;	}
+		/*********
+		 ** CHECKS
+		 ********/
 		
-		final public function get active():Boolean { return this._active; }
+		final protected function isOnTheGround():void
+		{
+			if (this.scene.getSceneCell(this.x, this.y) == SceneFeature.FALL)
+			{
+				this.applyDestruction();
+			}
+		}
 		
-		/*********************
-		** What you can suffer
-		*********************/
+		/**********
+		 ** ACTIONS
+		 *********/
 		
 		final public function applyDamage(damage:int):void
 		{
@@ -132,28 +175,7 @@ package game.actors.types
 				this.onBlocked(change);
 		}
 		
-		
-		
-		final public function act():void
-		{
-			this.onActing();
-			
-			if (this.actingCooldown == 0)
-				this.onCanAct();
-			else
-				this.actingCooldown--;
-			
-			if (this.movingCooldown == 0)
-				this.onCanMove();
-			else
-				this.movingCooldown--;
-		}
-		
-		
-		
-		//TODO: organize code
-		
-		final protected function jump(change:DCellXY, multiplier:int):void
+		final protected function applyJump(change:DCellXY, multiplier:int):void
 		{
 			/*
 			this.movingCooldown = 2 * this.moveSpeed * multiplier;
@@ -174,31 +196,6 @@ package game.actors.types
 			this.onMoved(jChange, this.movingCooldown);
 			*/
 		}
-		
-		/********
-		 ** SETUP
-		 *******/
-		
-		
-		
-		
-		/*********
-		 ** CHECKS
-		 ********/
-		
-		final protected function isOnTheGround():void
-		{
-			if (this.scene.getSceneCell(this.x, this.y) == SceneFeature.FALL)
-			{
-				this.applyDestruction();
-			}
-		}
-		
-		/**********
-		 ** ACTIONS
-		 *********/
-		
-		
 		
 		/****************
 		**** Overridables

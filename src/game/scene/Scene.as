@@ -1,7 +1,6 @@
 package game.scene 
 {
 	import game.actors.ActorsFeature;
-	import game.actors.ISearcher;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -16,10 +15,9 @@ package game.scene
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class Scene implements ICacher, IScene
+	internal class Scene implements ICacher
 	{		
 		private var patterns:Vector.<IPattern>;
-		private var searcher:ISearcher;
 		
 		private var cacheVector:Vector.<int>;
 		
@@ -100,8 +98,6 @@ package game.scene
 		
 		private function getCell(x:int, y:int):int
 		{
-			if ((x + 10000) * (x + 10000) + (y + 10000) * (y + 10000) < 6 * 6)
-				return SceneFeature.ROAD;
 			return this.patterns[uint((x * 84673) ^ (y * 108301)) % SceneFeature.NUMBER_OF_PATTERNS].getNumber(x, y);
 		}
 		

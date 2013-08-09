@@ -18,7 +18,7 @@ package game.actors
 	
 	use namespace update;
 	
-	internal class ActorStorage implements ICacher, ISearcher
+	internal class ActorStorage implements ICacher
 	{
 		private var flow:IUpdateDispatcher;
 		
