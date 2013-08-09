@@ -22,12 +22,6 @@ package game.metric
 		public static function get WIDTH():int { return Metric.width; }
 		public static function get HEIGHT():int { return Metric.height; }
 		
-		public static function get xDistanceActorsAllowed():int	{ return 3 * Metric.cellsInVisibleWidth; }
-		public static function get yDistanceActorsAllowed():int	{ return 3 * Metric.cellsInVisibleHeigth; }
-		
-		public static function get xDistanceSceneAllowed():int	{ return 4 * Metric.cellsInVisibleWidth; }
-		public static function get yDistanceSceneAllowed():int	{ return 4 * Metric.cellsInVisibleHeigth; }
-		
 		private static var randomDCells:Vector.<DCellXY> = new <DCellXY>[new DCellXY(-1, 0), new DCellXY(1, 0), new DCellXY(0,1), new DCellXY(0, -1)];
 		
 		public function Metric() 

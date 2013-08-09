@@ -93,8 +93,8 @@ package game.actors.types
 		
 		protected function getSpawningCell():CellXY
 		{
-			var x:int = character.x - Metric.xDistanceActorsAllowed / 2;
-			var y:int = character.y - Metric.yDistanceActorsAllowed / 2;
+			var x:int = character.x - Metric.CELLS_IN_VISIBLE_WIDTH;
+			var y:int = character.y - Metric.CELLS_IN_VISIBLE_HEIGHT;
 			
 			var character:ICoordinated = this.world.getCenter();
 			
@@ -102,8 +102,8 @@ package game.actors.types
 			
 			do 
 			{
-				cell.setValue(x + Metric.xDistanceActorsAllowed * Math.random(),
-							  y + Metric.yDistanceActorsAllowed * Math.random());
+				cell.setValue(x + 2 * Metric.CELLS_IN_VISIBLE_WIDTH * Math.random(),
+							  y + 2 * Metric.CELLS_IN_VISIBLE_HEIGHT * Math.random());
 			}
 			while (Metric.distance(character, cell) < 6 || this.world.findObjectByCell(cell.x, cell.y) != null);
 			
