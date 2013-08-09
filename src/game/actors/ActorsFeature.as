@@ -15,7 +15,7 @@ package game.actors
 		
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{
-			new ActorStoragePlus(flow);
+			new ActorStorage(flow);
 		}
 		
 		
