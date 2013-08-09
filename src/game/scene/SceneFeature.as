@@ -13,6 +13,7 @@ package game.scene
 		public function SceneFeature(flow:IUpdateDispatcher) 
 		{
 			new Scene(flow);
+			new SceneOverride(flow);
 		}
 		
 	}

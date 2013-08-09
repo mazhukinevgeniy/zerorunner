@@ -1,4 +1,4 @@
-package game.scene 
+package game.searcher 
 {
 	import starling.display.Image;
 	import starling.textures.Texture;

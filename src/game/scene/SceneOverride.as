@@ -3,6 +3,8 @@ package game.scene
 	import game.actors.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
+	import game.searcher.SearcherFeature;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	internal class SceneOverride 
@@ -10,9 +12,10 @@ package game.scene
 		private var center1:CellXY = ActorsFeature.SPAWN_CELL;
 		private const RADIUS:int = 4;
 		
-		public function SceneOverride() 
+		public function SceneOverride(flow:IUpdateDispatcher) 
 		{
-			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(SearcherFeature.cacheScene);
 		}
 		
 		update function cacheScene(cache:Vector.<int>, center:ICoordinated, width:int, height:int):void

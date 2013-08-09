@@ -68,6 +68,8 @@ package game
 			
 			this.informers = new InformerManager();
 			this.informers.addInformer(AssetManager, assets);
+			
+			//TODO: check if the last is used
 		}
 		
 		update function setGameContainer(viewRoot:Sprite):void
@@ -97,7 +99,7 @@ package game
 			 * Please note: order above is important. You don't change it.
 			 */
 			
-			new SearcherFeature(this);
+			new SearcherFeature(this, this.informers.getInformer(AssetManager));
 			
 			new StatisticsFeature(this); //TODO: rename or not keep at all
 			new AchievementsFeature(this);

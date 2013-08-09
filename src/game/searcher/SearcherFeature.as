@@ -8,6 +8,7 @@ package game.searcher
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.ZeroRunner;
+	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -16,20 +17,27 @@ package game.searcher
 		public static const cacheScene:String = "cacheScene";
 		
 		private var center:ICoordinated;
-		private var cacheCenter:CellXY;
 		
-		private var sceneCacheWidth:int;
-		private var sceneCacheHeight:int;
+		/**/
+		internal var cacheCenter:CellXY;
 		
-		private var sceneCache:Vector.<int>
+		internal var sceneCacheWidth:int;
+		internal var sceneCacheHeight:int;
 		
-		private var actorCacheWidth:int;
-		private var actorCacheHeight:int;
+		internal var sceneCache:Vector.<int>
+		
+		internal var actorCacheWidth:int;
+		internal var actorCacheHeight:int;
+		
+		internal var actorCache:Vector.<ActorLogicBase>;
+		/**/
 		
 		private var cacheStepsDone:int;
 		
-		public function SearcherFeature(flow:IUpdateDispatcher) 
+		public function SearcherFeature(flow:IUpdateDispatcher, assets:AssetManager) 
 		{
+			new Renderer(flow, this, assets);
+			
 			this.cacheCenter = new CellXY(0, 0);
 			
 			flow.workWithUpdateListener(this);
