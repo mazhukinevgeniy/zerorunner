@@ -52,26 +52,7 @@ package game.actors
 			*/
 		}
 		
-		/*
-		update function moveActor(actor:ActorBase, change:DCellXY, delay:int):void
-		{
-			this.putInCell(actor.x - change.x, actor.y - change.y);
-			this.putInCell(actor.x, actor.y, actor);
-		}
 		
-		update function removeActor(id:int):void
-		{
-			var actor:ActorBase = this.actors[id];
-			
-			actor.isActive = false;
-			this.putInCell(actor.x, actor.y);
-		}
-		
-		
-		*/
-		
-		/*
-		*/
 		
 		update function aftertick():void
 		{

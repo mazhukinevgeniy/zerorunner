@@ -3,6 +3,7 @@ package game.searcher
 	import game.actors.ActorsFeature;
 	import game.actors.types.ActorLogicBase;
 	import game.metric.CellXY;
+	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.scene.SceneFeature;
 	import game.time.ICacher;
@@ -44,6 +45,8 @@ package game.searcher
 			
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ActorsFeature.addActor);
+			flow.addUpdateListener(ActorsFeature.moveActor);
+			flow.addUpdateListener(ActorsFeature.removeActor);
 			flow.addUpdateListener(ZeroRunner.restore);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
@@ -132,6 +135,17 @@ package game.searcher
 		update function addActor(item:ActorLogicBase):void
 		{
 			this.putActorInCell(item.x, item.y, item);
+		}
+		
+		update function moveActor(actor:ActorLogicBase, change:DCellXY, delay:int):void
+		{
+			this.putActorInCell(actor.x - change.x, actor.y - change.y);
+			this.putActorInCell(actor.x, actor.y, actor);
+		}
+		
+		update function removeActor(actor:ActorLogicBase):void
+		{
+			this.putActorInCell(actor.x, actor.y);
 		}
 		
 		/**

@@ -144,9 +144,10 @@ package game.actors.types
 		{
 			if (this._active)
 			{
-				//this.flow.dispatchUpdate(ActorsFeature.removeActor, item.id);
-				//TODO: do it correct way
+				this.flow.dispatchUpdate(ActorsFeature.removeActor, this);
+				this._active = false;
 				
+				//TODO: might consider telling view about it
 				this.onDestroyed();
 			}
 		}
@@ -159,7 +160,9 @@ package game.actors.types
 				
 				this._x += change.x;
 				this._y += change.y;
-				//ActorBase.iFlow.dispatchUpdate(ActorsFeature.moveActor, this, change, this.movingCooldown + 1);
+				
+				this.flow.dispatchUpdate(ActorsFeature.moveActor, this, change, this.movingCooldown + 1);
+				
 				//TODO: draw
 				
 				this.onMoved(change, this.moveSpeed);
