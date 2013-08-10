@@ -10,6 +10,7 @@ package game.searcher
 	import game.time.Time;
 	import game.ZeroRunner;
 	import starling.utils.AssetManager;
+	import utils.informers.IStoreInformers;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -48,6 +49,7 @@ package game.searcher
 			flow.addUpdateListener(ActorsFeature.moveActor);
 			flow.addUpdateListener(ActorsFeature.removeActor);
 			flow.addUpdateListener(ZeroRunner.restore);
+			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
 		}
@@ -163,6 +165,11 @@ package game.searcher
 				
 				this.actorCache[x + y * this.actorCacheWidth] = item;
 			}
+		}
+		
+		update function addInformerTo(table:IStoreInformers):void
+		{
+			table.addInformer(ISearcher, this);
 		}
 	}
 

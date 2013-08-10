@@ -18,6 +18,9 @@ package game.actors.types
 		
 		public function ActorViewBase()
 		{
+			this.juggler = BroodmotherBase.juggler;
+			this.atlas = BroodmotherBase.gameAtlas;
+			
 			super();
 			this.addChild(this.getView());
 		}

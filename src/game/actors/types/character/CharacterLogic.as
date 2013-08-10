@@ -2,58 +2,61 @@ package game.actors.types.character
 {
 	import game.actors.ActorsFeature;
 	import game.actors.types.ActorLogicBase;
+	import game.actors.utils.ConfigKit;
+	import game.input.IKnowInput;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.SceneFeature;
 	import game.ZeroRunner;
 	
 	internal class CharacterLogic extends ActorLogicBase
-	{
-		private static const MOVE_SPEED:int = 1;
-		private static const ACTION_SPEED:int = 1000;
+	{		
+		private var input:IKnowInput;
 		
-		public function CharacterLogic() 
+		public function CharacterLogic(input:IKnowInput) 
 		{
-			super(Character.MOVE_SPEED, Character.ACTION_SPEED);
+			super(new CharacterView());
+			
+			this.input = input;
 		}
 		
-		override protected function getBaseHP():int
+		override protected function getConfig():ConfigKit
 		{
-			return 100;
+			var config:ConfigKit = new ConfigKit();
+			
+			config.health = 100;
+			config.movingSpeed = 1;
+			config.actingSpeed = 1000;
+			
+			return config;
 		}
 		
-		override protected function setSpawningCell():void
+		override protected function getSpawningCell():CellXY
 		{
-			var c:CellXY = ActorsFeature.SPAWN_CELL;
-			this.giveCell().setValue(c.x, c.y);
+			return ActorsFeature.SPAWN_CELL;
 		}
 		
 		override protected function onSpawned():void
 		{
-			this.forceUpdate(ActorsFeature.setCenter, this);
-			this.forceUpdate(ActorsFeature.setHeroHP, this.health);
-		}
-		
-		override public function getClassCode():int
-		{
-			return ActorsFeature.CHARACTER;
+			this.flow.dispatchUpdate(ActorsFeature.setCenter, this);
+			this.flow.dispatchUpdate(ActorsFeature.setHeroHP, 100); //TODO: remove hardcode
 		}
 		
 		override protected function onMoved(change:DCellXY, delay:int):void
 		{
-			this.forceUpdate(ActorsFeature.moveCenter, change, delay + 1);
+			this.flow.dispatchUpdate(ActorsFeature.moveCenter, change, delay + 1);
 		}
 		
 		override protected function onDestroyed():void
 		{
-			this.forceUpdate(ZeroRunner.gameOver);
+			this.flow.dispatchUpdate(ZeroRunner.gameOver);
 			
-			this.forceActive(true);
+			//this.forceActive(true);
 		}
 		
 		override protected function onActing():void
 		{
-			this.isOnTheGround(this);
+			this.isOnTheGround();
 		}
 		
 		
@@ -64,15 +67,15 @@ package game.actors.types.character
 			
 			while (action.x != 0 || action.y != 0)
 			{
-				if (this.scene.getSceneCell(this.x + action.x, this.y + action.y) != SceneFeature.FALL)
+				if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != SceneFeature.FALL)
 				{
-					this.tryMove(action);
+					this.applyMove(action);
 					
 					return;
 				}
-				else if (this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != SceneFeature.FALL)
+				else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != SceneFeature.FALL)
 				{
-					this.jump(action, 2);
+					this.applyJump(action, 2);
 					
 					return;
 				}
@@ -89,7 +92,7 @@ package game.actors.types.character
 		
 		override protected function onDamaged(damage:int):void
 		{
-			this.forceUpdate(ActorsFeature.heroDamaged, damage);
+			this.flow.dispatchUpdate(ActorsFeature.heroDamaged, damage);
 		}
 	}
 

@@ -17,23 +17,21 @@ package game.actors.types.character
 		private var stand:Image;
 		
 		private var sideWalking:Vector.<MovieClip>;
-		
 		private var sidewalk:int;
 		
 		private var container:Sprite;
 		
 		public function CharacterView() 
 		{
-			this.container = new Sprite();
-			
 			super();
-			
-			this.addChild(this.container);
 		}
 		
-		override protected function draw():void
+		override protected function getView():DisplayObject
 		{
-			this.stand = new Image(this.atlas.getTexture("hero_stand"));
+			this.container = new Sprite();
+			this.container.y = - Metric.CELL_HEIGHT;
+			
+			this.stand = new Image(this.atlas.getTexture("hero_stand"));//TODO: get nonnull atlas
 			this.container.addChild(this.stand);
 			
 			this.sideWalking = new Vector.<MovieClip>(2, true);
@@ -51,23 +49,11 @@ package game.actors.types.character
 			}
 			
 			this.sidewalk = 0;
-		}
-		
-		protected function handleWalkingComplete(event:Event):void
-		{
-			this.stand.visible = true;
-			(event.target as DisplayObject).visible = false;
-		}
-		
-		override public function standOn(cell:CellXY):void
-		{
-			this.x = cell.x * Metric.CELL_WIDTH;
-			this.y = cell.y * Metric.CELL_HEIGHT;
 			
-			this.container.y = - Metric.CELL_HEIGHT;
+			return this.container;
 		}
 		
-		override public function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
+		override protected function animateMove(change:DCellXY, delay:int):void
 		{
 			if (change.x == 0)
 			{
@@ -94,6 +80,12 @@ package game.actors.types.character
 				
 				this.container.x += animation.width * (oldSX - this.container.scaleX) / 2;
 			}
+		}
+		
+		private function handleWalkingComplete(event:Event):void
+		{
+			this.stand.visible = true;
+			(event.target as DisplayObject).visible = false;
 		}
 	}
 

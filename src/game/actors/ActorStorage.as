@@ -2,8 +2,16 @@ package game.actors
 {
 	import game.actors.types.ActorLogicBase;
 	import game.actors.types.BroodmotherBase;
+	import game.actors.types.character.Character;
+	import game.actors.types.setInformerKit;
+	import game.actors.utils.InformerKit;
+	import game.input.IKnowInput;
 	import game.metric.ICoordinated;
+	import game.searcher.ISearcher;
 	import game.ZeroRunner;
+	import starling.animation.Juggler;
+	import starling.utils.AssetManager;
+	import utils.informers.IGiveInformers;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -12,6 +20,7 @@ package game.actors
 	internal class ActorStorage
 	{
 		private var flow:IUpdateDispatcher;
+		private var input:IKnowInput;
 		
 		protected var broods:Vector.<BroodmotherBase>;
 		
@@ -23,6 +32,7 @@ package game.actors
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.tick);
+			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 		}
 		
 		update function cacheActors(cache:Vector.<ActorLogicBase>, center:ICoordinated, width:int, height:int):void
@@ -73,7 +83,7 @@ package game.actors
 		{
 			this.broods = new Vector.<BroodmotherBase>();
 			
-			//TODO: add some broods
+			this.broods.push(new Character(this.input));
 			
 			var length:int = this.broods.length;
 			
@@ -89,6 +99,21 @@ package game.actors
 			{
 				this.broods[i].act();
 			}
+		}
+		
+		update function getInformerFrom(table:IGiveInformers):void
+		{
+			var kit:InformerKit = new InformerKit();
+			
+			kit.assets = table.getInformer(AssetManager);
+			kit.juggler = table.getInformer(Juggler);
+			
+			kit.flow = this.flow;
+			kit.world = table.getInformer(ISearcher);
+			
+			setInformerKit(kit);
+			
+			this.input = table.getInformer(IKnowInput);
 		}
 	}
 

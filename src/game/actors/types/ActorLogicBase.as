@@ -1,6 +1,7 @@
 package game.actors.types 
 {
 	import game.actors.ActorsFeature;
+	import game.actors.utils.ConfigKit;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -39,6 +40,9 @@ package game.actors.types
 		public function ActorLogicBase(view:ActorViewBase) 
 		{
 			this.view = view;
+			
+			this.world = BroodmotherBase.world;
+			this.flow = BroodmotherBase.flow;
 		}
 		
 		final public function act():void
@@ -64,11 +68,11 @@ package game.actors.types
 		
 		final public function reset():void
 		{
-			var config:Object = this.getConfig();
+			var config:ConfigKit = this.getConfig();
 			
-			this._hp = config.hp;
-			this.moveSpeed = config.moveSpeed;
-			this.actionSpeed = config.actionSpeed;
+			this._hp = config.health;
+			this.moveSpeed = config.movingSpeed;
+			this.actionSpeed = config.actingSpeed;
 			
 			this._active = true;
 			
@@ -105,7 +109,7 @@ package game.actors.types
 			return cell;
 		}
 		
-		protected function getConfig():Object
+		protected function getConfig():ConfigKit
 		{
 			throw new AbstractClassError();
 		}
