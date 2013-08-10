@@ -19,6 +19,10 @@ package game.actors.types
 			this.actors = new Vector.<ActorLogicBase>();
 		}
 		
+		final public function getActors():Vector.<ActorLogicBase>
+		{
+			return this.actors;
+		}
 		
 		final public function refillActors():void
 		{			
@@ -40,6 +44,16 @@ package game.actors.types
 					
 					this.flow.dispatchUpdate(ActorsFeature.addActor, actor); //TODO: apply instacache
 				}
+			}
+		}
+		
+		final public function act():void
+		{
+			var length:int = this.actors.length;
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				this.actors[i].act();
 			}
 		}
 		
