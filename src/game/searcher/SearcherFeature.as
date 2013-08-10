@@ -43,6 +43,7 @@ package game.searcher
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ActorsFeature.setCenter);
+			flow.addUpdateListener(ActorsFeature.addActor);
 			flow.addUpdateListener(ZeroRunner.restore);
 			
 			flow.dispatchUpdate(Time.addCacher, this);
@@ -122,6 +123,32 @@ package game.searcher
 		private function cache4():void
 		{
 			
+		}
+		
+		/**
+		 * Actors tracking
+		 */
+		
+		update function addActor(item:ActorLogicBase):void
+		{
+			this.putActorInCell(item.x, item.y, item);
+		}
+		
+		/**
+		 * Utils
+		 */
+		
+		private function putActorInCell(x:int, y:int, item:ActorLogicBase = null):void
+		{
+			if ((!(x < this.cacheCenter.x - this.actorCacheWidth / 2)) && (x < this.cacheCenter.x + this.actorCacheWidth / 2)
+				&&
+			    (!(y < this.cacheCenter.y - this.actorCacheHeight / 2)) && (y < this.cacheCenter.y + this.actorCacheHeight / 2))
+			{
+				x -= this.cacheCenter.x - this.actorCacheWidth / 2;
+				y -= this.cacheCenter.y - this.actorCacheHeight / 2;
+				
+				this.actorCache[x + y * this.actorCacheWidth] = item;
+			}
 		}
 	}
 

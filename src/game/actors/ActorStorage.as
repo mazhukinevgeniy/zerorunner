@@ -67,13 +67,7 @@ package game.actors
 			this.putInCell(actor.x, actor.y);
 		}
 		
-		final protected function putInCell(x:int, y:int, item:ActorBase = null):void
-		{
-			if (!(x < this.tLC.x) && (x < this.tLC.x + this.width)
-				&&
-				!(y < this.tLC.y) && (y < this.tLC.y + this.height))
-			this.cacheV[x - this.tLC.x + (y - this.tLC.y) * this.width] = item;
-		}
+		
 		*/
 		
 		/*
@@ -102,15 +96,6 @@ package game.actors
 			for (var i:int = 0; i < length; i++)
 				return;//this.actors[i].act();
 		}
-		
-		/*
-		update function addActor(item:ActorPuppet):void
-		{
-			image.standOn(item.giveCell());
-			
-			this.container.addChild(image);
-		}
-		 */
 	}
 
 }

@@ -1,5 +1,6 @@
 package game.actors.types 
 {
+	import game.actors.ActorsFeature;
 	import game.input.IKnowInput;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -8,10 +9,13 @@ package game.actors.types
 	import game.scene.SceneFeature;
 	import game.searcher.ISearcher;
 	import utils.errors.AbstractClassError;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class ActorLogicBase implements ICoordinated
 	{
-		private var world:ISearcher;
+		protected var world:ISearcher;
+		protected var flow:IUpdateDispatcher;
+		
 		private var view:ActorViewBase;
 		
 		private var moveSpeed:int;
@@ -32,9 +36,8 @@ package game.actors.types
 		final public function get active():Boolean { return this._active; }
 		
 		
-		public function ActorLogicBase(world:ISearcher, view:ActorViewBase) 
+		public function ActorLogicBase(view:ActorViewBase) 
 		{
-			this.world = world;
 			this.view = view;
 		}
 		
@@ -77,6 +80,10 @@ package game.actors.types
 			this._y = cell.y;
 			
 			this.onSpawned();
+			
+			this.flow.dispatchUpdate(ActorsFeature.addActor);
+			
+			this.view.standOn(cell);
 		}
 		
 		protected function getSpawningCell():CellXY
@@ -93,7 +100,7 @@ package game.actors.types
 				cell.setValue(x + 2 * Metric.CELLS_IN_VISIBLE_WIDTH * Math.random(),
 							  y + 2 * Metric.CELLS_IN_VISIBLE_HEIGHT * Math.random());
 			}
-			while (Metric.distance(character, cell) < 6 || this.world.findObjectByCell(cell.x, cell.y) != null);
+			while (!(this.world.findObjectByCell(cell.x, cell.y)) && (Metric.distance(character, cell) < 6 || this.world.findObjectByCell(cell.x, cell.y) != null));
 			
 			return cell;
 		}
