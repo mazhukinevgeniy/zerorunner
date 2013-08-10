@@ -12,6 +12,9 @@ package game.actors
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
+		public static const addActor:String = "addActor";
+		public static const moveActor:String = "moveActor";
+		public static const removeActor:String = "removeActor";
 		
 		public function ActorsFeature(flow:IUpdateDispatcher) 
 		{

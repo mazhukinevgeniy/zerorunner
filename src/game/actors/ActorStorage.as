@@ -77,80 +77,23 @@ package game.actors
 		*/
 		
 		/*
-		
-		final override update function aftertick():void
-		{
-			super.update::aftertick();
-			
-			this.refillActors();
-		}
-		
-		override update function prerestore():void
-		{
-			super.update::prerestore();
-			
-			var length:int = ActorsFeature.CAP;
-			var actor:ActorBase;
-			
-			for (var i:int = 0; i < length; i++)
-			{
-				actor = this.actors[i];
-				
-				if (actor && actor.isActive)
-				{
-					this.pool.stash(actor);
-				}
-				
-				this.actors[i] = null;
-			}
-			
-			this.refillActors();
-		}
 		*/
-		private function refillActors():void
-		{			
-			/*var length:int = this.state.actualActorsCap;
-			var actor:ActorBase;
+		
+		update function aftertick():void
+		{
+			var length:int = this.broods.length;
 			
 			for (var i:int = 0; i < length; i++)
-			{
-				actor = this.actors[i];
-				
-				if (actor)
-				{
-					if (!actor.isActive)
-					{
-						this.pool.stash(actor);
-						
-						this.createActor(i);
-					}
-				}
-				else
-				{
-					this.createActor(i);
-				}
-			}*/
+				this.broods[i].refillActors();
 		}
 		
-		private function createActor(id:int):void
+		update function prerestore():void
 		{
-			/*var actor:ActorBase;
-			actor = this.pool.getActor(id);
+			var length:int = this.broods.length;
 			
-			while (!this.canBeCached(actor))
-			{
-				this.pool.stash(actor);
-				actor = this.pool.getActor(id);
-			}
-			
-			this.actors[id] = actor;
-			
-			this.putInCell(actor.x, actor.y, actor);
-			
-			ActorBase.iFlow.dispatchUpdate(ActorsFeature.addActor, actor);*/
+			for (var i:int = 0; i < length; i++)
+				this.broods[i].refillActors();
 		}
-		
-		
 		
 		update function tick():void
 		{
@@ -160,35 +103,13 @@ package game.actors
 				return;//this.actors[i].act();
 		}
 		
-		
-			/*
-		update function getInformerFrom(table:IGiveInformers):void
-		{
-			var informers:Object = new Object();
-			
-			informers[IUpdateDispatcher] = this.flow; //TODO: etc; pass on every actor initialization
-			ActorBase.iFlow = this.flow;
-			ActorBase.iSearcher = this;
-			ActorBase.iScene = table.getInformer(IScene);
-			ActorBase.iListener = this.view;
-			ActorBase.iInput = table.getInformer(IKnowInput);
-		}
-		
-			*/
 		/*
-		 * 
-		 * 
-		
 		update function addActor(item:ActorPuppet):void
 		{
-			var image:DrawenActor = (this.objects[item.getID()] = this.pull.getDrawenActor(item.getClassCode()));
-			
 			image.standOn(item.giveCell());
 			
 			this.container.addChild(image);
 		}
-		
-		 * 
 		 */
 	}
 
