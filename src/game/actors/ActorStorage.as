@@ -188,18 +188,6 @@ package game.actors
 			this.container.addChild(image);
 		}
 		
-		update function moveActor(item:ActorPuppet, change:DCellXY, delay:int):void
-		{
-			var id:int = item.getID();
-			
-			var tween:PixelPerfectTween = new PixelPerfectTween(this.objects[id], delay * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(item.x * Metric.CELL_WIDTH, item.y * Metric.CELL_HEIGHT);
-			
-			DrawenActor.iJuggler.add(tween);
-			
-			this.objects[id].moveNormally(item.giveCell(), change, delay);
-		}
-		
 		 * 
 		 */
 	}

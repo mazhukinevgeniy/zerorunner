@@ -5,6 +5,7 @@ package game.actors.types
 	import game.metric.Metric;
 	import game.time.Time;
 	import starling.animation.Juggler;
+	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -12,30 +13,37 @@ package game.actors.types
 	
 	public class ActorViewBase extends Sprite
 	{
-		internal static var iJuggler:Juggler;
-		internal static var iAtlas:TextureAtlas;
+		protected var juggler:Juggler;
+		protected var atlas:TextureAtlas;
 		
 		public function ActorViewBase()
 		{
 			super();
-			this.draw();
+			this.addChild(this.getView());
 		}
 		
-		protected function draw():void
+		protected function getView():DisplayObject
 		{
-			var image:Image = new Image(DrawenActor.iAtlas.getTexture("unimplemented"));
-			this.addChild(image);
+			return new Image(this.atlas.getTexture("unimplemented"));
 		}
 		
-		public function standOn(cell:CellXY):void
+		final internal function standOn(cell:CellXY):void
 		{
 			this.x = cell.x * Metric.CELL_WIDTH;
 			this.y = cell.y * Metric.CELL_HEIGHT;
-			
-			trace(this.x, this.y);
 		}
 		
-		public function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
+		final internal function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
+		{
+			var tween:PixelPerfectTween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
+			tween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
+			
+			this.juggler.add(tween);
+			
+			this.animateMove(change, delay);
+		}
+		
+		protected function animateMove(change:DCellXY, delay:int):void
 		{
 			
 		}
@@ -43,16 +51,6 @@ package game.actors.types
 		public function jump(change:DCellXY, delay:int):void
 		{
 			
-		}
-		
-		
-		final protected function get juggler():Juggler
-		{
-			return DrawenActor.iJuggler;
-		}
-		final protected function get atlas():TextureAtlas
-		{
-			return DrawenActor.iAtlas;
 		}
 	}
 

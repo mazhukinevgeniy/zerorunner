@@ -11,15 +11,8 @@ package game.actors.types
 	
 	public class ActorLogicBase implements ICoordinated
 	{
-		/**
-		 * To set
-		 */
-		
 		private var world:ISearcher;
-		
-		/**
-		 * 
-		 */
+		private var view:ActorViewBase;
 		
 		private var moveSpeed:int;
 		private var movingCooldown:int;
@@ -33,18 +26,17 @@ package game.actors.types
 		private var _active:Boolean;
 		private var _hp:int;
 		
-		public function ActorLogicBase(world:ISearcher) 
-		{
-			this.world = world;
-		}
-		
-		
-		
 		final public function get x():int {	return this._x;	}
 		final public function get y():int {	return this._y;	}
 		
 		final public function get active():Boolean { return this._active; }
 		
+		
+		public function ActorLogicBase(world:ISearcher, view:ActorViewBase) 
+		{
+			this.world = world;
+			this.view = view;
+		}
 		
 		final public function act():void
 		{
@@ -60,10 +52,6 @@ package game.actors.types
 			else
 				this.movingCooldown--;
 		}
-		
-		
-		
-		//TODO: organize code
 		
 		
 		
@@ -192,7 +180,7 @@ package game.actors.types
 			ActorBase.iListener.actorJumped(this.id, jChange, this.movingCooldown + 1); //TODO: ensure that moveNormally is overridable
 			
 			this.onMoved(jChange, this.movingCooldown);
-			*/
+			*///TODO: might implement
 		}
 		
 		/****************
