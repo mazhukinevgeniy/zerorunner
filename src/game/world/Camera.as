@@ -17,16 +17,17 @@ package game.world
 	
 	internal class Camera
 	{
+		private var container:Sprite;
 		private var lines:Vector.<Sprite>;
-		private var topLine:int;
+		
+		internal var topLine:int;
 		
 		private var juggler:Juggler;
 		
-		private var container:Sprite;
 		
 		public function Camera(flow:IUpdateDispatcher) 
 		{
-			var numberOfLines:int = Metric.CELLS_IN_VISIBLE_HEIGHT + 3 + (Metric.CELLS_IN_VISIBLE_HEIGHT % 2 == 0 ? 1 : 0);
+			var numberOfLines:int = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
 			
 			this.lines = new Vector.<Sprite>(numberOfLines, true);
 			

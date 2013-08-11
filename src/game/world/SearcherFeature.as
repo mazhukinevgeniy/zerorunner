@@ -61,13 +61,13 @@ package game.world
 			
 			this.flow = flow;
 			
-			this.sceneCacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 6;
-			this.sceneCacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 6;
+			this.sceneCacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 6 + Metric.CELLS_IN_VISIBLE_WIDTH % 2;
+			this.sceneCacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
 			
 			this.sceneCache = new Vector.<int>(this.sceneCacheWidth * this.sceneCacheHeight, true);
 			
-			this.actorCacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 2;
-			this.actorCacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 2;
+			this.actorCacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 2 + Metric.CELLS_IN_VISIBLE_WIDTH % 2;
+			this.actorCacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 2 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
 			
 			this.actorCache = new Vector.<ActorLogicBase>(this.actorCacheWidth * this.actorCacheHeight, true);
 		}

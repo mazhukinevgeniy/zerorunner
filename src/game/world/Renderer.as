@@ -31,7 +31,11 @@ package game.world
 		
 		update function redraw():void
 		{
+			this.lines.topLine = this.data.cacheCenter.y - this.data.sceneCacheHeight / 2;
 			
+			this.redrawScene();
+			this.redrawActors();
+			this.redrawHazards();
 		}
 		
 		private function redrawScene():void
@@ -160,6 +164,16 @@ package game.world
 				}
 				
 			}*/
+		}
+		
+		private function redrawActors():void
+		{
+			
+		}
+		
+		private function redrawHazards():void
+		{
+			
 		}
 	}
 
