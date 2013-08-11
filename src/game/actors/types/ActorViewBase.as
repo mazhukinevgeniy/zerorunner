@@ -1,7 +1,7 @@
 package game.actors.types 
 {
-	import game.metric.CellXY;
 	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import game.metric.Metric;
 	import game.time.Time;
 	import starling.animation.Juggler;
@@ -30,13 +30,13 @@ package game.actors.types
 			return new Image(this.atlas.getTexture("unimplemented"));
 		}
 		
-		final internal function standOn(cell:CellXY):void
+		final internal function standOn(cell:ICoordinated):void
 		{
 			this.x = cell.x * Metric.CELL_WIDTH;
 			this.y = cell.y * Metric.CELL_HEIGHT;
 		}
 		
-		final internal function moveNormally(goal:CellXY, change:DCellXY, delay:int):void
+		final internal function moveNormally(goal:ICoordinated, change:DCellXY, delay:int):void
 		{
 			var tween:PixelPerfectTween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
 			tween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);

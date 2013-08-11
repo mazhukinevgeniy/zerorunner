@@ -9,6 +9,7 @@ package game.actors.types
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
 	import game.world.ISearcher;
+	import starling.display.DisplayObject;
 	import utils.errors.AbstractClassError;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -43,6 +44,11 @@ package game.actors.types
 			
 			this.world = BroodmotherBase.world;
 			this.flow = BroodmotherBase.flow;
+		}
+		
+		final public function getView():DisplayObject
+		{
+			return this.view;
 		}
 		
 		final public function act():void
@@ -167,7 +173,7 @@ package game.actors.types
 				
 				this.flow.dispatchUpdate(ActorsFeature.moveActor, this, change, this.movingCooldown + 1);
 				
-				//TODO: draw
+				this.view.moveNormally(this, change, this.movingCooldown + 1);
 				
 				this.onMoved(change, this.moveSpeed);
 			}

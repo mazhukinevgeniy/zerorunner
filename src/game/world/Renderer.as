@@ -1,5 +1,6 @@
 package game.world 
 {
+	import game.actors.types.ActorLogicBase;
 	import game.metric.Metric;
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
@@ -364,7 +365,34 @@ package game.world
 		
 		private function redrawActors():void
 		{
+			const tlcX:int = this.data.cacheCenter.x - this.data.cacheWidth / 2;
+			const tlcY:int = this.data.cacheCenter.y - this.data.cacheHeight / 2;
 			
+			const brcX:int = this.data.cacheCenter.x + this.data.cacheWidth / 2;
+			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
+			
+			var actor:ActorLogicBase;
+			var container:DisplayObjectContainer;
+			
+			var i:int;
+			var j:int;
+			//TODO: reorder i, j
+			var number:uint;
+			
+			for (i = tlcX; i < brcX; i++)
+			{
+				for (j = tlcY; j < brcY; j++)
+				{
+					container = this.lines.getLine(j);
+					
+					actor = this.data.getUnsafeActor(i, j);
+					
+					if (actor)
+					{
+						container.addChild(actor.getView());
+					}
+				}
+			}
 		}
 		
 		private function redrawHazards():void
