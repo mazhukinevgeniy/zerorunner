@@ -4,48 +4,50 @@ package game.actors.types.checkpoint
 	import game.actors.types.BroodmotherBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import game.metric.Metric;
 	import game.ZeroRunner;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class Checkpoint extends BroodmotherBase
 	{
-		private const STEPS_BETWEEN_CHECKPOINTS:int = 200;
+		private const STEPS_BETWEEN_CHECKPOINTS:int = 50;
 		
-		private var lastCheckpoint:CellXY;
-		private var cellHelper:CellXY;
+		private var checkpoint:CheckpointLogic;
 		
-		private var searcher:ISearcher;
+		private var center:ICoordinated;
 		
 		public function Checkpoint(flow:IUpdateDispatcher) 
 		{
+			super(null, null);
+			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(ZeroRunner.prerestore);
-			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			flow.addUpdateListener(ActorsFeature.moveCenter);
-			
-			this.lastCheckpoint = new CellXY(0, 0);
-			this.cellHelper = new CellXY(0, 0);
+			flow.addUpdateListener(ActorsFeature.setCenter);
+			flow.addUpdateListener(ZeroRunner.aftertick);
 		}
 		
-		update function getInformerFrom(table:IGiveInformers):void
+		override protected function getActorsCap():int
 		{
-			this.searcher = table.getInformer(ISearcher);
+			return 0;
 		}
 		
-		update function prerestore():void
+		
+		
+		
+		update function setCenter(center:ICoordinated):void
 		{
-			var spawn:CellXY = ActorsFeature.SPAWN_CELL;
+			this.center = center;
+			this.getActors().push(this.checkpoint = new CheckpointLogic());
 			
-			this.lastCheckpoint.setValue(spawn.x - this.STEPS_BETWEEN_CHECKPOINTS, spawn.y - this.STEPS_BETWEEN_CHECKPOINTS);
+			this.checkpoint.reset();
 		}
 		
-		update function moveCenter(change:DCellXY, delay:int):void
+		update function aftertick():void
 		{
-			this.searcher.getCharacterCell(this.cellHelper);
-			
-			if (Metric.distance(this.cellHelper, this.lastCheckpoint) > this.STEPS_BETWEEN_CHECKPOINTS)
+			if (Metric.distance(this.checkpoint, this.center) > this.STEPS_BETWEEN_CHECKPOINTS)
 			{
-				//TODO: add checkpoint
+				this.checkpoint.reset();
 			}
 		}
 	}

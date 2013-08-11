@@ -3,6 +3,7 @@ package game.actors
 	import game.actors.types.ActorLogicBase;
 	import game.actors.types.BroodmotherBase;
 	import game.actors.types.character.Character;
+	import game.actors.types.checkpoint.Checkpoint;
 	import game.actors.types.setInformerKit;
 	import game.actors.utils.InformerKit;
 	import game.input.IKnowInput;
@@ -64,7 +65,7 @@ package game.actors
 					}
 					else
 					{
-						actor.applyDestruction();
+						this.broods[i].actorOutOfCache(actor);
 					}
 				}
 			}
@@ -76,6 +77,7 @@ package game.actors
 		{
 			this.broods = new Vector.<BroodmotherBase>();
 			
+			this.broods.push(new Checkpoint(this.flow));
 			this.broods.push(new Character(this.input));
 			
 			var length:int = this.broods.length;

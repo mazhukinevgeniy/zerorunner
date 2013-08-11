@@ -87,6 +87,12 @@ package game.actors.types
 		{
 			throw new AbstractClassError();
 		}
+		
+		
+		
+		
+		/** Called if actor can not be cached. */
+		public function actorOutOfCache(actor:ActorLogicBase):void { }
 	}
 
 }
