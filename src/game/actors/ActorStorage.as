@@ -7,8 +7,8 @@ package game.actors
 	import game.actors.utils.InformerKit;
 	import game.input.IKnowInput;
 	import game.metric.ICoordinated;
-	import game.searcher.ISearcher;
-	import game.searcher.SearcherFeature;
+	import game.world.ISearcher;
+	import game.world.SearcherFeature;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.utils.AssetManager;

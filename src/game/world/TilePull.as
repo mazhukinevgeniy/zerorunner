@@ -1,4 +1,4 @@
-package game.searcher 
+package game.world 
 {
 	import starling.display.Image;
 	import starling.textures.Texture;

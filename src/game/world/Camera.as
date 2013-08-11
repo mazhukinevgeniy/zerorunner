@@ -1,4 +1,4 @@
-package game.ui.camera 
+package game.world 
 {
 	import game.actors.ActorsFeature;
 	import game.metric.ICoordinated;
@@ -11,12 +11,11 @@ package game.ui.camera
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import utils.informers.IGiveInformers;
-	import utils.informers.IStoreInformers;
 	import utils.PixelPerfectTween;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class Camera implements ILines
+	internal class Camera
 	{
 		private var lines:Vector.<Sprite>;
 		private var topLine:int;
@@ -42,7 +41,6 @@ package game.ui.camera
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ActorsFeature.moveCenter);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.redraw);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
@@ -84,10 +82,6 @@ package game.ui.camera
 		update function getInformerFrom(table:IGiveInformers):void
 		{
 			this.juggler = table.getInformer(Juggler);
-		}
-		update function addInformerTo(table:IStoreInformers):void
-		{
-			table.addInformer(ILines, this);
 		}
 	}
 	

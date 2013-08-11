@@ -1,6 +1,5 @@
 package game.ui 
 {
-	import game.ui.camera.Camera;
 	import game.ui.panel.Panel;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -9,7 +8,6 @@ package game.ui
 		
 		public function UIExtendsions(flow:IUpdateDispatcher) 
 		{
-			new Camera(flow);
 			new KeyboardControls(flow);
 			new HealthBar(flow);
 			new GameOverWindow(flow);

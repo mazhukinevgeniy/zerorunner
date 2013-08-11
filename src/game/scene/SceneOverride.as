@@ -3,7 +3,7 @@ package game.scene
 	import game.actors.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
-	import game.searcher.SearcherFeature;
+	import game.world.SearcherFeature;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

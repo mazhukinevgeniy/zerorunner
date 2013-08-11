@@ -1,4 +1,4 @@
-package game.searcher 
+package game.world 
 {
 	import game.actors.types.ActorLogicBase;
 	import game.metric.ICoordinated;

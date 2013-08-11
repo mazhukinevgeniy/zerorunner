@@ -1,4 +1,4 @@
-package game.searcher 
+package game.world 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.types.ActorLogicBase;

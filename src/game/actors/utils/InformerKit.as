@@ -1,6 +1,6 @@
 package game.actors.utils 
 {
-	import game.searcher.ISearcher;
+	import game.world.ISearcher;
 	import starling.animation.Juggler;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;

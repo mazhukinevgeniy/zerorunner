@@ -1,4 +1,4 @@
-package game.searcher 
+package game.world 
 {
 	import game.ZeroRunner;
 	import starling.utils.AssetManager;
@@ -8,11 +8,14 @@ package game.searcher
 	internal class Renderer 
 	{
 		private var data:SearcherFeature;
+		private var lines:Camera;
 		
 		private var pull:TilePull;
 		
 		public function Renderer(flow:IUpdateDispatcher, data:SearcherFeature, assets:AssetManager) 
 		{
+			this.lines = new Camera(flow);
+			
 			this.data = data;
 			
 			flow.workWithUpdateListener(this);

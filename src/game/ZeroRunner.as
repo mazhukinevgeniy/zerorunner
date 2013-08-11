@@ -8,13 +8,13 @@ package game
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
-	import game.searcher.SearcherFeature;
 	import game.state.GameState;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
 	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
+	import game.world.SearcherFeature;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
@@ -68,13 +68,12 @@ package game
 			
 			this.informers = new InformerManager();
 			this.informers.addInformer(AssetManager, assets);
-			
-			//TODO: check if the last is used
 		}
 		
 		update function setGameContainer(viewRoot:Sprite):void
 		{
-			this.displayRoot = viewRoot;
+			this.displayRoot = viewRoot; 
+			//TODO: merge with constructor to avoid adding assets to infotable
 			
 			var image:Image = new Image(this.informers.getInformer(AssetManager).getTextureAtlas("gameAtlas").getTexture("fall"));
 			image.scaleX = 2 * Main.WIDTH / image.width;
@@ -90,16 +89,13 @@ package game
 			new GameState(this);
 			new Time(this.displayRoot, this);
 			new InputManager(this);
+			
+			new SearcherFeature(this, this.informers.getInformer(AssetManager));
 			new UIExtendsions(this);
 			
 			new SceneFeature(this);
 			new ActorsFeature(this);
 			new HazardFeature(this);
-			/**
-			 * Please note: order above is important. You don't change it.
-			 */
-			
-			new SearcherFeature(this, this.informers.getInformer(AssetManager));
 			
 			new StatisticsFeature(this); //TODO: rename or not keep at all
 			new AchievementsFeature(this);

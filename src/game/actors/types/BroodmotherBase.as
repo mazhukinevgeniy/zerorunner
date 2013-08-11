@@ -1,7 +1,7 @@
 package game.actors.types 
 {
 	import game.actors.ActorsFeature;
-	import game.searcher.ISearcher;
+	import game.world.ISearcher;
 	import starling.animation.Juggler;
 	import starling.textures.TextureAtlas;
 	import utils.errors.AbstractClassError;

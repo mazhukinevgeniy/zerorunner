@@ -8,7 +8,7 @@ package game.actors.types
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
-	import game.searcher.ISearcher;
+	import game.world.ISearcher;
 	import utils.errors.AbstractClassError;
 	import utils.updates.IUpdateDispatcher;
 	
