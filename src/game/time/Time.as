@@ -52,8 +52,7 @@ package game.time
 			this.numberOfCachers = 0;
 			this.frameCount = 0;
 			
-			Time.TBT = this.tickFrame / this.FPS; // multiply by 0.95 if tweens would be not fast enough
-			//TODO: remove the covardly note above
+			Time.TBT = this.tickFrame / this.FPS;
 			
 			
 			
@@ -111,7 +110,6 @@ package game.time
 					this.frameCount++;
 					
 					this.updateFlow.dispatchUpdate(ZeroRunner.redraw);
-					//TODO: force redraw, ie removeChildren() and addChildAtLine(..)
 				}
 				else
 				{

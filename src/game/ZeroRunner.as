@@ -72,8 +72,7 @@ package game
 		
 		update function setGameContainer(viewRoot:Sprite):void
 		{
-			this.displayRoot = viewRoot; 
-			//TODO: merge with constructor to avoid adding assets to infotable
+			this.displayRoot = viewRoot;
 			
 			var image:Image = new Image(this.informers.getInformer(AssetManager).getTextureAtlas("gameAtlas").getTexture("fall"));
 			image.scaleX = 2 * Main.WIDTH / image.width;
@@ -97,7 +96,7 @@ package game
 			new ActorsFeature(this);
 			new HazardFeature(this);
 			
-			new StatisticsFeature(this); //TODO: rename or not keep at all
+			new StatisticsFeature(this); //TODO: remove
 			new AchievementsFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);

@@ -49,7 +49,7 @@ package game.actors
 				for (var j:int = 0; j < alength; j++)
 				{
 					var actor:ActorLogicBase = actors[j];
-					//TODO: make sure alength is always equal to actorCap
+					
 					var x:int = actor.x;
 					var y:int = actor.y;
 					

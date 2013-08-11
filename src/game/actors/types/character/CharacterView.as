@@ -31,7 +31,7 @@ package game.actors.types.character
 			this.container = new Sprite();
 			this.container.y = - Metric.CELL_HEIGHT;
 			
-			this.stand = new Image(this.atlas.getTexture("hero_stand"));//TODO: get nonnull atlas
+			this.stand = new Image(this.atlas.getTexture("hero_stand"));
 			this.container.addChild(this.stand);
 			
 			this.sideWalking = new Vector.<MovieClip>(2, true);
