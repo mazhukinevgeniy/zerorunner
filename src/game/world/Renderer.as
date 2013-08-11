@@ -60,12 +60,12 @@ package game.world
 			
 			var number:uint;
 			
-			for (i = tlcX + 1; i < brcX - 1; i++)
+			for (j = tlcY + 1; j < brcY - 1; j++)
 			{ // main block
-				for (j = tlcY + 1; j < brcY - 1; j++)
+				container = this.lines.getLine(j);
+				
+				for (i = tlcX + 1; i < brcX - 1; i++)
 				{
-					container = this.lines.getLine(j);
-					
 					if (this.data.getUnsafeScene(i, j))
 					{
 						sprite = this.pull.getImage("ground");
@@ -161,12 +161,8 @@ package game.world
 						}
 					}
 				}
-			}	
-			
-			i = brcX - 1;
-			for (j = tlcY + 1; j < brcY - 1; j++)
-			{ //right line
-				container = this.lines.getLine(j);
+				
+				//right line
 				
 				if (this.data.getUnsafeScene(i, j))
 				{
@@ -237,7 +233,6 @@ package game.world
 				}
 			}
 			
-			j = brcY - 1;
 			container = this.lines.getLine(j);
 			for (i = tlcX + 1; i < brcX - 1; i++)
 			{ //bottom line
@@ -310,7 +305,6 @@ package game.world
 				}
 			}
 			
-			i = brcX - 1;
 			//bottom right corner
 			if (this.data.getUnsafeScene(i, j))
 			{
@@ -376,15 +370,15 @@ package game.world
 			
 			var i:int;
 			var j:int;
-			//TODO: reorder i, j
+			
 			var number:uint;
 			
-			for (i = tlcX; i < brcX; i++)
+			for (j = tlcY; j < brcY; j++)
 			{
-				for (j = tlcY; j < brcY; j++)
+				container = this.lines.getLine(j);
+				
+				for (i = tlcX; i < brcX; i++)
 				{
-					container = this.lines.getLine(j);
-					
 					actor = this.data.getUnsafeActor(i, j);
 					
 					if (actor)
