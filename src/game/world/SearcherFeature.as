@@ -81,17 +81,11 @@ package game.world
 		
 		public function findObjectByCell(x:int, y:int):ActorLogicBase
 		{
-			if ((!(x < this.cacheCenter.x - this.cacheWidth / 2)) && (x < this.cacheCenter.x + this.cacheWidth / 2)
-				&&
-			    (!(y < this.cacheCenter.y - this.cacheHeight / 2)) && (y < this.cacheCenter.y + this.cacheHeight / 2))
-			{
-				x -= this.cacheCenter.x - this.cacheWidth / 2;
-				y -= this.cacheCenter.y - this.cacheHeight / 2;
-				
-				return this.actorCache[x + y * this.cacheWidth];
-			}
+			if (this.isCachable(x, y))
+				return this.getUnsafeActor(x, y);
 			else return null;
 		}
+		
 		public function getCenter():ICoordinated
 		{
 			return this.center;
@@ -99,16 +93,26 @@ package game.world
 		
 		public function getSceneCell(x:int, y:int):int
 		{
-			if ((!(x < this.cacheCenter.x - this.cacheWidth / 2)) && (x < this.cacheCenter.x + this.cacheWidth / 2)
-				&&
-			    (!(y < this.cacheCenter.y - this.cacheHeight / 2)) && (y < this.cacheCenter.y + this.cacheHeight / 2))
-			{
-				x -= this.cacheCenter.x - this.cacheWidth / 2;
-				y -= this.cacheCenter.y - this.cacheHeight / 2;
-				
-				return this.sceneCache[x + y * this.cacheWidth];
-			}
+			if (this.isCachable(x, y))
+				return this.getUnsafeScene(x, y);
 			else return SceneFeature.ROAD;
+		}
+		
+		
+		internal function getUnsafeScene(x:int, y:int):int
+		{
+			x -= this.cacheCenter.x - this.cacheWidth / 2;
+			y -= this.cacheCenter.y - this.cacheHeight / 2;
+			
+			return this.sceneCache[x + y * this.cacheWidth];
+		}
+		
+		internal function getUnsafeActor(x:int, y:int):ActorLogicBase
+		{
+			x -= this.cacheCenter.x - this.cacheWidth / 2;
+			y -= this.cacheCenter.y - this.cacheHeight / 2;
+			
+			return this.actorCache[x + y * this.cacheWidth];
 		}
 		
 		/**
@@ -183,15 +187,21 @@ package game.world
 		
 		private function putActorInCell(x:int, y:int, item:ActorLogicBase = null):void
 		{
-			if ((!(x < this.cacheCenter.x - this.cacheWidth / 2)) && (x < this.cacheCenter.x + this.cacheWidth / 2)
-				&&
-			    (!(y < this.cacheCenter.y - this.cacheHeight / 2)) && (y < this.cacheCenter.y + this.cacheHeight / 2))
+			if (this.isCachable(x, y))
 			{
 				x -= this.cacheCenter.x - this.cacheWidth / 2;
 				y -= this.cacheCenter.y - this.cacheHeight / 2;
 				
 				this.actorCache[x + y * this.cacheWidth] = item;
 			}
+		}
+		
+		private function isCachable(x:int, y:int):Boolean
+		{
+			return (!(x < this.cacheCenter.x - this.cacheWidth / 2)) && 
+				   (x < this.cacheCenter.x + this.cacheWidth / 2) &&
+				   (!(y < this.cacheCenter.y - this.cacheHeight / 2)) && 
+				   (y < this.cacheCenter.y + this.cacheHeight / 2);
 		}
 		
 		update function addInformerTo(table:IStoreInformers):void
