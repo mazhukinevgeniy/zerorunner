@@ -54,9 +54,14 @@ package game.world
 			var sprite:Image;
 			var container:DisplayObjectContainer;
 			
-			for (var i:int = tlcX + 1; i < brcX - 1; i++)
+			var i:int;
+			var j:int;
+			
+			var number:uint;
+			
+			for (i = tlcX + 1; i < brcX - 1; i++)
 			{ // main block
-				for (var j:int = tlcY + 1; j < brcY - 1; j++)
+				for (j = tlcY + 1; j < brcY - 1; j++)
 				{
 					container = this.lines.getLine(j);
 					
@@ -69,7 +74,7 @@ package game.world
 						
 						container.addChild(sprite);
 						
-						var number:uint = uint(((i) * 999999000001) | ((j) * 87178291199));
+						number = uint(((i) * 999999000001) | ((j) * 87178291199));
 						
 						if (number % 13 < 3)
 						{
@@ -155,7 +160,205 @@ package game.world
 						}
 					}
 				}
+			}	
+			
+			i = brcX - 1;
+			for (j = tlcY + 1; j < brcY - 1; j++)
+			{ //right line
+				container = this.lines.getLine(j);
 				
+				if (this.data.getUnsafeScene(i, j))
+				{
+					sprite = this.pull.getImage("ground");
+					
+					sprite.x = i * Metric.CELL_WIDTH;
+					sprite.y = j * Metric.CELL_HEIGHT;
+					
+					container.addChild(sprite);
+					
+					number = uint(((i) * 999999000001) | ((j) * 87178291199));
+					
+					if (number % 13 < 3)
+					{
+						sprite = this.pull.getImage("stones" + (1 + number % 3));
+						
+						sprite.x = i * Metric.CELL_WIDTH;
+						sprite.y = j * Metric.CELL_HEIGHT;
+						
+						container.addChild(sprite);
+					}
+					
+					if (!this.data.getUnsafeScene(i, j + 1))
+					{
+						sprite = this.pull.getImage("S");
+						
+						sprite.x = i * Metric.CELL_WIDTH;
+						sprite.y = (j + 1) * Metric.CELL_HEIGHT;
+						
+						container.addChild(sprite);
+					}
+					if (!this.data.getUnsafeScene(i - 1, j))
+					{
+						sprite = this.pull.getImage("W");
+						
+						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+						sprite.y = j * Metric.CELL_HEIGHT;
+						
+						container.addChild(sprite);
+					}
+					if (!this.data.getUnsafeScene(i, j - 1))
+					{
+						sprite = this.pull.getImage("N");
+						
+						sprite.x = i * Metric.CELL_WIDTH;
+						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+						
+						container.addChild(sprite);
+					}
+					if (!this.data.getUnsafeScene(i - 1, j + 1))
+					{
+						sprite = this.pull.getImage("SW");
+						
+						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+						sprite.y = (j + 1) * Metric.CELL_HEIGHT;
+						
+						container.addChild(sprite);
+					}
+					if (!this.data.getUnsafeScene(i - 1, j - 1))
+					{
+						sprite = this.pull.getImage("NW");
+						
+						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+						
+						container.addChild(sprite);
+					}
+				}
+			}
+			
+			j = brcY - 1;
+			container = this.lines.getLine(j);
+			for (i = tlcX + 1; i < brcX - 1; i++)
+			{ //bottom line
+				if (this.data.getUnsafeScene(i, j))
+				{
+					sprite = this.pull.getImage("ground");
+					
+					sprite.x = i * Metric.CELL_WIDTH;
+					sprite.y = j * Metric.CELL_HEIGHT;
+					
+					container.addChild(sprite);
+					
+					number = uint(((i) * 999999000001) | ((j) * 87178291199));
+					
+					if (number % 13 < 3)
+					{
+						sprite = this.pull.getImage("stones" + (1 + number % 3));
+						
+						sprite.x = i * Metric.CELL_WIDTH;
+						sprite.y = j * Metric.CELL_HEIGHT;
+						
+						container.addChild(sprite);
+					}
+					
+					if (!this.data.getUnsafeScene(i + 1, j))
+					{
+						sprite = this.pull.getImage("E");
+						
+						sprite.x = (i + 1) * Metric.CELL_WIDTH;
+						sprite.y = j * Metric.CELL_HEIGHT;
+						
+						container.addChild(sprite);
+					}
+					if (!this.data.getUnsafeScene(i - 1, j))
+					{
+						sprite = this.pull.getImage("W");
+						
+						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+						sprite.y = j * Metric.CELL_HEIGHT;
+						
+						container.addChild(sprite);
+					}
+					if (!this.data.getUnsafeScene(i, j - 1))
+					{
+						sprite = this.pull.getImage("N");
+						
+						sprite.x = i * Metric.CELL_WIDTH;
+						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+						
+						container.addChild(sprite);
+					}
+					if (!this.data.getUnsafeScene(i + 1, j - 1))
+					{
+						sprite = this.pull.getImage("NE");
+						
+						sprite.x = (i + 1) * Metric.CELL_WIDTH;
+						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+						
+						container.addChild(sprite);
+					}
+					if (!this.data.getUnsafeScene(i - 1, j - 1))
+					{
+						sprite = this.pull.getImage("NW");
+						
+						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+						
+						container.addChild(sprite);
+					}
+				}
+			}
+			
+			i = brcX - 1;
+			//bottom right corner
+			if (this.data.getUnsafeScene(i, j))
+			{
+				sprite = this.pull.getImage("ground");
+				
+				sprite.x = i * Metric.CELL_WIDTH;
+				sprite.y = j * Metric.CELL_HEIGHT;
+				
+				container.addChild(sprite);
+				
+				number = uint(((i) * 999999000001) | ((j) * 87178291199));
+				
+				if (number % 13 < 3)
+				{
+					sprite = this.pull.getImage("stones" + (1 + number % 3));
+					
+					sprite.x = i * Metric.CELL_WIDTH;
+					sprite.y = j * Metric.CELL_HEIGHT;
+					
+					container.addChild(sprite);
+				}
+				
+				if (!this.data.getUnsafeScene(i - 1, j))
+				{
+					sprite = this.pull.getImage("W");
+					
+					sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+					sprite.y = j * Metric.CELL_HEIGHT;
+					
+					container.addChild(sprite);
+				}
+				if (!this.data.getUnsafeScene(i, j - 1))
+				{
+					sprite = this.pull.getImage("N");
+					
+					sprite.x = i * Metric.CELL_WIDTH;
+					sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+					
+					container.addChild(sprite);
+				}
+				if (!this.data.getUnsafeScene(i - 1, j - 1))
+				{
+					sprite = this.pull.getImage("NW");
+					
+					sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+					sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+					
+					container.addChild(sprite);
+				}
 			}
 		}
 		
