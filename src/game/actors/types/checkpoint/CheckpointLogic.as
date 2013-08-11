@@ -4,9 +4,11 @@ package game.actors.types.checkpoint
 	import game.actors.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
+	import game.metric.Metric;
 	
 	internal class CheckpointLogic extends ActorLogicBase
 	{
+		private const STEPS_BETWEEN_CHECKPOINTS:int = 20;
 		
 		public function CheckpointLogic() 
 		{
@@ -29,6 +31,14 @@ package game.actors.types.checkpoint
 			config.actingSpeed = 10000000;
 			
 			return config;
+		}
+		
+		override protected function onCanAct():void
+		{
+			if (Metric.distance(this, this.world.getCenter()) > this.STEPS_BETWEEN_CHECKPOINTS)
+			{
+				this.reset();
+			}
 		}
 	}
 

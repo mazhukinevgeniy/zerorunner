@@ -15,18 +15,12 @@ package game.actors.types
 		internal static var world:ISearcher;
 		internal static var flow:IUpdateDispatcher;
 		
-		private var type:Class;
-		private var argument:*;
-		
 		private var actors:Vector.<ActorLogicBase>;
 		
 		protected var flow:IUpdateDispatcher;
 		
-		public function BroodmotherBase(type:Class, argument:*)
+		public function BroodmotherBase()
 		{
-			this.type = type;
-			this.argument = argument;
-			
 			this.actors = new Vector.<ActorLogicBase>();
 			
 			this.flow = BroodmotherBase.flow;
@@ -57,7 +51,7 @@ package game.actors.types
 					}
 					else
 					{
-						actor = new this.type(this.argument);
+						actor = this.newActor();
 						actor.reset();
 						
 						this.flow.dispatchUpdate(ActorsFeature.addActor, actor);
@@ -65,12 +59,17 @@ package game.actors.types
 				}
 				else
 				{
-					actor = this.actors[i] = new this.type(this.argument);
+					actor = this.actors[i] = this.newActor();
 					actor.reset();
 					
 					this.flow.dispatchUpdate(ActorsFeature.addActor, actor);
 				}
 			}
+		}
+		
+		protected function newActor():ActorLogicBase
+		{
+			throw new AbstractClassError();
 		}
 		
 		final public function act():void

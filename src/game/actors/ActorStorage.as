@@ -77,8 +77,8 @@ package game.actors
 		{
 			this.broods = new Vector.<BroodmotherBase>();
 			
-			this.broods.push(new Checkpoint(this.flow));
 			this.broods.push(new Character(this.input));
+			this.broods.push(new Checkpoint());
 			
 			var length:int = this.broods.length;
 			
