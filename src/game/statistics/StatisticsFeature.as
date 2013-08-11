@@ -1,6 +1,6 @@
 package game.statistics 
 {
-	import chaotic.core.IUpdateDispatcher;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class StatisticsFeature 
 	{

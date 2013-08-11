@@ -1,19 +1,19 @@
 package game.time 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
-	import chaotic.informers.IStoreInformers;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
+	import utils.informers.IStoreInformers;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class Time
 	{
 		private var FPS:int;
-		private var framesBetweenTicks:int;
+		private var tickFrame:int;
+		private var redrawFrame:int;
 		
 		private var cachers:Vector.<Vector.<ICacher>>;
 		private var numberOfCachers:int;
@@ -39,11 +39,12 @@ package game.time
 			new PauseTypes(flow);
 			
 			this.FPS = Starling.current.nativeStage.frameRate;
-			this.framesBetweenTicks = this.FPS == 60 ? 4 : 2;
+			this.tickFrame = this.FPS == 60 ? 5 : 3;
+			this.redrawFrame = this.tickFrame - 1;
 			
-			this.cachers = new Vector.<Vector.<ICacher>>(this.framesBetweenTicks, true);
+			this.cachers = new Vector.<Vector.<ICacher>>(this.redrawFrame, true);
 			
-			for (var i:int = 0; i < this.framesBetweenTicks; i++)
+			for (var i:int = 0; i < this.redrawFrame; i++)
 			{
 				this.cachers[i] = new Vector.<ICacher>();
 			}
@@ -51,7 +52,7 @@ package game.time
 			this.numberOfCachers = 0;
 			this.frameCount = 0;
 			
-			Time.TBT = this.framesBetweenTicks / this.FPS; // multiply by 0.95 if tweens would be not fast enough
+			Time.TBT = this.tickFrame / this.FPS;
 			
 			
 			
@@ -72,7 +73,7 @@ package game.time
 		
 		update function addCacher(cacher:ICacher):void
 		{
-			this.cachers[this.numberOfCachers % this.framesBetweenTicks].push(cacher);
+			this.cachers[this.numberOfCachers % this.redrawFrame].push(cacher);
 			
 			this.numberOfCachers++;
 		}
@@ -97,12 +98,18 @@ package game.time
 			{
 				this.gameJuggler.advanceTime(event.passedTime);
 				
-				if (this.frameCount == this.framesBetweenTicks)
+				if (this.frameCount == this.tickFrame)
 				{
 					this.frameCount = 0;
 					
 					this.updateFlow.dispatchUpdate(ZeroRunner.tick);
 					this.updateFlow.dispatchUpdate(ZeroRunner.aftertick);
+				}
+				else if (this.frameCount == this.redrawFrame)
+				{
+					this.frameCount++;
+					
+					this.updateFlow.dispatchUpdate(ZeroRunner.redraw);
 				}
 				else
 				{

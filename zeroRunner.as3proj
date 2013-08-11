@@ -17,7 +17,6 @@
   <classpaths>
     <class path="src" />
     <class path="extensions" />
-    <class path="..\chaotic" />
     <class path="..\extensions" />
     <class path="..\feathers" />
     <class path="..\starling" />

@@ -1,8 +1,8 @@
 package ui.credits 
 {
-	import chaotic.core.IUpdateDispatcher;
 	import feathers.controls.ScrollContainer;
 	import starling.display.Quad;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class CreditsWindow  extends ScrollContainer
 	{	

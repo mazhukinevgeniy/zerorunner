@@ -1,21 +1,22 @@
 package game.achievements.statistics 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.utils.SaveBase;
-	import game.achievements.statistics.IActorStatistic;
+	import game.actors.ActorsFeature;
 	import game.metric.DCellXY;
 	import game.statistics.ITakeStatistics;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
+	import utils.SaveBase;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
-	public class ActorStatistic extends SaveBase implements IActorStatistic
+	public class ActorStatistic extends SaveBase
 	{
 		
 		public function ActorStatistic(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(StatisticsFeature.emitStatistics);
+			flow.addUpdateListener(ActorsFeature.moveCenter);
 		}
 		
 		override protected function checkLocalSave():void
@@ -35,12 +36,10 @@ package game.achievements.statistics
 		}
 		
 		
-		
-		public function heroMoved(change:DCellXY):void
+		update function moveCenter(change:DCellXY, delay:int):void
 		{
 			this.localSave.data.statistics.actors.lifetime.distance += change.length;
 		}
-		
 		
 		update function emitStatistics(requester:ITakeStatistics):void
 		{

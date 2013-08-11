@@ -1,8 +1,5 @@
 package ui.sounds 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.utils.SaveBase;
 	import feathers.controls.Button;
 	import flash.ui.Keyboard;
 	import starling.display.DisplayObjectContainer;
@@ -10,6 +7,9 @@ package ui.sounds
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
 	import ui.themes.ExtendedTheme;
+	import utils.SaveBase;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class Sounds extends SaveBase
 	{

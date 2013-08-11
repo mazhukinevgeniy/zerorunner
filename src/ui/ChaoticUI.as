@@ -1,7 +1,5 @@
 package ui 
 {
-	import chaotic.core.update;
-	import chaotic.core.UpdateManager;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -14,6 +12,8 @@ package ui
 	import game.ZeroRunner;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
+	import utils.updates.update;
+	import utils.updates.UpdateManager;
 	
 	public class ChaoticUI extends UpdateManager
 	{

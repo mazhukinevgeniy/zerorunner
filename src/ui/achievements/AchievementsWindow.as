@@ -1,10 +1,10 @@
 package ui.achievements 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
 	import feathers.controls.ScrollContainer;
 	import game.achievements.AchievementBase;
 	import starling.display.Quad;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class AchievementsWindow  extends ScrollContainer
 	{	

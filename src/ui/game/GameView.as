@@ -1,12 +1,12 @@
 package ui.game 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.core.UpdateManager;
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import ui.ChaoticUI;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
+	import utils.updates.UpdateManager;
 	
 	public class GameView 
 	{

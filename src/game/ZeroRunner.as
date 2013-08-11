@@ -1,21 +1,19 @@
 package game 
 {
-	import chaotic.core.update;
-	import chaotic.core.UpdateManager;
-	import chaotic.informers.InformerManager;
 	import game.achievements.AchievementsFeature;
 	import game.actors.ActorsFeature;
+	import game.hazards.HazardFeature;
 	import game.input.InputManager;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
-	import game.state.GameState;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
 	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
+	import game.world.SearcherFeature;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
@@ -23,6 +21,9 @@ package game
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
+	import utils.informers.InformerManager;
+	import utils.updates.update;
+	import utils.updates.UpdateManager;
 	
 	public class ZeroRunner extends UpdateManager
 	{
@@ -39,8 +40,10 @@ package game
 		public static const gameOver:String = "gameOver";
 		public static const quitGame:String = "quitGame";
 		
+		public static const redraw:String = "redraw";
 		public static const tick:String = "tick";
 		public static const aftertick:String = "aftertick";
+		
 		public static const setPause:String = "setPause";
 		
 		public static const setGameContainer:String = "setGameContainer";
@@ -81,15 +84,17 @@ package game
 			
 			Metric.initialize(40, 40, 81, 81);
 			
-			new GameState(this);
 			new Time(this.displayRoot, this);
 			new InputManager(this);
+			
+			new SearcherFeature(this, this.informers.getInformer(AssetManager));
 			new UIExtendsions(this);
 			
 			new SceneFeature(this);
 			new ActorsFeature(this);
+			new HazardFeature(this);
 			
-			new StatisticsFeature(this); //TODO: rename or not keep at all
+			new StatisticsFeature(this); //TODO: remove
 			new AchievementsFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);

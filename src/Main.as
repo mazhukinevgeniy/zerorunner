@@ -11,9 +11,9 @@ package
 	import starling.events.Event;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
-	import starling.utils.adaptTextureAtlasMakerXML;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
+	import utils.adaptTextureAtlasMakerXML;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]

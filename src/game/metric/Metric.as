@@ -1,7 +1,6 @@
 package game.metric 
 {
-	import chaotic.errors.StaticClassError;
-	import chaotic.errors.UnresolvedRequestError;
+	import utils.errors.StaticClassError;
 	
 	public class Metric
 	{
@@ -22,12 +21,6 @@ package game.metric
 		
 		public static function get WIDTH():int { return Metric.width; }
 		public static function get HEIGHT():int { return Metric.height; }
-		
-		public static function get xDistanceActorsAllowed():int	{ return 3 * Metric.cellsInVisibleWidth; }
-		public static function get yDistanceActorsAllowed():int	{ return 3 * Metric.cellsInVisibleHeigth; }
-		
-		public static function get xDistanceSceneAllowed():int	{ return 4 * Metric.cellsInVisibleWidth; }
-		public static function get yDistanceSceneAllowed():int	{ return 4 * Metric.cellsInVisibleHeigth; }
 		
 		private static var randomDCells:Vector.<DCellXY> = new <DCellXY>[new DCellXY(-1, 0), new DCellXY(1, 0), new DCellXY(0,1), new DCellXY(0, -1)];
 		
@@ -54,7 +47,7 @@ package game.metric
 			return Metric.randomDCells[int(Math.random() * 4)];
 		}
 		
-		public static function distance(p1:CellXY, p2:CellXY):int
+		public static function distance(p1:*, p2:*):int
 		{
 			return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)
 		}

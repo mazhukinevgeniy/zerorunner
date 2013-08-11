@@ -1,13 +1,13 @@
 package game.ui 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
 	import game.input.InputManager;
 	import game.input.InputPiece;
 	import game.metric.DCellXY;
 	import flash.ui.Keyboard;
 	import starling.events.EventDispatcher;
 	import starling.events.KeyboardEvent;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class KeyboardControls
 	{

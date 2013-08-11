@@ -1,6 +1,6 @@
 package game.scene 
 {
-	import chaotic.core.IUpdateDispatcher;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class SceneFeature
 	{
@@ -13,7 +13,7 @@ package game.scene
 		public function SceneFeature(flow:IUpdateDispatcher) 
 		{
 			new Scene(flow);
-			new LandscapeCanvas(flow);
+			new SceneOverride(flow);
 		}
 		
 	}

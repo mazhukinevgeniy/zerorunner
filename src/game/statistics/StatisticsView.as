@@ -1,12 +1,12 @@
 package game.statistics 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
 	import feathers.controls.List;
 	import feathers.data.ListCollection;
 	import game.ZeroRunner;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class StatisticsView implements ITakeStatistics
 	{

@@ -1,8 +1,5 @@
 package ui.statistics 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.core.UpdateManager;
 	import feathers.controls.IScrollBar;
 	import feathers.controls.ScrollBar;
 	import feathers.controls.ScrollContainer;
@@ -16,6 +13,9 @@ package ui.statistics
 	import game.statistics.StatisticsPiece;
 	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
+	import utils.updates.UpdateManager;
 
 	
 	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
