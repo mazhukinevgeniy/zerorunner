@@ -53,7 +53,7 @@ package game.world
 			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
 			
 			var sprite:Image;
-			var container:DisplayObjectContainer;
+			const container:DisplayObjectContainer = this.lines.getLine(tlcY);
 			
 			var i:int;
 			var j:int;
@@ -62,8 +62,6 @@ package game.world
 			
 			for (j = tlcY + 1; j < brcY - 1; j++)
 			{ // main block
-				container = this.lines.getLine(j);
-				
 				for (i = tlcX + 1; i < brcX - 1; i++)
 				{
 					if (this.data.getUnsafeScene(i, j))
@@ -233,7 +231,6 @@ package game.world
 				}
 			}
 			
-			container = this.lines.getLine(j);
 			for (i = tlcX + 1; i < brcX - 1; i++)
 			{ //bottom line
 				if (this.data.getUnsafeScene(i, j))
