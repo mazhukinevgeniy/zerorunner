@@ -1,16 +1,13 @@
 package game.actors.types.checkpoint 
 {
-	import chaotic.core.IUpdateDispatcher;
-	import chaotic.core.update;
-	import chaotic.informers.IGiveInformers;
 	import game.actors.ActorsFeature;
-	import game.actors.core.ISearcher;
+	import game.actors.types.BroodmotherBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.ZeroRunner;
 	
-	internal class Spawner //TODO: think again whether this name is good or not
+	public class Checkpoint extends BroodmotherBase
 	{
 		private const STEPS_BETWEEN_CHECKPOINTS:int = 200;
 		
@@ -19,7 +16,7 @@ package game.actors.types.checkpoint
 		
 		private var searcher:ISearcher;
 		
-		public function Spawner(flow:IUpdateDispatcher) 
+		public function Checkpoint(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(ZeroRunner.prerestore);
