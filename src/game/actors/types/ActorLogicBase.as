@@ -85,7 +85,7 @@ package game.actors.types
 			
 			this.onSpawned();
 			
-			this.flow.dispatchUpdate(ActorsFeature.addActor);
+			this.flow.dispatchUpdate(ActorsFeature.addActor, this);
 			
 			this.view.standOn(cell);
 		}

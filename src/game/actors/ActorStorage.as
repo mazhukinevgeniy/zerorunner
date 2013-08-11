@@ -8,6 +8,7 @@ package game.actors
 	import game.input.IKnowInput;
 	import game.metric.ICoordinated;
 	import game.searcher.ISearcher;
+	import game.searcher.SearcherFeature;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.utils.AssetManager;
@@ -33,6 +34,7 @@ package game.actors
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.tick);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
+			flow.addUpdateListener(SearcherFeature.cacheActors);
 		}
 		
 		update function cacheActors(cache:Vector.<ActorLogicBase>, center:ICoordinated, width:int, height:int):void
@@ -70,15 +72,6 @@ package game.actors
 		}
 		
 		
-		
-		update function aftertick():void
-		{
-			var length:int = this.broods.length;
-			
-			for (var i:int = 0; i < length; i++)
-				this.broods[i].refillActors();
-		}
-		
 		update function prerestore():void
 		{
 			this.broods = new Vector.<BroodmotherBase>();
@@ -99,6 +92,14 @@ package game.actors
 			{
 				this.broods[i].act();
 			}
+		}
+		
+		update function aftertick():void
+		{
+			var length:int = this.broods.length;
+			
+			for (var i:int = 0; i < length; i++)
+				this.broods[i].refillActors();
 		}
 		
 		update function getInformerFrom(table:IGiveInformers):void

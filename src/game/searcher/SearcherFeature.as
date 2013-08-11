@@ -5,6 +5,7 @@ package game.searcher
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
+	import game.metric.Metric;
 	import game.scene.SceneFeature;
 	import game.time.ICacher;
 	import game.time.Time;
@@ -17,6 +18,9 @@ package game.searcher
 	public class SearcherFeature implements ICacher, ISearcher
 	{
 		public static const cacheScene:String = "cacheScene";
+		public static const cacheActors:String = "cacheActors";
+		
+		private var flow:IUpdateDispatcher;
 		
 		private var center:ICoordinated;
 		
@@ -51,7 +55,21 @@ package game.searcher
 			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			
-			flow.dispatchUpdate(Time.addCacher, this);
+			const NUMBER_OF_STEPS:int = 5;
+			for (var i:int = 0; i < NUMBER_OF_STEPS; i++)
+				flow.dispatchUpdate(Time.addCacher, this);
+			
+			this.flow = flow;
+			
+			this.sceneCacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 6;
+			this.sceneCacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 6;
+			
+			this.sceneCache = new Vector.<int>(this.sceneCacheWidth * this.sceneCacheHeight, true);
+			
+			this.actorCacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 2;
+			this.actorCacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 2;
+			
+			this.actorCache = new Vector.<ActorLogicBase>(this.actorCacheWidth * this.actorCacheHeight, true);
 		}
 		
 		update function restore():void
@@ -70,11 +88,20 @@ package game.searcher
 		
 		public function findObjectByCell(x:int, y:int):ActorLogicBase
 		{
-			return null;
+			if ((!(x < this.cacheCenter.x - this.actorCacheWidth / 2)) && (x < this.cacheCenter.x + this.actorCacheWidth / 2)
+				&&
+			    (!(y < this.cacheCenter.y - this.actorCacheHeight / 2)) && (y < this.cacheCenter.y + this.actorCacheHeight / 2))
+			{
+				x -= this.cacheCenter.x - this.actorCacheWidth / 2;
+				y -= this.cacheCenter.y - this.actorCacheHeight / 2;
+				
+				return this.actorCache[x + y * this.actorCacheWidth];
+			}
+			else return null;
 		}
 		public function getCenter():ICoordinated
 		{
-			return null;
+			return this.center;
 		}
 		
 		public function getSceneCell(x:int, y:int):int
@@ -104,28 +131,35 @@ package game.searcher
 			this.cacheStepsDone = (this.cacheStepsDone + 1) % NUMBER_OF_STEPS;
 		}
 		
-		private function cache0():void
+		private function cache0():void //0
 		{
-			//this.cacheCenter.setValue(this.center.x, this.center.y);
-			//TODO: uncomment when this.center is stable
-		}
-		
-		private function cache1():void
-		{
+			this.cacheCenter.setValue(this.center.x, this.center.y);
 			
+			var actorCacheLength:int = this.actorCacheWidth * this.actorCacheHeight;
+			for (var i:int = 0; i < actorCacheLength; i++)
+			{
+				this.actorCache[i] = null;
+			}
 		}
 		
-		private function cache2():void
+		private function cache1():void //1
 		{
-			
+			this.flow.dispatchUpdate(SearcherFeature.cacheScene, this.sceneCache, this.cacheCenter, 
+										this.sceneCacheWidth, this.sceneCacheHeight);
 		}
 		
-		private function cache3():void
+		private function cache2():void //2
 		{
-			
+			this.flow.dispatchUpdate(SearcherFeature.cacheActors, this.actorCache, this.cacheCenter, 
+										this.actorCacheWidth, this.actorCacheHeight);
 		}
 		
-		private function cache4():void
+		private function cache3():void //3 or 0
+		{
+			//TODO: remove if not used
+		}
+		
+		private function cache4():void //4 or 1
 		{
 			
 		}

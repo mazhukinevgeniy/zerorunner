@@ -1,9 +1,9 @@
 package game.ui.camera 
 {
 	import game.actors.ActorsFeature;
+	import game.metric.ICoordinated;
 	import game.time.Time;
 	import game.ZeroRunner;
-	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.ZeroRunner;
@@ -66,7 +66,7 @@ package game.ui.camera
 			
 		}
 		
-		update function setCenter(center:CellXY):void
+		update function setCenter(center:ICoordinated):void
 		{
 			this.container.x = -center.x * Metric.CELL_WIDTH + (Main.WIDTH - Metric.CELL_WIDTH) / 2;
             this.container.y = -center.y * Metric.CELL_HEIGHT + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;

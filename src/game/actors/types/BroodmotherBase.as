@@ -58,6 +58,7 @@ package game.actors.types
 					else
 					{
 						actor = new this.type(this.argument);
+						actor.reset();
 						
 						this.flow.dispatchUpdate(ActorsFeature.addActor, actor);
 					}
@@ -65,6 +66,7 @@ package game.actors.types
 				else
 				{
 					actor = this.actors[i] = new this.type(this.argument);
+					actor.reset();
 					
 					this.flow.dispatchUpdate(ActorsFeature.addActor, actor);
 				}
