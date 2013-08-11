@@ -27,15 +27,12 @@ package game.world
 		/**/
 		internal var cacheCenter:CellXY;
 		
-		internal var sceneCacheWidth:int;
-		internal var sceneCacheHeight:int;
-		
-		internal var sceneCache:Vector.<int>
-		
-		internal var actorCacheWidth:int;
-		internal var actorCacheHeight:int;
-		
+		internal var sceneCache:Vector.<int>;
 		internal var actorCache:Vector.<ActorLogicBase>;
+		
+		internal var cacheWidth:int;
+		internal var cacheHeight:int;
+		
 		/**/
 		
 		private var cacheStepsDone:int;
@@ -61,15 +58,11 @@ package game.world
 			
 			this.flow = flow;
 			
-			this.sceneCacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 6 + Metric.CELLS_IN_VISIBLE_WIDTH % 2;
-			this.sceneCacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
+			this.cacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 2 + Metric.CELLS_IN_VISIBLE_WIDTH % 2;
+			this.cacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 2 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
 			
-			this.sceneCache = new Vector.<int>(this.sceneCacheWidth * this.sceneCacheHeight, true);
-			
-			this.actorCacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 2 + Metric.CELLS_IN_VISIBLE_WIDTH % 2;
-			this.actorCacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 2 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
-			
-			this.actorCache = new Vector.<ActorLogicBase>(this.actorCacheWidth * this.actorCacheHeight, true);
+			this.sceneCache = new Vector.<int>(this.cacheWidth * this.cacheHeight, true);
+			this.actorCache = new Vector.<ActorLogicBase>(this.cacheWidth * this.cacheHeight, true);
 		}
 		
 		update function restore():void
@@ -88,14 +81,14 @@ package game.world
 		
 		public function findObjectByCell(x:int, y:int):ActorLogicBase
 		{
-			if ((!(x < this.cacheCenter.x - this.actorCacheWidth / 2)) && (x < this.cacheCenter.x + this.actorCacheWidth / 2)
+			if ((!(x < this.cacheCenter.x - this.cacheWidth / 2)) && (x < this.cacheCenter.x + this.cacheWidth / 2)
 				&&
-			    (!(y < this.cacheCenter.y - this.actorCacheHeight / 2)) && (y < this.cacheCenter.y + this.actorCacheHeight / 2))
+			    (!(y < this.cacheCenter.y - this.cacheHeight / 2)) && (y < this.cacheCenter.y + this.cacheHeight / 2))
 			{
-				x -= this.cacheCenter.x - this.actorCacheWidth / 2;
-				y -= this.cacheCenter.y - this.actorCacheHeight / 2;
+				x -= this.cacheCenter.x - this.cacheWidth / 2;
+				y -= this.cacheCenter.y - this.cacheHeight / 2;
 				
-				return this.actorCache[x + y * this.actorCacheWidth];
+				return this.actorCache[x + y * this.cacheWidth];
 			}
 			else return null;
 		}
@@ -106,14 +99,14 @@ package game.world
 		
 		public function getSceneCell(x:int, y:int):int
 		{
-			if ((!(x < this.cacheCenter.x - this.sceneCacheWidth / 2)) && (x < this.cacheCenter.x + this.sceneCacheWidth / 2)
+			if ((!(x < this.cacheCenter.x - this.cacheWidth / 2)) && (x < this.cacheCenter.x + this.cacheWidth / 2)
 				&&
-			    (!(y < this.cacheCenter.y - this.sceneCacheHeight / 2)) && (y < this.cacheCenter.y + this.sceneCacheHeight / 2))
+			    (!(y < this.cacheCenter.y - this.cacheHeight / 2)) && (y < this.cacheCenter.y + this.cacheHeight / 2))
 			{
-				x -= this.cacheCenter.x - this.sceneCacheWidth / 2;
-				y -= this.cacheCenter.y - this.sceneCacheHeight / 2;
+				x -= this.cacheCenter.x - this.cacheWidth / 2;
+				y -= this.cacheCenter.y - this.cacheHeight / 2;
 				
-				return this.sceneCache[x + y * this.sceneCacheWidth];
+				return this.sceneCache[x + y * this.cacheWidth];
 			}
 			else return SceneFeature.FALL;
 		}
@@ -135,7 +128,7 @@ package game.world
 		{
 			this.cacheCenter.setValue(this.center.x, this.center.y);
 			
-			var actorCacheLength:int = this.actorCacheWidth * this.actorCacheHeight;
+			var actorCacheLength:int = this.cacheWidth * this.cacheHeight;
 			for (var i:int = 0; i < actorCacheLength; i++)
 			{
 				this.actorCache[i] = null;
@@ -145,13 +138,13 @@ package game.world
 		private function cache1():void //1
 		{
 			this.flow.dispatchUpdate(SearcherFeature.cacheScene, this.sceneCache, this.cacheCenter, 
-										this.sceneCacheWidth, this.sceneCacheHeight);
+										this.cacheWidth, this.cacheHeight);
 		}
 		
 		private function cache2():void //2
 		{
 			this.flow.dispatchUpdate(SearcherFeature.cacheActors, this.actorCache, this.cacheCenter, 
-										this.actorCacheWidth, this.actorCacheHeight);
+										this.cacheWidth, this.cacheHeight);
 		}
 		
 		private function cache3():void //3 or 0
@@ -190,14 +183,14 @@ package game.world
 		
 		private function putActorInCell(x:int, y:int, item:ActorLogicBase = null):void
 		{
-			if ((!(x < this.cacheCenter.x - this.actorCacheWidth / 2)) && (x < this.cacheCenter.x + this.actorCacheWidth / 2)
+			if ((!(x < this.cacheCenter.x - this.cacheWidth / 2)) && (x < this.cacheCenter.x + this.cacheWidth / 2)
 				&&
-			    (!(y < this.cacheCenter.y - this.actorCacheHeight / 2)) && (y < this.cacheCenter.y + this.actorCacheHeight / 2))
+			    (!(y < this.cacheCenter.y - this.cacheHeight / 2)) && (y < this.cacheCenter.y + this.cacheHeight / 2))
 			{
-				x -= this.cacheCenter.x - this.actorCacheWidth / 2;
-				y -= this.cacheCenter.y - this.actorCacheHeight / 2;
+				x -= this.cacheCenter.x - this.cacheWidth / 2;
+				y -= this.cacheCenter.y - this.cacheHeight / 2;
 				
-				this.actorCache[x + y * this.actorCacheWidth] = item;
+				this.actorCache[x + y * this.cacheWidth] = item;
 			}
 		}
 		

@@ -1,6 +1,7 @@
 package game.world 
 {
 	import game.ZeroRunner;
+	import starling.display.Image;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -31,7 +32,9 @@ package game.world
 		
 		update function redraw():void
 		{
-			this.lines.topLine = this.data.cacheCenter.y - this.data.sceneCacheHeight / 2;
+			this.lines.topLine = this.data.cacheCenter.y - this.data.cacheHeight / 2;
+			
+			this.pull.nothingIsInUse();
 			
 			this.redrawScene();
 			this.redrawActors();
@@ -40,24 +43,20 @@ package game.world
 		
 		private function redrawScene():void
 		{
-			/*update function tick():void
-		{
-			this.container.removeChildren();
-			this.pull.nothingIsInUse();
+			/*
+			var centerX:int = this.data.cacheCenter.x;
+			var centerY:int = this.data.cacheCenter.y;
 			
-			var centerX:int = this.searcher.character.x;
-			var centerY:int = this.searcher.character.y;
-			
-			var xGoal:int = centerX + this.width;
-			var yGoal:int = centerY + this.height;
+			var xGoal:int = centerX + this.data.sceneCacheWidth / 2;
+			var yGoal:int = centerY + this.data.sceneCacheHeight / 2;
 			
 			var sprite:Image;
 			
-			for (var i:int = centerX - this.width; i < xGoal; i++)
+			for (var i:int = centerX - this.data.sceneCacheWidth / 2; i < xGoal; i++)
 			{
-				for (var j:int = centerY - this.height; j < yGoal; j++)
+				for (var j:int = centerY - this.data.sceneCacheHeight / 2; j < yGoal; j++)
 				{
-					if (this.scene.getSceneCell(i, j))
+					if (this.getSceneCell(i, j))
 					{
 						sprite = this.pull.getImage("ground");
 						
