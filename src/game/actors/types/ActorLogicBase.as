@@ -183,24 +183,25 @@ package game.actors.types
 		
 		final protected function applyJump(change:DCellXY, multiplier:int):void
 		{
-			/*
 			this.movingCooldown = 2 * this.moveSpeed * multiplier;
 			
 			var jChange:DCellXY = new DCellXY(change.x * multiplier, change.y * multiplier);//TODO: do not allocate
 			
-			var unluckyGuy:ActorBase = ActorBase.iSearcher.findObjectByCell(this.x + jChange.x, this.y + jChange.y);
+			var unluckyGuy:ActorLogicBase = this.world.findObjectByCell(this._x + jChange.x, this._y + jChange.y);
 			if (unluckyGuy)
 			{
-				this.destroyActor(unluckyGuy);
+				unluckyGuy.applyDestruction();
 			}
 			
-			this.cell.applyChanges(jChange);
-			ActorBase.iFlow.dispatchUpdate(ActorsFeature.moveActor, this, jChange, this.movingCooldown + 1);
+			this._x += jChange.x;
+			this._y += jChange.y;
 			
-			ActorBase.iListener.actorJumped(this.id, jChange, this.movingCooldown + 1); //TODO: ensure that moveNormally is overridable
+			this.flow.dispatchUpdate(ActorsFeature.moveActor, this, jChange, this.movingCooldown + 1);
+			
+			this.view.moveNormally(this, jChange, this.movingCooldown + 1);
+			this.view.jump(jChange, this.movingCooldown + 1);//TODO: change code if it proves to be troublesome
 			
 			this.onMoved(jChange, this.movingCooldown);
-			*///TODO: might implement
 		}
 		
 		/****************

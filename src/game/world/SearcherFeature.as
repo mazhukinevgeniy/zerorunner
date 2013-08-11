@@ -58,8 +58,8 @@ package game.world
 			
 			this.flow = flow;
 			
-			this.cacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 2 + Metric.CELLS_IN_VISIBLE_WIDTH % 2;
-			this.cacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 2 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
+			this.cacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 4 + Metric.CELLS_IN_VISIBLE_WIDTH % 2;
+			this.cacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
 			
 			this.sceneCache = new Vector.<int>(this.cacheWidth * this.cacheHeight, true);
 			this.actorCache = new Vector.<ActorLogicBase>(this.cacheWidth * this.cacheHeight, true);
