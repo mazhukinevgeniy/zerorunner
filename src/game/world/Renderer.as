@@ -1,6 +1,8 @@
 package game.world 
 {
+	import game.metric.Metric;
 	import game.ZeroRunner;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
@@ -43,27 +45,29 @@ package game.world
 		
 		private function redrawScene():void
 		{
-			/*
-			var centerX:int = this.data.cacheCenter.x;
-			var centerY:int = this.data.cacheCenter.y;
+			const tlcX:int = this.data.cacheCenter.x - this.data.cacheWidth / 2;
+			const tlcY:int = this.data.cacheCenter.y - this.data.cacheHeight / 2;
 			
-			var xGoal:int = centerX + this.data.sceneCacheWidth / 2;
-			var yGoal:int = centerY + this.data.sceneCacheHeight / 2;
+			const brcX:int = this.data.cacheCenter.x + this.data.cacheWidth / 2;
+			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
 			
 			var sprite:Image;
+			var container:DisplayObjectContainer;
 			
-			for (var i:int = centerX - this.data.sceneCacheWidth / 2; i < xGoal; i++)
-			{
-				for (var j:int = centerY - this.data.sceneCacheHeight / 2; j < yGoal; j++)
+			for (var i:int = tlcX + 1; i < brcX - 1; i++)
+			{ // main block
+				for (var j:int = tlcY + 1; j < brcY - 1; j++)
 				{
-					if (this.getSceneCell(i, j))
+					container = this.lines.getLine(j);
+					
+					if (this.data.getUnsafeScene(i, j))
 					{
 						sprite = this.pull.getImage("ground");
 						
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						this.container.addChild(sprite);
+						container.addChild(sprite);
 						
 						var number:uint = uint(((i) * 999999000001) | ((j) * 87178291199));
 						
@@ -74,95 +78,85 @@ package game.world
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
-					}
-					else
-					{
-						if (this.scene.getSceneCell(i, j - 1))
+						
+						if (!this.data.getUnsafeScene(i, j + 1))
 						{
 							sprite = this.pull.getImage("S");
 							
 							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j))
+						if (!this.data.getUnsafeScene(i + 1, j))
 						{
 							sprite = this.pull.getImage("E");
 							
-							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.x = (i + 1) * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
-						if (this.scene.getSceneCell(i + 1, j))
+						if (!this.data.getUnsafeScene(i - 1, j))
 						{
 							sprite = this.pull.getImage("W");
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
+							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = j * Metric.CELL_HEIGHT;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
-						if (this.scene.getSceneCell(i, j + 1))
+						if (!this.data.getUnsafeScene(i, j - 1))
 						{
 							sprite = this.pull.getImage("N");
 							
 							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
+							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j - 1) && 
-							!this.scene.getSceneCell(i - 1, j) && 
-							!this.scene.getSceneCell(i, j - 1))
+						if (!this.data.getUnsafeScene(i + 1, j + 1))
 						{
 							sprite = this.pull.getImage("SE");
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = (i + 1) * Metric.CELL_WIDTH;
+							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
-						if (this.scene.getSceneCell(i + 1, j - 1) && 
-							!this.scene.getSceneCell(i + 1, j) && 
-							!this.scene.getSceneCell(i, j - 1))
+						if (!this.data.getUnsafeScene(i - 1, j + 1))
 						{
 							sprite = this.pull.getImage("SW");
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j + 1) && 
-							!this.scene.getSceneCell(i - 1, j) && 
-							!this.scene.getSceneCell(i, j + 1))
+						if (!this.data.getUnsafeScene(i + 1, j - 1))
 						{
 							sprite = this.pull.getImage("NE");
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
+							sprite.x = (i + 1) * Metric.CELL_WIDTH;
+							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
-						if (this.scene.getSceneCell(i + 1, j + 1) && 
-							!this.scene.getSceneCell(i + 1, j) && 
-							!this.scene.getSceneCell(i, j + 1))
+						if (!this.data.getUnsafeScene(i - 1, j - 1))
 						{
 							sprite = this.pull.getImage("NW");
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
+							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
+							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 							
-							this.container.addChild(sprite);
+							container.addChild(sprite);
 						}
 					}
 				}
 				
-			}*/
+			}
 		}
 		
 		private function redrawActors():void

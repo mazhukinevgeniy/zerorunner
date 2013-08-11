@@ -4,6 +4,7 @@ package game.scene
 	import game.scene.patterns.FlatPattern;
 	import game.scene.patterns.getPattern;
 	import game.scene.patterns.IPattern;
+	import game.world.SearcherFeature;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -17,7 +18,7 @@ package game.scene
 			this.patterns = new Vector.<IPattern>(SceneFeature.NUMBER_OF_PATTERNS, true);
 			
 			flow.workWithUpdateListener(this);
-			
+			flow.addUpdateListener(SearcherFeature.cacheScene);
 			flow.addUpdateListener(ZeroRunner.prerestore);
 		}
 		

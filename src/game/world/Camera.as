@@ -9,6 +9,7 @@ package game.world
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import utils.informers.IGiveInformers;
 	import utils.PixelPerfectTween;
@@ -57,12 +58,9 @@ package game.world
 			}
 		}
 		
-		public function addChildTo(object:DisplayObject, line:int):void
+		internal function getLine(y:int):DisplayObjectContainer
 		{
-			//if line is not suitable, ignore it
-			
-			//lol what? ignore nothing, useless requests are not required
-			
+			return this.lines[y - this.topLine];
 		}
 		
 		update function setCenter(center:ICoordinated):void

@@ -52,7 +52,7 @@ package game.world
 			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			
-			const NUMBER_OF_STEPS:int = 5;
+			const NUMBER_OF_STEPS:int = 3;
 			for (var i:int = 0; i < NUMBER_OF_STEPS; i++)
 				flow.dispatchUpdate(Time.addCacher, this);
 			
@@ -121,7 +121,7 @@ package game.world
 		
 		public function cache():void
 		{
-			const NUMBER_OF_STEPS:int = 5;
+			const NUMBER_OF_STEPS:int = 3;
 			
 			this["cache" + this.cacheStepsDone]();
 			
@@ -149,16 +149,6 @@ package game.world
 		{
 			this.flow.dispatchUpdate(SearcherFeature.cacheActors, this.actorCache, this.cacheCenter, 
 										this.cacheWidth, this.cacheHeight);
-		}
-		
-		private function cache3():void //3 or 0
-		{
-			//TODO: remove if not used
-		}
-		
-		private function cache4():void //4 or 1
-		{
-			
 		}
 		
 		/**

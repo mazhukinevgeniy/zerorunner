@@ -19,14 +19,14 @@ package game.scene
 		}
 		
 		update function cacheScene(cache:Vector.<int>, center:ICoordinated, width:int, height:int):void
-		{			
+		{
 			var tlcX:int = center.x - width / 2;
 			var tlcY:int = center.y - height / 2;
 			
-			if (this.center1.x > tlcX &&
-				this.center1.y > tlcY &&
-				this.center1.x < tlcX + width &&
-				this.center1.y < tlcY + height)
+			if (this.center1.x + this.RADIUS > tlcX &&
+				this.center1.y + this.RADIUS > tlcY &&
+				this.center1.x - this.RADIUS < tlcX + width &&
+				this.center1.y - this.RADIUS < tlcY + height)
 			{
 				var xTop:int = Math.min(this.center1.x + this.RADIUS, tlcX + width);
 				var yTop:int = Math.min(this.center1.y + this.RADIUS, tlcY + height);

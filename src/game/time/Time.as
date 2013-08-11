@@ -39,7 +39,7 @@ package game.time
 			new PauseTypes(flow);
 			
 			this.FPS = Starling.current.nativeStage.frameRate;
-			this.tickFrame = this.FPS == 60 ? 7 : 3;
+			this.tickFrame = this.FPS == 60 ? 5 : 3;
 			this.redrawFrame = this.tickFrame - 1;
 			
 			this.cachers = new Vector.<Vector.<ICacher>>(this.redrawFrame, true);
