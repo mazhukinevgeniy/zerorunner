@@ -108,7 +108,7 @@ package game.world
 				
 				return this.sceneCache[x + y * this.cacheWidth];
 			}
-			else return SceneFeature.FALL;
+			else return SceneFeature.ROAD;
 		}
 		
 		/**
