@@ -8,7 +8,6 @@ package game
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.scene.SceneFeature;
-	import game.state.GameState;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
 	import game.time.Time;
@@ -85,7 +84,6 @@ package game
 			
 			Metric.initialize(40, 40, 81, 81);
 			
-			new GameState(this);
 			new Time(this.displayRoot, this);
 			new InputManager(this);
 			
