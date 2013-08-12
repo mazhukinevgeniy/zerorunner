@@ -2,6 +2,8 @@ package game.actors.types.fog
 {
 	import game.actors.types.ActorLogicBase;
 	import game.actors.utils.ConfigKit;
+	import game.metric.DCellXY;
+	import game.metric.Metric;
 	
 	internal class FogLogic extends ActorLogicBase
 	{
@@ -12,9 +14,21 @@ package game.actors.types.fog
 			super(new FogView());
 		}
 		
+		override protected function onCanMove():void
+		{
+			this.move(Metric.getRandomDCell());
+		}
+		
+		
+		
 		override protected function onPushed():void
 		{
 			this.applyDestruction();
+		}
+		
+		override protected function onBlocked(change:DCellXY):void
+		{
+			this.applyPush();
 		}
 		
 		

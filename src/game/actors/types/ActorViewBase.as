@@ -16,6 +16,8 @@ package game.actors.types
 		protected var juggler:Juggler;
 		protected var atlas:TextureAtlas;
 		
+		private var movingTween:PixelPerfectTween;
+		
 		public function ActorViewBase()
 		{
 			this.juggler = BroodmotherBase.juggler;
@@ -23,6 +25,8 @@ package game.actors.types
 			
 			super();
 			this.addChild(this.getView());
+			
+			this.movingTween = new PixelPerfectTween(this, 0);
 		}
 		
 		protected function getView():DisplayObject
@@ -35,22 +39,24 @@ package game.actors.types
 			this.x = cell.x * Metric.CELL_WIDTH;
 			this.y = cell.y * Metric.CELL_HEIGHT;
 			
+			this.movingTween.reset(this, 0);
+			
 			this.visible = true;
 		}
 		
 		final internal function moveNormally(goal:ICoordinated, change:DCellXY, delay:int):void
 		{
-			var tween:PixelPerfectTween = new PixelPerfectTween(this, delay * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
+			this.movingTween.reset(this, delay * Time.TIME_BETWEEN_TICKS);
+			this.movingTween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
 			
-			this.juggler.add(tween);
+			this.juggler.add(this.movingTween);
 			
 			this.animateMove(change, delay);
 		}
 		
 		final internal function disappear():void
 		{
-			
+			this.movingTween.reset(this, 0);
 			
 			this.visible = false;
 		}
