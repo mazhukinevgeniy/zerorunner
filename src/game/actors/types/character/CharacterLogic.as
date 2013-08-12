@@ -69,13 +69,13 @@ package game.actors.types.character
 			{
 				if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != SceneFeature.FALL)
 				{
-					this.applyMove(action);
+					this.move(action);
 					
 					return;
 				}
 				else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != SceneFeature.FALL)
 				{
-					this.applyJump(action, 2);
+					this.jump(action, 2);
 					
 					return;
 				}

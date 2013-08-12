@@ -133,8 +133,15 @@ package game.actors.types
 		}
 		
 		/**********
-		 ** ACTIONS
+		 ** What you can suffer
 		 *********/
+		
+		final public function applyPush():void
+		{
+			
+			
+			this.onPushed();
+		}
 		
 		final public function applyDamage(damage:int):void
 		{
@@ -162,7 +169,11 @@ package game.actors.types
 			}
 		}
 		
-		final public function applyMove(change:DCellXY):void
+		/********
+		 * What you can do
+		 *******/
+		
+		final protected function move(change:DCellXY):void
 		{
 			if (!this.world.findObjectByCell(this.x + change.x, this.y + change.y))
 			{
@@ -181,7 +192,7 @@ package game.actors.types
 				this.onBlocked(change);
 		}
 		
-		final protected function applyJump(change:DCellXY, multiplier:int):void
+		final protected function jump(change:DCellXY, multiplier:int):void
 		{
 			this.movingCooldown = 2 * this.moveSpeed * multiplier;
 			
@@ -226,6 +237,9 @@ package game.actors.types
 		
 		/** Called if can not move */
 		protected function onBlocked(change:DCellXY):void { }
+		
+		/** Called if someone applies push. */
+		protected function onPushed():void { }
 		
 		/** Called if damaged and survived that damage. */
 		protected function onDamaged(damage:int):void { }

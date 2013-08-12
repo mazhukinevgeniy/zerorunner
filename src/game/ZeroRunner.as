@@ -2,7 +2,6 @@ package game
 {
 	import game.achievements.AchievementsFeature;
 	import game.actors.ActorsFeature;
-	import game.hazards.HazardFeature;
 	import game.input.InputManager;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -92,7 +91,6 @@ package game
 			
 			new SceneFeature(this);
 			new ActorsFeature(this);
-			new HazardFeature(this);
 			
 			new StatisticsFeature(this); //TODO: remove
 			new AchievementsFeature(this);
