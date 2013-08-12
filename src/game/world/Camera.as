@@ -25,6 +25,8 @@ package game.world
 		
 		private var juggler:Juggler;
 		
+		private var moveTween:PixelPerfectTween;
+		
 		
 		public function Camera(flow:IUpdateDispatcher) 
 		{
@@ -46,6 +48,8 @@ package game.world
 			flow.addUpdateListener(ZeroRunner.redraw);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+			
+			this.moveTween = new PixelPerfectTween(this, 0);
 		}
 		
 		update function redraw():void
@@ -71,10 +75,10 @@ package game.world
 		
 		update function moveCenter(change:DCellXY, ticksToGo:int):void 
 		{
-			var tween:PixelPerfectTween = new PixelPerfectTween(this.container, ticksToGo * Time.TIME_BETWEEN_TICKS);
-			tween.moveTo(this.container.x - change.x * Metric.CELL_WIDTH, this.container.y - change.y * Metric.CELL_HEIGHT);
+			this.moveTween.reset(this.container, ticksToGo * Time.TIME_BETWEEN_TICKS);
+			this.moveTween.moveTo(this.container.x - change.x * Metric.CELL_WIDTH, this.container.y - change.y * Metric.CELL_HEIGHT);
 			
-			this.juggler.add(tween);
+			this.juggler.add(this.moveTween);
 		}
 		
 		

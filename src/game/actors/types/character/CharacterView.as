@@ -10,7 +10,6 @@ package game.actors.types.character
 	import starling.display.MovieClip;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import utils.PixelPerfectTween;
 	
 	internal class CharacterView extends ActorViewBase
 	{

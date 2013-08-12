@@ -12,6 +12,14 @@ package utils
 			this.roundToInt = true;
 		}
 		
+		override public function reset(target:Object, time:Number, transition:Object = "linear"):Tween
+		{
+			super.reset(target, time, transition);
+			
+			this.roundToInt = true;
+			
+			return this;
+		}
 	}
 
 }
