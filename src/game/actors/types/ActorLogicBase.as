@@ -204,10 +204,14 @@ package game.actors.types
 			
 			var jChange:DCellXY = new DCellXY(change.x * multiplier, change.y * multiplier);//TODO: do not allocate
 			
-			var unluckyGuy:ActorLogicBase = this.world.findObjectByCell(this._x + jChange.x, this._y + jChange.y);
-			if (unluckyGuy)
+			var unluckyGuy:ActorLogicBase;
+			
+			for (var i:int = 0; i < multiplier; i++)
 			{
-				unluckyGuy.applyDestruction();
+				unluckyGuy = this.world.findObjectByCell(this._x + (i + 1) * change.x, this._y + (i + 1) * change.y);
+				
+				if (unluckyGuy)
+					unluckyGuy.applyDestruction();
 			}
 			
 			this._x += jChange.x;
