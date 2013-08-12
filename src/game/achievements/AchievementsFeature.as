@@ -35,9 +35,7 @@ package game.achievements
 		
 		override protected function checkLocalSave():void
 		{
-			activeAchievements = new Vector.<AchievementBase>(); //TODO: actually implement
-			
-			//TODO: check if it's actually required to extend SaveBase here
+			activeAchievements = new Vector.<AchievementBase>();
 		}
 		
 		public function cache():void
@@ -53,9 +51,7 @@ package game.achievements
 		
 		update function unlockAchievement(id:int):void
 		{
-			// TODO: do stuff and, if required, refill your activeAchievements vector
 			
-			//TODO: also add some feature to show pop-up with the heartwarming notify
 		}
 	}
 

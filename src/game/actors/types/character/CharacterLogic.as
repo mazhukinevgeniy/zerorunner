@@ -11,6 +11,8 @@ package game.actors.types.character
 	
 	internal class CharacterLogic extends ActorLogicBase
 	{		
+		private const HP:int = 100;
+		
 		private var input:IKnowInput;
 		
 		public function CharacterLogic(input:IKnowInput) 
@@ -22,7 +24,7 @@ package game.actors.types.character
 		
 		override protected function getConfig():ConfigKit
 		{
-			return new ConfigKit(100, 1, 1000);
+			return new ConfigKit(this.HP, 1, 1000);
 		}
 		
 		override protected function getSpawningCell():CellXY
@@ -33,7 +35,7 @@ package game.actors.types.character
 		override protected function onSpawned():void
 		{
 			this.flow.dispatchUpdate(ActorsFeature.setCenter, this);
-			this.flow.dispatchUpdate(ActorsFeature.setHeroHP, 100); //TODO: remove hardcode
+			this.flow.dispatchUpdate(ActorsFeature.setHeroHP, this.HP);
 		}
 		
 		override protected function onMoved(change:DCellXY, delay:int):void
@@ -44,8 +46,6 @@ package game.actors.types.character
 		override protected function onDestroyed():void
 		{
 			this.flow.dispatchUpdate(ZeroRunner.gameOver);
-			
-			//this.forceActive(true);
 		}
 		
 		override protected function onActing():void

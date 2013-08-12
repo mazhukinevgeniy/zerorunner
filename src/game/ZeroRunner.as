@@ -92,7 +92,7 @@ package game
 			new SceneFeature(this);
 			new ActorsFeature(this);
 			
-			new StatisticsFeature(this); //TODO: remove
+			new StatisticsFeature(this);
 			new AchievementsFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);

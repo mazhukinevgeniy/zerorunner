@@ -21,11 +21,6 @@ package game.metric
 			
 			return this;
 		}
-		public function setValue(x:int, y:int):void
-		{
-			this._x = x;
-			this._y = y;
-		}
 		
 		public function getCopy():CellXY
 		{

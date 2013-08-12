@@ -106,8 +106,8 @@ package game.actors.types
 			var dX:int = (Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH / 2) * ((Math.random() < 0.5) ? 1 : -1);
 			var dY:int = (MIN_DISTANCE - Math.abs(dX) + Math.random() * VARIETY) * ((Math.random() < 0.5) ? 1 : -1);
 			
-			var cell:CellXY = new CellXY(character.x + dX, character.y + dY);
-			//TODO: stop allocating
+			var cell:CellXY = Metric.tmpCell;
+			cell.setValue(character.x + dX, character.y + dY);
 			
 			for (; this.world.findObjectByCell(cell.x, cell.y); )
 			{
@@ -202,7 +202,8 @@ package game.actors.types
 		{
 			this.movingCooldown = 2 * this.moveSpeed * multiplier;
 			
-			var jChange:DCellXY = new DCellXY(change.x * multiplier, change.y * multiplier);//TODO: do not allocate
+			var jChange:DCellXY = Metric.tmpDCell;
+			jChange.setValue(change.x * multiplier, change.y * multiplier);
 			
 			var unluckyGuy:ActorLogicBase;
 			
@@ -220,7 +221,7 @@ package game.actors.types
 			this.flow.dispatchUpdate(ActorsFeature.moveActor, this, jChange, this.movingCooldown + 1);
 			
 			this.view.moveNormally(this, jChange, this.movingCooldown + 1);
-			this.view.jump(jChange, this.movingCooldown + 1);//TODO: change code if it proves to be troublesome
+			this.view.jump(jChange, this.movingCooldown + 1);
 			
 			this.onMoved(jChange, this.movingCooldown);
 		}

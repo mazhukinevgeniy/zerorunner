@@ -35,12 +35,12 @@ package ui.achievements
 		
 		update function initializeTree(node:AchievementBase):void
 		{
-			//TODO: you reset containers and start drawing and, damn it, just do something
+			
 		}
 		
 		update function unlockNode(nodeID:int):void
 		{
-			//TODO: achievement unlocked, you tell about it
+			
 		}
 	}
 

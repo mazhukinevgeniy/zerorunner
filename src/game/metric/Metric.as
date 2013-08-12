@@ -40,6 +40,9 @@ package game.metric
 			
 			Metric.cellsInVisibleWidth = int(Main.WIDTH / Metric.cellWidth);
 			Metric.cellsInVisibleHeigth = int(Main.HEIGHT / Metric.cellHeight);
+			
+			Metric.tmpCell = new CellXY(0, 0);
+			Metric.tmpDCell = new DCellXY(0, 0);
 		}
 		
 		public static function getRandomDCell():DCellXY 
@@ -51,6 +54,14 @@ package game.metric
 		{
 			return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)
 		}
+		
+		
+		/**
+		 * Global helper
+		 */
+		
+		public static var tmpCell:CellXY;
+		public static var tmpDCell:DCellXY;
 	}
 
 }

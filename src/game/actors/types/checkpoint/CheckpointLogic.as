@@ -19,15 +19,19 @@ package game.actors.types.checkpoint
 		{
 			var center:ICoordinated = this.world.getCenter();
 			
-			for (var i:int = 2; i < 6; i++)
-				for (var j:int = 2; j < 6; j++)
-				{
-					if (!this.world.findObjectByCell(center.x + i, center.y + j))
-						return new CellXY(center.x + i, center.y + j);
-				}
-			throw new Error();
+			var dX:int = 2 + Math.random() * 4; dX *= Math.random() < 0.5 ? 1 : -1;
+			var dY:int = 2 + Math.random() * 4; dY *= Math.random() < 0.5 ? 1 : -1;
 			
-			//TODO: implement better
+			var tmpCell:CellXY = Metric.tmpCell;
+			
+			tmpCell.setValue(center.x + dX, center.y + dY);
+			
+			var actor:ActorLogicBase = this.world.findObjectByCell(tmpCell.x, tmpCell.y);
+			
+			if (actor)
+				actor.applyDestruction();
+			
+			return tmpCell;
 		}
 		
 		override protected function getConfig():ConfigKit
