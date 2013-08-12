@@ -34,6 +34,8 @@ package game.actors.types
 		{
 			this.x = cell.x * Metric.CELL_WIDTH;
 			this.y = cell.y * Metric.CELL_HEIGHT;
+			
+			this.visible = true;
 		}
 		
 		final internal function moveNormally(goal:ICoordinated, change:DCellXY, delay:int):void
@@ -44,6 +46,13 @@ package game.actors.types
 			this.juggler.add(tween);
 			
 			this.animateMove(change, delay);
+		}
+		
+		final internal function disappear():void
+		{
+			
+			
+			this.visible = false;
 		}
 		
 		protected function animateMove(change:DCellXY, delay:int):void

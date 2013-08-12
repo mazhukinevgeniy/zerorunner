@@ -98,19 +98,24 @@ package game.actors.types
 		
 		protected function getSpawningCell():CellXY
 		{
-			var x:int = character.x - Metric.CELLS_IN_VISIBLE_WIDTH;
-			var y:int = character.y - Metric.CELLS_IN_VISIBLE_HEIGHT;
-			
 			var character:ICoordinated = this.world.getCenter();
 			
-			var cell:CellXY = new CellXY(0, 0);
+			const MIN_DISTANCE:int = 6;
+			const VARIETY:int = 5;
 			
-			do 
+			var dX:int = (Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH / 2) * ((Math.random() < 0.5) ? 1 : -1);
+			var dY:int = (MIN_DISTANCE - Math.abs(dX) + Math.random() * VARIETY) * ((Math.random() < 0.5) ? 1 : -1);
+			
+			var cell:CellXY = new CellXY(character.x + dX, character.y + dY);
+			//TODO: stop allocating
+			
+			for (; this.world.findObjectByCell(cell.x, cell.y); )
 			{
-				cell.setValue(x + 2 * Metric.CELLS_IN_VISIBLE_WIDTH * Math.random(),
-							  y + 2 * Metric.CELLS_IN_VISIBLE_HEIGHT * Math.random());
+				dX = (Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH / 2) * ((Math.random() < 0.5) ? 1 : -1);
+				dY = (MIN_DISTANCE - Math.abs(dX) + Math.random() * VARIETY) * ((Math.random() < 0.5) ? 1 : -1);
+				
+				cell.setValue(character.x + dX, character.y + dY);
 			}
-			while (!(this.world.findObjectByCell(cell.x, cell.y)) && (Metric.distance(character, cell) < 6 || this.world.findObjectByCell(cell.x, cell.y) != null));
 			
 			return cell;
 		}
@@ -164,7 +169,8 @@ package game.actors.types
 				this.flow.dispatchUpdate(ActorsFeature.removeActor, this);
 				this._active = false;
 				
-				//TODO: might consider telling view about it
+				this.view.disappear();
+				
 				this.onDestroyed();
 			}
 		}

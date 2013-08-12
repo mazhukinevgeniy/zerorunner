@@ -24,13 +24,7 @@ package game.actors.types.checkpoint
 		
 		override protected function getConfig():ConfigKit
 		{
-			var config:ConfigKit = new ConfigKit();
-			
-			config.health = 10000000;
-			config.movingSpeed = 10000000;
-			config.actingSpeed = 10000000;
-			
-			return config;
+			return new ConfigKit(10000000, 10000000, 10000000);
 		}
 		
 		override protected function onCanAct():void

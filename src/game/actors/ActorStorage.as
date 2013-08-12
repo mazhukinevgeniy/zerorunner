@@ -4,6 +4,7 @@ package game.actors
 	import game.actors.types.BroodmotherBase;
 	import game.actors.types.character.Character;
 	import game.actors.types.checkpoint.Checkpoint;
+	import game.actors.types.fog.Fog;
 	import game.actors.types.setInformerKit;
 	import game.actors.utils.InformerKit;
 	import game.input.IKnowInput;
@@ -34,6 +35,7 @@ package game.actors
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			flow.addUpdateListener(ZeroRunner.tick);
+			flow.addUpdateListener(ZeroRunner.aftertick);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			flow.addUpdateListener(SearcherFeature.cacheActors);
 		}
@@ -51,21 +53,24 @@ package game.actors
 				{
 					var actor:ActorLogicBase = actors[j];
 					
-					var x:int = actor.x;
-					var y:int = actor.y;
-					
-					if ((!(x < center.x - width / 2)) && (x < center.x + width / 2)
-						&&
-						(!(y < center.y - height / 2)) && (y < center.y + height / 2))
+					if (actor.active)
 					{
-						x -= center.x - width / 2;
-						y -= center.y - height / 2;
+						var x:int = actor.x;
+						var y:int = actor.y;
 						
-						cache[x + y * width] = actor;
-					}
-					else
-					{
-						this.broods[i].actorOutOfCache(actor);
+						if ((!(x < center.x - width / 2)) && (x < center.x + width / 2)
+							&&
+							(!(y < center.y - height / 2)) && (y < center.y + height / 2))
+						{
+							x -= center.x - width / 2;
+							y -= center.y - height / 2;
+							
+							cache[x + y * width] = actor;
+						}
+						else
+						{
+							this.broods[i].actorOutOfCache(actor);
+						}
 					}
 				}
 			}
@@ -79,6 +84,7 @@ package game.actors
 			
 			this.broods.push(new Character(this.input));
 			this.broods.push(new Checkpoint());
+			this.broods.push(new Fog());
 			
 			var length:int = this.broods.length;
 			

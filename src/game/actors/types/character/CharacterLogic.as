@@ -22,13 +22,7 @@ package game.actors.types.character
 		
 		override protected function getConfig():ConfigKit
 		{
-			var config:ConfigKit = new ConfigKit();
-			
-			config.health = 100;
-			config.movingSpeed = 1;
-			config.actingSpeed = 1000;
-			
-			return config;
+			return new ConfigKit(100, 1, 1000);
 		}
 		
 		override protected function getSpawningCell():CellXY
