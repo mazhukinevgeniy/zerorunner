@@ -86,8 +86,15 @@ package game.actors.types.character
 		
 		override protected function onBlocked(change:DCellXY):void
 		{
-			// TODO: implement pushing here or as an action (or somehow else)
-			//this.kick(item, this.searcher.findObjectByCell(item.getCell().applyChanges(change)), change);
+			var gx:int = this.x + change.x;
+			var gy:int = this.y + change.y;
+			
+			this.world.findObjectByCell(gx, gy).applyPush();
+			
+			if (!this.world.findObjectByCell(gx, gy))
+			{
+				this.move(change);
+			}
 		}
 		
 		override protected function onDamaged(damage:int):void
