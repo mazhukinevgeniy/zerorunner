@@ -9,7 +9,6 @@ package game.scene
 	
 	internal class SceneOverride 
 	{
-		private var center1:CellXY = ActorsFeature.SPAWN_CELL;
 		private const RADIUS:int = 4;
 		
 		public function SceneOverride(flow:IUpdateDispatcher) 
@@ -23,16 +22,18 @@ package game.scene
 			var tlcX:int = center.x - width / 2;
 			var tlcY:int = center.y - height / 2;
 			
-			if (this.center1.x + this.RADIUS > tlcX &&
-				this.center1.y + this.RADIUS > tlcY &&
-				this.center1.x - this.RADIUS < tlcX + width &&
-				this.center1.y - this.RADIUS < tlcY + height)
+			var center1:CellXY = ActorsFeature.SPAWN_CELL;
+			
+			if (center1.x + this.RADIUS > tlcX &&
+				center1.y + this.RADIUS > tlcY &&
+				center1.x - this.RADIUS < tlcX + width &&
+				center1.y - this.RADIUS < tlcY + height)
 			{
-				var xTop:int = Math.min(this.center1.x + this.RADIUS, tlcX + width);
-				var yTop:int = Math.min(this.center1.y + this.RADIUS, tlcY + height);
+				var xTop:int = Math.min(center1.x + this.RADIUS, tlcX + width);
+				var yTop:int = Math.min(center1.y + this.RADIUS, tlcY + height);
 				
-				for (var i:int = Math.max(tlcX, this.center1.x - this.RADIUS); i < xTop; i++)
-					for (var j:int = Math.max(tlcY, this.center1.y - this.RADIUS); j < yTop; j++)
+				for (var i:int = Math.max(tlcX, center1.x - this.RADIUS); i < xTop; i++)
+					for (var j:int = Math.max(tlcY, center1.y - this.RADIUS); j < yTop; j++)
 					{
 						cache[i - tlcX + (j - tlcY) * width] = SceneFeature.ROAD;
 					}

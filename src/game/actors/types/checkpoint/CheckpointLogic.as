@@ -22,9 +22,7 @@ package game.actors.types.checkpoint
 			var dX:int = 2 + Math.random() * 4; dX *= Math.random() < 0.5 ? 1 : -1;
 			var dY:int = 2 + Math.random() * 4; dY *= Math.random() < 0.5 ? 1 : -1;
 			
-			var tmpCell:CellXY = Metric.tmpCell;
-			
-			tmpCell.setValue(center.x + dX, center.y + dY);
+			var tmpCell:CellXY = Metric.getTmpCell(center.x + dX, center.y + dY);
 			
 			var actor:ActorLogicBase = this.world.findObjectByCell(tmpCell.x, tmpCell.y);
 			

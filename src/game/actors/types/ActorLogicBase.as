@@ -106,8 +106,7 @@ package game.actors.types
 			var dX:int = (Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH / 2) * ((Math.random() < 0.5) ? 1 : -1);
 			var dY:int = (MIN_DISTANCE - Math.abs(dX) + Math.random() * VARIETY) * ((Math.random() < 0.5) ? 1 : -1);
 			
-			var cell:CellXY = Metric.tmpCell;
-			cell.setValue(character.x + dX, character.y + dY);
+			var cell:CellXY = Metric.getTmpCell(character.x + dX, character.y + dY);
 			
 			for (; this.world.findObjectByCell(cell.x, cell.y); )
 			{
@@ -202,8 +201,7 @@ package game.actors.types
 		{
 			this.movingCooldown = 2 * this.moveSpeed * multiplier;
 			
-			var jChange:DCellXY = Metric.tmpDCell;
-			jChange.setValue(change.x * multiplier, change.y * multiplier);
+			var jChange:DCellXY = Metric.getTmpDCell(change.x * multiplier, change.y * multiplier);
 			
 			var unluckyGuy:ActorLogicBase;
 			

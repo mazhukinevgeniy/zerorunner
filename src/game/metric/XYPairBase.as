@@ -3,17 +3,11 @@ package game.metric
 	
 	internal class XYPairBase
 	{
-		protected var _x:int, _y:int;
+		internal var _x:int, _y:int;
 		
 		public function XYPairBase() 
 		{
 			
-		}
-		
-		public function setValue(x:int, y:int):void
-		{
-			this._x = x;
-			this._y = y;
 		}
 		
 		public function get x():int { return this._x; }

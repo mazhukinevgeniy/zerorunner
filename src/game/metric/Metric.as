@@ -60,8 +60,24 @@ package game.metric
 		 * Global helper
 		 */
 		
-		public static var tmpCell:CellXY;
-		public static var tmpDCell:DCellXY;
+		private static var tmpCell:CellXY;
+		private static var tmpDCell:DCellXY;
+		
+		public static function getTmpCell(x:int, y:int):CellXY
+		{
+			Metric.tmpCell._x = x;
+			Metric.tmpCell._y = y;
+			
+			return Metric.tmpCell;
+		}
+		
+		public static function getTmpDCell(x:int, y:int):DCellXY
+		{
+			Metric.tmpDCell._x = x;
+			Metric.tmpDCell._y = y;
+			
+			return Metric.tmpDCell;
+		}
 	}
 
 }
