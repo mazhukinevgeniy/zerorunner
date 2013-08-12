@@ -19,7 +19,15 @@ package game.actors.types.checkpoint
 		{
 			var center:ICoordinated = this.world.getCenter();
 			
-			return new CellXY(center.x + 3, center.y - 2);
+			for (var i:int = 2; i < 6; i++)
+				for (var j:int = 2; j < 6; j++)
+				{
+					if (!this.world.findObjectByCell(center.x + i, center.y + j))
+						return new CellXY(center.x + i, center.y + j);
+				}
+			throw new Error();
+			
+			//TODO: implement better
 		}
 		
 		override protected function getConfig():ConfigKit
