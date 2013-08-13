@@ -20,6 +20,11 @@ package game.actors.types.clouds
 			return CloudLogicBase.CONFIG;
 		}
 		
+		final override protected function onCanMove():void
+		{
+			
+		}
+		
 		
 		
 		

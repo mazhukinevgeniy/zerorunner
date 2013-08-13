@@ -1,13 +1,18 @@
 package game.actors.types.clouds 
 {
 	import game.actors.types.ActorLogicBase;
+	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
+	import game.metric.Metric;
 	import game.world.SearcherFeature;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class WindFeature 
 	{
+		private const DIVISION:int = 5;
+		
+		private var change:DCellXY = Metric.getRandomDCell();
 		
 		public function WindFeature(flow:IUpdateDispatcher) 
 		{
@@ -16,35 +21,91 @@ package game.actors.types.clouds
 		}
 		
 		update function cacheActors(cache:Vector.<ActorLogicBase>, center:ICoordinated, width:int, height:int):void
-		{			/*
-				var actors:Vector.<ActorLogicBase> = this.broods[i].getActors();
-				var alength:int = actors.length;
-				
-				for (var j:int = 0; j < alength; j++)
+		{	
+			if (Math.random() < 0.2) this.change = Metric.getRandomDCell();
+			var step:int = Math.random() * this.DIVISION;
+			
+			var goal:int;
+			var actor:ActorLogicBase;
+			
+			var i:int, j:int;
+			
+			if (this.change.x == 0)
+			{
+				if (change.y > 0)
 				{
-					var actor:ActorLogicBase = actors[j];
+					goal = (step + 1) * int(width / this.DIVISION);
 					
-					if (actor.active)
+					for (i = step * int(width / this.DIVISION); i < goal; i++)
 					{
-						var x:int = actor.x;
-						var y:int = actor.y;
-						
-						if ((!(x < center.x - width / 2)) && (x < center.x + width / 2)
-							&&
-							(!(y < center.y - height / 2)) && (y < center.y + height / 2))
+						for (j = height - 1; j > -1; j--)
 						{
-							x -= center.x - width / 2;
-							y -= center.y - height / 2;
+							actor = cache[i + j * width];
 							
-							cache[x + y * width] = actor;
-						}
-						else
-						{
-							this.broods[i].actorOutOfCache(actor);
+							if (actor && actor is CloudLogicBase)
+							{
+								(actor as CloudLogicBase).applyMove(this.change);
+							}
 						}
 					}
-				}*/
+				}
+				else
+				{
+					goal = (step + 1) * int(width / this.DIVISION);
+					
+					for (i = step * int(width / this.DIVISION); i < goal; i++)
+					{
+						for (j = 0; j < height; j++)
+						{
+							actor = cache[i + j * width];
+							
+							if (actor && actor is CloudLogicBase)
+							{
+								(actor as CloudLogicBase).applyMove(this.change);
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				if (change.x > 0)
+				{
+					goal = (step + 1) * int(height / this.DIVISION);
+					
+					for (i = width - 1; i > -1; i--)
+					{
+						for (j = step * int(height / this.DIVISION); j < goal; j++)
+						{
+							actor = cache[i + j * width];
+							
+							if (actor && actor is CloudLogicBase)
+							{
+								(actor as CloudLogicBase).applyMove(this.change);
+							}
+						}
+					}
+				}
+				else
+				{
+					goal = (step + 1) * int(height / this.DIVISION);
+					
+					for (i = 0; i < width; i++)
+					{
+						for (j = step * int(height / this.DIVISION); j < goal; j++)
+						{
+							actor = cache[i + j * width];
+							
+							if (actor && actor is CloudLogicBase)
+							{
+								(actor as CloudLogicBase).applyMove(this.change);
+							}
+						}
+					}
+				}
+			}
 		}
+		
 	}
 
 }
