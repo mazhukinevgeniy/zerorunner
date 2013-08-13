@@ -5,6 +5,7 @@ package game.actors
 	import game.actors.types.character.Character;
 	import game.actors.types.checkpoint.Checkpoint;
 	import game.actors.types.clouds.fog.Fog;
+	import game.actors.types.clouds.WindFeature;
 	import game.actors.types.setInformerKit;
 	import game.actors.utils.InformerKit;
 	import game.input.IKnowInput;
@@ -38,6 +39,8 @@ package game.actors
 			flow.addUpdateListener(ZeroRunner.aftertick);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			flow.addUpdateListener(SearcherFeature.cacheActors);
+			
+			new WindFeature(flow);
 		}
 		
 		update function cacheActors(cache:Vector.<ActorLogicBase>, center:ICoordinated, width:int, height:int):void

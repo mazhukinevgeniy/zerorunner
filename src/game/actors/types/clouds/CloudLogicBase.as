@@ -3,6 +3,7 @@ package game.actors.types.clouds
 	import game.actors.types.ActorLogicBase;
 	import game.actors.types.ActorViewBase;
 	import game.actors.utils.ConfigKit;
+	import game.metric.DCellXY;
 	
 	public class CloudLogicBase extends ActorLogicBase
 	{
@@ -17,6 +18,14 @@ package game.actors.types.clouds
 		final override protected function getConfig():ConfigKit
 		{
 			return CloudLogicBase.CONFIG;
+		}
+		
+		
+		
+		
+		final internal function applyMove(change:DCellXY):void
+		{
+			this.move(change);
 		}
 	}
 
