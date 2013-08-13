@@ -5,6 +5,7 @@ package game.world
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
+	import starling.display.QuadBatch;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -30,14 +31,12 @@ package game.world
 		
 		update function quitGame():void
 		{
-			this.pull.nothingIsInUse();
+			//TODO: check if there's something to do
 		}
 		
 		update function redraw():void
 		{
 			this.lines.topLine = this.data.cacheCenter.y - this.data.cacheHeight / 2;
-			
-			this.pull.nothingIsInUse();
 			
 			this.redrawScene();
 			this.redrawActors();
@@ -53,7 +52,7 @@ package game.world
 			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
 			
 			var sprite:Image;
-			const container:DisplayObjectContainer = this.lines.getLine(tlcY);
+			const container:QuadBatch = this.lines.scene;
 			
 			var i:int;
 			var j:int;
@@ -71,7 +70,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 						
 						number = uint(((i) * 999999000001) | ((j) * 87178291199));
 						
@@ -82,7 +81,7 @@ package game.world
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 						
 						if (!this.data.getUnsafeScene(i, j + 1))
@@ -92,7 +91,7 @@ package game.world
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 						if (!this.data.getUnsafeScene(i + 1, j))
 						{
@@ -101,7 +100,7 @@ package game.world
 							sprite.x = (i + 1) * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 						if (!this.data.getUnsafeScene(i - 1, j))
 						{
@@ -110,7 +109,7 @@ package game.world
 							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = j * Metric.CELL_HEIGHT;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 						if (!this.data.getUnsafeScene(i, j - 1))
 						{
@@ -119,7 +118,7 @@ package game.world
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 						if (!this.data.getUnsafeScene(i + 1, j + 1))
 						{
@@ -128,7 +127,7 @@ package game.world
 							sprite.x = (i + 1) * Metric.CELL_WIDTH;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 						if (!this.data.getUnsafeScene(i - 1, j + 1))
 						{
@@ -137,7 +136,7 @@ package game.world
 							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 						if (!this.data.getUnsafeScene(i + 1, j - 1))
 						{
@@ -146,7 +145,7 @@ package game.world
 							sprite.x = (i + 1) * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 						if (!this.data.getUnsafeScene(i - 1, j - 1))
 						{
@@ -155,7 +154,7 @@ package game.world
 							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 							
-							container.addChild(sprite);
+							container.addImage(sprite);
 						}
 					}
 				}
@@ -169,7 +168,7 @@ package game.world
 					sprite.x = i * Metric.CELL_WIDTH;
 					sprite.y = j * Metric.CELL_HEIGHT;
 					
-					container.addChild(sprite);
+					container.addImage(sprite);
 					
 					number = uint(((i) * 999999000001) | ((j) * 87178291199));
 					
@@ -180,7 +179,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					
 					if (!this.data.getUnsafeScene(i, j + 1))
@@ -190,7 +189,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = (j + 1) * Metric.CELL_HEIGHT;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					if (!this.data.getUnsafeScene(i - 1, j))
 					{
@@ -199,7 +198,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					if (!this.data.getUnsafeScene(i, j - 1))
 					{
@@ -208,7 +207,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					if (!this.data.getUnsafeScene(i - 1, j + 1))
 					{
@@ -217,7 +216,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 						sprite.y = (j + 1) * Metric.CELL_HEIGHT;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					if (!this.data.getUnsafeScene(i - 1, j - 1))
 					{
@@ -226,7 +225,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 				}
 			}
@@ -240,7 +239,7 @@ package game.world
 					sprite.x = i * Metric.CELL_WIDTH;
 					sprite.y = j * Metric.CELL_HEIGHT;
 					
-					container.addChild(sprite);
+					container.addImage(sprite);
 					
 					number = uint(((i) * 999999000001) | ((j) * 87178291199));
 					
@@ -251,7 +250,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					
 					if (!this.data.getUnsafeScene(i + 1, j))
@@ -261,7 +260,7 @@ package game.world
 						sprite.x = (i + 1) * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					if (!this.data.getUnsafeScene(i - 1, j))
 					{
@@ -270,7 +269,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					if (!this.data.getUnsafeScene(i, j - 1))
 					{
@@ -279,7 +278,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					if (!this.data.getUnsafeScene(i + 1, j - 1))
 					{
@@ -288,7 +287,7 @@ package game.world
 						sprite.x = (i + 1) * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 					if (!this.data.getUnsafeScene(i - 1, j - 1))
 					{
@@ -297,7 +296,7 @@ package game.world
 						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 						
-						container.addChild(sprite);
+						container.addImage(sprite);
 					}
 				}
 			}
@@ -310,7 +309,7 @@ package game.world
 				sprite.x = i * Metric.CELL_WIDTH;
 				sprite.y = j * Metric.CELL_HEIGHT;
 				
-				container.addChild(sprite);
+				container.addImage(sprite);
 				
 				number = uint(((i) * 999999000001) | ((j) * 87178291199));
 				
@@ -321,7 +320,7 @@ package game.world
 					sprite.x = i * Metric.CELL_WIDTH;
 					sprite.y = j * Metric.CELL_HEIGHT;
 					
-					container.addChild(sprite);
+					container.addImage(sprite);
 				}
 				
 				if (!this.data.getUnsafeScene(i - 1, j))
@@ -331,7 +330,7 @@ package game.world
 					sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 					sprite.y = j * Metric.CELL_HEIGHT;
 					
-					container.addChild(sprite);
+					container.addImage(sprite);
 				}
 				if (!this.data.getUnsafeScene(i, j - 1))
 				{
@@ -340,7 +339,7 @@ package game.world
 					sprite.x = i * Metric.CELL_WIDTH;
 					sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 					
-					container.addChild(sprite);
+					container.addImage(sprite);
 				}
 				if (!this.data.getUnsafeScene(i - 1, j - 1))
 				{
@@ -349,7 +348,7 @@ package game.world
 					sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 					sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
 					
-					container.addChild(sprite);
+					container.addImage(sprite);
 				}
 			}
 		}

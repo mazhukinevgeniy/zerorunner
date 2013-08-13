@@ -10,6 +10,7 @@ package game.world
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
+	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import utils.informers.IGiveInformers;
 	import utils.PixelPerfectTween;
@@ -22,6 +23,8 @@ package game.world
 		private var lines:Vector.<Sprite>;
 		
 		internal var topLine:int;
+		
+		internal var scene:QuadBatch;
 		
 		private var juggler:Juggler;
 		
@@ -36,6 +39,9 @@ package game.world
 			
 			
 			this.container = new Sprite();
+			
+			this.scene = new QuadBatch();
+			this.container.addChild(this.scene);
 			
 			for (var i:int = 0; i < numberOfLines; i++)
 				this.container.addChild(this.lines[i] = new Sprite());
@@ -54,12 +60,7 @@ package game.world
 		
 		update function redraw():void
 		{
-			var length:int = this.lines.length;
-			
-			for (var i:int = 0; i < length; i++)
-			{
-				this.lines[i].removeChildren();
-			}
+			this.scene.reset();
 		}
 		
 		internal function getLine(y:int):DisplayObjectContainer
