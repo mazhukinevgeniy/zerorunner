@@ -1,13 +1,11 @@
-package game.actors.types.fog 
+package game.actors.types.clouds.fog 
 {
-	import game.actors.types.ActorLogicBase;
-	import game.actors.utils.ConfigKit;
+	import game.actors.types.clouds.CloudLogicBase;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	
-	internal class FogLogic extends ActorLogicBase
+	internal class FogLogic extends CloudLogicBase
 	{
-		private static const CONFIG:ConfigKit = new ConfigKit(1, 3, 10000000);
 		
 		public function FogLogic() 
 		{
@@ -17,6 +15,8 @@ package game.actors.types.fog
 		override protected function onCanMove():void
 		{
 			this.move(Metric.getRandomDCell());
+			
+			//TODO: finalize before
 		}
 		
 		
@@ -31,11 +31,6 @@ package game.actors.types.fog
 			this.applyPush();
 		}
 		
-		
-		override protected function getConfig():ConfigKit
-		{
-			return FogLogic.CONFIG;
-		}
 	}
 
 }

@@ -4,7 +4,7 @@ package game.actors
 	import game.actors.types.BroodmotherBase;
 	import game.actors.types.character.Character;
 	import game.actors.types.checkpoint.Checkpoint;
-	import game.actors.types.fog.Fog;
+	import game.actors.types.clouds.fog.Fog;
 	import game.actors.types.setInformerKit;
 	import game.actors.utils.InformerKit;
 	import game.input.IKnowInput;

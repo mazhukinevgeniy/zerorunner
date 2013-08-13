@@ -1,4 +1,4 @@
-package game.actors.types.fog 
+package game.actors.types.clouds.fog 
 {
 	import game.actors.types.ActorLogicBase;
 	import game.actors.types.BroodmotherBase;
