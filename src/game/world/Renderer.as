@@ -29,11 +29,6 @@ package game.world
 			this.pull = new TilePull(assets);
 		}
 		
-		update function quitGame():void
-		{
-			//TODO: check if there's something to do
-		}
-		
 		update function redraw():void
 		{
 			this.lines.topLine = this.data.cacheCenter.y - this.data.cacheHeight / 2;
@@ -52,7 +47,9 @@ package game.world
 			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
 			
 			var sprite:Image;
+			
 			const container:QuadBatch = this.lines.scene;
+			container.reset();
 			
 			var i:int;
 			var j:int;

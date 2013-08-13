@@ -51,16 +51,24 @@ package game.world
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ActorsFeature.moveCenter);
 			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			flow.addUpdateListener(ZeroRunner.redraw);
+			flow.addUpdateListener(ZeroRunner.prerestore);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
 			
 			this.moveTween = new PixelPerfectTween(this, 0);
 		}
 		
-		update function redraw():void
+		
+		update function prerestore():void
 		{
 			this.scene.reset();
+			
+			var length:int = this.lines.length;
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				this.lines[i].removeChildren();
+			}
 		}
 		
 		internal function getLine(y:int):DisplayObjectContainer
