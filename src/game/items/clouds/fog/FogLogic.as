@@ -1,6 +1,6 @@
-package game.actors.types.clouds.fog 
+package game.items.clouds.fog 
 {
-	import game.actors.types.clouds.CloudLogicBase;
+	import game.items.clouds.CloudLogicBase;
 	import game.metric.DCellXY;
 	
 	internal class FogLogic extends CloudLogicBase

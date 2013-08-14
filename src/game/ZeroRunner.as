@@ -1,8 +1,8 @@
 package game 
 {
 	import game.achievements.AchievementsFeature;
-	import game.actors.ActorsFeature;
 	import game.input.InputManager;
+	import game.items.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;

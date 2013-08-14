@@ -1,7 +1,7 @@
-package game.actors.types.clouds.fog 
+package game.items.clouds.fog 
 {
-	import game.actors.types.ActorLogicBase;
-	import game.actors.types.BroodmotherBase;
+	import game.items.ActorLogicBase;
+	import game.items.BroodmotherBase;
 	
 	public class Fog extends BroodmotherBase
 	{

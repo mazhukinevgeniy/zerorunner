@@ -1,6 +1,6 @@
-package game.actors.types.clouds.fog 
+package game.items.clouds.fog 
 {
-	import game.actors.types.ActorViewBase;
+	import game.items.ActorViewBase;
 	
 	internal class FogView extends ActorViewBase
 	{

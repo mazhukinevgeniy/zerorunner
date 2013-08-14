@@ -1,6 +1,6 @@
-package game.actors.types.clouds 
+package game.items.clouds 
 {
-	import game.actors.types.ActorLogicBase;
+	import game.items.ActorLogicBase;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;

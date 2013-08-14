@@ -1,6 +1,6 @@
 package game.world 
 {
-	import game.actors.types.ActorLogicBase;
+	import game.items.ActorLogicBase;
 	import game.metric.Metric;
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;

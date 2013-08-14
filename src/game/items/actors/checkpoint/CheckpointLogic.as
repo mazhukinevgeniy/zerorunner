@@ -1,7 +1,7 @@
-package game.actors.types.checkpoint 
+package game.items.actors.checkpoint 
 {
-	import game.actors.types.ActorLogicBase;
-	import game.actors.utils.ConfigKit;
+	import game.items.ActorLogicBase;
+	import game.items.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;

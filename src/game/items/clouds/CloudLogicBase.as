@@ -1,8 +1,8 @@
-package game.actors.types.clouds 
+package game.items.clouds 
 {
-	import game.actors.types.ActorLogicBase;
-	import game.actors.types.ActorViewBase;
-	import game.actors.utils.ConfigKit;
+	import game.items.ActorLogicBase;
+	import game.items.ActorViewBase;
+	import game.items.utils.ConfigKit;
 	import game.metric.DCellXY;
 	
 	public class CloudLogicBase extends ActorLogicBase

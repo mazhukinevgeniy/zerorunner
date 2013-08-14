@@ -1,4 +1,4 @@
-package game.actors.utils 
+package game.items.utils 
 {
 	
 	public class ConfigKit 

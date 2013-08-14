@@ -1,6 +1,5 @@
-package game.actors.types 
+package game.items 
 {
-	import game.actors.ActorsFeature;
 	import game.world.ISearcher;
 	import starling.animation.Juggler;
 	import starling.textures.TextureAtlas;

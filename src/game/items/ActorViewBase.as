@@ -1,4 +1,4 @@
-package game.actors.types 
+package game.items 
 {
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;

@@ -1,6 +1,6 @@
-package game.actors.types.character 
+package game.items.actors.character 
 {
-	import game.actors.types.ActorViewBase;
+	import game.items.ActorViewBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;

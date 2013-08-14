@@ -1,7 +1,7 @@
 package game.world 
 {
-	import game.actors.ActorsFeature;
-	import game.actors.types.ActorLogicBase;
+	import game.items.ActorLogicBase;
+	import game.items.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;

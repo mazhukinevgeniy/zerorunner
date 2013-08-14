@@ -1,6 +1,6 @@
 package game.ui 
 {
-	import game.actors.ActorsFeature;
+	import game.items.ActorsFeature;
 	import game.ZeroRunner;
 	import starling.display.Quad;
 	import starling.display.Sprite;

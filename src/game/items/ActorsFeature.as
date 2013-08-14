@@ -1,4 +1,4 @@
-package game.actors 
+package game.items 
 {
 	import game.metric.CellXY;
 	import game.metric.Metric;

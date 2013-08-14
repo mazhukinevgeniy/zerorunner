@@ -1,6 +1,6 @@
 package game.scene 
 {
-	import game.actors.ActorsFeature;
+	import game.items.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	import game.world.SearcherFeature;

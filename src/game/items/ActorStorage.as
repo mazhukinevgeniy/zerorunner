@@ -1,14 +1,10 @@
-package game.actors 
+package game.items 
 {
-	import game.actors.types.ActorLogicBase;
-	import game.actors.types.BroodmotherBase;
-	import game.actors.types.character.Character;
-	import game.actors.types.checkpoint.Checkpoint;
-	import game.actors.types.clouds.fog.Fog;
-	import game.actors.types.clouds.WindFeature;
-	import game.actors.types.setInformerKit;
-	import game.actors.utils.InformerKit;
 	import game.input.IKnowInput;
+	import game.items.actors.character.Character;
+	import game.items.actors.checkpoint.Checkpoint;
+	import game.items.clouds.fog.Fog;
+	import game.items.clouds.WindFeature;
 	import game.metric.ICoordinated;
 	import game.world.ISearcher;
 	import game.world.SearcherFeature;
@@ -115,15 +111,12 @@ package game.actors
 		
 		update function getInformerFrom(table:IGiveInformers):void
 		{
-			var kit:InformerKit = new InformerKit();
+			BroodmotherBase.juggler = table.getInformer(Juggler);
 			
-			kit.assets = table.getInformer(AssetManager);
-			kit.juggler = table.getInformer(Juggler);
+			BroodmotherBase.gameAtlas = table.getInformer(AssetManager).getTextureAtlas("gameAtlas");
 			
-			kit.flow = this.flow;
-			kit.world = table.getInformer(ISearcher);
-			
-			setInformerKit(kit);
+			BroodmotherBase.world = table.getInformer(ISearcher);
+			BroodmotherBase.flow = this.flow;
 			
 			this.input = table.getInformer(IKnowInput);
 		}

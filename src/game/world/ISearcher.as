@@ -1,6 +1,6 @@
 package game.world 
 {
-	import game.actors.types.ActorLogicBase;
+	import game.items.ActorLogicBase;
 	import game.metric.ICoordinated;
 	
 	public interface ISearcher 

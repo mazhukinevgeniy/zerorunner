@@ -1,6 +1,6 @@
-package game.actors.types.checkpoint 
+package game.items.actors.checkpoint 
 {
-	import game.actors.types.ActorViewBase;
+	import game.items.ActorViewBase;
 	import game.metric.Metric;
 	import game.time.Time;
 	import starling.display.DisplayObject;

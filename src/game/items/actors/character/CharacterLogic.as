@@ -1,9 +1,9 @@
-package game.actors.types.character 
+package game.items.actors.character 
 {
-	import game.actors.ActorsFeature;
-	import game.actors.types.ActorLogicBase;
-	import game.actors.utils.ConfigKit;
 	import game.input.IKnowInput;
+	import game.items.ActorLogicBase;
+	import game.items.ActorsFeature;
+	import game.items.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.SceneFeature;

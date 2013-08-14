@@ -1,8 +1,7 @@
-package game.actors.types 
+package game.items 
 {
-	import game.actors.ActorsFeature;
-	import game.actors.utils.ConfigKit;
 	import game.input.IKnowInput;
+	import game.items.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;

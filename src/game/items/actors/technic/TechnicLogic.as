@@ -1,4 +1,4 @@
-package game.actors.types.technic 
+package game.items.actors.technic 
 {
 	import game.actors.ActorsFeature;
 	import game.actors.core.ActorBase;

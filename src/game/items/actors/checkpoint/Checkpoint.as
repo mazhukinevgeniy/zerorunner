@@ -1,7 +1,7 @@
-package game.actors.types.checkpoint 
+package game.items.actors.checkpoint 
 {
-	import game.actors.types.ActorLogicBase;
-	import game.actors.types.BroodmotherBase;
+	import game.items.ActorLogicBase;
+	import game.items.BroodmotherBase;
 	
 	public class Checkpoint extends BroodmotherBase
 	{

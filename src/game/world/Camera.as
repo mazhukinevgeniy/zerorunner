@@ -1,6 +1,6 @@
 package game.world 
 {
-	import game.actors.ActorsFeature;
+	import game.items.ActorsFeature;
 	import game.metric.ICoordinated;
 	import game.time.Time;
 	import game.ZeroRunner;

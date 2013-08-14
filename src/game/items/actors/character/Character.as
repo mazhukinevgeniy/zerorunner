@@ -1,8 +1,8 @@
-package game.actors.types.character 
+package game.items.actors.character 
 {
-	import game.actors.types.ActorLogicBase;
-	import game.actors.types.BroodmotherBase;
 	import game.input.IKnowInput;
+	import game.items.ActorLogicBase;
+	import game.items.BroodmotherBase;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class Character extends BroodmotherBase

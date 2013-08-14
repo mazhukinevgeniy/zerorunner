@@ -1,6 +1,6 @@
 package game.achievements.statistics 
 {
-	import game.actors.ActorsFeature;
+	import game.items.ActorsFeature;
 	import game.metric.DCellXY;
 	import game.statistics.ITakeStatistics;
 	import game.statistics.StatisticsFeature;
