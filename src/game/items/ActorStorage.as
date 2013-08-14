@@ -1,10 +1,9 @@
 package game.items 
 {
 	import game.input.IKnowInput;
-	import game.items.actors.character.Character;
-	import game.items.actors.checkpoint.Checkpoint;
-	import game.items.clouds.fog.Fog;
-	import game.items.clouds.WindFeature;
+	import game.items.character.Character;
+	import game.items.checkpoint.Checkpoint;
+	import game.items.fog.Fog;
 	import game.metric.ICoordinated;
 	import game.world.ISearcher;
 	import game.world.SearcherFeature;
@@ -39,18 +38,18 @@ package game.items
 			new WindFeature(flow);
 		}
 		
-		update function cacheActors(cache:Vector.<ActorLogicBase>, center:ICoordinated, width:int, height:int):void
+		update function cacheActors(cache:Vector.<ItemLogicBase>, center:ICoordinated, width:int, height:int):void
 		{			
 			var blength:int = this.broods.length;
 			
 			for (var i:int = 0; i < blength; i++)
 			{
-				var actors:Vector.<ActorLogicBase> = this.broods[i].getActors();
+				var actors:Vector.<ItemLogicBase> = this.broods[i].getActors();
 				var alength:int = actors.length;
 				
 				for (var j:int = 0; j < alength; j++)
 				{
-					var actor:ActorLogicBase = actors[j];
+					var actor:ItemLogicBase = actors[j];
 					
 					if (actor.active)
 					{

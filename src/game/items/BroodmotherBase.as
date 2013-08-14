@@ -14,18 +14,18 @@ package game.items
 		internal static var world:ISearcher;
 		internal static var flow:IUpdateDispatcher;
 		
-		private var actors:Vector.<ActorLogicBase>;
+		private var actors:Vector.<ItemLogicBase>;
 		
 		protected var flow:IUpdateDispatcher;
 		
 		public function BroodmotherBase()
 		{
-			this.actors = new Vector.<ActorLogicBase>();
+			this.actors = new Vector.<ItemLogicBase>();
 			
 			this.flow = BroodmotherBase.flow;
 		}
 		
-		final public function getActors():Vector.<ActorLogicBase>
+		final public function getActors():Vector.<ItemLogicBase>
 		{
 			return this.actors;
 		}
@@ -33,7 +33,7 @@ package game.items
 		final public function refillActors():void
 		{			
 			var length:int = this.getActorsCap();
-			var actor:ActorLogicBase;
+			var actor:ItemLogicBase;
 			
 			var vlength:int = this.actors.length;
 			
@@ -66,7 +66,7 @@ package game.items
 			}
 		}
 		
-		protected function newActor():ActorLogicBase
+		protected function newActor():ItemLogicBase
 		{
 			throw new AbstractClassError();
 		}
@@ -90,7 +90,7 @@ package game.items
 		
 		
 		/** Called if actor can not be cached. */
-		public function actorOutOfCache(actor:ActorLogicBase):void { }
+		public function actorOutOfCache(actor:ItemLogicBase):void { }
 	}
 
 }

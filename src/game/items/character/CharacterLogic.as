@@ -1,15 +1,15 @@
-package game.items.actors.character 
+package game.items.character 
 {
 	import game.input.IKnowInput;
-	import game.items.ActorLogicBase;
 	import game.items.ActorsFeature;
+	import game.items.ItemLogicBase;
 	import game.items.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.SceneFeature;
 	import game.ZeroRunner;
 	
-	internal class CharacterLogic extends ActorLogicBase
+	internal class CharacterLogic extends ItemLogicBase
 	{		
 		private const HP:int = 100;
 		

@@ -1,6 +1,5 @@
-package game.items.clouds 
+package game.items 
 {
-	import game.items.ActorLogicBase;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
@@ -8,7 +7,7 @@ package game.items.clouds
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class WindFeature 
+	internal class WindFeature 
 	{
 		private const DIVISION:int = 5;
 		
@@ -20,13 +19,13 @@ package game.items.clouds
 			flow.addUpdateListener(SearcherFeature.cacheActors);
 		}
 		
-		update function cacheActors(cache:Vector.<ActorLogicBase>, center:ICoordinated, width:int, height:int):void
+		update function cacheActors(cache:Vector.<ItemLogicBase>, center:ICoordinated, width:int, height:int):void
 		{	
 			if (Math.random() < 0.2) this.change = Metric.getRandomDCell();
 			var step:int = Math.random() * this.DIVISION;
 			
 			var goal:int;
-			var actor:ActorLogicBase;
+			var actor:ItemLogicBase;
 			
 			var i:int, j:int;
 			
@@ -42,10 +41,8 @@ package game.items.clouds
 						{
 							actor = cache[i + j * width];
 							
-							if (actor && actor is CloudLogicBase)
-							{
-								(actor as CloudLogicBase).applyMove(this.change);
-							}
+							if (actor)
+								actor.applyWind(this.change);
 						}
 					}
 				}
@@ -59,10 +56,8 @@ package game.items.clouds
 						{
 							actor = cache[i + j * width];
 							
-							if (actor && actor is CloudLogicBase)
-							{
-								(actor as CloudLogicBase).applyMove(this.change);
-							}
+							if (actor)
+								actor.applyWind(this.change);
 						}
 					}
 				}
@@ -79,10 +74,8 @@ package game.items.clouds
 						{
 							actor = cache[i + j * width];
 							
-							if (actor && actor is CloudLogicBase)
-							{
-								(actor as CloudLogicBase).applyMove(this.change);
-							}
+							if (actor)
+								actor.applyWind(this.change);
 						}
 					}
 				}
@@ -96,10 +89,8 @@ package game.items.clouds
 						{
 							actor = cache[i + j * width];
 							
-							if (actor && actor is CloudLogicBase)
-							{
-								(actor as CloudLogicBase).applyMove(this.change);
-							}
+							if (actor)
+								actor.applyWind(this.change);
 						}
 					}
 				}

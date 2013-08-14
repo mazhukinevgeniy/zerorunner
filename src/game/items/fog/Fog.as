@@ -1,7 +1,7 @@
-package game.items.clouds.fog 
+package game.items.fog 
 {
-	import game.items.ActorLogicBase;
 	import game.items.BroodmotherBase;
+	import game.items.ItemLogicBase;
 	
 	public class Fog extends BroodmotherBase
 	{
@@ -11,7 +11,7 @@ package game.items.clouds.fog
 			
 		}
 		
-		override protected function newActor():ActorLogicBase
+		override protected function newActor():ItemLogicBase
 		{
 			return new FogLogic();
 		}
@@ -23,7 +23,7 @@ package game.items.clouds.fog
 		
 		
 		
-		override public function actorOutOfCache(actor:ActorLogicBase):void
+		override public function actorOutOfCache(actor:ItemLogicBase):void
 		{
 			actor.applyDestruction();
 		}

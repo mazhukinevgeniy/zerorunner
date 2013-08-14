@@ -3,6 +3,8 @@ package game.items.utils
 	
 	public class ConfigKit 
 	{
+		public static const CLOUD:ConfigKit = new ConfigKit(1, 0, 10000000);
+		
 		public var health:int;
 		public var movingSpeed:int;
 		public var actingSpeed:int;

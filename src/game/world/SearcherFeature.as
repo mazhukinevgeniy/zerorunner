@@ -1,7 +1,7 @@
 package game.world 
 {
-	import game.items.ActorLogicBase;
 	import game.items.ActorsFeature;
+	import game.items.ItemLogicBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
@@ -28,7 +28,7 @@ package game.world
 		internal var cacheCenter:CellXY;
 		
 		internal var sceneCache:Vector.<int>;
-		internal var actorCache:Vector.<ActorLogicBase>;
+		internal var actorCache:Vector.<ItemLogicBase>;
 		
 		internal var cacheWidth:int;
 		internal var cacheHeight:int;
@@ -62,7 +62,7 @@ package game.world
 			this.cacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
 			
 			this.sceneCache = new Vector.<int>(this.cacheWidth * this.cacheHeight, true);
-			this.actorCache = new Vector.<ActorLogicBase>(this.cacheWidth * this.cacheHeight, true);
+			this.actorCache = new Vector.<ItemLogicBase>(this.cacheWidth * this.cacheHeight, true);
 		}
 		
 		update function restore():void
@@ -79,7 +79,7 @@ package game.world
 		 * Data access methods
 		 */
 		
-		public function findObjectByCell(x:int, y:int):ActorLogicBase
+		public function findObjectByCell(x:int, y:int):ItemLogicBase
 		{
 			if (this.isCachable(x, y))
 				return this.getUnsafeActor(x, y);
@@ -107,7 +107,7 @@ package game.world
 			return this.sceneCache[x + y * this.cacheWidth];
 		}
 		
-		internal function getUnsafeActor(x:int, y:int):ActorLogicBase
+		internal function getUnsafeActor(x:int, y:int):ItemLogicBase
 		{
 			x -= this.cacheCenter.x - this.cacheWidth / 2;
 			y -= this.cacheCenter.y - this.cacheHeight / 2;
@@ -155,18 +155,18 @@ package game.world
 		 * Actors tracking
 		 */
 		
-		update function addActor(item:ActorLogicBase):void
+		update function addActor(item:ItemLogicBase):void
 		{
 			this.putActorInCell(item.x, item.y, item);
 		}
 		
-		update function moveActor(actor:ActorLogicBase, change:DCellXY, delay:int):void
+		update function moveActor(actor:ItemLogicBase, change:DCellXY, delay:int):void
 		{
 			this.putActorInCell(actor.x - change.x, actor.y - change.y);
 			this.putActorInCell(actor.x, actor.y, actor);
 		}
 		
-		update function removeActor(actor:ActorLogicBase):void
+		update function removeActor(actor:ItemLogicBase):void
 		{
 			this.putActorInCell(actor.x, actor.y);
 		}
@@ -175,7 +175,7 @@ package game.world
 		 * Utils
 		 */
 		
-		private function putActorInCell(x:int, y:int, item:ActorLogicBase = null):void
+		private function putActorInCell(x:int, y:int, item:ItemLogicBase = null):void
 		{
 			if (this.isCachable(x, y))
 			{

@@ -12,12 +12,12 @@ package game.items
 	import utils.errors.AbstractClassError;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class ActorLogicBase implements ICoordinated
+	public class ItemLogicBase implements ICoordinated
 	{
 		protected var world:ISearcher;
 		protected var flow:IUpdateDispatcher;
 		
-		private var view:ActorViewBase;
+		private var view:ItemViewBase;
 		
 		private var moveSpeed:int;
 		private var movingCooldown:int;
@@ -37,7 +37,7 @@ package game.items
 		final public function get active():Boolean { return this._active; }
 		
 		
-		public function ActorLogicBase(view:ActorViewBase) 
+		public function ItemLogicBase(view:ItemViewBase) 
 		{
 			this.view = view;
 			
@@ -146,6 +146,11 @@ package game.items
 			this.onPushed();
 		}
 		
+		final public function applyWind(change:DCellXY):void
+		{
+			this.onWind(change);
+		}
+		
 		final public function applyDamage(damage:int):void
 		{
 			this._hp -= damage;
@@ -202,7 +207,7 @@ package game.items
 			
 			var jChange:DCellXY = Metric.getTmpDCell(change.x * multiplier, change.y * multiplier);
 			
-			var unluckyGuy:ActorLogicBase;
+			var unluckyGuy:ItemLogicBase;
 			
 			for (var i:int = 0; i < multiplier; i++)
 			{
@@ -248,6 +253,9 @@ package game.items
 		
 		/** Called if someone applies push. */
 		protected function onPushed():void { }
+		
+		/** Called by the WindFeature. */
+		protected function onWind(change:DCellXY):void { }
 		
 		/** Called if damaged and survived that damage. */
 		protected function onDamaged(damage:int):void { }

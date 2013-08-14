@@ -1,13 +1,13 @@
-package game.items.actors.checkpoint 
+package game.items.checkpoint 
 {
-	import game.items.ActorViewBase;
+	import game.items.ItemViewBase;
 	import game.metric.Metric;
 	import game.time.Time;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	
-	internal class CheckpointView extends ActorViewBase
+	internal class CheckpointView extends ItemViewBase
 	{
 		private var container:Sprite;
 		

@@ -1,6 +1,6 @@
-package game.items.actors.character 
+package game.items.character 
 {
-	import game.items.ActorViewBase;
+	import game.items.ItemViewBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
@@ -11,7 +11,7 @@ package game.items.actors.character
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
-	internal class CharacterView extends ActorViewBase
+	internal class CharacterView extends ItemViewBase
 	{
 		private var stand:Image;
 		

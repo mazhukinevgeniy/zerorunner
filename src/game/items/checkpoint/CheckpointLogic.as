@@ -1,12 +1,12 @@
-package game.items.actors.checkpoint 
+package game.items.checkpoint 
 {
-	import game.items.ActorLogicBase;
+	import game.items.ItemLogicBase;
 	import game.items.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
 	
-	internal class CheckpointLogic extends ActorLogicBase
+	internal class CheckpointLogic extends ItemLogicBase
 	{
 		private const STEPS_BETWEEN_CHECKPOINTS:int = 20;
 		
@@ -24,7 +24,7 @@ package game.items.actors.checkpoint
 			
 			var tmpCell:CellXY = Metric.getTmpCell(center.x + dX, center.y + dY);
 			
-			var actor:ActorLogicBase = this.world.findObjectByCell(tmpCell.x, tmpCell.y);
+			var actor:ItemLogicBase = this.world.findObjectByCell(tmpCell.x, tmpCell.y);
 			
 			if (actor)
 				actor.applyDestruction();

@@ -1,6 +1,6 @@
 package game.world 
 {
-	import game.items.ActorLogicBase;
+	import game.items.ItemLogicBase;
 	import game.metric.Metric;
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
@@ -358,7 +358,7 @@ package game.world
 			const brcX:int = this.data.cacheCenter.x + this.data.cacheWidth / 2;
 			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
 			
-			var actor:ActorLogicBase;
+			var actor:ItemLogicBase;
 			var container:DisplayObjectContainer;
 			
 			var i:int;

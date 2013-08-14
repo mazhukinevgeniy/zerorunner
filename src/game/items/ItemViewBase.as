@@ -11,14 +11,15 @@ package game.items
 	import starling.textures.TextureAtlas;
 	import utils.PixelPerfectTween;
 	
-	public class ActorViewBase extends Sprite
+	public class ItemViewBase extends Sprite
 	{
 		protected var juggler:Juggler;
 		protected var atlas:TextureAtlas;
 		
 		private var movingTween:PixelPerfectTween;
 		
-		public function ActorViewBase()
+		
+		public function ItemViewBase() 
 		{
 			this.juggler = BroodmotherBase.juggler;
 			this.atlas = BroodmotherBase.gameAtlas;
@@ -28,6 +29,7 @@ package game.items
 			
 			this.movingTween = new PixelPerfectTween(this, 0);
 		}
+		
 		
 		protected function getView():DisplayObject
 		{

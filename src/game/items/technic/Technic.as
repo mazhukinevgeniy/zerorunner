@@ -1,4 +1,4 @@
-package game.items.actors.technic 
+package game.items.technic 
 {
 	
 	public class Technic 
