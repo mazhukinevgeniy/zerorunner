@@ -83,11 +83,18 @@ package game.items.character
 			var gx:int = this.x + change.x;
 			var gy:int = this.y + change.y;
 			
+			var actor:ItemLogicBase;
+			
 			this.world.findObjectByCell(gx, gy).applyPush();
 			
-			if (!this.world.findObjectByCell(gx, gy))
+			actor = this.world.findObjectByCell(gx, gy);
+			if (!actor)
 			{
 				this.move(change);
+			}
+			else
+			{
+				actor.offerSoldering(this);
 			}
 		}
 		

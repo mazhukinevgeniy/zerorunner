@@ -178,6 +178,17 @@ package game.items
 			}
 		}
 		
+		/**********
+		 ** What others can offer to you
+		 *********/
+		
+		final public function offerSoldering(offerer:ItemLogicBase):void
+		{
+			
+			
+			this.onSoldered(offerer);
+		}
+		
 		/********
 		 * What you can do
 		 *******/
@@ -256,6 +267,9 @@ package game.items
 		
 		/** Called by the WindFeature. */
 		protected function onWind(change:DCellXY):void { }
+		
+		/** Called when soldering is offered. */
+		protected function onSoldered(solderer:ItemLogicBase):void { }
 		
 		/** Called if damaged and survived that damage. */
 		protected function onDamaged(damage:int):void { }

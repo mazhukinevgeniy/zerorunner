@@ -4,6 +4,7 @@ package game.items
 	import game.items.character.Character;
 	import game.items.checkpoint.Checkpoint;
 	import game.items.fog.Fog;
+	import game.items.skyClearer.SkyClearer;
 	import game.metric.ICoordinated;
 	import game.world.ISearcher;
 	import game.world.SearcherFeature;
@@ -83,6 +84,7 @@ package game.items
 			this.broods.push(new Character(this.input));
 			this.broods.push(new Checkpoint());
 			this.broods.push(new Fog());
+			this.broods.push(new SkyClearer());
 			
 			var length:int = this.broods.length;
 			
