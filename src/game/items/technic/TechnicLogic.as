@@ -1,23 +1,22 @@
 package game.items.technic 
 {
-	import game.actors.ActorsFeature;
-	import game.actors.core.ActorBase;
+	import game.items.ItemLogicBase;
+	import game.items.utils.ConfigKit;
 	
-	internal class Mechanic extends ActorBase
+	internal class TechnicLogic extends ItemLogicBase
 	{
-		private static const HP:int = 15;
-		private static const MOVE_SPEED:int = 4;
-		private static const ACTION_SPEED:int = 3;
+		private static const config:ConfigKit = new ConfigKit(15, 2, 0);
 		
-		public function Mechanic() 
+		public function TechnicLogic() 
 		{
-			super(Mechanic.HP, Mechanic.MOVE_SPEED, Mechanic.ACTION_SPEED);
+			super(new TechnicView());
 		}
 		
-		override public function getClassCode():int
+		override protected function getConfig():ConfigKit
 		{
-			return ActorsFeature.MECHANIC;
+			return TechnicLogic.config;
 		}
+		
 		
 	}
 	/*

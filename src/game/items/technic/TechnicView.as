@@ -1,11 +1,11 @@
 package game.items.technic 
 {
-	import game.actors.view.DrawenActor;
+	import game.items.ItemViewBase;
 	
-	internal class DrawenMechanic extends DrawenActor
+	internal class TechnicView extends ItemViewBase
 	{
 		
-		public function DrawenMechanic() 
+		public function TechnicView() 
 		{
 			
 		}
