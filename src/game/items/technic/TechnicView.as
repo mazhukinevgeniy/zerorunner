@@ -1,6 +1,7 @@
 package game.items.technic 
 {
 	import game.items.ItemViewBase;
+	import game.metric.ICoordinated;
 	
 	internal class TechnicView extends ItemViewBase
 	{
@@ -10,6 +11,10 @@ package game.items.technic
 			
 		}
 		
+		override protected function animateSoldering(target:ICoordinated, delay:int):void
+		{
+			
+		}
 	}
 
 }

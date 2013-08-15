@@ -109,12 +109,12 @@ package game.items.technic
 		}
 		private function tryVertical(goal:ICoordinated):Boolean
 		{
-			if ((goal.y > this.y) && this.world.getSceneCell(this.x, this.y + 1))
+			if (goal.y > this.y)
 			{
 				this.moveInDirection(TechnicLogic.DOWN);
 				return true;
 			}
-			else if ((goal.y < this.y) && this.world.getSceneCell(this.x, this.y - 1))
+			else if (goal.y < this.y)
 			{
 				this.moveInDirection(TechnicLogic.UP);
 				return true;
@@ -123,12 +123,12 @@ package game.items.technic
 		}
 		private	function tryHorizontal(goal:ICoordinated):Boolean
 		{
-			if ((goal.x > this.x) && this.world.getSceneCell(this.x + 1, this.y))
+			if (goal.x > this.x)
 			{
 				this.moveInDirection(TechnicLogic.RIGHT);
 				return true;
 			}
-			else if ((goal.x < this.x) && this.world.getSceneCell(this.x - 1, this.y))
+			else if (goal.x < this.x)
 			{
 				this.moveInDirection(TechnicLogic.LEFT);
 				return true;
@@ -141,20 +141,12 @@ package game.items.technic
 		{
 			var start:int = direction;
 			
-			do
-			{
-				var change:DCellXY = TechnicLogic.moves[direction];
-				
-				if (this.world.getSceneCell(this.x + change.x, this.y + change.y))
-				{
-					this.move(change);
-					
-					start = direction;
-				}
-				else
-					direction = (direction - this.hand + 4) % 4;
-			}
-			while (start != direction);
+			var change:DCellXY = TechnicLogic.moves[direction];
+			
+			
+			this.move(change);
+			
+			start = direction;
 			
 			this.lastTouchedWall = TechnicLogic.directions[(direction + this.hand + 4) % 4];
 		}
@@ -169,6 +161,29 @@ package game.items.technic
 			function distance(p1:ICoordinated, p2:ICoordinated, coordinate:String):int
 			{
 				return Math.abs(p1[coordinate] - p2[coordinate]);
+			}
+		}
+		
+		
+		private const SOLDERING_POWER:int = 6;
+		
+		override protected function onBlocked(change:DCellXY):void
+		{
+			var gx:int = this.x + change.x;
+			var gy:int = this.y + change.y;
+			
+			var actor:ItemLogicBase;
+			
+			this.world.findObjectByCell(gx, gy).applyPush();
+			
+			actor = this.world.findObjectByCell(gx, gy);
+			if (!actor)
+			{
+				this.move(change);
+			}
+			else
+			{
+				actor.offerSoldering(this, this.SOLDERING_POWER);
 			}
 		}
 	}
