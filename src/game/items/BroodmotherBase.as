@@ -32,7 +32,7 @@ package game.items
 		
 		final public function refillActors():void
 		{			
-			var length:int = this.getActorsCap();
+			var length:int = Math.max(1, this.getActorsCap() / 2); //TODO: return to the regular syntax
 			var actor:ItemLogicBase;
 			
 			var vlength:int = this.actors.length;
