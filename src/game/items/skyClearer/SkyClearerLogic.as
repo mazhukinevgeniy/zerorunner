@@ -63,8 +63,8 @@ package game.items.skyClearer
 		
 		override protected function onSpawned():void
 		{
-			this.constructionStatus = 0;
-			this.view.showConstruction(0);
+			this.constructionStatus = Math.random() * SkyClearerLogic.MAXIMUM_CONSTRUCTION * 0.7;
+			this.view.showConstruction(this.constructionStatus);
 		}
 		
 		override protected function getConfig():ConfigKit
@@ -77,6 +77,8 @@ package game.items.skyClearer
 			if (this.constructionStatus <= SkyClearerLogic.MAXIMUM_CONSTRUCTION)
 			{
 				this.constructionStatus += value;
+				if (this.constructionStatus > SkyClearerLogic.MAXIMUM_CONSTRUCTION / 2)
+					solderer.basicSolderingSucceed();
 				
 				this.view.showConstruction(this.constructionStatus);
 			}

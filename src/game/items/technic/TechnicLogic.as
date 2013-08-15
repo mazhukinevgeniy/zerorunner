@@ -6,6 +6,7 @@ package game.items.technic
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
+	import game.metric.Metric;
 	
 	internal class TechnicLogic extends ItemLogicBase
 	{
@@ -47,6 +48,29 @@ package game.items.technic
 		override protected function getConfig():ConfigKit
 		{
 			return TechnicLogic.config;
+		}
+		
+		override protected function getSpawningCell():CellXY
+		{
+			var character:ICoordinated = this.world.getCenter();
+			
+			const MIN_DISTANCE:int = 8;
+			const VARIETY:int = 8;
+			
+			var dX:int = (Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH) * ((Math.random() < 0.5) ? 1 : -1);
+			var dY:int = ((Math.abs(dX) > MIN_DISTANCE ? 0 : MIN_DISTANCE - Math.abs(dX)) + Math.random() * VARIETY) * ((Math.random() < 0.5) ? 1 : -1);
+			
+			var cell:CellXY = Metric.getTmpCell(character.x + dX, character.y + dY);
+			
+			for (; this.world.findObjectByCell(cell.x, cell.y); )
+			{
+				dX = (Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH / 2) * ((Math.random() < 0.5) ? 1 : -1);
+				dY = (MIN_DISTANCE - Math.abs(dX) + Math.random() * VARIETY) * ((Math.random() < 0.5) ? 1 : -1);
+				
+				cell.setValue(character.x + dX, character.y + dY);
+			}
+			
+			return cell;
 		}
 		
 		override protected function onSpawned():void
@@ -187,11 +211,15 @@ package game.items.technic
 			}
 		}
 		
-		final override protected function onWind(change:DCellXY):void
+		override protected function onTowerHalfBuilt():void
 		{
-			this.move(change);
-			
 			this.goal = this.towers.getRandomTower();
+		}
+		
+		override protected function onWind(change:DCellXY):void
+		{
+			if (Math.random() < 0.25)
+				this.move(change);
 		}
 	}
 }

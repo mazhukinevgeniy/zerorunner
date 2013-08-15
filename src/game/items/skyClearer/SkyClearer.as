@@ -18,7 +18,7 @@ package game.items.skyClearer
 		
 		override protected function getActorsCap():int
 		{
-			return 20;
+			return 30;
 		}
 		
 		

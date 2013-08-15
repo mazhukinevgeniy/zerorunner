@@ -20,13 +20,13 @@ package game.items.technic
 		
 		override protected function getActorsCap():int
 		{
-			return 7;
+			return 15;
 		}
 		
 		
 		override public function actorOutOfCache(actor:ItemLogicBase):void
 		{
-			actor.applyDestruction();
+			actor.applyDamage(2);
 		}
 	}
 

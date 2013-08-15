@@ -139,6 +139,11 @@ package game.items
 		 ** What you can suffer
 		 *********/
 		
+		final public function basicSolderingSucceed():void
+		{
+			this.onTowerHalfBuilt();
+		}
+		
 		final public function applyModeSoldering(target:ICoordinated):void
 		{
 			this.movingCooldown = this.actingCooldown = this.actionSpeed;
@@ -276,6 +281,9 @@ package game.items
 		
 		/** Called when soldering is offered. */
 		protected function onSoldered(solderer:ItemLogicBase, value:int):void { }
+		
+		/** Called when soldering succeds. */
+		protected function onTowerHalfBuilt():void { }
 		
 		/** Called if damaged and survived that damage. */
 		protected function onDamaged(damage:int):void { }
