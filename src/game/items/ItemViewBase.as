@@ -1,5 +1,6 @@
 package game.items 
 {
+	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;
@@ -56,6 +57,21 @@ package game.items
 			this.animateMove(change, delay);
 		}
 		
+		final internal function jump(goal:ICoordinated, change:DCellXY, delay:int):void
+		{
+			this.movingTween.reset(this, delay * Time.TIME_BETWEEN_TICKS);
+			this.movingTween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
+			
+			this.juggler.add(this.movingTween);
+			
+			this.animateJump(change, delay);
+		}
+		
+		final internal function solder(target:ICoordinated, delay:int):void
+		{			
+			this.animateSoldering(target, delay);
+		}
+		
 		final internal function disappear():void
 		{
 			this.movingTween.reset(this, 0);
@@ -68,7 +84,12 @@ package game.items
 			
 		}
 		
-		public function jump(change:DCellXY, delay:int):void
+		protected function animateSoldering(target:ICoordinated, delay:int):void
+		{
+			throw new Error();
+		}
+		
+		protected function animateJump(change:DCellXY, delay:int):void
 		{
 			
 		}

@@ -35,11 +35,6 @@ package game.items.fog
 			return ConfigKit.CLOUD;
 		}
 		
-		final override protected function onCanMove():void
-		{
-			
-		}
-		
 		final override protected function onWind(change:DCellXY):void
 		{
 			this.move(change);

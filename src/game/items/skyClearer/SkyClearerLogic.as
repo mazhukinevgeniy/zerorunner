@@ -34,18 +34,24 @@ package game.items.skyClearer
 		 * Tower core
 		 */
 		
-		final override protected function getConfig():ConfigKit
+		private var constructionStatus:int;
+		
+		override protected function onSpawned():void
+		{
+			this.constructionStatus = 0;
+		}
+		
+		override protected function getConfig():ConfigKit
 		{
 			return new ConfigKit(10000000, 10000000, 0);;
 		}
 		
-		final override protected function onCanMove():void
+		override protected function onSoldered(solderer:ItemLogicBase, value:int):void
 		{
+			this.constructionStatus += value;
 			
-		}
-		
-		final override protected function onSoldered(solderer:ItemLogicBase):void
-		{
+			solderer.applyModeSoldering(this);
+			
 			//TODO: change local condition and set solderer soldering
 		}
 		

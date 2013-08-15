@@ -3,6 +3,7 @@ package game.items.character
 	import game.items.ItemViewBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import game.metric.Metric;
 	import game.time.Time;
 	import starling.display.DisplayObject;
@@ -79,6 +80,11 @@ package game.items.character
 				
 				this.container.x += animation.width * (oldSX - this.container.scaleX) / 2;
 			}
+		}
+		
+		override protected function animateSoldering(target:ICoordinated, delay:int):void
+		{
+			
 		}
 		
 		private function handleWalkingComplete(event:Event):void

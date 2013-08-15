@@ -139,6 +139,13 @@ package game.items
 		 ** What you can suffer
 		 *********/
 		
+		final public function applyModeSoldering(target:ICoordinated):void
+		{
+			this.movingCooldown = this.actingCooldown = this.actionSpeed;
+			
+			this.view.solder(target, this.actionSpeed + 1);
+		}
+		
 		final public function applyPush():void
 		{
 			
@@ -182,11 +189,11 @@ package game.items
 		 ** What others can offer to you
 		 *********/
 		
-		final public function offerSoldering(offerer:ItemLogicBase):void
+		final public function offerSoldering(offerer:ItemLogicBase, value:int):void
 		{
 			
 			
-			this.onSoldered(offerer);
+			this.onSoldered(offerer, value);
 		}
 		
 		/********
@@ -233,8 +240,7 @@ package game.items
 			
 			this.flow.dispatchUpdate(ActorsFeature.moveActor, this, jChange, this.movingCooldown + 1);
 			
-			this.view.moveNormally(this, jChange, this.movingCooldown + 1);
-			this.view.jump(jChange, this.movingCooldown + 1);
+			this.view.jump(this, jChange, this.movingCooldown + 1);
 			
 			this.onMoved(jChange, this.movingCooldown);
 		}
@@ -269,7 +275,7 @@ package game.items
 		protected function onWind(change:DCellXY):void { }
 		
 		/** Called when soldering is offered. */
-		protected function onSoldered(solderer:ItemLogicBase):void { }
+		protected function onSoldered(solderer:ItemLogicBase, value:int):void { }
 		
 		/** Called if damaged and survived that damage. */
 		protected function onDamaged(damage:int):void { }

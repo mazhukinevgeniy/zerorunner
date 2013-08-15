@@ -6,12 +6,14 @@ package game.items.character
 	import game.items.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import game.scene.SceneFeature;
 	import game.ZeroRunner;
 	
 	internal class CharacterLogic extends ItemLogicBase
 	{		
 		private const HP:int = 100;
+		private const SOLDERING_POWER:int = 10;
 		
 		private var input:IKnowInput;
 		
@@ -24,7 +26,7 @@ package game.items.character
 		
 		override protected function getConfig():ConfigKit
 		{
-			return new ConfigKit(this.HP, 1, 1000);
+			return new ConfigKit(this.HP, 1, 4);
 		}
 		
 		override protected function getSpawningCell():CellXY
@@ -94,7 +96,7 @@ package game.items.character
 			}
 			else
 			{
-				actor.offerSoldering(this);
+				actor.offerSoldering(this, this.SOLDERING_POWER);
 			}
 		}
 		
