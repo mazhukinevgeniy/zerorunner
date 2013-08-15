@@ -23,8 +23,8 @@ package game.items.skyClearer
 		{
 			var nheight:Number = Math.max(0.1, value / SkyClearerLogic.MAXIMUM_CONSTRUCTION);
 			
-			this.view.scaleY = nheight;
-			this.view.y = Metric.CELL_HEIGHT * (1 - nheight);
+			this.view.scaleY = nheight + (nheight > 1 ? 0.2 : 0);
+			this.view.y = Metric.CELL_HEIGHT * (1 - this.view.scaleY);
 		}
 	}
 

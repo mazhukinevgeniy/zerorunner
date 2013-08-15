@@ -18,14 +18,14 @@ package game.items.skyClearer
 		
 		override protected function getActorsCap():int
 		{
-			return 10;
+			return 20;
 		}
 		
 		
 		
 		override public function actorOutOfCache(actor:ItemLogicBase):void
 		{
-			actor.applyDestruction();
+			actor.applyDamage(6);
 		}
 		
 		

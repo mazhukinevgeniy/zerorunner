@@ -13,7 +13,7 @@ package game.items.character
 	internal class CharacterLogic extends ItemLogicBase
 	{		
 		private const HP:int = 100;
-		private const SOLDERING_POWER:int = 10;
+		private const SOLDERING_POWER:int = 2;
 		
 		private var input:IKnowInput;
 		
@@ -26,7 +26,7 @@ package game.items.character
 		
 		override protected function getConfig():ConfigKit
 		{
-			return new ConfigKit(this.HP, 1, 4);
+			return new ConfigKit(this.HP, 1, 0);
 		}
 		
 		override protected function getSpawningCell():CellXY

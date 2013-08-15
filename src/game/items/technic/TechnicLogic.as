@@ -165,7 +165,7 @@ package game.items.technic
 		}
 		
 		
-		private const SOLDERING_POWER:int = 6;
+		private const SOLDERING_POWER:int = 3;
 		
 		override protected function onBlocked(change:DCellXY):void
 		{
@@ -185,6 +185,13 @@ package game.items.technic
 			{
 				actor.offerSoldering(this, this.SOLDERING_POWER);
 			}
+		}
+		
+		final override protected function onWind(change:DCellXY):void
+		{
+			this.move(change);
+			
+			this.goal = this.towers.getRandomTower();
 		}
 	}
 }
