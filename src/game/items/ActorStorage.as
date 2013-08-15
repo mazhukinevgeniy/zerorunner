@@ -4,6 +4,7 @@ package game.items
 	import game.items.character.Character;
 	import game.items.checkpoint.Checkpoint;
 	import game.items.fog.Fog;
+	import game.items.skyClearer.IGiveTowers;
 	import game.items.skyClearer.SkyClearer;
 	import game.items.technic.Technic;
 	import game.metric.ICoordinated;
@@ -86,7 +87,7 @@ package game.items
 			this.broods.push(new Checkpoint());
 			this.broods.push(new Fog());
 			this.broods.push(new SkyClearer());
-			this.broods.push(new Technic());
+			this.broods.push(new Technic(this.broods[3] as IGiveTowers));
 			
 			var length:int = this.broods.length;
 			

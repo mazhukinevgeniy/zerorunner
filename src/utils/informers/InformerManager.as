@@ -9,6 +9,9 @@ package utils.informers
 		public function InformerManager() 
 		{
 			this.dictionary = new Dictionary();
+			
+			this.addInformer(IGiveInformers, this);
+			this.addInformer(IStoreInformers, this);
 		}
 		
 		

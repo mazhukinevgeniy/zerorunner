@@ -3,7 +3,7 @@ package game.items.skyClearer
 	import game.items.BroodmotherBase;
 	import game.items.ItemLogicBase;
 	
-	public class SkyClearer extends BroodmotherBase
+	public class SkyClearer extends BroodmotherBase implements IGiveTowers
 	{
 		
 		public function SkyClearer() 
@@ -26,6 +26,14 @@ package game.items.skyClearer
 		override public function actorOutOfCache(actor:ItemLogicBase):void
 		{
 			actor.applyDestruction();
+		}
+		
+		
+		public function getRandomTower():ItemLogicBase
+		{
+			var actors:Vector.<ItemLogicBase> = this.getActors();
+			
+			return actors[int(Math.random() * actors.length)];
 		}
 	}
 

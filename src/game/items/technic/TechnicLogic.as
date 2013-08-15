@@ -1,35 +1,14 @@
 package game.items.technic 
 {
 	import game.items.ItemLogicBase;
+	import game.items.skyClearer.IGiveTowers;
 	import game.items.utils.ConfigKit;
+	import game.metric.CellXY;
+	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	
 	internal class TechnicLogic extends ItemLogicBase
 	{
-		private static const config:ConfigKit = new ConfigKit(15, 2, 0);
-		
-		public function TechnicLogic() 
-		{
-			super(new TechnicView());
-		}
-		
-		override protected function getConfig():ConfigKit
-		{
-			return TechnicLogic.config;
-		}
-		
-		
-	}
-	/*
-
-	internal class Hunter extends ActorBase
-	{
-		private static const DAMAGE:int = 10;
-		
-		
-		private static const HP:int = 3;
-		private static const MOVE_SPEED:int = 2;
-		private static const ACTION_SPEED:int = 10;
-		
 		private static const LEFT:int = 0;
 		private static const UP:int = 1;
 		private static const RIGHT:int = 2;
@@ -42,92 +21,76 @@ package game.items.technic
 		private static var moves:Vector.<DCellXY> = new <DCellXY>[
 			new DCellXY( -1, 0), new DCellXY(0, -1), new DCellXY(1, 0), new DCellXY(0, 1)];
 		
-		private static var directions:Vector.<int> = new <int>[Hunter.LEFT, Hunter.UP, Hunter.RIGHT, Hunter.DOWN];
-		private static var surroundings:Vector.<Boolean> = new Vector.<Boolean>(4, true);
+		private static var directions:Vector.<int> = new <int>[TechnicLogic.LEFT, TechnicLogic.UP, TechnicLogic.RIGHT, TechnicLogic.DOWN];
 		
-		private var previousCell:CellXY;
-		private var goal:CellXY;
+		
+		private static const config:ConfigKit = new ConfigKit(15, 2, 0);
+		
+		
+		private var goal:ICoordinated;
 		private var bypassStartingPoint:CellXY;
 		
 		private var hand:int;
-		
 		private var lastTouchedWall:int = -1;
 		
+		private var towers:IGiveTowers;
 		
-		public function Hunter() 
-		{
-			super(Hunter.HP, Hunter.MOVE_SPEED, Hunter.ACTION_SPEED);
+		public function TechnicLogic(towers:IGiveTowers) 
+		{			
+			super(new TechnicView());
 			
-			
-			this.previousCell = new CellXY(0, 0);
-			this.goal = new CellXY(0, 0);
+			this.towers = towers;
 			
 			this.bypassStartingPoint = new CellXY(0, 0);
 		}
 		
+		override protected function getConfig():ConfigKit
+		{
+			return TechnicLogic.config;
+		}
+		
 		override protected function onSpawned():void
 		{
-			this.previousCell.setValue(0, 0);
-			this.goal.setValue(0, 0);
-		}
-		
-		override public function getClassCode():int
-		{
-			return ActorsFeature.HUNTER;
-		}
-		
-		override protected function onActing():void
-		{
-			this.isOnTheGround(this);
+			this.hand = TechnicLogic.NOT_IN_BYPASS;
+			
+			this.goal = this.towers.getRandomTower();
 		}
 		
 		
 		override protected function onCanMove():void
 		{
-			if (!this.previousCell.isEqualTo(this.giveCell()))
-				this.hand = Hunter.NOT_IN_BYPASS;
+			if (!this.goal)
+				this.goal = this.towers.getRandomTower();
 			
-			if (this.hand == Hunter.NOT_IN_BYPASS) 
-				this.searcher.getCharacterCell(this.goal);
-			
-			this.refreshCells();
-			
-			if (this.hand == Hunter.NOT_IN_BYPASS)
+			if (this.hand == TechnicLogic.NOT_IN_BYPASS)
 			{
 				if (!this.tryStraightGoing(this.goal))
 				{
 					this.hand = (Math.random() > 0.5)?( -1):(1);
 					
 					if (this.goal.x > this.x)
-						this.lastTouchedWall = Hunter.RIGHT;
+						this.lastTouchedWall = TechnicLogic.RIGHT;
 					else if (this.goal.x < this.x)
-						this.lastTouchedWall = Hunter.LEFT;
+						this.lastTouchedWall = TechnicLogic.LEFT;
 					else if (this.goal.y > this.y)
-						this.lastTouchedWall = Hunter.DOWN;
-					else if (this.goal.y < this.y)
-						this.lastTouchedWall = Hunter.UP;
+						this.lastTouchedWall = TechnicLogic.DOWN;
+					else /*if (this.goal.y < this.y)*///todo: something is wrong, fix it
+						this.lastTouchedWall = TechnicLogic.UP;
 					
 					this.bypassStartingPoint.setValue(this.x, this.y);
 				}
 			}
 			
-			if (this.hand != Hunter.NOT_IN_BYPASS)
+			if (this.hand != TechnicLogic.NOT_IN_BYPASS)
 			{
-				this.move(this.lastTouchedWall);
+				this.moveInDirection(this.lastTouchedWall);
 				
-				if (this.sureCheck() || this.giveCell().isEqualTo(this.bypassStartingPoint))
-					this.hand = Hunter.NOT_IN_BYPASS;
+				if (this.sureCheck())
+					this.hand = TechnicLogic.NOT_IN_BYPASS;
 			}
-			
-			this.previousCell.setValue(this.x, this.y);
 		}
 		
-		override protected function onBlocked(change:DCellXY):void
-		{
-			this.damageActor(this.searcher.findObjectByCell(this.x + change.x, this.y + change.y), Hunter.DAMAGE);
-		}
-		
-		private function tryStraightGoing(goal:CellXY):Boolean
+		private function tryStraightGoing(goal:ICoordinated):Boolean
 		{
 			if (Math.abs(goal.x - this.x) > Math.abs(goal.y - this.y))
 			{
@@ -144,52 +107,47 @@ package game.items.technic
 				return true;	
 			}
 		}
-		private function tryVertical(goal:CellXY):Boolean
+		private function tryVertical(goal:ICoordinated):Boolean
 		{
-			if ((goal.y > this.y) && !Hunter.surroundings[Hunter.DOWN])
+			if ((goal.y > this.y) && this.world.getSceneCell(this.x, this.y + 1))
 			{
-				this.move(Hunter.DOWN);
+				this.moveInDirection(TechnicLogic.DOWN);
 				return true;
 			}
-			else if ((goal.y < this.y) && !Hunter.surroundings[Hunter.UP])
+			else if ((goal.y < this.y) && this.world.getSceneCell(this.x, this.y - 1))
 			{
-				this.move(Hunter.UP);
+				this.moveInDirection(TechnicLogic.UP);
 				return true;
 			}
 			return false;
 		}
-		private	function tryHorizontal(goal:CellXY):Boolean
+		private	function tryHorizontal(goal:ICoordinated):Boolean
 		{
-			if ((goal.x > this.x) && !Hunter.surroundings[Hunter.RIGHT])
+			if ((goal.x > this.x) && this.world.getSceneCell(this.x + 1, this.y))
 			{
-				this.move(Hunter.RIGHT);
+				this.moveInDirection(TechnicLogic.RIGHT);
 				return true;
 			}
-			else if ((goal.x < this.x) && !Hunter.surroundings[Hunter.LEFT])
+			else if ((goal.x < this.x) && this.world.getSceneCell(this.x - 1, this.y))
 			{
-				this.move(Hunter.LEFT);
+				this.moveInDirection(TechnicLogic.LEFT);
 				return true;
 			}
 			return false;
 		}
 		
-		private function refreshCells():void
-		{
-			Hunter.surroundings[Hunter.LEFT] = SceneFeature.FALL == this.scene.getSceneCell(this.x - 1, this.y);
-			Hunter.surroundings[Hunter.RIGHT] = SceneFeature.FALL == this.scene.getSceneCell(this.x + 1, this.y);
-			Hunter.surroundings[Hunter.UP] = SceneFeature.FALL == this.scene.getSceneCell(this.x, this.y - 1);
-			Hunter.surroundings[Hunter.DOWN] = SceneFeature.FALL == this.scene.getSceneCell(this.x, this.y + 1);
-		}
 		
-		private function move(direction:int):void
+		private function moveInDirection(direction:int):void
 		{
 			var start:int = direction;
 			
 			do
 			{
-				if (!Hunter.surroundings[direction])
+				var change:DCellXY = TechnicLogic.moves[direction];
+				
+				if (this.world.getSceneCell(this.x + change.x, this.y + change.y))
 				{
-					this.tryMove(Hunter.moves[direction]);
+					this.move(change);
 					
 					start = direction;
 				}
@@ -198,22 +156,20 @@ package game.items.technic
 			}
 			while (start != direction);
 			
-			this.lastTouchedWall = Hunter.directions[(direction + this.hand + 4) % 4];
+			this.lastTouchedWall = TechnicLogic.directions[(direction + this.hand + 4) % 4];
 		}
 		
 		
 		private function sureCheck():Boolean
 		{	
-			return distance(this.goal, this.bypassStartingPoint, "x") >= distance(this.goal, this.giveCell(), "x")
+			return distance(this.goal, this.bypassStartingPoint, "x") >= distance(this.goal, this, "x")
 				   && 
-				   distance(this.goal, this.bypassStartingPoint, "y") >= distance(this.goal, this.giveCell(), "y");
+				   distance(this.goal, this.bypassStartingPoint, "y") >= distance(this.goal, this, "y");
 					
-			function distance(p1:CellXY, p2:CellXY, coordinate:String):int
+			function distance(p1:ICoordinated, p2:ICoordinated, coordinate:String):int
 			{
 				return Math.abs(p1[coordinate] - p2[coordinate]);
 			}
 		}
 	}
-	
-	*/
 }
