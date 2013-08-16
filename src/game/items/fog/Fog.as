@@ -18,7 +18,7 @@ package game.items.fog
 		
 		override protected function getActorsCap():int
 		{
-			return 50;
+			return 200;
 		}
 		
 		
