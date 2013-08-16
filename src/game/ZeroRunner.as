@@ -81,7 +81,7 @@ package game
 			
 			viewRoot.addChild(image);
 			
-			Metric.initialize(40, 40, 81, 81);
+			Metric.initialize(40, 40);
 			
 			new Time(this.displayRoot, this);
 			new InputManager(this);
