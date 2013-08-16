@@ -2,7 +2,9 @@ package game.items.skyClearer
 {
 	import game.items.ItemLogicBase;
 	import game.items.utils.ConfigKit;
+	import game.metric.CellXY;
 	import game.metric.DCellXY;
+	import game.scene.SceneFeature;
 	
 	internal class SkyClearerLogic extends ItemLogicBase
 	{
@@ -19,6 +21,16 @@ package game.items.skyClearer
 		public function SkyClearerLogic() 
 		{
 			super(this.view = new SkyClearerView());
+		}
+		
+		override protected function getSpawningCell():CellXY
+		{
+			var cell:CellXY = super.getSpawningCell();
+			
+			while (this.world.getSceneCell(cell.x, cell.y) == SceneFeature.FALL)
+				cell = super.getSpawningCell();
+			
+			return cell;
 		}
 		
 		override protected function onCanAct():void 
