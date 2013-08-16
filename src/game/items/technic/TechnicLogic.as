@@ -25,7 +25,7 @@ package game.items.technic
 		private static var directions:Vector.<int> = new <int>[TechnicLogic.LEFT, TechnicLogic.UP, TechnicLogic.RIGHT, TechnicLogic.DOWN];
 		
 		
-		private static const config:ConfigKit = new ConfigKit(15, 2, 0);
+		private static const config:ConfigKit = new ConfigKit(15, 0, 0);
 		
 		
 		private var goal:ICoordinated;
@@ -215,12 +215,6 @@ package game.items.technic
 		override protected function onTowerHalfBuilt():void
 		{
 			this.goal = this.towers.getRandomTower();
-		}
-		
-		override protected function onWind(change:DCellXY):void
-		{
-			if (Math.random() < 0.25)
-				this.move(change);
 		}
 	}
 }

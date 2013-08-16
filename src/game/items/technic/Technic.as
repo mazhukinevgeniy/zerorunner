@@ -20,7 +20,7 @@ package game.items.technic
 		
 		override protected function getActorsCap():int
 		{
-			return 15;
+			return 1;
 		}
 		
 		
