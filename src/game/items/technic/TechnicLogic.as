@@ -54,18 +54,19 @@ package game.items.technic
 		{
 			var character:ICoordinated = this.world.getCenter();
 			
-			const MIN_DISTANCE:int = 8;
-			const VARIETY:int = 8;
-			
-			var dX:int = (Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH) * ((Math.random() < 0.5) ? 1 : -1);
-			var dY:int = ((Math.abs(dX) > MIN_DISTANCE ? 0 : MIN_DISTANCE - Math.abs(dX)) + Math.random() * VARIETY) * ((Math.random() < 0.5) ? 1 : -1);
+			var dX:int = (4 + Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH) 
+							* ((Math.random() < 0.5) ? 1 : -1);
+			var dY:int = (4 + Math.random() * Metric.CELLS_IN_VISIBLE_HEIGHT) 
+							* ((Math.random() < 0.5) ? 1 : -1);
 			
 			var cell:CellXY = Metric.getTmpCell(character.x + dX, character.y + dY);
 			
 			for (; this.world.findObjectByCell(cell.x, cell.y); )
 			{
-				dX = (Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH / 2) * ((Math.random() < 0.5) ? 1 : -1);
-				dY = (MIN_DISTANCE - Math.abs(dX) + Math.random() * VARIETY) * ((Math.random() < 0.5) ? 1 : -1);
+				dX = (4 + Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH) 
+							* ((Math.random() < 0.5) ? 1 : -1);
+				dY = (4 + Math.random() * Metric.CELLS_IN_VISIBLE_HEIGHT) 
+							* ((Math.random() < 0.5) ? 1 : -1);
 				
 				cell.setValue(character.x + dX, character.y + dY);
 			}
