@@ -2,8 +2,8 @@ package game.time
 {
 	import game.ui.panel.Panel;
 	import ui.ChaoticUI;
-	import game.ZeroRunner;
 	import flash.ui.Keyboard;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -19,7 +19,7 @@ package game.time
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ZeroRunner.gameOver);
+			flow.addUpdateListener(UpdateGameBase.gameOver);
 			flow.addUpdateListener(ChaoticUI.newGame);
 			flow.addUpdateListener(ChaoticUI.keyUp);
 			flow.addUpdateListener(Panel.panel_RollOver);

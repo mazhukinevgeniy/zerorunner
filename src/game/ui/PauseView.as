@@ -6,7 +6,7 @@ package game.ui
 	import starling.particles.PDParticleSystem;
 	import starling.text.TextField;
 	import starling.textures.Texture;
-	import game.ZeroRunner;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -30,11 +30,11 @@ package game.ui
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ZeroRunner.gameOver);
+			flow.addUpdateListener(UpdateGameBase.gameOver);
 			flow.addUpdateListener(Time.setPause);
 			
 			this.container = new Sprite();
-			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+			flow.dispatchUpdate(UpdateGameBase.addToTheHUD, this.container);
 			
 			this.notification = new TextField(500, 40, "Game paused", "HiLo-Deco", 30);
 			this.container.addChild(this.notification);

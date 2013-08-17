@@ -12,8 +12,8 @@ package game.items
 	import game.utils.GameFoundations;
 	import game.world.ISearcher;
 	import game.world.SearcherFeature;
-	import game.ZeroRunner;
 	import starling.utils.AssetManager;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -37,7 +37,7 @@ package game.items
 			this.input = foundations.input;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(ZeroRunner.prerestore);
+			this.flow.addUpdateListener(UpdateGameBase.prerestore);
 			this.flow.addUpdateListener(Time.tick);
 			this.flow.addUpdateListener(Time.aftertick);
 			this.flow.addUpdateListener(SearcherFeature.cacheActors);

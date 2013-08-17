@@ -4,6 +4,7 @@ package ui.game
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import ui.ChaoticUI;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
@@ -21,10 +22,10 @@ package ui.game
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(ChaoticUI.newGame);
-			flow.addUpdateListener(ZeroRunner.quitGame);
+			flow.addUpdateListener(UpdateGameBase.quitGame);
 			
 			flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, 
-									ZeroRunner.setGameContainer, this.container);
+									UpdateGameBase.setGameContainer, this.container);
 		}
 		
 		update function newGame():void

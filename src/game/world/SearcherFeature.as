@@ -10,7 +10,7 @@ package game.world
 	import game.time.ICacher;
 	import game.time.Time;
 	import game.utils.GameFoundations;
-	import game.ZeroRunner;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -50,7 +50,7 @@ package game.world
 			this.flow.addUpdateListener(ActorsFeature.addActor);
 			this.flow.addUpdateListener(ActorsFeature.moveActor);
 			this.flow.addUpdateListener(ActorsFeature.removeActor);
-			this.flow.addUpdateListener(ZeroRunner.restore);
+			this.flow.addUpdateListener(UpdateGameBase.restore);
 			
 			const NUMBER_OF_STEPS:int = 3;
 			for (var i:int = 0; i < NUMBER_OF_STEPS; i++)

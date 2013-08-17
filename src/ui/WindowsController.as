@@ -3,9 +3,9 @@ package ui
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
-	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import ui.mainMenu.MainMenu;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -86,7 +86,7 @@ package ui
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(ChaoticUI.openWindow);
 			this.flow.addUpdateListener(ChaoticUI.newGame);
-			this.flow.addUpdateListener(ZeroRunner.quitGame);
+			this.flow.addUpdateListener(UpdateGameBase.quitGame);
 		}
 		
 		

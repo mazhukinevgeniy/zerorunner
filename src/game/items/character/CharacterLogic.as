@@ -8,7 +8,7 @@ package game.items.character
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.scene.SceneFeature;
-	import game.ZeroRunner;
+	import utils.templates.UpdateGameBase;
 	
 	internal class CharacterLogic extends ItemLogicBase
 	{		
@@ -47,7 +47,7 @@ package game.items.character
 		
 		override protected function onDestroyed():void
 		{
-			this.flow.dispatchUpdate(ZeroRunner.gameOver);
+			this.flow.dispatchUpdate(UpdateGameBase.gameOver);
 		}
 		
 		override protected function onActing():void

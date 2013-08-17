@@ -3,7 +3,6 @@ package game.world
 	import game.items.ActorsFeature;
 	import game.metric.ICoordinated;
 	import game.time.Time;
-	import game.ZeroRunner;
 	import game.metric.DCellXY;
 	import game.metric.Metric;
 	import game.ZeroRunner;
@@ -13,6 +12,7 @@ package game.world
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import utils.PixelPerfectTween;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -51,9 +51,9 @@ package game.world
 			
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ActorsFeature.moveCenter);
-			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(UpdateGameBase.prerestore);
 			
-			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+			flow.dispatchUpdate(UpdateGameBase.addToTheHUD, this.container);
 			
 			this.moveTween = new PixelPerfectTween(this, 0);
 		}

@@ -5,7 +5,7 @@ package game.scene
 	import game.scene.patterns.getPattern;
 	import game.scene.patterns.IPattern;
 	import game.world.SearcherFeature;
-	import game.ZeroRunner;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -19,7 +19,7 @@ package game.scene
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(SearcherFeature.cacheScene);
-			flow.addUpdateListener(ZeroRunner.prerestore);
+			flow.addUpdateListener(UpdateGameBase.prerestore);
 		}
 		
 		update function cacheScene(cache:Vector.<int>, center:ICoordinated, width:int, height:int):void

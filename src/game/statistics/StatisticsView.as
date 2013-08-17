@@ -2,9 +2,9 @@ package game.statistics
 {
 	import feathers.controls.List;
 	import feathers.data.ListCollection;
-	import game.ZeroRunner;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -25,10 +25,10 @@ package game.statistics
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(StatisticsFeature.showStatistics);
 			flow.addUpdateListener(StatisticsFeature.hideStatistics);
-			flow.addUpdateListener(ZeroRunner.quitGame);
+			flow.addUpdateListener(UpdateGameBase.quitGame);
 			
 			this.container = new Sprite();
-			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+			flow.dispatchUpdate(UpdateGameBase.addToTheHUD, this.container);
 			
 			this.container.x = 50;
 			this.container.y = 50;

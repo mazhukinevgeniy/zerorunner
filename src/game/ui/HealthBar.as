@@ -1,9 +1,9 @@
 package game.ui 
 {
 	import game.items.ActorsFeature;
-	import game.ZeroRunner;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -29,7 +29,7 @@ package game.ui
 			flow.addUpdateListener(ActorsFeature.heroDamaged);
 			flow.addUpdateListener(ActorsFeature.setHeroHP);
 			
-			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
+			flow.dispatchUpdate(UpdateGameBase.addToTheHUD, this.container);
 		}
 		
 		update function setHeroHP(hp:int):void

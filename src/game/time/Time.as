@@ -1,11 +1,11 @@
 package game.time 
 {
 	import game.utils.GameFoundations;
-	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -71,8 +71,8 @@ package game.time
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ZeroRunner.restore);
-			flow.addUpdateListener(ZeroRunner.gameOver);
+			flow.addUpdateListener(UpdateGameBase.restore);
+			flow.addUpdateListener(UpdateGameBase.gameOver);
 			flow.addUpdateListener(Time.setPause);
 			flow.addUpdateListener(Time.addCacher);
 			

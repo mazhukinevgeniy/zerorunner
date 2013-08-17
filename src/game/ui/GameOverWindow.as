@@ -7,6 +7,7 @@ package game.ui
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import ui.themes.ExtendedTheme;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -49,17 +50,17 @@ package game.ui
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ZeroRunner.restore);
-			flow.addUpdateListener(ZeroRunner.gameOver);
+			flow.addUpdateListener(UpdateGameBase.restore);
+			flow.addUpdateListener(UpdateGameBase.gameOver);
 			
-			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.message);
+			flow.dispatchUpdate(UpdateGameBase.addToTheHUD, this.message);
 			
 			this.flow = flow;
 		}
 		
 		private function handleTriggered():void
 		{
-			this.flow.dispatchUpdate(ZeroRunner.quitGame);
+			this.flow.dispatchUpdate(UpdateGameBase.quitGame);
 		}
 		
 		update function restore():void

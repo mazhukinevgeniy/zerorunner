@@ -3,7 +3,6 @@ package game.ui.panel
 	import flash.display.Stage;
 	import flash.geom.Point;
 	import game.statistics.StatisticsFeature;
-	import game.ZeroRunner;
 	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Sprite;
@@ -13,6 +12,7 @@ package game.ui.panel
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class Panel extends Sprite
@@ -43,7 +43,7 @@ package game.ui.panel
 			
 			this.addButtons();
 			
-			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this);
+			flow.dispatchUpdate(UpdateGameBase.addToTheHUD, this);
 		}
 		
 		private function handleAddedToStage():void
@@ -81,7 +81,7 @@ package game.ui.panel
 			if (event.target == this.menuButton)
 			{
 				this.collapse();
-				this.flow.dispatchUpdate(ZeroRunner.quitGame);
+				this.flow.dispatchUpdate(UpdateGameBase.quitGame);
 			}
 			else if (event.target == this.statButton)
 			{

@@ -2,7 +2,7 @@ package game.input
 {
 	import game.metric.DCellXY;
 	import game.time.Time;
-	import game.ZeroRunner;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -21,7 +21,7 @@ package game.input
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ZeroRunner.restore);
+			flow.addUpdateListener(UpdateGameBase.restore);
 			flow.addUpdateListener(InputManager.newInputPiece);
 			flow.addUpdateListener(Time.aftertick);
 			

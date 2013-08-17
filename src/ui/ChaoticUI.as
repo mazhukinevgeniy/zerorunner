@@ -1,5 +1,6 @@
 package ui 
 {
+	import game.ZeroRunner;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -9,9 +10,9 @@ package ui
 	import ui.sounds.Sounds;
 	import ui.WindowsFeature;
 	import ui.themes.ExtendedTheme;
-	import game.ZeroRunner;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
@@ -66,8 +67,8 @@ package ui
 		{
 			this.workWithUpdateListener(this);
 			this.addUpdateListener(ChaoticUI.newGame);
-			this.addUpdateListener(ZeroRunner.quitGame);
 			this.addUpdateListener(ChaoticUI.keyUp);
+			this.addUpdateListener(UpdateGameBase.quitGame);
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void
