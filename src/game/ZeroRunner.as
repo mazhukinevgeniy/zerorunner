@@ -1,7 +1,6 @@
 package game 
 {
 	import game.achievements.AchievementsFeature;
-	import game.input.InputManager;
 	import game.items.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -10,6 +9,7 @@ package game
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
 	import game.time.Time;
+	import game.ui.input.InputManager;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
 	import game.world.SearcherFeature;

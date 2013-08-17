@@ -1,9 +1,9 @@
 package game.ui 
 {
-	import game.input.InputManager;
-	import game.input.InputPiece;
 	import game.metric.DCellXY;
 	import flash.ui.Keyboard;
+	import game.ui.input.InputManager;
+	import game.ui.input.InputPiece;
 	import starling.events.EventDispatcher;
 	import starling.events.KeyboardEvent;
 	import utils.updates.IUpdateDispatcher;

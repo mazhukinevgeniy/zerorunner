@@ -1,6 +1,5 @@
 package game.items 
 {
-	import game.input.IKnowInput;
 	import game.items.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;

@@ -1,6 +1,5 @@
 package game.items 
 {
-	import game.input.IKnowInput;
 	import game.items.character.Character;
 	import game.items.checkpoint.Checkpoint;
 	import game.items.fog.Fog;
@@ -8,6 +7,7 @@ package game.items
 	import game.items.skyClearer.SkyClearer;
 	import game.items.technic.Technic;
 	import game.metric.ICoordinated;
+	import game.ui.input.IKnowInput;
 	import game.world.ISearcher;
 	import game.world.SearcherFeature;
 	import game.ZeroRunner;

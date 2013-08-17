@@ -1,6 +1,5 @@
 package game.items.character 
 {
-	import game.input.IKnowInput;
 	import game.items.ActorsFeature;
 	import game.items.ItemLogicBase;
 	import game.items.utils.ConfigKit;
@@ -8,6 +7,7 @@ package game.items.character
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.scene.SceneFeature;
+	import game.ui.input.IKnowInput;
 	import game.ZeroRunner;
 	
 	internal class CharacterLogic extends ItemLogicBase

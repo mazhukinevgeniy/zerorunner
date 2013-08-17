@@ -1,8 +1,8 @@
 package game.items.character 
 {
-	import game.input.IKnowInput;
 	import game.items.BroodmotherBase;
 	import game.items.ItemLogicBase;
+	import game.ui.input.IKnowInput;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class Character extends BroodmotherBase
