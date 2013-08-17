@@ -1,11 +1,11 @@
 package game.time 
 {
+	import game.utils.GameFoundations;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
-	import utils.informers.IStoreInformers;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -34,8 +34,10 @@ package game.time
 		
 		private var updateFlow:IUpdateDispatcher;
 		
-		public function Time(root:Sprite, flow:IUpdateDispatcher) 
+		public function Time(root:Sprite, foundations:GameFoundations) 
 		{
+			var flow:IUpdateDispatcher = foundations.flow;
+			
 			new PauseTypes(flow);
 			
 			this.FPS = Starling.current.nativeStage.frameRate;
@@ -56,7 +58,7 @@ package game.time
 			
 			
 			
-			this.gameJuggler = new Juggler();
+			this.gameJuggler = foundations.juggler;
 			
 			root.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
@@ -65,7 +67,6 @@ package game.time
 			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(ZeroRunner.setPause);
 			flow.addUpdateListener(ZeroRunner.gameOver);
-			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(Time.addCacher);
 			
 			this.updateFlow = flow;
@@ -131,10 +132,6 @@ package game.time
 			this.fixed = true;
 			
 			this.frameCount = 0;
-		}
-		update function addInformerTo(table:IStoreInformers):void
-		{
-			table.addInformer(Juggler, this.gameJuggler);
 		}
 	}
 	

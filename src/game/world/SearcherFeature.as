@@ -9,9 +9,8 @@ package game.world
 	import game.scene.SceneFeature;
 	import game.time.ICacher;
 	import game.time.Time;
+	import game.utils.GameFoundations;
 	import game.ZeroRunner;
-	import starling.utils.AssetManager;
-	import utils.informers.IStoreInformers;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -37,26 +36,25 @@ package game.world
 		
 		private var cacheStepsDone:int;
 		
-		public function SearcherFeature(flow:IUpdateDispatcher, assets:AssetManager) 
+		public function SearcherFeature(foundations:GameFoundations) 
 		{
-			new Renderer(flow, this, assets);
+			this.flow = foundations.flow;
+			
+			new Renderer(this, foundations);
 			
 			this.cacheCenter = new CellXY(0, 0);
 			
-			flow.workWithUpdateListener(this);
+			this.flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(ActorsFeature.setCenter);
-			flow.addUpdateListener(ActorsFeature.addActor);
-			flow.addUpdateListener(ActorsFeature.moveActor);
-			flow.addUpdateListener(ActorsFeature.removeActor);
-			flow.addUpdateListener(ZeroRunner.restore);
-			flow.addUpdateListener(ZeroRunner.addInformerTo);
+			this.flow.addUpdateListener(ActorsFeature.setCenter);
+			this.flow.addUpdateListener(ActorsFeature.addActor);
+			this.flow.addUpdateListener(ActorsFeature.moveActor);
+			this.flow.addUpdateListener(ActorsFeature.removeActor);
+			this.flow.addUpdateListener(ZeroRunner.restore);
 			
 			const NUMBER_OF_STEPS:int = 3;
 			for (var i:int = 0; i < NUMBER_OF_STEPS; i++)
-				flow.dispatchUpdate(Time.addCacher, this);
-			
-			this.flow = flow;
+				this.flow.dispatchUpdate(Time.addCacher, this);
 			
 			this.cacheWidth = Metric.CELLS_IN_VISIBLE_WIDTH + 4 + Metric.CELLS_IN_VISIBLE_WIDTH % 2;
 			this.cacheHeight = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
@@ -192,11 +190,6 @@ package game.world
 				   (x < this.cacheCenter.x + this.cacheWidth / 2) &&
 				   (!(y < this.cacheCenter.y - this.cacheHeight / 2)) && 
 				   (y < this.cacheCenter.y + this.cacheHeight / 2);
-		}
-		
-		update function addInformerTo(table:IStoreInformers):void
-		{
-			table.addInformer(ISearcher, this);
 		}
 	}
 

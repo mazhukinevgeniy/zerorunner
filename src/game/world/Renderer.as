@@ -2,11 +2,11 @@ package game.world
 {
 	import game.items.ItemLogicBase;
 	import game.metric.Metric;
+	import game.utils.GameFoundations;
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
-	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -17,16 +17,18 @@ package game.world
 		
 		private var pull:TilePull;
 		
-		public function Renderer(flow:IUpdateDispatcher, data:SearcherFeature, assets:AssetManager) 
+		public function Renderer(data:SearcherFeature, foundations:GameFoundations) 
 		{
-			this.lines = new Camera(flow);
+			var flow:IUpdateDispatcher = foundations.flow;
+			
+			this.lines = new Camera(flow, foundations.juggler);
 			
 			this.data = data;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(ZeroRunner.redraw);
 			
-			this.pull = new TilePull(assets);
+			this.pull = new TilePull(foundations.atlas);
 		}
 		
 		update function redraw():void

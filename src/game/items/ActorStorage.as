@@ -1,5 +1,6 @@
 package game.items 
 {
+	import game.input.IKnowInput;
 	import game.items.character.Character;
 	import game.items.checkpoint.Checkpoint;
 	import game.items.fog.Fog;
@@ -7,13 +8,11 @@ package game.items
 	import game.items.skyClearer.SkyClearer;
 	import game.items.technic.Technic;
 	import game.metric.ICoordinated;
-	import game.ui.input.IKnowInput;
+	import game.utils.GameFoundations;
 	import game.world.ISearcher;
 	import game.world.SearcherFeature;
 	import game.ZeroRunner;
-	import starling.animation.Juggler;
 	import starling.utils.AssetManager;
-	import utils.informers.IGiveInformers;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -27,18 +26,22 @@ package game.items
 		protected var broods:Vector.<BroodmotherBase>;
 		
 		
-		public function ActorStorage(flow:IUpdateDispatcher) 
+		public function ActorStorage(foundations:GameFoundations, world:ISearcher) 
 		{
-			this.flow = flow;
+			BroodmotherBase.juggler = foundations.juggler;
+			BroodmotherBase.gameAtlas = foundations.atlas;
+			BroodmotherBase.flow = this.flow = foundations.flow;
+			BroodmotherBase.world = world;
 			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(ZeroRunner.prerestore);
-			flow.addUpdateListener(ZeroRunner.tick);
-			flow.addUpdateListener(ZeroRunner.aftertick);
-			flow.addUpdateListener(ZeroRunner.getInformerFrom);
-			flow.addUpdateListener(SearcherFeature.cacheActors);
+			this.input = foundations.input;
 			
-			new WindFeature(flow);
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(ZeroRunner.prerestore);
+			this.flow.addUpdateListener(ZeroRunner.tick);
+			this.flow.addUpdateListener(ZeroRunner.aftertick);
+			this.flow.addUpdateListener(SearcherFeature.cacheActors);
+			
+			new WindFeature(this.flow);
 		}
 		
 		update function cacheActors(cache:Vector.<ItemLogicBase>, center:ICoordinated, width:int, height:int):void
@@ -111,18 +114,6 @@ package game.items
 			
 			for (var i:int = 0; i < length; i++)
 				this.broods[i].refillActors();
-		}
-		
-		update function getInformerFrom(table:IGiveInformers):void
-		{
-			BroodmotherBase.juggler = table.getInformer(Juggler);
-			
-			BroodmotherBase.gameAtlas = table.getInformer(AssetManager).getTextureAtlas("gameAtlas");
-			
-			BroodmotherBase.world = table.getInformer(ISearcher);
-			BroodmotherBase.flow = this.flow;
-			
-			this.input = table.getInformer(IKnowInput);
 		}
 	}
 

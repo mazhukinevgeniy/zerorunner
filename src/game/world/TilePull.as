@@ -3,16 +3,13 @@ package game.world
 	import starling.display.Image;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
-	import starling.utils.AssetManager;
 	
 	internal class TilePull 
 	{
 		private var textures:Object;
 		
-		public function TilePull(assets:AssetManager) 
+		public function TilePull(atlas:TextureAtlas) 
 		{
-			var atlas:TextureAtlas = assets.getTextureAtlas("gameAtlas");
-			
 			var titles:Vector.<String> = new < String > 
 										   ["ground", "S", "W", "E", "N",
 											"NE", "NW", "SE", "SW",

@@ -1,8 +1,7 @@
-package game.ui.input
+package game.input
 {
 	import game.metric.DCellXY;
 	import game.ZeroRunner;
-	import utils.informers.IStoreInformers;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -23,7 +22,6 @@ package game.ui.input
 			
 			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(InputManager.newInputPiece);
-			flow.addUpdateListener(ZeroRunner.addInformerTo);
 			flow.addUpdateListener(ZeroRunner.aftertick);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
@@ -134,11 +132,6 @@ package game.ui.input
 		private function pop(value:int):void
 		{
 			this.order[value] = -1;
-		}
-		
-		update function addInformerTo(table:IStoreInformers):void
-		{
-			table.addInformer(IKnowInput, this);
 		}
 	}
 

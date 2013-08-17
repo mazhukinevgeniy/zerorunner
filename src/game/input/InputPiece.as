@@ -1,4 +1,4 @@
-package game.ui.input 
+package game.input 
 {
 	import game.metric.DCellXY;
 	

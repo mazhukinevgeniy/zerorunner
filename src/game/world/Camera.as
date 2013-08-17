@@ -12,7 +12,6 @@ package game.world
 	import starling.display.DisplayObjectContainer;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
-	import utils.informers.IGiveInformers;
 	import utils.PixelPerfectTween;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -31,9 +30,11 @@ package game.world
 		private var moveTween:PixelPerfectTween;
 		
 		
-		public function Camera(flow:IUpdateDispatcher) 
+		public function Camera(flow:IUpdateDispatcher, juggler:Juggler) 
 		{
-			var numberOfLines:int = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
+			this.juggler = juggler;
+			
+			const numberOfLines:int = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
 			
 			this.lines = new Vector.<Sprite>(numberOfLines, true);
 			
@@ -50,7 +51,6 @@ package game.world
 			
 			flow.addUpdateListener(ActorsFeature.setCenter);
 			flow.addUpdateListener(ActorsFeature.moveCenter);
-			flow.addUpdateListener(ZeroRunner.getInformerFrom);
 			flow.addUpdateListener(ZeroRunner.prerestore);
 			
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);
@@ -88,12 +88,6 @@ package game.world
 			this.moveTween.moveTo(this.container.x - change.x * Metric.CELL_WIDTH, this.container.y - change.y * Metric.CELL_HEIGHT);
 			
 			this.juggler.add(this.moveTween);
-		}
-		
-		
-		update function getInformerFrom(table:IGiveInformers):void
-		{
-			this.juggler = table.getInformer(Juggler);
 		}
 	}
 	

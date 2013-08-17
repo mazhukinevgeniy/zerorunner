@@ -2,7 +2,8 @@ package game.items
 {
 	import game.metric.CellXY;
 	import game.metric.Metric;
-	import utils.updates.IUpdateDispatcher;
+	import game.utils.GameFoundations;
+	import game.world.ISearcher;
 	
 	public class ActorsFeature
 	{		
@@ -16,9 +17,9 @@ package game.items
 		public static const moveActor:String = "moveActor";
 		public static const removeActor:String = "removeActor";
 		
-		public function ActorsFeature(flow:IUpdateDispatcher) 
+		public function ActorsFeature(foundations:GameFoundations, world:ISearcher) 
 		{
-			new ActorStorage(flow);
+			new ActorStorage(foundations, world);
 		}
 		
 		

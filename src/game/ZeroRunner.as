@@ -1,6 +1,7 @@
 package game 
 {
 	import game.achievements.AchievementsFeature;
+	import game.input.InputManager;
 	import game.items.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -9,18 +10,20 @@ package game
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
 	import game.time.Time;
-	import game.ui.input.InputManager;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
+	import game.utils.GameFoundations;
+	import game.world.ISearcher;
 	import game.world.SearcherFeature;
+	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import ui.ChaoticUI;
-	import utils.informers.InformerManager;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
@@ -29,9 +32,6 @@ package game
 		public static const flowName:String = "Game Flow";
 		
 		public static const addToTheHUD:String = "addToTheHUD";
-		
-		public static const addInformerTo:String = "addInformerTo";
-		public static const getInformerFrom:String = "getInformerFrom";
 		
 		public static const prerestore:String = "prerestore";
 		public static const restore:String = "restore";
@@ -51,8 +51,9 @@ package game
 		
 		
 		
-		protected var displayRoot:Sprite;
-		protected var informers:InformerManager;
+		private var displayRoot:Sprite;
+		
+		private var atlas:TextureAtlas;
 		
 		public function ZeroRunner(assets:AssetManager) 
 		{			
@@ -64,15 +65,14 @@ package game
 			this.addUpdateListener(ZeroRunner.addToTheHUD);
 			this.addUpdateListener(ZeroRunner.quitGame);
 			
-			this.informers = new InformerManager();
-			this.informers.addInformer(AssetManager, assets);
+			this.atlas = assets.getTextureAtlas("gameAtlas");
 		}
 		
 		update function setGameContainer(viewRoot:Sprite):void
 		{
 			this.displayRoot = viewRoot;
 			
-			var image:Image = new Image(this.informers.getInformer(AssetManager).getTextureAtlas("gameAtlas").getTexture("fall"));
+			var image:Image = new Image(this.atlas.getTexture("fall"));
 			image.scaleX = 2 * Main.WIDTH / image.width;
 			image.scaleY = 2 * Main.HEIGHT / image.height;
 			
@@ -82,23 +82,25 @@ package game
 			viewRoot.addChild(image);
 			
 			Metric.initialize(40, 40);
+			//TODO: think if needed
+			//not needed, of course!
 			
-			new Time(this.displayRoot, this);
+			var foundations:GameFoundations = new GameFoundations
+					(this, new Juggler(), this.atlas, new InputManager(this));
+			
+			new Time(this.displayRoot, foundations);
 			new InputManager(this);
 			
-			new SearcherFeature(this, this.informers.getInformer(AssetManager));
+			var world:ISearcher = new SearcherFeature(foundations);
 			new UIExtendsions(this);
 			
 			new SceneFeature(this);
-			new ActorsFeature(this);
+			new ActorsFeature(foundations, world);
 			
 			new StatisticsFeature(this);
 			new AchievementsFeature(this);
 			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
-			
-			this.dispatchUpdate(ZeroRunner.addInformerTo, informers);
-			this.dispatchUpdate(ZeroRunner.getInformerFrom, informers);
 		}
 		
 		
