@@ -4,38 +4,14 @@ package game.metric
 	
 	public class Metric
 	{
-		private static var cellWidth:int;
-		private static var cellHeight:int;
+		public static const CELL_WIDTH:int = 40;
+		public static const CELL_HEIGHT:int = 40;
 		
-		private static var cellsInVisibleWidth:int;
-		private static var cellsInVisibleHeigth:int;
+		public static const CELLS_IN_VISIBLE_WIDTH:int = int(Main.WIDTH / Metric.CELL_WIDTH);
+		public static const CELLS_IN_VISIBLE_HEIGHT:int = int(Main.HEIGHT / Metric.CELL_HEIGHT);
 		
-		public static function get CELL_WIDTH():int { return Metric.cellWidth; }
-		public static function get CELL_HEIGHT():int { return Metric.cellWidth; }
+		private static const randomDCells:Vector.<DCellXY> = new <DCellXY>[new DCellXY(-1, 0), new DCellXY(1, 0), new DCellXY(0,1), new DCellXY(0, -1)];
 		
-		public static function get CELLS_IN_VISIBLE_WIDTH():int { return Metric.cellsInVisibleWidth; }
-		public static function get CELLS_IN_VISIBLE_HEIGHT():int { return Metric.cellsInVisibleHeigth; }
-		
-		private static var randomDCells:Vector.<DCellXY> = new <DCellXY>[new DCellXY(-1, 0), new DCellXY(1, 0), new DCellXY(0,1), new DCellXY(0, -1)];
-		
-		public function Metric() 
-		{
-			throw new StaticClassError();
-		}
-		
-		public static function initialize(cW:int = 24, cH:int = 24):void
-		{
-			if (Metric.cellWidth != 0) throw new Error();
-			
-			Metric.cellWidth = cW;
-			Metric.cellHeight = cH;
-			
-			Metric.cellsInVisibleWidth = int(Main.WIDTH / Metric.cellWidth);
-			Metric.cellsInVisibleHeigth = int(Main.HEIGHT / Metric.cellHeight);
-			
-			Metric.tmpCell = new CellXY(0, 0);
-			Metric.tmpDCell = new DCellXY(0, 0);
-		}
 		
 		public static function getRandomDCell():DCellXY 
 		{
@@ -52,8 +28,8 @@ package game.metric
 		 * Global helper
 		 */
 		
-		private static var tmpCell:CellXY;
-		private static var tmpDCell:DCellXY;
+		private static const tmpCell:CellXY = new CellXY(0, 0);
+		private static const tmpDCell:DCellXY = new DCellXY(0, 0);
 		
 		public static function getTmpCell(x:int, y:int):CellXY
 		{
@@ -70,6 +46,9 @@ package game.metric
 			
 			return Metric.tmpDCell;
 		}
+		
+		
+		public function Metric() { throw new StaticClassError(); }
 	}
 
 }

@@ -5,7 +5,6 @@ package game
 	import game.items.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
-	import game.metric.Metric;
 	import game.scene.SceneFeature;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
@@ -80,10 +79,6 @@ package game
 			image.y = -50;
 			
 			viewRoot.addChild(image);
-			
-			Metric.initialize(40, 40);
-			//TODO: think if needed
-			//not needed, of course!
 			
 			var foundations:GameFoundations = new GameFoundations
 					(this, new Juggler(), this.atlas, new InputManager(this));
