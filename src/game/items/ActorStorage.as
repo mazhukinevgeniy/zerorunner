@@ -8,6 +8,7 @@ package game.items
 	import game.items.skyClearer.SkyClearer;
 	import game.items.technic.Technic;
 	import game.metric.ICoordinated;
+	import game.time.Time;
 	import game.utils.GameFoundations;
 	import game.world.ISearcher;
 	import game.world.SearcherFeature;
@@ -37,8 +38,8 @@ package game.items
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(ZeroRunner.prerestore);
-			this.flow.addUpdateListener(ZeroRunner.tick);
-			this.flow.addUpdateListener(ZeroRunner.aftertick);
+			this.flow.addUpdateListener(Time.tick);
+			this.flow.addUpdateListener(Time.aftertick);
 			this.flow.addUpdateListener(SearcherFeature.cacheActors);
 			
 			new WindFeature(this.flow);

@@ -1,5 +1,6 @@
 package game.ui 
 {
+	import game.time.Time;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.particles.PDParticleSystem;
@@ -30,7 +31,7 @@ package game.ui
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.gameOver);
-			flow.addUpdateListener(ZeroRunner.setPause);
+			flow.addUpdateListener(Time.setPause);
 			
 			this.container = new Sprite();
 			flow.dispatchUpdate(ZeroRunner.addToTheHUD, this.container);

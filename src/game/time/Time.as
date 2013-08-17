@@ -11,6 +11,13 @@ package game.time
 	
 	public class Time
 	{
+		public static const redraw:String = "redraw";
+		public static const tick:String = "tick";
+		public static const aftertick:String = "aftertick";
+		
+		public static const setPause:String = "setPause";
+		
+		
 		private var FPS:int;
 		private var tickFrame:int;
 		private var redrawFrame:int;
@@ -65,8 +72,8 @@ package game.time
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(ZeroRunner.restore);
-			flow.addUpdateListener(ZeroRunner.setPause);
 			flow.addUpdateListener(ZeroRunner.gameOver);
+			flow.addUpdateListener(Time.setPause);
 			flow.addUpdateListener(Time.addCacher);
 			
 			this.updateFlow = flow;
@@ -103,14 +110,14 @@ package game.time
 				{
 					this.frameCount = 0;
 					
-					this.updateFlow.dispatchUpdate(ZeroRunner.tick);
-					this.updateFlow.dispatchUpdate(ZeroRunner.aftertick);
+					this.updateFlow.dispatchUpdate(Time.tick);
+					this.updateFlow.dispatchUpdate(Time.aftertick);
 				}
 				else if (this.frameCount == this.redrawFrame)
 				{
 					this.frameCount++;
 					
-					this.updateFlow.dispatchUpdate(ZeroRunner.redraw);
+					this.updateFlow.dispatchUpdate(Time.redraw);
 				}
 				else
 				{

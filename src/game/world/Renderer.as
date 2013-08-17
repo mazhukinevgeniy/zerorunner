@@ -2,8 +2,8 @@ package game.world
 {
 	import game.items.ItemLogicBase;
 	import game.metric.Metric;
+	import game.time.Time;
 	import game.utils.GameFoundations;
-	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
@@ -26,7 +26,7 @@ package game.world
 			this.data = data;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(ZeroRunner.redraw);
+			flow.addUpdateListener(Time.redraw);
 			
 			this.pull = new TilePull(foundations.atlas);
 		}

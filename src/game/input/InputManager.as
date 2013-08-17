@@ -1,6 +1,7 @@
 package game.input
 {
 	import game.metric.DCellXY;
+	import game.time.Time;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -22,7 +23,7 @@ package game.input
 			
 			flow.addUpdateListener(ZeroRunner.restore);
 			flow.addUpdateListener(InputManager.newInputPiece);
-			flow.addUpdateListener(ZeroRunner.aftertick);
+			flow.addUpdateListener(Time.aftertick);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
 			

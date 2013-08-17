@@ -66,7 +66,7 @@ package game.time
 		
 		private function setPause():void
 		{
-			this.flow.dispatchUpdate(ZeroRunner.setPause, this.pauseToggled || this.isInUse || this.isOutOfSight);
+			this.flow.dispatchUpdate(Time.setPause, this.pauseToggled || this.isInUse || this.isOutOfSight);
 		}
 	}
 
