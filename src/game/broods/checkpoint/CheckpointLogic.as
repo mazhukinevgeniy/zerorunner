@@ -1,7 +1,7 @@
-package game.items.checkpoint 
+package game.broods.checkpoint 
 {
-	import game.items.ItemLogicBase;
-	import game.items.utils.ConfigKit;
+	import game.broods.ItemLogicBase;
+	import game.broods.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;

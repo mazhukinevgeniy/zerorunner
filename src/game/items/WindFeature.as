@@ -1,5 +1,6 @@
 package game.items 
 {
+	import game.broods.ItemLogicBase;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.metric.Metric;

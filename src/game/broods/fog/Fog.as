@@ -1,7 +1,7 @@
-package game.items.fog 
+package game.broods.fog 
 {
-	import game.items.BroodmotherBase;
-	import game.items.ItemLogicBase;
+	import game.broods.BroodmotherBase;
+	import game.broods.ItemLogicBase;
 	
 	public class Fog extends BroodmotherBase
 	{

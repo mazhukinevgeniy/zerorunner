@@ -1,8 +1,8 @@
-package game.items.technic 
+package game.broods.technic 
 {
-	import game.items.ItemLogicBase;
-	import game.items.skyClearer.IGiveTowers;
-	import game.items.utils.ConfigKit;
+	import game.broods.IGiveTowers;
+	import game.broods.ItemLogicBase;
+	import game.broods.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;

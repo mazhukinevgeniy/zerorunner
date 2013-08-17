@@ -1,6 +1,7 @@
-package game.items 
+package game.broods 
 {
-	import game.items.utils.ConfigKit;
+	import game.broods.utils.ConfigKit;
+	import game.items.ActorsFeature;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;

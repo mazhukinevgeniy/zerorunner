@@ -1,7 +1,7 @@
-package game.items.checkpoint 
+package game.broods.checkpoint 
 {
-	import game.items.BroodmotherBase;
-	import game.items.ItemLogicBase;
+	import game.broods.BroodmotherBase;
+	import game.broods.ItemLogicBase;
 	
 	public class Checkpoint extends BroodmotherBase
 	{

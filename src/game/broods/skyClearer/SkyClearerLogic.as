@@ -1,7 +1,7 @@
-package game.items.skyClearer 
+package game.broods.skyClearer 
 {
-	import game.items.ItemLogicBase;
-	import game.items.utils.ConfigKit;
+	import game.broods.ItemLogicBase;
+	import game.broods.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.SceneFeature;

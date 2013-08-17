@@ -1,6 +1,7 @@
 package game 
 {
 	import game.achievements.AchievementsFeature;
+	import game.broods.BroodsFeature;
 	import game.input.InputManager;
 	import game.items.ActorsFeature;
 	import game.scene.SceneFeature;
@@ -45,8 +46,10 @@ package game
 			var world:SearcherFeature = new SearcherFeature(foundations);
 			new UIExtendsions(this);
 			
+			var broods:BroodsFeature = new BroodsFeature(foundations, world);
+			
 			new SceneFeature(this);
-			new ActorsFeature(foundations, world);
+			new ActorsFeature(foundations, broods);
 			
 			new StatisticsFeature(this);
 			new AchievementsFeature(this);

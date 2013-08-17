@@ -1,6 +1,6 @@
-package game.items.fog 
+package game.broods.fog 
 {
-	import game.items.ItemViewBase;
+	import game.broods.ItemViewBase;
 	
 	internal class FogView extends ItemViewBase
 	{

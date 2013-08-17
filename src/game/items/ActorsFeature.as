@@ -1,9 +1,9 @@
 package game.items 
 {
+	import game.broods.IGiveBroods;
 	import game.metric.CellXY;
 	import game.metric.Metric;
 	import game.utils.GameFoundations;
-	import game.world.ISearcher;
 	
 	public class ActorsFeature
 	{		
@@ -17,9 +17,9 @@ package game.items
 		public static const moveActor:String = "moveActor";
 		public static const removeActor:String = "removeActor";
 		
-		public function ActorsFeature(foundations:GameFoundations, world:ISearcher) 
+		public function ActorsFeature(foundations:GameFoundations, broods:IGiveBroods) 
 		{
-			new ActorStorage(foundations, world);
+			new ActorStorage(foundations, broods);
 		}
 		
 		

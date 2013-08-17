@@ -1,6 +1,6 @@
-package game.items.checkpoint 
+package game.broods.checkpoint 
 {
-	import game.items.ItemViewBase;
+	import game.broods.ItemViewBase;
 	import game.metric.Metric;
 	import game.time.Time;
 	import starling.display.DisplayObject;

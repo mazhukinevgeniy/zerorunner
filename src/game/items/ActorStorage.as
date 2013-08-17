@@ -1,12 +1,10 @@
 package game.items 
 {
+	import game.broods.BroodmotherBase;
+	import game.broods.BroodsFeature;
+	import game.broods.IGiveBroods;
+	import game.broods.ItemLogicBase;
 	import game.input.IKnowInput;
-	import game.items.character.Character;
-	import game.items.checkpoint.Checkpoint;
-	import game.items.fog.Fog;
-	import game.items.skyClearer.IGiveTowers;
-	import game.items.skyClearer.SkyClearer;
-	import game.items.technic.Technic;
 	import game.metric.ICoordinated;
 	import game.time.Time;
 	import game.utils.GameFoundations;
@@ -21,28 +19,28 @@ package game.items
 	
 	internal class ActorStorage
 	{
-		private var flow:IUpdateDispatcher;
-		private var input:IKnowInput;
-		
 		protected var broods:Vector.<BroodmotherBase>;
 		
 		
-		public function ActorStorage(foundations:GameFoundations, world:ISearcher) 
+		public function ActorStorage(foundations:GameFoundations, broods:IGiveBroods) 
 		{
-			BroodmotherBase.juggler = foundations.juggler;
-			BroodmotherBase.gameAtlas = foundations.atlas;
-			BroodmotherBase.flow = this.flow = foundations.flow;
-			BroodmotherBase.world = world;
+			var flow:IUpdateDispatcher = foundations.flow;
 			
-			this.input = foundations.input;
+			this.broods = new Vector.<BroodmotherBase>();
 			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(UpdateGameBase.prerestore);
-			this.flow.addUpdateListener(Time.tick);
-			this.flow.addUpdateListener(Time.aftertick);
-			this.flow.addUpdateListener(SearcherFeature.cacheActors);
+			this.broods.push(broods.getBrood(BroodsFeature.CHARACTER));
+			this.broods.push(broods.getBrood(BroodsFeature.CHECKPOINT));
+			this.broods.push(broods.getBrood(BroodsFeature.FOG));
+			this.broods.push(broods.getBrood(BroodsFeature.SKY_CLEARER));
+			this.broods.push(broods.getBrood(BroodsFeature.TECHNIC));
 			
-			new WindFeature(this.flow);
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(UpdateGameBase.prerestore);
+			flow.addUpdateListener(Time.tick);
+			flow.addUpdateListener(Time.aftertick);
+			flow.addUpdateListener(SearcherFeature.cacheActors);
+			
+			new WindFeature(flow);
 		}
 		
 		update function cacheActors(cache:Vector.<ItemLogicBase>, center:ICoordinated, width:int, height:int):void
@@ -85,14 +83,6 @@ package game.items
 		
 		update function prerestore():void
 		{
-			this.broods = new Vector.<BroodmotherBase>();
-			
-			this.broods.push(new Character(this.input));
-			this.broods.push(new Checkpoint());
-			this.broods.push(new Fog());
-			this.broods.push(new SkyClearer());
-			this.broods.push(new Technic(this.broods[3] as IGiveTowers));
-			
 			var length:int = this.broods.length;
 			
 			for (var i:int = 0; i < length; i++)

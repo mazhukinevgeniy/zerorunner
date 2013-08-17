@@ -1,7 +1,7 @@
-package game.items.fog 
+package game.broods.fog 
 {
-	import game.items.ItemLogicBase;
-	import game.items.utils.ConfigKit;
+	import game.broods.ItemLogicBase;
+	import game.broods.utils.ConfigKit;
 	import game.metric.DCellXY;
 	
 	internal class FogLogic extends ItemLogicBase

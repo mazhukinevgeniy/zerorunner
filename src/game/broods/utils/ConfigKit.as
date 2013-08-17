@@ -1,4 +1,4 @@
-package game.items.utils 
+package game.broods.utils 
 {
 	
 	public class ConfigKit 

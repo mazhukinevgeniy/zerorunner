@@ -1,8 +1,8 @@
-package game.items.technic 
+package game.broods.technic 
 {
-	import game.items.BroodmotherBase;
-	import game.items.ItemLogicBase;
-	import game.items.skyClearer.IGiveTowers;
+	import game.broods.BroodmotherBase;
+	import game.broods.IGiveTowers;
+	import game.broods.ItemLogicBase;
 	
 	public class Technic extends BroodmotherBase
 	{

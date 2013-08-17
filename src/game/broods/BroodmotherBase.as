@@ -1,5 +1,6 @@
-package game.items 
+package game.broods 
 {
+	import game.items.ActorsFeature;
 	import game.world.ISearcher;
 	import starling.animation.Juggler;
 	import starling.textures.TextureAtlas;
@@ -20,8 +21,6 @@ package game.items
 		
 		public function BroodmotherBase()
 		{
-			this.actors = new Vector.<ItemLogicBase>();
-			
 			this.flow = BroodmotherBase.flow;
 		}
 		
@@ -54,6 +53,7 @@ package game.items
 						actor.reset();
 						
 						this.flow.dispatchUpdate(ActorsFeature.addActor, actor);
+						//TODO: is it to be used?
 					}
 				}
 				else
@@ -86,7 +86,10 @@ package game.items
 			throw new AbstractClassError();
 		}
 		
-		
+		internal function reset():void
+		{
+			this.actors = new Vector.<ItemLogicBase>();
+		}
 		
 		
 		/** Called if actor can not be cached. */

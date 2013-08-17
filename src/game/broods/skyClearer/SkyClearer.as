@@ -1,7 +1,8 @@
-package game.items.skyClearer 
+package game.broods.skyClearer 
 {
-	import game.items.BroodmotherBase;
-	import game.items.ItemLogicBase;
+	import game.broods.BroodmotherBase;
+	import game.broods.IGiveTowers;
+	import game.broods.ItemLogicBase;
 	
 	public class SkyClearer extends BroodmotherBase implements IGiveTowers
 	{

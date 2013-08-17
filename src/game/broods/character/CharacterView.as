@@ -1,6 +1,6 @@
-package game.items.character 
+package game.broods.character 
 {
-	import game.items.ItemViewBase;
+	import game.broods.ItemViewBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;

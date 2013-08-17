@@ -1,6 +1,5 @@
-package game.items.skyClearer 
+package game.broods 
 {
-	import game.items.ItemLogicBase;
 	
 	public interface IGiveTowers 
 	{

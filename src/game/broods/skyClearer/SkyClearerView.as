@@ -1,6 +1,6 @@
-package game.items.skyClearer 
+package game.broods.skyClearer 
 {
-	import game.items.ItemViewBase;
+	import game.broods.ItemViewBase;
 	import game.metric.Metric;
 	import starling.display.DisplayObject;
 	import starling.display.Image;

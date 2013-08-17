@@ -1,9 +1,9 @@
-package game.items.character 
+package game.broods.character 
 {
+	import game.broods.ItemLogicBase;
+	import game.broods.utils.ConfigKit;
 	import game.input.IKnowInput;
 	import game.items.ActorsFeature;
-	import game.items.ItemLogicBase;
-	import game.items.utils.ConfigKit;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;

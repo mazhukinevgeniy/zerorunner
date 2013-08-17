@@ -1,6 +1,6 @@
 package game.world 
 {
-	import game.items.ItemLogicBase;
+	import game.broods.ItemLogicBase;
 	import game.metric.Metric;
 	import game.time.Time;
 	import game.utils.GameFoundations;
