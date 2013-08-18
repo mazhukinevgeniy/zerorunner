@@ -16,12 +16,11 @@ package game.utils.input
 		{
 			super();
 			
-			new KeyboardControls(flow);
+			new KeyboardControls(flow, this);
 			
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(Update.restore);
-			flow.addUpdateListener(Update.newInputPiece);
 			flow.addUpdateListener(Update.aftertick);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
@@ -94,7 +93,7 @@ package game.utils.input
 				this.order[i] = -1;
 		}
 		
-		update function newInputPiece(item:InputPiece):void
+		internal function newInputPiece(item:InputPiece):void
 		{	
 			var tmp:int = 0;
 			

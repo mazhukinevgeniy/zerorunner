@@ -18,9 +18,6 @@ package
 		public static const setGameContainer:String = "setGameContainer";
 		
 		
-		public static const newInputPiece:String = "newInputPiece"; //TODO: remove this
-		
-		
 		public static const redraw:String = "redraw";
 		public static const tick:String = "tick";
 		public static const aftertick:String = "aftertick";
