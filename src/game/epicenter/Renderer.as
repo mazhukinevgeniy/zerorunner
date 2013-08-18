@@ -33,8 +33,6 @@ package game.epicenter
 		
 		update function redraw():void
 		{
-			this.lines.topLine = this.data.cacheCenter.y - this.data.cacheHeight / 2;
-			
 			this.redrawScene();
 			this.redrawActors();
 			this.redrawHazards();
@@ -361,7 +359,8 @@ package game.epicenter
 			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
 			
 			var actor:ItemLogicBase;
-			var container:DisplayObjectContainer;
+			var container:DisplayObjectContainer = this.lines.actors;
+			container.removeChildren();
 			
 			var i:int;
 			var j:int;
@@ -369,9 +368,7 @@ package game.epicenter
 			var number:uint;
 			
 			for (j = tlcY; j < brcY; j++)
-			{
-				container = this.lines.getLine(j);
-				
+			{				
 				for (i = tlcX; i < brcX; i++)
 				{
 					actor = this.data.getUnsafeActor(i, j);

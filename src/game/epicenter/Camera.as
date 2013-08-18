@@ -3,6 +3,7 @@ package game.epicenter
 	import game.core.time.Time;
 	import game.epicenter.items.ActorsFeature;
 	import game.utils.metric.DCellXY;
+	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
@@ -18,10 +19,8 @@ package game.epicenter
 	internal class Camera
 	{
 		private var container:Sprite;
-		private var lines:Vector.<Sprite>;
 		
-		internal var topLine:int;
-		
+		internal var actors:Sprite;
 		internal var scene:QuadBatch;
 		
 		private var juggler:Juggler;
@@ -33,18 +32,9 @@ package game.epicenter
 		{
 			this.juggler = juggler;
 			
-			const numberOfLines:int = Metric.CELLS_IN_VISIBLE_HEIGHT + 6 + Metric.CELLS_IN_VISIBLE_HEIGHT % 2;
-			
-			this.lines = new Vector.<Sprite>(numberOfLines, true);
-			
-			
 			this.container = new Sprite();
-			
-			this.scene = new QuadBatch();
-			this.container.addChild(this.scene);
-			
-			for (var i:int = 0; i < numberOfLines; i++)
-				this.container.addChild(this.lines[i] = new Sprite());
+			this.container.addChild(this.scene = new QuadBatch());
+			this.container.addChild(this.actors = new Sprite());
 			
 			flow.workWithUpdateListener(this);
 			
@@ -61,21 +51,10 @@ package game.epicenter
 		update function prerestore():void
 		{
 			this.scene.reset();
-			
-			var length:int = this.lines.length;
-			
-			for (var i:int = 0; i < length; i++)
-			{
-				this.lines[i].removeChildren();
-			}
+			this.actors.removeChildren();
 		}
 		
-		internal function getLine(y:int):DisplayObjectContainer
-		{
-			return this.lines[y - this.topLine];
-		}
-		
-		update function setCenter(center:game.utils.metric.ICoordinated):void
+		update function setCenter(center:ICoordinated):void
 		{
 			this.container.x = -center.x * Metric.CELL_WIDTH + (Main.WIDTH - Metric.CELL_WIDTH) / 2;
             this.container.y = -center.y * Metric.CELL_HEIGHT + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;
