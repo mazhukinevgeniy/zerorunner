@@ -93,14 +93,14 @@ package game.utils.input
 				this.order[i] = -1;
 		}
 		
-		internal function newInputPiece(item:InputPiece):void
+		internal function newInputPiece(isKeyboard:Boolean, isOn:Boolean, change:DCellXY):void
 		{	
 			var tmp:int = 0;
 			
-			tmp += item.isKeyboard ? InputManager.KEYBOARD : InputManager.MOUSE;
-			tmp += this.dCXYtoInt(item.change);
+			tmp += isKeyboard ? InputManager.KEYBOARD : InputManager.MOUSE;
+			tmp += this.dCXYtoInt(change);
 			
-			if (item.isOn)
+			if (isOn)
 			{
 				this.bubble(tmp + InputManager.PRESS);
 				this.bubble(tmp + InputManager.CLICK); 
