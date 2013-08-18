@@ -9,7 +9,7 @@ package
 		
 		public static const addToTheHUD:String = "addToTheHUD";
 		
-		public static const prerestore:String = "prerestore"; //TODO: check if required
+		public static const prerestore:String = "prerestore";
 		public static const restore:String = "restore";
 		
 		public static const gameOver:String = "gameOver";
