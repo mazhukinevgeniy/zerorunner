@@ -1,7 +1,7 @@
-package game.input
+package game.core.input
 {
-	import game.metric.DCellXY;
-	import game.time.Time;
+	import game.core.time.Time;
+	import game.utils.metric.DCellXY;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

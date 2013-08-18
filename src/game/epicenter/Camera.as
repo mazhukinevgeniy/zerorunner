@@ -1,10 +1,9 @@
-package game.world 
+package game.epicenter 
 {
-	import game.items.ActorsFeature;
-	import game.metric.ICoordinated;
-	import game.time.Time;
-	import game.metric.DCellXY;
-	import game.metric.Metric;
+	import game.core.time.Time;
+	import game.epicenter.items.ActorsFeature;
+	import game.utils.metric.DCellXY;
+	import game.utils.metric.Metric;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;
@@ -76,7 +75,7 @@ package game.world
 			return this.lines[y - this.topLine];
 		}
 		
-		update function setCenter(center:ICoordinated):void
+		update function setCenter(center:game.utils.metric.ICoordinated):void
 		{
 			this.container.x = -center.x * Metric.CELL_WIDTH + (Main.WIDTH - Metric.CELL_WIDTH) / 2;
             this.container.y = -center.y * Metric.CELL_HEIGHT + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;

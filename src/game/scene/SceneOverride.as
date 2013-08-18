@@ -1,9 +1,9 @@
 package game.scene 
 {
-	import game.items.ActorsFeature;
-	import game.metric.CellXY;
-	import game.metric.ICoordinated;
-	import game.world.SearcherFeature;
+	import game.epicenter.items.ActorsFeature;
+	import game.epicenter.SearcherFeature;
+	import game.utils.metric.CellXY;
+	import game.utils.metric.ICoordinated;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

@@ -1,7 +1,7 @@
-package game.world 
+package game.epicenter 
 {
 	import game.broods.ItemLogicBase;
-	import game.metric.ICoordinated;
+	import game.utils.metric.ICoordinated;
 	
 	public interface ISearcher 
 	{

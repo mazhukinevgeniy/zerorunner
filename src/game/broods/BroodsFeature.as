@@ -5,9 +5,8 @@ package game.broods
 	import game.broods.fog.Fog;
 	import game.broods.skyClearer.SkyClearer;
 	import game.broods.technic.Technic;
-	import game.input.IKnowInput;
+	import game.epicenter.ISearcher;
 	import game.utils.GameFoundations;
-	import game.world.ISearcher;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.update;
 	

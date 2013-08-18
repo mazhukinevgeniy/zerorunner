@@ -1,15 +1,15 @@
-package game.world 
+package game.epicenter 
 {
 	import game.broods.ItemLogicBase;
-	import game.items.ActorsFeature;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import game.metric.Metric;
+	import game.core.time.ICacher;
+	import game.core.time.Time;
+	import game.epicenter.items.ActorsFeature;
 	import game.scene.SceneFeature;
-	import game.time.ICacher;
-	import game.time.Time;
 	import game.utils.GameFoundations;
+	import game.utils.metric.CellXY;
+	import game.utils.metric.DCellXY;
+	import game.utils.metric.ICoordinated;
+	import game.utils.metric.Metric;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

@@ -3,10 +3,7 @@ package game.broods.technic
 	import game.broods.IGiveTowers;
 	import game.broods.ItemLogicBase;
 	import game.broods.utils.ConfigKit;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import game.metric.Metric;
+	import game.utils.metric.*;
 	
 	internal class TechnicLogic extends ItemLogicBase
 	{

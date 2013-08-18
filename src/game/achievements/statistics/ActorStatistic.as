@@ -1,10 +1,10 @@
 package game.achievements.statistics 
 {
-	import game.items.ActorsFeature;
-	import game.metric.DCellXY;
+	import game.epicenter.items.ActorsFeature;
 	import game.statistics.ITakeStatistics;
 	import game.statistics.StatisticsFeature;
 	import game.statistics.StatisticsPiece;
+	import game.utils.metric.DCellXY;
 	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

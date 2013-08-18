@@ -2,9 +2,7 @@ package game.broods.checkpoint
 {
 	import game.broods.ItemLogicBase;
 	import game.broods.utils.ConfigKit;
-	import game.metric.CellXY;
-	import game.metric.ICoordinated;
-	import game.metric.Metric;
+	import game.utils.metric.*;
 	
 	internal class CheckpointLogic extends ItemLogicBase
 	{

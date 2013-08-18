@@ -2,22 +2,23 @@ package game
 {
 	import game.achievements.AchievementsFeature;
 	import game.broods.BroodsFeature;
-	import game.input.InputManager;
-	import game.items.ActorsFeature;
+	import game.core.input.InputManager;
+	import game.core.time.Time;
+	import game.epicenter.items.ActorsFeature;
+	import game.epicenter.SearcherFeature;
 	import game.scene.SceneFeature;
+	import game.sectors.SectorsFeature;
 	import game.statistics.StatisticsFeature;
-	import game.time.Time;
 	import game.ui.KeyboardControls;
 	import game.ui.UIExtendsions;
 	import game.utils.GameFoundations;
-	import game.world.SearcherFeature;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.templates.UpdateGameBase;
 	
-	public class ZeroRunner extends UpdateGameBase
+	public class ZeroRunner extends UpdateGameBase implements IGame
 	{
 		public static const flowName:String = "Game Flow";
 		
@@ -54,7 +55,14 @@ package game
 			new StatisticsFeature(this);
 			new AchievementsFeature(this);
 			
+			new SectorsFeature(foundations);
+			
 			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
+		}
+		
+		public function getMapWidth():int
+		{
+			return 3;
 		}
 	}
 

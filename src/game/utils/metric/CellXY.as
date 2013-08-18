@@ -1,4 +1,4 @@
-package game.metric 
+package game.utils.metric 
 {
 	
 	public class CellXY extends XYPairBase implements ICoordinated

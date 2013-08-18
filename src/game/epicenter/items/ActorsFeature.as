@@ -1,9 +1,9 @@
-package game.items 
+package game.epicenter.items 
 {
 	import game.broods.IGiveBroods;
-	import game.metric.CellXY;
-	import game.metric.Metric;
 	import game.utils.GameFoundations;
+	import game.utils.metric.CellXY;
+	import game.utils.metric.Metric;
 	
 	public class ActorsFeature
 	{		

@@ -1,6 +1,6 @@
 package game.ui 
 {
-	import game.time.Time;
+	import game.core.time.Time;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.particles.PDParticleSystem;

@@ -1,10 +1,10 @@
 package game.scene 
 {
-	import game.metric.ICoordinated;
+	import game.epicenter.SearcherFeature;
 	import game.scene.patterns.FlatPattern;
 	import game.scene.patterns.getPattern;
 	import game.scene.patterns.IPattern;
-	import game.world.SearcherFeature;
+	import game.utils.metric.ICoordinated;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

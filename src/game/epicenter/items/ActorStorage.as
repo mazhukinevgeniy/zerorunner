@@ -1,15 +1,13 @@
-package game.items 
+package game.epicenter.items 
 {
 	import game.broods.BroodmotherBase;
 	import game.broods.BroodsFeature;
 	import game.broods.IGiveBroods;
 	import game.broods.ItemLogicBase;
-	import game.input.IKnowInput;
-	import game.metric.ICoordinated;
-	import game.time.Time;
+	import game.core.time.Time;
+	import game.epicenter.SearcherFeature;
 	import game.utils.GameFoundations;
-	import game.world.ISearcher;
-	import game.world.SearcherFeature;
+	import game.utils.metric.ICoordinated;
 	import starling.utils.AssetManager;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;

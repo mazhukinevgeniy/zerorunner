@@ -2,12 +2,11 @@ package game.broods.character
 {
 	import game.broods.ItemLogicBase;
 	import game.broods.utils.ConfigKit;
-	import game.input.IKnowInput;
-	import game.items.ActorsFeature;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
+	import game.core.input.IKnowInput;
+	import game.epicenter.items.ActorsFeature;
 	import game.scene.SceneFeature;
+	import game.utils.metric.CellXY;
+	import game.utils.metric.DCellXY;
 	import utils.templates.UpdateGameBase;
 	
 	internal class CharacterLogic extends ItemLogicBase

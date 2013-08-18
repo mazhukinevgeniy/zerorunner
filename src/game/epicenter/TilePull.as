@@ -1,4 +1,4 @@
-package game.world 
+package game.epicenter 
 {
 	import starling.display.Image;
 	import starling.textures.Texture;

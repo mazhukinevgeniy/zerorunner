@@ -1,9 +1,9 @@
-package game.world 
+package game.epicenter 
 {
 	import game.broods.ItemLogicBase;
-	import game.metric.Metric;
-	import game.time.Time;
+	import game.core.time.Time;
 	import game.utils.GameFoundations;
+	import game.utils.metric.Metric;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;

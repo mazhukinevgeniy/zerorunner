@@ -1,10 +1,10 @@
-package game.items 
+package game.epicenter.items 
 {
 	import game.broods.ItemLogicBase;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import game.metric.Metric;
-	import game.world.SearcherFeature;
+	import game.epicenter.SearcherFeature;
+	import game.utils.metric.DCellXY;
+	import game.utils.metric.ICoordinated;
+	import game.utils.metric.Metric;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

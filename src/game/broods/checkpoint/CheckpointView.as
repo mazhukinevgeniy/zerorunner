@@ -1,8 +1,8 @@
 package game.broods.checkpoint 
 {
 	import game.broods.ItemViewBase;
-	import game.metric.Metric;
-	import game.time.Time;
+	import game.core.time.Time;
+	import game.utils.metric.Metric;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;

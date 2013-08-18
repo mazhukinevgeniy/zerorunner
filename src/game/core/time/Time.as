@@ -1,4 +1,4 @@
-package game.time 
+package game.core.time 
 {
 	import game.utils.GameFoundations;
 	import starling.animation.Juggler;

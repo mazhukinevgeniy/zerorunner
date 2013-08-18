@@ -1,10 +1,9 @@
 package game.broods 
 {
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import game.metric.Metric;
-	import game.time.Time;
+	import game.core.time.Time;
+	import game.utils.metric.DCellXY;
+	import game.utils.metric.ICoordinated;
+	import game.utils.metric.Metric;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;
 	import starling.display.Image;

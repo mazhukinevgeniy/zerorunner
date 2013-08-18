@@ -1,6 +1,6 @@
-package game.input 
+package game.core.input 
 {
-	import game.metric.DCellXY;
+	import game.utils.metric.DCellXY;
 	
 	public class InputPiece 
 	{

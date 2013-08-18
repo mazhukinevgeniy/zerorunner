@@ -2,7 +2,7 @@ package game.broods.character
 {
 	import game.broods.BroodmotherBase;
 	import game.broods.ItemLogicBase;
-	import game.input.IKnowInput;
+	import game.core.input.IKnowInput;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class Character extends BroodmotherBase

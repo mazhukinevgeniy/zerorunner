@@ -1,7 +1,7 @@
 package game.broods 
 {
-	import game.items.ActorsFeature;
-	import game.world.ISearcher;
+	import game.epicenter.ISearcher;
+	import game.epicenter.items.ActorsFeature;
 	import starling.animation.Juggler;
 	import starling.textures.TextureAtlas;
 	import utils.errors.AbstractClassError;

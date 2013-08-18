@@ -1,13 +1,13 @@
 package game.broods 
 {
 	import game.broods.utils.ConfigKit;
-	import game.items.ActorsFeature;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import game.metric.Metric;
+	import game.epicenter.ISearcher;
+	import game.epicenter.items.ActorsFeature;
 	import game.scene.SceneFeature;
-	import game.world.ISearcher;
+	import game.utils.metric.CellXY;
+	import game.utils.metric.DCellXY;
+	import game.utils.metric.ICoordinated;
+	import game.utils.metric.Metric;
 	import starling.display.DisplayObject;
 	import utils.errors.AbstractClassError;
 	import utils.updates.IUpdateDispatcher;

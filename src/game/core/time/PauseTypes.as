@@ -1,4 +1,4 @@
-package game.time 
+package game.core.time 
 {
 	import game.ui.panel.Panel;
 	import ui.ChaoticUI;

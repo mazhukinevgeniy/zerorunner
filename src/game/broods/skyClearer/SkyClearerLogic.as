@@ -2,9 +2,9 @@ package game.broods.skyClearer
 {
 	import game.broods.ItemLogicBase;
 	import game.broods.utils.ConfigKit;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
 	import game.scene.SceneFeature;
+	import game.utils.metric.CellXY;
+	import game.utils.metric.DCellXY;
 	
 	internal class SkyClearerLogic extends ItemLogicBase
 	{
