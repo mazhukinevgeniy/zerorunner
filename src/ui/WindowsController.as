@@ -5,7 +5,6 @@ package ui
 	import feathers.layout.AnchorLayoutData;
 	import starling.display.DisplayObjectContainer;
 	import ui.mainMenu.MainMenu;
-	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -84,9 +83,9 @@ package ui
 		{
 			this.flow = flow;
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(ChaoticUI.openWindow);
-			this.flow.addUpdateListener(ChaoticUI.newGame);
-			this.flow.addUpdateListener(UpdateGameBase.quitGame);
+			this.flow.addUpdateListener(Update.openWindow);
+			this.flow.addUpdateListener(Update.newGame);
+			this.flow.addUpdateListener(Update.quitGame);
 		}
 		
 		

@@ -12,19 +12,12 @@ package ui
 	import ui.themes.ExtendedTheme;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
-	import utils.templates.UpdateGameBase;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
 	public class ChaoticUI extends UpdateManager
 	{
 		public static const flowName:String = "Shell Flow";
-		public static const newGame:String = "newGame";
-		
-		public static const openWindow:String = "openWindow";
-		
-		
-		public static const keyUp:String = "keyUp";
 		
 		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
 		private static const HiLoDeco:Class;
@@ -66,21 +59,21 @@ package ui
 		private function initializationUsingFlow():void
 		{
 			this.workWithUpdateListener(this);
-			this.addUpdateListener(ChaoticUI.newGame);
-			this.addUpdateListener(ChaoticUI.keyUp);
-			this.addUpdateListener(UpdateGameBase.quitGame);
+			this.addUpdateListener(Update.newGame);
+			this.addUpdateListener(Update.keyUp);
+			this.addUpdateListener(Update.quitGame);
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
-			this.dispatchUpdate(ChaoticUI.keyUp, event.keyCode);
+			this.dispatchUpdate(Update.keyUp, event.keyCode);
 		}
 		
 		update function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.P && !this.gameIsActive)
 			{
-				this.dispatchUpdate(ChaoticUI.newGame);
+				this.dispatchUpdate(Update.newGame);
 			}
 		}
 		
@@ -90,7 +83,7 @@ package ui
 			
 			this.root.visible = false;
 			
-			this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, ChaoticUI.newGame);
+			this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, Update.newGame);
 		}
 		
 		update function quitGame():void

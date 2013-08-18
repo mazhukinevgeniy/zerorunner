@@ -1,17 +1,16 @@
 package game 
 {
-	import game.achievements.AchievementsFeature;
-	import game.broods.BroodsFeature;
-	import game.core.input.InputManager;
-	import game.core.time.Time;
-	import game.epicenter.items.ActorsFeature;
-	import game.epicenter.SearcherFeature;
-	import game.scene.SceneFeature;
-	import game.sectors.SectorsFeature;
-	import game.statistics.StatisticsFeature;
-	import game.ui.KeyboardControls;
-	import game.ui.UIExtendsions;
+	import game.hud.UIExtendsions;
+	import game.utils.achievements.AchievementsFeature;
 	import game.utils.GameFoundations;
+	import game.utils.input.InputManager;
+	import game.utils.statistics.StatisticsFeature;
+	import game.utils.time.Time;
+	import game.world.broods.BroodsFeature;
+	import game.world.cache.ActorsFeature;
+	import game.world.cache.SceneFeature;
+	import game.world.cache.SearcherFeature;
+	import game.world.sectors.SectorsFeature;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.textures.TextureAtlas;
@@ -57,7 +56,7 @@ package game
 			
 			new SectorsFeature(foundations);
 			
-			this.dispatchUpdate(KeyboardControls.addKeyboardEventListenersTo, Starling.current.stage);
+			this.dispatchUpdate(Update.addKeyboardEventListenersTo, Starling.current.stage);
 		}
 		
 		public function getMapWidth():int

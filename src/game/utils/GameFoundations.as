@@ -1,7 +1,7 @@
 package game.utils 
 {
-	import game.core.input.IKnowInput;
 	import game.IGame;
+	import game.utils.input.IKnowInput;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.textures.TextureAtlas;

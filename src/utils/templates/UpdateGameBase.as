@@ -9,18 +9,6 @@ package utils.templates
 	
 	public class UpdateGameBase extends UpdateManager
 	{
-		public static const addToTheHUD:String = "addToTheHUD";
-		
-		public static const prerestore:String = "prerestore"; //TODO: check if required
-		public static const restore:String = "restore";
-		
-		public static const gameOver:String = "gameOver";
-		public static const quitGame:String = "quitGame";
-		
-		public static const setGameContainer:String = "setGameContainer";
-		
-		
-		
 		protected var displayRoot:Sprite;
 		
 		public function UpdateGameBase(flowName:String) 
@@ -28,10 +16,10 @@ package utils.templates
 			super(flowName);
 			
 			this.workWithUpdateListener(this);
-			this.addUpdateListener(ChaoticUI.newGame);
-			this.addUpdateListener(UpdateGameBase.addToTheHUD);
-			this.addUpdateListener(UpdateGameBase.quitGame);
-			this.addUpdateListener(UpdateGameBase.setGameContainer);
+			this.addUpdateListener(Update.newGame);
+			this.addUpdateListener(Update.addToTheHUD);
+			this.addUpdateListener(Update.quitGame);
+			this.addUpdateListener(Update.setGameContainer);
 		}
 		
 		final update function setGameContainer(viewRoot:Sprite):void
@@ -49,13 +37,13 @@ package utils.templates
 		
 		update function newGame():void
 		{
-			this.dispatchUpdate(UpdateGameBase.prerestore);
-			this.dispatchUpdate(UpdateGameBase.restore);
+			this.dispatchUpdate(Update.prerestore);
+			this.dispatchUpdate(Update.restore);
 		}
 		
 		update function quitGame():void
 		{
-			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, UpdateGameBase.quitGame);
+			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, Update.quitGame);
 		}
 		
 		final update function addToTheHUD(item:DisplayObject):void

@@ -8,10 +8,9 @@ package ui.statistics
 	import feathers.dragDrop.IDropTarget;
 	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
-	import game.statistics.ITakeStatistics;
+	import game.utils.statistics.ITakeStatistics;
+	import game.utils.statistics.StatisticsPiece;
 	import starling.display.Quad;
-	import game.statistics.StatisticsPiece;
-	import game.statistics.StatisticsFeature;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -196,7 +195,7 @@ package ui.statistics
 		{
 			if (newValue || this.data.length == 0)
 			{
-				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, StatisticsFeature.emitStatistics, this);
+				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, Update.emitStatistics, this);
 			}
 			
 			super.visible = newValue;

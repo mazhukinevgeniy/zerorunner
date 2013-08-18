@@ -7,7 +7,6 @@ package ui.mainMenu
 	import starling.events.Event;
 	import starling.utils.AssetManager;
 	import starling.display.Quad;
-	import ui.ChaoticUI;
 	import ui.WindowsFeature;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
@@ -77,19 +76,19 @@ package ui.mainMenu
 		{
 			if (event.target == this.playButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.newGame);
+				this.flow.dispatchUpdate(Update.newGame);
 			}
 			else if (event.target == this.statisticsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.STATISTICS);
+				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.STATISTICS);
 			}
 			else if (event.target == this.achievementsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.ACHIEVEMENTS);
+				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.ACHIEVEMENTS);
 			}
 			else if (event.target == this.creditsButton)
 			{
-				this.flow.dispatchUpdate(ChaoticUI.openWindow, WindowsFeature.CREDITS);
+				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.CREDITS);
 			}
 		}
 		

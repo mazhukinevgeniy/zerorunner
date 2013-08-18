@@ -11,7 +11,7 @@ package ui.statistics
 	import feathers.events.DragDropEvent;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
-	import game.statistics.StatisticsPiece;
+	import game.utils.statistics.StatisticsPiece;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 	import starling.events.Touch;
@@ -50,7 +50,7 @@ package ui.statistics
 			this.initializationFixButton();
 			this.initializationTitle(newData.title);
 			this.initializationList(newData);
-			
+			//TODO: damn it, Leon, "initialize" is way better
 			this.initializationOtherFields(flow);
 			
 			this.initializationEventListeners();

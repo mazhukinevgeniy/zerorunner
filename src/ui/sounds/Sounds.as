@@ -5,7 +5,6 @@ package ui.sounds
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
-	import ui.ChaoticUI;
 	import ui.themes.ExtendedTheme;
 	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;
@@ -50,7 +49,7 @@ package ui.sounds
 		private function initializationUsingFlow(flow:IUpdateDispatcher):void
 		{
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(ChaoticUI.keyUp);
+			flow.addUpdateListener(Update.keyUp);
 		}
 		
 		override protected function checkLocalSave():void
