@@ -1,5 +1,6 @@
 package game.world.broods.character 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
@@ -20,9 +21,9 @@ package game.world.broods.character
 		
 		private var container:Sprite;
 		
-		public function CharacterView() 
+		public function CharacterView(foundations:GameFoundations) 
 		{
-			super();
+			super(foundations);
 		}
 		
 		override protected function getView():DisplayObject

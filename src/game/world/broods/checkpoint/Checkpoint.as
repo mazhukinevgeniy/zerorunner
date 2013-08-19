@@ -1,13 +1,14 @@
 package game.world.broods.checkpoint 
 {
+	import game.utils.GameFoundations;
 	import game.world.broods.BroodmotherBase;
 	import game.world.broods.ItemLogicBase;
 	
 	public class Checkpoint extends BroodmotherBase
 	{
-		public function Checkpoint() 
+		public function Checkpoint(foundations:GameFoundations) 
 		{
-			
+			super(foundations);
 		}
 		
 		override protected function getActorsCap():int

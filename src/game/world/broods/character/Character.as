@@ -1,5 +1,6 @@
 package game.world.broods.character 
 {
+	import game.utils.GameFoundations;
 	import game.utils.input.IKnowInput;
 	import game.world.broods.BroodmotherBase;
 	import game.world.broods.ItemLogicBase;
@@ -9,9 +10,11 @@ package game.world.broods.character
 	{
 		private var input:IKnowInput;
 		
-		public function Character(input:IKnowInput) 
+		public function Character(foundations:GameFoundations) 
 		{
-			this.input = input;
+			super(foundations);
+			
+			this.input = foundations.input;
 		}
 		
 		override protected function getActorsCap():int { return 1; }

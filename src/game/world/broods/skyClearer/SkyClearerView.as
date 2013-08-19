@@ -1,5 +1,6 @@
 package game.world.broods.skyClearer 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.Metric;
 	import game.world.broods.ItemViewBase;
 	import starling.display.DisplayObject;
@@ -9,9 +10,9 @@ package game.world.broods.skyClearer
 	{
 		private var view:Image;
 		
-		public function SkyClearerView() 
+		public function SkyClearerView(foundations:GameFoundations) 
 		{
-			
+			super(foundations);
 		}
 		
 		override protected function getView():DisplayObject

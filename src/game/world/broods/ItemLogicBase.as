@@ -1,11 +1,12 @@
 package game.world.broods 
 {
+	import game.IGame;
+	import game.utils.GameFoundations;
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
 	import game.world.broods.utils.ConfigKit;
-	import game.world.cache.SceneFeature;
 	import game.world.ISearcher;
 	import starling.display.DisplayObject;
 	import utils.errors.AbstractClassError;
@@ -15,6 +16,7 @@ package game.world.broods
 	{
 		protected var world:ISearcher;
 		protected var flow:IUpdateDispatcher;
+		protected var game:IGame;
 		
 		private var view:ItemViewBase;
 		
@@ -33,12 +35,12 @@ package game.world.broods
 		final public function get y():int {	return this._y;	}
 		
 		
-		public function ItemLogicBase(view:ItemViewBase) 
+		public function ItemLogicBase(view:ItemViewBase, foundations:GameFoundations, world:ISearcher) 
 		{
 			this.view = view;
 			
-			this.world = BroodmotherBase.world;
-			this.flow = BroodmotherBase.flow;
+			this.world = world;
+			this.flow = foundations.flow;
 			
 			this.reset();
 		}
@@ -73,8 +75,6 @@ package game.world.broods
 			this.moveSpeed = config.movingSpeed;
 			this.actionSpeed = config.actingSpeed;
 			
-			this._active = true;
-			
 			this.actingCooldown = 0;
 			this.movingCooldown = 0;
 			
@@ -84,7 +84,8 @@ package game.world.broods
 			
 			this.onSpawned();
 			
-			this.flow.dispatchUpdate(Update.addActor, this);
+			//this.flow.dispatchUpdate(Update.addActor, this);
+			//TODO: cache
 			
 			this.view.standOn(cell);
 		}
@@ -95,24 +96,11 @@ package game.world.broods
 		
 		protected function getSpawningCell():CellXY
 		{
-			var character:ICoordinated = this.world.getCenter();
-			
-			var dX:int = (3 + Math.random() * (Metric.CELLS_IN_VISIBLE_WIDTH - 4) / 2) 
-							* ((Math.random() < 0.5) ? 1 : -1);
-			var dY:int = (3 + Math.random() * (Metric.CELLS_IN_VISIBLE_HEIGHT - 4) / 2) 
-							* ((Math.random() < 0.5) ? 1 : -1);
-			
-			var cell:CellXY = Metric.getTmpCell(character.x + dX, character.y + dY);
+			var width:int = (this.game).getMapWidth() * Game.SECTOR_WIDTH;
+			var cell:CellXY = Metric.getTmpCell(Game.SECTOR_WIDTH + Math.random() * width, Game.SECTOR_WIDTH + Math.random() * width);
 			
 			for (; this.world.findObjectByCell(cell.x, cell.y); )
-			{
-				dX = (3 + Math.random() * (Metric.CELLS_IN_VISIBLE_WIDTH - 4) / 2) 
-							* ((Math.random() < 0.5) ? 1 : -1);
-				dY = (3 + Math.random() * (Metric.CELLS_IN_VISIBLE_HEIGHT - 4) / 2)
-							* ((Math.random() < 0.5) ? 1 : -1);
-				
-				cell.setValue(character.x + dX, character.y + dY);
-			}
+				cell.setValue(Game.SECTOR_WIDTH + Math.random() * width, Game.SECTOR_WIDTH + Math.random() * width);
 			
 			return cell;
 		}
@@ -128,7 +116,7 @@ package game.world.broods
 		
 		final protected function isOnTheGround():void
 		{
-			if (this.world.getSceneCell(this.x, this.y) == SceneFeature.FALL)
+			if (this.world.getSceneCell(this.x, this.y) == Game.FALL)
 			{
 				this.applyDestruction();
 			}
@@ -178,15 +166,12 @@ package game.world.broods
 		
 		final public function applyDestruction():void
 		{
-			if (this._active)
-			{
-				this.flow.dispatchUpdate(Update.removeActor, this);
-				this._active = false;
-				
-				this.view.disappear();
-				
-				this.onDestroyed();
-			}
+			//this.flow.dispatchUpdate(Update.removeActor, this);
+			//TODO: uncache
+			
+			this.view.disappear();
+			
+			this.onDestroyed();
 		}
 		
 		/**********
@@ -213,7 +198,8 @@ package game.world.broods
 				this._x += change.x;
 				this._y += change.y;
 				
-				this.flow.dispatchUpdate(Update.moveActor, this, change, this.movingCooldown + 1);
+				//this.flow.dispatchUpdate(Update.moveActor, this, change, this.movingCooldown + 1);
+				//TODO: cache
 				
 				this.view.moveNormally(this, change, this.movingCooldown + 1);
 				
@@ -242,7 +228,8 @@ package game.world.broods
 			this._x += jChange.x;
 			this._y += jChange.y;
 			
-			this.flow.dispatchUpdate(Update.moveActor, this, jChange, this.movingCooldown + 1);
+			//this.flow.dispatchUpdate(Update.moveActor, this, jChange, this.movingCooldown + 1);
+			//TODO: cache
 			
 			this.view.jump(this, jChange, this.movingCooldown + 1);
 			

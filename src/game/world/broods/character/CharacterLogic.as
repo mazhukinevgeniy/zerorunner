@@ -1,5 +1,6 @@
 package game.world.broods.character 
 {
+	import game.utils.GameFoundations;
 	import game.utils.input.IKnowInput;
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
@@ -7,6 +8,7 @@ package game.world.broods.character
 	import game.world.broods.utils.ConfigKit;
 	import game.world.cache.ActorsFeature;
 	import game.world.cache.SceneFeature;
+	import game.world.ISearcher;
 	import utils.templates.UpdateGameBase;
 	
 	internal class CharacterLogic extends ItemLogicBase
@@ -16,11 +18,11 @@ package game.world.broods.character
 		
 		private var input:IKnowInput;
 		
-		public function CharacterLogic(input:IKnowInput) 
+		public function CharacterLogic(foundations:GameFoundations, world:ISearcher) 
 		{
-			super(new CharacterView());
+			super(new CharacterView(), foundations, world);
 			
-			this.input = input;
+			this.input = foundations.input;
 		}
 		
 		override protected function getConfig():ConfigKit

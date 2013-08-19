@@ -1,5 +1,6 @@
 package game.world.broods.technic 
 {
+	import game.utils.GameFoundations;
 	import game.world.broods.BroodmotherBase;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.IPointCollector;
@@ -8,8 +9,10 @@ package game.world.broods.technic
 	{
 		private var towers:IPointCollector;
 		
-		public function Technic(towers:IPointCollector) 
+		public function Technic(foundations:GameFoundations, towers:IPointCollector) 
 		{
+			super(foundations);
+			
 			this.towers = towers;
 		}
 		

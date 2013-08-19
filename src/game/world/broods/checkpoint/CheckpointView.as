@@ -1,5 +1,6 @@
 package game.world.broods.checkpoint 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.Metric;
 	import game.world.broods.ItemViewBase;
 	import starling.display.DisplayObject;
@@ -10,9 +11,9 @@ package game.world.broods.checkpoint
 	{
 		private var container:Sprite;
 		
-		public function CheckpointView() 
+		public function CheckpointView(foundations:GameFoundations) 
 		{
-			
+			super(foundations);	
 		}
 		
 		override protected function getView():DisplayObject

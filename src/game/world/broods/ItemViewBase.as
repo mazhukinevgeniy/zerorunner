@@ -1,5 +1,6 @@
 package game.world.broods 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
@@ -19,10 +20,10 @@ package game.world.broods
 		private var movingTween:PixelPerfectTween;
 		
 		
-		public function ItemViewBase() 
+		public function ItemViewBase(foundations:GameFoundations) 
 		{
-			this.juggler = BroodmotherBase.juggler;
-			this.atlas = BroodmotherBase.gameAtlas;
+			this.juggler = foundations.juggler;
+			this.atlas = foundations.atlas;
 			
 			super();
 			this.addChild(this.getView());
