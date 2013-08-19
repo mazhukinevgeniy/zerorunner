@@ -1,14 +1,14 @@
 package game.world.broods.technic 
 {
 	import game.world.broods.BroodmotherBase;
-	import game.world.broods.IGiveTowers;
 	import game.world.broods.ItemLogicBase;
+	import game.world.broods.utils.IPointCollector;
 	
 	public class Technic extends BroodmotherBase
 	{
-		private var towers:IGiveTowers;
+		private var towers:IPointCollector;
 		
-		public function Technic(towers:IGiveTowers) 
+		public function Technic(towers:IPointCollector) 
 		{
 			this.towers = towers;
 		}
@@ -24,10 +24,6 @@ package game.world.broods.technic
 		}
 		
 		
-		override public function actorOutOfCache(actor:ItemLogicBase):void
-		{
-			actor.applyDamage(2);
-		}
 	}
 
 }

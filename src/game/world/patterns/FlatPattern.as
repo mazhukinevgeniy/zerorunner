@@ -1,6 +1,5 @@
 package game.world.patterns 
 {
-	import game.world.cache.SceneFeature;
 	
 	public class FlatPattern implements IPattern
 	{
@@ -12,7 +11,7 @@ package game.world.patterns
 		
 		public function getNumber(x:int, y:int):int
 		{
-			return SceneFeature.ROAD;
+			return Game.ROAD;
 		}
 	}
 

@@ -23,7 +23,7 @@ package game.world
 		
 		update function prerestore():void
 		{
-			this.width = (this.game.getMapWidth() + 2) * Game.SECTOR_WIDTH;
+			this.width = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
 			const secondJGoal:int = this.width - Game.SECTOR_WIDTH;
 			
 			const NUMBER_OF_PATTERNS:int = 23;
@@ -47,7 +47,7 @@ package game.world
 				for (i = 0; i < Game.SECTOR_WIDTH; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 				for (; i < secondJGoal; i++)
-					this.scene[i + j * this.width] = patterns[uint((x * 84673) ^ (y * 108301)) % NUMBER_OF_PATTERNS].getNumber(i, j);
+					this.scene[i + j * this.width] = patterns[uint((i * 84673) ^ (j * 108301)) % NUMBER_OF_PATTERNS].getNumber(i, j);
 				for (; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			}

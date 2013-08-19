@@ -21,12 +21,6 @@ package game.world.broods.fog
 			return 200;
 		}
 		
-		
-		
-		override public function actorOutOfCache(actor:ItemLogicBase):void
-		{
-			actor.applyDestruction();
-		}
 	}
 
 }

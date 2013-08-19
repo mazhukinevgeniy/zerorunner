@@ -4,9 +4,9 @@ package game.world.broods.technic
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
-	import game.world.broods.IGiveTowers;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
+	import game.world.broods.utils.IPointCollector;
 	
 	internal class TechnicLogic extends ItemLogicBase
 	{
@@ -36,7 +36,7 @@ package game.world.broods.technic
 		
 		private var towers:IGiveTowers;
 		
-		public function TechnicLogic(towers:IGiveTowers) 
+		public function TechnicLogic(towers:IPointCollector) 
 		{			
 			super(new TechnicView());
 			

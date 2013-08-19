@@ -1,5 +1,6 @@
 package game.world.broods 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.CellXY;
 	import game.world.ISearcher;
 	import starling.animation.Juggler;
@@ -13,9 +14,9 @@ package game.world.broods
 		
 		protected var flow:IUpdateDispatcher;
 		
-		public function BroodmotherBase()
+		public function BroodmotherBase(foundations:GameFoundations)
 		{
-			this.flow = BroodmotherBase.flow;
+			this.flow = foundations.flow;
 			
 			this.refillActors();
 		}
@@ -33,26 +34,19 @@ package game.world.broods
 				{
 					actor = this.actors[i];
 					
-					if (actor)
-					{
-						if (!actor.active)
-							actor.reset();
-					}
-					else
+					if (!actor)
 					{
 						actor = this.newActor();
-						actor.reset();
 						
-						this.flow.dispatchUpdate(Update.addActor, actor);
-						//TODO: is it to be used?
+						//this.flow.dispatchUpdate(Update.addActor, actor);
+						//TODO: cache it
 					}
 				}
 				else
 				{
 					actor = this.actors[i] = this.newActor();
-					actor.reset();
 					
-					this.flow.dispatchUpdate(Update.addActor, actor);
+				//	this.flow.dispatchUpdate(Update.addActor, actor);
 				}//TODO: fix double code
 			}
 		}

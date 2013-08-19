@@ -22,7 +22,7 @@ package game.world.broods.utils
 		
 		public function findPointOfInterest(type:int):ICoordinated
 		{
-			
+			throw new Error();
 		}
 	}
 

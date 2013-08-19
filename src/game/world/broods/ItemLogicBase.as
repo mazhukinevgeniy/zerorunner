@@ -27,13 +27,10 @@ package game.world.broods
 		private var _x:int;
 		private var _y:int;
 		
-		private var _active:Boolean;
 		private var _hp:int;
 		
 		final public function get x():int {	return this._x;	}
 		final public function get y():int {	return this._y;	}
-		
-		final public function get active():Boolean { return this._active; }
 		
 		
 		public function ItemLogicBase(view:ItemViewBase) 

@@ -13,7 +13,7 @@ package game.world
 	
 	use namespace update;
 	
-	public class ActorsFeatures
+	public class ActorsFeatures extends SceneFeatures
 	{
 		private var actors:Vector.<ItemLogicBase>;
 		
@@ -22,13 +22,17 @@ package game.world
 		
 		public function ActorsFeatures(foundations:GameFoundations) 
 		{
+			super(foundations.game);
+			
 			this.foundations = foundations;
 			
 			new ActorOperators();
 		}
 		
-		update function prerestore():void
+		override update function prerestore():void
 		{
+			super.update::prerestore();
+			
 			//TODO: clean the cache...
 			
 			

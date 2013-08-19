@@ -14,9 +14,6 @@ package game.utils.time
 		private var tickFrame:int;
 		private var redrawFrame:int;
 		
-		private var cachers:Vector.<Vector.<ICacher>>;
-		private var numberOfCachers:int;
-		
 		private var frameCount:int;
 		
 		private static var TBT:Number;
@@ -41,14 +38,6 @@ package game.utils.time
 			this.tickFrame = this.FPS == 60 ? 5 : 3;
 			this.redrawFrame = this.tickFrame - 1;
 			
-			this.cachers = new Vector.<Vector.<ICacher>>(this.redrawFrame, true);
-			
-			for (var i:int = 0; i < this.redrawFrame; i++)
-			{
-				this.cachers[i] = new Vector.<ICacher>();
-			}
-			
-			this.numberOfCachers = 0;
 			this.frameCount = 0;
 			
 			Time.TBT = this.tickFrame / this.FPS;
@@ -64,16 +53,8 @@ package game.utils.time
 			flow.addUpdateListener(Update.restore);
 			flow.addUpdateListener(Update.gameOver);
 			flow.addUpdateListener(Update.setPause);
-			flow.addUpdateListener(Update.addCacher);
 			
 			this.updateFlow = flow;
-		}
-		
-		update function addCacher(cacher:ICacher):void
-		{
-			this.cachers[this.numberOfCachers % this.redrawFrame].push(cacher);
-			
-			this.numberOfCachers++;
 		}
 		
 		update function restore():void
@@ -111,13 +92,7 @@ package game.utils.time
 				}
 				else
 				{
-					var vector:Vector.<ICacher> = this.cachers[this.frameCount];
-					var length:int = vector.length;
-					
-					for (var i:int = 0; i < length; i++)
-					{
-						vector[i].cache();
-					}
+					//TODO: dispatch update: free tick, hey!
 					
 					this.frameCount++;
 				}

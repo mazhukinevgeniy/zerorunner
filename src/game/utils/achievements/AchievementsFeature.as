@@ -1,13 +1,12 @@
 package game.utils.achievements 
 {
 	import game.utils.achievements.statistics.ActorStatistic;
-	import game.utils.time.ICacher;
 	import game.ZeroRunner;
 	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class AchievementsFeature extends SaveBase implements ICacher
+	public class AchievementsFeature extends SaveBase
 	{
 		
 		private var activeAchievements:Vector.<AchievementBase>;
@@ -22,8 +21,6 @@ package game.utils.achievements
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.unlockAchievement);
-			
-			flow.dispatchUpdate(Update.addCacher, this);
 		}
 		
 		override protected function checkLocalSave():void
