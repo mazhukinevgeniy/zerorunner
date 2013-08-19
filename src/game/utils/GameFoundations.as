@@ -1,9 +1,14 @@
 package game.utils 
 {
 	import game.IGame;
+	import game.utils.achievements.AchievementsFeature;
 	import game.utils.input.IKnowInput;
+	import game.utils.input.InputManager;
+	import game.utils.statistics.StatisticsFeature;
+	import game.utils.time.Time;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
+	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -15,13 +20,18 @@ package game.utils
 		private var _atlas:TextureAtlas;
 		private var _input:IKnowInput;
 		
-		public function GameFoundations(game:ZeroRunner, juggler:Juggler, atlas:TextureAtlas, input:IKnowInput) 
+		public function GameFoundations(game:ZeroRunner, juggler:Juggler, atlas:TextureAtlas, root:Sprite) 
 		{
 			this._game = game;
 			this._atlas = atlas;
 			this._flow = game;
 			this._juggler = juggler;
-			this._input = input;
+			this._input = new InputManager(game);
+			
+			new Time(root, this);
+			
+			new StatisticsFeature(game);
+			new AchievementsFeature(game);
 		}
 		
 		public function get game():IGame

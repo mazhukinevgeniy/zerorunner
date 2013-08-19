@@ -1,11 +1,7 @@
 package game 
 {
 	import game.hud.UIExtendsions;
-	import game.utils.achievements.AchievementsFeature;
 	import game.utils.GameFoundations;
-	import game.utils.input.InputManager;
-	import game.utils.statistics.StatisticsFeature;
-	import game.utils.time.Time;
 	import game.world.broods.BroodsFeature;
 	import game.world.cache.ActorsFeature;
 	import game.world.cache.SceneFeature;
@@ -39,9 +35,7 @@ package game
 			this.displayRoot.stage.color = 0;
 			
 			var foundations:GameFoundations = new GameFoundations
-					(this, new Juggler(), this.atlas, new InputManager(this));
-			
-			new Time(this.displayRoot, foundations);
+					(this, new Juggler(), this.atlas, this.displayRoot);
 			
 			var world:SearcherFeature = new SearcherFeature(foundations);
 			new UIExtendsions(this);
@@ -50,9 +44,6 @@ package game
 			
 			new SceneFeature(this);
 			new ActorsFeature(foundations, broods);
-			
-			new StatisticsFeature(this);
-			new AchievementsFeature(this);
 			
 			new SectorsFeature(foundations, world);
 			
