@@ -16,14 +16,11 @@ package game.world.broods
 		public function BroodmotherBase()
 		{
 			this.flow = BroodmotherBase.flow;
+			
+			this.refillActors();
 		}
 		
-		final public function getActors():Vector.<ItemLogicBase>
-		{
-			return this.actors;
-		}
-		
-		final public function refillActors():void
+		private function refillActors():void
 		{			
 			var length:int = Math.max(this.getActorsCap());
 			var actor:ItemLogicBase;
@@ -39,12 +36,12 @@ package game.world.broods
 					if (actor)
 					{
 						if (!actor.active)
-							actor.reset(this.getCell());
+							actor.reset();
 					}
 					else
 					{
 						actor = this.newActor();
-						actor.reset(this.getCell());
+						actor.reset();
 						
 						this.flow.dispatchUpdate(Update.addActor, actor);
 						//TODO: is it to be used?
@@ -53,7 +50,7 @@ package game.world.broods
 				else
 				{
 					actor = this.actors[i] = this.newActor();
-					actor.reset(this.getCell());
+					actor.reset();
 					
 					this.flow.dispatchUpdate(Update.addActor, actor);
 				}//TODO: fix double code
@@ -65,29 +62,9 @@ package game.world.broods
 			throw new AbstractClassError();
 		}
 		
-		protected function getCell():CellXY
-		{
-			throw new AbstractClassError();
-		}
-		
-		final public function act():void
-		{
-			var length:int = this.actors.length;
-			
-			for (var i:int = 0; i < length; i++)
-			{
-				this.actors[i].act();
-			}
-		}
-		
 		protected function getActorsCap():int
 		{
 			throw new AbstractClassError();
-		}
-		
-		internal function reset():void
-		{
-			this.actors = new Vector.<ItemLogicBase>();
 		}
 		
 	}

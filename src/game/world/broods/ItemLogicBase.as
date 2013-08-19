@@ -42,6 +42,8 @@ package game.world.broods
 			
 			this.world = BroodmotherBase.world;
 			this.flow = BroodmotherBase.flow;
+			
+			this.reset();
 		}
 		
 		final public function getView():DisplayObject
@@ -66,11 +68,7 @@ package game.world.broods
 		
 		
 		
-		/********
-		 ** SETUP
-		 *******/
-		
-		final public function reset():void
+		private function reset():void
 		{
 			var config:ConfigKit = this.getConfig();
 			
@@ -93,6 +91,10 @@ package game.world.broods
 			
 			this.view.standOn(cell);
 		}
+		
+		/********
+		 ** SETUP
+		 *******/
 		
 		protected function getSpawningCell():CellXY
 		{
@@ -289,7 +291,10 @@ package game.world.broods
 		protected function onDamaged(damage:int):void { }
 		
 		/** Called if actor is destroyed by something. */
-		protected function onDestroyed():void { }
+		protected function onDestroyed():void 
+		{ 
+			this.reset();
+		}
 	}
 
 }

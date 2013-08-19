@@ -79,6 +79,11 @@ package game.world
 			}
 			*/
 		}
+		
+		public function getSceneCell(x:int, y:int):int
+		{
+			return this.scene[x + y * this.width];
+		}
 	}
 
 }
