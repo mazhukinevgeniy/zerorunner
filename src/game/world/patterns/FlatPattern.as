@@ -1,4 +1,4 @@
-package game.world.sectors.patterns 
+package game.world.patterns 
 {
 	import game.world.cache.SceneFeature;
 	

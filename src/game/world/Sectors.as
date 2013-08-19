@@ -1,4 +1,4 @@
-package game.world.sectors 
+package game.world 
 {
 	import game.IGame;
 	import game.utils.GameFoundations;
@@ -7,8 +7,13 @@ package game.world.sectors
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class SectorsFeature 
+	public class Sectors 
 	{
+		public static const NORMAL:int = 0;
+		public static const SPAWN:int = 1;
+		public static const FINAL:int = 2;
+		public static const EMPTY:int = 3;
+		
 		private const SECTOR_WIDTH:int = 50;
 		
 		private var game:IGame;
@@ -19,7 +24,7 @@ package game.world.sectors
 		
 		private var center:int;
 		
-		public function SectorsFeature(foundations:GameFoundations, searcher:ISearcher) 
+		public function Sectors(foundations:GameFoundations, searcher:ISearcher) 
 		{
 			this.game = foundations.game;
 			this.searcher = searcher;

@@ -3,7 +3,6 @@ package game
 	import game.hud.UIExtendsions;
 	import game.utils.GameFoundations;
 	import game.world.WorldFeatures;
-	import starling.animation.Juggler;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.templates.UpdateGameBase;
@@ -27,7 +26,7 @@ package game
 			this.displayRoot.stage.color = 0;
 			
 			var foundations:GameFoundations = new GameFoundations
-					(this, new Juggler(), this.atlas, this.displayRoot);
+					(this, this.atlas, this.displayRoot);
 			
 			new WorldFeatures(foundations);
 			

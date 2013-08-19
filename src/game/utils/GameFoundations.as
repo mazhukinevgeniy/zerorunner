@@ -20,12 +20,12 @@ package game.utils
 		private var _atlas:TextureAtlas;
 		private var _input:IKnowInput;
 		
-		public function GameFoundations(game:ZeroRunner, juggler:Juggler, atlas:TextureAtlas, root:Sprite) 
+		public function GameFoundations(game:ZeroRunner, atlas:TextureAtlas, root:Sprite) 
 		{
 			this._game = game;
 			this._atlas = atlas;
 			this._flow = game;
-			this._juggler = juggler;
+			this._juggler = new Juggler();
 			this._input = new InputManager(game);
 			
 			new Time(root, this);

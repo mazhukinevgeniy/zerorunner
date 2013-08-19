@@ -13,21 +13,9 @@ package game.world.cache
 	
 	public class SearcherFeature implements ICacher, ISearcher
 	{
-		
 		private var flow:IUpdateDispatcher;
 		
 		private var center:ICoordinated;
-		
-		/**/
-		internal var cacheCenter:CellXY;
-		
-		internal var sceneCache:Vector.<int>;
-		internal var actorCache:Vector.<ItemLogicBase>;
-		
-		internal var cacheWidth:int;
-		internal var cacheHeight:int;
-		
-		/**/
 		
 		private var cacheStepsDone:int;
 		
