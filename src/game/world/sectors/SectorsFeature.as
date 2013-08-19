@@ -2,24 +2,33 @@ package game.world.sectors
 {
 	import game.IGame;
 	import game.utils.GameFoundations;
+	import game.utils.metric.ICoordinated;
+	import game.world.ISearcher;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class SectorsFeature 
 	{
+		private const SECTOR_WIDTH:int = 50;
+		
 		private var game:IGame;
+		private var searcher:ISearcher;
 		
 		private var width:int;
 		private var sectors:Vector.<NormalSector>;
 		
-		public function SectorsFeature(foundations:GameFoundations) 
+		private var center:int;
+		
+		public function SectorsFeature(foundations:GameFoundations, searcher:ISearcher) 
 		{
 			this.game = foundations.game;
+			this.searcher = searcher;
 			
 			var flow:IUpdateDispatcher = foundations.flow;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.aftertick);
 		}
 		
 		update function prerestore():void
@@ -43,6 +52,33 @@ package game.world.sectors
 			
 			this.sectors[2 * (this.width + 1)] = new FinalSector();
 			this.sectors[totalSectors - 2 * (this.width + 1)] = new SpawnSector();
+			
+			this.center = -1;
+		}
+		
+		update function aftertick():void
+		{
+			var firstI:int, afterlastI:int;
+			
+			var centerSector:int = this.getCenterSector();
+			
+			if (centerSector != this.center)
+			{
+				if (false)
+				{
+					//TODO: check every real shift...
+				}
+				else
+				{
+					//TODO: if no normal interpretation is applicable, reinitialize
+				}
+			}
+		}
+		
+		private function getCenterSector():int
+		{
+			var center:ICoordinated = this.searcher.getCenter();
+			return int(center.x / this.SECTOR_WIDTH) + (this.width + 2) * int(center.y / this.SECTOR_WIDTH);
 		}
 	}
 

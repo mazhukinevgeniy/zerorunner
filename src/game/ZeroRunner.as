@@ -54,7 +54,7 @@ package game
 			new StatisticsFeature(this);
 			new AchievementsFeature(this);
 			
-			new SectorsFeature(foundations);
+			new SectorsFeature(foundations, world);
 			
 			this.dispatchUpdate(Update.addKeyboardEventListenersTo, Starling.current.stage);
 		}
