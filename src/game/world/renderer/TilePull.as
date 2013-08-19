@@ -1,4 +1,4 @@
-package game.world.cache 
+package game.world.renderer 
 {
 	import starling.display.Image;
 	import starling.textures.Texture;

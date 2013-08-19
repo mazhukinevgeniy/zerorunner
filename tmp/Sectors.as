@@ -9,14 +9,7 @@ package game.world
 	
 	public class Sectors 
 	{
-		public static const NORMAL:int = 0;
-		public static const SPAWN:int = 1;
-		public static const FINAL:int = 2;
-		public static const EMPTY:int = 3;
-		
-		private const SECTOR_WIDTH:int = 50;
-		
-		private var game:IGame;
+	private var game:IGame;
 		private var searcher:ISearcher;
 		
 		private var width:int;

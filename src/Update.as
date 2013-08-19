@@ -27,14 +27,6 @@ package
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
-		public static const addActor:String = "addActor";
-		public static const moveActor:String = "moveActor";
-		public static const removeActor:String = "removeActor";
-		
-		
-		
-		public static const addCacher:String = "addCacher";
-		
 		public static const newGame:String = "newGame";
 		
 		public static const openWindow:String = "openWindow";
@@ -52,9 +44,6 @@ package
 		
 		public static const showStatistics:String = "showStatistics";
 		public static const hideStatistics:String = "hideStatistics";
-		
-		public static const cacheScene:String = "cacheScene";
-		public static const cacheActors:String = "cacheActors";
 		
 		public function Update() 
 		{

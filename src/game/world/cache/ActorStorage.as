@@ -32,48 +32,7 @@ package game.world.cache
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.tick);
 			flow.addUpdateListener(Update.aftertick);
-			flow.addUpdateListener(Update.cacheActors);
-			
-			new WindFeature(flow);
 		}
-		
-		update function cacheActors(cache:Vector.<ItemLogicBase>, center:ICoordinated, width:int, height:int):void
-		{			
-			var blength:int = this.broods.length;
-			
-			for (var i:int = 0; i < blength; i++)
-			{
-				var actors:Vector.<ItemLogicBase> = this.broods[i].getActors();
-				var alength:int = actors.length;
-				
-				for (var j:int = 0; j < alength; j++)
-				{
-					var actor:ItemLogicBase = actors[j];
-					
-					if (actor.active)
-					{
-						var x:int = actor.x;
-						var y:int = actor.y;
-						
-						if ((!(x < center.x - width / 2)) && (x < center.x + width / 2)
-							&&
-							(!(y < center.y - height / 2)) && (y < center.y + height / 2))
-						{
-							x -= center.x - width / 2;
-							y -= center.y - height / 2;
-							
-							cache[x + y * width] = actor;
-						}
-						else
-						{
-							this.broods[i].actorOutOfCache(actor);
-						}
-					}
-				}
-			}
-			
-		}
-		
 		
 		update function prerestore():void
 		{

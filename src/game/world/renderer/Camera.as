@@ -1,4 +1,4 @@
-package game.world.cache 
+package game.world.renderer 
 {
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.ICoordinated;

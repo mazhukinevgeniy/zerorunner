@@ -1,5 +1,6 @@
 package game.world.broods 
 {
+	import game.utils.metric.CellXY;
 	import game.world.ISearcher;
 	import starling.animation.Juggler;
 	import starling.textures.TextureAtlas;
@@ -8,12 +9,6 @@ package game.world.broods
 	
 	public class BroodmotherBase 
 	{
-		internal static var gameAtlas:TextureAtlas;
-		internal static var juggler:Juggler;
-		
-		internal static var world:ISearcher;
-		internal static var flow:IUpdateDispatcher;
-		
 		private var actors:Vector.<ItemLogicBase>;
 		
 		protected var flow:IUpdateDispatcher;
@@ -30,7 +25,7 @@ package game.world.broods
 		
 		final public function refillActors():void
 		{			
-			var length:int = Math.max(1, this.getActorsCap() / 2); //TODO: return to the regular syntax
+			var length:int = Math.max(this.getActorsCap());
 			var actor:ItemLogicBase;
 			
 			var vlength:int = this.actors.length;
@@ -44,12 +39,12 @@ package game.world.broods
 					if (actor)
 					{
 						if (!actor.active)
-							actor.reset();
+							actor.reset(this.getCell());
 					}
 					else
 					{
 						actor = this.newActor();
-						actor.reset();
+						actor.reset(this.getCell());
 						
 						this.flow.dispatchUpdate(Update.addActor, actor);
 						//TODO: is it to be used?
@@ -58,7 +53,7 @@ package game.world.broods
 				else
 				{
 					actor = this.actors[i] = this.newActor();
-					actor.reset();
+					actor.reset(this.getCell());
 					
 					this.flow.dispatchUpdate(Update.addActor, actor);
 				}//TODO: fix double code
@@ -66,6 +61,11 @@ package game.world.broods
 		}
 		
 		protected function newActor():ItemLogicBase
+		{
+			throw new AbstractClassError();
+		}
+		
+		protected function getCell():CellXY
 		{
 			throw new AbstractClassError();
 		}
@@ -90,9 +90,6 @@ package game.world.broods
 			this.actors = new Vector.<ItemLogicBase>();
 		}
 		
-		
-		/** Called if actor can not be cached. */
-		public function actorOutOfCache(actor:ItemLogicBase):void { }
 	}
 
 }
