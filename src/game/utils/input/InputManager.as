@@ -16,7 +16,7 @@ package game.utils.input
 		{
 			super();
 			
-			new KeyboardControls(flow, this);
+			new KeyboardControls(this);
 			
 			flow.workWithUpdateListener(this);
 			

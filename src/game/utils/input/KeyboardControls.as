@@ -2,10 +2,9 @@ package game.utils.input
 {
 	import flash.ui.Keyboard;
 	import game.utils.metric.DCellXY;
+	import starling.core.Starling;
 	import starling.events.EventDispatcher;
 	import starling.events.KeyboardEvent;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
 	internal class KeyboardControls
 	{
@@ -16,19 +15,13 @@ package game.utils.input
 		
 		private var input:InputManager;
 		
-		public function KeyboardControls(flow:IUpdateDispatcher, collector:InputManager) 
+		public function KeyboardControls(collector:InputManager) 
 		{
 			this.input = collector;
 			
-			flow.workWithUpdateListener(this);
-			
-			flow.addUpdateListener(Update.addKeyboardEventListenersTo);
-		}
-		
-		update function addKeyboardEventListenersTo(item:EventDispatcher):void
-		{
-			item.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);
-			item.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
+			var events:EventDispatcher = Starling.current.stage;
+			events.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);
+			events.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
 		private function handleKeyDown(event:KeyboardEvent):void

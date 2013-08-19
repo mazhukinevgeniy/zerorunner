@@ -4,9 +4,6 @@ package
 	
 	public class Update 
 	{
-		public static const addKeyboardEventListenersTo:String = "addKeyboardEventListenersTo";
-		
-		
 		public static const addToTheHUD:String = "addToTheHUD";
 		
 		public static const prerestore:String = "prerestore";
