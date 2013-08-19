@@ -1,10 +1,11 @@
 package game.world.broods.skyClearer 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
-	import game.world.cache.SceneFeature;
+	import game.world.ISearcher;
 	
 	internal class SkyClearerLogic extends ItemLogicBase
 	{
@@ -18,16 +19,16 @@ package game.world.broods.skyClearer
 		
 		private var view:SkyClearerView;
 		
-		public function SkyClearerLogic() 
+		public function SkyClearerLogic(foundations:GameFoundations, world:ISearcher) 
 		{
-			super(this.view = new SkyClearerView());
+			super(this.view = new SkyClearerView(foundations), foundations, world);
 		}
 		
 		override protected function getSpawningCell():CellXY
 		{
 			var cell:CellXY = super.getSpawningCell();
 			
-			while (this.world.getSceneCell(cell.x, cell.y) == SceneFeature.FALL)
+			while (this.world.getSceneCell(cell.x, cell.y) == Game.FALL)
 				cell = super.getSpawningCell();
 			
 			return cell;

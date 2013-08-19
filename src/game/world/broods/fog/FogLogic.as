@@ -1,15 +1,17 @@
 package game.world.broods.fog 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.DCellXY;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
+	import game.world.ISearcher;
 	
 	internal class FogLogic extends ItemLogicBase
 	{
 		
-		public function FogLogic() 
+		public function FogLogic(foundations:GameFoundations, world:ISearcher) 
 		{
-			super(new FogView());
+			super(new FogView(foundations), foundations, world);
 		}
 		
 		

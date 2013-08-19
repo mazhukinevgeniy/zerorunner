@@ -1,13 +1,13 @@
 package game.world.broods.character 
 {
+	import game.IGame;
 	import game.utils.GameFoundations;
 	import game.utils.input.IKnowInput;
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
+	import game.utils.metric.Metric;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
-	import game.world.cache.ActorsFeature;
-	import game.world.cache.SceneFeature;
 	import game.world.ISearcher;
 	import utils.templates.UpdateGameBase;
 	
@@ -20,7 +20,7 @@ package game.world.broods.character
 		
 		public function CharacterLogic(foundations:GameFoundations, world:ISearcher) 
 		{
-			super(new CharacterView(), foundations, world);
+			super(new CharacterView(foundations), foundations, world);
 			
 			this.input = foundations.input;
 		}
@@ -32,7 +32,7 @@ package game.world.broods.character
 		
 		override protected function getSpawningCell():CellXY
 		{
-			return ActorsFeature.SPAWN_CELL;
+			return Metric.getTmpCell(Game.SECTOR_WIDTH, Game.SECTOR_WIDTH * (1 + (this.game).getMapWidth()) - 1);
 		}
 		
 		override protected function onSpawned():void
@@ -64,13 +64,13 @@ package game.world.broods.character
 			
 			while (action.x != 0 || action.y != 0)
 			{
-				if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != SceneFeature.FALL)
+				if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != Game.FALL)
 				{
 					this.move(action);
 					
 					return;
 				}
-				else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != SceneFeature.FALL)
+				else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != Game.FALL)
 				{
 					this.jump(action, 2);
 					

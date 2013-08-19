@@ -13,7 +13,7 @@ package game.world
 	
 	use namespace update;
 	
-	public class ActorsFeatures extends SceneFeatures
+	public class ActorsFeatures extends SceneFeatures implements ISearcher
 	{
 		private var actors:Vector.<ItemLogicBase>;
 		
@@ -36,13 +36,18 @@ package game.world
 			//TODO: clean the cache...
 			
 			
-			new PointsOfInterest();
+			var poi:PointsOfInterest = new PointsOfInterest();
 			
-			new Character();
-			new Checkpoint();
-			new Fog();
-			new SkyClearer();
-			new Technic();
+			new Character(this.foundations, this);
+			new Checkpoint(this.foundations, this);
+			new Fog(this.foundations, this);
+			new SkyClearer(this.foundations, this);
+			new Technic(this.foundations, this, poi);
+		}
+		
+		public function findObjectByCell(x:int, y:int):ItemLogicBase
+		{
+			throw new Error();
 		}
 	}
 

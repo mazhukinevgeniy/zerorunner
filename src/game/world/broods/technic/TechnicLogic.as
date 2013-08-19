@@ -1,5 +1,6 @@
 package game.world.broods.technic 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.ICoordinated;
@@ -7,6 +8,7 @@ package game.world.broods.technic
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
 	import game.world.broods.utils.IPointCollector;
+	import game.world.ISearcher;
 	
 	internal class TechnicLogic extends ItemLogicBase
 	{
@@ -34,11 +36,11 @@ package game.world.broods.technic
 		private var hand:int;
 		private var lastTouchedWall:int = -1;
 		
-		private var towers:IGiveTowers;
+		private var towers:IPointCollector;
 		
-		public function TechnicLogic(towers:IPointCollector) 
+		public function TechnicLogic(foundations:GameFoundations, world:ISearcher, towers:IPointCollector) 
 		{			
-			super(new TechnicView());
+			super(new TechnicView(foundations), foundations, world);
 			
 			this.towers = towers;
 			
@@ -50,42 +52,18 @@ package game.world.broods.technic
 			return TechnicLogic.config;
 		}
 		
-		override protected function getSpawningCell():CellXY
-		{
-			var character:ICoordinated = this.world.getCenter();
-			
-			var dX:int = (4 + Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH) 
-							* ((Math.random() < 0.5) ? 1 : -1);
-			var dY:int = (4 + Math.random() * Metric.CELLS_IN_VISIBLE_HEIGHT) 
-							* ((Math.random() < 0.5) ? 1 : -1);
-			
-			var cell:CellXY = Metric.getTmpCell(character.x + dX, character.y + dY);
-			
-			for (; this.world.findObjectByCell(cell.x, cell.y); )
-			{
-				dX = (4 + Math.random() * Metric.CELLS_IN_VISIBLE_WIDTH) 
-							* ((Math.random() < 0.5) ? 1 : -1);
-				dY = (4 + Math.random() * Metric.CELLS_IN_VISIBLE_HEIGHT) 
-							* ((Math.random() < 0.5) ? 1 : -1);
-				
-				cell.setValue(character.x + dX, character.y + dY);
-			}
-			
-			return cell;
-		}
-		
 		override protected function onSpawned():void
 		{
 			this.hand = TechnicLogic.NOT_IN_BYPASS;
 			
-			this.goal = this.towers.getRandomTower();
+			this.goal = this.towers.findPointOfInterest(Game.TOWER);
 		}
 		
 		
 		override protected function onCanMove():void
 		{
 			if (!this.goal)
-				this.goal = this.towers.getRandomTower();
+				this.goal = this.towers.findPointOfInterest(Game.TOWER);
 			
 			if (this.hand == TechnicLogic.NOT_IN_BYPASS)
 			{
@@ -214,7 +192,7 @@ package game.world.broods.technic
 		
 		override protected function onTowerHalfBuilt():void
 		{
-			this.goal = this.towers.getRandomTower();
+			this.goal = this.towers.findPointOfInterest(Game.TOWER);
 		}
 	}
 }

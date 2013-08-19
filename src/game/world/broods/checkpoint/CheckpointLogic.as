@@ -1,48 +1,31 @@
 package game.world.broods.checkpoint 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.CellXY;
 	import game.utils.metric.ICoordinated;
-	import game.utils.metric.Metric;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
+	import game.world.ISearcher;
 	
 	internal class CheckpointLogic extends ItemLogicBase
 	{
 		private const STEPS_BETWEEN_CHECKPOINTS:int = 20;
 		
-		public function CheckpointLogic() 
+		public function CheckpointLogic(foundations:GameFoundations, world:ISearcher) 
 		{
-			super(new CheckpointView());
+			super(new CheckpointView(foundations), foundations, world);
 		}
 		
 		override protected function getSpawningCell():CellXY
 		{
-			var center:ICoordinated = this.world.getCenter();
+			return super.getSpawningCell();
 			
-			var dX:int = 2 + Math.random() * 4; dX *= Math.random() < 0.5 ? 1 : -1;
-			var dY:int = 2 + Math.random() * 4; dY *= Math.random() < 0.5 ? 1 : -1;
-			
-			var tmpCell:CellXY = Metric.getTmpCell(center.x + dX, center.y + dY);
-			
-			var actor:ItemLogicBase = this.world.findObjectByCell(tmpCell.x, tmpCell.y);
-			
-			if (actor)
-				actor.applyDestruction();
-			
-			return tmpCell;
+			//TODO: checkpoint per sector, please
 		}
 		
 		override protected function getConfig():ConfigKit
 		{
 			return new ConfigKit(10000000, 10000000, 10000000);
-		}
-		
-		override protected function onCanAct():void
-		{
-			if (Metric.distance(this, this.world.getCenter()) > this.STEPS_BETWEEN_CHECKPOINTS)
-			{
-				this.reset();
-			}
 		}
 	}
 

@@ -41,6 +41,7 @@ package game.world.broods
 			
 			this.world = world;
 			this.flow = foundations.flow;
+			this.game = foundations.game;
 			
 			this.reset();
 		}
