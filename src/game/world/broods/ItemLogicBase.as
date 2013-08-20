@@ -35,11 +35,11 @@ package game.world.broods
 		final public function get y():int {	return this._y;	}
 		
 		
-		public function ItemLogicBase(view:ItemViewBase, foundations:GameFoundations, world:ISearcher) 
+		public function ItemLogicBase(view:ItemViewBase, foundations:GameFoundations) 
 		{
 			this.view = view;
 			
-			this.world = world;
+			this.world = foundations.world;
 			this.flow = foundations.flow;
 			this.game = foundations.game;
 			

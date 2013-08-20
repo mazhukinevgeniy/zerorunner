@@ -5,7 +5,6 @@ package game.world.broods.skyClearer
 	import game.utils.metric.DCellXY;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
-	import game.world.ISearcher;
 	
 	internal class SkyClearerLogic extends ItemLogicBase
 	{
@@ -19,9 +18,9 @@ package game.world.broods.skyClearer
 		
 		private var view:SkyClearerView;
 		
-		public function SkyClearerLogic(foundations:GameFoundations, world:ISearcher) 
+		public function SkyClearerLogic(foundations:GameFoundations) 
 		{
-			super(this.view = new SkyClearerView(foundations), foundations, world);
+			super(this.view = new SkyClearerView(foundations), foundations);
 		}
 		
 		override protected function getSpawningCell():CellXY

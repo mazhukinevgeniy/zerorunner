@@ -2,7 +2,6 @@ package game
 {
 	import game.hud.UIExtendsions;
 	import game.utils.GameFoundations;
-	import game.world.ActorsFeatures;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.templates.UpdateGameBase;
@@ -27,8 +26,6 @@ package game
 			
 			var foundations:GameFoundations = new GameFoundations
 					(this, this.atlas, this.displayRoot);
-			
-			new ActorsFeatures(foundations);
 			
 			new UIExtendsions(this);
 		}

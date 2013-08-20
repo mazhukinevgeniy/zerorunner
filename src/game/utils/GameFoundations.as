@@ -6,6 +6,9 @@ package game.utils
 	import game.utils.input.InputManager;
 	import game.utils.statistics.StatisticsFeature;
 	import game.utils.time.Time;
+	import game.world.ActorsFeatures;
+	import game.world.IActorTracker;
+	import game.world.ISearcher;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.display.Sprite;
@@ -15,18 +18,18 @@ package game.utils
 	public class GameFoundations 
 	{
 		private var _game:IGame;
-		private var _flow:IUpdateDispatcher;
 		private var _juggler:Juggler;
 		private var _atlas:TextureAtlas;
 		private var _input:IKnowInput;
+		private var _actors:IActorTracker;
 		
 		public function GameFoundations(game:ZeroRunner, atlas:TextureAtlas, root:Sprite) 
 		{
 			this._game = game;
 			this._atlas = atlas;
-			this._flow = game;
 			this._juggler = new Juggler();
 			this._input = new InputManager(game);
+			this._actors = new ActorsFeatures(this);
 			
 			new Time(root, this);
 			
@@ -51,12 +54,22 @@ package game.utils
 		
 		public function get flow():IUpdateDispatcher
 		{
-			return this._flow;
+			return this._game as IUpdateDispatcher;
 		}
 		
 		public function get input():IKnowInput
 		{
 			return this._input;
+		}
+		
+		public function get actors():IActorTracker
+		{
+			return this._actors;
+		}
+		
+		public function get world():ISearcher
+		{
+			return this._actors as ISearcher;
 		}
 	}
 

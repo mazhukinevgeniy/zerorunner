@@ -5,15 +5,14 @@ package game.world.broods.checkpoint
 	import game.utils.metric.ICoordinated;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
-	import game.world.ISearcher;
 	
 	internal class CheckpointLogic extends ItemLogicBase
 	{
 		private const STEPS_BETWEEN_CHECKPOINTS:int = 20;
 		
-		public function CheckpointLogic(foundations:GameFoundations, world:ISearcher) 
+		public function CheckpointLogic(foundations:GameFoundations) 
 		{
-			super(new CheckpointView(foundations), foundations, world);
+			super(new CheckpointView(foundations), foundations);
 		}
 		
 		override protected function getSpawningCell():CellXY

@@ -1,6 +1,7 @@
 package game.world 
 {
 	import game.utils.GameFoundations;
+	import game.utils.metric.DCellXY;
 	import game.world.broods.character.Character;
 	import game.world.broods.checkpoint.Checkpoint;
 	import game.world.broods.fog.Fog;
@@ -15,7 +16,7 @@ package game.world
 	
 	use namespace update;
 	
-	public class ActorsFeatures extends SceneFeatures implements ISearcher
+	public class ActorsFeatures extends SceneFeatures implements IActorTracker, ISearcher
 	{
 		private var actors:Vector.<ItemLogicBase>;
 		private var points:PointsOfInterest;
@@ -49,11 +50,11 @@ package game.world
 			//TODO: clean the cache...
 			
 			
-			new Character(this.foundations, this, this.points);
-			new Checkpoint(this.foundations, this);
-			new Fog(this.foundations, this);
-			new SkyClearer(this.foundations, this, this.points);
-			new Technic(this.foundations, this, this.points);
+			new Character(this.foundations, this.points);
+			new Checkpoint(this.foundations);
+			new Fog(this.foundations);
+			new SkyClearer(this.foundations, this.points);
+			new Technic(this.foundations, this.points);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase
@@ -62,6 +63,33 @@ package game.world
 			
 			//TODO: implement
 		}
+		
+		
+		public function addActor(item:ItemLogicBase):void
+		{
+			
+		}
+		/*{
+			this.putActorInCell(item.x, item.y, item);
+		}*/
+		
+		public function moveActor(actor:ItemLogicBase, change:DCellXY, delay:int):void
+		{
+			
+		}
+		/*{
+			this.putActorInCell(actor.x - change.x, actor.y - change.y);
+			this.putActorInCell(actor.x, actor.y, actor);
+		}*/
+		
+		public function removeActor(actor:ItemLogicBase):void
+		{
+			
+		}
+		/*{
+			this.putActorInCell(actor.x, actor.y);
+		}*/
+		//TODO: implement
 	}
 
 }

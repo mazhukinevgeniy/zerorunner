@@ -8,7 +8,6 @@ package game.world.broods.character
 	import game.utils.metric.Metric;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
-	import game.world.ISearcher;
 	import utils.templates.UpdateGameBase;
 	
 	internal class CharacterLogic extends ItemLogicBase
@@ -18,9 +17,9 @@ package game.world.broods.character
 		
 		private var input:IKnowInput;
 		
-		public function CharacterLogic(foundations:GameFoundations, world:ISearcher) 
+		public function CharacterLogic(foundations:GameFoundations) 
 		{
-			super(new CharacterView(foundations), foundations, world);
+			super(new CharacterView(foundations), foundations);
 			
 			this.input = foundations.input;
 		}

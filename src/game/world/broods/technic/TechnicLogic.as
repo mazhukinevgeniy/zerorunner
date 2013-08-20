@@ -8,7 +8,6 @@ package game.world.broods.technic
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
 	import game.world.broods.utils.IPointCollector;
-	import game.world.ISearcher;
 	
 	internal class TechnicLogic extends ItemLogicBase
 	{
@@ -38,13 +37,13 @@ package game.world.broods.technic
 		
 		private var towers:IPointCollector;
 		
-		public function TechnicLogic(foundations:GameFoundations, world:ISearcher, towers:IPointCollector) 
+		public function TechnicLogic(foundations:GameFoundations, towers:IPointCollector) 
 		{
 			this.towers = towers;
 			
 			this.bypassStartingPoint = new CellXY(0, 0);
 			
-			super(new TechnicView(foundations), foundations, world);
+			super(new TechnicView(foundations), foundations);
 		}
 		
 		override protected function getConfig():ConfigKit

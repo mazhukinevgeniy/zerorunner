@@ -9,14 +9,12 @@ package game.world.broods.skyClearer
 	public class SkyClearer extends BroodmotherBase
 	{
 		private var foundations:GameFoundations;
-		private var world:ISearcher;
 		
 		private var points:IPointCollector;
 		
-		public function SkyClearer(foundations:GameFoundations, world:ISearcher, points:IPointCollector) 
+		public function SkyClearer(foundations:GameFoundations, points:IPointCollector) 
 		{
 			this.foundations = foundations;
-			this.world = world;
 			
 			this.points = points;
 			
@@ -25,7 +23,7 @@ package game.world.broods.skyClearer
 		
 		override protected function newActor():ItemLogicBase
 		{
-			var actor:ItemLogicBase = new SkyClearerLogic(this.foundations, this.world);
+			var actor:ItemLogicBase = new SkyClearerLogic(this.foundations);
 			
 			this.points.addPointOfInterest(Game.TOWER, actor);
 			
