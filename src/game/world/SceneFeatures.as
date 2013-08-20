@@ -2,9 +2,6 @@ package game.world
 {
 	import flash.utils.ByteArray;
 	import game.IGame;
-	import game.world.patterns.FlatPattern;
-	import game.world.patterns.getPattern;
-	import game.world.patterns.IPattern;
 	import utils.updates.update;
 	
 	use namespace update;
@@ -28,15 +25,7 @@ package game.world
 			this.width = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
 			const secondJGoal:int = this.width - Game.SECTOR_WIDTH;
 			
-			const NUMBER_OF_PATTERNS:int = 23;
-			const FLAT_STEP:int = int(NUMBER_OF_PATTERNS / 4);
 			var j:int, i:int;
-			
-			var patterns:Vector.<IPattern> = new Vector.<IPattern>(NUMBER_OF_PATTERNS, true);
-			for (i = 0; i < NUMBER_OF_PATTERNS; i++)
-				patterns[i] = getPattern();
-			for (i = int(Math.random() * FLAT_STEP), j = 0; i < NUMBER_OF_PATTERNS && j < 4; j++, i += 1 + int(Math.random() * FLAT_STEP))
-				patterns[i] = new FlatPattern();
 			
 			this.scene.length = this.width * this.width;
 			
@@ -49,7 +38,7 @@ package game.world
 				for (i = 0; i < Game.SECTOR_WIDTH; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 				for (; i < secondJGoal; i++)
-					this.scene[i + j * this.width] = patterns[uint((i * 84673) ^ (j * 108301)) % NUMBER_OF_PATTERNS].getNumber(i, j);
+					this.scene[i + j * this.width] = Math.random() < 0.4 ? Game.FALL : Game.ROAD;
 				for (; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			}

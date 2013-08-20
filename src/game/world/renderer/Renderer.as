@@ -46,11 +46,11 @@ package game.world.renderer
 		{
 			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			const tlcX:int = center.x - 5;
-			const tlcY:int = center.y - 5;
+			const tlcX:int = center.x - 8;
+			const tlcY:int = center.y - 6;
 			
-			const brcX:int = center.x + 5;
-			const brcY:int = center.y + 5;
+			const brcX:int = center.x + 9;
+			const brcY:int = center.y + 6;
 			
 			var sprite:Image;
 			
@@ -62,9 +62,9 @@ package game.world.renderer
 			
 			var number:uint;
 			
-			for (j = tlcY + 1; j < brcY - 1; j++)
+			for (j = tlcY; j < brcY; j++)
 			{ // main block
-				for (i = tlcX + 1; i < brcX - 1; i++)
+				for (i = tlcX; i < brcX; i++)
 				{
 					if (this.data.getSceneCell(i, j))
 					{
