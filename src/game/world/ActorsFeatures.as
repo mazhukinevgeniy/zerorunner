@@ -21,6 +21,8 @@ package game.world
 		private var actors:Vector.<ItemLogicBase>;
 		private var points:PointsOfInterest;
 		
+		private var width:int;
+		
 		private var foundations:GameFoundations;
 		
 		
@@ -33,7 +35,7 @@ package game.world
 			
 			this.foundations = foundations;
 			
-			new ActorOperators(foundations.flow);
+			new ActorOperators(foundations.flow, this, this.points);
 			
 			var flow:IUpdateDispatcher = foundations.flow;
 			
@@ -45,9 +47,13 @@ package game.world
 		{
 			super.update::prerestore();
 			
+			this.width = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
+			
+			var length:int = this.width * this.width;
+			this.actors = new Vector.<ItemLogicBase>(length, true);
+			
 			this.points.clearPointsOfInterest();
 			
-			//TODO: clean the cache...
 			
 			
 			new Character(this.foundations, this.points);
@@ -59,37 +65,25 @@ package game.world
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase
 		{
-			return null;
-			
-			//TODO: implement
+			return this.actors[x + y * this.width];
 		}
 		
 		
-		public function addActor(item:ItemLogicBase):void
+		public function addActor(actor:ItemLogicBase):void
 		{
-			
+			this.actors[actor.x + actor.y * this.width] = actor;
 		}
-		/*{
-			this.putActorInCell(item.x, item.y, item);
-		}*/
 		
 		public function moveActor(actor:ItemLogicBase, change:DCellXY):void
 		{
-			
+			this.actors[actor.x - change.x + (actor.y - change.y) * this.width] = null;
+			this.actors[actor.x + actor.y * this.width] = actor;
 		}
-		/*{
-			this.putActorInCell(actor.x - change.x, actor.y - change.y);
-			this.putActorInCell(actor.x, actor.y, actor);
-		}*/
 		
 		public function removeActor(actor:ItemLogicBase):void
 		{
-			
+			this.actors[actor.x + actor.y * this.width] = null;
 		}
-		/*{
-			this.putActorInCell(actor.x, actor.y);
-		}*/
-		//TODO: implement
 	}
 
 }

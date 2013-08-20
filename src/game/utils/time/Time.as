@@ -35,7 +35,7 @@ package game.utils.time
 			new PauseTypes(flow);
 			
 			this.FPS = Starling.current.nativeStage.frameRate;
-			this.tickFrame = this.FPS == 60 ? 5 : 3;
+			this.tickFrame = this.FPS == 60 ? 5 : 2;
 			this.redrawFrame = this.tickFrame - 1;
 			
 			this.frameCount = 0;

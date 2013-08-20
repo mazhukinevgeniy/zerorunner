@@ -39,18 +39,17 @@ package game.world.renderer
 		{
 			this.redrawScene();
 			this.redrawActors();
-			this.redrawHazards();
 		}
 		
 		private function redrawScene():void
 		{
 			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			const tlcX:int = center.x - 8;
-			const tlcY:int = center.y - 6;
+			const tlcX:int = center.x - 10;
+			const tlcY:int = center.y - 8;
 			
-			const brcX:int = center.x + 9;
-			const brcY:int = center.y + 6;
+			const brcX:int = center.x + 11;
+			const brcY:int = center.y + 9;
 			
 			var sprite:Image;
 			
@@ -63,7 +62,7 @@ package game.world.renderer
 			var number:uint;
 			
 			for (j = tlcY; j < brcY; j++)
-			{ // main block
+			{
 				for (i = tlcX; i < brcX; i++)
 				{
 					if (this.data.getSceneCell(i, j))
@@ -169,11 +168,11 @@ package game.world.renderer
 		{
 			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			const tlcX:int = center.x - 5;
-			const tlcY:int = center.y - 5;
+			const tlcX:int = center.x - 10;
+			const tlcY:int = center.y - 8;
 			
-			const brcX:int = center.x + 5;
-			const brcY:int = center.y + 5;
+			const brcX:int = center.x + 11;
+			const brcY:int = center.y + 9;
 			
 			var actor:ItemLogicBase;
 			var container:DisplayObjectContainer = this.lines.actors;
@@ -181,8 +180,6 @@ package game.world.renderer
 			
 			var i:int;
 			var j:int;
-			
-			var number:uint;
 			
 			for (j = tlcY; j < brcY; j++)
 			{				
@@ -196,11 +193,6 @@ package game.world.renderer
 					}
 				}
 			}
-		}
-		
-		private function redrawHazards():void
-		{
-			
 		}
 	}
 

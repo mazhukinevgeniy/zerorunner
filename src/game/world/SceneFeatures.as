@@ -11,7 +11,7 @@ package game.world
 		private var scene:ByteArray;
 		private var width:int;
 		
-		private var game:IGame;
+		protected var game:IGame;
 		
 		public function SceneFeatures(game:IGame) 
 		{
