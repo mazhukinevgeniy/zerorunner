@@ -73,7 +73,7 @@ package game.world
 			this.putActorInCell(item.x, item.y, item);
 		}*/
 		
-		public function moveActor(actor:ItemLogicBase, change:DCellXY, delay:int):void
+		public function moveActor(actor:ItemLogicBase, change:DCellXY):void
 		{
 			
 		}

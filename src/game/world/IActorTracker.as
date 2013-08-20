@@ -7,7 +7,7 @@ package game.world
 	{
 		function addActor(item:ItemLogicBase):void;
 		
-		function moveActor(actor:ItemLogicBase, change:DCellXY, delay:int):void;
+		function moveActor(actor:ItemLogicBase, change:DCellXY):void;
 		
 		function removeActor(actor:ItemLogicBase):void;
 	}

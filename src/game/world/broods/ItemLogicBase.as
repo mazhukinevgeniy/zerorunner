@@ -7,6 +7,7 @@ package game.world.broods
 	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
 	import game.world.broods.utils.ConfigKit;
+	import game.world.IActorTracker;
 	import game.world.ISearcher;
 	import starling.display.DisplayObject;
 	import utils.errors.AbstractClassError;
@@ -17,6 +18,8 @@ package game.world.broods
 		protected var world:ISearcher;
 		protected var flow:IUpdateDispatcher;
 		protected var game:IGame;
+		
+		private var actors:IActorTracker;
 		
 		private var view:ItemViewBase;
 		
@@ -42,6 +45,8 @@ package game.world.broods
 			this.world = foundations.world;
 			this.flow = foundations.flow;
 			this.game = foundations.game;
+			
+			this.actors = foundations.actors;
 			
 			this.reset();
 		}
@@ -85,8 +90,7 @@ package game.world.broods
 			
 			this.onSpawned();
 			
-			//this.flow.dispatchUpdate(Update.addActor, this);
-			//TODO: cache
+			this.actors.addActor(this);
 			
 			this.view.standOn(cell);
 		}
@@ -167,8 +171,7 @@ package game.world.broods
 		
 		final public function applyDestruction():void
 		{
-			//this.flow.dispatchUpdate(Update.removeActor, this);
-			//TODO: uncache
+			this.actors.removeActor(this);
 			
 			this.view.disappear();
 			
@@ -199,8 +202,7 @@ package game.world.broods
 				this._x += change.x;
 				this._y += change.y;
 				
-				//this.flow.dispatchUpdate(Update.moveActor, this, change, this.movingCooldown + 1);
-				//TODO: cache
+				this.actors.moveActor(this, change);
 				
 				this.view.moveNormally(this, change, this.movingCooldown + 1);
 				
@@ -229,8 +231,7 @@ package game.world.broods
 			this._x += jChange.x;
 			this._y += jChange.y;
 			
-			//this.flow.dispatchUpdate(Update.moveActor, this, jChange, this.movingCooldown + 1);
-			//TODO: cache
+			this.actors.moveActor(this, jChange);
 			
 			this.view.jump(this, jChange, this.movingCooldown + 1);
 			
