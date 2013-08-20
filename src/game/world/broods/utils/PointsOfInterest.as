@@ -5,6 +5,7 @@ package game.world.broods.utils
 	
 	public class PointsOfInterest implements IPointCollector
 	{
+		private var types:Array;
 		
 		public function PointsOfInterest() 
 		{
@@ -13,17 +14,18 @@ package game.world.broods.utils
 		
 		public function addPointOfInterest(type:int, point:ICoordinated):void
 		{
+			if (this.types[type] == null)
+				this.types[type] = new Vector.<ICoordinated>();
 			
-		}
-		
-		public function removePointOfInterest(type:int, point:ICoordinated):void
-		{
-			
+			this.types[type].push(point);
 		}
 		
 		public function findPointOfInterest(type:int):ICoordinated
 		{
-			return new CellXY(100, 100); //TODO: implement
+			var vector:Vector.<ICoordinated> = this.types[type];
+			var length:int = vector.length;
+			
+			return vector[int(Math.random() * length)];
 		}
 		
 		/**
@@ -32,10 +34,8 @@ package game.world.broods.utils
 		
 		public function clearPointsOfInterest():void
 		{
-			
+			this.types = new Array();
 		}
-		
-		//TODO: implement
 	}
 
 }
