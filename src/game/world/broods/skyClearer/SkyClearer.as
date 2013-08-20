@@ -32,7 +32,7 @@ package game.world.broods.skyClearer
 		
 		override protected function getActorsCap():int
 		{
-			return 30;
+			return 300;
 		}
 		
 		

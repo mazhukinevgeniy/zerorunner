@@ -22,7 +22,7 @@ package game.world.broods.fog
 		
 		override protected function getActorsCap():int
 		{
-			return 200;
+			return 2000;
 		}
 		
 	}
