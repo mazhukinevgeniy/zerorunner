@@ -46,29 +46,13 @@ package game.world
 				for (i = 0; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			
-			//TODO: check if start and finish are okay
-			/*
-			update function cacheScene(cache:Vector.<int>, center:ICoordinated, width:int, height:int):void
-			var tlcX:int = center.x - width / 2;
-			var tlcY:int = center.y - height / 2;
+			for (i = Game.SECTOR_WIDTH; i < Game.SECTOR_WIDTH + 4; i++)
+				for (j = this.width - (Game.SECTOR_WIDTH + 4); j < secondJGoal; j++)
+					this.scene[i + j * this.width] = Game.ROAD;
 			
-			var center1:CellXY = ActorsFeature.SPAWN_CELL;
-			
-			if (center1.x + this.RADIUS > tlcX &&
-				center1.y + this.RADIUS > tlcY &&
-				center1.x - this.RADIUS < tlcX + width &&
-				center1.y - this.RADIUS < tlcY + height)
-			{
-				var xTop:int = Math.min(center1.x + this.RADIUS, tlcX + width);
-				var yTop:int = Math.min(center1.y + this.RADIUS, tlcY + height);
-				
-				for (var i:int = Math.max(tlcX, center1.x - this.RADIUS); i < xTop; i++)
-					for (var j:int = Math.max(tlcY, center1.y - this.RADIUS); j < yTop; j++)
-					{
-						cache[i - tlcX + (j - tlcY) * width] = SceneFeature.ROAD;
-					}
-			}
-			*/
+			for (i = this.width - (Game.SECTOR_WIDTH + 4); i < secondJGoal; i++)
+				for (j = Game.SECTOR_WIDTH; j < Game.SECTOR_WIDTH + 4; j++)
+					this.scene[i + j * this.width] = Game.ROAD;
 		}
 		
 		public function getSceneCell(x:int, y:int):int
