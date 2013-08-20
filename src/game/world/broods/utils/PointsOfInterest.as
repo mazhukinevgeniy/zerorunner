@@ -1,5 +1,6 @@
 package game.world.broods.utils 
 {
+	import game.utils.metric.CellXY;
 	import game.utils.metric.ICoordinated;
 	
 	public class PointsOfInterest implements IPointCollector
@@ -22,8 +23,19 @@ package game.world.broods.utils
 		
 		public function findPointOfInterest(type:int):ICoordinated
 		{
-			throw new Error();
+			return new CellXY(100, 100); //TODO: implement
 		}
+		
+		/**
+		 * Interfaceless
+		 */
+		
+		public function clearPointsOfInterest():void
+		{
+			
+		}
+		
+		//TODO: implement
 	}
 
 }

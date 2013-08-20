@@ -9,6 +9,8 @@ package game.world
 	import game.world.broods.technic.Technic;
 	import game.world.broods.utils.PointsOfInterest;
 	import game.world.operators.ActorOperators;
+	import game.world.renderer.Renderer;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	use namespace update;
@@ -16,38 +18,49 @@ package game.world
 	public class ActorsFeatures extends SceneFeatures implements ISearcher
 	{
 		private var actors:Vector.<ItemLogicBase>;
+		private var points:PointsOfInterest;
 		
 		private var foundations:GameFoundations;
 		
 		
 		public function ActorsFeatures(foundations:GameFoundations) 
 		{
+			this.points = new PointsOfInterest();
+			new Renderer(this, this.points, foundations);
+			
 			super(foundations.game);
 			
 			this.foundations = foundations;
 			
-			new ActorOperators();
+			new ActorOperators(foundations.flow);
+			
+			var flow:IUpdateDispatcher = foundations.flow;
+			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.prerestore);
 		}
 		
 		override update function prerestore():void
 		{
 			super.update::prerestore();
 			
+			this.points.clearPointsOfInterest();
+			
 			//TODO: clean the cache...
 			
 			
-			var poi:PointsOfInterest = new PointsOfInterest();
-			
-			new Character(this.foundations, this);
+			new Character(this.foundations, this, this.points);
 			new Checkpoint(this.foundations, this);
 			new Fog(this.foundations, this);
-			new SkyClearer(this.foundations, this);
-			new Technic(this.foundations, this, poi);
+			new SkyClearer(this.foundations, this, this.points);
+			new Technic(this.foundations, this, this.points);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase
 		{
-			throw new Error();
+			return null;
+			
+			//TODO: implement
 		}
 	}
 

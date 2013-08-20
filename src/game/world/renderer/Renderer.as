@@ -1,24 +1,29 @@
 package game.world.renderer 
 {
 	import game.utils.GameFoundations;
+	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
 	import game.world.broods.ItemLogicBase;
+	import game.world.broods.utils.IPointCollector;
+	import game.world.ISearcher;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class Renderer 
+	public class Renderer 
 	{
-		private var data:SearcherFeature;
+		private var data:ISearcher;
+		private var points:IPointCollector;
 		private var lines:Camera;
 		
 		private var pull:TilePull;
 		
-		public function Renderer(data:SearcherFeature, foundations:GameFoundations) 
+		public function Renderer(data:ISearcher, points:IPointCollector, foundations:GameFoundations) 
 		{
 			var flow:IUpdateDispatcher = foundations.flow;
+			this.points = points;
 			
 			this.lines = new Camera(flow, foundations.juggler);
 			
@@ -39,11 +44,13 @@ package game.world.renderer
 		
 		private function redrawScene():void
 		{
-			const tlcX:int = this.data.cacheCenter.x - this.data.cacheWidth / 2;
-			const tlcY:int = this.data.cacheCenter.y - this.data.cacheHeight / 2;
+			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			const brcX:int = this.data.cacheCenter.x + this.data.cacheWidth / 2;
-			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
+			const tlcX:int = center.x - 5;
+			const tlcY:int = center.y - 5;
+			
+			const brcX:int = center.x + 5;
+			const brcY:int = center.y + 5;
 			
 			var sprite:Image;
 			
@@ -59,7 +66,7 @@ package game.world.renderer
 			{ // main block
 				for (i = tlcX + 1; i < brcX - 1; i++)
 				{
-					if (this.data.getUnsafeScene(i, j))
+					if (this.data.getSceneCell(i, j))
 					{
 						sprite = this.pull.getImage("ground");
 						
@@ -80,7 +87,7 @@ package game.world.renderer
 							container.addImage(sprite);
 						}
 						
-						if (!this.data.getUnsafeScene(i, j + 1))
+						if (!this.data.getSceneCell(i, j + 1))
 						{
 							sprite = this.pull.getImage("S");
 							
@@ -89,7 +96,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getUnsafeScene(i + 1, j))
+						if (!this.data.getSceneCell(i + 1, j))
 						{
 							sprite = this.pull.getImage("E");
 							
@@ -98,7 +105,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getUnsafeScene(i - 1, j))
+						if (!this.data.getSceneCell(i - 1, j))
 						{
 							sprite = this.pull.getImage("W");
 							
@@ -107,7 +114,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getUnsafeScene(i, j - 1))
+						if (!this.data.getSceneCell(i, j - 1))
 						{
 							sprite = this.pull.getImage("N");
 							
@@ -116,7 +123,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getUnsafeScene(i + 1, j + 1))
+						if (!this.data.getSceneCell(i + 1, j + 1))
 						{
 							sprite = this.pull.getImage("SE");
 							
@@ -125,7 +132,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getUnsafeScene(i - 1, j + 1))
+						if (!this.data.getSceneCell(i - 1, j + 1))
 						{
 							sprite = this.pull.getImage("SW");
 							
@@ -134,7 +141,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getUnsafeScene(i + 1, j - 1))
+						if (!this.data.getSceneCell(i + 1, j - 1))
 						{
 							sprite = this.pull.getImage("NE");
 							
@@ -143,7 +150,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getUnsafeScene(i - 1, j - 1))
+						if (!this.data.getSceneCell(i - 1, j - 1))
 						{
 							sprite = this.pull.getImage("NW");
 							
@@ -155,207 +162,18 @@ package game.world.renderer
 					}
 				}
 				
-				//right line
-				
-				if (this.data.getUnsafeScene(i, j))
-				{
-					sprite = this.pull.getImage("ground");
-					
-					sprite.x = i * Metric.CELL_WIDTH;
-					sprite.y = j * Metric.CELL_HEIGHT;
-					
-					container.addImage(sprite);
-					
-					number = uint(((i) * 999999000001) | ((j) * 87178291199));
-					
-					if (number % 13 < 3)
-					{
-						sprite = this.pull.getImage("stones" + (1 + number % 3));
-						
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT;
-						
-						container.addImage(sprite);
-					}
-					
-					if (!this.data.getUnsafeScene(i, j + 1))
-					{
-						sprite = this.pull.getImage("S");
-						
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = (j + 1) * Metric.CELL_HEIGHT;
-						
-						container.addImage(sprite);
-					}
-					if (!this.data.getUnsafeScene(i - 1, j))
-					{
-						sprite = this.pull.getImage("W");
-						
-						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-						sprite.y = j * Metric.CELL_HEIGHT;
-						
-						container.addImage(sprite);
-					}
-					if (!this.data.getUnsafeScene(i, j - 1))
-					{
-						sprite = this.pull.getImage("N");
-						
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-						
-						container.addImage(sprite);
-					}
-					if (!this.data.getUnsafeScene(i - 1, j + 1))
-					{
-						sprite = this.pull.getImage("SW");
-						
-						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-						sprite.y = (j + 1) * Metric.CELL_HEIGHT;
-						
-						container.addImage(sprite);
-					}
-					if (!this.data.getUnsafeScene(i - 1, j - 1))
-					{
-						sprite = this.pull.getImage("NW");
-						
-						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-						
-						container.addImage(sprite);
-					}
-				}
-			}
-			
-			for (i = tlcX + 1; i < brcX - 1; i++)
-			{ //bottom line
-				if (this.data.getUnsafeScene(i, j))
-				{
-					sprite = this.pull.getImage("ground");
-					
-					sprite.x = i * Metric.CELL_WIDTH;
-					sprite.y = j * Metric.CELL_HEIGHT;
-					
-					container.addImage(sprite);
-					
-					number = uint(((i) * 999999000001) | ((j) * 87178291199));
-					
-					if (number % 13 < 3)
-					{
-						sprite = this.pull.getImage("stones" + (1 + number % 3));
-						
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT;
-						
-						container.addImage(sprite);
-					}
-					
-					if (!this.data.getUnsafeScene(i + 1, j))
-					{
-						sprite = this.pull.getImage("E");
-						
-						sprite.x = (i + 1) * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT;
-						
-						container.addImage(sprite);
-					}
-					if (!this.data.getUnsafeScene(i - 1, j))
-					{
-						sprite = this.pull.getImage("W");
-						
-						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-						sprite.y = j * Metric.CELL_HEIGHT;
-						
-						container.addImage(sprite);
-					}
-					if (!this.data.getUnsafeScene(i, j - 1))
-					{
-						sprite = this.pull.getImage("N");
-						
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-						
-						container.addImage(sprite);
-					}
-					if (!this.data.getUnsafeScene(i + 1, j - 1))
-					{
-						sprite = this.pull.getImage("NE");
-						
-						sprite.x = (i + 1) * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-						
-						container.addImage(sprite);
-					}
-					if (!this.data.getUnsafeScene(i - 1, j - 1))
-					{
-						sprite = this.pull.getImage("NW");
-						
-						sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-						sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-						
-						container.addImage(sprite);
-					}
-				}
-			}
-			
-			//bottom right corner
-			if (this.data.getUnsafeScene(i, j))
-			{
-				sprite = this.pull.getImage("ground");
-				
-				sprite.x = i * Metric.CELL_WIDTH;
-				sprite.y = j * Metric.CELL_HEIGHT;
-				
-				container.addImage(sprite);
-				
-				number = uint(((i) * 999999000001) | ((j) * 87178291199));
-				
-				if (number % 13 < 3)
-				{
-					sprite = this.pull.getImage("stones" + (1 + number % 3));
-					
-					sprite.x = i * Metric.CELL_WIDTH;
-					sprite.y = j * Metric.CELL_HEIGHT;
-					
-					container.addImage(sprite);
-				}
-				
-				if (!this.data.getUnsafeScene(i - 1, j))
-				{
-					sprite = this.pull.getImage("W");
-					
-					sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-					sprite.y = j * Metric.CELL_HEIGHT;
-					
-					container.addImage(sprite);
-				}
-				if (!this.data.getUnsafeScene(i, j - 1))
-				{
-					sprite = this.pull.getImage("N");
-					
-					sprite.x = i * Metric.CELL_WIDTH;
-					sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-					
-					container.addImage(sprite);
-				}
-				if (!this.data.getUnsafeScene(i - 1, j - 1))
-				{
-					sprite = this.pull.getImage("NW");
-					
-					sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-					sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-					
-					container.addImage(sprite);
-				}
 			}
 		}
 		
 		private function redrawActors():void
 		{
-			const tlcX:int = this.data.cacheCenter.x - this.data.cacheWidth / 2;
-			const tlcY:int = this.data.cacheCenter.y - this.data.cacheHeight / 2;
+			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			const brcX:int = this.data.cacheCenter.x + this.data.cacheWidth / 2;
-			const brcY:int = this.data.cacheCenter.y + this.data.cacheHeight / 2;
+			const tlcX:int = center.x - 5;
+			const tlcY:int = center.y - 5;
+			
+			const brcX:int = center.x + 5;
+			const brcY:int = center.y + 5;
 			
 			var actor:ItemLogicBase;
 			var container:DisplayObjectContainer = this.lines.actors;
@@ -370,7 +188,7 @@ package game.world.renderer
 			{				
 				for (i = tlcX; i < brcX; i++)
 				{
-					actor = this.data.getUnsafeActor(i, j);
+					actor = this.data.findObjectByCell(i, j);
 					
 					if (actor)
 					{

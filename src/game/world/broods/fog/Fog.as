@@ -12,10 +12,10 @@ package game.world.broods.fog
 		
 		public function Fog(foundations:GameFoundations, world:ISearcher) 
 		{
-			super(foundations);
-			
 			this.foundations = foundations;
 			this.world = world;
+			
+			super();
 		}
 		
 		override protected function newActor():ItemLogicBase

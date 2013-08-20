@@ -4,6 +4,7 @@ package game.world.broods.character
 	import game.utils.input.IKnowInput;
 	import game.world.broods.BroodmotherBase;
 	import game.world.broods.ItemLogicBase;
+	import game.world.broods.utils.IPointCollector;
 	import game.world.ISearcher;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -12,19 +13,26 @@ package game.world.broods.character
 		private var foundations:GameFoundations;
 		private var world:ISearcher;
 		
-		public function Character(foundations:GameFoundations, world:ISearcher) 
+		private var points:IPointCollector;
+		
+		public function Character(foundations:GameFoundations, world:ISearcher, points:IPointCollector) 
 		{
-			super(foundations);
-			
 			this.foundations = foundations;
 			this.world = world;
+			
+			this.points = points;
+			
+			super();
 		}
 		
 		override protected function getActorsCap():int { return 1; }
 		
 		override protected function newActor():ItemLogicBase
 		{
-			return new CharacterLogic(foundations, world);
+			var actor:ItemLogicBase = new CharacterLogic(this.foundations, this.world);
+			
+			this.points.addPointOfInterest(Game.CHARACTER, actor);
+			return actor;
 		}
 	}
 

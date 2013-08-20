@@ -16,11 +16,11 @@ package game.world.broods.technic
 		
 		public function Technic(foundations:GameFoundations, world:ISearcher, towers:IPointCollector) 
 		{
-			super(foundations);
-			
 			this.foundations = foundations;
 			this.world = world;
 			this.towers = towers;
+			
+			super();
 		}
 		
 		override protected function newActor():ItemLogicBase

@@ -39,12 +39,12 @@ package game.world.broods.technic
 		private var towers:IPointCollector;
 		
 		public function TechnicLogic(foundations:GameFoundations, world:ISearcher, towers:IPointCollector) 
-		{			
-			super(new TechnicView(foundations), foundations, world);
-			
+		{
 			this.towers = towers;
 			
 			this.bypassStartingPoint = new CellXY(0, 0);
+			
+			super(new TechnicView(foundations), foundations, world);
 		}
 		
 		override protected function getConfig():ConfigKit

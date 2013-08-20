@@ -7,6 +7,8 @@ package game.world
 	import game.world.patterns.IPattern;
 	import utils.updates.update;
 	
+	use namespace update;
+	
 	internal class SceneFeatures 
 	{
 		private var scene:ByteArray;

@@ -12,10 +12,10 @@ package game.world.broods.checkpoint
 		
 		public function Checkpoint(foundations:GameFoundations, world:ISearcher) 
 		{
-			super(foundations);
-			
 			this.foundations = foundations;
 			this.world = world;
+			
+			super();
 		}
 		
 		override protected function getActorsCap():int
