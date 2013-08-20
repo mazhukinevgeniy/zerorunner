@@ -8,9 +8,6 @@ package game.world.operators
 		public function ActorOperators(flow:IUpdateDispatcher) 
 		{
 			new ActFeature(flow);
-			//new WindFeature(flow);
-			
-			//TODO: implement
 		}
 		
 	}
