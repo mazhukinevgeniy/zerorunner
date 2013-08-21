@@ -18,7 +18,7 @@ package game.world
 	
 	public class ActorsFeatures extends SceneFeatures implements IActorTracker, ISearcher
 	{
-		private var actors:Vector.<ItemLogicBase>;
+		private var actors:Array;
 		private var points:PointsOfInterest;
 		
 		private var width:int;
@@ -48,9 +48,7 @@ package game.world
 			super.update::prerestore();
 			
 			this.width = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
-			
-			var length:int = this.width * this.width;
-			this.actors = new Vector.<ItemLogicBase>(length, true);
+			this.actors = new Array();
 			
 			this.points.clearPointsOfInterest();
 			
