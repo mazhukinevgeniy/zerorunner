@@ -43,6 +43,7 @@ package game.world.broods.character
 		override protected function onMoved(change:DCellXY, delay:int):void
 		{
 			this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
+			this.flow.dispatchUpdate(Update.discardTicks);
 		}
 		
 		override protected function onDestroyed():void

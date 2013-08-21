@@ -82,7 +82,6 @@ package game.utils.time
 					this.frameCount = 0;
 					
 					this.updateFlow.dispatchUpdate(Update.tick);
-					this.updateFlow.dispatchUpdate(Update.aftertick);
 				}
 				else if (this.frameCount == this.redrawFrame)
 				{

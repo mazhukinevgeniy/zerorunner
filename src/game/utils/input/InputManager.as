@@ -21,7 +21,7 @@ package game.utils.input
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(Update.restore);
-			flow.addUpdateListener(Update.aftertick);
+			flow.addUpdateListener(Update.discardTicks);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
 			
@@ -34,7 +34,7 @@ package game.utils.input
 			this.update::restore();
 		}
 		
-		update function aftertick():void
+		update function discardTicks():void
 		{
 			for (var i:int = 9; i < 17; i++)
 				this.order[i] = -1;

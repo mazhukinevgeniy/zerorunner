@@ -17,7 +17,6 @@ package
 		
 		public static const redraw:String = "redraw";
 		public static const tick:String = "tick";
-		public static const aftertick:String = "aftertick";
 		
 		public static const setPause:String = "setPause";
 		
@@ -44,6 +43,8 @@ package
 		
 		public static const showStatistics:String = "showStatistics";
 		public static const hideStatistics:String = "hideStatistics";
+		
+		public static const discardTicks:String = "discardTicks";
 		
 		public function Update() 
 		{
