@@ -20,8 +20,9 @@ package game.utils.input
 			
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(Update.restore);
+			flow.addUpdateListener(Update.discardInput);
 			flow.addUpdateListener(Update.discardTicks);
+			flow.addUpdateListener(Update.prerestore);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
 			
@@ -31,13 +32,26 @@ package game.utils.input
 												i == 2 ? 1 : i == 4 ? -1 : 0);
 			}
 			
-			this.update::restore();
+			this.order = new Vector.<int>(17, true);
+			this.order[InputManager.NO_DIRECTION] = 0;
 		}
 		
 		update function discardTicks():void
 		{
 			for (var i:int = 9; i < 17; i++)
 				this.order[i] = -1;
+		}
+		update function discardInput():void
+		{
+			for (var i:int = 1; i < 17; i++)
+				this.order[i] = -1;
+			
+			this.maxI = 1;
+		}
+		
+		update function prerestore():void
+		{
+			this.update::discardInput();
 		}
 		
 		public function getInputCopy():Vector.<DCellXY>
@@ -82,16 +96,6 @@ package game.utils.input
 			return arr;
 		}
 		
-		update function restore():void
-		{
-			this.order = new Vector.<int>(17, true);
-			this.order[InputManager.NO_DIRECTION] = 0;
-			
-			this.maxI = 1;
-			
-			for (var i:int = 1; i < 17; i++) 
-				this.order[i] = -1;
-		}
 		
 		internal function newInputPiece(isKeyboard:Boolean, isOn:Boolean, change:DCellXY):void
 		{	
