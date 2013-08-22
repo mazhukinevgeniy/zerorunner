@@ -44,7 +44,7 @@ package
 		public static const showStatistics:String = "showStatistics";
 		public static const hideStatistics:String = "hideStatistics";
 		
-		public static const discardTicks:String = "discardTicks";
+		public static const discardClicks:String = "discardClicks";
 		public static const discardInput:String = "discardInput";
 		
 		public function Update() 

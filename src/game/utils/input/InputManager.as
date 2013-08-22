@@ -21,7 +21,7 @@ package game.utils.input
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(Update.discardInput);
-			flow.addUpdateListener(Update.discardTicks);
+			flow.addUpdateListener(Update.discardClicks);
 			flow.addUpdateListener(Update.prerestore);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
@@ -36,7 +36,7 @@ package game.utils.input
 			this.order[InputManager.NO_DIRECTION] = 0;
 		}
 		
-		update function discardTicks():void
+		update function discardClicks():void
 		{
 			for (var i:int = 9; i < 17; i++)
 				this.order[i] = -1;
