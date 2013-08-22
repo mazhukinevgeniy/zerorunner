@@ -1,5 +1,6 @@
 package game.world 
 {
+	import flash.events.Event;
 	import game.utils.GameFoundations;
 	import game.utils.metric.DCellXY;
 	import game.world.broods.character.Character;
@@ -11,6 +12,7 @@ package game.world
 	import game.world.broods.utils.PointsOfInterest;
 	import game.world.operators.ActorOperators;
 	import game.world.renderer.Renderer;
+	import starling.core.Starling;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -41,6 +43,13 @@ package game.world
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
+			
+			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleFocusChange);
+		}
+		
+		private function handleFocusChange(event:Event):void
+		{
+			this.foundations.flow.dispatchUpdate(Update.discardInput);
 		}
 		
 		override update function prerestore():void
