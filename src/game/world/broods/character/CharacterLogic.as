@@ -11,8 +11,7 @@ package game.world.broods.character
 	import utils.templates.UpdateGameBase;
 	
 	public class CharacterLogic extends ItemLogicBase
-	{		
-		private const HP:int = 100;
+	{
 		private const SOLDERING_POWER:int = 2;
 		
 		private var input:IKnowInput;
@@ -37,7 +36,6 @@ package game.world.broods.character
 		override protected function onSpawned():void
 		{
 			this.flow.dispatchUpdate(Update.setCenter, this);
-			this.flow.dispatchUpdate(Update.setHeroHP, this.HP);
 		}
 		
 		protected function onMoved(change:DCellXY, delay:int):void
@@ -124,11 +122,6 @@ package game.world.broods.character
 			{
 				actor.offerSoldering(this, this.SOLDERING_POWER);
 			}
-		}
-		
-		override protected function onDamaged(damage:int):void
-		{
-			this.flow.dispatchUpdate(Update.heroDamaged, damage);
 		}
 	}
 

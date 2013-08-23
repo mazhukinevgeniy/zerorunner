@@ -20,9 +20,6 @@ package
 		
 		public static const setPause:String = "setPause";
 		
-		public static const setHeroHP:String = "setHeroHP";
-		public static const heroDamaged:String = "heroDamaged";
-		
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		

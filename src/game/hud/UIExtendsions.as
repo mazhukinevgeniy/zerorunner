@@ -8,7 +8,6 @@ package game.hud
 		
 		public function UIExtendsions(flow:IUpdateDispatcher) 
 		{
-			new HealthBar(flow);
 			new GameOverWindow(flow);
 			new PauseView(flow);
 			new Panel(flow);
