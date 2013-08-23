@@ -10,26 +10,17 @@ package game.world.broods.technic
 	
 	public class TechnicLogic extends ItemLogicBase
 	{
-		private static const LEFT:int = 0;
-		private static const UP:int = 1;
-		private static const RIGHT:int = 2;
-		private static const DOWN:int = 3;
+		private const MOVE_SPEED:int = 0;
 		
-		private static const LEFT_HAND:int = -1;
-		private static const RIGHT_HAND:int = 1;
-		private static const NOT_IN_BYPASS:int = 0;
+		private const LEFT:int = 0;
+		private const UP:int = 1;
+		private const RIGHT:int = 2;
+		private const DOWN:int = 3;
 		
 		private static var moves:Vector.<DCellXY> = new <DCellXY>[
 			new DCellXY( -1, 0), new DCellXY(0, -1), new DCellXY(1, 0), new DCellXY(0, 1)];
 		
-		private static var directions:Vector.<int> = new <int>[TechnicLogic.LEFT, TechnicLogic.UP, TechnicLogic.RIGHT, TechnicLogic.DOWN];
-		
-		
 		private var goal:ICoordinated;
-		private var bypassStartingPoint:CellXY;
-		
-		private var hand:int;
-		private var lastTouchedWall:int = -1;
 		
 		private var towers:IPointCollector;
 		
@@ -37,16 +28,12 @@ package game.world.broods.technic
 		{
 			this.towers = towers;
 			
-			this.bypassStartingPoint = new CellXY(0, 0);
-			
 			super(new TechnicView(foundations), foundations);
 		}
 		
 		override protected function reset():void
 		{
 			super.reset();
-			
-			this.hand = TechnicLogic.NOT_IN_BYPASS;
 			
 			this.goal = this.towers.findPointOfInterest(Game.TOWER);
 		}
@@ -59,76 +46,47 @@ package game.world.broods.technic
 			
 			if (!this.goal)
 			{
-				if (this.hand == TechnicLogic.NOT_IN_BYPASS)
-				{
-					if (!this.tryStraightGoing(this.goal))
-					{
-						this.hand = (Math.random() > 0.5)?( -1):(1);
-						
-						if (this.goal.x > this.x)
-							this.lastTouchedWall = TechnicLogic.RIGHT;
-						else if (this.goal.x < this.x)
-							this.lastTouchedWall = TechnicLogic.LEFT;
-						else if (this.goal.y > this.y)
-							this.lastTouchedWall = TechnicLogic.DOWN;
-						else /*if (this.goal.y < this.y)*///todo: something is wrong, fix it
-							this.lastTouchedWall = TechnicLogic.UP;
-						
-						this.bypassStartingPoint.setValue(this.x, this.y);
-					}
-				}
 				
-				if (this.hand != TechnicLogic.NOT_IN_BYPASS)
+			}
+			else
+			{
+				if (Math.abs(this.goal.x - this.x) > Math.abs(this.goal.y - this.y))
 				{
-					this.moveInDirection(this.lastTouchedWall);
-					
-					if (this.sureCheck())
-						this.hand = TechnicLogic.NOT_IN_BYPASS;
+					if (!this.tryHorizontal())
+						!this.tryVertical();
+				}				
+				else
+				{
+					if (!this.tryVertical())
+						this.tryHorizontal();
 				}
 			}
 		}
 		
-		private function tryStraightGoing(goal:ICoordinated):Boolean
+		private function tryVertical():Boolean
 		{
-			if (Math.abs(goal.x - this.x) > Math.abs(goal.y - this.y))
+			if (this.goal.y > this.y)
 			{
-				if (!this.tryHorizontal(goal))
-					if (!this.tryVertical(goal))
-						return false;
-				return true;
-			}				
-			else
-			{
-				if (!this.tryVertical(goal))
-					if (!this.tryHorizontal(goal))
-						return false;
-				return true;	
-			}
-		}
-		private function tryVertical(goal:ICoordinated):Boolean
-		{
-			if (goal.y > this.y)
-			{
-				this.moveInDirection(TechnicLogic.DOWN);
+				this.moveInDirection(this.DOWN);
 				return true;
 			}
-			else if (goal.y < this.y)
+			else if (this.goal.y < this.y)
 			{
-				this.moveInDirection(TechnicLogic.UP);
+				this.moveInDirection(this.UP);
 				return true;
 			}
 			return false;
 		}
-		private	function tryHorizontal(goal:ICoordinated):Boolean
+		private	function tryHorizontal():Boolean
 		{
-			if (goal.x > this.x)
+			if (this.goal.x > this.x)
 			{
-				this.moveInDirection(TechnicLogic.RIGHT);
+				this.moveInDirection(this.RIGHT);
 				return true;
 			}
-			else if (goal.x < this.x)
+			else if (this.goal.x < this.x)
 			{
-				this.moveInDirection(TechnicLogic.LEFT);
+				this.moveInDirection(this.LEFT);
 				return true;
 			}
 			return false;
@@ -137,45 +95,13 @@ package game.world.broods.technic
 		
 		private function moveInDirection(direction:int):void
 		{
-			var start:int = direction;
-			
 			var change:DCellXY = TechnicLogic.moves[direction];
 			
-			
-			this.move(change);
-			
-			start = direction;
-			
-			this.lastTouchedWall = TechnicLogic.directions[(direction + this.hand + 4) % 4];
-		}
-		
-		
-		private function sureCheck():Boolean
-		{	
-			return distance(this.goal, this.bypassStartingPoint, "x") >= distance(this.goal, this, "x")
-				   && 
-				   distance(this.goal, this.bypassStartingPoint, "y") >= distance(this.goal, this, "y");
-					
-			function distance(p1:ICoordinated, p2:ICoordinated, coordinate:String):int
-			{
-				return Math.abs(p1[coordinate] - p2[coordinate]);
-			}
+			this.move(change, this.MOVE_SPEED);
 		}
 		
 		
 		private const SOLDERING_POWER:int = 3;
-		
-		protected function onBlocked(change:DCellXY):void
-		{
-			var gx:int = this.x + change.x;
-			var gy:int = this.y + change.y;
-			
-			var actor:ItemLogicBase;
-			
-			actor = this.world.findObjectByCell(gx, gy);
-			if (actor.isSolderable())
-				this.solder(actor, this.SOLDERING_POWER);
-		}
 		
 		protected function onTowerHalfBuilt():void
 		{
