@@ -23,8 +23,10 @@ package game.world.broods.utils
 		public function findPointOfInterest(type:int):ICoordinated
 		{
 			var vector:Vector.<ICoordinated> = this.types[type];
-			var length:int = vector.length;
+			if (!vector) 
+				return null;
 			
+			var length:int = vector.length;
 			return vector[int(Math.random() * length)];
 		}
 		

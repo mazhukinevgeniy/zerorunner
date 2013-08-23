@@ -10,13 +10,9 @@ package game.world.broods.skyClearer
 	{
 		private var foundations:GameFoundations;
 		
-		private var points:IPointCollector;
-		
-		public function SkyClearer(foundations:GameFoundations, points:IPointCollector) 
+		public function SkyClearer(foundations:GameFoundations) 
 		{
 			this.foundations = foundations;
-			
-			this.points = points;
 			
 			super();
 		}
@@ -24,8 +20,6 @@ package game.world.broods.skyClearer
 		override protected function newActor():ItemLogicBase
 		{
 			var actor:ItemLogicBase = new SkyClearerLogic(this.foundations);
-			
-			this.points.addPointOfInterest(Game.TOWER, actor);
 			
 			return actor;
 		}

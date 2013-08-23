@@ -66,7 +66,7 @@ package game.world
 			new Character(this.foundations, this.points);
 			new Checkpoint(this.foundations);
 			new Fog(this.foundations);
-			new SkyClearer(this.foundations, this.points);
+			new SkyClearer(this.foundations);
 			new Technic(this.foundations, this.points);
 		}
 		

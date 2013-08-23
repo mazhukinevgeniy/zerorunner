@@ -64,31 +64,34 @@ package game.world.broods.technic
 			if (!this.goal)
 				this.goal = this.towers.findPointOfInterest(Game.TOWER);
 			
-			if (this.hand == TechnicLogic.NOT_IN_BYPASS)
+			if (!this.goal)
 			{
-				if (!this.tryStraightGoing(this.goal))
+				if (this.hand == TechnicLogic.NOT_IN_BYPASS)
 				{
-					this.hand = (Math.random() > 0.5)?( -1):(1);
-					
-					if (this.goal.x > this.x)
-						this.lastTouchedWall = TechnicLogic.RIGHT;
-					else if (this.goal.x < this.x)
-						this.lastTouchedWall = TechnicLogic.LEFT;
-					else if (this.goal.y > this.y)
-						this.lastTouchedWall = TechnicLogic.DOWN;
-					else /*if (this.goal.y < this.y)*///todo: something is wrong, fix it
-						this.lastTouchedWall = TechnicLogic.UP;
-					
-					this.bypassStartingPoint.setValue(this.x, this.y);
+					if (!this.tryStraightGoing(this.goal))
+					{
+						this.hand = (Math.random() > 0.5)?( -1):(1);
+						
+						if (this.goal.x > this.x)
+							this.lastTouchedWall = TechnicLogic.RIGHT;
+						else if (this.goal.x < this.x)
+							this.lastTouchedWall = TechnicLogic.LEFT;
+						else if (this.goal.y > this.y)
+							this.lastTouchedWall = TechnicLogic.DOWN;
+						else /*if (this.goal.y < this.y)*///todo: something is wrong, fix it
+							this.lastTouchedWall = TechnicLogic.UP;
+						
+						this.bypassStartingPoint.setValue(this.x, this.y);
+					}
 				}
-			}
-			
-			if (this.hand != TechnicLogic.NOT_IN_BYPASS)
-			{
-				this.moveInDirection(this.lastTouchedWall);
 				
-				if (this.sureCheck())
-					this.hand = TechnicLogic.NOT_IN_BYPASS;
+				if (this.hand != TechnicLogic.NOT_IN_BYPASS)
+				{
+					this.moveInDirection(this.lastTouchedWall);
+					
+					if (this.sureCheck())
+						this.hand = TechnicLogic.NOT_IN_BYPASS;
+				}
 			}
 		}
 		
