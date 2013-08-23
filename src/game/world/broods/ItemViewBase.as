@@ -47,29 +47,12 @@ package game.world.broods
 			this.visible = true;
 		}
 		
-		final internal function moveNormally(goal:ICoordinated, change:DCellXY, delay:int):void
+		final internal function move(goal:ICoordinated, change:DCellXY, delay:int):void
 		{
 			this.movingTween.reset(this, delay * Time.TIME_BETWEEN_TICKS);
 			this.movingTween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
 			
 			this.juggler.add(this.movingTween);
-			
-			this.animateMove(change, delay);
-		}
-		
-		final internal function jump(goal:ICoordinated, change:DCellXY, delay:int):void
-		{
-			this.movingTween.reset(this, delay * Time.TIME_BETWEEN_TICKS);
-			this.movingTween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
-			
-			this.juggler.add(this.movingTween);
-			
-			this.animateJump(change, delay);
-		}
-		
-		final internal function solder(target:ICoordinated, delay:int):void
-		{			
-			this.animateSoldering(target, delay);
 		}
 		
 		final internal function disappear():void
@@ -77,21 +60,6 @@ package game.world.broods
 			this.movingTween.reset(this, 0);
 			
 			this.visible = false;
-		}
-		
-		protected function animateMove(change:DCellXY, delay:int):void
-		{
-			
-		}
-		
-		protected function animateSoldering(target:ICoordinated, delay:int):void
-		{
-			throw new Error();
-		}
-		
-		protected function animateJump(change:DCellXY, delay:int):void
-		{
-			
 		}
 	}
 
