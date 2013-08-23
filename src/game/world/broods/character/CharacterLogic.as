@@ -20,6 +20,8 @@ package game.world.broods.character
 		private var input:IKnowInput;
 		private var flow:IUpdateDispatcher;
 		
+		private var cooldown:int;
+		
 		public function CharacterLogic(foundations:GameFoundations) 
 		{
 			this.input = foundations.input;
@@ -38,13 +40,10 @@ package game.world.broods.character
 			super.reset();
 			
 			this.flow.dispatchUpdate(Update.setCenter, this);
+			
+			this.cooldown = 0;
 		}
 		
-		protected function onMoved(change:DCellXY, delay:int):void
-		{
-			this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
-			this.flow.dispatchUpdate(Update.discardClicks);
-		}
 		
 		override public function applyDestruction():void
 		{
@@ -53,7 +52,41 @@ package game.world.broods.character
 		
 		override public function act():void
 		{
+			if (this.cooldown > 0)
+				this.cooldown--;
+			else
+			{
+				var tmp:Vector.<DCellXY> = this.input.getInputCopy();
+				var action:DCellXY = tmp.pop();
+				
+				while (action.x != 0 || action.y != 0)
+				{
+					if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != Game.FALL)
+					{
+						this.move(action, this.MOVE_SPEED);
+						
+						return;
+					}
+					else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != Game.FALL)
+					{
+						this.jump(action, 2);
+						
+						return;
+					}
+					
+					action = tmp.pop();
+				}
+			}
+		}
+		
+		override protected function move(change:DCellXY, delay:int):void
+		{
+			super.move(change, delay);
 			
+			this.cooldown = this.MOVE_SPEED;
+			
+			this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
+			this.flow.dispatchUpdate(Update.discardClicks);
 		}
 		
 		final protected function jump(change:DCellXY, multiplier:int):void
@@ -80,30 +113,6 @@ package game.world.broods.character
 			this.view.jump(this, jChange, this.movingCooldown + 1);
 			
 			this.onMoved(jChange, this.movingCooldown);*/
-		}
-		
-		 protected function onCanMove():void
-		{
-			var tmp:Vector.<DCellXY> = this.input.getInputCopy();
-			var action:DCellXY = tmp.pop();
-			
-			while (action.x != 0 || action.y != 0)
-			{
-				if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != Game.FALL)
-				{
-					this.move(action, this.MOVE_SPEED);
-					
-					return;
-				}
-				else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != Game.FALL)
-				{
-					this.jump(action, 2);
-					
-					return;
-				}
-				
-				action = tmp.pop();
-			}
 		}
 		
 		 protected function onBlocked(change:DCellXY):void

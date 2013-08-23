@@ -69,7 +69,7 @@ package game.world.broods
 		final public function get x():int {	return this._x;	}
 		final public function get y():int {	return this._y;	}
 		
-		final protected function move(change:DCellXY, delay:int):void
+		protected function move(change:DCellXY, delay:int):void
 		{
 			if (!this.world.findObjectByCell(this.x + change.x, this.y + change.y))
 			{
