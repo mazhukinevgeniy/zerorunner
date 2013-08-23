@@ -5,6 +5,7 @@ package game.world.broods.utils
 	public interface IPointCollector 
 	{
 		function addPointOfInterest(type:int, point:ICoordinated):void;
+		function removePointOfInterest(type:int, point:ICoordinated):void;
 		
 		function findPointOfInterest(type:int):ICoordinated;
 	}

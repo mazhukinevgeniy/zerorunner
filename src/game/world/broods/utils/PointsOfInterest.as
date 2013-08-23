@@ -30,6 +30,17 @@ package game.world.broods.utils
 			return vector[int(Math.random() * length)];
 		}
 		
+		public function removePointOfInterest(type:int, point:ICoordinated):void
+		{
+			var vector:Vector.<ICoordinated> = this.types[type];
+			if (!vector) 
+				return;
+			
+			var position:int = vector.indexOf(point);
+			if (position != -1)
+				vector.splice(position, 1);
+		}
+		
 		/**
 		 * Interfaceless
 		 */
