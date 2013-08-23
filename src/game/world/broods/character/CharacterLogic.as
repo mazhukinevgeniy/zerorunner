@@ -6,20 +6,26 @@ package game.world.broods.character
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.Metric;
+	import game.world.broods.IPushable;
+	import game.world.broods.ISolderable;
 	import game.world.broods.ItemLogicBase;
 	import utils.templates.UpdateGameBase;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class CharacterLogic extends ItemLogicBase
 	{
+		private const MOVE_SPEED:int = 1;
 		private const SOLDERING_POWER:int = 2;
 		
 		private var input:IKnowInput;
+		private var flow:IUpdateDispatcher;
 		
 		public function CharacterLogic(foundations:GameFoundations) 
 		{
-			super(new CharacterView(foundations), foundations);
-			
 			this.input = foundations.input;
+			this.flow = foundations.flow;
+			
+			super(new CharacterView(foundations), foundations);
 		}
 		
 		override protected function getSpawningCell():CellXY
@@ -47,11 +53,11 @@ package game.world.broods.character
 		
 		override public function act():void
 		{
-			this.isOnTheGround();
+			
 		}
 		
 		final protected function jump(change:DCellXY, multiplier:int):void
-		{
+		{/*
 			this.movingCooldown = 2 * this.moveSpeed * multiplier;
 			
 			var jChange:DCellXY = Metric.getTmpDCell(change.x * multiplier, change.y * multiplier);
@@ -73,7 +79,7 @@ package game.world.broods.character
 			
 			this.view.jump(this, jChange, this.movingCooldown + 1);
 			
-			this.onMoved(jChange, this.movingCooldown);
+			this.onMoved(jChange, this.movingCooldown);*/
 		}
 		
 		 protected function onCanMove():void
@@ -85,7 +91,7 @@ package game.world.broods.character
 			{
 				if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != Game.FALL)
 				{
-					this.move(action);
+					this.move(action, this.MOVE_SPEED);
 					
 					return;
 				}
@@ -105,18 +111,15 @@ package game.world.broods.character
 			var gx:int = this.x + change.x;
 			var gy:int = this.y + change.y;
 			
-			var actor:ItemLogicBase;
-			
-			this.world.findObjectByCell(gx, gy).applyPush();
-			
-			actor = this.world.findObjectByCell(gx, gy);
-			if (!actor)
+			var actor:ItemLogicBase = this.world.findObjectByCell(gx, gy);
+			if (actor && actor is IPushable)
 			{
-				this.move(change);
+				actor.applyDestruction();
+				this.move(change, this.MOVE_SPEED);
 			}
-			else
+			else if (actor && actor is ISolderable)
 			{
-				actor.offerSoldering(this, this.SOLDERING_POWER);
+				(actor as ISolderable).applySoldering(this.SOLDERING_POWER);
 			}
 		}
 	}

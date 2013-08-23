@@ -4,6 +4,7 @@ package game.world.broods.skyClearer
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
 	import game.world.broods.ItemLogicBase;
+	import game.world.broods.IWindBound;
 	
 	public class SkyClearerLogic extends ItemLogicBase
 	{
@@ -36,30 +37,15 @@ package game.world.broods.skyClearer
 			var actor:ItemLogicBase;
 			var i:int;
 			
-			if (this.constructionStatus > SkyClearerLogic.MAXIMUM_CONSTRUCTION)
+			if (this.constructionStatus > SkyClearerLogic.MAXIMUM_CONSTRUCTION / 2)
 			{
 				for (i = 0; i < 8; i++)
 				{
 					change = SkyClearerLogic.changes[i];
 					
 					actor = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
-					if (actor)
-						actor.applyWind(change);
-					
-					actor = this.world.findObjectByCell(this.x + 2 * change.x, this.y + 2 * change.y);
-					if (actor)
-						actor.applyWind(change);
-				}
-			}
-			else if (this.constructionStatus > SkyClearerLogic.MAXIMUM_CONSTRUCTION / 2)
-			{
-				for (i = 0; i < 8; i++)
-				{
-					change = SkyClearerLogic.changes[i];
-					
-					actor = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
-					if (actor)
-						actor.applyWind(change);
+					if (actor && actor is IWindBound)
+						(actor as IWindBound).applyWind(change);
 				}
 			}
 		}
@@ -78,22 +64,15 @@ package game.world.broods.skyClearer
 			this.view.showConstruction(this.constructionStatus);
 		}
 		
-		protected function onSoldered(solderer:ItemLogicBase, value:int):void
+		protected function onSoldered(value:int):void
 		{
-			if (this.constructionStatus <= SkyClearerLogic.MAXIMUM_CONSTRUCTION)
-			{
-				this.constructionStatus += value;
-				if (this.constructionStatus > SkyClearerLogic.MAXIMUM_CONSTRUCTION / 2)
-					solderer.basicSolderingSucceed();
-				
-				this.view.showConstruction(this.constructionStatus);
-			}
-			else
-			{
-				this.applyDamage(value);
-			}
+			this.constructionStatus += value;
+			this.view.showConstruction(this.constructionStatus);
 			
-			solderer.applyModeSoldering(this);
+			if (this.constructionStatus >= 2 * SkyClearerLogic.MAXIMUM_CONSTRUCTION)
+			{
+				this.applyDestruction();
+			}
 		}
 		
 		/**
