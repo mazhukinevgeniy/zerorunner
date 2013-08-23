@@ -6,7 +6,7 @@ package game.world.broods.skyClearer
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
 	
-	internal class SkyClearerLogic extends ItemLogicBase
+	public class SkyClearerLogic extends ItemLogicBase
 	{
 		internal static const MAXIMUM_CONSTRUCTION:int = 50;
 		
@@ -33,7 +33,7 @@ package game.world.broods.skyClearer
 			return cell;
 		}
 		
-		override protected function onCanAct():void 
+		override protected function onActing():void 
 		{ 
 			var change:DCellXY;
 			var actor:ItemLogicBase;
@@ -84,7 +84,7 @@ package game.world.broods.skyClearer
 			return SkyClearerLogic.config;
 		}
 		
-		override protected function onSoldered(solderer:ItemLogicBase, value:int):void
+		protected function onSoldered(solderer:ItemLogicBase, value:int):void
 		{
 			if (this.constructionStatus <= SkyClearerLogic.MAXIMUM_CONSTRUCTION)
 			{

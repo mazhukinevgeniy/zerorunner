@@ -10,7 +10,7 @@ package game.world.broods.character
 	import game.world.broods.utils.ConfigKit;
 	import utils.templates.UpdateGameBase;
 	
-	internal class CharacterLogic extends ItemLogicBase
+	public class CharacterLogic extends ItemLogicBase
 	{		
 		private const HP:int = 100;
 		private const SOLDERING_POWER:int = 2;
@@ -40,7 +40,7 @@ package game.world.broods.character
 			this.flow.dispatchUpdate(Update.setHeroHP, this.HP);
 		}
 		
-		override protected function onMoved(change:DCellXY, delay:int):void
+		protected function onMoved(change:DCellXY, delay:int):void
 		{
 			this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
 			this.flow.dispatchUpdate(Update.discardClicks);
@@ -56,8 +56,33 @@ package game.world.broods.character
 			this.isOnTheGround();
 		}
 		
+		final protected function jump(change:DCellXY, multiplier:int):void
+		{
+			this.movingCooldown = 2 * this.moveSpeed * multiplier;
+			
+			var jChange:DCellXY = Metric.getTmpDCell(change.x * multiplier, change.y * multiplier);
+			
+			var unluckyGuy:ItemLogicBase;
+			
+			for (var i:int = 0; i < multiplier; i++)
+			{
+				unluckyGuy = this.world.findObjectByCell(this._x + (i + 1) * change.x, this._y + (i + 1) * change.y);
+				
+				if (unluckyGuy)
+					unluckyGuy.applyDestruction();
+			}
+			
+			this._x += jChange.x;
+			this._y += jChange.y;
+			
+			this.actors.moveActor(this, jChange);
+			
+			this.view.jump(this, jChange, this.movingCooldown + 1);
+			
+			this.onMoved(jChange, this.movingCooldown);
+		}
 		
-		override protected function onCanMove():void
+		 protected function onCanMove():void
 		{
 			var tmp:Vector.<DCellXY> = this.input.getInputCopy();
 			var action:DCellXY = tmp.pop();
@@ -81,7 +106,7 @@ package game.world.broods.character
 			}
 		}
 		
-		override protected function onBlocked(change:DCellXY):void
+		 protected function onBlocked(change:DCellXY):void
 		{
 			var gx:int = this.x + change.x;
 			var gy:int = this.y + change.y;

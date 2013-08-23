@@ -6,7 +6,7 @@ package game.world.broods.checkpoint
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
 	
-	internal class CheckpointLogic extends ItemLogicBase
+	public class CheckpointLogic extends ItemLogicBase
 	{
 		private const STEPS_BETWEEN_CHECKPOINTS:int = 20;
 		

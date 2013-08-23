@@ -4,11 +4,16 @@ package game.world
 	import game.utils.GameFoundations;
 	import game.utils.metric.DCellXY;
 	import game.world.broods.character.Character;
+	import game.world.broods.character.CharacterLogic;
 	import game.world.broods.checkpoint.Checkpoint;
+	import game.world.broods.checkpoint.CheckpointLogic;
 	import game.world.broods.fog.Fog;
+	import game.world.broods.fog.FogLogic;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.skyClearer.SkyClearer;
+	import game.world.broods.skyClearer.SkyClearerLogic;
 	import game.world.broods.technic.Technic;
+	import game.world.broods.technic.TechnicLogic;
 	import game.world.broods.utils.PointsOfInterest;
 	import game.world.operators.ActorOperators;
 	import game.world.renderer.Renderer;
@@ -61,13 +66,22 @@ package game.world
 			
 			this.points.clearPointsOfInterest();
 			
+			this.points.addPointOfInterest(Game.CHARACTER, new CharacterLogic(this.foundations));
+			new TechnicLogic(this.foundations, this.points);
 			
+			var i:int, goal:int;
 			
-			new Character(this.foundations, this.points);
-			new Checkpoint(this.foundations);
-			new Fog(this.foundations);
-			new SkyClearer(this.foundations);
-			new Technic(this.foundations, this.points);
+			goal = (this.game).getMapWidth() * (this.game).getMapWidth();
+			for (i = 0; i < goal; i++)
+				new CheckpointLogic(this.foundations);
+			
+			goal = this.width * this.width * 0.2;
+			for (i = 0; i < goal; i++)
+				new FogLogic(this.foundations);
+			
+			goal = this.width;
+			for (i = 0; i < goal; i++)
+				new SkyClearerLogic(this.foundations);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase

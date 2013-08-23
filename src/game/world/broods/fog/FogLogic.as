@@ -5,7 +5,7 @@ package game.world.broods.fog
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.ConfigKit;
 	
-	internal class FogLogic extends ItemLogicBase
+	public class FogLogic extends ItemLogicBase
 	{
 		
 		public function FogLogic(foundations:GameFoundations) 
@@ -16,14 +16,9 @@ package game.world.broods.fog
 		
 		
 		
-		override protected function onPushed():void
+		protected function onPushed():void
 		{
 			this.applyDestruction();
-		}
-		
-		override protected function onBlocked(change:DCellXY):void
-		{
-			this.applyPush();
 		}
 		
 		
@@ -36,7 +31,7 @@ package game.world.broods.fog
 			return ConfigKit.CLOUD;
 		}
 		
-		final override protected function onWind(change:DCellXY):void
+		protected function onWind(change:DCellXY):void
 		{
 			this.move(change);
 		}

@@ -9,7 +9,7 @@ package game.world.broods.technic
 	import game.world.broods.utils.ConfigKit;
 	import game.world.broods.utils.IPointCollector;
 	
-	internal class TechnicLogic extends ItemLogicBase
+	public class TechnicLogic extends ItemLogicBase
 	{
 		private static const LEFT:int = 0;
 		private static const UP:int = 1;
@@ -59,7 +59,7 @@ package game.world.broods.technic
 		}
 		
 		
-		override protected function onCanMove():void
+		 protected function onCanMove():void
 		{
 			if (!this.goal)
 				this.goal = this.towers.findPointOfInterest(Game.TOWER);
@@ -172,27 +172,19 @@ package game.world.broods.technic
 		
 		private const SOLDERING_POWER:int = 3;
 		
-		override protected function onBlocked(change:DCellXY):void
+		protected function onBlocked(change:DCellXY):void
 		{
 			var gx:int = this.x + change.x;
 			var gy:int = this.y + change.y;
 			
 			var actor:ItemLogicBase;
 			
-			this.world.findObjectByCell(gx, gy).applyPush();
-			
 			actor = this.world.findObjectByCell(gx, gy);
-			if (!actor)
-			{
-				this.move(change);
-			}
-			else
-			{
-				actor.offerSoldering(this, this.SOLDERING_POWER);
-			}
+			if (actor.isSolderable())
+				this.solder(actor, this.SOLDERING_POWER);
 		}
 		
-		override protected function onTowerHalfBuilt():void
+		protected function onTowerHalfBuilt():void
 		{
 			this.goal = this.towers.findPointOfInterest(Game.TOWER);
 		}

@@ -23,11 +23,7 @@ package game.world.broods
 		
 		private var view:ItemViewBase;
 		
-		private var moveSpeed:int;
-		private var movingCooldown:int;
-		
-		private var actionSpeed:int;
-		private var actingCooldown:int;
+		private var cooldown:int;
 		
 		private var _x:int;
 		private var _y:int;
@@ -58,17 +54,9 @@ package game.world.broods
 		
 		final public function act():void
 		{
+			this.cooldown--;
+			
 			this.onActing();
-			
-			if (this.actingCooldown == 0)
-				this.onCanAct();
-			else
-				this.actingCooldown--;
-			
-			if (this.movingCooldown == 0)
-				this.onCanMove();
-			else
-				this.movingCooldown--;
 		}
 		
 		
@@ -78,11 +66,6 @@ package game.world.broods
 			var config:ConfigKit = this.getConfig();
 			
 			this._hp = config.health;
-			this.moveSpeed = config.movingSpeed;
-			this.actionSpeed = config.actingSpeed;
-			
-			this.actingCooldown = 0;
-			this.movingCooldown = 0;
 			
 			var cell:CellXY = this.getSpawningCell();
 			this._x = cell.x;
@@ -127,33 +110,10 @@ package game.world.broods
 			}
 		}
 		
+		
 		/**********
 		 ** What you can suffer
 		 *********/
-		
-		final public function basicSolderingSucceed():void
-		{
-			this.onTowerHalfBuilt();
-		}
-		
-		final public function applyModeSoldering(target:ICoordinated):void
-		{
-			this.movingCooldown = this.actingCooldown = this.actionSpeed;
-			
-			this.view.solder(target, this.actionSpeed + 1);
-		}
-		
-		final public function applyPush():void
-		{
-			
-			
-			this.onPushed();
-		}
-		
-		final public function applyWind(change:DCellXY):void
-		{
-			this.onWind(change);
-		}
 		
 		final public function applyDamage(damage:int):void
 		{
@@ -178,65 +138,28 @@ package game.world.broods
 			this.onDestroyed();
 		}
 		
-		/**********
-		 ** What others can offer to you
-		 *********/
-		
-		final public function offerSoldering(offerer:ItemLogicBase, value:int):void
-		{
-			
-			
-			this.onSoldered(offerer, value);
-		}
-		
 		/********
 		 * What you can do
 		 *******/
 		
-		final protected function move(change:DCellXY):void
+		final protected function move(change:DCellXY, delay:int):void
 		{
 			if (!this.world.findObjectByCell(this.x + change.x, this.y + change.y))
 			{
-				this.movingCooldown = this.moveSpeed;
+				this.cooldown = delay;
 				
 				this._x += change.x;
 				this._y += change.y;
 				
 				this.actors.moveActor(this, change);
 				
-				this.view.moveNormally(this, change, this.movingCooldown + 1);
-				
-				this.onMoved(change, this.moveSpeed);
+				this.view.moveNormally(this, change, this.cooldown + 1);
 			}
 			else
-				this.onBlocked(change);
+				throw new Error();
 		}
 		
-		final protected function jump(change:DCellXY, multiplier:int):void
-		{
-			this.movingCooldown = 2 * this.moveSpeed * multiplier;
-			
-			var jChange:DCellXY = Metric.getTmpDCell(change.x * multiplier, change.y * multiplier);
-			
-			var unluckyGuy:ItemLogicBase;
-			
-			for (var i:int = 0; i < multiplier; i++)
-			{
-				unluckyGuy = this.world.findObjectByCell(this._x + (i + 1) * change.x, this._y + (i + 1) * change.y);
-				
-				if (unluckyGuy)
-					unluckyGuy.applyDestruction();
-			}
-			
-			this._x += jChange.x;
-			this._y += jChange.y;
-			
-			this.actors.moveActor(this, jChange);
-			
-			this.view.jump(this, jChange, this.movingCooldown + 1);
-			
-			this.onMoved(jChange, this.movingCooldown);
-		}
+		
 		
 		/****************
 		**** Overridables
@@ -246,32 +169,8 @@ package game.world.broods
 		/** Called in the end of reset. */
 		protected function onSpawned():void { }
 		
-		/** Called in the begging of act(). */
+		/** Called on act(). */
 		protected function onActing():void { }
-		
-		/** Called if action cooldown expired. */
-		protected function onCanAct():void { }
-		
-		/** Called if moving cooldown expired. */
-		protected function onCanMove():void { }
-		
-		/** Called if moved succesfully */
-		protected function onMoved(change:DCellXY, delay:int):void { }
-		
-		/** Called if can not move */
-		protected function onBlocked(change:DCellXY):void { }
-		
-		/** Called if someone applies push. */
-		protected function onPushed():void { }
-		
-		/** Called by the WindFeature. */
-		protected function onWind(change:DCellXY):void { }
-		
-		/** Called when soldering is offered. */
-		protected function onSoldered(solderer:ItemLogicBase, value:int):void { }
-		
-		/** Called when soldering succeds. */
-		protected function onTowerHalfBuilt():void { }
 		
 		/** Called if damaged and survived that damage. */
 		protected function onDamaged(damage:int):void { }
