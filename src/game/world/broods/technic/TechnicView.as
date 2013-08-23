@@ -12,7 +12,7 @@ package game.world.broods.technic
 			super(foundations);
 		}
 		
-		override protected function animateSoldering(target:ICoordinated, delay:int):void
+		internal function animateSoldering(target:ICoordinated, delay:int):void
 		{
 			
 		}

@@ -53,7 +53,7 @@ package game.world.broods.character
 			return this.container;
 		}
 		
-		override protected function animateMove(change:DCellXY, delay:int):void
+		internal function animateWalking(change:DCellXY, delay:int):void
 		{
 			if (change.x == 0)
 			{
@@ -82,7 +82,7 @@ package game.world.broods.character
 			}
 		}
 		
-		override protected function animateSoldering(target:ICoordinated, delay:int):void
+		internal function animateSoldering(target:ICoordinated, delay:int):void
 		{
 			
 		}

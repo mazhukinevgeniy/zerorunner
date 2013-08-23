@@ -3,16 +3,11 @@ package game.world
 	import flash.events.Event;
 	import game.utils.GameFoundations;
 	import game.utils.metric.DCellXY;
-	import game.world.broods.character.Character;
 	import game.world.broods.character.CharacterLogic;
-	import game.world.broods.checkpoint.Checkpoint;
 	import game.world.broods.checkpoint.CheckpointLogic;
-	import game.world.broods.fog.Fog;
 	import game.world.broods.fog.FogLogic;
 	import game.world.broods.ItemLogicBase;
-	import game.world.broods.skyClearer.SkyClearer;
 	import game.world.broods.skyClearer.SkyClearerLogic;
-	import game.world.broods.technic.Technic;
 	import game.world.broods.technic.TechnicLogic;
 	import game.world.broods.utils.PointsOfInterest;
 	import game.world.operators.ActorOperators;

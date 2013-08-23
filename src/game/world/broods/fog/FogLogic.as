@@ -3,10 +3,10 @@ package game.world.broods.fog
 	import game.utils.GameFoundations;
 	import game.utils.metric.DCellXY;
 	import game.world.broods.ItemLogicBase;
-	import game.world.broods.utils.ConfigKit;
 	
 	public class FogLogic extends ItemLogicBase
 	{
+		private const MOVE_SPEED:int = 0;
 		
 		public function FogLogic(foundations:GameFoundations) 
 		{
@@ -26,14 +26,9 @@ package game.world.broods.fog
 		 * Cloud core
 		 */
 		
-		final override protected function getConfig():ConfigKit
-		{
-			return ConfigKit.CLOUD;
-		}
-		
 		protected function onWind(change:DCellXY):void
 		{
-			this.move(change);
+			this.move(change, this.MOVE_SPEED);
 		}
 		
 		/**

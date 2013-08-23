@@ -6,7 +6,6 @@ package game.world.broods.technic
 	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
 	import game.world.broods.ItemLogicBase;
-	import game.world.broods.utils.ConfigKit;
 	import game.world.broods.utils.IPointCollector;
 	
 	public class TechnicLogic extends ItemLogicBase
@@ -26,9 +25,6 @@ package game.world.broods.technic
 		private static var directions:Vector.<int> = new <int>[TechnicLogic.LEFT, TechnicLogic.UP, TechnicLogic.RIGHT, TechnicLogic.DOWN];
 		
 		
-		private static const config:ConfigKit = new ConfigKit(15, 0, 0);
-		
-		
 		private var goal:ICoordinated;
 		private var bypassStartingPoint:CellXY;
 		
@@ -46,13 +42,10 @@ package game.world.broods.technic
 			super(new TechnicView(foundations), foundations);
 		}
 		
-		override protected function getConfig():ConfigKit
+		override protected function reset():void
 		{
-			return TechnicLogic.config;
-		}
-		
-		override protected function onSpawned():void
-		{
+			super.reset();
+			
 			this.hand = TechnicLogic.NOT_IN_BYPASS;
 			
 			this.goal = this.towers.findPointOfInterest(Game.TOWER);

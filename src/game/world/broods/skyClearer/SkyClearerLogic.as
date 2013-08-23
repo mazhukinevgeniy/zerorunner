@@ -4,7 +4,6 @@ package game.world.broods.skyClearer
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
 	import game.world.broods.ItemLogicBase;
-	import game.world.broods.utils.ConfigKit;
 	
 	public class SkyClearerLogic extends ItemLogicBase
 	{
@@ -13,8 +12,6 @@ package game.world.broods.skyClearer
 		private static const changes:Vector.<DCellXY> = new <DCellXY>
 			[new DCellXY(0, 1), new DCellXY( -1, 0), new DCellXY(1, 0), new DCellXY(0, -1),
 			 new DCellXY(1, 1), new DCellXY( -1, 1), new DCellXY(1, -1), new DCellXY( -1, -1)];
-		
-		private static const config:ConfigKit = new ConfigKit(50, 10000000, 0);
 		
 		private var view:SkyClearerView;
 		
@@ -33,7 +30,7 @@ package game.world.broods.skyClearer
 			return cell;
 		}
 		
-		override protected function onActing():void 
+		override public function act():void 
 		{ 
 			var change:DCellXY;
 			var actor:ItemLogicBase;
@@ -73,15 +70,12 @@ package game.world.broods.skyClearer
 		
 		private var constructionStatus:int;
 		
-		override protected function onSpawned():void
+		override protected function reset():void
 		{
+			super.reset();
+			
 			this.constructionStatus = Math.random() * SkyClearerLogic.MAXIMUM_CONSTRUCTION * 0.7;
 			this.view.showConstruction(this.constructionStatus);
-		}
-		
-		override protected function getConfig():ConfigKit
-		{
-			return SkyClearerLogic.config;
 		}
 		
 		protected function onSoldered(solderer:ItemLogicBase, value:int):void

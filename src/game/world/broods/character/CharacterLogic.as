@@ -7,7 +7,6 @@ package game.world.broods.character
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.Metric;
 	import game.world.broods.ItemLogicBase;
-	import game.world.broods.utils.ConfigKit;
 	import utils.templates.UpdateGameBase;
 	
 	public class CharacterLogic extends ItemLogicBase
@@ -23,18 +22,15 @@ package game.world.broods.character
 			this.input = foundations.input;
 		}
 		
-		override protected function getConfig():ConfigKit
-		{
-			return new ConfigKit(this.HP, 1, 0);
-		}
-		
 		override protected function getSpawningCell():CellXY
 		{
 			return Metric.getTmpCell(Game.SECTOR_WIDTH, Game.SECTOR_WIDTH * (1 + (this.game).getMapWidth()) - 1);
 		}
 		
-		override protected function onSpawned():void
+		override protected function reset():void
 		{
+			super.reset();
+			
 			this.flow.dispatchUpdate(Update.setCenter, this);
 		}
 		
@@ -44,12 +40,12 @@ package game.world.broods.character
 			this.flow.dispatchUpdate(Update.discardClicks);
 		}
 		
-		override protected function onDestroyed():void
+		override public function applyDestruction():void
 		{
 			this.flow.dispatchUpdate(Update.gameOver);
 		}
 		
-		override protected function onActing():void
+		override public function act():void
 		{
 			this.isOnTheGround();
 		}
