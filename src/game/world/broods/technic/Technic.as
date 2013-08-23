@@ -27,7 +27,7 @@ package game.world.broods.technic
 		
 		override protected function getActorsCap():int
 		{
-			return 20;
+			return 2;
 		}
 		
 		
