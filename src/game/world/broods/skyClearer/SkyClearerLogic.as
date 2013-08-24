@@ -55,6 +55,11 @@ package game.world.broods.skyClearer
 		
 		private var constructionStatus:int;
 		
+		public function get progress():Number
+		{
+			return Number(this.constructionStatus / SkyClearerLogic.MAXIMUM_CONSTRUCTION);
+		}
+		
 		override protected function reset():void
 		{
 			super.reset();
