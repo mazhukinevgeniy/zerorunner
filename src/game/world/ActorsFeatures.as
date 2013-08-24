@@ -61,7 +61,7 @@ package game.world
 			
 			this.points.clearPointsOfInterest();
 			
-			this.points.addPointOfInterest(Game.CHARACTER, new CharacterLogic(this.foundations));
+			new CharacterLogic(this.foundations, this.points);
 			new TechnicLogic(this.foundations, this.points);
 			
 			var i:int, goal:int;

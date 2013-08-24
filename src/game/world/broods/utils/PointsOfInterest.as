@@ -16,8 +16,8 @@ package game.world.broods.utils
 		{
 			if (this.types[type] == null)
 				this.types[type] = new Vector.<ICoordinated>();
-			
-			this.types[type].push(point);
+			if (this.types[type].indexOf(point) == -1)
+				this.types[type].push(point);
 		}
 		
 		public function findPointOfInterest(type:int):ICoordinated

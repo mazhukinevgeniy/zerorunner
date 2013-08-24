@@ -9,6 +9,7 @@ package game.world.broods.character
 	import game.world.broods.IPushable;
 	import game.world.broods.ISolderable;
 	import game.world.broods.ItemLogicBase;
+	import game.world.broods.utils.IPointCollector;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -19,13 +20,18 @@ package game.world.broods.character
 		
 		private var input:IKnowInput;
 		private var flow:IUpdateDispatcher;
+		private var points:IPointCollector;
 		
 		private var cooldown:int;
 		
-		public function CharacterLogic(foundations:GameFoundations) 
+		public function CharacterLogic(foundations:GameFoundations, points:IPointCollector) 
 		{
 			this.input = foundations.input;
 			this.flow = foundations.flow;
+			
+			points.addPointOfInterest(Game.CHARACTER, this);
+			
+			this.points = points;
 			
 			super(new CharacterView(foundations), foundations);
 		}
@@ -52,6 +58,15 @@ package game.world.broods.character
 		
 		override public function act():void
 		{
+			for (var i:int = -7; i < 8; i++)
+				for (var j:int = -5; j < 6; j++)
+				{
+					var actor:ItemLogicBase = this.world.findObjectByCell(this.x + i, this.y + j);
+					
+					if (actor && actor is ISolderable)
+						this.points.addPointOfInterest(Game.TOWER, actor);
+				}
+			
 			if (this.cooldown > 0)
 				this.cooldown--;
 			else
