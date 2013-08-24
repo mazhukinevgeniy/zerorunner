@@ -89,6 +89,7 @@ package game.world.broods.character
 				this.cooldown = this.MOVE_SPEED;
 				
 				this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
+				//TODO: animate
 			}
 			else if (actor is IPushable)
 			{
@@ -98,57 +99,36 @@ package game.world.broods.character
 				this.cooldown = this.MOVE_SPEED;
 				
 				this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
+				//TODO: animate
 			}
 			else if (actor is ISolderable)
 			{
-				
+				(actor as ISolderable).applySoldering(this.SOLDERING_POWER);
 			}
 			
 			this.flow.dispatchUpdate(Update.discardClicks);
 		}
 		
 		final protected function jump(change:DCellXY, multiplier:int):void
-		{/*
-			this.movingCooldown = 2 * this.moveSpeed * multiplier;
+		{
+			var obstacles:int = 0;
+			
+			for (var i:int = 0; i < multiplier; i++)
+				if (this.world.findObjectByCell(this.x + (i + 1) * change.x, this.y + (i + 1) * change.y))
+					return;
+			
+			this.cooldown = this.MOVE_SPEED * 2 * multiplier;
 			
 			var jChange:DCellXY = Metric.getTmpDCell(change.x * multiplier, change.y * multiplier);
 			
-			var unluckyGuy:ItemLogicBase;
+			super.move(jChange, this.cooldown);
 			
-			for (var i:int = 0; i < multiplier; i++)
-			{
-				unluckyGuy = this.world.findObjectByCell(this._x + (i + 1) * change.x, this._y + (i + 1) * change.y);
-				
-				if (unluckyGuy)
-					unluckyGuy.applyDestruction();
-			}
 			
-			this._x += jChange.x;
-			this._y += jChange.y;
-			
-			this.actors.moveActor(this, jChange);
-			
-			this.view.jump(this, jChange, this.movingCooldown + 1);
-			
-			this.onMoved(jChange, this.movingCooldown);*/
+			this.flow.dispatchUpdate(Update.moveCenter, jChange, this.cooldown + 1);
+			this.flow.dispatchUpdate(Update.discardClicks);
+			//TODO: animate
 		}
 		
-		 protected function onBlocked(change:DCellXY):void
-		{
-			var gx:int = this.x + change.x;
-			var gy:int = this.y + change.y;
-			
-			var actor:ItemLogicBase = this.world.findObjectByCell(gx, gy);
-			if (actor && actor is IPushable)
-			{
-				actor.applyDestruction();
-				this.move(change, this.MOVE_SPEED);
-			}
-			else if (actor && actor is ISolderable)
-			{
-				(actor as ISolderable).applySoldering(this.SOLDERING_POWER);
-			}
-		}
 	}
 
 }
