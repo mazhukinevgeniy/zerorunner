@@ -104,6 +104,8 @@ package game.world.broods.character
 			else if (actor is ISolderable)
 			{
 				(actor as ISolderable).applySoldering(this.SOLDERING_POWER);
+				
+				//TODO: animate
 			}
 			
 			this.flow.dispatchUpdate(Update.discardClicks);

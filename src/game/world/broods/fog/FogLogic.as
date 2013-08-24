@@ -2,9 +2,11 @@ package game.world.broods.fog
 {
 	import game.utils.GameFoundations;
 	import game.utils.metric.DCellXY;
+	import game.world.broods.IPushable;
 	import game.world.broods.ItemLogicBase;
+	import game.world.broods.IWindBound;
 	
-	public class FogLogic extends ItemLogicBase
+	public class FogLogic extends ItemLogicBase implements IPushable, IWindBound
 	{
 		private const MOVE_SPEED:int = 0;
 		
@@ -22,18 +24,14 @@ package game.world.broods.fog
 		}
 		
 		
-		/**
-		 * Cloud core
-		 */
 		
-		protected function onWind(change:DCellXY):void
+		public function applyWind(change:DCellXY):void
 		{
-			this.move(change, this.MOVE_SPEED);
+			if (this.world.findObjectByCell(this.x + change.x, this.y + change.y))
+				this.applyDestruction();
+			else
+				this.move(change, this.MOVE_SPEED);
 		}
-		
-		/**
-		 * Cloud core END
-		 */
 	}
 
 }
