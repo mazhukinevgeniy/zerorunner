@@ -27,6 +27,9 @@ package game.world.broods.utils
 				return null;
 			
 			var length:int = vector.length;
+			if (length == 0)
+				return null;
+			
 			return vector[int(Math.random() * length)];
 		}
 		

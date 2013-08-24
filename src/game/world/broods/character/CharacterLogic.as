@@ -58,7 +58,7 @@ package game.world.broods.character
 		
 		override public function act():void
 		{
-			for (var i:int = -7; i < 8; i++)
+			for (var i:int = -5; i < 6; i++)
 				for (var j:int = -5; j < 6; j++)
 				{
 					var actor:ItemLogicBase = this.world.findObjectByCell(this.x + i, this.y + j);

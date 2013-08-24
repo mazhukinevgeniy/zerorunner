@@ -24,6 +24,7 @@ package game.world.broods.technic
 			new DCellXY( -1, 0), new DCellXY(0, -1), new DCellXY(1, 0), new DCellXY(0, 1)];
 		
 		private var goal:ICoordinated;
+		private var center:ICoordinated;
 		
 		private var points:IPointCollector;
 		
@@ -36,16 +37,24 @@ package game.world.broods.technic
 		
 		override protected function getSpawningCell():CellXY
 		{
-			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
+			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			return Metric.getTmpCell(center.x - 4, center.y + 4);
+			return Metric.getTmpCell(this.center.x - 4, this.center.y + 4);
 		}
 		
 		
 		override public function act():void
 		{
 			if (!this.goal)
+			{
 				this.goal = this.points.findPointOfInterest(Game.TOWER);
+				
+				if (this.goal && Metric.distance(this.center, this.goal) > 10)
+				{
+					this.points.removePointOfInterest(Game.TOWER, this.goal);
+					this.goal = null;
+				}
+			}
 			
 			if (!this.goal)
 			{
