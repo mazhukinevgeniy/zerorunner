@@ -5,12 +5,15 @@ package game.world.broods.technic
 	import game.utils.metric.DCellXY;
 	import game.utils.metric.ICoordinated;
 	import game.utils.metric.Metric;
+	import game.world.broods.IPushable;
+	import game.world.broods.ISolderable;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.IPointCollector;
 	
 	public class TechnicLogic extends ItemLogicBase
 	{
 		private const MOVE_SPEED:int = 0;
+		private const SOLDERING_POWER:int = 3;
 		
 		private const LEFT:int = 0;
 		private const UP:int = 1;
@@ -22,27 +25,27 @@ package game.world.broods.technic
 		
 		private var goal:ICoordinated;
 		
-		private var towers:IPointCollector;
+		private var points:IPointCollector;
 		
-		public function TechnicLogic(foundations:GameFoundations, towers:IPointCollector) 
+		public function TechnicLogic(foundations:GameFoundations, points:IPointCollector) 
 		{
-			this.towers = towers;
+			this.points = points;
 			
 			super(new TechnicView(foundations), foundations);
 		}
 		
-		override protected function reset():void
+		override protected function getSpawningCell():CellXY
 		{
-			super.reset();
+			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			this.goal = this.towers.findPointOfInterest(Game.TOWER);
+			return Metric.getTmpCell(center.x - 4, center.y + 4);
 		}
 		
 		
-		 protected function onCanMove():void
+		override public function act():void
 		{
 			if (!this.goal)
-				this.goal = this.towers.findPointOfInterest(Game.TOWER);
+				this.goal = this.points.findPointOfInterest(Game.TOWER);
 			
 			if (!this.goal)
 			{
@@ -96,16 +99,26 @@ package game.world.broods.technic
 		private function moveInDirection(direction:int):void
 		{
 			var change:DCellXY = TechnicLogic.moves[direction];
+			var actor:ItemLogicBase = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
 			
-			this.move(change, this.MOVE_SPEED);
-		}
-		
-		
-		private const SOLDERING_POWER:int = 3;
-		
-		protected function onTowerHalfBuilt():void
-		{
-			this.goal = this.towers.findPointOfInterest(Game.TOWER);
+			if (!actor)
+				this.move(change, this.MOVE_SPEED);
+			else if (actor is IPushable)
+			{
+				actor.applyDestruction();
+				this.move(change, this.MOVE_SPEED);
+			}
+			else if (actor is ISolderable)
+			{
+				var tower:ISolderable = actor as ISolderable;
+				tower.applySoldering(this.SOLDERING_POWER);
+				
+				if (tower.progress >= 1)
+				{
+					this.goal = null;
+					this.points.removePointOfInterest(Game.TOWER, actor);
+				}
+			}
 		}
 	}
 }

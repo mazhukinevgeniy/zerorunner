@@ -63,7 +63,9 @@ package game.world.broods.character
 				{
 					var actor:ItemLogicBase = this.world.findObjectByCell(this.x + i, this.y + j);
 					
-					if (actor && actor is ISolderable)
+					if (actor && 
+						actor is ISolderable && 
+						(actor as ISolderable).progress < 1)
 						this.points.addPointOfInterest(Game.TOWER, actor);
 				}
 			
