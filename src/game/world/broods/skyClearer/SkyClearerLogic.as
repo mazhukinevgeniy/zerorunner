@@ -3,10 +3,11 @@ package game.world.broods.skyClearer
 	import game.utils.GameFoundations;
 	import game.utils.metric.CellXY;
 	import game.utils.metric.DCellXY;
+	import game.world.broods.ISolderable;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.IWindBound;
 	
-	public class SkyClearerLogic extends ItemLogicBase
+	public class SkyClearerLogic extends ItemLogicBase implements ISolderable
 	{
 		internal static const MAXIMUM_CONSTRUCTION:int = 50;
 		
@@ -50,9 +51,7 @@ package game.world.broods.skyClearer
 			}
 		}
 		
-		/**
-		 * Tower core
-		 */
+		
 		
 		private var constructionStatus:int;
 		
@@ -64,7 +63,7 @@ package game.world.broods.skyClearer
 			this.view.showConstruction(this.constructionStatus);
 		}
 		
-		protected function onSoldered(value:int):void
+		public function applySoldering(value:int):void
 		{
 			this.constructionStatus += value;
 			this.view.showConstruction(this.constructionStatus);
@@ -74,10 +73,6 @@ package game.world.broods.skyClearer
 				this.applyDestruction();
 			}
 		}
-		
-		/**
-		 * Tower core END
-		 */
 	}
 
 }

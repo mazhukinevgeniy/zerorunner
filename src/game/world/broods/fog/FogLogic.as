@@ -17,14 +17,6 @@ package game.world.broods.fog
 		
 		
 		
-		
-		protected function onPushed():void
-		{
-			this.applyDestruction();
-		}
-		
-		
-		
 		public function applyWind(change:DCellXY):void
 		{
 			if (this.world.findObjectByCell(this.x + change.x, this.y + change.y))

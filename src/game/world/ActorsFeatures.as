@@ -74,7 +74,7 @@ package game.world
 			for (i = 0; i < goal; i++)
 				new FogLogic(this.foundations);
 			
-			goal = this.width;
+			goal = this.width * this.width * 0.04;
 			for (i = 0; i < goal; i++)
 				new SkyClearerLogic(this.foundations);
 		}
