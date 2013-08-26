@@ -2,6 +2,7 @@ package game
 {
 	import game.hud.UIExtendsions;
 	import game.utils.GameFoundations;
+	import game.world.map.MapFeature;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.templates.UpdateGameBase;
@@ -27,12 +28,14 @@ package game
 			var foundations:GameFoundations = new GameFoundations
 					(this, this.atlas, this.displayRoot);
 			
+			new MapFeature(foundations);
+			
 			new UIExtendsions(this);
 		}
 		
 		public function getMapWidth():int
 		{
-			return 5;
+			return 9;
 			//TODO: must work with 240;
 		}
 	}
