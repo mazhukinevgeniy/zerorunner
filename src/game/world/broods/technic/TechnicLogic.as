@@ -28,6 +28,9 @@ package game.world.broods.technic
 		
 		private var points:IPointCollector;
 		
+		private var steps:Vector.<int> = new Vector.<int>(4, true);
+		private var lastChange:DCellXY = Metric.getRandomDCell();
+		
 		public function TechnicLogic(foundations:GameFoundations, points:IPointCollector) 
 		{
 			this.points = points;
@@ -62,60 +65,107 @@ package game.world.broods.technic
 			}
 			else
 			{
-				if (Math.abs(this.goal.x - this.x) > Math.abs(this.goal.y - this.y))
+				if (Metric.distance(this, this.goal) == 1)
 				{
-					if (!this.tryHorizontal())
-						!this.tryVertical();
-				}				
+					this.move(Metric.getTmpDCell(this.goal.x - this.x, this.goal.y - this.y), this.MOVE_SPEED);
+				}
 				else
 				{
-					if (!this.tryVertical())
-						this.tryHorizontal();
+					if (Math.abs(this.goal.x - this.x) > Math.abs(this.goal.y - this.y))
+					{
+						if (this.goal.x > this.x)
+						{
+							this.steps[this.RIGHT] = 4;
+							this.steps[this.LEFT] = 1;
+						}
+						else
+						{
+							this.steps[this.RIGHT] = 1;
+							this.steps[this.LEFT] = 4;
+						}
+						
+						if (this.goal.y > this.y)
+						{
+							this.steps[this.DOWN] = 3;
+							this.steps[this.UP] = 2;
+						}
+						else
+						{
+							this.steps[this.DOWN] = 2;
+							this.steps[this.UP] = 3;
+						}
+					}				
+					else
+					{
+						if (this.goal.x > this.x)
+						{
+							this.steps[this.RIGHT] = 3;
+							this.steps[this.LEFT] = 2;
+						}
+						else
+						{
+							this.steps[this.RIGHT] = 2;
+							this.steps[this.LEFT] = 3;
+						}
+						
+						if (this.goal.y > this.y)
+						{
+							this.steps[this.DOWN] = 4;
+							this.steps[this.UP] = 1;
+						}
+						else
+						{
+							this.steps[this.DOWN] = 1;
+							this.steps[this.UP] = 4;
+						}
+					}
+					
+					var i:int;
+					
+					for (i = 0; i < 4; i++)
+					{
+						var change:DCellXY = TechnicLogic.moves[i];
+						var actor:ItemLogicBase = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
+						
+						if (actor && !(actor is IPushable))
+							this.steps[i] -= 4;
+						
+						if (change.x == -this.lastChange.x && change.y == -this.lastChange.y)
+							this.steps[i] -= 4;
+					}
+					
+					var maxI:int, max:int = int.MIN_VALUE;
+					
+					for (i = 0; i < 4; i++)
+						if (this.steps[i] > max)
+						{
+							max = this.steps[i];
+							maxI = i;
+						}
+					
+					this.moveInDirection(maxI);
 				}
 			}
-		}
-		
-		private function tryVertical():Boolean
-		{
-			if (this.goal.y > this.y)
-			{
-				this.moveInDirection(this.DOWN);
-				return true;
-			}
-			else if (this.goal.y < this.y)
-			{
-				this.moveInDirection(this.UP);
-				return true;
-			}
-			return false;
-		}
-		private	function tryHorizontal():Boolean
-		{
-			if (this.goal.x > this.x)
-			{
-				this.moveInDirection(this.RIGHT);
-				return true;
-			}
-			else if (this.goal.x < this.x)
-			{
-				this.moveInDirection(this.LEFT);
-				return true;
-			}
-			return false;
 		}
 		
 		
 		private function moveInDirection(direction:int):void
 		{
-			var change:DCellXY = TechnicLogic.moves[direction];
+			this.lastChange = TechnicLogic.moves[direction];
+			
+			this.move(this.lastChange, this.MOVE_SPEED);
+		}
+		
+		override protected function move(change:DCellXY, delay:int):void
+		{
 			var actor:ItemLogicBase = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
 			
 			if (!actor)
-				this.move(change, this.MOVE_SPEED);
+				super.move(change, delay);
 			else if (actor is IPushable)
 			{
 				actor.applyDestruction();
-				this.move(change, this.MOVE_SPEED);
+				super.move(change, delay);
 			}
 			else if (actor is ISolderable)
 			{
