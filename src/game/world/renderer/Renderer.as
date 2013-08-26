@@ -20,6 +20,9 @@ package game.world.renderer
 		
 		private var pull:TilePull;
 		
+		private var xM:int;
+		private var yM:int;
+		
 		public function Renderer(data:ISearcher, points:IPointCollector, foundations:GameFoundations) 
 		{
 			var flow:IUpdateDispatcher = foundations.flow;
@@ -30,9 +33,16 @@ package game.world.renderer
 			this.data = data;
 			
 			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.redraw);
 			
 			this.pull = new TilePull(foundations.atlas);
+		}
+		
+		update function prerestore():void
+		{
+			this.xM = 1 + Math.random() * 5;
+			this.yM = 1 + Math.random() * 5;
 		}
 		
 		update function redraw():void
@@ -74,7 +84,7 @@ package game.world.renderer
 						
 						container.addImage(sprite);
 						
-						number = uint(((i) * 999999000001) | ((j) * 87178291199));
+						number = uint((i * this.xM * 999999000001) | (j * this.yM * 87178291199));
 						
 						if (number % 13 < 3)
 						{
