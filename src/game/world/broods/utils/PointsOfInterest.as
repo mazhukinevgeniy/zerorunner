@@ -33,6 +33,11 @@ package game.world.broods.utils
 			return vector[int(Math.random() * length)];
 		}
 		
+		public function getPointsOfInterest(type:int):Vector.<ICoordinated>
+		{
+			return this.types[type];
+		}
+		
 		public function removePointOfInterest(type:int, point:ICoordinated):void
 		{
 			var vector:Vector.<ICoordinated> = this.types[type];

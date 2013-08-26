@@ -8,6 +8,7 @@ package game.world.broods.utils
 		function removePointOfInterest(type:int, point:ICoordinated):void;
 		
 		function findPointOfInterest(type:int):ICoordinated;
+		function getPointsOfInterest(type:int):Vector.<ICoordinated>;
 	}
 	
 }

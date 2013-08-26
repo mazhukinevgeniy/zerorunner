@@ -34,6 +34,7 @@ package game.world.broods.technic
 		public function TechnicLogic(foundations:GameFoundations, points:IPointCollector) 
 		{
 			this.points = points;
+			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this);
 			
 			super(new TechnicView(foundations), foundations);
 		}

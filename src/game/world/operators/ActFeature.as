@@ -55,6 +55,17 @@ package game.world.operators
 					}
 				}
 			}
+			
+			var others:Vector.<ICoordinated> = this.points.getPointsOfInterest(Game.ALWAYS_ACTIVE);
+			var length:int = others.length;
+			
+			for (i = 0; i < length; i++)
+			{
+				actor = others[i] as ItemLogicBase;
+				
+				if (this.moved.indexOf(actor) != -1)
+					actor.act();
+			}
 		}
 	}
 
