@@ -63,7 +63,7 @@ package game.world.operators
 			{
 				actor = others[i] as ItemLogicBase;
 				
-				if (this.moved.indexOf(actor) != -1)
+				if (this.moved.indexOf(actor) == -1)
 					actor.act();
 			}
 		}

@@ -132,7 +132,7 @@ package game.world.broods.technic
 							this.steps[i] -= 4;
 						
 						if (change.x == -this.lastChange.x && change.y == -this.lastChange.y)
-							this.steps[i] -= 4;
+							this.steps[i] -= 8;
 					}
 					
 					var maxI:int, max:int = int.MIN_VALUE;
