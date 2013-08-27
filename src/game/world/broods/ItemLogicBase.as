@@ -96,7 +96,9 @@ package game.world.broods
 		{
 			this.actors.removeActor(this);
 			
-			this.view.disappear(); //TODO: establish some resetting to reuse objects
+			this.view.disappear();
+			
+			this.reset();
 		}
 		
 		/**

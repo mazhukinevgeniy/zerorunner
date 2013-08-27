@@ -121,6 +121,15 @@ package game.world.broods.technic
 						}
 					}
 					
+					if (this.goal.x == this.x)
+					{
+						this.steps[this.LEFT] = this.steps[this.RIGHT] = 2;
+					}
+					if (this.goal.y == this.y)
+					{
+						this.steps[this.UP] = this.steps[this.DOWN] = 2;
+					}
+					
 					var i:int;
 					
 					for (i = 0; i < 4; i++)
@@ -131,8 +140,8 @@ package game.world.broods.technic
 						if (actor && !(actor is IPushable))
 							this.steps[i] -= 4;
 						
-						if (change.x == -this.lastChange.x && change.y == -this.lastChange.y)
-							this.steps[i] -= 8;
+						if ((change.x == -this.lastChange.x) && (change.y == -this.lastChange.y))
+							this.steps[i] -= 16;
 					}
 					
 					var maxI:int, max:int = int.MIN_VALUE;
