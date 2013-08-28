@@ -13,11 +13,6 @@ package game.world.broods.checkpoint
 			super(new CheckpointView(foundations), foundations);
 		}
 		
-		override public function applyDestruction():void
-		{
-			
-		}
-		
 		override protected function getSpawningCell():CellXY
 		{
 			return super.getSpawningCell();

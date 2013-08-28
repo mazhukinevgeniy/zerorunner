@@ -46,11 +46,6 @@ package game.world.broods.technic
 			return Metric.getTmpCell(this.center.x - 4, this.center.y + 4);
 		}
 		
-		override public function applyDestruction():void
-		{
-			
-		}
-		
 		
 		override public function act():void
 		{
