@@ -59,6 +59,8 @@ package game.world
 			this.width = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
 			this.actors = new Array();
 			
+			var intWidth:int = (this.game).getMapWidth() * Game.SECTOR_WIDTH;
+			
 			this.points.clearPointsOfInterest();
 			
 			new CharacterLogic(this.foundations, this.points);
@@ -74,7 +76,7 @@ package game.world
 			for (i = 0; i < goal; i++)
 				new FogLogic(this.foundations);
 			
-			goal = this.width * this.width * 0.04;
+			goal = intWidth * intWidth * 0.04;
 			for (i = 0; i < goal; i++)
 				new SkyClearerLogic(this.foundations);
 		}
