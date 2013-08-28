@@ -32,7 +32,8 @@ package game
 		
 		public function getMapWidth():int
 		{
-			return 9;
+			return 3;
+			//return 9;
 			//TODO: must work with 240;
 		}
 	}
