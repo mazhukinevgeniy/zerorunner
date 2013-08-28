@@ -91,8 +91,7 @@ package game.utils.time
 				}
 				else
 				{
-					//TODO: dispatch update: free tick, hey!
-					//huh, but what can we do?
+					this.updateFlow.dispatchUpdate(Update.freeFrame, this.frameCount % 2);
 					
 					this.frameCount++;
 				}

@@ -44,6 +44,8 @@ package
 		public static const discardClicks:String = "discardClicks";
 		public static const discardInput:String = "discardInput";
 		
+		public static const freeFrame:String = "freeFrame";
+		
 		public function Update() 
 		{
 			throw new StaticClassError();

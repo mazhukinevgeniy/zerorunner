@@ -1,5 +1,6 @@
 package game.world.operators 
 {
+	import game.utils.GameFoundations;
 	import game.utils.metric.ICoordinated;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.IPointCollector;
@@ -10,14 +11,16 @@ package game.world.operators
 	internal class ActFeature 
 	{
 		private var points:IPointCollector;
-		private var data:ISearcher;
+		private var foundations:GameFoundations;
 		
 		private var moved:Vector.<ItemLogicBase>;
 		
-		public function ActFeature(flow:IUpdateDispatcher, world:ISearcher, points:IPointCollector) 
+		public function ActFeature(foundations:GameFoundations, points:IPointCollector) 
 		{
 			this.points = points;
-			this.data = world;
+			this.foundations = foundations;
+			
+			var flow:IUpdateDispatcher = foundations.flow;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.tick);
@@ -27,6 +30,7 @@ package game.world.operators
 		
 		update function tick():void
 		{
+			var data:ISearcher = this.foundations.world;
 			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 			
 			const tlcX:int = center.x - 20;
@@ -46,7 +50,7 @@ package game.world.operators
 			{				
 				for (i = tlcX; i < brcX; i++)
 				{
-					actor = this.data.findObjectByCell(i, j);
+					actor = data.findObjectByCell(i, j);
 					
 					if (actor && this.moved.indexOf(actor) == -1)
 					{

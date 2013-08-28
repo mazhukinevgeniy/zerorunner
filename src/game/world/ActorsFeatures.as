@@ -37,7 +37,7 @@ package game.world
 			
 			this.foundations = foundations;
 			
-			new ActorOperators(foundations.flow, this, this.points);
+			new ActorOperators(foundations, this.points);
 			
 			var flow:IUpdateDispatcher = foundations.flow;
 			

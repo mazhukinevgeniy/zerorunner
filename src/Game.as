@@ -17,7 +17,7 @@ package
 		
 		public static const SECTOR_WIDTH:int = 50;
 		
-		
+		public static const FRAME_TO_CLEAR_BORDERS:int = 0;
 		
 		public function Game() 
 		{
