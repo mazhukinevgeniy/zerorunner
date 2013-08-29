@@ -65,7 +65,7 @@ package game.world
 			this.points.clearPointsOfInterest();
 			
 			new CharacterLogic(this.foundations, this.points);
-			new TechnicLogic(this.foundations, this.points);
+			new TechnicLogic(this.foundations, this.points); //TODO: parametrize
 			new WormholeLogic(this.foundations);
 			
 			var i:int, goal:int;
@@ -74,11 +74,11 @@ package game.world
 			for (i = 0; i < goal; i++)
 				new CheckpointLogic(this.foundations);
 			
-			goal = this.width * this.width * 0.2;
+			goal = this.width * this.width * 0.2; //TODO: parametrize
 			for (i = 0; i < goal; i++)
 				new FogLogic(this.foundations);
 			
-			goal = intWidth * intWidth * 0.04;
+			goal = intWidth * intWidth * 0.04; //TODO: parametrize
 			for (i = 0; i < goal; i++)
 				new SkyClearerLogic(this.foundations);
 		}
