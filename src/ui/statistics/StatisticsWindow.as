@@ -11,7 +11,7 @@ package ui.statistics
 	import game.utils.statistics.ITakeStatistics;
 	import game.utils.statistics.StatisticsPiece;
 	import starling.display.Quad;
-	import game.ZeroRunner;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
@@ -195,7 +195,7 @@ package ui.statistics
 		{
 			if (newValue || this.data.length == 0)
 			{
-				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, Update.emitStatistics, this);
+				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, UpdateGameBase.flowName, Update.emitStatistics, this);
 			}
 			
 			super.visible = newValue;

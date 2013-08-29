@@ -1,8 +1,8 @@
 package ui.game 
 {
-	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
@@ -22,7 +22,7 @@ package ui.game
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.quitGame);
 			
-			flow.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, 
+			flow.dispatchUpdate(UpdateManager.callExternalFlow, UpdateGameBase.flowName, 
 									Update.setGameContainer, this.container);
 		}
 		

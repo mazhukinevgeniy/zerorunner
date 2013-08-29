@@ -1,6 +1,5 @@
 package ui 
 {
-	import game.ZeroRunner;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -12,6 +11,7 @@ package ui
 	import ui.themes.ExtendedTheme;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
+	import utils.templates.UpdateGameBase;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
@@ -83,7 +83,7 @@ package ui
 			
 			this.root.visible = false;
 			
-			this.dispatchUpdate(UpdateManager.callExternalFlow, ZeroRunner.flowName, Update.newGame);
+			this.dispatchUpdate(UpdateManager.callExternalFlow, UpdateGameBase.flowName, Update.newGame);
 		}
 		
 		update function quitGame():void

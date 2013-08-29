@@ -22,19 +22,21 @@ package game.utils
 		private var _atlas:TextureAtlas;
 		private var _input:IKnowInput;
 		private var _actors:IActorTracker;
+		private var _flow:IUpdateDispatcher;
 		
-		public function GameFoundations(game:ZeroRunner, atlas:TextureAtlas, root:Sprite) 
+		public function GameFoundations(flow:IUpdateDispatcher, game:IGame, atlas:TextureAtlas, root:Sprite) 
 		{
+			this._flow = flow;
 			this._game = game;
 			this._atlas = atlas;
 			this._juggler = new Juggler();
-			this._input = new InputManager(game);
+			this._input = new InputManager(flow);
 			this._actors = new ActorsFeatures(this);
 			
 			new Time(root, this);
 			
-			new StatisticsFeature(game);
-			new AchievementsFeature(game);
+			new StatisticsFeature(flow);
+			new AchievementsFeature(flow);
 		}
 		
 		public function get game():IGame
@@ -54,7 +56,7 @@ package game.utils
 		
 		public function get flow():IUpdateDispatcher
 		{
-			return this._game as IUpdateDispatcher;
+			return this._flow;
 		}
 		
 		public function get input():IKnowInput

@@ -5,34 +5,39 @@ package game
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.templates.UpdateGameBase;
+	import utils.updates.update;
 	
-	public class ZeroRunner extends UpdateGameBase implements IGame
-	{
-		public static const flowName:String = "Game Flow";
-		
-		
+	public class ZeroRunner implements IGame
+	{//TODO: extend savebase
+		private var flow:UpdateGameBase;
 		private var atlas:TextureAtlas;
 		
 		public function ZeroRunner(assets:AssetManager) 
 		{			
-			super(ZeroRunner.flowName);
-			
+			this.flow = new UpdateGameBase();
 			this.atlas = assets.getTextureAtlas("gameAtlas");
+			
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(Update.setGameContainer);
 		}
 		
-		override protected function initializeFeatures():void
+		update function setGameContainer(... args):void
 		{
-			this.displayRoot.stage.color = 0;
-			
 			var foundations:GameFoundations = new GameFoundations
-					(this, this.atlas, this.displayRoot);
+					(this.flow, this, this.atlas, this.flow.displayRoot);
 			
 			new UIExtendsions(foundations);
 		}
 		
+		/**
+		 * IGame
+		 */
+		
+		private var width:int = 1;
+		
 		public function getMapWidth():int
 		{
-			return 1;
+			return this.width;
 			//return 9;
 			//TODO: must work with 240;
 		}

@@ -7,13 +7,15 @@ package utils.templates
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
-	public class UpdateGameBase extends UpdateManager
+	final public class UpdateGameBase extends UpdateManager
 	{
-		protected var displayRoot:Sprite;
+		public static const flowName:String = "Game Flow";
 		
-		public function UpdateGameBase(flowName:String) 
+		public var displayRoot:Sprite;
+		
+		public function UpdateGameBase() 
 		{
-			super(flowName);
+			super(UpdateGameBase.flowName);
 			
 			this.workWithUpdateListener(this);
 			this.addUpdateListener(Update.newGame);
@@ -25,13 +27,7 @@ package utils.templates
 		final update function setGameContainer(viewRoot:Sprite):void
 		{
 			this.displayRoot = viewRoot;
-			
-			this.initializeFeatures();
-		}
-		
-		protected function initializeFeatures():void
-		{
-			throw new AbstractClassError();
+			this.displayRoot.stage.color = 0;
 		}
 		
 		
