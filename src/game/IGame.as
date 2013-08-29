@@ -3,7 +3,7 @@ package game
 	
 	public interface IGame 
 	{
-		function getMapWidth():int;
+		function get mapWidth():int;
 		
 		
 	}

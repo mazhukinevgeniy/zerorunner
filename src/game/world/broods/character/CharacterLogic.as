@@ -38,7 +38,7 @@ package game.world.broods.character
 		
 		override protected function getSpawningCell():CellXY
 		{
-			return Metric.getTmpCell(Game.SECTOR_WIDTH, Game.SECTOR_WIDTH * (1 + (this.game).getMapWidth()) - 1);
+			return Metric.getTmpCell(Game.SECTOR_WIDTH, Game.SECTOR_WIDTH * (1 + (this.game).mapWidth) - 1);
 		}
 		
 		override protected function reset():void

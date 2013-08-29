@@ -19,7 +19,7 @@ package game.world.broods.fog
 		
 		override protected function getSpawningCell():CellXY
 		{
-			var width:int = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
+			var width:int = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
 			var cell:CellXY = Metric.getTmpCell(Math.random() * width, Math.random() * width);
 			
 			for (; this.world.findObjectByCell(cell.x, cell.y); )

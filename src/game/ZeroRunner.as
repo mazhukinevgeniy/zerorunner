@@ -8,14 +8,18 @@ package game
 	import utils.templates.UpdateGameBase;
 	import utils.updates.update;
 	
-	public class ZeroRunner implements IGame
-	{//TODO: extend savebase
+	public class ZeroRunner
+	{
 		private var flow:UpdateGameBase;
+		private var save:GameSave;
+		
 		private var atlas:TextureAtlas;
 		
 		public function ZeroRunner(assets:AssetManager) 
 		{			
 			this.flow = new UpdateGameBase();
+			this.save = new GameSave();
+			
 			this.atlas = assets.getTextureAtlas("gameAtlas");
 			
 			this.flow.workWithUpdateListener(this);
@@ -25,22 +29,9 @@ package game
 		update function setGameContainer(root:Sprite):void
 		{
 			var foundations:GameFoundations = new GameFoundations
-					(this.flow, this, this.atlas, root);
+					(this.flow, this.save, this.atlas, root);
 			
 			new UIExtendsions(foundations);
-		}
-		
-		/**
-		 * IGame
-		 */
-		
-		private var width:int = 1;
-		
-		public function getMapWidth():int
-		{
-			return this.width;
-			//return 9;
-			//TODO: must work with 240;
 		}
 	}
 

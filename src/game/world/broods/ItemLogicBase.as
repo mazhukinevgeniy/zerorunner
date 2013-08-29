@@ -48,7 +48,7 @@ package game.world.broods
 		
 		protected function getSpawningCell():CellXY
 		{
-			var width:int = (this.game).getMapWidth() * Game.SECTOR_WIDTH;
+			var width:int = (this.game).mapWidth * Game.SECTOR_WIDTH;
 			var cell:CellXY = Metric.getTmpCell(Game.SECTOR_WIDTH + Math.random() * width, Game.SECTOR_WIDTH + Math.random() * width);
 			
 			for (; this.world.findObjectByCell(cell.x, cell.y); )

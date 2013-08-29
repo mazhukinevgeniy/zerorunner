@@ -22,7 +22,7 @@ package game.world
 		
 		update function prerestore():void
 		{
-			this.width = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
+			this.width = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
 			const secondJGoal:int = this.width - Game.SECTOR_WIDTH;
 			
 			var j:int, i:int;

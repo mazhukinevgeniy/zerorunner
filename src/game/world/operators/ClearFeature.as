@@ -25,7 +25,7 @@ package game.world.operators
 		
 		update function prerestore():void
 		{
-			this.width = ((this.foundations.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
+			this.width = ((this.foundations.game).mapWidth + 2) * Game.SECTOR_WIDTH;
 		}
 		
 		update function freeFrame(frame:int):void

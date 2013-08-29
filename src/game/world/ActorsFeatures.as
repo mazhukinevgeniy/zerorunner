@@ -56,10 +56,10 @@ package game.world
 		{
 			super.update::prerestore();
 			
-			this.width = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
+			this.width = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
 			this.actors = new Array();
 			
-			var intWidth:int = (this.game).getMapWidth() * Game.SECTOR_WIDTH;
+			var intWidth:int = (this.game).mapWidth * Game.SECTOR_WIDTH;
 			
 			this.points.clearPointsOfInterest();
 			
@@ -68,7 +68,7 @@ package game.world
 			
 			var i:int, goal:int;
 			
-			goal = (this.game).getMapWidth() * (this.game).getMapWidth();
+			goal = (this.game).mapWidth * (this.game).mapWidth;
 			for (i = 0; i < goal; i++)
 				new CheckpointLogic(this.foundations);
 			

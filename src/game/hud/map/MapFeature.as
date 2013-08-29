@@ -45,7 +45,7 @@ package game.hud.map
 		
 		update function prerestore():void
 		{
-			this.width = ((this.game).getMapWidth() + 2) * Game.SECTOR_WIDTH;
+			this.width = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
 			
 			var length:int = this.visited.length = this.width * this.width;
 			
