@@ -10,6 +10,7 @@ package game.world
 	import game.world.broods.skyClearer.SkyClearerLogic;
 	import game.world.broods.technic.TechnicLogic;
 	import game.world.broods.utils.PointsOfInterest;
+	import game.world.broods.wormholes.WormholeLogic;
 	import game.world.operators.ActorOperators;
 	import game.world.renderer.Renderer;
 	import starling.core.Starling;
@@ -65,6 +66,7 @@ package game.world
 			
 			new CharacterLogic(this.foundations, this.points);
 			new TechnicLogic(this.foundations, this.points);
+			new WormholeLogic(this.foundations);
 			
 			var i:int, goal:int;
 			

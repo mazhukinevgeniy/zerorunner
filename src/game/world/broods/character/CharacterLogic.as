@@ -10,6 +10,7 @@ package game.world.broods.character
 	import game.world.broods.ISolderable;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.IPointCollector;
+	import game.world.broods.wormholes.WormholeLogic;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -123,6 +124,10 @@ package game.world.broods.character
 				(actor as ISolderable).applySoldering(this.SOLDERING_POWER);
 				
 				//TODO: animate
+			}
+			else if (actor is WormholeLogic)
+			{
+				//TODO: jump into the mystery
 			}
 			
 			this.flow.dispatchUpdate(Update.discardClicks);
