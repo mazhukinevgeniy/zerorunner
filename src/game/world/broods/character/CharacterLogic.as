@@ -83,17 +83,19 @@ package game.world.broods.character
 					{
 						this.move(action, this.MOVE_SPEED);
 						
-						return;
+						break;
 					}
 					else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != Game.FALL)
 					{
 						this.jump(action, 2);
 						
-						return;
+						break;
 					}
 					
 					action = tmp.pop();
 				}
+				
+				this.flow.dispatchUpdate(Update.discardClicks);
 			}
 		}
 		
@@ -130,8 +132,6 @@ package game.world.broods.character
 				this.flow.dispatchUpdate(Update.gameWon);
 				//TODO: jump into the mystery
 			}
-			
-			this.flow.dispatchUpdate(Update.discardClicks);
 		}
 		
 		final protected function jump(change:DCellXY, multiplier:int):void
