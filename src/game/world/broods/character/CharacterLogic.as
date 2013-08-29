@@ -127,6 +127,7 @@ package game.world.broods.character
 			}
 			else if (actor is WormholeLogic)
 			{
+				this.flow.dispatchUpdate(Update.gameWon);
 				//TODO: jump into the mystery
 			}
 			

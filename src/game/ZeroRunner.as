@@ -24,6 +24,8 @@ package game
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.setGameContainer);
+			this.flow.addUpdateListener(Update.gameOver);
+			this.flow.addUpdateListener(Update.gameWon);
 		}
 		
 		update function setGameContainer(root:Sprite):void
@@ -32,6 +34,16 @@ package game
 					(this.flow, this.save, this.atlas, root);
 			
 			new UIExtendsions(foundations);
+		}
+		
+		update function gameOver():void
+		{
+			this.flow.dispatchUpdate(Update.gameStopped);
+		}
+		
+		update function gameWon():void
+		{
+			this.flow.dispatchUpdate(Update.gameStopped);
 		}
 	}
 

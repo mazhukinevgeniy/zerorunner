@@ -28,7 +28,7 @@ package game.hud
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(Update.gameOver);
+			flow.addUpdateListener(Update.gameStopped);
 			flow.addUpdateListener(Update.setPause);
 			
 			this.container = new Sprite();
@@ -47,7 +47,7 @@ package game.hud
 			Starling.juggler.add(this.particles);
 		}
 		
-		update function gameOver():void
+		update function gameStopped():void
 		{
 			this.isGameOver = true;
 		}

@@ -13,6 +13,7 @@ package game.hud
 			var flow:IUpdateDispatcher = foundations.flow;
 			
 			new GameOverWindow(flow);
+			new GameWonWindow(flow);
 			new PauseView(flow);
 			new Panel(flow);
 			

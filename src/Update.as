@@ -10,6 +10,8 @@ package
 		public static const restore:String = "restore";
 		
 		public static const gameOver:String = "gameOver";
+		public static const gameStopped:String = "gameStopped";
+		public static const gameWon:String = "gameWon";
 		public static const quitGame:String = "quitGame";
 		
 		public static const setGameContainer:String = "setGameContainer";

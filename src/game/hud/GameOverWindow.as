@@ -3,6 +3,7 @@ package game.hud
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import game.ZeroRunner;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -10,6 +11,8 @@ package game.hud
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
+	
+	use namespace update;
 	
 	public class GameOverWindow
 	{
@@ -27,13 +30,7 @@ package game.hud
 			this.message.x = (Main.WIDTH - this.message.width) / 2;
 			this.message.y = (Main.HEIGHT - this.message.height) / 2;
 			
-			var tmp:Label = new Label();
-			tmp.text = "Game over";
-			
-			tmp.x = 20;
-			tmp.y = 20;
-			
-			this.message.addChild(tmp);
+			this.addMessage(this.message);
 			
 			var button:Button = new Button();
 			button.label = "Quit";
@@ -47,15 +44,29 @@ package game.hud
 			
 			this.message.addChild(button);
 			
+			this.addUpdateListeners(flow);
 			
+			flow.dispatchUpdate(Update.addToTheHUD, this.message);
+			this.flow = flow;
+		}
+		
+		protected function addMessage(message:DisplayObjectContainer):void
+		{
+			var tmp:Label = new Label();
+			tmp.text = "Game over";
+			
+			tmp.x = 20;
+			tmp.y = 20;
+			
+			message.addChild(tmp);
+		}
+		
+		protected function addUpdateListeners(flow:IUpdateDispatcher):void
+		{
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(Update.restore);
 			flow.addUpdateListener(Update.gameOver);
-			
-			flow.dispatchUpdate(Update.addToTheHUD, this.message);
-			
-			this.flow = flow;
 		}
 		
 		private function handleTriggered():void

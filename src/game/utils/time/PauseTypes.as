@@ -18,7 +18,7 @@ package game.utils.time
 		{
 			flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(Update.gameOver);
+			flow.addUpdateListener(Update.gameStopped);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.keyUp);
 			flow.addUpdateListener(Update.panel_RollOver);
@@ -35,7 +35,7 @@ package game.utils.time
 			
 			this.setPause();
 		}
-		update function gameOver():void
+		update function gameStopped():void
 		{
 			this.pauseToggled = true;
 			this.isOutOfSight = true;

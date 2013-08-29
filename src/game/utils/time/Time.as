@@ -51,7 +51,7 @@ package game.utils.time
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(Update.restore);
-			flow.addUpdateListener(Update.gameOver);
+			flow.addUpdateListener(Update.gameStopped);
 			flow.addUpdateListener(Update.setPause);
 			
 			this.updateFlow = flow;
@@ -98,7 +98,7 @@ package game.utils.time
 			}
 		}
 		
-		update function gameOver():void
+		update function gameStopped():void
 		{
 			this.fixed = true;
 			

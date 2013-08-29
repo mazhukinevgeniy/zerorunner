@@ -77,6 +77,7 @@ package game.hud.panel
 			if (event.target == this.menuButton)
 			{
 				this.collapse();
+				this.flow.dispatchUpdate(Update.gameStopped);
 				this.flow.dispatchUpdate(Update.quitGame);
 			}
 			else if (event.target == this.statButton)
