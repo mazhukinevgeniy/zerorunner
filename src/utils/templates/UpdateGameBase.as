@@ -11,7 +11,7 @@ package utils.templates
 	{
 		public static const flowName:String = "Game Flow";
 		
-		public var displayRoot:Sprite;
+		private var displayRoot:Sprite;
 		
 		public function UpdateGameBase() 
 		{

@@ -2,6 +2,7 @@ package game
 {
 	import game.hud.UIExtendsions;
 	import game.utils.GameFoundations;
+	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.templates.UpdateGameBase;
@@ -21,10 +22,10 @@ package game
 			this.flow.addUpdateListener(Update.setGameContainer);
 		}
 		
-		update function setGameContainer(... args):void
+		update function setGameContainer(root:Sprite):void
 		{
 			var foundations:GameFoundations = new GameFoundations
-					(this.flow, this, this.atlas, this.flow.displayRoot);
+					(this.flow, this, this.atlas, root);
 			
 			new UIExtendsions(foundations);
 		}
