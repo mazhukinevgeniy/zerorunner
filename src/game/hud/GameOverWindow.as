@@ -24,7 +24,7 @@ package game.hud
 			this.message = new Sprite();
 			
 			var tmpI:Quad = new Quad(200, 200, 0x222222);
-			tmpI.alpha = 0.3;
+			tmpI.alpha = 0.7;
 			this.message.addChild(tmpI);
 			
 			this.message.x = (Main.WIDTH - this.message.width) / 2;
