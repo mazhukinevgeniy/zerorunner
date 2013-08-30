@@ -1,7 +1,7 @@
 package game 
 {
+	import game.core.GameFoundations;
 	import game.hud.UIExtendsions;
-	import game.utils.GameFoundations;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;

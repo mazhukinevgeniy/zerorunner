@@ -1,7 +1,7 @@
-package game.utils.input 
+package game.core.input 
 {
 	import flash.ui.Keyboard;
-	import game.utils.metric.DCellXY;
+	import game.core.metric.DCellXY;
 	import starling.core.Starling;
 	import starling.events.EventDispatcher;
 	import starling.events.KeyboardEvent;

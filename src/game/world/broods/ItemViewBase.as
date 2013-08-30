@@ -1,10 +1,8 @@
 package game.world.broods 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.DCellXY;
-	import game.utils.metric.ICoordinated;
-	import game.utils.metric.Metric;
-	import game.utils.time.Time;
+	import game.core.GameFoundations;
+	import game.core.metric.*;
+	import game.core.time.Time;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;
 	import starling.display.Image;

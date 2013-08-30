@@ -1,10 +1,10 @@
 package game.world.broods.technic 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.CellXY;
-	import game.utils.metric.DCellXY;
-	import game.utils.metric.ICoordinated;
-	import game.utils.metric.Metric;
+	import game.core.GameFoundations;
+	import game.core.metric.CellXY;
+	import game.core.metric.DCellXY;
+	import game.core.metric.ICoordinated;
+	import game.core.metric.Metric;
 	import game.world.broods.IPushable;
 	import game.world.broods.ISolderable;
 	import game.world.broods.ItemLogicBase;

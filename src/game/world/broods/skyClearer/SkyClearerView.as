@@ -1,7 +1,7 @@
 package game.world.broods.skyClearer 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.Metric;
+	import game.core.GameFoundations;
+	import game.core.metric.Metric;
 	import game.world.broods.ItemViewBase;
 	import starling.display.DisplayObject;
 	import starling.display.Image;

@@ -1,8 +1,8 @@
-package game.utils.achievements.statistics 
+package game.core.achievements.statistics 
 {
-	import game.utils.metric.DCellXY;
-	import game.utils.statistics.ITakeStatistics;
-	import game.utils.statistics.StatisticsPiece;
+	import game.core.metric.DCellXY;
+	import game.core.statistics.ITakeStatistics;
+	import game.core.statistics.StatisticsPiece;
 	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

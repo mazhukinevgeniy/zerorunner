@@ -1,6 +1,6 @@
 package game.world.broods.wormholes 
 {
-	import game.utils.GameFoundations;
+	import game.core.GameFoundations;
 	import game.world.broods.ItemViewBase;
 	
 	internal class WormholeView extends ItemViewBase

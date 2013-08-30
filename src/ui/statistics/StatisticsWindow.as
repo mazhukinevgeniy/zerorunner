@@ -8,8 +8,8 @@ package ui.statistics
 	import feathers.dragDrop.IDropTarget;
 	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
-	import game.utils.statistics.ITakeStatistics;
-	import game.utils.statistics.StatisticsPiece;
+	import game.core.statistics.ITakeStatistics;
+	import game.core.statistics.StatisticsPiece;
 	import starling.display.Quad;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;

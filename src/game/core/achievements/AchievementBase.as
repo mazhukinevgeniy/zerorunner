@@ -1,4 +1,4 @@
-package game.utils.achievements 
+package game.core.achievements 
 {
 	
 	public class AchievementBase

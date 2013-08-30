@@ -1,6 +1,6 @@
 package game.world.operators 
 {
-	import game.utils.GameFoundations;
+	import game.core.GameFoundations;
 	import game.world.broods.ItemLogicBase;
 	import game.world.ISearcher;
 	import utils.updates.IUpdateDispatcher;

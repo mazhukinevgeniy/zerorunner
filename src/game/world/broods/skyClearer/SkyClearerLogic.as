@@ -1,8 +1,7 @@
 package game.world.broods.skyClearer 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.CellXY;
-	import game.utils.metric.DCellXY;
+	import game.core.GameFoundations;
+	import game.core.metric.*;
 	import game.world.broods.ISolderable;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.IWindBound;

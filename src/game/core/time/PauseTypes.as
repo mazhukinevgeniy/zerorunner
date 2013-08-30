@@ -1,4 +1,4 @@
-package game.utils.time 
+package game.core.time 
 {
 	import ui.ChaoticUI;
 	import flash.ui.Keyboard;

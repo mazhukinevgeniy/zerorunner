@@ -1,4 +1,4 @@
-package game.utils.statistics 
+package game.core.statistics 
 {
 	
 	public interface ITakeStatistics  

@@ -1,11 +1,9 @@
 package game.world.broods.character 
 {
+	import game.core.GameFoundations;
+	import game.core.input.IKnowInput;
+	import game.core.metric.*;
 	import game.IGame;
-	import game.utils.GameFoundations;
-	import game.utils.input.IKnowInput;
-	import game.utils.metric.CellXY;
-	import game.utils.metric.DCellXY;
-	import game.utils.metric.Metric;
 	import game.world.broods.IPushable;
 	import game.world.broods.ISolderable;
 	import game.world.broods.ItemLogicBase;

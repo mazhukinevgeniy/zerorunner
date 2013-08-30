@@ -1,8 +1,8 @@
 package game.world.renderer 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.ICoordinated;
-	import game.utils.metric.Metric;
+	import game.core.GameFoundations;
+	import game.core.metric.ICoordinated;
+	import game.core.metric.Metric;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.utils.IPointCollector;
 	import game.world.ISearcher;

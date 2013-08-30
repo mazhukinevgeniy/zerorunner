@@ -1,9 +1,7 @@
 package game.world.renderer 
 {
-	import game.utils.metric.DCellXY;
-	import game.utils.metric.ICoordinated;
-	import game.utils.metric.Metric;
-	import game.utils.time.Time;
+	import game.core.metric.*;
+	import game.core.time.Time;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;

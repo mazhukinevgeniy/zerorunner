@@ -1,7 +1,7 @@
 package ui.achievements 
 {
 	import feathers.controls.ScrollContainer;
-	import game.utils.achievements.AchievementBase;
+	import game.core.achievements.AchievementBase;
 	import starling.display.Quad;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

@@ -1,6 +1,6 @@
-package game.utils.input
+package game.core.input
 {
-	import game.utils.metric.DCellXY;
+	import game.core.metric.DCellXY;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

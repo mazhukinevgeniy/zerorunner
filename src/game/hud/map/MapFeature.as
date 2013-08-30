@@ -1,9 +1,9 @@
 package game.hud.map 
 {
 	import flash.utils.ByteArray;
+	import game.core.GameFoundations;
+	import game.core.metric.ICoordinated;
 	import game.IGame;
-	import game.utils.GameFoundations;
-	import game.utils.metric.ICoordinated;
 	import game.world.ISearcher;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;

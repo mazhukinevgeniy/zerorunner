@@ -1,6 +1,6 @@
 package game.world.broods 
 {
-	import game.utils.metric.DCellXY;
+	import game.core.metric.DCellXY;
 	
 	public interface IWindBound 
 	{

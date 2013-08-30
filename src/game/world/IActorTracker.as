@@ -1,6 +1,6 @@
 package game.world 
 {
-	import game.utils.metric.DCellXY;
+	import game.core.metric.DCellXY;
 	import game.world.broods.ItemLogicBase;
 	
 	public interface IActorTracker 

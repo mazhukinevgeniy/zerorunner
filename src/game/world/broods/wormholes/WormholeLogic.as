@@ -1,8 +1,7 @@
 package game.world.broods.wormholes 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.CellXY;
-	import game.utils.metric.Metric;
+	import game.core.GameFoundations;
+	import game.core.metric.*;
 	import game.world.broods.ItemLogicBase;
 	
 	public class WormholeLogic extends ItemLogicBase

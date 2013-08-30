@@ -1,10 +1,10 @@
 package game.world.broods.character 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.DCellXY;
-	import game.utils.metric.ICoordinated;
-	import game.utils.metric.Metric;
-	import game.utils.time.Time;
+	import game.core.GameFoundations;
+	import game.core.metric.DCellXY;
+	import game.core.metric.ICoordinated;
+	import game.core.metric.Metric;
+	import game.core.time.Time;
 	import game.world.broods.ItemViewBase;
 	import starling.display.DisplayObject;
 	import starling.display.Image;

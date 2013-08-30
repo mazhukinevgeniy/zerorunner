@@ -1,11 +1,8 @@
 package game.world.broods 
 {
+	import game.core.GameFoundations;
+	import game.core.metric.*;
 	import game.IGame;
-	import game.utils.GameFoundations;
-	import game.utils.metric.CellXY;
-	import game.utils.metric.DCellXY;
-	import game.utils.metric.ICoordinated;
-	import game.utils.metric.Metric;
 	import game.world.IActorTracker;
 	import game.world.ISearcher;
 	import starling.display.DisplayObject;

@@ -1,4 +1,4 @@
-package game.utils.metric 
+package game.core.metric 
 {
 	import utils.errors.StaticClassError;
 	

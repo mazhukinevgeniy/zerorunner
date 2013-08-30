@@ -1,6 +1,6 @@
-package game.utils.time 
+package game.core.time 
 {
-	import game.utils.GameFoundations;
+	import game.core.GameFoundations;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -21,7 +21,7 @@ package game.utils.time
 		{
 			return Time.TBT;
 		}
-		
+		 //TODO: remove from static
 		
 		private var fixed:Boolean = true;
 		private var gameJuggler:Juggler;

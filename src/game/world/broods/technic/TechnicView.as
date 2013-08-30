@@ -1,7 +1,7 @@
 package game.world.broods.technic 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.ICoordinated;
+	import game.core.GameFoundations;
+	import game.core.metric.ICoordinated;
 	import game.world.broods.ItemViewBase;
 	
 	internal class TechnicView extends ItemViewBase

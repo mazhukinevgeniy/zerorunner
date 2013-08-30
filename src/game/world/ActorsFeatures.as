@@ -1,8 +1,8 @@
 package game.world 
 {
 	import flash.events.Event;
-	import game.utils.GameFoundations;
-	import game.utils.metric.DCellXY;
+	import game.core.GameFoundations;
+	import game.core.metric.DCellXY;
 	import game.world.broods.character.CharacterLogic;
 	import game.world.broods.checkpoint.CheckpointLogic;
 	import game.world.broods.fog.FogLogic;

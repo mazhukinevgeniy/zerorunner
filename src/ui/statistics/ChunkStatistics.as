@@ -11,7 +11,7 @@ package ui.statistics
 	import feathers.events.DragDropEvent;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
-	import game.utils.statistics.StatisticsPiece;
+	import game.core.statistics.StatisticsPiece;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 	import starling.events.Touch;

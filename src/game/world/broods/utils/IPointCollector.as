@@ -1,6 +1,6 @@
 package game.world.broods.utils 
 {
-	import game.utils.metric.ICoordinated;
+	import game.core.metric.ICoordinated;
 	
 	public interface IPointCollector 
 	{

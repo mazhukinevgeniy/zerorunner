@@ -1,8 +1,7 @@
 package game.world.broods.checkpoint 
 {
-	import game.utils.GameFoundations;
-	import game.utils.metric.CellXY;
-	import game.utils.metric.ICoordinated;
+	import game.core.GameFoundations;
+	import game.core.metric.CellXY;
 	import game.world.broods.ItemLogicBase;
 	
 	public class CheckpointLogic extends ItemLogicBase

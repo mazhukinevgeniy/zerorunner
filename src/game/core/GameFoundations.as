@@ -1,11 +1,11 @@
-package game.utils 
+package game.core 
 {
+	import game.core.achievements.AchievementsFeature;
+	import game.core.input.IKnowInput;
+	import game.core.input.InputManager;
+	import game.core.statistics.StatisticsFeature;
+	import game.core.time.Time;
 	import game.IGame;
-	import game.utils.achievements.AchievementsFeature;
-	import game.utils.input.IKnowInput;
-	import game.utils.input.InputManager;
-	import game.utils.statistics.StatisticsFeature;
-	import game.utils.time.Time;
 	import game.world.ActorsFeatures;
 	import game.world.IActorTracker;
 	import game.world.ISearcher;

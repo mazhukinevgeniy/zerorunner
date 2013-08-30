@@ -1,8 +1,8 @@
 package game.hud 
 {
+	import game.core.GameFoundations;
 	import game.hud.map.MapFeature;
 	import game.hud.panel.Panel;
-	import game.utils.GameFoundations;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class UIExtendsions
