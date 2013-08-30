@@ -26,6 +26,7 @@ package game
 			this.flow.addUpdateListener(Update.setGameContainer);
 			this.flow.addUpdateListener(Update.gameOver);
 			this.flow.addUpdateListener(Update.gameWon);
+			this.flow.addUpdateListener(Update.reparametrize);
 		}
 		
 		update function setGameContainer(root:Sprite):void
@@ -34,6 +35,11 @@ package game
 					(this.flow, this.save, this.atlas, root);
 			
 			new UIExtendsions(foundations);
+		}
+		
+		update function reparametrize(params:IGame):void
+		{
+			this.save.mapWidth = params.mapWidth;
 		}
 		
 		update function gameOver():void

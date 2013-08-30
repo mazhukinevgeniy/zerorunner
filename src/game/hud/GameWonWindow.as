@@ -1,6 +1,9 @@
 package game.hud 
 {
 	import feathers.controls.Label;
+	import game.core.GameFoundations;
+	import game.IGame;
+	import game.utils.RandomGameState;
 	import starling.display.DisplayObjectContainer;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -9,10 +12,15 @@ package game.hud
 	
 	internal class GameWonWindow extends GameOverWindow
 	{
+		private var flow:IUpdateDispatcher;
+		private var game:IGame;
 		
-		public function GameWonWindow(flow:IUpdateDispatcher) 
+		public function GameWonWindow(foundations:GameFoundations) 
 		{
-			super(flow);
+			this.flow = foundations.flow;
+			this.game = foundations.game;
+			
+			super(this.flow);
 		}
 		
 		override protected function addMessage(message:DisplayObjectContainer):void
@@ -36,6 +44,8 @@ package game.hud
 		
 		update function gameWon():void
 		{
+			this.flow.dispatchUpdate(Update.reparametrize, new RandomGameState(this.game));
+			
 			this.update::gameOver();
 		}
 	}

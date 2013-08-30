@@ -28,6 +28,11 @@ package game
 			//return 9;
 			//TODO: must work with 240;
 		}
+		
+		public function set mapWidth(value:int):void
+		{
+			this.localSave.data.game.width = value;
+		}
 	}
 
 }

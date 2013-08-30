@@ -15,7 +15,8 @@ package
 		public static const ALWAYS_ACTIVE:int = 2;
 		
 		
-		public static const SECTOR_WIDTH:int = 50;
+		public static const SECTOR_WIDTH:int = 10;
+		//TODO: parametrize
 		
 		public static const FRAME_TO_CLEAR_BORDERS:int = 0;
 		

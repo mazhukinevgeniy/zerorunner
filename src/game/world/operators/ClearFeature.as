@@ -33,12 +33,13 @@ package game.world.operators
 			if (frame == Game.FRAME_TO_CLEAR_BORDERS)
 			{
 				var world:ISearcher = this.foundations.world;
+				const DWIDTH:int = Game.SECTOR_WIDTH / 2;
 				
 				var i:int, j:int;
 				var actor:ItemLogicBase;
 				
 				for (i = 0; i < this.width; i++)
-					for (j = 0; j < 20; j++)
+					for (j = 0; j < DWIDTH; j++)
 					{
 						actor = world.findObjectByCell(i, j);
 						
@@ -50,8 +51,8 @@ package game.world.operators
 						if (actor)
 							actor.applyDestruction();
 					}
-				for (i = 0; i < 20; i++)
-					for (j = 20; j < this.width - 20; j++)
+				for (i = 0; i < DWIDTH; i++)
+					for (j = DWIDTH; j < this.width - DWIDTH; j++)
 					{
 						actor = world.findObjectByCell(i, j);
 						
