@@ -1,7 +1,8 @@
-package game.hud 
+package game.hud.winWindow 
 {
 	import feathers.controls.Label;
 	import game.core.GameFoundations;
+	import game.hud.GameOverWindow;
 	import game.IGame;
 	import game.utils.RandomGameState;
 	import starling.display.DisplayObjectContainer;
@@ -10,7 +11,7 @@ package game.hud
 	
 	use namespace update;
 	
-	internal class GameWonWindow extends GameOverWindow
+	public class GameWonWindow extends GameOverWindow
 	{
 		private var flow:IUpdateDispatcher;
 		private var game:IGame;
