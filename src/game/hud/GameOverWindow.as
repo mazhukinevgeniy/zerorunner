@@ -23,7 +23,7 @@ package game.hud
 		{
 			this.message = new Sprite();
 			
-			var tmpI:Quad = new Quad(200, 200, 0x222222);
+			var tmpI:Quad = new Quad(400, 200, 0x222222);
 			tmpI.alpha = 0.7;
 			this.message.addChild(tmpI);
 			

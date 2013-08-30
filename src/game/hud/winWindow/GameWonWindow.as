@@ -40,7 +40,7 @@ package game.hud.winWindow
 			message.addChild(this.leftButton);
 			message.addChild(this.rightButton);
 			
-			this.rightButton.x = 2 * this.rightButton.width;
+			this.rightButton.x = 1.5 * this.rightButton.width;
 		}
 		
 		override protected function addUpdateListeners(flow:IUpdateDispatcher):void
