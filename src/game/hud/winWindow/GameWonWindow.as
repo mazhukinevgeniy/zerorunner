@@ -4,8 +4,8 @@ package game.hud.winWindow
 	import game.core.GameFoundations;
 	import game.hud.GameOverWindow;
 	import game.IGame;
-	import game.utils.RandomGameState;
 	import starling.display.DisplayObjectContainer;
+	import starling.events.Event;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -13,15 +13,18 @@ package game.hud.winWindow
 	
 	public class GameWonWindow extends GameOverWindow
 	{
-		private var flow:IUpdateDispatcher;
-		private var game:IGame;
+		private var leftButton:ConfigOptionView;
+		private var rightButton:ConfigOptionView;
 		
 		public function GameWonWindow(foundations:GameFoundations) 
 		{
-			this.flow = foundations.flow;
-			this.game = foundations.game;
+			this.leftButton = new ConfigOptionView(foundations);
+			this.rightButton = new ConfigOptionView(foundations);
 			
-			super(this.flow);
+			this.leftButton.addEventListener(Event.TRIGGERED, this.handleConfigButtonTriggered);
+			this.rightButton.addEventListener(Event.TRIGGERED, this.handleConfigButtonTriggered);
+			
+			super(foundations.flow);
 		}
 		
 		override protected function addMessage(message:DisplayObjectContainer):void
@@ -33,6 +36,11 @@ package game.hud.winWindow
 			tmp.y = 20;
 			
 			message.addChild(tmp);
+			
+			message.addChild(this.leftButton);
+			message.addChild(this.rightButton);
+			
+			this.rightButton.x = 2 * this.rightButton.width;
 		}
 		
 		override protected function addUpdateListeners(flow:IUpdateDispatcher):void
@@ -43,9 +51,22 @@ package game.hud.winWindow
 			flow.addUpdateListener(Update.gameWon);
 		}
 		
+		private function handleConfigButtonTriggered(event:Event):void
+		{
+			var target:ConfigOptionView = event.target as ConfigOptionView;
+			
+			target.activate();
+			
+			if (target == this.leftButton)
+				this.rightButton.deactivate();
+			else
+				this.leftButton.deactivate();
+		}
+		
 		update function gameWon():void
 		{
-			this.flow.dispatchUpdate(Update.reparametrize, new RandomGameState(this.game));
+			this.rightButton.deactivate();
+			this.leftButton.activate();
 			
 			this.update::gameOver();
 		}
