@@ -59,6 +59,13 @@ package game.world.broods.skyClearer
 			return Number(this.constructionStatus / SkyClearerLogic.MAXIMUM_CONSTRUCTION);
 		}
 		
+		override public function applyDestruction():void
+		{
+			super.applyDestruction();
+			
+			this.reset();
+		}
+		
 		override protected function reset():void
 		{
 			super.reset();
