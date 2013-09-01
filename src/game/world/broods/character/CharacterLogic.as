@@ -23,6 +23,8 @@ package game.world.broods.character
 		
 		private var cooldown:int;
 		
+		private var view:CharacterView;
+		
 		public function CharacterLogic(foundations:GameFoundations, points:IPointCollector) 
 		{
 			this.input = foundations.input;
@@ -32,7 +34,7 @@ package game.world.broods.character
 			
 			this.points = points;
 			
-			super(new CharacterView(foundations), foundations);
+			super(this.view = new CharacterView(foundations), foundations);
 		}
 		
 		override protected function getSpawningCell():CellXY
@@ -103,6 +105,7 @@ package game.world.broods.character
 			if (!actor)
 			{
 				super.move(change, delay);
+				this.view.animateWalking(change, delay);
 				
 				this.cooldown = this.MOVE_SPEED;
 				
@@ -113,6 +116,7 @@ package game.world.broods.character
 			{
 				actor.applyDestruction();
 				super.move(change, delay);
+				this.view.animateWalking(change, delay + 1);
 				
 				this.cooldown = this.MOVE_SPEED;
 				
