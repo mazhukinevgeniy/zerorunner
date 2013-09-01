@@ -77,7 +77,7 @@ package game.world
 			for (i = 0; i < goal; i++)
 				new CheckpointLogic(this.foundations);
 			
-			goal = this.width * this.width * 0.2; //TODO: parametrize
+			goal = this.width * this.width * 0.15; //TODO: parametrize
 			for (i = 0; i < goal; i++)
 				new FogLogic(this.foundations);
 			

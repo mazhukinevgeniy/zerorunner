@@ -94,8 +94,6 @@ package game.world.broods
 			this.actors.removeActor(this);
 			
 			this.view.disappear();
-			
-			this.reset();
 		}
 		
 		/**

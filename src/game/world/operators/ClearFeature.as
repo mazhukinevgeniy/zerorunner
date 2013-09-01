@@ -8,6 +8,9 @@ package game.world.operators
 	
 	public class ClearFeature 
 	{
+		public static const CLEAR_RANGE:int = Game.SECTOR_WIDTH / 2;
+		//TODO: parametrize
+		
 		private var width:int;
 		
 		private var foundations:GameFoundations;
@@ -33,7 +36,7 @@ package game.world.operators
 			if (frame == Game.FRAME_TO_CLEAR_BORDERS)
 			{
 				var world:ISearcher = this.foundations.world;
-				const DWIDTH:int = Game.SECTOR_WIDTH / 2;
+				const DWIDTH:int = ClearFeature.CLEAR_RANGE;
 				
 				var i:int, j:int;
 				var actor:ItemLogicBase;

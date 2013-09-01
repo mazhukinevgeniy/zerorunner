@@ -5,6 +5,7 @@ package game.world.broods.fog
 	import game.world.broods.IPushable;
 	import game.world.broods.ItemLogicBase;
 	import game.world.broods.IWindBound;
+	import game.world.operators.ClearFeature;
 	
 	public class FogLogic extends ItemLogicBase implements IPushable, IWindBound
 	{
@@ -17,11 +18,11 @@ package game.world.broods.fog
 		
 		override protected function getSpawningCell():CellXY
 		{
-			var width:int = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
-			var cell:CellXY = Metric.getTmpCell(Math.random() * width, Math.random() * width);
+			var width:int = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH - 2 * ClearFeature.CLEAR_RANGE;
+			var cell:CellXY = Metric.getTmpCell(ClearFeature.CLEAR_RANGE + Math.random() * width, ClearFeature.CLEAR_RANGE + Math.random() * width);
 			
 			for (; this.world.findObjectByCell(cell.x, cell.y); )
-				cell.setValue(Math.random() * width, Math.random() * width);
+				cell.setValue(ClearFeature.CLEAR_RANGE + Math.random() * width, ClearFeature.CLEAR_RANGE + Math.random() * width);
 			
 			return cell;
 		}
