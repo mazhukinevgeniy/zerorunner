@@ -45,6 +45,9 @@ package game.world
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 			
+			flow.workWithUpdateListener(CheckpointLogic);
+			flow.addUpdateListener(Update.prerestore);
+			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleFocusChange);
 		}
 		
