@@ -1,4 +1,4 @@
-package game.world.broods 
+package game.world.items 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;

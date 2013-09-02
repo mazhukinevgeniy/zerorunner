@@ -1,11 +1,11 @@
-package game.world.broods.character 
+package game.world.items.character 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.core.time.Time;
-	import game.world.broods.ItemViewBase;
+	import game.world.items.ItemViewBase;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.MovieClip;

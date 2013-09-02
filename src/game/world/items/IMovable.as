@@ -1,4 +1,4 @@
-package game.world.broods 
+package game.world.items 
 {
 	
 	public interface IMovable 

@@ -1,6 +1,6 @@
 package game.world 
 {
-	import game.world.broods.ItemLogicBase;
+	import game.world.items.ItemLogicBase;
 	
 	public interface ISearcher 
 	{

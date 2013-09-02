@@ -1,10 +1,10 @@
-package game.world.broods.skyClearer 
+package game.world.items.skyClearer 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;
-	import game.world.broods.ISolderable;
-	import game.world.broods.ItemLogicBase;
-	import game.world.broods.IWindBound;
+	import game.world.items.ISolderable;
+	import game.world.items.ItemLogicBase;
+	import game.world.items.IWindBound;
 	
 	public class SkyClearerLogic extends ItemLogicBase implements ISolderable
 	{

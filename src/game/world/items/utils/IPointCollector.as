@@ -1,4 +1,4 @@
-package game.world.broods.utils 
+package game.world.items.utils 
 {
 	import game.core.metric.ICoordinated;
 	

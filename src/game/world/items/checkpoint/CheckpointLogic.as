@@ -1,10 +1,10 @@
-package game.world.broods.checkpoint 
+package game.world.items.checkpoint 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.CellXY;
 	import game.core.metric.Metric;
 	import game.IGame;
-	import game.world.broods.ItemLogicBase;
+	import game.world.items.ItemLogicBase;
 	import utils.updates.update;
 	
 	public class CheckpointLogic extends ItemLogicBase

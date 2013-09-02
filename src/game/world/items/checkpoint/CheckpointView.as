@@ -1,8 +1,8 @@
-package game.world.broods.checkpoint 
+package game.world.items.checkpoint 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.Metric;
-	import game.world.broods.ItemViewBase;
+	import game.world.items.ItemViewBase;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;

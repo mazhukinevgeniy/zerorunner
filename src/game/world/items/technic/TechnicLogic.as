@@ -1,14 +1,14 @@
-package game.world.broods.technic 
+package game.world.items.technic 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
-	import game.world.broods.IPushable;
-	import game.world.broods.ISolderable;
-	import game.world.broods.ItemLogicBase;
-	import game.world.broods.utils.IPointCollector;
+	import game.world.items.IPushable;
+	import game.world.items.ISolderable;
+	import game.world.items.ItemLogicBase;
+	import game.world.items.utils.IPointCollector;
 	
 	public class TechnicLogic extends ItemLogicBase
 	{

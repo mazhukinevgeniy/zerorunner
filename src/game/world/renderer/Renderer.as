@@ -3,9 +3,9 @@ package game.world.renderer
 	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
-	import game.world.broods.ItemLogicBase;
-	import game.world.broods.utils.IPointCollector;
 	import game.world.ISearcher;
+	import game.world.items.ItemLogicBase;
+	import game.world.items.utils.IPointCollector;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;

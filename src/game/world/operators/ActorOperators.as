@@ -1,7 +1,7 @@
 package game.world.operators 
 {
 	import game.core.GameFoundations;
-	import game.world.broods.utils.IPointCollector;
+	import game.world.items.utils.IPointCollector;
 	
 	public class ActorOperators 
 	{

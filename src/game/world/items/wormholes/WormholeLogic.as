@@ -1,8 +1,8 @@
-package game.world.broods.wormholes 
+package game.world.items.wormholes 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;
-	import game.world.broods.ItemLogicBase;
+	import game.world.items.ItemLogicBase;
 	
 	public class WormholeLogic extends ItemLogicBase
 	{

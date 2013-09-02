@@ -1,14 +1,14 @@
-package game.world.broods.character 
+package game.world.items.character 
 {
 	import game.core.GameFoundations;
 	import game.core.input.IKnowInput;
 	import game.core.metric.*;
 	import game.IGame;
-	import game.world.broods.IPushable;
-	import game.world.broods.ISolderable;
-	import game.world.broods.ItemLogicBase;
-	import game.world.broods.utils.IPointCollector;
-	import game.world.broods.wormholes.WormholeLogic;
+	import game.world.items.IPushable;
+	import game.world.items.ISolderable;
+	import game.world.items.ItemLogicBase;
+	import game.world.items.utils.IPointCollector;
+	import game.world.items.wormholes.WormholeLogic;
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	
