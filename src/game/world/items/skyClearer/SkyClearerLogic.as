@@ -2,9 +2,9 @@ package game.world.items.skyClearer
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;
+	import game.world.items.IPushable;
 	import game.world.items.ISolderable;
 	import game.world.items.ItemLogicBase;
-	import game.world.items.IWindBound;
 	
 	public class SkyClearerLogic extends ItemLogicBase implements ISolderable
 	{
@@ -44,8 +44,10 @@ package game.world.items.skyClearer
 					change = SkyClearerLogic.changes[i];
 					
 					actor = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
-					if (actor && actor is IWindBound)
-						(actor as IWindBound).applyWind(change);
+					if (actor && actor is IPushable)
+						actor.applyDestruction();
+						//TODO: check the implementation
+						//lucky we are!, towers are to be reimplemented anyway
 				}
 			}
 		}

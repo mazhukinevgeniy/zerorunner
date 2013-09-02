@@ -1,4 +1,4 @@
-package game.world.items.fog 
+package game.world.items.winds 
 {
 	import game.core.GameFoundations;
 	import game.world.items.ItemViewBase;

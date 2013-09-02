@@ -1,13 +1,12 @@
-package game.world.items.fog 
+package game.world.items.winds 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;
 	import game.world.items.IPushable;
 	import game.world.items.ItemLogicBase;
-	import game.world.items.IWindBound;
 	import game.world.operators.ClearFeature;
 	
-	public class FogLogic extends ItemLogicBase implements IPushable, IWindBound
+	internal class FogLogic extends ItemLogicBase implements IPushable
 	{
 		private const MOVE_SPEED:int = 0;
 		
@@ -28,7 +27,7 @@ package game.world.items.fog
 		}
 		
 		
-		public function applyWind(change:DCellXY):void
+		internal final function applyWind(change:DCellXY):void
 		{
 			if (this.world.findObjectByCell(this.x + change.x, this.y + change.y))
 				this.applyDestruction();
