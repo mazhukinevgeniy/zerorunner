@@ -5,11 +5,11 @@ package game.world
 	import game.core.metric.DCellXY;
 	import game.world.items.character.CharacterLogic;
 	import game.world.items.checkpoint.CheckpointLogic;
+	import game.world.items.fogs.Fogs;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.skyClearer.SkyClearerLogic;
 	import game.world.items.technic.TechnicLogic;
 	import game.world.items.utils.PointsOfInterest;
-	import game.world.items.winds.Winds;
 	import game.world.items.wormholes.WormholeLogic;
 	import game.world.operators.ActorOperators;
 	import game.world.renderer.Renderer;
@@ -81,7 +81,7 @@ package game.world
 			for (i = 0; i < goal; i++)
 				new SkyClearerLogic(this.foundations);
 			
-			new Winds(this.foundations);
+			new Fogs(this.foundations);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase

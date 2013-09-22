@@ -1,4 +1,4 @@
-package game.world.items.winds 
+package game.world.items.fogs.tmp 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;
