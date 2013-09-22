@@ -1,6 +1,7 @@
 package game.world.items.fogs 
 {
 	import game.core.GameFoundations;
+	import game.world.items.fogs.clouds.Cloud;
 	
 	public class Fogs 
 	{
@@ -12,6 +13,7 @@ package game.world.items.fogs
 			//DEBUG: like a test
 			
 			new FogPile(foundations);
+			new Cloud();
 		}
 		
 		//TODO: here be pooling of piles

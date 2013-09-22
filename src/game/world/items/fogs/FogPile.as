@@ -4,17 +4,14 @@ package game.world.items.fogs
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.Metric;
-	import game.world.IActorTracker;
 	import game.world.items.IPushable;
 	import game.world.items.ItemLogicBase;
 	
 	internal class FogPile extends ItemLogicBase implements IPushable
 	{
-		private var actors:IActorTracker;
 		
 		public function FogPile(foundations:GameFoundations) 
 		{
-			this.actors = foundations.actors;
 			
 			super(new FogPileView(this, foundations), foundations);
 		}
@@ -24,10 +21,7 @@ package game.world.items.fogs
 			return Metric.getTmpCell(0, 0);
 		}
 		
-		override public function applyDestruction():void
-		{
-			this.actors.removeActor(this);
-		}
+		//TODO: in case 0, 0 is visible make the fog invisible until used OR just fill the bounds with the maximum fog view, lol
 		
 		/**
 		 * 

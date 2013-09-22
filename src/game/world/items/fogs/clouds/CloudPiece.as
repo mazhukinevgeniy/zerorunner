@@ -1,4 +1,4 @@
-package game.world.items.fogs 
+package game.world.items.fogs.clouds 
 {
 	
 	public class CloudPiece 
