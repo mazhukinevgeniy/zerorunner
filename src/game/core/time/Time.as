@@ -91,7 +91,7 @@ package game.core.time
 				}
 				else
 				{
-					this.updateFlow.dispatchUpdate(Update.freeFrame, this.frameCount % 2);
+					this.updateFlow.dispatchUpdate(Update.freeFrame, this.frameCount);
 					
 					this.frameCount++;
 				}

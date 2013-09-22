@@ -48,6 +48,10 @@ package game.world
 			flow.workWithUpdateListener(CheckpointLogic);
 			flow.addUpdateListener(Update.prerestore);
 			
+			flow.workWithUpdateListener(new Fogs(foundations));
+			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.freeFrame);
+			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleFocusChange);
 		}
 		
@@ -80,8 +84,6 @@ package game.world
 			goal = intWidth * intWidth * 0.04; //TODO: parametrize
 			for (i = 0; i < goal; i++)
 				new SkyClearerLogic(this.foundations);
-			
-			new Fogs(this.foundations);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase
