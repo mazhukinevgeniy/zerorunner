@@ -46,8 +46,7 @@ package game.world.items.skyClearer
 					actor = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
 					if (actor && actor is IPushable)
 						actor.applyDestruction();
-						//TODO: check the implementation
-						//lucky we are!, towers are to be reimplemented anyway
+						//TODO: reimplement using applyPush() if i'm not mistaken
 				}
 			}
 		}
