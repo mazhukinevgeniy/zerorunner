@@ -59,7 +59,8 @@ package game.core.time
 		
 		update function restore():void
 		{
-			this.gameJuggler.purge();
+			//this.gameJuggler.purge();
+			//TODO: check if required
 			
 			this.fixed = false;
 			
@@ -100,6 +101,8 @@ package game.core.time
 		
 		update function gameStopped():void
 		{
+			this.gameJuggler.purge();
+			
 			this.fixed = true;
 			
 			this.frameCount = 0;

@@ -3,6 +3,7 @@ package game.world
 	import flash.events.Event;
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
+	import game.world.clouds.Clouds;
 	import game.world.items.character.CharacterLogic;
 	import game.world.items.checkpoint.CheckpointLogic;
 	import game.world.items.ItemLogicBase;
@@ -31,7 +32,7 @@ package game.world
 		public function ActorsFeatures(foundations:GameFoundations) 
 		{
 			this.points = new PointsOfInterest();
-			new Renderer(this, this.points, foundations);
+			new Renderer(this, this.points, foundations, new Clouds(foundations));
 			
 			super(foundations.game);
 			
