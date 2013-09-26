@@ -5,7 +5,6 @@ package game.world
 	import game.core.metric.DCellXY;
 	import game.world.items.character.CharacterLogic;
 	import game.world.items.checkpoint.CheckpointLogic;
-	import game.world.items.fogs.Fogs;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.skyClearer.SkyClearerLogic;
 	import game.world.items.technic.TechnicLogic;
@@ -47,10 +46,6 @@ package game.world
 			
 			flow.workWithUpdateListener(CheckpointLogic);
 			flow.addUpdateListener(Update.prerestore);
-			
-			flow.workWithUpdateListener(new Fogs(foundations));
-			flow.addUpdateListener(Update.prerestore);
-			flow.addUpdateListener(Update.freeFrame);
 			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleFocusChange);
 		}

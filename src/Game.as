@@ -19,7 +19,6 @@ package
 		//TODO: parametrize
 		
 		public static const FRAME_TO_CLEAR_BORDERS:int = 0;
-		public static const FRAME_TO_MOVE_CLOUDS:int = 1;
 		
 		public function Game() 
 		{

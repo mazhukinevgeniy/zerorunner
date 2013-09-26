@@ -4,7 +4,6 @@ package game.world.items.character
 	import game.core.input.IKnowInput;
 	import game.core.metric.*;
 	import game.IGame;
-	import game.world.items.IPushable;
 	import game.world.items.ISolderable;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.utils.IPointCollector;
@@ -106,17 +105,6 @@ package game.world.items.character
 			{
 				super.move(change, delay);
 				this.view.animateWalking(change, delay);
-				
-				this.cooldown = this.MOVE_SPEED;
-				
-				this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
-				//TODO: animate
-			}
-			else if (actor is IPushable)
-			{
-				actor.applyDestruction();
-				super.move(change, delay);
-				this.view.animateWalking(change, delay + 1);
 				
 				this.cooldown = this.MOVE_SPEED;
 				

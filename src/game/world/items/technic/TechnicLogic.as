@@ -5,7 +5,6 @@ package game.world.items.technic
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
-	import game.world.items.IPushable;
 	import game.world.items.ISolderable;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.utils.IPointCollector;
@@ -137,7 +136,7 @@ package game.world.items.technic
 						var change:DCellXY = TechnicLogic.moves[i];
 						var actor:ItemLogicBase = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
 						
-						if (actor && !(actor is IPushable) && !(actor is ISolderable && (actor as ISolderable).progress < 1))
+						if (actor && !(actor is ISolderable && (actor as ISolderable).progress < 1))
 							this.steps[i] -= 4;
 						
 						if ((change.x == -this.lastChange.x) && (change.y == -this.lastChange.y))
@@ -172,11 +171,6 @@ package game.world.items.technic
 			
 			if (!actor)
 				super.move(change, delay);
-			else if (actor is IPushable)
-			{
-				actor.applyDestruction();
-				super.move(change, delay);
-			}
 			else if (actor is ISolderable)
 			{
 				var tower:ISolderable = actor as ISolderable;
