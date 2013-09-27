@@ -16,33 +16,35 @@ package ui.mainMenu
 	
 		public static const WIDTH_MAIN_MENU:Number = 150;
 		public static const HEIGHT_MAIN_MENU:Number = 300;
-		public static const WIDTH_BUTTON:Number = 120;
-		public static const HEIGHT_BUTTON:Number = 30;
 		
 		private static const SPACE_BEETWEEN_BUTTON:Number = 25;
 		private static const START_HEIGHT_BUTTONS:Number = 50;
 		
 		
-		private var flow:IUpdateDispatcher;
+		protected var flow:IUpdateDispatcher;
 		
-		private var playButton:Button,
+		protected var playButton:Button,
 					statisticsButton:Button,
 					achievementsButton:Button,
 					creditsButton:Button;
 		
 		
-		public function MainMenu(flow:IUpdateDispatcher, assets:AssetManager) 
+		public function MainMenu(flow:IUpdateDispatcher) 
 		{
-			this.width = MainMenu.WIDTH_MAIN_MENU;
-			this.height = MainMenu.HEIGHT_MAIN_MENU;
-			
-			this.initialiazationLayout();
+			this.initializationSize();
+			this.initializationLayout();
 			this.initializationButtons();
 			
 			this.flow = flow;
 		}
 		
-		private function initialiazationLayout():void
+		protected function initializationSize():void
+		{
+			this.width = MainMenu.WIDTH_MAIN_MENU;
+			this.height = MainMenu.HEIGHT_MAIN_MENU;
+		}
+		
+		protected function initializationLayout():void
 		{
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = MainMenu.SPACE_BEETWEEN_BUTTON;
@@ -52,7 +54,7 @@ package ui.mainMenu
 			this.layout = layout;
 		}
 		
-		private function initializationButtons():void 
+		protected function initializationButtons():void 
 		{
 			this.playButton = ButtonMainMenuFactory.create("New game");
 			this.addChild(this.playButton);
@@ -72,7 +74,7 @@ package ui.mainMenu
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 		}
 		
-		private function handleMenuTriggered(event:Event):void
+		protected function handleMenuTriggered(event:Event):void
 		{
 			if (event.target == this.playButton)
 			{

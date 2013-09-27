@@ -24,7 +24,7 @@ package ui
 		{
 			var windows:Vector.<ScrollContainer> = new Vector.<ScrollContainer>(WindowsFeature.NUMBER_OF_WINDOWS, true);
 			
-			windows[WindowsFeature.MENU] = new MainMenu(flow, assets);
+			windows[WindowsFeature.MENU] = new MainMenu(flow);
 			windows[WindowsFeature.STATISTICS] = new StatisticsWindow(flow);
 			windows[WindowsFeature.ACHIEVEMENTS] = new AchievementsWindow(flow, assets);
 			windows[WindowsFeature.CREDITS] = new CreditsWindow(flow);

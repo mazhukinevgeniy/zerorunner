@@ -3,6 +3,7 @@ package ui.achievements
 	import feathers.controls.ScrollContainer;
 	import game.core.achievements.AchievementBase;
 	import starling.display.Quad;
+	import ui.mainMenu.CompactMenu;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import starling.utils.AssetManager;
@@ -32,6 +33,7 @@ package ui.achievements
 			this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_ON;
 			
 			this.addChild(new HexagonalGrid(assets));
+			this.addChild(new CompactMenu(flow));
 			
 			this.flow = flow;
 			
