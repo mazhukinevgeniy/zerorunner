@@ -1,4 +1,4 @@
-package game.core.statistics 
+package statistics 
 {
 	
 	public class StatisticsPiece 

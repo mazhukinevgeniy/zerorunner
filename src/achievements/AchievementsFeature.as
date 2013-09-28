@@ -1,6 +1,6 @@
-package game.core.achievements 
+package achievements 
 {
-	import game.core.achievements.statistics.ActorStatistic;
+	import achievements.statistics.ActorStatistic;
 	import game.ZeroRunner;
 	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;

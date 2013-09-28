@@ -11,12 +11,12 @@ package ui.statistics
 	import feathers.events.DragDropEvent;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
-	import game.core.statistics.StatisticsPiece;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
+	import statistics.StatisticsPiece;
 	import ui.themes.ExtendedTheme;
 	import utils.updates.IUpdateDispatcher;
 	

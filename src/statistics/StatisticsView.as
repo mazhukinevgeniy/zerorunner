@@ -1,4 +1,4 @@
-package game.core.statistics 
+package statistics 
 {
 	import feathers.controls.List;
 	import feathers.data.ListCollection;

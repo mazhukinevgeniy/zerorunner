@@ -1,9 +1,7 @@
 package game.core 
 {
-	import game.core.achievements.AchievementsFeature;
 	import game.core.input.IKnowInput;
 	import game.core.input.InputManager;
-	import game.core.statistics.StatisticsFeature;
 	import game.core.time.Time;
 	import game.IGame;
 	import game.world.ActorsFeatures;
@@ -34,9 +32,6 @@ package game.core
 			this._actors = new ActorsFeatures(this);
 			
 			new Time(root, this);
-			
-			new StatisticsFeature(flow);
-			new AchievementsFeature(flow);
 		}
 		
 		public function get game():IGame

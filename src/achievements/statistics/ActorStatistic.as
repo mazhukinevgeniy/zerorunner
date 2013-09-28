@@ -1,15 +1,15 @@
-package game.core.achievements.statistics 
+package achievements.statistics 
 {
 	import game.core.metric.DCellXY;
-	import game.core.statistics.ITakeStatistics;
-	import game.core.statistics.StatisticsPiece;
+	import statistics.ITakeStatistics;
+	import statistics.StatisticsPiece;
 	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class ActorStatistic extends SaveBase
 	{
-		
+		//TODO: fix the package
 		public function ActorStatistic(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);

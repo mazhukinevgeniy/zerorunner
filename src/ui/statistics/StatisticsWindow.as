@@ -8,9 +8,9 @@ package ui.statistics
 	import feathers.dragDrop.IDropTarget;
 	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
-	import game.core.statistics.ITakeStatistics;
-	import game.core.statistics.StatisticsPiece;
 	import starling.display.Quad;
+	import statistics.ITakeStatistics;
+	import statistics.StatisticsPiece;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 
@@ -191,7 +191,9 @@ package ui.statistics
 		
 		public override function set visible(newValue:Boolean):void
 		{
-			if (newValue || this.data.length == 0)
+			//if (newValue || this.data.length == 0)
+			//TODO: Leon, check if it was important
+			if (newValue && this.data.length == 0)
 			{
 				this.flow.dispatchUpdate(Update.emitStatistics, this);
 			}
