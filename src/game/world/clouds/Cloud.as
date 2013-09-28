@@ -3,6 +3,7 @@ package game.world.clouds
 	import game.core.GameFoundations;
 	import game.core.metric.Metric;
 	import starling.animation.Juggler;
+	import starling.animation.Transitions;
 	import starling.animation.Tween;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
@@ -54,7 +55,7 @@ package game.world.clouds
 			this.rotationTween.animate("rotation", this.rotation + Math.PI);
 			this.rotationTween.onComplete = this.resetRotation;
 			
-			this.shakeTween = new Tween(this.batch, this.shakePeriod);
+			this.shakeTween = new Tween(this.batch, this.shakePeriod, Transitions.EASE_OUT);
 			this.shakeTween.animate("x", Metric.CELL_WIDTH * 0.5 * Math.random());
 			this.shakeTween.repeatCount = 0;
 			this.shakeTween.reverse = true;
