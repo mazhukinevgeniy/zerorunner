@@ -4,13 +4,12 @@ package game.world
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
 	import game.world.clouds.Clouds;
+	import game.world.items.beacons.BeaconLogic;
 	import game.world.items.character.CharacterLogic;
 	import game.world.items.checkpoint.CheckpointLogic;
 	import game.world.items.ItemLogicBase;
-	import game.world.items.skyClearer.SkyClearerLogic;
 	import game.world.items.technic.TechnicLogic;
 	import game.world.items.utils.PointsOfInterest;
-	import game.world.items.wormholes.WormholeLogic;
 	import game.world.operators.ActorOperators;
 	import game.world.renderer.Renderer;
 	import starling.core.Starling;
@@ -69,17 +68,13 @@ package game.world
 			
 			new CharacterLogic(this.foundations, this.points);
 			new TechnicLogic(this.foundations, this.points); //TODO: parametrize
-			new WormholeLogic(this.foundations);
+			new BeaconLogic(this.foundations);
 			
 			var i:int, goal:int;
 			
 			goal = (this.game).mapWidth * (this.game).mapWidth;
 			for (i = 0; i < goal; i++)
 				new CheckpointLogic(this.foundations);
-			
-			goal = intWidth * intWidth * 0.04; //TODO: parametrize
-			for (i = 0; i < goal; i++)
-				new SkyClearerLogic(this.foundations);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase
