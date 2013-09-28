@@ -84,6 +84,8 @@ package ui
 		
 		update function quitGame():void
 		{
+			this.gameIsActive = false;
+			
 			this.root.visible = true;
 		}
 		
