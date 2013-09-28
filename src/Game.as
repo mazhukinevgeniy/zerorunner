@@ -25,6 +25,16 @@ package
 			throw new StaticClassError();
 		}
 		
+		
+		//TODO:
+		/*
+		
+		Die more.
+		
+		
+		
+		
+		*/
 	}
 
 }
