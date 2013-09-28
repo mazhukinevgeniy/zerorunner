@@ -5,7 +5,6 @@ package ui.game
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
-	import utils.updates.UpdateManager;
 	
 	public class GameView 
 	{
@@ -22,8 +21,7 @@ package ui.game
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.quitGame);
 			
-			flow.dispatchUpdate(UpdateManager.callExternalFlow, UpdateGameBase.flowName, 
-									Update.setGameContainer, this.container);
+			flow.dispatchUpdate(Update.setGameContainer, this.container);
 		}
 		
 		update function newGame():void

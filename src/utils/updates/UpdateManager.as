@@ -11,18 +11,13 @@ package utils.updates
 		
 		private var helper:Object;
 		
-		public function UpdateManager(flowName:String) 
+		public function UpdateManager() 
 		{
 			UpdateManager.count++;
 			if (UpdateManager.count > 1)
 				throw new Error();
 			
 			this.methods = new Object();
-			
-			this.workWithUpdateListener(this);
-			this.addUpdateListener(UpdateManager.callExternalFlow);
-			
-			UpdateManager.newUpdateManager(this, flowName);
 		}
 		
 		final public function workWithUpdateListener(listener:Object):void

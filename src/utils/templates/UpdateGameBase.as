@@ -3,25 +3,23 @@ package utils.templates
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import starling.errors.AbstractClassError;
-	import ui.ChaoticUI;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
-	import utils.updates.UpdateManager;
 	
-	final public class UpdateGameBase extends UpdateManager
+	final public class UpdateGameBase
 	{
-		public static const flowName:String = "Game Flow";
-		
 		private var displayRoot:Sprite;
 		
-		public function UpdateGameBase() 
+		private var flow:IUpdateDispatcher;
+		
+		public function UpdateGameBase(flow:IUpdateDispatcher) 
 		{
-			super(UpdateGameBase.flowName);
+			this.flow = flow;
 			
-			this.workWithUpdateListener(this);
-			this.addUpdateListener(Update.newGame);
-			this.addUpdateListener(Update.addToTheHUD);
-			this.addUpdateListener(Update.quitGame);
-			this.addUpdateListener(Update.setGameContainer);
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.newGame);
+			flow.addUpdateListener(Update.addToTheHUD);
+			flow.addUpdateListener(Update.setGameContainer);
 		}
 		
 		final update function setGameContainer(viewRoot:Sprite):void
@@ -33,13 +31,8 @@ package utils.templates
 		
 		update function newGame():void
 		{
-			this.dispatchUpdate(Update.prerestore);
-			this.dispatchUpdate(Update.restore);
-		}
-		
-		update function quitGame():void
-		{
-			this.dispatchUpdate(UpdateManager.callExternalFlow, ChaoticUI.flowName, Update.quitGame);
+			this.flow.dispatchUpdate(Update.prerestore);
+			this.flow.dispatchUpdate(Update.restore);
 		}
 		
 		final update function addToTheHUD(item:DisplayObject):void

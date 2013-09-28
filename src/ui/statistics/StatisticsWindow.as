@@ -14,7 +14,6 @@ package ui.statistics
 	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
-	import utils.updates.UpdateManager;
 
 	
 	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
@@ -195,7 +194,7 @@ package ui.statistics
 		{
 			if (newValue || this.data.length == 0)
 			{
-				this.flow.dispatchUpdate(UpdateManager.callExternalFlow, UpdateGameBase.flowName, Update.emitStatistics, this);
+				this.flow.dispatchUpdate(Update.emitStatistics, this);
 			}
 			
 			super.visible = newValue;

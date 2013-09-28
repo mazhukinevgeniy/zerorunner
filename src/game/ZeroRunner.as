@@ -6,6 +6,7 @@ package game
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.templates.UpdateGameBase;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class ZeroRunner
@@ -15,18 +16,20 @@ package game
 		
 		private var atlas:TextureAtlas;
 		
-		public function ZeroRunner(assets:AssetManager) 
+		public function ZeroRunner(flow:IUpdateDispatcher, assets:AssetManager) 
 		{			
-			this.flow = new UpdateGameBase();
+			new UpdateGameBase(flow);
+			
+			this.flow = flow;
 			this.save = new GameSave();
 			
 			this.atlas = assets.getTextureAtlas("gameAtlas");
 			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.setGameContainer);
-			this.flow.addUpdateListener(Update.gameOver);
-			this.flow.addUpdateListener(Update.gameWon);
-			this.flow.addUpdateListener(Update.reparametrize);
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.setGameContainer);
+			flow.addUpdateListener(Update.gameOver);
+			flow.addUpdateListener(Update.gameWon);
+			flow.addUpdateListener(Update.reparametrize);
 		}
 		
 		update function setGameContainer(root:Sprite):void
