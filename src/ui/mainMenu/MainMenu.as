@@ -28,23 +28,25 @@ package ui.mainMenu
 					achievementsButton:Button,
 					creditsButton:Button;
 		
+		protected var resetButton:Button;
+		
 		
 		public function MainMenu(flow:IUpdateDispatcher) 
 		{
-			this.initializationSize();
-			this.initializationLayout();
-			this.initializationButtons();
+			this.initializeSize();
+			this.initializeLayout();
+			this.initializeButtons();
 			
 			this.flow = flow;
 		}
 		
-		protected function initializationSize():void
+		protected function initializeSize():void
 		{
 			this.width = MainMenu.WIDTH_MAIN_MENU;
 			this.height = MainMenu.HEIGHT_MAIN_MENU;
 		}
 		
-		protected function initializationLayout():void
+		protected function initializeLayout():void
 		{
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = MainMenu.SPACE_BEETWEEN_BUTTON;
@@ -54,7 +56,7 @@ package ui.mainMenu
 			this.layout = layout;
 		}
 		
-		protected function initializationButtons():void 
+		protected function initializeButtons():void 
 		{
 			this.playButton = ButtonMainMenuFactory.create("New game");
 			this.addChild(this.playButton);
