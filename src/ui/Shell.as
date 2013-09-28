@@ -15,7 +15,7 @@ package ui
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
-	public class ChaoticUI extends UpdateManager
+	public class Shell extends UpdateManager
 	{
 		public static const flowName:String = "Shell Flow";
 		
@@ -27,7 +27,7 @@ package ui
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
 		
-		public function ChaoticUI(displayRoot:DisplayObjectContainer, assets:AssetManager) 
+		public function Shell(displayRoot:DisplayObjectContainer, assets:AssetManager) 
 		{
 			this.gameIsActive = false;
 			this.assets = assets;
