@@ -25,6 +25,8 @@ package game.hud.winWindow
 			this.rightButton.addEventListener(Event.TRIGGERED, this.handleConfigButtonTriggered);
 			
 			super(foundations.flow);
+			
+			//TODO: remove it
 		}
 		
 		override protected function addMessage(message:DisplayObjectContainer):void

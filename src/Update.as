@@ -1,6 +1,5 @@
 package  
 {
-	import utils.errors.StaticClassError;
 	
 	public class Update 
 	{
@@ -54,7 +53,7 @@ package
 		
 		public function Update() 
 		{
-			throw new StaticClassError();
+			throw new Error();
 		}
 		
 	}

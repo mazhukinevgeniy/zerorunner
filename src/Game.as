@@ -1,6 +1,5 @@
 package  
 {
-	import utils.errors.StaticClassError;
 	
 	/**
 	 * Collection of global game-related constants, codes etc
@@ -22,7 +21,7 @@ package
 		
 		public function Game() 
 		{
-			throw new StaticClassError();
+			throw new Error();
 		}
 		
 		
