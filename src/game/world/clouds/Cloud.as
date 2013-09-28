@@ -18,8 +18,8 @@ package game.world.clouds
 		private var juggler:Juggler;
 		
 		
-		private const rotationPeriod:int = 1;
-		private const shakePeriod:int = 3;
+		private const rotationPeriod:int = 1 + 8 * Math.random();
+		private const shakePeriod:int = 1 + 4 * Math.random();
 		
 		public function Cloud(foundations:GameFoundations) 
 		{
@@ -55,7 +55,7 @@ package game.world.clouds
 			this.rotationTween.onComplete = this.resetRotation;
 			
 			this.shakeTween = new Tween(this.batch, this.shakePeriod);
-			this.shakeTween.animate("x", Metric.CELL_WIDTH * 2);
+			this.shakeTween.animate("x", Metric.CELL_WIDTH * 0.5 * Math.random());
 			this.shakeTween.repeatCount = 0;
 			this.shakeTween.reverse = true;
 			
@@ -72,14 +72,6 @@ package game.world.clouds
 			this.rotationTween.onComplete = this.resetRotation;
 			
 			this.juggler.add(this.rotationTween);
-		}
-		
-		internal function stopAll():void
-		{
-			this.rotationTween.repeatCount = 1;
-			this.shakeTween.repeatCount = 1;
-			
-			//TODO: not required, if juggler is purged on gamestop
 		}
 	}
 

@@ -30,7 +30,6 @@ package game.world.clouds
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.moveCenter);
-			flow.addUpdateListener(Update.gameStopped);
 			flow.addUpdateListener(Update.quitGame);
 		}
 		
@@ -41,9 +40,15 @@ package game.world.clouds
 			
 			var anotherOne:Cloud = new Cloud(foundations);
 			anotherOne.rotation = 2;
+			anotherOne.x = 20;
 			this.centerCloud.addChild(anotherOne);
 			
-			//TODO: this code is bad, change it
+			var oneMore:Cloud = new Cloud(foundations);
+			oneMore.rotation = 1;
+			oneMore.y = -20;
+			anotherOne.addChild(oneMore);
+			
+			//TODO: parametrize more
 			
 			this.centerCloud.x = item.x * Metric.CELL_WIDTH;
 			this.centerCloud.y = item.y * Metric.CELL_HEIGHT;
@@ -55,11 +60,6 @@ package game.world.clouds
 			this.moveTween.moveTo(this.centerCloud.x + change.x * Metric.CELL_WIDTH, this.centerCloud.y + change.y * Metric.CELL_HEIGHT);
 			
 			this.foundations.juggler.add(this.moveTween);
-		}
-		
-		update function gameStopped():void
-		{
-			this.centerCloud.stopAll();
 		}
 		
 		update function quitGame():void
