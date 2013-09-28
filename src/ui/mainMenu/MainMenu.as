@@ -11,7 +11,7 @@ package ui.mainMenu
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class MainMenu  extends ScrollContainer
+	public class MainMenu extends ScrollContainer
 	{	
 	
 		public static const WIDTH_MAIN_MENU:Number = 150;
@@ -78,6 +78,7 @@ package ui.mainMenu
 		{
 			if (event.target == this.playButton)
 			{
+				this.playButton.focusManager.focus = null;
 				this.flow.dispatchUpdate(Update.newGame);
 			}
 			else if (event.target == this.statisticsButton)
