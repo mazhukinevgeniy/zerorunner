@@ -44,7 +44,6 @@ package game.world.renderer
 			this.moveTween = new PixelPerfectTween(this, 0);
 		}
 		
-		
 		update function prerestore():void
 		{
 			this.scene.reset();
@@ -63,6 +62,12 @@ package game.world.renderer
 			this.moveTween.moveTo(this.container.x - change.x * Metric.CELL_WIDTH, this.container.y - change.y * Metric.CELL_HEIGHT);
 			
 			this.juggler.add(this.moveTween);
+		}
+		
+		
+		internal function addChild(item:DisplayObject):void
+		{
+			this.container.addChild(item);
 		}
 	}
 	

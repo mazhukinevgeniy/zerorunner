@@ -3,13 +3,13 @@ package game.world
 	import flash.events.Event;
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
+	import game.world.clouds.Clouds;
 	import game.world.items.character.CharacterLogic;
 	import game.world.items.checkpoint.CheckpointLogic;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.skyClearer.SkyClearerLogic;
 	import game.world.items.technic.TechnicLogic;
 	import game.world.items.utils.PointsOfInterest;
-	import game.world.items.winds.Winds;
 	import game.world.items.wormholes.WormholeLogic;
 	import game.world.operators.ActorOperators;
 	import game.world.renderer.Renderer;
@@ -32,7 +32,7 @@ package game.world
 		public function ActorsFeatures(foundations:GameFoundations) 
 		{
 			this.points = new PointsOfInterest();
-			new Renderer(this, this.points, foundations);
+			new Renderer(this, this.points, foundations, new Clouds(foundations));
 			
 			super(foundations.game);
 			
@@ -80,8 +80,6 @@ package game.world
 			goal = intWidth * intWidth * 0.04; //TODO: parametrize
 			for (i = 0; i < goal; i++)
 				new SkyClearerLogic(this.foundations);
-			
-			new Winds(this.foundations);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase

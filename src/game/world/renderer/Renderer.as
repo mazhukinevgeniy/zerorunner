@@ -6,6 +6,7 @@ package game.world.renderer
 	import game.world.ISearcher;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.utils.IPointCollector;
+	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
@@ -23,12 +24,13 @@ package game.world.renderer
 		private var xM:int;
 		private var yM:int;
 		
-		public function Renderer(data:ISearcher, points:IPointCollector, foundations:GameFoundations) 
+		public function Renderer(data:ISearcher, points:IPointCollector, foundations:GameFoundations, clouds:DisplayObject) 
 		{
 			var flow:IUpdateDispatcher = foundations.flow;
 			this.points = points;
 			
 			this.lines = new Camera(flow, foundations.juggler);
+			this.lines.addChild(clouds);
 			
 			this.data = data;
 			

@@ -2,7 +2,6 @@ package game.world.items.skyClearer
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;
-	import game.world.items.IPushable;
 	import game.world.items.ISolderable;
 	import game.world.items.ItemLogicBase;
 	
@@ -44,10 +43,8 @@ package game.world.items.skyClearer
 					change = SkyClearerLogic.changes[i];
 					
 					actor = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
-					if (actor && actor is IPushable)
-						actor.applyDestruction();
-						//TODO: check the implementation
-						//lucky we are!, towers are to be reimplemented anyway
+					
+					//TODO: do something or go away
 				}
 			}
 		}
