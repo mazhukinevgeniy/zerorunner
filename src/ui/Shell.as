@@ -12,27 +12,21 @@ package ui
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
 	import utils.templates.UpdateGameBase;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
-	public class Shell extends UpdateManager
-	{
-		public static const flowName:String = "Shell Flow";
-		
-		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
-		private static const HiLoDeco:Class;
-		
+	public class Shell
+	{		
 		private var gameIsActive:Boolean;
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
 		
-		public function Shell(displayRoot:DisplayObjectContainer, assets:AssetManager) 
+		public function Shell(flow:IUpdateDispatcher, displayRoot:DisplayObjectContainer, assets:AssetManager) 
 		{
 			this.gameIsActive = false;
 			this.assets = assets;
-			
-			super(ChaoticUI.flowName);
 			
 			this.initializationRootGUI(displayRoot);
 		    this.initializationFeatures(displayRoot);

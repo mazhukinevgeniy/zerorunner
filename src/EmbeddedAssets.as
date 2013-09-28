@@ -3,7 +3,7 @@ package
 	
 	internal class EmbeddedAssets 
 	{
-		// Textures
+		//Textures
 		
 		[Embed(source="../res/assets/textures/atlases/sprites0.png")]
 		public static const sprites0:Class;
@@ -19,10 +19,15 @@ package
 		[Embed(source="../res/assets/sounds/Paging.mp3")]
         public static const Paging:Class;
 		
+		//Fonts
+		
+		[Embed(source="../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
+		private static const HiLoDeco:Class;
+		
 		
 		public function EmbeddedAssets() 
 		{
-			
+			throw new Error();
 		}
 		
 	}
