@@ -28,7 +28,9 @@ package ui.mainMenu
 					achievementsButton:Button,
 					creditsButton:Button;
 		
-		protected var resetButton:Button;
+		//TODO: extract main navigation buttons into the special class to inhereit it with CompactMenu
+		
+		private var resetButton:Button;
 		
 		
 		public function MainMenu(flow:IUpdateDispatcher) 
@@ -36,6 +38,11 @@ package ui.mainMenu
 			this.initializeSize();
 			this.initializeLayout();
 			this.initializeButtons();
+			
+			this.resetButton = ButtonMainMenuFactory.create("Reset progress");
+			this.addChild(this.resetButton);
+			
+			this.resetButton.addEventListener(Event.TRIGGERED, this.handleResetTriggered);
 			
 			this.flow = flow;
 		}
@@ -95,6 +102,13 @@ package ui.mainMenu
 			{
 				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.CREDITS);
 			}
+		}
+		
+		private function handleResetTriggered():void
+		{
+			//TODO: tell about the risk. user 'll lose all his droids!
+			
+			this.flow.dispatchUpdate(Update.resetProgress);
 		}
 		
 	}

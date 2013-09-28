@@ -1,8 +1,9 @@
-package game 
+package game.utils 
 {
+	import game.IGame;
 	import utils.SaveBase;
 	
-	internal class GameSave extends SaveBase implements IGame
+	public class GameSave extends SaveBase implements IGame
 	{
 		
 		public function GameSave() 

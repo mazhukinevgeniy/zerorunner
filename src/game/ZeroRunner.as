@@ -2,6 +2,7 @@ package game
 {
 	import game.core.GameFoundations;
 	import game.hud.UIExtendsions;
+	import game.utils.GameSave;
 	import game.utils.GameUpdateConverter;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -30,6 +31,7 @@ package game
 			flow.addUpdateListener(Update.gameOver);
 			flow.addUpdateListener(Update.gameWon);
 			flow.addUpdateListener(Update.reparametrize);
+			flow.addUpdateListener(Update.resetProgress);
 		}
 		
 		update function setGameContainer(root:Sprite):void
@@ -43,6 +45,11 @@ package game
 		update function reparametrize(params:IGame):void
 		{
 			this.save.mapWidth = params.mapWidth;
+		}
+		
+		update function resetProgress():void
+		{
+			this.save.mapWidth = 1;
 		}
 		
 		update function gameOver():void

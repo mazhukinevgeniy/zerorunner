@@ -50,6 +50,8 @@ package
 		
 		public static const freeFrame:String = "freeFrame";
 		
+		public static const resetProgress:String = "resetProgress";
+		
 		public function Update() 
 		{
 			throw new StaticClassError();
