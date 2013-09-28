@@ -1,5 +1,6 @@
 package ui.achievements 
 {
+	
 	public class AchievementsTable 
 	{
 		
@@ -7,7 +8,14 @@ package ui.achievements
 		
 		public function AchievementsTable() 
 		{
-			this.matrix = new Vector.<Vector.<Boolean>>;
+			this.matrix = new Vector.<Vector.<Boolean>>(8);
+			for ( var i:int = 0; i < 8; ++i)
+			{
+				this.matrix[i] = new Vector.<Boolean>(5)
+			}
+			
+			//TODO: считать с сэйва
+			
 		}
 		
 		public function getCell(x:int, y:int):Boolean
