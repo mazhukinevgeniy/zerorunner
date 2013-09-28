@@ -1,7 +1,6 @@
 package game.core.time 
 {
 	import flash.ui.Keyboard;
-	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

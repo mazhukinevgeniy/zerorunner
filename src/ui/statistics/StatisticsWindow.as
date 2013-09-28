@@ -11,7 +11,6 @@ package ui.statistics
 	import game.core.statistics.ITakeStatistics;
 	import game.core.statistics.StatisticsPiece;
 	import starling.display.Quad;
-	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 

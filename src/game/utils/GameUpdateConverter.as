@@ -1,4 +1,4 @@
-package utils.templates 
+package game.utils 
 {
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
@@ -6,13 +6,13 @@ package utils.templates
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	final public class UpdateGameBase
+	final public class GameUpdateConverter
 	{
 		private var displayRoot:Sprite;
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function UpdateGameBase(flow:IUpdateDispatcher) 
+		public function GameUpdateConverter(flow:IUpdateDispatcher) 
 		{
 			this.flow = flow;
 			

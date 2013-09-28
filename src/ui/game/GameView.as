@@ -2,7 +2,6 @@ package ui.game
 {
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
-	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
