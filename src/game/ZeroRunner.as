@@ -44,8 +44,7 @@ package game
 		
 		update function resetProgress():void
 		{
-			this.save.mapWidth = 1;
-			this.save.level = 1;
+			this.applyConfiguration(new LevelConfiguration(null));
 		}
 		
 		update function gameOver():void
@@ -57,8 +56,11 @@ package game
 		{
 			this.flow.dispatchUpdate(Update.gameStopped);
 			
-			var params:LevelConfiguration = new LevelConfiguration(this.save);
-			
+			this.applyConfiguration(new LevelConfiguration(this.save));
+		}
+		
+		private function applyConfiguration(params:LevelConfiguration):void
+		{
 			this.save.mapWidth = params.mapWidth;
 			this.save.level = params.level;
 		}

@@ -9,8 +9,16 @@ package game.utils
 		
 		public function LevelConfiguration(current:IGame) 
 		{
-			this._width = 1 + current.mapWidth * (Math.random() + 0.5);
-			this._level = current.level + 1;
+			if (current)
+			{
+				this._width = 1 + current.mapWidth * (Math.random() + 0.5);
+				this._level = current.level + 1;
+			}
+			else
+			{
+				this._level = 1;
+				this._width = 1;
+			}
 		}
 		
 		
