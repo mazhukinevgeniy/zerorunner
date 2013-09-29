@@ -11,7 +11,7 @@ package game.utils
 		{
 			if (current)
 			{
-				this._width = 1 + current.mapWidth * (Math.random() + 0.5);
+				this._width = 1 + current.mapWidth;
 				this._level = current.level + 1;
 			}
 			else
