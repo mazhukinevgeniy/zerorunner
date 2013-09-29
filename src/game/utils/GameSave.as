@@ -20,19 +20,33 @@ package game.utils
 			{
 				this.localSave.data.game.width = 1;
 			}
+			
+			if (!this.localSave.data.game.level)
+			{
+				this.localSave.data.game.level = 1;
+			}
 		}
 		
 		
 		public function get mapWidth():int
 		{
 			return this.localSave.data.game.width;
-			//return 9;
-			//TODO: must work with 240;
 		}
 		
 		public function set mapWidth(value:int):void
 		{
 			this.localSave.data.game.width = value;
+		}
+		
+		
+		public function get level():int
+		{
+			return this.localSave.data.game.level;
+		}
+		
+		public function set level(value:int):void
+		{
+			this.localSave.data.game.level = value;
 		}
 	}
 

@@ -50,6 +50,7 @@ package game
 		update function resetProgress():void
 		{
 			this.save.mapWidth = 1;
+			this.save.level = 1;
 		}
 		
 		update function gameOver():void
@@ -60,6 +61,8 @@ package game
 		update function gameWon():void
 		{
 			this.flow.dispatchUpdate(Update.gameStopped);
+			
+			this.save.level++;
 		}
 	}
 
