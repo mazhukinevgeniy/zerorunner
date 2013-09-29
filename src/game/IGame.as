@@ -5,7 +5,7 @@ package game
 	{
 		function get mapWidth():int;
 		
-		
+		function get level():int;
 	}
 	
 }

@@ -4,6 +4,7 @@ package game
 	import game.hud.UIExtendsions;
 	import game.utils.GameSave;
 	import game.utils.GameUpdateConverter;
+	import game.utils.LevelConfiguration;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
@@ -30,7 +31,6 @@ package game
 			flow.addUpdateListener(Update.setGameContainer);
 			flow.addUpdateListener(Update.gameOver);
 			flow.addUpdateListener(Update.gameWon);
-			flow.addUpdateListener(Update.reparametrize);
 			flow.addUpdateListener(Update.resetProgress);
 		}
 		
@@ -40,11 +40,6 @@ package game
 					(this.flow, this.save, this.atlas, root);
 			
 			new UIExtendsions(foundations);
-		}
-		
-		update function reparametrize(params:IGame):void
-		{
-			this.save.mapWidth = params.mapWidth;
 		}
 		
 		update function resetProgress():void
@@ -62,7 +57,10 @@ package game
 		{
 			this.flow.dispatchUpdate(Update.gameStopped);
 			
-			this.save.level++;
+			var params:LevelConfiguration = new LevelConfiguration(this.save);
+			
+			this.save.mapWidth = params.mapWidth;
+			this.save.level = params.level;
 		}
 	}
 

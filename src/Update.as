@@ -3,8 +3,6 @@ package
 	
 	public class Update 
 	{
-		public static const reparametrize:String = "reparametrize";
-		
 		public static const addToTheHUD:String = "addToTheHUD";
 		
 		public static const prerestore:String = "prerestore";
