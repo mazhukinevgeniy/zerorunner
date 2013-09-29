@@ -29,7 +29,6 @@ package game
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.setGameContainer);
-			flow.addUpdateListener(Update.gameOver);
 			flow.addUpdateListener(Update.gameWon);
 			flow.addUpdateListener(Update.resetProgress);
 		}
@@ -47,15 +46,8 @@ package game
 			this.applyConfiguration(new LevelConfiguration(null));
 		}
 		
-		update function gameOver():void
-		{
-			this.flow.dispatchUpdate(Update.gameStopped);
-		}
-		
 		update function gameWon():void
 		{
-			this.flow.dispatchUpdate(Update.gameStopped);
-			
 			this.applyConfiguration(new LevelConfiguration(this.save));
 		}
 		

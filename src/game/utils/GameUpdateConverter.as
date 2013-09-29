@@ -18,6 +18,8 @@ package game.utils
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
+			flow.addUpdateListener(Update.gameOver);
+			flow.addUpdateListener(Update.gameWon);
 			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.setGameContainer);
 		}
@@ -38,6 +40,19 @@ package game.utils
 		final update function addToTheHUD(item:DisplayObject):void
 		{
 			this.displayRoot.addChild(item);
+		}
+		
+		
+		
+		update function gameOver():void
+		{
+			this.flow.dispatchUpdate(Update.gameStopped);
+		}
+		
+		
+		update function gameWon():void
+		{
+			this.flow.dispatchUpdate(Update.gameStopped);
 		}
 	}
 
