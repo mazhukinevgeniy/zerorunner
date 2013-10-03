@@ -10,7 +10,8 @@ package game.data
 		{
 			if (current)
 			{
-				this._width = 1 + current.mapWidth;
+				this._width = 1;
+				//1 + current.mapWidth;
 				this._level = current.level + 1;
 			}
 			else
