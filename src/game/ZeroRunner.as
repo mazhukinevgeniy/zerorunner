@@ -2,7 +2,6 @@ package game
 {
 	import game.core.GameFoundations;
 	import game.data.GameSave;
-	import game.data.LevelConfiguration;
 	import game.hud.UIExtendsions;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -18,18 +17,16 @@ package game
 		private var atlas:TextureAtlas;
 		
 		public function ZeroRunner(flow:IUpdateDispatcher, assets:AssetManager) 
-		{			
-			new GameUpdateConverter(flow);
-			
+		{
 			this.flow = flow;
 			this.save = new GameSave();
+			
+			new GameUpdateConverter(flow, this.save);
 			
 			this.atlas = assets.getTextureAtlas("gameAtlas");
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.setGameContainer);
-			flow.addUpdateListener(Update.gameWon);
-			flow.addUpdateListener(Update.resetProgress);
 		}
 		
 		update function setGameContainer(root:Sprite):void
@@ -40,25 +37,6 @@ package game
 			new UIExtendsions(foundations);
 		}
 		
-		update function resetProgress():void
-		{
-			this.applyConfiguration(new LevelConfiguration(null));
-		}
-		
-		update function gameWon():void
-		{
-			this.applyConfiguration(new LevelConfiguration(this.save));
-		}
-		
-		private function applyConfiguration(params:LevelConfiguration):void
-		{
-			this.save.mapWidth = params.mapWidth;
-			this.save.level = params.level;
-			
-			if (params.level == 1)
-				for (var i:int = 0; i < Game.LEVELS_PER_RUN; i++)
-					this.save.setBeacon(i, Game.NO_BEACON);
-		}
 	}
 
 }

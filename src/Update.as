@@ -13,6 +13,8 @@ package
 		public static const gameWon:String = "gameWon";
 		public static const quitGame:String = "quitGame";
 		
+		public static const smallBeaconTurnedOn:String = "smallBeaconTurnedOn";
+		
 		public static const setGameContainer:String = "setGameContainer";
 		
 		

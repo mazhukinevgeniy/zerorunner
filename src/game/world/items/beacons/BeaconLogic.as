@@ -48,7 +48,7 @@ package game.world.items.beacons
 			
 			if (this.constructionStatus > this.MAXIMUM_CONSTRUCTION)
 			{
-				this.flow.dispatchUpdate(Update.gameWon);
+				this.flow.dispatchUpdate(Update.smallBeaconTurnedOn);
 			}
 		}
 	}
