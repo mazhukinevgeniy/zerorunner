@@ -23,7 +23,7 @@ package
 		
 		public static const FRAME_TO_CLEAR_BORDERS:int = 0;
 		
-		public static const LEVELS_PER_RUN:int = 8;
+		public static const LEVELS_PER_RUN:int = 3;
 		
 		public function Game() 
 		{

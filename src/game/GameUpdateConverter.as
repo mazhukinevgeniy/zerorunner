@@ -23,7 +23,6 @@ package game
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.gameOver);
-			flow.addUpdateListener(Update.gameWon);
 			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.resetProgress);
 			flow.addUpdateListener(Update.setGameContainer);
@@ -52,7 +51,15 @@ package game
 		{
 			this.save.setBeacon(this.save.level, Game.BEACON);
 			
-			this.flow.dispatchUpdate(Update.gameWon);
+			if (this.save.level == Game.LEVELS_PER_RUN)
+				this.flow.dispatchUpdate(Update.tellGameWon);
+			else
+				this.flow.dispatchUpdate(Update.tellRoundWon);
+			
+			this.applyConfiguration(new LevelConfiguration(this.save));
+			
+			
+			this.flow.dispatchUpdate(Update.gameStopped);
 		}
 		
 		
@@ -63,12 +70,6 @@ package game
 		}
 		
 		
-		update function gameWon():void
-		{
-			this.applyConfiguration(new LevelConfiguration(this.save));
-			
-			this.flow.dispatchUpdate(Update.gameStopped);
-		}
 		
 		update function resetProgress():void
 		{

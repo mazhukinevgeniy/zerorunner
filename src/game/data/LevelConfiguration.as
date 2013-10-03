@@ -8,7 +8,7 @@ package game.data
 		
 		public function LevelConfiguration(current:IGame) 
 		{
-			if (current)
+			if (current && current.level < Game.LEVELS_PER_RUN)
 			{
 				this._width = 1;
 				//1 + current.mapWidth;

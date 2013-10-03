@@ -10,8 +10,12 @@ package
 		
 		public static const gameOver:String = "gameOver";
 		public static const gameStopped:String = "gameStopped";
-		public static const gameWon:String = "gameWon";
 		public static const quitGame:String = "quitGame";
+		
+		//TODO: check if updates above are required
+		
+		public static const tellRoundWon:String = "tellRoundWon";
+		public static const tellGameWon:String = "tellGameWon";
 		
 		public static const smallBeaconTurnedOn:String = "smallBeaconTurnedOn";
 		
