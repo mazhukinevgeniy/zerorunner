@@ -1,23 +1,23 @@
 <atlas numImages="19">
   <texture file="sprites0.png" trans="true">
-    <image name="E" x="120" y="0" width="5" height="40"/>
-    <image name="fall" x="80" y="160" width="32" height="32" trans="false"/>
-    <image name="ground" x="40" y="160" width="40" height="40" trans="false"/>
-    <image name="hero_side_0_0" x="40" y="80" width="40" height="80"/>
-    <image name="hero_side_0_1" x="0" y="80" width="40" height="80"/>
-    <image name="hero_side_1_0" x="80" y="0" width="40" height="80"/>
-    <image name="hero_side_1_1" x="40" y="0" width="40" height="80"/>
-    <image name="hero_stand" x="0" y="0" width="40" height="80"/>
-    <image name="N" x="0" y="240" width="40" height="3"/>
-    <image name="NE" x="120" y="98" width="5" height="3"/>
-    <image name="NW" x="124" y="59" width="4" height="3"/>
-    <image name="S" x="40" y="200" width="40" height="20"/>
-    <image name="SE" x="120" y="80" width="6" height="18"/>
-    <image name="stones1" x="0" y="200" width="40" height="40"/>
-    <image name="stones2" x="0" y="160" width="40" height="40"/>
-    <image name="stones3" x="80" y="120" width="40" height="40"/>
-    <image name="SW" x="124" y="40" width="4" height="19"/>
-    <image name="unimplemented" x="80" y="80" width="40" height="40" trans="false"/>
-    <image name="W" x="120" y="40" width="4" height="40"/>
+    <image name="E" x="0" y="119" width="5" height="40"/>
+    <image name="ground" x="157" y="0" width="40" height="40" trans="false"/>
+    <image name="hero_side_0_0" x="117" y="0" width="40" height="80"/>
+    <image name="hero_side_0_1" x="77" y="0" width="40" height="80"/>
+    <image name="hero_side_1_0" x="37" y="160" width="40" height="80"/>
+    <image name="hero_side_1_1" x="37" y="80" width="40" height="80"/>
+    <image name="hero_stand" x="37" y="0" width="40" height="80"/>
+    <image name="N" x="37" y="240" width="40" height="3"/>
+    <image name="NE" x="9" y="156" width="5" height="3"/>
+    <image name="NW" x="15" y="119" width="4" height="3"/>
+    <image name="S" x="77" y="120" width="40" height="20"/>
+    <image name="SE" x="9" y="119" width="6" height="18"/>
+    <image name="stones1" x="157" y="40" width="40" height="40"/>
+    <image name="stones2" x="77" y="80" width="40" height="40"/>
+    <image name="stones3" x="197" y="40" width="40" height="40"/>
+    <image name="SW" x="9" y="137" width="4" height="19"/>
+    <image name="tmp_tower" x="0" y="0" width="37" height="119" xOffset="1" transWidth="40" transHeight="120"/>
+    <image name="unimplemented" x="197" y="0" width="40" height="40" trans="false"/>
+    <image name="W" x="5" y="119" width="4" height="40"/>
   </texture>
 </atlas>
