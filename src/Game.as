@@ -13,6 +13,10 @@ package
 		public static const CHARACTER:int = 1;
 		public static const ALWAYS_ACTIVE:int = 2;
 		
+		public static const NO_BEACON:int = 0;
+		public static const BIG_BEACON:int = 1;
+		public static const BEACON:int = 2;
+		
 		
 		public static const SECTOR_WIDTH:int = 10;
 		//TODO: parametrize

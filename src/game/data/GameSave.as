@@ -24,6 +24,11 @@ package game.data
 			{
 				this.localSave.data.game.level = 1;
 			}
+			
+			if (!this.localSave.data.game.beacons)
+			{
+				this.localSave.data.game.beacons = new Array();
+			}
 		}
 		
 		
@@ -47,6 +52,18 @@ package game.data
 		{
 			this.localSave.data.game.level = value;
 		}
+		
+		
+		public function getBeacon(level:int):int
+		{
+			return this.localSave.data.game.beacons[level];
+		}
+		
+		public function setBeacon(level:int, value:int):void
+		{
+			this.localSave.data.game.beacons[level] = value;
+		}
+		
 	}
 
 }

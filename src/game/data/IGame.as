@@ -7,7 +7,7 @@ package game.data
 		
 		function get level():int;
 		
-		
+		function getBeacon(level:int):int;
 	}
 	
 }

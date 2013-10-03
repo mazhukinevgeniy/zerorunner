@@ -1,7 +1,7 @@
 package game.data 
 {
 	
-	public class LevelConfiguration implements IGame
+	public class LevelConfiguration
 	{
 		private var _width:int;
 		private var _level:int;
