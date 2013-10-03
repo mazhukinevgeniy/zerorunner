@@ -14,7 +14,7 @@ package game.hud
 		{
 			this.x = this.y = 100;
 			
-			this.regularBeacon = new Quad(10, 10, 0);
+			this.regularBeacon = new Quad(10, 10, 0x00FFFF);
 			
 			this.map = new QuadBatch();
 			this.addChild(this.map);
@@ -24,7 +24,17 @@ package game.hud
 		{
 			this.map.reset();
 			
-			//TODO: draw
+			for (var i:int = 0; i < Game.LEVELS_PER_RUN; i++)
+			{
+				if (state.getBeacon(i) == Game.BEACON)
+				{
+					this.regularBeacon.x = i * 20;
+					
+					this.map.addQuad(this.regularBeacon);
+					
+					//TODO: make it beautiful
+				}
+			}
 		}
 	}
 
