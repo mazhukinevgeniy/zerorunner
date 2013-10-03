@@ -1,6 +1,5 @@
-package game.utils 
+package game.data 
 {
-	import game.IGame;
 	
 	public class LevelConfiguration implements IGame
 	{

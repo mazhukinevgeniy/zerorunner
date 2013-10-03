@@ -1,10 +1,9 @@
 package game 
 {
 	import game.core.GameFoundations;
+	import game.data.GameSave;
+	import game.data.LevelConfiguration;
 	import game.hud.UIExtendsions;
-	import game.utils.GameSave;
-	import game.utils.GameUpdateConverter;
-	import game.utils.LevelConfiguration;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;

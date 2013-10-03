@@ -1,6 +1,5 @@
-package game.utils 
+package game.data 
 {
-	import game.IGame;
 	import utils.SaveBase;
 	
 	public class GameSave extends SaveBase implements IGame

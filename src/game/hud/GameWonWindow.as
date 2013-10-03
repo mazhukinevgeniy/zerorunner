@@ -2,8 +2,8 @@ package game.hud
 {
 	import feathers.controls.Label;
 	import game.core.GameFoundations;
+	import game.data.IGame;
 	import game.hud.GameOverWindow;
-	import game.IGame;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.events.Event;

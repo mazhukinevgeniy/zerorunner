@@ -3,7 +3,7 @@ package game.core
 	import game.core.input.IKnowInput;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
-	import game.IGame;
+	import game.data.IGame;
 	import game.world.ActorsFeatures;
 	import game.world.IActorTracker;
 	import game.world.ISearcher;

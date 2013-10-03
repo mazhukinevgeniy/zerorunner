@@ -1,4 +1,4 @@
-package game 
+package game.data 
 {
 	
 	public interface IGame 
@@ -6,6 +6,8 @@ package game
 		function get mapWidth():int;
 		
 		function get level():int;
+		
+		
 	}
 	
 }

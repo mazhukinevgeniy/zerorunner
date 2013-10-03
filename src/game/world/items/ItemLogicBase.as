@@ -2,7 +2,7 @@ package game.world.items
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;
-	import game.IGame;
+	import game.data.IGame;
 	import game.world.IActorTracker;
 	import game.world.ISearcher;
 	import starling.display.DisplayObject;

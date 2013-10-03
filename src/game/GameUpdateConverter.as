@@ -1,4 +1,4 @@
-package game.utils 
+package game 
 {
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
@@ -6,7 +6,7 @@ package game.utils
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	final public class GameUpdateConverter
+	final internal class GameUpdateConverter
 	{
 		private var displayRoot:Sprite;
 		

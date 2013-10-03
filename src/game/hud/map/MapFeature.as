@@ -3,7 +3,7 @@ package game.hud.map
 	import flash.utils.ByteArray;
 	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
-	import game.IGame;
+	import game.data.IGame;
 	import game.world.ISearcher;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;

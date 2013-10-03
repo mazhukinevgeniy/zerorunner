@@ -3,7 +3,6 @@ package game.world.items.checkpoint
 	import game.core.GameFoundations;
 	import game.core.metric.CellXY;
 	import game.core.metric.Metric;
-	import game.IGame;
 	import game.world.items.ItemLogicBase;
 	import utils.updates.update;
 	
