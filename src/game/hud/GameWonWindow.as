@@ -22,20 +22,24 @@ package game.hud
 		
 		private var labelContainer:Sprite;
 		
+		private var globalMap:GlobalMap;
+		
 		public function GameWonWindow(foundations:GameFoundations) 
 		{
 			this.flow = foundations.flow;
 			this.game = foundations.game;
 			
-			super(foundations.flow);
-			
-			//TODO: remove it
+			this.globalMap = new GlobalMap();
 			
 			this.roundWon = new Label();
 			this.roundWon.text = "You win!";
 			
 			this.runWon = new Label();
 			this.runWon.text = "You win! Run is finished!";
+			
+			super(foundations.flow);
+			
+			//TODO: remove it
 		}
 		
 		override protected function addMessage(message:DisplayObjectContainer):void
@@ -46,6 +50,8 @@ package game.hud
 			this.labelContainer.y = 20;
 			
 			message.addChild(this.labelContainer);
+			
+			message.addChild(this.globalMap);
 		}
 		
 		override protected function addUpdateListeners(flow:IUpdateDispatcher):void
@@ -67,6 +73,8 @@ package game.hud
 			}
 			else
 				this.labelContainer.addChild(this.roundWon);
+			
+			this.globalMap.draw(this.game);
 			
 			this.update::gameOver();
 		}
