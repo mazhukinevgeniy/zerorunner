@@ -56,11 +56,17 @@ package game.data
 		
 		public function getBeacon(level:int):int
 		{
+			if (level < 1)
+				throw new Error();
+			
 			return this.localSave.data.game.beacons[level];
 		}
 		
 		public function setBeacon(level:int, value:int):void
 		{
+			if (level < 1)
+				throw new Error();
+			
 			this.localSave.data.game.beacons[level] = value;
 		}
 		

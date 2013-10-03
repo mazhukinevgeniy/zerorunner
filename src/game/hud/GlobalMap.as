@@ -26,7 +26,7 @@ package game.hud
 			
 			for (var i:int = 0; i < Game.LEVELS_PER_RUN; i++)
 			{
-				if (state.getBeacon(i) == Game.BEACON)
+				if (state.getBeacon(i + 1) == Game.BEACON)
 				{
 					this.regularBeacon.x = i * 20;
 					

@@ -13,6 +13,8 @@ package game.world.items.beacons
 		private var flow:IUpdateDispatcher;
 		private var view:BeaconView;
 		
+		private var reported:Boolean;
+		
 		public function BeaconLogic(foundations:GameFoundations) 
 		{
 			this.flow = foundations.flow;
@@ -37,6 +39,8 @@ package game.world.items.beacons
 		{
 			super.reset();
 			
+			this.reported = false;
+			
 			this.constructionStatus = 0;
 			this.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
 		}
@@ -46,8 +50,9 @@ package game.world.items.beacons
 			this.constructionStatus += value;
 			this.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
 			
-			if (this.constructionStatus > this.MAXIMUM_CONSTRUCTION)
+			if (this.constructionStatus > this.MAXIMUM_CONSTRUCTION && !this.reported)
 			{
+				this.reported = true;
 				this.flow.dispatchUpdate(Update.smallBeaconTurnedOn);
 			}
 		}

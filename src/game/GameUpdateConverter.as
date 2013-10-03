@@ -83,7 +83,7 @@ package game
 			
 			if (params.level == 1)
 				for (var i:int = 0; i < Game.LEVELS_PER_RUN; i++)
-					this.save.setBeacon(i, Game.NO_BEACON);
+					this.save.setBeacon(i + 1, Game.NO_BEACON);
 		}
 	}
 
