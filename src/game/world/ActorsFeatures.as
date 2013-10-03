@@ -6,7 +6,6 @@ package game.world
 	import game.world.clouds.Clouds;
 	import game.world.items.beacons.BeaconLogic;
 	import game.world.items.character.CharacterLogic;
-	import game.world.items.checkpoint.CheckpointLogic;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.technic.TechnicLogic;
 	import game.world.items.utils.PointsOfInterest;
@@ -44,9 +43,6 @@ package game.world
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 			
-			flow.workWithUpdateListener(CheckpointLogic);
-			flow.addUpdateListener(Update.prerestore);
-			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleFocusChange);
 		}
 		
@@ -69,12 +65,6 @@ package game.world
 			new CharacterLogic(this.foundations, this.points);
 			new TechnicLogic(this.foundations, this.points); //TODO: parametrize
 			new BeaconLogic(this.foundations);
-			
-			var i:int, goal:int;
-			
-			goal = (this.game).mapWidth * (this.game).mapWidth;
-			for (i = 0; i < goal; i++)
-				new CheckpointLogic(this.foundations);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase
