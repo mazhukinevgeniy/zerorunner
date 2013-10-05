@@ -24,7 +24,6 @@ package game
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.gameOver);
-			flow.addUpdateListener(Update.quitGame);
 			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.resetProgress);
 			flow.addUpdateListener(Update.setGameContainer);
@@ -69,11 +68,6 @@ package game
 		update function gameOver():void
 		{
 			this.flow.dispatchUpdate(Update.gameStopped);
-		}
-		
-		update function quitGame():void
-		{
-			this.displayRoot.visible = false;
 		}
 		
 		

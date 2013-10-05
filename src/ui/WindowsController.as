@@ -31,6 +31,7 @@ package ui
 			this.flow = flow;
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.openWindow);
+			this.flow.addUpdateListener(Update.quitGame);
 		}
 		
 		update function openWindow(idTarget:int):void
@@ -49,6 +50,13 @@ package ui
 			{
 				this.idLastOpenedWindow = WindowsController.UNDETERMINED;
 			}
+		}
+		
+		update function quitGame():void
+		{
+			this.windows[Windows.GAME].visible = false;
+			
+			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
 		}
 		
 		private function closelastOpenedWindow():void
