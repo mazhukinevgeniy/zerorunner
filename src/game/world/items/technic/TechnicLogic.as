@@ -42,7 +42,12 @@ package game.world.items.technic
 		{
 			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			return Metric.getTmpCell(this.center.x - 4, this.center.y + 4);
+			var tmpCell:CellXY = Metric.getTmpCell(this.center.x - 4, this.center.y + 4);
+			
+			while (this.world.findObjectByCell(tmpCell.x, tmpCell.y))
+				tmpCell.setValue(tmpCell.x, tmpCell.y - 1);
+			
+			return tmpCell;
 		}
 		
 		

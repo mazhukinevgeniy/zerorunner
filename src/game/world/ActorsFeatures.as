@@ -7,6 +7,7 @@ package game.world
 	import game.world.items.beacons.BeaconLogic;
 	import game.world.items.character.CharacterLogic;
 	import game.world.items.ItemLogicBase;
+	import game.world.items.junk.JunkLogic;
 	import game.world.items.technic.TechnicLogic;
 	import game.world.items.utils.PointsOfInterest;
 	import game.world.operators.ActorOperators;
@@ -55,6 +56,8 @@ package game.world
 		{
 			super.update::prerestore();
 			
+			var i:int;
+			
 			this.width = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
 			this.actors = new Array();
 			
@@ -63,9 +66,13 @@ package game.world
 			this.points.clearPointsOfInterest();
 			
 			new CharacterLogic(this.foundations, this.points);
-			for (var i:int = 0; i < this.game.numberOfDroids; i++)
-				new TechnicLogic(this.foundations, this.points);
 			new BeaconLogic(this.foundations);
+			
+			for (i = 0; i < this.game.numberOfDroids; i++)
+				new TechnicLogic(this.foundations, this.points);
+			
+			for (i = 0; i < this.game.numberOfJunks; i++)
+				new JunkLogic(this.foundations);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase

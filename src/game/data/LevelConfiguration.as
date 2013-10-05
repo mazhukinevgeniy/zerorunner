@@ -5,6 +5,7 @@ package game.data
 	{
 		private var _width:int;
 		private var _level:int;
+		private var _junks:int;
 		
 		public function LevelConfiguration(current:IGame) 
 		{
@@ -19,6 +20,11 @@ package game.data
 				this._level = 1;
 				this._width = 1;
 			}
+			
+			if (this._level == 1)
+			{
+				this._junks = 2;
+			}
 		}
 		
 		
@@ -30,6 +36,11 @@ package game.data
 		public function get level():int
 		{
 			return this._level;
+		}
+		
+		public function get junks():int
+		{
+			return this._junks;
 		}
 	}
 

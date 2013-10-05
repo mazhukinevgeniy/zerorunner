@@ -82,6 +82,7 @@ package game
 		{
 			this.save.mapWidth = params.mapWidth;
 			this.save.level = params.level;
+			this.save.numberOfJunks = params.junks;
 			
 			if (params.level == 1)
 			{
