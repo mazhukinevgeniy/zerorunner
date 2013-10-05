@@ -25,7 +25,7 @@ package ui.themes
 		private static const MUTE_BUTTON_WIDTH:int = 80;
 		private static const MUTE_BUTTON_HEIGHT:int = 20;
 		
-		private static const RESET_BUTTON_WIDTH:int = 100;
+		private static const RESET_BUTTON_WIDTH:int = 120;
 		private static const RESET_BUTTON_HEIGHT:int = 20;
 		
 		public function ExtendedTheme(root:DisplayObjectContainer)
