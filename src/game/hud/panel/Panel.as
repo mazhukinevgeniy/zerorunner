@@ -15,10 +15,7 @@ package game.hud.panel
 	
 	public class Panel extends Sprite
 	{
-		
 		private var flow:IUpdateDispatcher;
-		
-		private var body:Sprite;
 		
 		private var menuButton:Button;
 		
@@ -26,24 +23,11 @@ package game.hud.panel
 		{
 			this.flow = flow;
 			
-			this.addChild(new SpaceHolder());
-			
-			this.body = new Body();
-			this.addChild(this.body);
-			
 			this.addEventListener(Event.TRIGGERED, this.handleTrigger);
-			this.addEventListener(Event.ADDED_TO_STAGE, this.handleAddedToStage);
 			
 			this.addButtons();
 			
 			flow.dispatchUpdate(Update.addToTheHUD, this);
-		}
-		
-		private function handleAddedToStage():void
-		{
-			this.removeEventListener(Event.ADDED_TO_STAGE, this.handleAddedToStage);
-			
-			this.parent.addEventListener(TouchEvent.TOUCH, this.handleTouch);
 		}
 		
 		private function addButtons():void
@@ -52,10 +36,10 @@ package game.hud.panel
 			this.menuButton.fontName = "HiLo-Deco";
 			this.menuButton.fontSize = 18;
 			
-			this.body.addChild(this.menuButton);
+			this.addChild(this.menuButton);
 			
-			this.menuButton.x = this.menuButton.width / 10 + (Body.HEIGHT - 20) / 2;
-			this.menuButton.y = (Body.HEIGHT - 20) / 2;
+			this.menuButton.x = this.menuButton.width / 10 + 10;
+			this.menuButton.y = 10;
 		}
 		
 		private function handleTrigger(event:Event):void
@@ -64,41 +48,11 @@ package game.hud.panel
 			
 			if (event.target == this.menuButton)
 			{
-				this.collapse();
 				this.flow.dispatchUpdate(Update.gameStopped);
 				this.flow.dispatchUpdate(Update.quitGame);
 			}
 		}
 		
-		private function handleTouch(event:TouchEvent):void
-		{
-			var touch:Touch = event.getTouch(this);
-			
-			if (touch && touch.phase == TouchPhase.HOVER)
-				this.expand();
-			
-			else if (this.body.visible)
-			{
-				var stage:Stage = Starling.current.nativeStage;
-				var mouseX:Number = stage.mouseX;
-				var mouseY:Number = stage.mouseY;
-				if    (mouseX < 0
-					|| mouseY < 0
-					|| mouseX > Main.WIDTH
-					|| mouseY > Body.HEIGHT)
-				this.collapse();
-			}
-		}
-		
-		public function expand():void
-		{
-			this.body.visible = true;
-		}
-		
-		public function collapse():void
-		{
-			this.body.visible = false;
-		}
 	}
 
 }
