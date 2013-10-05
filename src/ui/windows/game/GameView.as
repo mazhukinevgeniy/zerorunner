@@ -17,17 +17,17 @@ package ui.windows.game
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.quitGame);
 			
-			flow.dispatchUpdate(Update.setGameContainer, this.container);
+			flow.dispatchUpdate(Update.setGameContainer, this);
 		}
 		
 		update function newGame():void
 		{
-			this.container.visible = true;
+			this.visible = true;
 		}
 		
 		update function quitGame():void
 		{
-			this.container.visible = false;
+			this.visible = false;
 		}
 	}
 

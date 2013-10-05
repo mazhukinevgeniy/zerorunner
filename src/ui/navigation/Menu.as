@@ -84,6 +84,7 @@ package ui.navigation
 			{
 				this.playButton.focusManager.focus = null;
 				this.flow.dispatchUpdate(Update.newGame);
+				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.GAME);
 			}
 			else if (event.target == this.statisticsButton)
 			{

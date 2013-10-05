@@ -1,4 +1,4 @@
-package ui.achievements 
+package ui.windows.achievements 
 {
 	
 	public class AchievementsTable 
