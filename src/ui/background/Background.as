@@ -2,14 +2,14 @@ package ui.background
 {
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
+	import starling.display.Sprite;
 	
-	public class Background extends Quad
+	public class Background extends Sprite
 	{
-		public function Background(root:DisplayObjectContainer) 
+		public function Background() 
 		{
-			super(Main.WIDTH, Main.HEIGHT, 0x344322);
-			
-			root.addChild(this);
+			super();
+			this.addChild(new Quad(Main.WIDTH, Main.HEIGHT, 0x344322));
 		}
 	}
 

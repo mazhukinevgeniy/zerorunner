@@ -1,4 +1,4 @@
-package ui.achievements 
+package ui.windows.achievements 
 {
 	import flash.geom.Point;
 	import starling.display.Image;

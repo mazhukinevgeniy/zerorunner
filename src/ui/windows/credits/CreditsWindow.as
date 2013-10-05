@@ -1,6 +1,7 @@
-package ui.credits 
+package ui.windows.credits 
 {
 	import feathers.controls.ScrollContainer;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import utils.updates.IUpdateDispatcher;
 	
