@@ -63,7 +63,8 @@ package game.world
 			this.points.clearPointsOfInterest();
 			
 			new CharacterLogic(this.foundations, this.points);
-			new TechnicLogic(this.foundations, this.points); //TODO: parametrize
+			for (var i:int = 0; i < this.game.numberOfDroids; i++)
+				new TechnicLogic(this.foundations, this.points);
 			new BeaconLogic(this.foundations);
 		}
 		

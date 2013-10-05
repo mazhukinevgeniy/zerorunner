@@ -61,7 +61,7 @@ package game.world.operators
 			}
 			
 			var others:Vector.<ICoordinated> = this.points.getPointsOfInterest(Game.ALWAYS_ACTIVE);
-			var length:int = others.length;
+			var length:int = others ? others.length : 0;
 			
 			for (i = 0; i < length; i++)
 			{
