@@ -53,6 +53,8 @@ package game.world.renderer
 		{
 			this.container.x = -center.x * Metric.CELL_WIDTH + (Main.WIDTH - Metric.CELL_WIDTH) / 2;
             this.container.y = -center.y * Metric.CELL_HEIGHT + (Main.HEIGHT - Metric.CELL_HEIGHT) / 2;
+			
+			this.moveTween.reset(this, 0);
 		}
 		
 		update function moveCenter(change:DCellXY, ticksToGo:int):void 
