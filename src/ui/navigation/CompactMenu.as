@@ -5,7 +5,7 @@ package ui.navigation
 	import ui.themes.ExtendedTheme;
 	import utils.updates.IUpdateDispatcher;
 
-	public class CompactMenu extends MainMenu
+	public class CompactMenu extends Menu
 	{
 		
 		public function CompactMenu(flow:IUpdateDispatcher) 
