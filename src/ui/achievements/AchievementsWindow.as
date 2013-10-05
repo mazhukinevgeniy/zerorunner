@@ -40,24 +40,20 @@ package ui.achievements
 			
 			this.tableLocks = new AchievementsTable();
 			this.achievements = new Vector.<AchievementItem>;
-			this.update::initializeTree(new AchievementItem(this.tableLocks));
+			
+			(this.achievements).push(new AchievementItem(this.tableLocks));
+			this.drawAchievements();
+
 			
 			this.flow = flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(AchievementsWindow.initializeTree);
 			flow.addUpdateListener(AchievementsWindow.unlockNode);
-		}
-		
-		update  function initializeTree(node:AchievementItem):void
-		{
-			this.achievements.push(node);
-			this.drawAchievements();
 		}
 		
 		private function drawAchievements():void
 		{
-			var lenght:int = this.achievements.length;
+			var lenght:int = (this.achievements).length;
 			
 			for (var i:int = 0; i < lenght; ++i)
 			{
