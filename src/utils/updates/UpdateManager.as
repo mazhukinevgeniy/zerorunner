@@ -26,6 +26,9 @@ package utils.updates
 		}
 		final public function addUpdateListener(method:String):void
 		{
+			if (Update[method] == null)
+				throw new Error("Must name methods in the Update.as");
+			
 			if (this.methods[method] == null)
 				this.methods[method] = new Vector.<Object>();
 			
