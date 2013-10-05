@@ -11,6 +11,9 @@ package ui.achievements
 	{	
 		
 		private var flow:IUpdateDispatcher;
+		private var achievements:Vector.<AchievementItem>;
+		private var tableLocks:AchievementsTable;
+		
 		
 		public static const WIDTH_ACHIEVMENTS_WINDOW:Number = Main.WIDTH;
 		public static const HEIGHT_ACHIEVMENTS_WINDOW:Number = Main.HEIGHT;
@@ -31,9 +34,25 @@ package ui.achievements
 			this.addChild(new HexagonalGrid(assets));
 			this.addChild(new CompactMenu(flow));
 			
+			this.tableLocks = new AchievementsTable();
+			this.achievements = new Vector.<AchievementItem>;
+			
+			(this.achievements).push(new AchievementItem(this.tableLocks));
+			this.drawAchievements();
+
+			
 			this.flow = flow;
 		}
 		
+		private function drawAchievements():void
+		{
+			var lenght:int = (this.achievements).length;
+			
+			for (var i:int = 0; i < lenght; ++i)
+			{
+				this.addChild(this.achievements[i]);
+			}
+		}
 	}
 
 }
