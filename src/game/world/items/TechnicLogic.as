@@ -53,7 +53,7 @@ package game.world.items
 		
 		override public function act():void
 		{
-			if (!this.goal)
+			if (!this.goal || this.goal as ItemLogicBase != this.world.findObjectByCell(this.goal.x, this.goal.y))
 			{
 				this.goal = this.points.findPointOfInterest(Game.TOWER);
 				
