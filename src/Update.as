@@ -42,6 +42,8 @@ package
 		
 		public static const resetProgress:String = "resetProgress";
 		
+		public static const toggleMute:String = "toggleMute";
+		
 		public function Update() 
 		{
 			throw new Error();
