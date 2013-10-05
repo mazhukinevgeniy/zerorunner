@@ -1,12 +1,15 @@
 package ui.navigation 
 {
 	import starling.display.DisplayObjectContainer;
+	import starling.display.Sprite;
 	import utils.updates.IUpdateDispatcher;
-	public class Navigation 
+	
+	public class Navigation extends Sprite
 	{
 		
-		public function Navigation(root:DisplayObjectContainer, flow:IUpdateDispatcher) 
+		public function Navigation(flow:IUpdateDispatcher) 
 		{
+			this.addChild(new Menu(flow));
 		}
 		
 	}

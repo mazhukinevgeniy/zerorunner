@@ -7,13 +7,13 @@ package ui.navigation
 	import starling.events.Event;
 	import starling.utils.AssetManager;
 	import starling.display.Quad;
-	import ui.WindowsFeature;
+	import ui.Windows;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class Menu extends ScrollContainer
-	{	
-	
+	internal class Menu extends ScrollContainer
+	{
+		
 		public static const WIDTH_MENU:Number = 150;
 		public static const HEIGHT_MENU:Number = 300;
 		
@@ -44,8 +44,8 @@ package ui.navigation
 		
 		protected function initializeSize():void
 		{
-			this.width = Menu.WIDTH_MAIN_MENU;
-			this.height = Menu.HEIGHT_MAIN_MENU;
+			this.width = Menu.WIDTH_MENU;
+			this.height = Menu.HEIGHT_MENU;
 		}
 		
 		protected function initializeLayout():void
@@ -83,20 +83,19 @@ package ui.navigation
 			if (event.target == this.playButton)
 			{
 				this.playButton.focusManager.focus = null;
-				this.flow.dispatchUpdate(Update.newGame);
-				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.GAME);
+				this.flow.dispatchUpdate(Update.openWindow, Windows.GAME);
 			}
 			else if (event.target == this.statisticsButton)
 			{
-				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.STATISTICS);
+				this.flow.dispatchUpdate(Update.openWindow, Windows.STATISTICS);
 			}
 			else if (event.target == this.achievementsButton)
 			{
-				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.ACHIEVEMENTS);
+				this.flow.dispatchUpdate(Update.openWindow, Windows.ACHIEVEMENTS);
 			}
 			else if (event.target == this.creditsButton)
 			{
-				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.CREDITS);
+				this.flow.dispatchUpdate(Update.openWindow, Windows.CREDITS);
 			}
 		}
 		

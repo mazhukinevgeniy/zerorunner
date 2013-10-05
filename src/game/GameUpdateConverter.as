@@ -2,6 +2,7 @@ package game
 {
 	import game.data.GameSave;
 	import game.data.LevelConfiguration;
+	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import starling.errors.AbstractClassError;
@@ -23,6 +24,7 @@ package game
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.gameOver);
+			flow.addUpdateListener(Update.quitGame);
 			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.resetProgress);
 			flow.addUpdateListener(Update.setGameContainer);
@@ -32,7 +34,7 @@ package game
 		final update function setGameContainer(viewRoot:Sprite):void
 		{
 			this.displayRoot = viewRoot;
-			this.displayRoot.stage.color = 0;
+			Starling.current.stage.stage.color = 0;
 		}
 		
 		
@@ -67,6 +69,11 @@ package game
 		update function gameOver():void
 		{
 			this.flow.dispatchUpdate(Update.gameStopped);
+		}
+		
+		update function quitGame():void
+		{
+			this.displayRoot.visible = false;
 		}
 		
 		

@@ -17,10 +17,10 @@ package ui.sounds
 		
 		private var muteButton:Button;
 		
-		public function Sounds(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
+		public function Sounds(flow:IUpdateDispatcher, assets:AssetManager) 
 		{
 			this.initializationSoundsManagers(assets);
-			this.initializationMuteButton(root);
+			//this.initializationMuteButton(root);
 			this.initializationUsingFlow(flow);
 			
 			super();
@@ -71,7 +71,7 @@ package ui.sounds
 		{
 			this.music.toggleSound();
 			this.sound.toggleSound();
-			this.toggleTitleMuteButton();
+			//this.toggleTitleMuteButton();
 			
 			this.localSave.data.sound.muted = !this.localSave.data.sound.muted;
 		}

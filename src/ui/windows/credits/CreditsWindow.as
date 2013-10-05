@@ -12,11 +12,8 @@ package ui.windows.credits
 		public static const WIDTH_CREDITS_WINDOW:Number = 150;
 		public static const HEIGHT_CREDITS_WINDOW:Number = 100;
 		
-		public function CreditsWindow(root:DisplayObjectContainer, flow:IUpdateDispatcher) 
+		public function CreditsWindow(flow:IUpdateDispatcher) 
 		{
-			root.addChild(this);
-			this.visible = false;
-			
 			this.width = CreditsWindow.WIDTH_CREDITS_WINDOW;
 			this.height = CreditsWindow.HEIGHT_CREDITS_WINDOW;
 			

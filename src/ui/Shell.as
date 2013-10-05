@@ -8,7 +8,7 @@ package ui
 	import ui.background.Background;
 	import ui.navigation.Navigation;
 	import ui.sounds.Sounds;
-	import ui.WindowsFeature;
+	import ui.Windows;
 	import ui.themes.ExtendedTheme;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
@@ -22,6 +22,10 @@ package ui
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
+		
+		private var background:Background,
+					windows:Windows,
+					navigation:Navigation;
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -47,11 +51,15 @@ package ui
 		private function initializationFeatures(displayRoot:DisplayObjectContainer):void
 		{
 			new ExtendedTheme(this.root);
-			new Background(this.root);
-			//new GameView(displayRoot, this.flow);
-			new Navigation(this.root, this.flow);
-			new Sounds(this.root, this.flow, this.assets);
-			new WindowsFeature(this.root, this.flow, this.assets);
+			new Sounds(this.flow, this.assets);
+			
+			this.background = new Background();
+			this.navigation = new Navigation(this.flow);
+			this.windows = new Windows(this.flow, this.assets)
+			
+			this.root.addChild(this.background);
+			this.root.addChild(this.windows);
+			this.root.addChild(this.navigation);
 		}
 		
 		private function initializationUsingFlow():void 
@@ -80,14 +88,14 @@ package ui
 		{
 			this.gameIsActive = true;
 			
-			this.root.visible = false;
+			this.background.visible = false;
 		}
 		
 		update function quitGame():void
 		{
 			this.gameIsActive = false;
 			
-			this.root.visible = true;
+			this.background.visible = true;
 		}
 		
 		

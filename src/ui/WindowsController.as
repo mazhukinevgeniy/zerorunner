@@ -33,14 +33,21 @@ package ui
 			this.flow.addUpdateListener(Update.openWindow);
 		}
 		
-		
 		update function openWindow(idTarget:int):void
-		{
+		{//TODO: rename: open -> toggle
+			this.closelastOpenedWindow();
+			
 			if (idTarget != this.idLastOpenedWindow)
 			{
-				this.closelastOpenedWindow();
 				this.windows[idTarget].visible = true;
 				this.idLastOpenedWindow = idTarget;
+				
+				if (idTarget == Windows.GAME)
+					this.flow.dispatchUpdate(Update.newGame);
+			}
+			else
+			{
+				this.idLastOpenedWindow = WindowsController.UNDETERMINED;
 			}
 		}
 		
