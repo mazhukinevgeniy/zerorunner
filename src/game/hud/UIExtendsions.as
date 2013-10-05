@@ -2,7 +2,6 @@ package game.hud
 {
 	import game.core.GameFoundations;
 	import game.hud.map.MapFeature;
-	import game.hud.panel.Panel;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class UIExtendsions
@@ -14,7 +13,6 @@ package game.hud
 			
 			new GameOverWindow(flow);
 			new GameWonWindow(foundations);
-			new Panel(flow);
 			
 			
 			new MapFeature(foundations);

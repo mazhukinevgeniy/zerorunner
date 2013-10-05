@@ -1,4 +1,4 @@
-package game.hud.panel 
+package ui.navigation 
 {
 	import flash.display.Stage;
 	import flash.geom.Point;
@@ -26,8 +26,6 @@ package game.hud.panel
 			this.addEventListener(Event.TRIGGERED, this.handleTrigger);
 			
 			this.addButtons();
-			
-			flow.dispatchUpdate(Update.addToTheHUD, this);
 		}
 		
 		private function addButtons():void
