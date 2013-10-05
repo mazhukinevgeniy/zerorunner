@@ -1,6 +1,5 @@
 package game.core.metric 
 {
-	import utils.errors.StaticClassError;
 	
 	public class Metric
 	{
@@ -48,7 +47,10 @@ package game.core.metric
 		}
 		
 		
-		public function Metric() { throw new StaticClassError(); }
+		public function Metric() 
+		{ 
+			throw new Error(); 
+		}
 	}
 
 }

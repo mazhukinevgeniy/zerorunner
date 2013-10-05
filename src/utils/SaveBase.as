@@ -1,7 +1,6 @@
 package utils 
 {
 	import flash.net.SharedObject;
-	import utils.errors.AbstractClassError;
 	
 	public class SaveBase 
 	{
@@ -16,7 +15,7 @@ package utils
 		
 		protected function checkLocalSave():void
 		{
-			throw new AbstractClassError();
+			throw new Error();
 		}
 	}
 

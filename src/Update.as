@@ -1,11 +1,8 @@
 package  
 {
-	import utils.errors.StaticClassError;
 	
 	public class Update 
 	{
-		public static const reparametrize:String = "reparametrize";
-		
 		public static const addToTheHUD:String = "addToTheHUD";
 		
 		public static const prerestore:String = "prerestore";
@@ -13,8 +10,14 @@ package
 		
 		public static const gameOver:String = "gameOver";
 		public static const gameStopped:String = "gameStopped";
-		public static const gameWon:String = "gameWon";
 		public static const quitGame:String = "quitGame";
+		
+		//TODO: check if updates above are required
+		
+		public static const tellRoundWon:String = "tellRoundWon";
+		public static const tellGameWon:String = "tellGameWon";
+		
+		public static const smallBeaconTurnedOn:String = "smallBeaconTurnedOn";
 		
 		public static const setGameContainer:String = "setGameContainer";
 		
@@ -50,9 +53,11 @@ package
 		
 		public static const freeFrame:String = "freeFrame";
 		
+		public static const resetProgress:String = "resetProgress";
+		
 		public function Update() 
 		{
-			throw new StaticClassError();
+			throw new Error();
 		}
 		
 	}

@@ -8,10 +8,12 @@ package game.world.items.beacons
 	
 	public class BeaconLogic extends ItemLogicBase implements ISolderable
 	{
-		private const MAXIMUM_CONSTRUCTION:int = 250;
+		private const MAXIMUM_CONSTRUCTION:int = 50;
 		
 		private var flow:IUpdateDispatcher;
 		private var view:BeaconView;
+		
+		private var reported:Boolean;
 		
 		public function BeaconLogic(foundations:GameFoundations) 
 		{
@@ -37,6 +39,8 @@ package game.world.items.beacons
 		{
 			super.reset();
 			
+			this.reported = false;
+			
 			this.constructionStatus = 0;
 			this.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
 		}
@@ -46,9 +50,10 @@ package game.world.items.beacons
 			this.constructionStatus += value;
 			this.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
 			
-			if (this.constructionStatus > this.MAXIMUM_CONSTRUCTION)
+			if (this.constructionStatus > this.MAXIMUM_CONSTRUCTION && !this.reported)
 			{
-				this.flow.dispatchUpdate(Update.gameWon);
+				this.reported = true;
+				this.flow.dispatchUpdate(Update.smallBeaconTurnedOn);
 			}
 		}
 	}

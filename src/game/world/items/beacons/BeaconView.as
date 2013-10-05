@@ -17,13 +17,14 @@ package game.world.items.beacons
 		
 		override protected function getView():DisplayObject
 		{
-			return this.view = new Image(this.atlas.getTexture("unimplemented"));
+			return this.view = new Image(this.atlas.getTexture("tmp_tower"));
 		}
 		
 		internal function showConstruction(ratio:Number):void
 		{
-			this.view.scaleY = Math.max(0.01, ratio);
-			this.view.y = Metric.CELL_HEIGHT * (1 - ratio);
+			this.view.scaleY = Math.min(1, Math.max(0.01, ratio));
+			
+			this.view.y = Metric.CELL_HEIGHT * (1 - 3 * ratio);
 		}
 	}
 

@@ -9,7 +9,6 @@ package game.world.renderer
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import utils.PixelPerfectTween;
-	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

@@ -11,7 +11,7 @@ package ui.mainMenu
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class MainMenu  extends ScrollContainer
+	public class MainMenu extends ScrollContainer
 	{	
 	
 		public static const WIDTH_MAIN_MENU:Number = 150;
@@ -28,23 +28,32 @@ package ui.mainMenu
 					achievementsButton:Button,
 					creditsButton:Button;
 		
+		//TODO: extract main navigation buttons into the special class to inhereit it with CompactMenu
+		
+		private var resetButton:Button;
+		
 		
 		public function MainMenu(flow:IUpdateDispatcher) 
 		{
-			this.initializationSize();
-			this.initializationLayout();
-			this.initializationButtons();
+			this.initializeSize();
+			this.initializeLayout();
+			this.initializeButtons();
+			
+			this.resetButton = ButtonMainMenuFactory.create("Reset progress");
+			this.addChild(this.resetButton);
+			
+			this.resetButton.addEventListener(Event.TRIGGERED, this.handleResetTriggered);
 			
 			this.flow = flow;
 		}
 		
-		protected function initializationSize():void
+		protected function initializeSize():void
 		{
 			this.width = MainMenu.WIDTH_MAIN_MENU;
 			this.height = MainMenu.HEIGHT_MAIN_MENU;
 		}
 		
-		protected function initializationLayout():void
+		protected function initializeLayout():void
 		{
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = MainMenu.SPACE_BEETWEEN_BUTTON;
@@ -54,7 +63,7 @@ package ui.mainMenu
 			this.layout = layout;
 		}
 		
-		protected function initializationButtons():void 
+		protected function initializeButtons():void 
 		{
 			this.playButton = ButtonMainMenuFactory.create("New game");
 			this.addChild(this.playButton);
@@ -78,6 +87,7 @@ package ui.mainMenu
 		{
 			if (event.target == this.playButton)
 			{
+				this.playButton.focusManager.focus = null;
 				this.flow.dispatchUpdate(Update.newGame);
 			}
 			else if (event.target == this.statisticsButton)
@@ -92,6 +102,13 @@ package ui.mainMenu
 			{
 				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.CREDITS);
 			}
+		}
+		
+		private function handleResetTriggered():void
+		{
+			//TODO: tell about the risk. user 'll lose all his droids!
+			
+			this.flow.dispatchUpdate(Update.resetProgress);
 		}
 		
 	}

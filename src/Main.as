@@ -1,5 +1,6 @@
 package 
 {
+	import achievements.AchievementsFeature;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
@@ -12,8 +13,10 @@ package
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
-	import ui.ChaoticUI;
+	import statistics.StatisticsFeature;
+	import ui.Shell;
 	import utils.adaptTextureAtlasMakerXML;
+	import utils.updates.UpdateManager;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
@@ -32,7 +35,7 @@ package
 		
 		private var starlingRoot:starling.display.Sprite;
 		private var game:ZeroRunner;
-		private var ui:ChaoticUI;
+		private var shell:Shell;
 		
 		private var progressBar:ProgressBar;
 		private var assets:AssetManager;
@@ -104,9 +107,14 @@ package
 						new TextureAtlas(
 								this.assets.getTexture("sprites0"), 
 								adaptTextureAtlasMakerXML(Main.gameatlas)));
-			
-				this.game = new ZeroRunner(this.assets);
-				this.ui = new ChaoticUI(this.starlingRoot, this.assets);
+				
+				var flow:UpdateManager = new UpdateManager();
+				
+				this.game = new ZeroRunner(flow, this.assets);
+				this.shell = new Shell(flow, this.starlingRoot, this.assets);
+				
+				new StatisticsFeature(flow);
+				new AchievementsFeature(flow);
 			}
 		}
 	}

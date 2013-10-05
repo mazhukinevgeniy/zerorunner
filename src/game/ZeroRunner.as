@@ -1,32 +1,32 @@
 package game 
 {
 	import game.core.GameFoundations;
+	import game.data.GameSave;
 	import game.hud.UIExtendsions;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
-	import utils.templates.UpdateGameBase;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class ZeroRunner
 	{
-		private var flow:UpdateGameBase;
+		private var flow:IUpdateDispatcher;
 		private var save:GameSave;
 		
 		private var atlas:TextureAtlas;
 		
-		public function ZeroRunner(assets:AssetManager) 
-		{			
-			this.flow = new UpdateGameBase();
+		public function ZeroRunner(flow:IUpdateDispatcher, assets:AssetManager) 
+		{
+			this.flow = flow;
 			this.save = new GameSave();
+			
+			new GameUpdateConverter(flow, this.save);
 			
 			this.atlas = assets.getTextureAtlas("gameAtlas");
 			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.setGameContainer);
-			this.flow.addUpdateListener(Update.gameOver);
-			this.flow.addUpdateListener(Update.gameWon);
-			this.flow.addUpdateListener(Update.reparametrize);
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.setGameContainer);
 		}
 		
 		update function setGameContainer(root:Sprite):void
@@ -37,20 +37,6 @@ package game
 			new UIExtendsions(foundations);
 		}
 		
-		update function reparametrize(params:IGame):void
-		{
-			this.save.mapWidth = params.mapWidth;
-		}
-		
-		update function gameOver():void
-		{
-			this.flow.dispatchUpdate(Update.gameStopped);
-		}
-		
-		update function gameWon():void
-		{
-			this.flow.dispatchUpdate(Update.gameStopped);
-		}
 	}
 
 }

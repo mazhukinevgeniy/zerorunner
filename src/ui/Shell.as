@@ -11,28 +11,25 @@ package ui
 	import ui.themes.ExtendedTheme;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
-	import utils.templates.UpdateGameBase;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
-	public class ChaoticUI extends UpdateManager
-	{
-		public static const flowName:String = "Shell Flow";
-		
-		[Embed(source="../../res/assets/fonts/HiLoDeco.ttf", embedAsCFF="false", fontFamily="HiLo-Deco")]
-		private static const HiLoDeco:Class;
-		
+	public class Shell
+	{		
 		private var gameIsActive:Boolean;
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
 		
-		public function ChaoticUI(displayRoot:DisplayObjectContainer, assets:AssetManager) 
+		private var flow:IUpdateDispatcher;
+		
+		public function Shell(flow:IUpdateDispatcher, displayRoot:DisplayObjectContainer, assets:AssetManager) 
 		{
+			this.flow = flow;
+			
 			this.gameIsActive = false;
 			this.assets = assets;
-			
-			super(ChaoticUI.flowName);
 			
 			this.initializationRootGUI(displayRoot);
 		    this.initializationFeatures(displayRoot);
@@ -51,29 +48,30 @@ package ui
 		{
 			new ExtendedTheme(displayRoot);
 			new Background(this.root);
-			new GameView(displayRoot, this);
-			new Sounds(this.root, this, this.assets);
-			new WindowsFeature(this.root, this, this.assets);
+			new GameView(displayRoot, this.flow);
+			new Sounds(this.root, this.flow, this.assets);
+			new WindowsFeature(this.root, this.flow, this.assets);
 		}
 		
-		private function initializationUsingFlow():void
+		private function initializationUsingFlow():void 
 		{
-			this.workWithUpdateListener(this);
-			this.addUpdateListener(Update.newGame);
-			this.addUpdateListener(Update.keyUp);
-			this.addUpdateListener(Update.quitGame);
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(Update.newGame);
+			this.flow.addUpdateListener(Update.keyUp);
+			this.flow.addUpdateListener(Update.quitGame);
 		}
+		//TODO: rename all the methods: initialization -> initialize
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
-			this.dispatchUpdate(Update.keyUp, event.keyCode);
+			this.flow.dispatchUpdate(Update.keyUp, event.keyCode);
 		}
 		
 		update function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.P && !this.gameIsActive)
 			{
-				this.dispatchUpdate(Update.newGame);
+				this.flow.dispatchUpdate(Update.newGame);
 			}
 		}
 		
@@ -82,12 +80,12 @@ package ui
 			this.gameIsActive = true;
 			
 			this.root.visible = false;
-			
-			this.dispatchUpdate(UpdateManager.callExternalFlow, UpdateGameBase.flowName, Update.newGame);
 		}
 		
 		update function quitGame():void
 		{
+			this.gameIsActive = false;
+			
 			this.root.visible = true;
 		}
 		

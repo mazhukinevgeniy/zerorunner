@@ -3,11 +3,9 @@ package game.world.items.character
 	import game.core.GameFoundations;
 	import game.core.input.IKnowInput;
 	import game.core.metric.*;
-	import game.IGame;
 	import game.world.items.ISolderable;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.utils.IPointCollector;
-	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class CharacterLogic extends ItemLogicBase

@@ -1,8 +1,6 @@
 package game.core.time 
 {
-	import ui.ChaoticUI;
 	import flash.ui.Keyboard;
-	import utils.templates.UpdateGameBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

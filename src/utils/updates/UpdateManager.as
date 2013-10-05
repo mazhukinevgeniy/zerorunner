@@ -1,9 +1,9 @@
 package utils.updates 
 {
 	
-	public class UpdateManager implements IUpdateDispatcher
+	final public class UpdateManager implements IUpdateDispatcher
 	{
-		public static const callExternalFlow:String = "callExternalFlow";
+		private static var count:int = 0;
 		
 		
 		private var methods:Object;
@@ -11,14 +11,13 @@ package utils.updates
 		
 		private var helper:Object;
 		
-		public function UpdateManager(flowName:String) 
+		public function UpdateManager() 
 		{
+			UpdateManager.count++;
+			if (UpdateManager.count > 1)
+				throw new Error();
+			
 			this.methods = new Object();
-			
-			this.workWithUpdateListener(this);
-			this.addUpdateListener(UpdateManager.callExternalFlow);
-			
-			UpdateManager.newUpdateManager(this, flowName);
 		}
 		
 		final public function workWithUpdateListener(listener:Object):void
@@ -46,29 +45,6 @@ package utils.updates
 				this.helper = vector[i];
 				this.helper.update::[updateName].apply(this.helper, args);
 			}
-		}
-		
-		
-		update function callExternalFlow(name:String, ... args):void
-		{
-			var flow:IUpdateDispatcher = UpdateManager.managers[name];
-			flow.dispatchUpdate.apply(flow, args);
-		}
-		
-		/*
-		 * 
-		 * Static zone.
-		 * 
-		 */
-		
-		private static var managers:Object;
-		
-		private static function newUpdateManager(item:UpdateManager, name:String):void
-		{
-			if (UpdateManager.managers == null)
-				UpdateManager.managers = new Object();
-			
-			UpdateManager.managers[name] = item;
 		}
 	}
 

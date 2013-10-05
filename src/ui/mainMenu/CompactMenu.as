@@ -15,18 +15,18 @@ package ui.mainMenu
 			this.visible = true;
 		}
 		
-		override protected function initializationSize():void 
+		override protected function initializeSize():void 
 		{
 			
 		}
 		
-		override protected function initializationLayout():void 
+		override protected function initializeLayout():void 
 		{
 			var layout:VerticalLayout = new VerticalLayout();
 			this.layout = layout;
 		}
 		
-		override protected function initializationButtons():void 
+		override protected function initializeButtons():void 
 		{
 			this.playButton = ButtonMainMenuFactory.create("P", true);
 			this.addChild(this.playButton);
