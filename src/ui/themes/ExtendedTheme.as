@@ -8,7 +8,7 @@ package ui.themes
 	
 	public class ExtendedTheme extends AeonDesktopTheme
 	{
-		public static const BUTTON_MAIN_MENU:String = "button-main-menu";
+		public static const BUTTON_MENU:String = "button-main-menu";
 		public static const MUTE_BUTTON:String = "mute-button";
 		public static const TITLE_STATICTICS_PIECE:String = "title-statistics-piece";
 		public static const BUTTON_STATISTICS_ROLL:String = "button-statistics-roll";
@@ -41,7 +41,7 @@ package ui.themes
 		
 		private function setNewInitializersForClasses():void
 		{
-			this.setInitializerForClass( Button, this.buttonMainMenu, ExtendedTheme.BUTTON_MAIN_MENU );
+			this.setInitializerForClass( Button, this.buttonMainMenu, ExtendedTheme.BUTTON_MENU );
 			this.setInitializerForClass( Button, this.muteButton, ExtendedTheme.MUTE_BUTTON );
 			this.setInitializerForClass( Button, this.buttonStatisticsRoll, ExtendedTheme.BUTTON_STATISTICS_ROLL);
 			this.setInitializerForClass( Button, this.buttonStatisticsFix, ExtendedTheme.BUTTON_STATISTICS_FIX);

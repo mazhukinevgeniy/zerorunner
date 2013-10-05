@@ -1,20 +1,17 @@
-package ui.game 
+package ui.windows.game 
 {
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class GameView 
+	public class GameView extends Sprite
 	{
-		private var container:Sprite;
 		
 		public function GameView(root:DisplayObjectContainer, flow:IUpdateDispatcher) 
 		{
-			this.container = new Sprite();
-			root.addChild(this.container);
-			
-			this.container.visible = false;
+			root.addChild(this);
+			this.visible = false;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);

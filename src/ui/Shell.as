@@ -6,7 +6,7 @@ package ui
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.background.Background;
-	import ui.game.GameView;
+	import ui.navigation.Navigation;
 	import ui.sounds.Sounds;
 	import ui.WindowsFeature;
 	import ui.themes.ExtendedTheme;
@@ -41,15 +41,15 @@ package ui
 		
 		private function initializationRootGUI(displayRoot:DisplayObjectContainer):void
 		{
-			this.root = new Sprite();
-			displayRoot.addChild(this.root);
+			this.root = displayRoot;
 		}
 			
 		private function initializationFeatures(displayRoot:DisplayObjectContainer):void
 		{
-			new ExtendedTheme(displayRoot);
+			new ExtendedTheme(this.root);
 			new Background(this.root);
-			new GameView(displayRoot, this.flow);
+			//new GameView(displayRoot, this.flow);
+			new Navigation(this.root, this.flow);
 			new Sounds(this.root, this.flow, this.assets);
 			new WindowsFeature(this.root, this.flow, this.assets);
 		}

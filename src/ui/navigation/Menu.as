@@ -1,4 +1,4 @@
-package ui.mainMenu 
+package ui.navigation 
 {
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
@@ -11,11 +11,11 @@ package ui.mainMenu
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class MainMenu extends ScrollContainer
+	public class Menu extends ScrollContainer
 	{	
 	
-		public static const WIDTH_MAIN_MENU:Number = 150;
-		public static const HEIGHT_MAIN_MENU:Number = 300;
+		public static const WIDTH_MENU:Number = 150;
+		public static const HEIGHT_MENU:Number = 300;
 		
 		private static const SPACE_BEETWEEN_BUTTON:Number = 25;
 		private static const START_HEIGHT_BUTTONS:Number = 50;
@@ -33,30 +33,25 @@ package ui.mainMenu
 		private var resetButton:Button;
 		
 		
-		public function MainMenu(flow:IUpdateDispatcher) 
+		public function Menu(flow:IUpdateDispatcher) 
 		{
 			this.initializeSize();
 			this.initializeLayout();
 			this.initializeButtons();
-			
-			this.resetButton = ButtonMainMenuFactory.create("Reset progress");
-			this.addChild(this.resetButton);
-			
-			this.resetButton.addEventListener(Event.TRIGGERED, this.handleResetTriggered);
 			
 			this.flow = flow;
 		}
 		
 		protected function initializeSize():void
 		{
-			this.width = MainMenu.WIDTH_MAIN_MENU;
-			this.height = MainMenu.HEIGHT_MAIN_MENU;
+			this.width = Menu.WIDTH_MAIN_MENU;
+			this.height = Menu.HEIGHT_MAIN_MENU;
 		}
 		
 		protected function initializeLayout():void
 		{
 			var layout:VerticalLayout = new VerticalLayout();
-			layout.gap = MainMenu.SPACE_BEETWEEN_BUTTON;
+			layout.gap = Menu.SPACE_BEETWEEN_BUTTON;
 			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER
 			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
 			
@@ -65,16 +60,16 @@ package ui.mainMenu
 		
 		protected function initializeButtons():void 
 		{
-			this.playButton = ButtonMainMenuFactory.create("New game");
+			this.playButton = ButtonMenuFactory.create("New game");
 			this.addChild(this.playButton);
 			
-			this.statisticsButton = ButtonMainMenuFactory.create("Statistics");
+			this.statisticsButton = ButtonMenuFactory.create("Statistics");
 			this.addChild(this.statisticsButton);
 			
-			this.achievementsButton = ButtonMainMenuFactory.create("Achievements");
+			this.achievementsButton = ButtonMenuFactory.create("Achievements");
 			this.addChild(this.achievementsButton);
 			
-			this.creditsButton = ButtonMainMenuFactory.create("Credits");
+			this.creditsButton = ButtonMenuFactory.create("Credits");
 			this.addChild(this.creditsButton);
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
@@ -102,13 +97,6 @@ package ui.mainMenu
 			{
 				this.flow.dispatchUpdate(Update.openWindow, WindowsFeature.CREDITS);
 			}
-		}
-		
-		private function handleResetTriggered():void
-		{
-			//TODO: tell about the risk. user 'll lose all his droids!
-			
-			this.flow.dispatchUpdate(Update.resetProgress);
 		}
 		
 	}

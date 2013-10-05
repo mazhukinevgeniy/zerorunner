@@ -1,4 +1,4 @@
-package ui.statistics 
+package ui.windows.statistics 
 {
 	import feathers.controls.Button;
 	import feathers.controls.Label;

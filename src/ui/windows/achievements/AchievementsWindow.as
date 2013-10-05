@@ -1,6 +1,7 @@
-package ui.achievements 
+package ui.windows.achievements 
 {
 	import feathers.controls.ScrollContainer;
+	import flash.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import ui.mainMenu.CompactMenu;
 	import utils.updates.IUpdateDispatcher;
@@ -20,8 +21,11 @@ package ui.achievements
 		
 		internal static const NUMBER_CELLS_IN_HEIGHT:int = 5;
 		
-		public function AchievementsWindow(flow:IUpdateDispatcher, assets:AssetManager) 
+		public function AchievementsWindow(root:DisplayObjectContainer, flow:IUpdateDispatcher, assets:AssetManager) 
 		{
+			root.addChild(this);
+			this.visible = false;
+			
 			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW + 150;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
 			

@@ -1,6 +1,7 @@
-package ui.credits 
+package ui.windows.credits 
 {
 	import feathers.controls.ScrollContainer;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -11,8 +12,11 @@ package ui.credits
 		public static const WIDTH_CREDITS_WINDOW:Number = 150;
 		public static const HEIGHT_CREDITS_WINDOW:Number = 100;
 		
-		public function CreditsWindow(flow:IUpdateDispatcher) 
+		public function CreditsWindow(root:DisplayObjectContainer; flow:IUpdateDispatcher) 
 		{
+			root.addChild(this);
+			this.visible = false;
+			
 			this.width = CreditsWindow.WIDTH_CREDITS_WINDOW;
 			this.height = CreditsWindow.HEIGHT_CREDITS_WINDOW;
 			

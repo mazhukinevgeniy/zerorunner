@@ -1,4 +1,4 @@
-package ui.mainMenu 
+package ui.navigation 
 {
 	import feathers.layout.VerticalLayout;
 	import starling.events.Event;
@@ -28,13 +28,13 @@ package ui.mainMenu
 		
 		override protected function initializeButtons():void 
 		{
-			this.playButton = ButtonMainMenuFactory.create("P", true);
+			this.playButton = ButtonMenuFactory.create("P", true);
 			this.addChild(this.playButton);
 			
-			this.statisticsButton = ButtonMainMenuFactory.create("S", true);
+			this.statisticsButton = ButtonMenuFactory.create("S", true);
 			this.addChild(this.statisticsButton);
 			
-			this.creditsButton = ButtonMainMenuFactory.create("C", true);
+			this.creditsButton = ButtonMenuFactory.create("C", true);
 			this.addChild(this.creditsButton);
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
