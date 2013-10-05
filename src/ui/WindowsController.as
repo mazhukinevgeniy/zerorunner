@@ -42,9 +42,6 @@ package ui
 			{
 				this.windows[idTarget].visible = true;
 				this.idLastOpenedWindow = idTarget;
-				
-				if (idTarget == Windows.GAME)
-					this.flow.dispatchUpdate(Update.newGame);
 			}
 			else
 			{
