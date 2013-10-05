@@ -142,10 +142,10 @@ package game.world.items
 						var actor:ItemLogicBase = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
 						
 						if (actor && !(actor is ISolderable && (actor as ISolderable).progress <= 1))
-							this.steps[i] -= 4;
+							this.steps[i] -= 8;
 						
 						if ((change.x == -this.lastChange.x) && (change.y == -this.lastChange.y))
-							this.steps[i] -= 16;
+							this.steps[i] -= 24;
 					}
 					
 					var maxI:int, max:int = int.MIN_VALUE;

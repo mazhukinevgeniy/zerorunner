@@ -1,6 +1,7 @@
 package game.world.items 
 {
 	import game.core.GameFoundations;
+	import game.world.items.utils.IPointCollector;
 	import game.world.items.utils.ISolderable;
 	import game.world.items.utils.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
@@ -9,16 +10,21 @@ package game.world.items
 	{
 		private var flow:IUpdateDispatcher;
 		
-		public function JunkLogic(foundations:GameFoundations) 
+		private var points:IPointCollector;
+		
+		public function JunkLogic(foundations:GameFoundations, points:IPointCollector) 
 		{
 			super(new JunkView(foundations), foundations);
 			
 			this.flow = foundations.flow;
+			this.points = points;
 		}
 		
 		public function applySoldering(value:int):void
 		{
 			this.applyDestruction();
+			
+			this.points.removePointOfInterest(Game.TOWER, this);
 			
 			this.flow.dispatchUpdate(Update.technicUnlocked, this);
 		}

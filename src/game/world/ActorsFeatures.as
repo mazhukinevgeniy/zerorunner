@@ -74,7 +74,7 @@ package game.world
 				new TechnicLogic(this.foundations, this.points);
 			
 			for (i = 0; i < this.game.numberOfJunks; i++)
-				new JunkLogic(this.foundations);
+				new JunkLogic(this.foundations, this.points);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase

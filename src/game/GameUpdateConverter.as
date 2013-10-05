@@ -1,5 +1,6 @@
 package game 
 {
+	import game.core.metric.ICoordinated;
 	import game.data.GameSave;
 	import game.data.LevelConfiguration;
 	import starling.core.Starling;
@@ -26,6 +27,7 @@ package game
 			flow.addUpdateListener(Update.gameOver);
 			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.resetProgress);
+			flow.addUpdateListener(Update.technicUnlocked);
 			flow.addUpdateListener(Update.setGameContainer);
 			flow.addUpdateListener(Update.smallBeaconTurnedOn);
 		}
@@ -63,6 +65,11 @@ package game
 			this.flow.dispatchUpdate(Update.gameStopped);
 		}
 		
+		update function technicUnlocked(place:ICoordinated):void
+		{
+			this.save.numberOfDroids++;
+		}
+		
 		
 		
 		update function gameOver():void
@@ -76,6 +83,8 @@ package game
 		{
 			this.applyConfiguration(new LevelConfiguration(null));
 		}
+		
+		
 		
 		
 		private function applyConfiguration(params:LevelConfiguration):void
