@@ -35,7 +35,10 @@ package game.world.items
 		
 		override protected function getSpawningCell():CellXY
 		{
-			return Metric.getTmpCell(Game.SECTOR_WIDTH, Game.SECTOR_WIDTH * (1 + (this.game).mapWidth) - 1);
+			//return //Metric.getTmpCell(Game.SECTOR_WIDTH, Game.SECTOR_WIDTH * (1 + (this.game).mapWidth) - 1);
+			return new CellXY(Game.SECTOR_WIDTH, Game.SECTOR_WIDTH * (1 + (this.game).mapWidth) - 1);
+			
+			//TODO: check if wrong centralization bug reappers
 		}
 		
 		override protected function reset():void
