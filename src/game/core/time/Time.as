@@ -1,5 +1,6 @@
 package game.core.time 
 {
+	import flash.ui.Keyboard;
 	import game.core.GameFoundations;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
@@ -23,16 +24,18 @@ package game.core.time
 		}
 		 //TODO: remove from static
 		
-		private var fixed:Boolean = true;
+		private var _fixed:Boolean = true;
 		private var gameJuggler:Juggler;
 		
 		private var updateFlow:IUpdateDispatcher;
 		
+		private var pauseView:PauseView;
+		
 		public function Time(root:Sprite, foundations:GameFoundations) 
 		{
-			var flow:IUpdateDispatcher = foundations.flow;
+			root.addChild(this.pauseView = new PauseView());
 			
-			new PauseTypes(flow);
+			var flow:IUpdateDispatcher = foundations.flow;
 			
 			this.FPS = Starling.current.nativeStage.frameRate;
 			this.tickFrame = this.FPS == 60 ? 5 : 2;
@@ -52,24 +55,16 @@ package game.core.time
 			
 			flow.addUpdateListener(Update.restore);
 			flow.addUpdateListener(Update.gameStopped);
-			flow.addUpdateListener(Update.setPause);
+			flow.addUpdateListener(Update.keyUp);
 			
 			this.updateFlow = flow;
 		}
 		
 		update function restore():void
 		{
-			//this.gameJuggler.purge();
-			//TODO: check if required
-			
 			this.fixed = false;
 			
 			this.frameCount = 0;
-		}
-		
-		update function setPause(value:Boolean):void
-		{
-			this.fixed = value;
 		}
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
@@ -106,6 +101,28 @@ package game.core.time
 			this.fixed = true;
 			
 			this.frameCount = 0;
+		}
+		
+		update function keyUp(keyCode:uint):void
+		{
+			if (keyCode == Keyboard.P)
+			{
+				this.fixed = !this.fixed;
+			}
+		}
+		
+		
+		
+		private function get fixed():Boolean
+		{
+			return this._fixed;
+		}
+		
+		private function set fixed(value:Boolean):void
+		{
+			this.pauseView.visible = value;
+			
+			this._fixed = value;
 		}
 	}
 	

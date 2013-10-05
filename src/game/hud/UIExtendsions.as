@@ -14,7 +14,6 @@ package game.hud
 			
 			new GameOverWindow(flow);
 			new GameWonWindow(foundations);
-			new PauseView(flow);
 			new Panel(flow);
 			
 			

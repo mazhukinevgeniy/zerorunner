@@ -25,8 +25,6 @@ package
 		public static const redraw:String = "redraw";
 		public static const tick:String = "tick";
 		
-		public static const setPause:String = "setPause";
-		
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
