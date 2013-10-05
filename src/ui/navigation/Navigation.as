@@ -3,6 +3,7 @@ package ui.navigation
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
+	import ui.Windows;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -26,7 +27,7 @@ package ui.navigation
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.quitGame);
-			//flow.addUpdateListener(Update.toggleWindow);
+			flow.addUpdateListener(Update.toggleWindow);
 			
 		}
 		
@@ -39,6 +40,15 @@ package ui.navigation
 		{
 			this.hideAllBut(this.menu);
 		}
+		
+		update function toggleWindow(key:int):void
+		{
+			if (this.compactMenu.visible)
+				this.hideAllBut(this.menu);
+			else if (key == Windows.ACHIEVEMENTS)
+				this.hideAllBut(this.compactMenu);
+		}
+		
 		
 		private function hideAllBut(item:DisplayObject):void
 		{
