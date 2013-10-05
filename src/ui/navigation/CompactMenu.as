@@ -34,11 +34,15 @@ package ui.navigation
 			this.statisticsButton = ButtonMenuFactory.create("S", true);
 			this.addChild(this.statisticsButton);
 			
+			this.achievementsButton = ButtonMenuFactory.create("A", true);
+			this.addChild(this.achievementsButton);
+			
 			this.creditsButton = ButtonMenuFactory.create("C", true);
 			this.addChild(this.creditsButton);
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.statisticsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 		}
 		
