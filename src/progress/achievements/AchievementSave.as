@@ -9,6 +9,15 @@ package progress.achievements
 			
 		}
 		
+		public function get numberOfAchievements():int
+		{
+			return 0;
+		}
+		
+		public function getAchievement(id:int):AchievementData
+		{
+			return new AchievementData();
+		}
 	}
 
 }
