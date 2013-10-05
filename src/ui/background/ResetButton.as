@@ -1,24 +1,41 @@
 package ui.background 
 {
-	public class ResetButton 
+	import feathers.controls.Button;
+	import starling.display.Sprite;
+	import starling.events.Event;
+	import ui.themes.ExtendedTheme;
+	import utils.updates.IUpdateDispatcher;
+	
+	public class ResetButton extends Sprite
 	{
+		private var flow:IUpdateDispatcher;
 		
-		public function ResetButton() 
+		private var button:Button;
+		
+		public function ResetButton(flow:IUpdateDispatcher)
 		{
-			this.resetButton = ButtonMainMenuFactory.create("Reset progress");
-			this.addChild(this.resetButton);
+			this.button = new Button();
+			this.button.nameList.add(ExtendedTheme.RESET_BUTTON);
+			this.addChild(this.button);
 			
-			this.resetButton.addEventListener(Event.TRIGGERED, this.handleResetTriggered);
+			this.button.addEventListener(Event.TRIGGERED, this.handleResetTriggered);
+			this.button.addEventListener(Event.ADDED_TO_STAGE, this.locate);
+			
+			this.flow = flow;
 		}
-		
-	}
 	
 			
-		private function handleResetTriggered():void
+		private function handleResetTriggered(event:Event):void
 		{
 			//TODO: tell about the risk. user 'll lose all his droids!
 			
 			this.flow.dispatchUpdate(Update.resetProgress);
 		}
-
+		
+		private function locate(event:Event):void
+		{
+			this.x = 0
+			this.y = Main.HEIGHT - this.button.height;
+		}
+	}
 }

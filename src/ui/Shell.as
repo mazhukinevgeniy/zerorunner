@@ -53,7 +53,7 @@ package ui
 			new ExtendedTheme(this.root);
 			new Sounds(this.flow, this.assets);
 			
-			this.background = new Background();
+			this.background = new Background(this.flow);
 			this.navigation = new Navigation(this.flow);
 			this.windows = new Windows(this.flow, this.assets)
 			
