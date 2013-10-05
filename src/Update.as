@@ -37,16 +37,15 @@ package
 		
 		public static const keyUp:String = "keyUp";
 		
+		//TODO: start checking here
+		
 		public static const panel_RollOut:String = "panel_RollOut";
 		public static const panel_RollOver:String = "panel_RollOver";
 		
-		public static const unlockAchievement:String = "unlockAchievement";
-		
-		
-		public static const emitStatistics:String = "emitStatistics";
-		
 		public static const showStatistics:String = "showStatistics";
 		public static const hideStatistics:String = "hideStatistics";
+		
+		//TODO: check if we need these updates
 		
 		public static const discardClicks:String = "discardClicks";
 		public static const discardInput:String = "discardInput";

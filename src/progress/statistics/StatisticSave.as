@@ -1,19 +1,16 @@
-package achievements.statistics 
+package progress.statistics 
 {
 	import game.core.metric.DCellXY;
-	import statistics.ITakeStatistics;
-	import statistics.StatisticsPiece;
 	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class ActorStatistic extends SaveBase
+	public class StatisticSave extends SaveBase implements IStatistic
 	{
-		//TODO: fix the package
-		public function ActorStatistic(flow:IUpdateDispatcher) 
+		
+		public function StatisticSave(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.emitStatistics);
 			flow.addUpdateListener(Update.moveCenter);
 		}
 		
@@ -39,15 +36,9 @@ package achievements.statistics
 			this.localSave.data.statistics.actors.lifetime.distance += change.length;
 		}
 		
-		update function emitStatistics(requester:ITakeStatistics):void
+		public function get totalDistance():int
 		{
-			var vector:Vector.<String> = new <String>
-				[
-					"lifetime distance: " + this.localSave.data.statistics.actors.lifetime.distance,
-					"so it goes"
-				]
-			
-			requester.takeStatistics(new StatisticsPiece(vector));
+			return this.localSave.data.statistics.actors.lifetime.distance;
 		}
 	}
 

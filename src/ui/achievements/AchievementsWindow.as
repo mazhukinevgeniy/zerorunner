@@ -1,6 +1,5 @@
 package ui.achievements 
 {
-	import achievements.AchievementBase;
 	import feathers.controls.ScrollContainer;
 	import starling.display.Quad;
 	import ui.mainMenu.CompactMenu;
@@ -10,9 +9,6 @@ package ui.achievements
 	
 	public class AchievementsWindow  extends ScrollContainer
 	{	
-		public static const initializeTree:String = "initializeTree";
-		public static const unlockNode:String = "unlockNode";
-		
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -36,21 +32,8 @@ package ui.achievements
 			this.addChild(new CompactMenu(flow));
 			
 			this.flow = flow;
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(AchievementsWindow.initializeTree);
-			flow.addUpdateListener(AchievementsWindow.unlockNode);
 		}
 		
-		update function initializeTree(node:AchievementBase):void
-		{
-			
-		}
-		
-		update function unlockNode(nodeID:int):void
-		{
-			
-		}
 	}
 
 }

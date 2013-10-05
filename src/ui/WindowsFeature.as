@@ -3,7 +3,6 @@ package ui
 	import feathers.controls.ScrollContainer;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
-	import ui.statistics.StatisticsWindow;
 	import ui.achievements.AchievementsWindow;
 	import ui.credits.CreditsWindow;
 	import ui.mainMenu.MainMenu;
@@ -25,7 +24,7 @@ package ui
 			var windows:Vector.<ScrollContainer> = new Vector.<ScrollContainer>(WindowsFeature.NUMBER_OF_WINDOWS, true);
 			
 			windows[WindowsFeature.MENU] = new MainMenu(flow);
-			windows[WindowsFeature.STATISTICS] = new StatisticsWindow(flow);
+			windows[WindowsFeature.STATISTICS] = new ScrollContainer();//new StatisticsWindow(flow); //TODO: make it working
 			windows[WindowsFeature.ACHIEVEMENTS] = new AchievementsWindow(flow, assets);
 			windows[WindowsFeature.CREDITS] = new CreditsWindow(flow);
 			

@@ -9,13 +9,11 @@ package ui.statistics
 	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
 	import starling.display.Quad;
-	import statistics.ITakeStatistics;
-	import statistics.StatisticsPiece;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 
 	
-	public class StatisticsWindow  extends ScrollContainer implements ITakeStatistics, IDropTarget
+	public class StatisticsWindow  extends ScrollContainer implements IDropTarget
 	{	
 		public static const dropMiss:String = "dropMiss";
 		

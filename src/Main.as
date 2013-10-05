@@ -1,19 +1,18 @@
 package 
 {
-	import achievements.AchievementsFeature;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
 	import flash.system.Capabilities;
 	import game.ZeroRunner;
 	import preloader.ProgressBar;
+	import progress.ProgressManager;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
-	import statistics.StatisticsFeature;
 	import ui.Shell;
 	import utils.adaptTextureAtlasMakerXML;
 	import utils.updates.UpdateManager;
@@ -113,8 +112,7 @@ package
 				this.game = new ZeroRunner(flow, this.assets);
 				this.shell = new Shell(flow, this.starlingRoot, this.assets);
 				
-				new StatisticsFeature(flow);
-				new AchievementsFeature(flow);
+				new ProgressManager(flow);
 			}
 		}
 	}
