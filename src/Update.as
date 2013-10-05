@@ -30,7 +30,7 @@ package
 		
 		public static const newGame:String = "newGame";
 		
-		public static const openWindow:String = "openWindow";
+		public static const toggleWindow:String = "toggleWindow";
 		
 		
 		public static const keyUp:String = "keyUp";

@@ -84,20 +84,20 @@ package ui.navigation
 			{
 				this.playButton.focusManager.focus = null;
 				
-				this.flow.dispatchUpdate(Update.openWindow, Windows.GAME);
+				this.flow.dispatchUpdate(Update.toggleWindow, Windows.GAME);
 				this.flow.dispatchUpdate(Update.newGame);
 			}
 			else if (event.target == this.statisticsButton)
 			{
-				this.flow.dispatchUpdate(Update.openWindow, Windows.STATISTICS);
+				this.flow.dispatchUpdate(Update.toggleWindow, Windows.STATISTICS);
 			}
 			else if (event.target == this.achievementsButton)
 			{
-				this.flow.dispatchUpdate(Update.openWindow, Windows.ACHIEVEMENTS);
+				this.flow.dispatchUpdate(Update.toggleWindow, Windows.ACHIEVEMENTS);
 			}
 			else if (event.target == this.creditsButton)
 			{
-				this.flow.dispatchUpdate(Update.openWindow, Windows.CREDITS);
+				this.flow.dispatchUpdate(Update.toggleWindow, Windows.CREDITS);
 			}
 		}
 		

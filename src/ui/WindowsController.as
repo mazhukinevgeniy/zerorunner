@@ -30,12 +30,12 @@ package ui
 		{
 			this.flow = flow;
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.openWindow);
+			this.flow.addUpdateListener(Update.toggleWindow);
 			this.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function openWindow(idTarget:int):void
-		{//TODO: rename: open -> toggle
+		update function toggleWindow(idTarget:int):void
+		{
 			this.closelastOpenedWindow();
 			
 			if (idTarget != this.idLastOpenedWindow)
