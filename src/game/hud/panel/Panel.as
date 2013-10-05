@@ -92,13 +92,11 @@ package game.hud.panel
 		
 		public function expand():void
 		{
-			this.flow.dispatchUpdate(Update.panel_RollOver);
 			this.body.visible = true;
 		}
 		
 		public function collapse():void
 		{
-			this.flow.dispatchUpdate(Update.panel_RollOut);
 			this.body.visible = false;
 		}
 	}

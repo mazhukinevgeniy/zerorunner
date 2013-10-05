@@ -8,7 +8,6 @@ package game.core.time
 	{
 		private var pauseToggled:Boolean = true;
 		private var isOutOfSight:Boolean = true;
-		private var isInUse:Boolean = true;
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -19,8 +18,6 @@ package game.core.time
 			flow.addUpdateListener(Update.gameStopped);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.keyUp);
-			flow.addUpdateListener(Update.panel_RollOver);
-			flow.addUpdateListener(Update.panel_RollOut);
 			
 			this.flow = flow;
 		}
@@ -28,7 +25,6 @@ package game.core.time
 		update function newGame():void
 		{
 			this.pauseToggled = false;
-			this.isInUse = false;
 			this.isOutOfSight = false;
 			
 			this.setPause();
@@ -37,21 +33,8 @@ package game.core.time
 		{
 			this.pauseToggled = true;
 			this.isOutOfSight = true;
-			this.isInUse = true;
 		}
 		
-		update function panel_RollOver():void
-		{
-			this.isInUse = true;
-			
-			this.setPause();
-		}
-		update function panel_RollOut():void
-		{
-			this.isInUse = false;
-			
-			this.setPause();
-		}
 		update function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.P)
@@ -63,7 +46,7 @@ package game.core.time
 		
 		private function setPause():void
 		{
-			this.flow.dispatchUpdate(Update.setPause, this.pauseToggled || this.isInUse || this.isOutOfSight);
+			this.flow.dispatchUpdate(Update.setPause, this.pauseToggled || this.isOutOfSight);
 		}
 	}
 
