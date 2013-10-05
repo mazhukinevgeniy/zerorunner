@@ -19,6 +19,8 @@ package
 		
 		public static const smallBeaconTurnedOn:String = "smallBeaconTurnedOn";
 		
+		public static const technicUnlocked:String = "technicUnlocked";
+		
 		public static const setGameContainer:String = "setGameContainer";
 		
 		

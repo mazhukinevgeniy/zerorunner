@@ -3,12 +3,13 @@ package game.world
 	import flash.events.Event;
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
+	import game.core.metric.ICoordinated;
 	import game.world.clouds.Clouds;
-	import game.world.items.beacons.BeaconLogic;
-	import game.world.items.character.CharacterLogic;
-	import game.world.items.ItemLogicBase;
-	import game.world.items.junk.JunkLogic;
-	import game.world.items.technic.TechnicLogic;
+	import game.world.items.BeaconLogic;
+	import game.world.items.CharacterLogic;
+	import game.world.items.JunkLogic;
+	import game.world.items.TechnicLogic;
+	import game.world.items.utils.ItemLogicBase;
 	import game.world.items.utils.PointsOfInterest;
 	import game.world.operators.ActorOperators;
 	import game.world.renderer.Renderer;
@@ -43,6 +44,7 @@ package game.world
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.technicUnlocked);
 			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleFocusChange);
 		}
@@ -95,6 +97,13 @@ package game.world
 		public function removeActor(actor:ItemLogicBase):void
 		{
 			this.actors[actor.x + actor.y * this.width] = null;
+		}
+		
+		
+		update function technicUnlocked(place:ICoordinated):void
+		{
+			var technic:TechnicLogic = new TechnicLogic(this.foundations, this.points);
+			technic.moveTo(place);
 		}
 	}
 

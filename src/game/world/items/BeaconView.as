@@ -1,8 +1,8 @@
-package game.world.items.beacons 
+package game.world.items 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.Metric;
-	import game.world.items.ItemViewBase;
+	import game.world.items.utils.ItemViewBase;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	

@@ -1,4 +1,4 @@
-package game.world.items 
+package game.world.items.utils 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;

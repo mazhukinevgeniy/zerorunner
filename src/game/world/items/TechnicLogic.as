@@ -1,13 +1,13 @@
-package game.world.items.technic 
+package game.world.items 
 {
 	import game.core.GameFoundations;
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
-	import game.world.items.ISolderable;
-	import game.world.items.ItemLogicBase;
 	import game.world.items.utils.IPointCollector;
+	import game.world.items.utils.ISolderable;
+	import game.world.items.utils.ItemLogicBase;
 	
 	public class TechnicLogic extends ItemLogicBase
 	{
@@ -187,6 +187,13 @@ package game.world.items.technic
 					this.points.removePointOfInterest(Game.TOWER, actor);
 				}
 			}
+		}
+		
+		//DANGER
+		
+		public function moveTo(target:ICoordinated):void
+		{
+			super.move(Metric.getTmpDCell(target.x - this.x, target.y - this.y), -1);
 		}
 	}
 }

@@ -3,8 +3,8 @@ package game.world.operators
 	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
 	import game.world.ISearcher;
-	import game.world.items.ItemLogicBase;
 	import game.world.items.utils.IPointCollector;
+	import game.world.items.utils.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
