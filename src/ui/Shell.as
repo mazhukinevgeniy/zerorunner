@@ -1,5 +1,6 @@
 package ui 
 {
+	import progress.ProgressManager;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -24,7 +25,7 @@ package ui
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function Shell(flow:IUpdateDispatcher, displayRoot:DisplayObjectContainer, assets:AssetManager) 
+		public function Shell(flow:IUpdateDispatcher, displayRoot:DisplayObjectContainer, assets:AssetManager, progress:ProgressManager) 
 		{
 			this.flow = flow;
 			

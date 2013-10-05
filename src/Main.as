@@ -109,10 +109,10 @@ package
 				
 				var flow:UpdateManager = new UpdateManager();
 				
-				this.game = new ZeroRunner(flow, this.assets);
-				this.shell = new Shell(flow, this.starlingRoot, this.assets);
+				var progress:ProgressManager = new ProgressManager(flow);
 				
-				new ProgressManager(flow);
+				this.game = new ZeroRunner(flow, this.assets);
+				this.shell = new Shell(flow, this.starlingRoot, this.assets, progress);
 			}
 		}
 	}
