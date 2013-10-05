@@ -29,6 +29,16 @@ package game.data
 			{
 				this.localSave.data.game.beacons = new Array();
 			}
+			
+			if (!this.localSave.data.game.droids)
+			{
+				this.localSave.data.game.droids = 0;
+			}
+			
+			if (!this.localSave.data.game.junks)
+			{
+				this.localSave.data.game.junks = 0;
+			}
 		}
 		
 		
@@ -68,6 +78,27 @@ package game.data
 				throw new Error();
 			
 			this.localSave.data.game.beacons[level] = value;
+		}
+		
+		public function get numberOfDroids():int
+		{
+			return this.localSave.data.game.droids;
+		}
+		
+		public function set numberOfDroids(value:int):void
+		{
+			this.localSave.data.game.droids = value;
+		}
+		
+		
+		public function get numberOfJunks():int
+		{
+			return this.localSave.data.game.junks;
+		}
+		
+		public function set numberOfJunks(value:int):void
+		{
+			this.localSave.data.game.junks = value;
 		}
 		
 	}

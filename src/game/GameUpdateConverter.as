@@ -82,10 +82,15 @@ package game
 		{
 			this.save.mapWidth = params.mapWidth;
 			this.save.level = params.level;
+			this.save.numberOfJunks = params.junks;
 			
 			if (params.level == 1)
+			{
 				for (var i:int = 0; i < Game.LEVELS_PER_RUN; i++)
 					this.save.setBeacon(i + 1, Game.NO_BEACON);
+				
+				this.save.numberOfDroids = 0;
+			}
 		}
 	}
 
