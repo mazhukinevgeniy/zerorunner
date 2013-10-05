@@ -21,9 +21,6 @@ package game.hud.panel
 		private var body:Sprite;
 		
 		private var menuButton:Button;
-		private var statButton:Button;
-		
-		private var statFlag:Boolean = false;
 		
 		public function Panel(flow:IUpdateDispatcher) 
 		{
@@ -59,15 +56,6 @@ package game.hud.panel
 			
 			this.menuButton.x = this.menuButton.width / 10 + (Body.HEIGHT - 20) / 2;
 			this.menuButton.y = (Body.HEIGHT - 20) / 2;
-			
-			this.statButton = new Button(Texture.fromColor(100, 20, 0xFFCCFF33), "Statistic");
-			this.statButton.fontName = "HiLo-Deco";
-			this.statButton.fontSize = 18;
-			
-			this.body.addChild(this.statButton);
-			
-			this.statButton.x = 12 * this.statButton.width / 10 + (Body.HEIGHT - 20) / 2;
-			this.statButton.y = (Body.HEIGHT - 20) / 2;
 		}
 		
 		private function handleTrigger(event:Event):void
@@ -79,15 +67,6 @@ package game.hud.panel
 				this.collapse();
 				this.flow.dispatchUpdate(Update.gameStopped);
 				this.flow.dispatchUpdate(Update.quitGame);
-			}
-			else if (event.target == this.statButton)
-			{
-				this.statFlag = !this.statFlag;
-				
-				if (this.statFlag)
-					this.flow.dispatchUpdate(Update.showStatistics);
-				else
-					this.flow.dispatchUpdate(Update.hideStatistics);
 			}
 		}
 		

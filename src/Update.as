@@ -42,9 +42,6 @@ package
 		public static const panel_RollOut:String = "panel_RollOut";
 		public static const panel_RollOver:String = "panel_RollOver";
 		
-		public static const showStatistics:String = "showStatistics";
-		public static const hideStatistics:String = "hideStatistics";
-		
 		//TODO: check if we need these updates
 		
 		public static const discardClicks:String = "discardClicks";
