@@ -30,7 +30,6 @@ package game
 			this.atlas = assets.getTextureAtlas("gameAtlas");
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.setGameContainer);
 			flow.addUpdateListener(Update.freeFrame);
 			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.setGameContainer);
