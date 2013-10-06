@@ -13,6 +13,7 @@ package game
 			gameCurrentWidth: 1,
 			gameCurrentLevel: 1,
 			gameCurrentJunks: 2,
+			gameCurrentGoal: Game.LIGHT_A_BEACON,
 			gameActiveDroids: 0
 		}
 		
@@ -45,11 +46,13 @@ package game
 		}
 		
 		
-		public function get level():int { return this.localSave.data.gameCurrentLevel; }
+		
 		public function get numberOfDroids():int { return this.localSave.data.gameActiveDroids; }
 		
+		public function get level():int { return this.localSave.data.gameCurrentLevel; }
 		public function get mapWidth():int { return this.localSave.data.gameCurrentWidth; }
 		public function get numberOfJunks():int { return this.localSave.data.gameCurrentJunks; }
+		public function get localGoal():int { return this.localSave.data.gameCurrentGoal; };
 		
 		/**
 		 * Please note: level must be natural (i.e. it's an integer > 0)
@@ -64,17 +67,6 @@ package game
 		update function smallBeaconTurnedOn():void
 		{
 			this.localSave.data["beaconProgress" + String(this.level)] = Game.BEACON;
-			
-			/*
-			
-			if (this.save.level == Game.LEVELS_PER_RUN)
-				this.flow.dispatchUpdate(Update.tellGameWon);
-			else
-				this.flow.dispatchUpdate(Update.tellRoundWon);
-				
-			this.flow.dispatchUpdate(Update.gameStopped);
-			*/
-				//TODO: check somewhere else if the game is finished
 		}
 		
 		update function technicUnlocked(place:ICoordinated):void
@@ -84,7 +76,10 @@ package game
 		
 		update function prerestore():void
 		{
-			//TODO: advance level before; when prerestoring, modify every other parameter
+			//for example
+			
+			this.localSave.data.gameActiveDroids = 0;
+			this.localSave.data.gameCurrentJunks = this.level * 2;
 		}
 		
 		update function resetProgress():void
@@ -93,6 +88,15 @@ package game
 				this.localSave.data[value] = this.defaultValues[value];
 		}
 		
+		
+		
+		internal function advanceLevel():void
+		{
+			if (this.level == Game.LEVELS_PER_RUN)
+				this.update::resetProgress();
+			else
+				this.localSave.data.gameCurrentLevel += 1;
+		}
 	}
 
 }

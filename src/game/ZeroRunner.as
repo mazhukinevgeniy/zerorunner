@@ -26,6 +26,7 @@ package game
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.setGameContainer);
+			flow.addUpdateListener(Update.freeFrame);
 		}
 		
 		update function setGameContainer(root:Sprite):void
@@ -36,6 +37,25 @@ package game
 			new UIExtendsions(foundations);
 		}
 		
+		update function freeFrame(key:int):void
+		{
+			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
+			{
+				if (this.save.localGoal == Game.LIGHT_A_BEACON)
+					if (this.save.getBeacon(this.save.level) != Game.NO_BEACON)
+					{
+						if (this.save.level == Game.LEVELS_PER_RUN)
+							this.flow.dispatchUpdate(Update.tellGameWon);
+						else
+							this.flow.dispatchUpdate(Update.tellRoundWon);
+						
+						this.flow.dispatchUpdate(Update.gameStopped);
+						//TODO: check if doubledispatched
+						
+						this.save.advanceLevel();
+					}
+			}
+		}
 	}
 
 }

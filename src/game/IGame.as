@@ -9,6 +9,8 @@ package game
 		function get numberOfDroids():int;
 		function get numberOfJunks():int;
 		
+		function get localGoal():int;
+		
 		
 		function getBeacon(level:int):int;
 	}
