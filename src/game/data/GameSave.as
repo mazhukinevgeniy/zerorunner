@@ -4,6 +4,13 @@ package game.data
 	
 	public class GameSave extends SaveBase implements IGame
 	{
+		private const defaultValues:Object = 
+		{
+			gameCurrentWidth: 1,
+			gameCurrentLevel: 1,
+			gameCurrentJunks: 0,
+			gameActiveDroids: 0
+		}
 		
 		public function GameSave() 
 		{
@@ -12,56 +19,30 @@ package game.data
 		
 		override protected function checkLocalSave():void
 		{
-			if (!this.localSave.data.game)
-				this.localSave.data.game = new Object();
-			
-			if (!this.localSave.data.game.width)
+			for (var value:String in this.defaultValues)
 			{
-				this.localSave.data.game.width = 1;
+				if (!this.localSave.data[value])
+					this.localSave.data[value] = this.defaultValues[value];
 			}
 			
-			if (!this.localSave.data.game.level)
+			if (!this.localSave.data.beaconProgress)
 			{
-				this.localSave.data.game.level = 1;
-			}
-			
-			if (!this.localSave.data.game.beacons)
-			{
-				this.localSave.data.game.beacons = new Array();
-			}
-			
-			if (!this.localSave.data.game.droids)
-			{
-				this.localSave.data.game.droids = 0;
-			}
-			
-			if (!this.localSave.data.game.junks)
-			{
-				this.localSave.data.game.junks = 0;
+				this.localSave.data.beaconProgress = new Array();
 			}
 		}
 		
 		
-		public function get mapWidth():int
-		{
-			return this.localSave.data.game.width;
-		}
+		public function get mapWidth():int { return this.localSave.data.gameCurrentWidth; }
+		public function set mapWidth(value:int):void { this.localSave.data.gameCurrentWidth = value; }
 		
-		public function set mapWidth(value:int):void
-		{
-			this.localSave.data.game.width = value;
-		}
+		public function get level():int { return this.localSave.data.gameCurrentLevel; }
+		public function set level(value:int):void { this.localSave.data.gameCurrentLevel = value; }
 		
+		public function get numberOfDroids():int { return this.localSave.data.gameActiveDroids; }
+		public function set numberOfDroids(value:int):void { this.localSave.data.gameActiveDroids = value; }
 		
-		public function get level():int
-		{
-			return this.localSave.data.game.level;
-		}
-		
-		public function set level(value:int):void
-		{
-			this.localSave.data.game.level = value;
-		}
+		public function get numberOfJunks():int { return this.localSave.data.gameCurrentJunks; }
+		public function set numberOfJunks(value:int):void { this.localSave.data.gameCurrentJunks = value; }
 		
 		
 		public function getBeacon(level:int):int
@@ -69,7 +50,7 @@ package game.data
 			if (level < 1)
 				throw new Error();
 			
-			return this.localSave.data.game.beacons[level];
+			return this.localSave.data.beaconProgress[level];
 		}
 		
 		public function setBeacon(level:int, value:int):void
@@ -77,30 +58,8 @@ package game.data
 			if (level < 1)
 				throw new Error();
 			
-			this.localSave.data.game.beacons[level] = value;
+			this.localSave.data.beaconProgress[level] = value;
 		}
-		
-		public function get numberOfDroids():int
-		{
-			return this.localSave.data.game.droids;
-		}
-		
-		public function set numberOfDroids(value:int):void
-		{
-			this.localSave.data.game.droids = value;
-		}
-		
-		
-		public function get numberOfJunks():int
-		{
-			return this.localSave.data.game.junks;
-		}
-		
-		public function set numberOfJunks(value:int):void
-		{
-			this.localSave.data.game.junks = value;
-		}
-		
 	}
 
 }
