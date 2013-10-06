@@ -23,6 +23,9 @@ package
 		public static const tellRoundLost:String = "tellRoundLost";
 		public static const tellRoundWon:String = "tellRoundWon";
 		public static const tellGameWon:String = "tellGameWon";
+		//TODO: it feels like methods, so, huh, implement it this way
+		//TODO: btw, try to remove every method-like update. are there some?
+		//TODO: btw-2, try to remove shortly used updates (aka "special" ones)
 		
 		
 		/* In-game updates */
