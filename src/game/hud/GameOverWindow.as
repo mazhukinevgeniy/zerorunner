@@ -65,7 +65,7 @@ package game.hud
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(Update.restore);
-			flow.addUpdateListener(Update.gameOver);
+			flow.addUpdateListener(Update.tellRoundLost);
 		}
 		
 		private function handleTriggered():void
@@ -78,7 +78,7 @@ package game.hud
 			this.message.visible = false;
 		}
 		
-		update function gameOver():void
+		update function tellRoundLost():void
 		{
 			this.message.visible = true;	
 		}

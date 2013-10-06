@@ -10,8 +10,7 @@ package game.hud
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	use namespace update;
-	
+	//TODO: remove dat stupid inheretance
 	public class GameWonWindow extends GameOverWindow
 	{
 		private var game:IGame;
@@ -36,8 +35,6 @@ package game.hud
 			this.runWon.text = "You win! Run is finished!";
 			
 			super(foundations.flow);
-			
-			//TODO: remove it
 		}
 		
 		override protected function addMessage(message:DisplayObjectContainer):void
@@ -68,7 +65,7 @@ package game.hud
 			
 			this.globalMap.draw(this.game);
 			
-			this.update::gameOver();
+			this.labelContainer.parent.visible = true;
 		}
 		
 		update function tellGameWon():void
@@ -78,7 +75,7 @@ package game.hud
 			
 			this.globalMap.draw(this.game);
 			
-			this.update::gameOver();
+			this.labelContainer.parent.visible = true;
 		}
 	}
 

@@ -8,12 +8,10 @@ package
 		public static const prerestore:String = "prerestore";
 		public static const restore:String = "restore";
 		
-		public static const gameOver:String = "gameOver";
 		public static const gameStopped:String = "gameStopped";
 		public static const quitGame:String = "quitGame";
 		
-		//TODO: check if updates above are required
-		
+		public static const tellRoundLost:String = "tellRoundLost";
 		public static const tellRoundWon:String = "tellRoundWon";
 		public static const tellGameWon:String = "tellGameWon";
 		
