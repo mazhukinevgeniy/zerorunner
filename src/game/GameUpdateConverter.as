@@ -24,6 +24,8 @@ package game
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.tellRoundLost);
+			flow.addUpdateListener(Update.tellGameWon);
+			flow.addUpdateListener(Update.tellRoundWon);
 			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.setGameContainer);
 		}
@@ -49,6 +51,16 @@ package game
 		
 		
 		update function tellRoundLost():void
+		{
+			this.flow.dispatchUpdate(Update.gameStopped);
+		}
+		
+		update function tellGameWon():void
+		{
+			this.flow.dispatchUpdate(Update.gameStopped);
+		}
+		
+		update function tellRoundWon():void
 		{
 			this.flow.dispatchUpdate(Update.gameStopped);
 		}

@@ -49,9 +49,6 @@ package game
 						else
 							this.flow.dispatchUpdate(Update.tellRoundWon);
 						
-						this.flow.dispatchUpdate(Update.gameStopped);
-						//TODO: check if doubledispatched
-						
 						this.save.advanceLevel();
 					}
 			}

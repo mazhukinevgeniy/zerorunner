@@ -47,6 +47,10 @@ package ui.navigation
 			if (event.target == this.menuButton)
 			{
 				this.flow.dispatchUpdate(Update.gameStopped);
+				//doublestopping may occur; check if it can cause troubles
+				//TODO: read above
+				//TODO: trouble is avoided by something like "isGameStopped", it'll be widely used anyway
+				
 				this.flow.dispatchUpdate(Update.quitGame);
 			}
 		}
