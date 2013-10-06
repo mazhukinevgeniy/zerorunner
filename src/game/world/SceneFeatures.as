@@ -1,7 +1,7 @@
 package game.world 
 {
 	import flash.utils.ByteArray;
-	import game.data.IGame;
+	import game.IGame;
 	import utils.updates.update;
 	
 	use namespace update;

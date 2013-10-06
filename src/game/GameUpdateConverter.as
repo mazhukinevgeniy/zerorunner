@@ -1,8 +1,6 @@
 package game 
 {
 	import game.core.metric.ICoordinated;
-	import game.data.GameSave;
-	import game.data.LevelConfiguration;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
@@ -13,6 +11,7 @@ package game
 	final internal class GameUpdateConverter
 	{
 		private var displayRoot:Sprite;
+		//TODO: move addToTheHUD to the zeroRunner.as or further
 		
 		private var flow:IUpdateDispatcher;
 		private var save:GameSave;
@@ -26,10 +25,7 @@ package game
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.gameOver);
 			flow.addUpdateListener(Update.addToTheHUD);
-			flow.addUpdateListener(Update.resetProgress);
-			flow.addUpdateListener(Update.technicUnlocked);
 			flow.addUpdateListener(Update.setGameContainer);
-			flow.addUpdateListener(Update.smallBeaconTurnedOn);
 		}
 		
 		final update function setGameContainer(viewRoot:Sprite):void
@@ -50,26 +46,6 @@ package game
 			this.displayRoot.addChild(item);
 		}
 		
-		update function smallBeaconTurnedOn():void
-		{
-			this.save.setBeacon(this.save.level, Game.BEACON);
-			
-			if (this.save.level == Game.LEVELS_PER_RUN)
-				this.flow.dispatchUpdate(Update.tellGameWon);
-			else
-				this.flow.dispatchUpdate(Update.tellRoundWon);
-			
-			this.applyConfiguration(new LevelConfiguration(this.save));
-			
-			
-			this.flow.dispatchUpdate(Update.gameStopped);
-		}
-		
-		update function technicUnlocked(place:ICoordinated):void
-		{
-			this.save.numberOfDroids++;
-		}
-		
 		
 		
 		update function gameOver():void
@@ -77,30 +53,6 @@ package game
 			this.flow.dispatchUpdate(Update.gameStopped);
 		}
 		
-		
-		
-		update function resetProgress():void
-		{
-			this.applyConfiguration(new LevelConfiguration(null));
-		}
-		
-		
-		
-		
-		private function applyConfiguration(params:LevelConfiguration):void
-		{
-			this.save.mapWidth = params.mapWidth;
-			this.save.level = params.level;
-			this.save.numberOfJunks = params.junks;
-			
-			if (params.level == 1)
-			{
-				for (var i:int = 0; i < Game.LEVELS_PER_RUN; i++)
-					this.save.setBeacon(i + 1, Game.NO_BEACON);
-				
-				this.save.numberOfDroids = 0;
-			}
-		}
 	}
 
 }

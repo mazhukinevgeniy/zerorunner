@@ -1,7 +1,6 @@
 package game 
 {
 	import game.core.GameFoundations;
-	import game.data.GameSave;
 	import game.hud.UIExtendsions;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -19,7 +18,7 @@ package game
 		public function ZeroRunner(flow:IUpdateDispatcher, assets:AssetManager) 
 		{
 			this.flow = flow;
-			this.save = new GameSave();
+			this.save = new GameSave(flow);
 			
 			new GameUpdateConverter(flow, this.save);
 			
