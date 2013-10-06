@@ -16,12 +16,12 @@ package ui.sounds
 			
 			this.volume = newVolume;
 			
-			this.initializationTracks(assets);
+			this.initializeTracks(assets);
 			
 			this.currentTrack = this.nextTrack((int)(Math.random() * 100));
 		}
 		
-		private function initializationTracks(assets:AssetManager):void
+		private function initializeTracks(assets:AssetManager):void
 		{
 			this.addSound("1", assets.getSound("Veloma"));
 			this.countTrack++;

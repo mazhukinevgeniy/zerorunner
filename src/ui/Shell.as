@@ -36,19 +36,19 @@ package ui
 			this.gameIsActive = false;
 			this.assets = assets;
 			
-			this.initializationRootGUI(displayRoot);
-		    this.initializationFeatures(displayRoot);
-			this.initializationUsingFlow();
+			this.initializeRootGUI(displayRoot);
+		    this.initializeFeatures(displayRoot);
+			this.initializeUsingFlow();
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
-		private function initializationRootGUI(displayRoot:DisplayObjectContainer):void
+		private function initializeRootGUI(displayRoot:DisplayObjectContainer):void
 		{
 			this.root = displayRoot;
 		}
 			
-		private function initializationFeatures(displayRoot:DisplayObjectContainer):void
+		private function initializeFeatures(displayRoot:DisplayObjectContainer):void
 		{
 			new ExtendedTheme(this.root);
 			new Sounds(this.flow, this.assets);
@@ -62,14 +62,13 @@ package ui
 			this.root.addChild(this.navigation);
 		}
 		
-		private function initializationUsingFlow():void 
+		private function initializeUsingFlow():void 
 		{
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.newGame);
 			this.flow.addUpdateListener(Update.keyUp);
 			this.flow.addUpdateListener(Update.quitGame);
 		}
-		//TODO: rename all the methods: initialization -> initialize
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{

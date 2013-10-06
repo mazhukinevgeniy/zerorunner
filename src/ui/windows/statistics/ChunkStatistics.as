@@ -46,17 +46,16 @@ package ui.windows.statistics
 		
 		public function ChunkStatistics(newData:StatisticsPiece, flow:IUpdateDispatcher) 
 		{		
-			this.initializationRollButton();
-			this.initializationFixButton();
-			this.initializationTitle(newData.title);
-			this.initializationList(newData);
-			//TODO: damn it, Leon, "initialize" is way better
-			this.initializationOtherFields(flow);
+			this.initializeRollButton();
+			this.initializeFixButton();
+			this.initializeTitle(newData.title);
+			this.initializeList(newData);
+			this.initializeOtherFields(flow);
 			
-			this.initializationEventListeners();
+			this.initializeEventListeners();
 		}
 		
-		private function initializationRollButton():void
+		private function initializeRollButton():void
 		{
 			this.rollButton = new Button();
 			this.rollButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_ROLL);
@@ -95,7 +94,7 @@ package ui.windows.statistics
 			this.height = this.fullHeight;
 		}
 		
-		private function initializationFixButton():void
+		private function initializeFixButton():void
 		{
 			this.fixButton = new Button();
 			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
@@ -119,7 +118,7 @@ package ui.windows.statistics
 			this.saveForm.isFix = !this.rollButton.isEnabled
 		}
 		
-		private function initializationTitle(newTitle:String):void
+		private function initializeTitle(newTitle:String):void
 		{
 			this.label = new Label();
 			this.label.text = newTitle;
@@ -150,7 +149,7 @@ package ui.windows.statistics
 			}
 		}
 		
-		private function initializationList(newData:StatisticsPiece):void
+		private function initializeList(newData:StatisticsPiece):void
 		{
 			this.list = writeInList(newData);
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
@@ -190,7 +189,7 @@ package ui.windows.statistics
 			return layoutData;
 		}
 		
-		private function initializationOtherFields(flow:IUpdateDispatcher):void
+		private function initializeOtherFields(flow:IUpdateDispatcher):void
 		{
 			this.layout = new AnchorLayout();
 			
@@ -203,7 +202,7 @@ package ui.windows.statistics
 			this.flow = flow;
 		}
 		
-		private function initializationEventListeners():void
+		private function initializeEventListeners():void
 		{
 			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
 			this.addEventListener(DragDropEvent.DRAG_COMPLETE, this.dropComplete);

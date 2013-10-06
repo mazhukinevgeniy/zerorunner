@@ -23,10 +23,10 @@ package ui
 			
 			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
 			
-			this.initializationUsingFlow(flow);
+			this.initializeUsingFlow(flow);
 		}
 		
-		private function initializationUsingFlow(flow:IUpdateDispatcher):void
+		private function initializeUsingFlow(flow:IUpdateDispatcher):void
 		{
 			this.flow = flow;
 			this.flow.workWithUpdateListener(this);

@@ -14,13 +14,13 @@ package ui.sounds
 		
 		public function Sounds(flow:IUpdateDispatcher, assets:AssetManager) 
 		{
-			this.initializationSoundsManagers(assets);
-			this.initializationUsingFlow(flow);
+			this.initializeSoundsManagers(assets);
+			this.initializeUsingFlow(flow);
 			
 			super();
 		}
 		
-		private function initializationSoundsManagers(assets:AssetManager):void
+		private function initializeSoundsManagers(assets:AssetManager):void
 		{
 			this.music = new MusicManager(assets);
 			this.sound = new SoundManager(assets);
@@ -28,7 +28,7 @@ package ui.sounds
 			this.music.playMusic();
 		}
 		
-		private function initializationUsingFlow(flow:IUpdateDispatcher):void
+		private function initializeUsingFlow(flow:IUpdateDispatcher):void
 		{
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.keyUp);

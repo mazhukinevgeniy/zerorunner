@@ -31,22 +31,22 @@ package ui.windows.statistics
 		
 		public function StatisticsWindow(flow:IUpdateDispatcher) 
 		{
-			this.initializationSizeContainer();
-			this.initializationBackground();
-			this.initializationLayout();
-			this.initializationScrollBar();
-			this.initializationPlaceForStatisticsPiece();
-			this.initializationUsingFlow(flow);
-			this.initializationEventListener();
+			this.initializeSizeContainer();
+			this.initializeBackground();
+			this.initializeLayout();
+			this.initializeScrollBar();
+			this.initializePlaceForStatisticsPiece();
+			this.initializeUsingFlow(flow);
+			this.initializeEventListener();
 		}
 		
-		private function initializationSizeContainer():void
+		private function initializeSizeContainer():void
 		{
 			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
 			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
 		}
 		
-		private function initializationBackground():void
+		private function initializeBackground():void
 		{
 			var tmp:Quad = new Quad(StatisticsWindow.WIDTH_STATISTICS_WINDOW, 1, 0xFFFFFF);
 			
@@ -54,7 +54,7 @@ package ui.windows.statistics
 			this.backgroundSkin = tmp;
 		}
 		
-		private function initializationLayout():void
+		private function initializeLayout():void
 		{
 			var layout:VerticalLayout = new VerticalLayout();
 			
@@ -64,7 +64,7 @@ package ui.windows.statistics
 			this.layout = layout;
 		}
 		
-		private function initializationScrollBar():void 
+		private function initializeScrollBar():void 
 		{
 			this.scrollBarDisplayMode = ScrollContainer.SCROLL_BAR_DISPLAY_MODE_FIXED;
 			this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
@@ -80,14 +80,14 @@ package ui.windows.statistics
 			}
 		}
 		
-		private function initializationPlaceForStatisticsPiece():void
+		private function initializePlaceForStatisticsPiece():void
 		{
 			this.data = new Vector.<ChunkStatistics>();
 			
 			this.comeStatisticsPiece = 0;
 		}
 		
-		private function initializationUsingFlow(flow:IUpdateDispatcher):void
+		private function initializeUsingFlow(flow:IUpdateDispatcher):void
 		{
 			this.flow = flow;
 			
@@ -95,7 +95,7 @@ package ui.windows.statistics
 			this.flow.addUpdateListener(StatisticsWindow.dropMiss);
 		}
 		
-		private function initializationEventListener():void
+		private function initializeEventListener():void
 		{
 			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
 			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);

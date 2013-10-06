@@ -12,10 +12,10 @@ package ui.sounds
 			
 			this.volume = newVolume;
 			
-			this.initializationTracks(assets);
+			this.initializeTracks(assets);
 		}
 		
-		private function initializationTracks(assets:AssetManager):void
+		private function initializeTracks(assets:AssetManager):void
 		{
 			this.addSound("1", assets.getSound("Paging"));
 		}
