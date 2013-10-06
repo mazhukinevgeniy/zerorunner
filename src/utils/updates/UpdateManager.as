@@ -32,7 +32,7 @@ package utils.updates
 			if (this.methods[method] == null)
 				this.methods[method] = new Vector.<Object>();
 			
-			if (this.currentListener.update::[method])
+			if (this.currentListener.update::[method] && this.methods[method].indexOf(this.currentListener) == -1)
 				this.methods[method].push(this.currentListener);
 			else throw new Error();
 		}
