@@ -50,20 +50,9 @@ package game
 		
 		
 		
-		update function tellRoundLost():void
-		{
-			this.flow.dispatchUpdate(Update.gameStopped);
-		}
-		
-		update function tellGameWon():void
-		{
-			this.flow.dispatchUpdate(Update.gameStopped);
-		}
-		
-		update function tellRoundWon():void
-		{
-			this.flow.dispatchUpdate(Update.gameStopped);
-		}
+		update function tellGameWon():void { this.flow.dispatchUpdate(Update.gameStopped); }
+		update function tellRoundWon():void { this.flow.dispatchUpdate(Update.gameStopped);	}
+		update function tellRoundLost():void { this.flow.dispatchUpdate(Update.gameStopped); }
 		
 	}
 
