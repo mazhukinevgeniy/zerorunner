@@ -36,9 +36,7 @@ package
 		
 		/* Time updates */
 		
-		public static const freeFrame:String = "freeFrame";
-		//TODO: rename the freeFrame, as it's not really free
-		
+		public static const numberedFrame:String = "numberedFrame";
 		public static const redraw:String = "redraw";
 		public static const tick:String = "tick";
 		

@@ -21,7 +21,7 @@ package game.world.operators
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
-			flow.addUpdateListener(Update.freeFrame);
+			flow.addUpdateListener(Update.numberedFrame);
 			
 			this.foundations = foundations;
 		}
@@ -31,7 +31,7 @@ package game.world.operators
 			this.width = ((this.foundations.game).mapWidth + 2) * Game.SECTOR_WIDTH;
 		}
 		
-		update function freeFrame(frame:int):void
+		update function numberedFrame(frame:int):void
 		{
 			if (frame == Game.FRAME_TO_CLEAR_BORDERS)
 			{

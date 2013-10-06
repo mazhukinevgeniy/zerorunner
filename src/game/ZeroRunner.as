@@ -30,7 +30,7 @@ package game
 			this.atlas = assets.getTextureAtlas("gameAtlas");
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.freeFrame);
+			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.setGameContainer);
 		}
@@ -53,7 +53,7 @@ package game
 		}
 		
 		
-		update function freeFrame(key:int):void
+		update function numberedFrame(key:int):void
 		{
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{

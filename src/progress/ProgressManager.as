@@ -24,10 +24,10 @@ package progress
 			this._achievements = new AchievementSave();
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.freeFrame);
+			flow.addUpdateListener(Update.numberedFrame);
 		}
 		
-		update function freeFrame(frame:int):void
+		update function numberedFrame(frame:int):void
 		{
 			if (frame == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{
