@@ -1,6 +1,5 @@
 package game.world 
 {
-	import flash.events.Event;
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
@@ -13,7 +12,6 @@ package game.world
 	import game.world.items.utils.PointsOfInterest;
 	import game.world.operators.ActorOperators;
 	import game.world.renderer.Renderer;
-	import starling.core.Starling;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -45,15 +43,7 @@ package game.world
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.technicUnlocked);
-			
-			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleFocusChange);
 		}
-		
-		private function handleFocusChange(event:Event):void
-		{
-			this.foundations.flow.dispatchUpdate(Update.discardInput);
-		}
-		//TODO: why is it here? fix everything
 		
 		override update function prerestore():void
 		{

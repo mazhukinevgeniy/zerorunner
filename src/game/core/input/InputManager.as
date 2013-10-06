@@ -1,6 +1,8 @@
 package game.core.input
 {
+	import flash.events.Event;
 	import game.core.metric.DCellXY;
+	import starling.core.Starling;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -19,10 +21,10 @@ package game.core.input
 			new KeyboardControls(this);
 			
 			flow.workWithUpdateListener(this);
-			
-			flow.addUpdateListener(Update.discardInput);
 			flow.addUpdateListener(Update.discardClicks);
 			flow.addUpdateListener(Update.prerestore);
+			
+			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
 			
@@ -41,7 +43,8 @@ package game.core.input
 			for (var i:int = 9; i < 17; i++)
 				this.order[i] = -1;
 		}
-		update function discardInput():void
+		
+		private function handleDeactivation(event:Event = null):void
 		{
 			for (var i:int = 1; i < 17; i++)
 				this.order[i] = -1;
@@ -51,7 +54,7 @@ package game.core.input
 		
 		update function prerestore():void
 		{
-			this.update::discardInput();
+			this.handleDeactivation();
 		}
 		
 		public function getInputCopy():Vector.<DCellXY>
