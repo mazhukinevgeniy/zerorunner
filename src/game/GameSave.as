@@ -1,4 +1,4 @@
-package game.data 
+package game 
 {
 	import game.core.metric.ICoordinated;
 	import utils.SaveBase;
