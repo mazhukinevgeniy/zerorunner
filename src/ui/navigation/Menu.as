@@ -11,7 +11,7 @@ package ui.navigation
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	
-	internal class Menu extends ScrollContainer
+	public class Menu extends ScrollContainer
 	{
 		
 		public static const WIDTH_MENU:Number = 150;

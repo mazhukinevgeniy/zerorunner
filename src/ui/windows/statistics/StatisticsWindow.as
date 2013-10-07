@@ -10,6 +10,8 @@ package ui.windows.statistics
 	import feathers.layout.VerticalLayout;
 	import progress.statistics.IStatistic;
 	import starling.display.Quad;
+	import starling.events.Event;
+	import ui.navigation.Menu;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 
@@ -21,6 +23,8 @@ package ui.windows.statistics
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
 		private static const PAGGING:Number = 5;
+		
+		private var lastHeight:Number;
 		
 		private var flow:IUpdateDispatcher;
 		
@@ -44,6 +48,8 @@ package ui.windows.statistics
 		{
 			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
 			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
+			
+			this.lastHeight = 0;
 		}
 		
 		private function initializeBackground():void
@@ -100,6 +106,8 @@ package ui.windows.statistics
 		{
 			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
 			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
+			this.addEventListener(Event.ADDED, this.alignCenter);
+			this.addEventListener(Event.RESIZE, this.alignCenter);
 		}
 		
 		private function checkFormat(event:DragDropEvent, dragData:DragData):void
@@ -174,6 +182,16 @@ package ui.windows.statistics
 			}
 			
 			return isDrop;
+		}
+		
+		private function alignCenter():void
+		{
+			if (this.lastHeight != this.height)
+			{
+				this.x = (Main.WIDTH + Menu.WIDTH_MENU - this.width) / 2;
+				this.y = (Main.HEIGHT - this.height) / 2;
+				this.lastHeight = this.height;
+			}
 		}
 		
 		private function changeOrderChunk(movedContainer:ChunkStatistics, indexItemToMove:int = -1):void
