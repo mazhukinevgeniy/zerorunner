@@ -208,29 +208,14 @@ package ui.windows.statistics
 		
 		public override function set visible(newValue:Boolean):void
 		{
-			//if (newValue || this.data.length == 0)
-			//TODO: Leon, check if it was important
-			if (newValue && this.data.length == 0)
+			if (newValue)
 			{
-				//this.flow.dispatchUpdate(Update.emitStatistics, this);
 				this.updateData();
 				this.redraw();
 			}
 			
 			super.visible = newValue;
 		}
-		
-		/*public function takeStatistics(newItem:StatisticsPiece):void
-		{
-			this.updateData(newItem);
-			this.comeStatisticsPiece++;
-			
-			if (this.comeStatisticsPiece == StatisticsWindow.COUNT_STATISTICS_PIECE)
-			{
-				this.comeStatisticsPiece = 0;
-				this.redraw();
-			}
-		}*/
 		
 		private function updateData():void
 		{

@@ -1,7 +1,6 @@
 package ui.windows.credits 
 {
 	import feathers.controls.ScrollContainer;
-	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import starling.events.Event;
 	import ui.navigation.Menu;

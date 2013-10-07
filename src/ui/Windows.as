@@ -1,10 +1,8 @@
 package ui 
 {
-	import feathers.controls.ScrollContainer;
 	import progress.ProgressManager;
 	import progress.statistics.IStatistic;
 	import starling.display.DisplayObject;
-	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.windows.achievements.AchievementsWindow;
@@ -28,7 +26,7 @@ package ui
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 			
 			windows[Windows.GAME] = new Sprite();
-			windows[Windows.STATISTICS] = new StatisticsWindow(flow, progressManager.statistics);//TODO: make it working
+			windows[Windows.STATISTICS] = new StatisticsWindow(flow, progressManager.statistics);
 			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(flow, assets);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
 			
