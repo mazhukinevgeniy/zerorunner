@@ -16,7 +16,6 @@ package ui.windows.statistics
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
-	import statistics.StatisticsPiece;
 	import ui.themes.ExtendedTheme;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -44,12 +43,12 @@ package ui.windows.statistics
 		private var firstReadSave:Boolean;
 		
 		
-		public function ChunkStatistics(newData:StatisticsPiece, flow:IUpdateDispatcher) 
+		public function ChunkStatistics(name:String, newValue:int, flow:IUpdateDispatcher) 
 		{		
 			this.initializeRollButton();
 			this.initializeFixButton();
-			this.initializeTitle(newData.title);
-			this.initializeList(newData);
+			this.initializeTitle(name);
+			this.initializeList(newValue);
 			this.initializeOtherFields(flow);
 			
 			this.initializeEventListeners();
@@ -149,26 +148,23 @@ package ui.windows.statistics
 			}
 		}
 		
-		private function initializeList(newData:StatisticsPiece):void
+		private function initializeList(value:int):void
 		{
-			this.list = writeInList(newData);
+			this.list = writeInList(value);
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
 			this.list.layoutData = this.createLayoutData(this.label, ChunkStatistics.GAP);
 			this.addChild(this.list);
 		}
 		
-		private function writeInList(newData:StatisticsPiece):List
+		private function writeInList(value:int):List
 		{
 			var list:List = new List();
 			var data:Vector.<Object> = new Vector.<Object>;
 			
 			list.dataProvider = new ListCollection(data);
 			
-			for (var i:int = 0; i < newData.length; ++i)
-			{
-				var string:String = newData.entry[i];
-				data.push(string);
-			}
+			var string:int = value;
+			data.push(string);
 			
 			return list;
 		}
@@ -244,7 +240,7 @@ package ui.windows.statistics
 		{
 			if (!this.isRoll) 
 				this.handleRollButtonTriggered();
-			this.flow.dispatchUpdate(StatisticsWindow.dropMiss);
+			this.flow.dispatchUpdate(Update.dropMiss);
 		}
 		
 		public function get title():String
@@ -262,9 +258,9 @@ package ui.windows.statistics
 			this.saveForm.order = newOrder;
 		}
 		
-		public function updateData(newItem:StatisticsPiece):void
+		public function updateData(value:int):void
 		{
-			var newList:List = this.writeInList(newItem);
+			var newList:List = this.writeInList(value);
 			this.list.dataProvider = newList.dataProvider;
 		}
 		

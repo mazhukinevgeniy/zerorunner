@@ -51,6 +51,8 @@ package
 		
 		public static const resetProgress:String = "resetProgress";
 		
+		public static const dropMiss:String = "dropMiss";
+		
 		
 		/* Special updates */
 		

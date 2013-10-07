@@ -22,6 +22,7 @@ package ui
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
+		private var progress:ProgressManager;
 		
 		private var background:Background,
 					windows:Windows,
@@ -35,9 +36,10 @@ package ui
 			
 			this.gameIsActive = false;
 			this.assets = assets;
+			this.progress = progress;
 			
 			this.initializeRootGUI(displayRoot);
-		    this.initializeFeatures(displayRoot);
+		    this.initializeFeatures();
 			this.initializeUsingFlow();
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
@@ -48,14 +50,14 @@ package ui
 			this.root = displayRoot;
 		}
 			
-		private function initializeFeatures(displayRoot:DisplayObjectContainer):void
+		private function initializeFeatures():void
 		{
 			new ExtendedTheme(this.root);
 			new Sounds(this.flow, this.assets);
 			
 			this.background = new Background(this.flow);
 			this.navigation = new Navigation(this.flow);
-			this.windows = new Windows(this.flow, this.assets)
+			this.windows = new Windows(this.flow, this.assets, this.progress)
 			
 			this.root.addChild(this.background);
 			this.root.addChild(this.windows);

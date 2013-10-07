@@ -28,8 +28,6 @@ package ui.navigation
 					achievementsButton:Button,
 					creditsButton:Button;
 		
-		//TODO: extract main navigation buttons into the special class to inhereit it with CompactMenu
-		
 		private var resetButton:Button;
 		
 		

@@ -1,12 +1,15 @@
 package ui 
 {
 	import feathers.controls.ScrollContainer;
+	import progress.ProgressManager;
+	import progress.statistics.IStatistic;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.windows.achievements.AchievementsWindow;
 	import ui.windows.credits.CreditsWindow;
+	import ui.windows.statistics.StatisticsWindow;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class Windows extends Sprite
@@ -20,12 +23,12 @@ package ui
 		
 		private static const NUMBER_OF_WINDOWS:int = 4;
 		
-		public function Windows(flow:IUpdateDispatcher, assets:AssetManager) 
+		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, progressManager:ProgressManager) 
 		{
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 			
 			windows[Windows.GAME] = new Sprite();
-			windows[Windows.STATISTICS] = new ScrollContainer();//new StatisticsWindow(flow); //TODO: make it working
+			windows[Windows.STATISTICS] = new StatisticsWindow(flow, progressManager.statistics);//TODO: make it working
 			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(flow, assets);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
 			

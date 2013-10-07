@@ -8,6 +8,7 @@ package ui.windows.statistics
 	import feathers.dragDrop.IDropTarget;
 	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
+	import progress.statistics.IStatistic;
 	import starling.display.Quad;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -15,8 +16,6 @@ package ui.windows.statistics
 	
 	public class StatisticsWindow  extends ScrollContainer implements IDropTarget
 	{	
-		public static const dropMiss:String = "dropMiss";
-		
 		public static const COUNT_STATISTICS_PIECE:int = 1;
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
@@ -27,15 +26,16 @@ package ui.windows.statistics
 		
 		private var data:Vector.<ChunkStatistics>;
 		
-		private var comeStatisticsPiece:int;
+		private var statistics:IStatistic;
+		private var namesOfStatistics:Vector.<String>;
 		
-		public function StatisticsWindow(flow:IUpdateDispatcher) 
+		public function StatisticsWindow(flow:IUpdateDispatcher, statistics:IStatistic) 
 		{
 			this.initializeSizeContainer();
 			this.initializeBackground();
 			this.initializeLayout();
 			this.initializeScrollBar();
-			this.initializePlaceForStatisticsPiece();
+			this.initializePlaceForStatisticsPiece(statistics);
 			this.initializeUsingFlow(flow);
 			this.initializeEventListener();
 		}
@@ -80,11 +80,12 @@ package ui.windows.statistics
 			}
 		}
 		
-		private function initializePlaceForStatisticsPiece():void
+		private function initializePlaceForStatisticsPiece(statistics:IStatistic):void
 		{
 			this.data = new Vector.<ChunkStatistics>();
 			
-			this.comeStatisticsPiece = 0;
+			this.statistics = statistics;
+			this.namesOfStatistics = this.statistics.namesOfStatistics;
 		}
 		
 		private function initializeUsingFlow(flow:IUpdateDispatcher):void
@@ -92,7 +93,7 @@ package ui.windows.statistics
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(StatisticsWindow.dropMiss);
+			this.flow.addUpdateListener(Update.dropMiss);
 		}
 		
 		private function initializeEventListener():void
@@ -193,13 +194,15 @@ package ui.windows.statistics
 			//TODO: Leon, check if it was important
 			if (newValue && this.data.length == 0)
 			{
-				this.flow.dispatchUpdate(Update.emitStatistics, this);
+				//this.flow.dispatchUpdate(Update.emitStatistics, this);
+				this.updateData();
+				this.redraw();
 			}
 			
 			super.visible = newValue;
 		}
 		
-		public function takeStatistics(newItem:StatisticsPiece):void
+		/*public function takeStatistics(newItem:StatisticsPiece):void
 		{
 			this.updateData(newItem);
 			this.comeStatisticsPiece++;
@@ -209,28 +212,31 @@ package ui.windows.statistics
 				this.comeStatisticsPiece = 0;
 				this.redraw();
 			}
-		}
+		}*/
 		
-		private function updateData(newItem:StatisticsPiece):void
+		private function updateData():void
 		{
-			
-			if (this.isExistItemInData(newItem))
+			for (var i:int = 0; i < StatisticsWindow.COUNT_STATISTICS_PIECE; ++i)
 			{
-				this.updateDataInChunk(newItem);
-			}
-			else
-			{
-				this.createAndPushChunk(newItem);
+				var nameOfStatistic:String = this.namesOfStatistics[i]
+				if (this.isExistItemInData(nameOfStatistic))
+				{
+					this.updateDataInChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
+				}
+				else
+				{
+					this.createAndPushChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
+				}
 			}
 		}
 		
-		private function isExistItemInData(newItem:StatisticsPiece):Boolean
+		private function isExistItemInData(nameOfStatistic:String):Boolean
 		{
 			var isExist:Boolean = false;
 			
 			for (var i:int = 0; i < this.data.length;  ++i)
 			{
-				if (this.data[i] != null && this.data[i].title == newItem.title)
+				if (this.data[i] != null && this.data[i].title == nameOfStatistic)
 				{
 					isExist = true;
 					break;
@@ -240,21 +246,21 @@ package ui.windows.statistics
 			return isExist;
 		}
 		
-		private function updateDataInChunk(newItem:StatisticsPiece):void
+		private function updateDataInChunk(nameOfStatistic:String, value:int):void
 		{
 			for (var i:int = 0; i < this.data.length;  ++i)
 			{
-				if (this.data[i] != null && this.data[i].title == newItem.title)
+				if (this.data[i] != null && this.data[i].title == nameOfStatistic)
 				{
-					this.data[i].updateData(newItem);
+					this.data[i].updateData(value);
 					break;
 				}
 			}
 		}
 		
-		private function createAndPushChunk(newItem:StatisticsPiece):void
+		private function createAndPushChunk(nameOfStatistic:String, value:int):void
 		{
-			var newChunk:ChunkStatistics = new ChunkStatistics(newItem, this.flow)
+			var newChunk:ChunkStatistics = new ChunkStatistics(nameOfStatistic, value, this.flow)
 			var order:int = newChunk.order;
 			
 			if (order != -1)

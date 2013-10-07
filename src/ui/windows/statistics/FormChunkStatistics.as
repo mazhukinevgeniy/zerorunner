@@ -1,4 +1,4 @@
-package ui.statistics 
+package ui.windows.statistics 
 {
 	import utils.SaveBase;
 
