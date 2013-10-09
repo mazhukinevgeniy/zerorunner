@@ -8,34 +8,38 @@ package ui.windows.statistics
 	import feathers.dragDrop.IDropTarget;
 	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
+	import progress.statistics.IStatistic;
 	import starling.display.Quad;
+	import starling.events.Event;
+	import ui.navigation.Menu;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 
 	
 	public class StatisticsWindow  extends ScrollContainer implements IDropTarget
 	{	
-		public static const dropMiss:String = "dropMiss";
-		
 		public static const COUNT_STATISTICS_PIECE:int = 1;
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
 		private static const PAGGING:Number = 5;
 		
+		private var lastHeight:Number;
+		
 		private var flow:IUpdateDispatcher;
 		
 		private var data:Vector.<ChunkStatistics>;
 		
-		private var comeStatisticsPiece:int;
+		private var statistics:IStatistic;
+		private var namesOfStatistics:Vector.<String>;
 		
-		public function StatisticsWindow(flow:IUpdateDispatcher) 
+		public function StatisticsWindow(flow:IUpdateDispatcher, statistics:IStatistic) 
 		{
 			this.initializeSizeContainer();
 			this.initializeBackground();
 			this.initializeLayout();
 			this.initializeScrollBar();
-			this.initializePlaceForStatisticsPiece();
+			this.initializePlaceForStatisticsPiece(statistics);
 			this.initializeUsingFlow(flow);
 			this.initializeEventListener();
 		}
@@ -44,6 +48,8 @@ package ui.windows.statistics
 		{
 			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
 			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
+			
+			this.lastHeight = 0;
 		}
 		
 		private function initializeBackground():void
@@ -80,11 +86,12 @@ package ui.windows.statistics
 			}
 		}
 		
-		private function initializePlaceForStatisticsPiece():void
+		private function initializePlaceForStatisticsPiece(statistics:IStatistic):void
 		{
 			this.data = new Vector.<ChunkStatistics>();
 			
-			this.comeStatisticsPiece = 0;
+			this.statistics = statistics;
+			this.namesOfStatistics = this.statistics.namesOfStatistics;
 		}
 		
 		private function initializeUsingFlow(flow:IUpdateDispatcher):void
@@ -92,13 +99,15 @@ package ui.windows.statistics
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(StatisticsWindow.dropMiss);
+			this.flow.addUpdateListener(Update.dropMiss);
 		}
 		
 		private function initializeEventListener():void
 		{
 			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
 			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
+			this.addEventListener(Event.ADDED, this.alignCenter);
+			this.addEventListener(Event.RESIZE, this.alignCenter);
 		}
 		
 		private function checkFormat(event:DragDropEvent, dragData:DragData):void
@@ -175,6 +184,16 @@ package ui.windows.statistics
 			return isDrop;
 		}
 		
+		private function alignCenter():void
+		{
+			if (this.lastHeight != this.height)
+			{
+				this.x = (Main.WIDTH + Menu.WIDTH_MENU - this.width) / 2;
+				this.y = (Main.HEIGHT - this.height) / 2;
+				this.lastHeight = this.height;
+			}
+		}
+		
 		private function changeOrderChunk(movedContainer:ChunkStatistics, indexItemToMove:int = -1):void
 		{	
 			var lenght:int = this.data.length;
@@ -189,48 +208,38 @@ package ui.windows.statistics
 		
 		public override function set visible(newValue:Boolean):void
 		{
-			//if (newValue || this.data.length == 0)
-			//TODO: Leon, check if it was important
-			if (newValue && this.data.length == 0)
+			if (newValue)
 			{
-				this.flow.dispatchUpdate(Update.emitStatistics, this);
+				this.updateData();
+				this.redraw();
 			}
 			
 			super.visible = newValue;
 		}
 		
-		public function takeStatistics(newItem:StatisticsPiece):void
+		private function updateData():void
 		{
-			this.updateData(newItem);
-			this.comeStatisticsPiece++;
-			
-			if (this.comeStatisticsPiece == StatisticsWindow.COUNT_STATISTICS_PIECE)
+			for (var i:int = 0; i < StatisticsWindow.COUNT_STATISTICS_PIECE; ++i)
 			{
-				this.comeStatisticsPiece = 0;
-				this.redraw();
+				var nameOfStatistic:String = this.namesOfStatistics[i]
+				if (this.isExistItemInData(nameOfStatistic))
+				{
+					this.updateDataInChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
+				}
+				else
+				{
+					this.createAndPushChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
+				}
 			}
 		}
 		
-		private function updateData(newItem:StatisticsPiece):void
-		{
-			
-			if (this.isExistItemInData(newItem))
-			{
-				this.updateDataInChunk(newItem);
-			}
-			else
-			{
-				this.createAndPushChunk(newItem);
-			}
-		}
-		
-		private function isExistItemInData(newItem:StatisticsPiece):Boolean
+		private function isExistItemInData(nameOfStatistic:String):Boolean
 		{
 			var isExist:Boolean = false;
 			
 			for (var i:int = 0; i < this.data.length;  ++i)
 			{
-				if (this.data[i] != null && this.data[i].title == newItem.title)
+				if (this.data[i] != null && this.data[i].title == nameOfStatistic)
 				{
 					isExist = true;
 					break;
@@ -240,21 +249,21 @@ package ui.windows.statistics
 			return isExist;
 		}
 		
-		private function updateDataInChunk(newItem:StatisticsPiece):void
+		private function updateDataInChunk(nameOfStatistic:String, value:int):void
 		{
 			for (var i:int = 0; i < this.data.length;  ++i)
 			{
-				if (this.data[i] != null && this.data[i].title == newItem.title)
+				if (this.data[i] != null && this.data[i].title == nameOfStatistic)
 				{
-					this.data[i].updateData(newItem);
+					this.data[i].updateData(value);
 					break;
 				}
 			}
 		}
 		
-		private function createAndPushChunk(newItem:StatisticsPiece):void
+		private function createAndPushChunk(nameOfStatistic:String, value:int):void
 		{
-			var newChunk:ChunkStatistics = new ChunkStatistics(newItem, this.flow)
+			var newChunk:ChunkStatistics = new ChunkStatistics(nameOfStatistic, value, this.flow)
 			var order:int = newChunk.order;
 			
 			if (order != -1)

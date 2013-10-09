@@ -1,8 +1,9 @@
 package ui.windows.credits 
 {
 	import feathers.controls.ScrollContainer;
-	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
+	import starling.events.Event;
+	import ui.navigation.Menu;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class CreditsWindow  extends ScrollContainer
@@ -21,7 +22,15 @@ package ui.windows.credits
 			tmp.alpha = 0.85;
 			this.backgroundSkin = tmp;
 			
+			this.addEventListener(Event.ADDED_TO_STAGE, this.alignCenter);
+			
 			this.flow = flow;
+		}
+		
+		private function alignCenter():void
+		{
+			this.x = (Main.WIDTH + Menu.WIDTH_MENU - this.width) / 2;
+			this.y = (Main.HEIGHT - this.height) / 2;
 		}
 	}
 

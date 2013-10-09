@@ -7,6 +7,7 @@ package progress.statistics
 	
 	public class StatisticSave extends SaveBase implements IStatistic
 	{
+		private static const totalDistance:String = "totalDistance";
 		
 		public function StatisticSave(flow:IUpdateDispatcher) 
 		{
@@ -34,6 +35,15 @@ package progress.statistics
 		update function moveCenter(change:DCellXY, delay:int):void
 		{
 			this.localSave.data.statistics.actors.lifetime.distance += change.length;
+		}
+		
+		public function get namesOfStatistics():Vector.<String>
+		{
+			var names:Vector.<String> = new Vector.<String>;
+			
+			names.push(StatisticSave.totalDistance);
+			
+			return names;
 		}
 		
 		public function get totalDistance():int

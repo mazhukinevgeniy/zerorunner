@@ -11,7 +11,7 @@ package ui.navigation
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	
-	internal class Menu extends ScrollContainer
+	public class Menu extends ScrollContainer
 	{
 		
 		public static const WIDTH_MENU:Number = 150;
@@ -27,8 +27,6 @@ package ui.navigation
 					statisticsButton:Button,
 					achievementsButton:Button,
 					creditsButton:Button;
-		
-		//TODO: extract main navigation buttons into the special class to inhereit it with CompactMenu
 		
 		private var resetButton:Button;
 		
