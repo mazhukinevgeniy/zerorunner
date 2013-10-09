@@ -7,7 +7,7 @@ package
 		
 		public static const keyUp:String = "keyUp";
 		
-		public static const discardClicks:String = "discardClicks";
+		public static const discardClicks:String = "discardClicks"; //Method-like: used by input
 		
 		
 		/* Metagame updates */
@@ -39,23 +39,24 @@ package
 		
 		/* Time updates */
 		
-		public static const numberedFrame:String = "numberedFrame";
-		public static const redraw:String = "redraw";
-		public static const tick:String = "tick";
+		public static const numberedFrame:String = "numberedFrame"; //Method-like if divided instead of using with flags
+		public static const redraw:String = "redraw"; //Method-like: used by renderer
+		public static const tick:String = "tick"; //Method-like: used by actors
+		//TODO: btw-3, remove inheretance between the actors and the scene
 		
 		
 		/* Shell updates */
 		
 		public static const toggleMute:String = "toggleMute";
-		public static const toggleWindow:String = "toggleWindow";
+		public static const toggleWindow:String = "toggleWindow"; //Method-like: used by windowmanager
 		
-		public static const resetProgress:String = "resetProgress";
+		public static const resetProgress:String = "resetProgress"; //Method-like: used by gamesave
 		
 		
 		/* Special updates */
 		
-		public static const setGameContainer:String = "setGameContainer";
-		public static const addToTheHUD:String = "addToTheHUD";
+		public static const setGameContainer:String = "setGameContainer"; //Shortly used
+		public static const addToTheHUD:String = "addToTheHUD"; //Method-like: used by HUD manager (currently ZeroRunner.as)
 		
 		
 		
