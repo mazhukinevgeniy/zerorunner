@@ -77,7 +77,7 @@ package game.world.renderer
 			{
 				for (i = tlcX; i < brcX; i++)
 				{
-					if (this.data.getSceneCell(i, j))
+					if (this.data.getSceneCell(i, j) == Game.ROAD)
 					{
 						sprite = this.pull.getImage("ground");
 						
@@ -98,7 +98,7 @@ package game.world.renderer
 							container.addImage(sprite);
 						}
 						
-						if (!this.data.getSceneCell(i, j + 1))
+						if (this.data.getSceneCell(i, j + 1) == Game.FALL)
 						{
 							sprite = this.pull.getImage("S");
 							
@@ -107,7 +107,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getSceneCell(i + 1, j))
+						if (this.data.getSceneCell(i + 1, j) == Game.FALL)
 						{
 							sprite = this.pull.getImage("E");
 							
@@ -116,7 +116,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getSceneCell(i - 1, j))
+						if (this.data.getSceneCell(i - 1, j) == Game.FALL)
 						{
 							sprite = this.pull.getImage("W");
 							
@@ -125,7 +125,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getSceneCell(i, j - 1))
+						if (this.data.getSceneCell(i, j - 1) == Game.FALL)
 						{
 							sprite = this.pull.getImage("N");
 							
@@ -134,7 +134,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getSceneCell(i + 1, j + 1))
+						if (this.data.getSceneCell(i + 1, j + 1) == Game.FALL)
 						{
 							sprite = this.pull.getImage("SE");
 							
@@ -143,7 +143,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getSceneCell(i - 1, j + 1))
+						if (this.data.getSceneCell(i - 1, j + 1) == Game.FALL)
 						{
 							sprite = this.pull.getImage("SW");
 							
@@ -152,7 +152,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getSceneCell(i + 1, j - 1))
+						if (this.data.getSceneCell(i + 1, j - 1) == Game.FALL)
 						{
 							sprite = this.pull.getImage("NE");
 							
@@ -161,7 +161,7 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
-						if (!this.data.getSceneCell(i - 1, j - 1))
+						if (this.data.getSceneCell(i - 1, j - 1) == Game.FALL)
 						{
 							sprite = this.pull.getImage("NW");
 							

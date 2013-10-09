@@ -75,13 +75,13 @@ package game.world.items
 				
 				while (action.x != 0 || action.y != 0)
 				{
-					if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != Game.FALL)
+					if (this.world.getSceneCell(this.x + action.x, this.y + action.y) == Game.ROAD)
 					{
 						this.move(action, this.MOVE_SPEED);
 						
 						break;
 					}
-					else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != Game.FALL)
+					else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) == Game.ROAD)
 					{
 						this.jump(action, 2);
 						
