@@ -44,7 +44,7 @@ package
 		/* Shell updates */
 		
 		public static const toggleMute:String = "toggleMute";
-		public static const toggleWindow:String = "toggleWindow"; //Method-like: used by windowmanager
+		public static const toggleWindow:String = "toggleWindow";
 		
 		public static const resetProgress:String = "resetProgress"; //Method-like: used by gamesave
 		
