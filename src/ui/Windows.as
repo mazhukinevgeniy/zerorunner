@@ -26,7 +26,7 @@ package ui
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 			
 			windows[Windows.GAME] = new Sprite();
-			windows[Windows.STATISTICS] = new StatisticsWindow(flow, progressManager.statistics);
+			windows[Windows.STATISTICS] = new StatisticsWindow(progressManager.statistics);
 			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(flow, assets);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
 			

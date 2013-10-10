@@ -48,8 +48,6 @@ package
 		
 		public static const resetProgress:String = "resetProgress"; //Method-like: used by gamesave
 		
-		public static const dropMiss:String = "dropMiss";
-		
 		
 		/* Special updates */
 		
