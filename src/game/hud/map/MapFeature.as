@@ -62,7 +62,7 @@ package game.hud.map
 		
 		update function numberedFrame(key:int):void
 		{
-			if (key == Game.FRAME_TO_TICK)
+			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{
 				var iGoal:int = this.center.x + 8;
 				var jGoal:int = this.center.y + 6;

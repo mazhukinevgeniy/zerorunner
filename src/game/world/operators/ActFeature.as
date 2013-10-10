@@ -30,7 +30,7 @@ package game.world.operators
 		
 		update function numberedFrame(key:int):void
 		{
-			if (key == Game.FRAME_TO_TICK)
+			if (key == Game.FRAME_TO_ACT)
 			{
 				var data:ISearcher = this.foundations.world;
 				var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);

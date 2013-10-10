@@ -34,7 +34,7 @@ package
 		public static const FRAME_TO_CLEAR_BORDERS:int = 0;
 		public static const FRAME_TO_UNLOCK_ACHIEVEMENTS:int = 1;
 		public static const FRAME_TO_REDRAW:int = 2;
-		public static const FRAME_TO_TICK:int = 3;
+		public static const FRAME_TO_ACT:int = 3;
 		
 		
 		/* Temporary bad things */
