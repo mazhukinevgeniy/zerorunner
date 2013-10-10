@@ -50,7 +50,6 @@ package ui
 		private function initializeFeatures(gameRoot:Sprite):void
 		{
 			new ExtendedTheme(this.root);
-			new Sounds(this.flow, this.assets);
 			
 			this.background = new Background(this.flow);
 			this.navigation = new Navigation(this.flow);
@@ -59,6 +58,8 @@ package ui
 			this.root.addChild(this.background);
 			this.root.addChild(this.windows);
 			this.root.addChild(this.navigation);
+			
+			new Sounds(this.flow, this.assets);
 		}
 		
 		private function initializeUsingFlow():void 

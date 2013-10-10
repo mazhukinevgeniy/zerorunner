@@ -11,6 +11,8 @@ package ui.sounds
 		private var music:MusicManager;
 		private var sound:SoundManager;
 		
+		private var flow:IUpdateDispatcher
+		
 		
 		public function Sounds(flow:IUpdateDispatcher, assets:AssetManager) 
 		{
@@ -30,9 +32,11 @@ package ui.sounds
 		
 		private function initializeUsingFlow(flow:IUpdateDispatcher):void
 		{
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.keyUp);
-			flow.addUpdateListener(Update.toggleMute);
+			this.flow = flow;
+			
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(Update.keyUp);
+			this.flow.addUpdateListener(Update.toggleMute);
 		}
 		
 		override protected function checkLocalSave():void
@@ -45,7 +49,7 @@ package ui.sounds
 			
 			if (this.localSave.data.sound.muted)
 			{
-				this.update::toggleMute();
+				this.flow.dispatchUpdate(Update.toggleMute);
 				this.localSave.data.sound.muted = true;
 			}
 		}

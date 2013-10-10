@@ -18,14 +18,14 @@ package ui.background
 			this.button.nameList.add(ExtendedTheme.RESET_BUTTON);
 			this.addChild(this.button);
 			
-			this.button.addEventListener(Event.TRIGGERED, this.handleResetTriggered);
+			this.button.addEventListener(Event.TRIGGERED, this.handleTriggered);
 			this.button.addEventListener(Event.ADDED_TO_STAGE, this.locate);
 			
 			this.flow = flow;
 		}
 	
 			
-		private function handleResetTriggered(event:Event):void
+		private function handleTriggered(event:Event):void
 		{
 			//TODO: tell about the risk. user 'll lose all his droids!
 			

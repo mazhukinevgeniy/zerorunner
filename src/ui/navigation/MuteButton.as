@@ -22,13 +22,14 @@ package ui.navigation
 			this.button.nameList.add(ExtendedTheme.MUTE_BUTTON);
 			this.addChild(this.button);
 			
-			this.button.addEventListener(Event.TRIGGERED, this.toggleMute);
+			this.button.addEventListener(Event.TRIGGERED, this.handleTriggered);
 			this.button.addEventListener(Event.ADDED_TO_STAGE, this.locate);
 			
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.keyUp);
+			this.flow.addUpdateListener(Update.toggleMute);
 		}
 		
 		private function locate(event:Event):void
@@ -37,9 +38,13 @@ package ui.navigation
 			this.y = Main.HEIGHT - this.button.height;
 		}
 		
-		private function toggleMute(event:Event):void
+		private function handleTriggered(event:Event):void
 		{
 			this.flow.dispatchUpdate(Update.toggleMute);
+		}
+		
+		update function toggleMute():void
+		{
 			this.toggleTitleMuteButton();
 		}
 		
