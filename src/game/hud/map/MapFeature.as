@@ -40,7 +40,7 @@ package game.hud.map
 			foundations.flow.addUpdateListener(Update.setCenter);
 			foundations.flow.addUpdateListener(Update.tick);
 			
-			foundations.flow.dispatchUpdate(Update.addToTheHUD, this.container = new QuadBatch());
+			foundations.displayRoot.addChild(this.container = new QuadBatch());
 		}
 		
 		update function prerestore():void

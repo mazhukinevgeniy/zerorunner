@@ -34,7 +34,7 @@ package game.hud
 			this.runWon = new Label();
 			this.runWon.text = "You win! Run is finished!";
 			
-			super(foundations.flow);
+			super(foundations);
 		}
 		
 		override protected function addMessage(message:DisplayObjectContainer):void

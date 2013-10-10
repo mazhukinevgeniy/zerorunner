@@ -31,7 +31,6 @@ package game
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
-			flow.addUpdateListener(Update.addToTheHUD);
 			flow.addUpdateListener(Update.setGameContainer);
 		}
 		
@@ -45,11 +44,6 @@ package game
 					(this.flow, this.save, this.atlas, root);
 			
 			new UIExtendsions(foundations);
-		}
-		
-		update function addToTheHUD(item:DisplayObject):void
-		{
-			this.displayRoot.addChild(item);
 		}
 		
 		

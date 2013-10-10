@@ -2,6 +2,7 @@ package game.hud
 {
 	import feathers.controls.Button;
 	import feathers.controls.Label;
+	import game.core.GameFoundations;
 	import game.ZeroRunner;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
@@ -18,8 +19,10 @@ package game.hud
 		private var message:Sprite;
 		private var flow:IUpdateDispatcher;
 		
-		public function GameOverWindow(flow:IUpdateDispatcher) 
+		public function GameOverWindow(foundations:GameFoundations) 
 		{
+			var flow:IUpdateDispatcher = foundations.flow;
+			
 			this.message = new Sprite();
 			
 			var tmpI:Quad = new Quad(400, 200, 0x222222);
@@ -45,7 +48,7 @@ package game.hud
 			
 			this.addUpdateListeners(flow);
 			
-			flow.dispatchUpdate(Update.addToTheHUD, this.message);
+			foundations.displayRoot.addChild(this.message);
 			this.flow = flow;
 		}
 		

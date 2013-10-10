@@ -56,8 +56,6 @@ package
 		/* Special updates */
 		
 		public static const setGameContainer:String = "setGameContainer"; //Shortly used
-		public static const addToTheHUD:String = "addToTheHUD"; //Method-like: used by HUD manager (currently ZeroRunner.as)
-		
 		
 		
 		/* End of updates */

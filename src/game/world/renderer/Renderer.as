@@ -29,7 +29,7 @@ package game.world.renderer
 			var flow:IUpdateDispatcher = foundations.flow;
 			this.points = points;
 			
-			this.lines = new Camera(flow, foundations.juggler);
+			this.lines = new Camera(foundations);
 			this.lines.addChild(clouds);
 			
 			this.data = data;

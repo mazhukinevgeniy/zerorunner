@@ -1,5 +1,6 @@
 package game.world.renderer 
 {
+	import game.core.GameFoundations;
 	import game.core.metric.*;
 	import game.core.time.Time;
 	import game.ZeroRunner;
@@ -24,9 +25,10 @@ package game.world.renderer
 		private var moveTween:PixelPerfectTween;
 		
 		
-		public function Camera(flow:IUpdateDispatcher, juggler:Juggler) 
+		public function Camera(foundations:GameFoundations) 
 		{
-			this.juggler = juggler;
+			this.juggler = foundations.juggler;
+			var flow:IUpdateDispatcher = foundations.flow;
 			
 			this.container = new Sprite();
 			this.container.addChild(this.scene = new QuadBatch());
@@ -38,7 +40,7 @@ package game.world.renderer
 			flow.addUpdateListener(Update.moveCenter);
 			flow.addUpdateListener(Update.prerestore);
 			
-			flow.dispatchUpdate(Update.addToTheHUD, this.container);
+			foundations.displayRoot.addChild(this.container);
 			
 			this.moveTween = new PixelPerfectTween(this, 0);
 		}

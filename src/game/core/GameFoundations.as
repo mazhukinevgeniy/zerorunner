@@ -8,6 +8,7 @@ package game.core
 	import game.world.ISearcher;
 	import game.ZeroRunner;
 	import starling.animation.Juggler;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import utils.updates.IUpdateDispatcher;
@@ -20,9 +21,11 @@ package game.core
 		private var _input:InputManager;
 		private var _actors:IActorTracker;
 		private var _flow:IUpdateDispatcher;
+		private var _root:DisplayObjectContainer;
 		
 		public function GameFoundations(flow:IUpdateDispatcher, game:IGame, atlas:TextureAtlas, root:Sprite) 
 		{
+			this._root = root;
 			this._flow = flow;
 			this._game = game;
 			this._atlas = atlas;
@@ -66,6 +69,11 @@ package game.core
 		public function get world():ISearcher
 		{
 			return this._actors as ISearcher;
+		}
+		
+		public function get displayRoot():DisplayObjectContainer
+		{
+			return this._root;
 		}
 	}
 
