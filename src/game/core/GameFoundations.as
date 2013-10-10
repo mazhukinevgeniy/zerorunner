@@ -1,6 +1,5 @@
 package game.core 
 {
-	import game.core.input.IKnowInput;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
 	import game.IGame;
@@ -18,7 +17,7 @@ package game.core
 		private var _game:IGame;
 		private var _juggler:Juggler;
 		private var _atlas:TextureAtlas;
-		private var _input:IKnowInput;
+		private var _input:InputManager;
 		private var _actors:IActorTracker;
 		private var _flow:IUpdateDispatcher;
 		
@@ -54,7 +53,7 @@ package game.core
 			return this._flow;
 		}
 		
-		public function get input():IKnowInput
+		public function get input():InputManager
 		{
 			return this._input;
 		}

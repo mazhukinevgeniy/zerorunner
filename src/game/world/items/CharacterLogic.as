@@ -1,7 +1,7 @@
 package game.world.items 
 {
 	import game.core.GameFoundations;
-	import game.core.input.IKnowInput;
+	import game.core.input.InputManager;
 	import game.core.metric.*;
 	import game.world.items.utils.IPointCollector;
 	import game.world.items.utils.ISolderable;
@@ -13,7 +13,7 @@ package game.world.items
 		private const MOVE_SPEED:int = 1; //TODO: parametrize
 		private const SOLDERING_POWER:int = 2; //TODO: parametrize
 		
-		private var input:IKnowInput;
+		private var input:InputManager;
 		private var flow:IUpdateDispatcher;
 		private var points:IPointCollector;
 		

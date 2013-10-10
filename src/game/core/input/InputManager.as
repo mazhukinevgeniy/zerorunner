@@ -6,7 +6,7 @@ package game.core.input
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class InputManager implements IKnowInput
+	public class InputManager
 	{
 		
 		private var order:Vector.<int>;
