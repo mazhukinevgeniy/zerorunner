@@ -7,8 +7,6 @@ package
 		
 		public static const keyUp:String = "keyUp";
 		
-		public static const discardClicks:String = "discardClicks"; //Method-like: used by input
-		
 		
 		/* Metagame updates */
 		

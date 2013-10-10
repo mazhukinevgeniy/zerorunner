@@ -21,7 +21,6 @@ package game.core.input
 			new KeyboardControls(this);
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.discardClicks);
 			flow.addUpdateListener(Update.prerestore);
 			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
@@ -36,12 +35,6 @@ package game.core.input
 			
 			this.order = new Vector.<int>(17, true);
 			this.order[InputManager.NO_DIRECTION] = 0;
-		}
-		
-		update function discardClicks():void
-		{
-			for (var i:int = 9; i < 17; i++)
-				this.order[i] = -1;
 		}
 		
 		private function handleDeactivation(event:Event = null):void
@@ -97,6 +90,12 @@ package game.core.input
 			}
 			
 			return arr;
+		}
+		
+		public function discardClicks():void
+		{
+			for (var i:int = 9; i < 17; i++)
+				this.order[i] = -1;
 		}
 		
 		
