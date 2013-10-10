@@ -12,7 +12,6 @@ package ui.windows.statistics
 	import starling.display.Quad;
 	import starling.events.Event;
 	import ui.navigation.Menu;
-	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 
 	
@@ -26,21 +25,18 @@ package ui.windows.statistics
 		
 		private var lastHeight:Number;
 		
-		private var flow:IUpdateDispatcher;
-		
 		private var data:Vector.<ChunkStatistics>;
 		
 		private var statistics:IStatistic;
 		private var namesOfStatistics:Vector.<String>;
 		
-		public function StatisticsWindow(flow:IUpdateDispatcher, statistics:IStatistic) 
+		public function StatisticsWindow(statistics:IStatistic) 
 		{
 			this.initializeSizeContainer();
 			this.initializeBackground();
 			this.initializeLayout();
 			this.initializeScrollBar();
 			this.initializePlaceForStatisticsPiece(statistics);
-			this.initializeUsingFlow(flow);
 			this.initializeEventListener();
 		}
 		
@@ -92,14 +88,6 @@ package ui.windows.statistics
 			
 			this.statistics = statistics;
 			this.namesOfStatistics = this.statistics.namesOfStatistics;
-		}
-		
-		private function initializeUsingFlow(flow:IUpdateDispatcher):void
-		{
-			this.flow = flow;
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.dropMiss);
 		}
 		
 		private function initializeEventListener():void
@@ -263,7 +251,7 @@ package ui.windows.statistics
 		
 		private function createAndPushChunk(nameOfStatistic:String, value:int):void
 		{
-			var newChunk:ChunkStatistics = new ChunkStatistics(nameOfStatistic, value, this.flow)
+			var newChunk:ChunkStatistics = new ChunkStatistics(nameOfStatistic, value, this)
 			var order:int = newChunk.order;
 			
 			if (order != -1)
@@ -304,9 +292,9 @@ package ui.windows.statistics
 			}
 		}
 		
-		update function dropMiss():void
+		public function dropMiss():void
 		{
-			this.redraw();
+			this.redraw(); 
 		}
 		
 		

@@ -17,7 +17,6 @@ package ui.windows.statistics
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
-	import utils.updates.IUpdateDispatcher;
 	
 	public class ChunkStatistics extends ScrollContainer implements IDragSource
 	{
@@ -26,7 +25,7 @@ package ui.windows.statistics
 		private static const GAP:Number = 3;
 		private static const BUTTON_PADDING_TOP:Number = 5;
 		
-		private var flow:IUpdateDispatcher;
+		private var parentContainer:StatisticsWindow;
 		
 		private var list:List;
 		private var rollButton:Button;
@@ -43,13 +42,13 @@ package ui.windows.statistics
 		private var firstReadSave:Boolean;
 		
 		
-		public function ChunkStatistics(name:String, newValue:int, flow:IUpdateDispatcher) 
+		public function ChunkStatistics(name:String, newValue:int, parentContainer:StatisticsWindow) 
 		{		
 			this.initializeRollButton();
 			this.initializeFixButton();
 			this.initializeTitle(name);
 			this.initializeList(newValue);
-			this.initializeOtherFields(flow);
+			this.initializeOtherFields(parentContainer);
 			
 			this.initializeEventListeners();
 		}
@@ -185,7 +184,7 @@ package ui.windows.statistics
 			return layoutData;
 		}
 		
-		private function initializeOtherFields(flow:IUpdateDispatcher):void
+		private function initializeOtherFields(parentContainer:StatisticsWindow):void
 		{
 			this.layout = new AnchorLayout();
 			
@@ -195,7 +194,7 @@ package ui.windows.statistics
 			this.saveForm = new FormChunkStatistics(this.title);
 			this.firstReadSave = true;
 			
-			this.flow = flow;
+			this.parentContainer = parentContainer;
 		}
 		
 		private function initializeEventListeners():void
@@ -240,7 +239,7 @@ package ui.windows.statistics
 		{
 			if (!this.isRoll) 
 				this.handleRollButtonTriggered();
-			this.flow.dispatchUpdate(Update.dropMiss);
+			this.parentContainer.dropMiss();
 		}
 		
 		public function get title():String
