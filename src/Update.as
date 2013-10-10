@@ -37,9 +37,7 @@ package
 		
 		/* Time updates */
 		
-		public static const numberedFrame:String = "numberedFrame"; //Method-like if divided instead of using with flags
-		public static const redraw:String = "redraw"; //Method-like: used by renderer
-		public static const tick:String = "tick"; //Method-like: used by actors
+		public static const numberedFrame:String = "numberedFrame";
 		//TODO: btw-3, remove inheretance between the actors and the scene
 		
 		

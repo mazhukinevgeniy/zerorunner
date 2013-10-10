@@ -4,7 +4,6 @@ package game.core.time
 	import game.core.GameFoundations;
 	import starling.animation.Juggler;
 	import starling.core.Starling;
-	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -12,8 +11,7 @@ package game.core.time
 	public class Time
 	{
 		private var FPS:int;
-		private var tickFrame:int;
-		private var redrawFrame:int;
+		private var frameCap:int;
 		
 		private var frameCount:int;
 		
@@ -31,25 +29,24 @@ package game.core.time
 		
 		private var pauseView:PauseView;
 		
-		public function Time(root:Sprite, foundations:GameFoundations) 
+		public function Time(foundations:GameFoundations) 
 		{
-			root.addChild(this.pauseView = new PauseView());
+			foundations.displayRoot.addChild(this.pauseView = new PauseView());
 			
 			var flow:IUpdateDispatcher = foundations.flow;
 			
 			this.FPS = Starling.current.nativeStage.frameRate;
-			this.tickFrame = this.FPS == 60 ? 5 : 2;
-			this.redrawFrame = this.tickFrame - 1;
+			this.frameCap = this.FPS == 60 ? 5 : 2;
 			
 			this.frameCount = 0;
 			
-			Time.TBT = this.tickFrame / this.FPS;
+			Time.TBT = this.frameCap / this.FPS;
 			
 			
 			
 			this.gameJuggler = foundations.juggler;
 			
-			root.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
+			foundations.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
 			flow.workWithUpdateListener(this);
 			
@@ -73,23 +70,14 @@ package game.core.time
 			{
 				this.gameJuggler.advanceTime(event.passedTime);
 				
-				if (this.frameCount == this.tickFrame)
+				if (this.frameCount < this.frameCap)
 				{
-					this.frameCount = 0;
-					
-					this.updateFlow.dispatchUpdate(Update.tick);
-				}
-				else if (this.frameCount == this.redrawFrame)
-				{
+					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
 					this.frameCount++;
-					
-					this.updateFlow.dispatchUpdate(Update.redraw);
 				}
 				else
 				{
-					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
-					
-					this.frameCount++;
+					this.frameCount = 0;
 				}
 			}
 		}

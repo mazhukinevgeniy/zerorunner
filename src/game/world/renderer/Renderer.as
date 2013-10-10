@@ -36,7 +36,7 @@ package game.world.renderer
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
-			flow.addUpdateListener(Update.redraw);
+			flow.addUpdateListener(Update.numberedFrame);
 			
 			this.pull = new TilePull(foundations.atlas);
 		}
@@ -47,10 +47,13 @@ package game.world.renderer
 			this.yM = 1 + Math.random() * 5;
 		}
 		
-		update function redraw():void
+		update function numberedFrame(key:int):void
 		{
-			this.redrawScene();
-			this.redrawActors();
+			if (key == Game.FRAME_TO_REDRAW)
+			{
+				this.redrawScene();
+				this.redrawActors();
+			}
 		}
 		
 		private function redrawScene():void

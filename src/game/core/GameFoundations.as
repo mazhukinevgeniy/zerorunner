@@ -33,7 +33,7 @@ package game.core
 			this._input = new InputManager(flow);
 			this._actors = new ActorsFeatures(this);
 			
-			new Time(root, this);
+			new Time(this);
 		}
 		
 		public function get game():IGame

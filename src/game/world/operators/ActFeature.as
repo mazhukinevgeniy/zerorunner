@@ -23,52 +23,55 @@ package game.world.operators
 			var flow:IUpdateDispatcher = foundations.flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.tick);
+			flow.addUpdateListener(Update.numberedFrame);
 			
 			this.moved = new Vector.<ItemLogicBase>();
 		}
 		
-		update function tick():void
+		update function numberedFrame(key:int):void
 		{
-			var data:ISearcher = this.foundations.world;
-			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
-			
-			const tlcX:int = center.x - 20;
-			const tlcY:int = center.y - 20;
-			
-			const brcX:int = center.x + 20;
-			const brcY:int = center.y + 20;
-			
-			var actor:ItemLogicBase;
-			
-			var i:int;
-			var j:int;
-			
-			this.moved.length = 0;
-			
-			for (j = tlcY; j < brcY; j++)
-			{				
-				for (i = tlcX; i < brcX; i++)
-				{
-					actor = data.findObjectByCell(i, j);
-					
-					if (actor && this.moved.indexOf(actor) == -1)
+			if (key == Game.FRAME_TO_TICK)
+			{
+				var data:ISearcher = this.foundations.world;
+				var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
+				
+				const tlcX:int = center.x - 20;
+				const tlcY:int = center.y - 20;
+				
+				const brcX:int = center.x + 20;
+				const brcY:int = center.y + 20;
+				
+				var actor:ItemLogicBase;
+				
+				var i:int;
+				var j:int;
+				
+				this.moved.length = 0;
+				
+				for (j = tlcY; j < brcY; j++)
+				{				
+					for (i = tlcX; i < brcX; i++)
 					{
-						actor.act();
-						this.moved.push(actor);
+						actor = data.findObjectByCell(i, j);
+						
+						if (actor && this.moved.indexOf(actor) == -1)
+						{
+							actor.act();
+							this.moved.push(actor);
+						}
 					}
 				}
-			}
-			
-			var others:Vector.<ICoordinated> = this.points.getPointsOfInterest(Game.ALWAYS_ACTIVE);
-			var length:int = others ? others.length : 0;
-			
-			for (i = 0; i < length; i++)
-			{
-				actor = others[i] as ItemLogicBase;
 				
-				if (this.moved.indexOf(actor) == -1)
-					actor.act();
+				var others:Vector.<ICoordinated> = this.points.getPointsOfInterest(Game.ALWAYS_ACTIVE);
+				var length:int = others ? others.length : 0;
+				
+				for (i = 0; i < length; i++)
+				{
+					actor = others[i] as ItemLogicBase;
+					
+					if (this.moved.indexOf(actor) == -1)
+						actor.act();
+				}
 			}
 		}
 	}

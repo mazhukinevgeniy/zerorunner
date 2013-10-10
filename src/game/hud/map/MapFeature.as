@@ -38,7 +38,7 @@ package game.hud.map
 			foundations.flow.workWithUpdateListener(this);
 			foundations.flow.addUpdateListener(Update.prerestore);
 			foundations.flow.addUpdateListener(Update.setCenter);
-			foundations.flow.addUpdateListener(Update.tick);
+			foundations.flow.addUpdateListener(Update.numberedFrame);
 			
 			foundations.displayRoot.addChild(this.container = new QuadBatch());
 		}
@@ -60,27 +60,30 @@ package game.hud.map
 			this.container.reset();
 		}
 		
-		update function tick():void
+		update function numberedFrame(key:int):void
 		{
-			var iGoal:int = this.center.x + 8;
-			var jGoal:int = this.center.y + 6;
-			
-			for (var i:int = this.center.x - 7; i < iGoal; i++)
-				for (var j:int = this.center.y - 5; j < jGoal; j++)
-				{
-					if (this.visited[i + this.width * j] == this.NOT_VISITED)
+			if (key == Game.FRAME_TO_TICK)
+			{
+				var iGoal:int = this.center.x + 8;
+				var jGoal:int = this.center.y + 6;
+				
+				for (var i:int = this.center.x - 7; i < iGoal; i++)
+					for (var j:int = this.center.y - 5; j < jGoal; j++)
 					{
-						this.visited[i + this.width * j] = this.VISITED;
-						
-						if (this.world.getSceneCell(i, j) != Game.FALL)
+						if (this.visited[i + this.width * j] == this.NOT_VISITED)
 						{
-							this.road.x = i;
-							this.road.y = j;
+							this.visited[i + this.width * j] = this.VISITED;
 							
-							this.container.addQuad(this.road);
+							if (this.world.getSceneCell(i, j) != Game.FALL)
+							{
+								this.road.x = i;
+								this.road.y = j;
+								
+								this.container.addQuad(this.road);
+							}
 						}
 					}
-				}
+			}
 		}
 	}
 
