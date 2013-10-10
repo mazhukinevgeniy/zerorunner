@@ -23,7 +23,6 @@ package
 		public static const tellGameWon:String = "tellGameWon";
 		//TODO: it feels like methods, so, huh, implement it this way
 		//TODO: btw, try to remove every method-like update. are there some?
-		//TODO: btw-2, try to remove shortly used updates (aka "special" ones)
 		
 		
 		/* In-game updates */
@@ -46,14 +45,9 @@ package
 		public static const toggleMute:String = "toggleMute";
 		public static const toggleWindow:String = "toggleWindow";
 		
-		public static const resetProgress:String = "resetProgress"; //Method-like: used by gamesave
+		public static const resetProgress:String = "resetProgress";
 		
 		public static const dropMiss:String = "dropMiss";
-		
-		
-		/* Special updates */
-		
-		public static const setGameContainer:String = "setGameContainer"; //Shortly used
 		
 		
 		/* End of updates */

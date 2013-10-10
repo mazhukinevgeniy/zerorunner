@@ -21,11 +21,11 @@ package ui
 		
 		private static const NUMBER_OF_WINDOWS:int = 4;
 		
-		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, progressManager:ProgressManager) 
+		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, progressManager:ProgressManager, gameRoot:Sprite) 
 		{
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 			
-			windows[Windows.GAME] = new Sprite();
+			windows[Windows.GAME] = gameRoot;
 			windows[Windows.STATISTICS] = new StatisticsWindow(flow, progressManager.statistics);
 			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(flow, assets);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
@@ -35,9 +35,6 @@ package ui
 				this.addChild(windows[i]);
 				windows[i].visible = false;
 			}
-			
-			flow.dispatchUpdate(Update.setGameContainer, windows[Windows.GAME]);
-			
 			
 			new WindowsController(flow, windows);
 		}

@@ -2,7 +2,6 @@ package game
 {
 	import game.core.GameFoundations;
 	import game.hud.UIExtendsions;
-	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -15,33 +14,21 @@ package game
 		private var flow:IUpdateDispatcher;
 		private var save:GameSave;
 		
-		private var atlas:TextureAtlas;
 		
-		private var displayRoot:Sprite;
-		
-		
-		public function ZeroRunner(flow:IUpdateDispatcher, assets:AssetManager) 
+		public function ZeroRunner(flow:IUpdateDispatcher, assets:AssetManager, root:Sprite) 
 		{
 			this.flow = flow;
 			this.save = new GameSave(flow);
 			
 			new GameUpdateConverter(flow);
 			
-			this.atlas = assets.getTextureAtlas("gameAtlas");
+			var atlas:TextureAtlas = assets.getTextureAtlas("gameAtlas");
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
-			flow.addUpdateListener(Update.setGameContainer);
-		}
-		
-		
-		update function setGameContainer(root:Sprite):void
-		{
-			this.displayRoot = root;
-			Starling.current.stage.color = 0;
 			
 			var foundations:GameFoundations = new GameFoundations
-					(this.flow, this.save, this.atlas, root);
+					(this.flow, this.save, atlas, root);
 			
 			new UIExtendsions(foundations);
 		}

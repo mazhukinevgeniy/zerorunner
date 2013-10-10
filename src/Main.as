@@ -111,8 +111,12 @@ package
 				
 				var progress:ProgressManager = new ProgressManager(flow);
 				
-				this.game = new ZeroRunner(flow, this.assets);
-				this.shell = new Shell(flow, this.starlingRoot, this.assets, progress);
+				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
+				
+				this.game = new ZeroRunner(flow, this.assets, gameRoot);
+				this.shell = new Shell(flow, this.starlingRoot, this.assets, progress, gameRoot);
+				
+				Starling.current.stage.color = 0;
 			}
 		}
 	}
