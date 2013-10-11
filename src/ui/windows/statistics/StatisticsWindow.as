@@ -292,7 +292,7 @@ package ui.windows.statistics
 			}
 		}
 		
-		public function dropMiss():void
+		internal function dropMiss():void
 		{
 			this.redraw(); 
 		}

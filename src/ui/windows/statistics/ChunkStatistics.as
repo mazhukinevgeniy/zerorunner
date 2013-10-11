@@ -18,7 +18,7 @@ package ui.windows.statistics
 	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
 	
-	public class ChunkStatistics extends ScrollContainer implements IDragSource
+	internal class ChunkStatistics extends ScrollContainer implements IDragSource
 	{
 		public static const CHUNK_STATISTICS_DRAG_FORMAT:String = "chunk-statistics-drag-format"
 		
