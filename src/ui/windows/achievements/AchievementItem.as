@@ -4,13 +4,11 @@ package ui.windows.achievements
 	import starling.display.Sprite;
 	import starling.textures.Texture;
 	
-	public class AchievementItem extends Sprite
+	internal class AchievementItem extends Sprite
 	{
 		private var _id:int;
 		
 		private var position:int;
-		
-		//TODO: see AchievementBase.as
 		
 		public function AchievementItem(id:int, position:int, skin:Texture)
 		{

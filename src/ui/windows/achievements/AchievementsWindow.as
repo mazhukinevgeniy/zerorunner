@@ -23,12 +23,11 @@ package ui.windows.achievements
 		
 		private var achievementSave:IAchievements;
 		private var achievements:Vector.<AchievementItem>;
-		private var tableLocks:AchievementsTable;
 		
 		
 		public function AchievementsWindow(assets:AssetManager, achievementSave:IAchievements) 
 		{
-			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW + 150;
+			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
 			
 			var tmp:Quad = new Quad(AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW, AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW, 0xFFFFFF);
@@ -46,7 +45,6 @@ package ui.windows.achievements
 			
 			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
 			
-			this.tableLocks = new AchievementsTable();
 			this.createAchievementItems();
 			this.drawAchievements();
 		}
