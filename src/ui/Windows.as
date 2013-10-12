@@ -1,6 +1,6 @@
 package ui 
 {
-	import progress.ProgressManager;
+	import progress.SaveManager;
 	import progress.statistics.IStatistic;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
@@ -21,7 +21,7 @@ package ui
 		
 		private static const NUMBER_OF_WINDOWS:int = 4;
 		
-		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, progressManager:ProgressManager, gameRoot:Sprite) 
+		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, progressManager:SaveManager, gameRoot:Sprite) 
 		{
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 			

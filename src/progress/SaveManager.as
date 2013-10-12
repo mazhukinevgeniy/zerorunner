@@ -8,7 +8,7 @@ package progress
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class ProgressManager
+	public class SaveManager
 	{
 		
 		private var activeAchievements:Vector.<int>;
@@ -16,7 +16,7 @@ package progress
 		private var _statistics:StatisticSave;
 		private var _achievements:AchievementSave;
 		
-		public function ProgressManager(flow:IUpdateDispatcher) 
+		public function SaveManager(flow:IUpdateDispatcher) 
 		{
 			this.activeAchievements = new Vector.<int>();
 			

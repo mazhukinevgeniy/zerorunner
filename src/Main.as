@@ -6,7 +6,7 @@ package
 	import flash.system.Capabilities;
 	import game.ZeroRunner;
 	import preloader.ProgressBar;
-	import progress.ProgressManager;
+	import progress.SaveManager;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
@@ -104,7 +104,7 @@ package
 				
 				var flow:UpdateManager = new UpdateManager();
 				
-				var progress:ProgressManager = new ProgressManager(flow);
+				var progress:SaveManager = new SaveManager(flow);
 				
 				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
 				
