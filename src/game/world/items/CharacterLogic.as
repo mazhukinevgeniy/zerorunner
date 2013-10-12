@@ -58,7 +58,7 @@ package game.world.items
 			for (var i:int = -5; i < 6; i++)
 				for (var j:int = -5; j < 6; j++)
 				{
-					var actor:ItemLogicBase = this.world.findObjectByCell(this.x + i, this.y + j);
+					var actor:ItemLogicBase = this.actors.findObjectByCell(this.x + i, this.y + j);
 					
 					if (actor && 
 						actor is ISolderable && 
@@ -75,13 +75,13 @@ package game.world.items
 				
 				while (action.x != 0 || action.y != 0)
 				{
-					if (this.world.getSceneCell(this.x + action.x, this.y + action.y) != Game.FALL)
+					if (this.scene.getSceneCell(this.x + action.x, this.y + action.y) != Game.FALL)
 					{
 						this.move(action, this.MOVE_SPEED);
 						
 						break;
 					}
-					else if (this.world.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != Game.FALL)
+					else if (this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != Game.FALL)
 					{
 						this.jump(action, 2);
 						
@@ -97,7 +97,7 @@ package game.world.items
 		
 		override protected function move(change:DCellXY, delay:int):void
 		{
-			var actor:ItemLogicBase = this.world.findObjectByCell(this.x + change.x, this.y + change.y);
+			var actor:ItemLogicBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
 			if (!actor)
 			{
 				super.move(change, delay);
@@ -121,7 +121,7 @@ package game.world.items
 			var obstacles:int = 0;
 			
 			for (var i:int = 0; i < multiplier; i++)
-				if (this.world.findObjectByCell(this.x + (i + 1) * change.x, this.y + (i + 1) * change.y))
+				if (this.actors.findObjectByCell(this.x + (i + 1) * change.x, this.y + (i + 1) * change.y))
 					return;
 			
 			this.cooldown = this.MOVE_SPEED * 2 * multiplier;

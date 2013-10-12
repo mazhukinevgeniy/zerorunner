@@ -4,7 +4,7 @@ package game.hud.map
 	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
 	import game.IGame;
-	import game.world.ISearcher;
+	import game.world.IScene;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import utils.updates.update;
@@ -20,7 +20,7 @@ package game.hud.map
 		private var width:int;
 		
 		private var game:IGame;
-		private var world:ISearcher;
+		private var scene:IScene;
 		private var center:ICoordinated;
 		
 		private var container:QuadBatch;
@@ -32,7 +32,7 @@ package game.hud.map
 			this.visited = new ByteArray();
 			
 			this.game = foundations.game;
-			this.world = foundations.world;
+			this.scene = foundations.scene;
 			this.road = new Quad(1, 1, 0xFF0000);
 			
 			foundations.flow.workWithUpdateListener(this);
@@ -74,7 +74,7 @@ package game.hud.map
 						{
 							this.visited[i + this.width * j] = this.VISITED;
 							
-							if (this.world.getSceneCell(i, j) != Game.FALL)
+							if (this.scene.getSceneCell(i, j) != Game.FALL)
 							{
 								this.road.x = i;
 								this.road.y = j;

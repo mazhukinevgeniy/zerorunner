@@ -1,7 +1,7 @@
 package game.world.operators 
 {
 	import game.core.GameFoundations;
-	import game.world.ISearcher;
+	import game.world.IActors;
 	import game.world.items.utils.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -35,8 +35,9 @@ package game.world.operators
 		{
 			if (frame == Game.FRAME_TO_CLEAR_BORDERS)
 			{
-				var world:ISearcher = this.foundations.world;
+				var actors:IActors = this.foundations.actors;
 				const DWIDTH:int = ClearFeature.CLEAR_RANGE;
+				//TODO: why rename constant?
 				
 				var i:int, j:int;
 				var actor:ItemLogicBase;
@@ -44,12 +45,12 @@ package game.world.operators
 				for (i = 0; i < this.width; i++)
 					for (j = 0; j < DWIDTH; j++)
 					{
-						actor = world.findObjectByCell(i, j);
+						actor = actors.findObjectByCell(i, j);
 						
 						if (actor)
 							actor.applyDestruction();
 						
-						actor = world.findObjectByCell(i, this.width - (j + 1));
+						actor = actors.findObjectByCell(i, this.width - (j + 1));
 						
 						if (actor)
 							actor.applyDestruction();
@@ -57,12 +58,12 @@ package game.world.operators
 				for (i = 0; i < DWIDTH; i++)
 					for (j = DWIDTH; j < this.width - DWIDTH; j++)
 					{
-						actor = world.findObjectByCell(i, j);
+						actor = actors.findObjectByCell(i, j);
 						
 						if (actor)
 							actor.applyDestruction();
 						
-						actor = world.findObjectByCell(this.width - (i + 1), j);
+						actor = actors.findObjectByCell(this.width - (i + 1), j);
 						
 						if (actor)
 							actor.applyDestruction();

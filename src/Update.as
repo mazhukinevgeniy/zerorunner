@@ -22,7 +22,6 @@ package
 		public static const tellRoundWon:String = "tellRoundWon";
 		public static const tellGameWon:String = "tellGameWon";
 		//TODO: it feels like methods, so, huh, implement it this way
-		//TODO: btw, try to remove every method-like update. are there some?
 		
 		
 		/* In-game updates */
@@ -37,7 +36,6 @@ package
 		/* Time updates */
 		
 		public static const numberedFrame:String = "numberedFrame";
-		//TODO: btw-3, remove inheretance between the actors and the scene
 		
 		
 		/* Shell updates */

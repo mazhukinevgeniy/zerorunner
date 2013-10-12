@@ -2,22 +2,24 @@ package game.world
 {
 	import flash.utils.ByteArray;
 	import game.IGame;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	use namespace update;
-	
-	internal class SceneFeatures 
+	public class SceneFeatures implements IScene
 	{
 		private var scene:ByteArray;
 		private var width:int;
 		
 		protected var game:IGame;
 		
-		public function SceneFeatures(game:IGame) 
+		public function SceneFeatures(flow:IUpdateDispatcher, game:IGame) 
 		{
 			this.scene = new ByteArray();
 			
 			this.game = game;
+			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.prerestore);
 		}
 		
 		update function prerestore():void

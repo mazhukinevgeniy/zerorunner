@@ -3,7 +3,7 @@ package game.world
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
-	import game.world.clouds.Clouds;
+	import game.IGame;
 	import game.world.items.BeaconLogic;
 	import game.world.items.CharacterLogic;
 	import game.world.items.JunkLogic;
@@ -11,16 +11,15 @@ package game.world
 	import game.world.items.utils.ItemLogicBase;
 	import game.world.items.utils.PointsOfInterest;
 	import game.world.operators.ActorOperators;
-	import game.world.renderer.Renderer;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	use namespace update;
-	
-	public class ActorsFeatures extends SceneFeatures implements IActorTracker, ISearcher
+	public class ActorsFeatures implements IActors, IActorTracker
 	{
 		private var actors:Array;
 		private var points:PointsOfInterest;
+		
+		private var game:IGame;
 		
 		private var width:int;
 		
@@ -29,10 +28,8 @@ package game.world
 		
 		public function ActorsFeatures(foundations:GameFoundations) 
 		{
-			this.points = new PointsOfInterest();
-			new Renderer(this, this.points, foundations, new Clouds(foundations));
-			
-			super(foundations.game);
+			this.points = foundations.pointsOfInterest as PointsOfInterest;
+			this.game = foundations.game;
 			
 			this.foundations = foundations;
 			
@@ -45,10 +42,8 @@ package game.world
 			flow.addUpdateListener(Update.technicUnlocked);
 		}
 		
-		override update function prerestore():void
+		update function prerestore():void
 		{
-			super.update::prerestore();
-			
 			var i:int;
 			
 			this.width = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
@@ -61,10 +56,10 @@ package game.world
 			new CharacterLogic(this.foundations, this.points);
 			new BeaconLogic(this.foundations);
 			
-			for (i = 0; i < this.game.numberOfDroids; i++)
+			for (i = 0; i < (this.game).numberOfDroids; i++)
 				new TechnicLogic(this.foundations, this.points);
 			
-			for (i = 0; i < this.game.numberOfJunks; i++)
+			for (i = 0; i < (this.game).numberOfJunks; i++)
 				new JunkLogic(this.foundations, this.points);
 		}
 		

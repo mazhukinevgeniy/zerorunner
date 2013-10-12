@@ -2,13 +2,13 @@ package game.world.operators
 {
 	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
-	import game.world.ISearcher;
+	import game.world.IActors;
 	import game.world.items.utils.IPointCollector;
 	import game.world.items.utils.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class ActFeature 
+	internal class ActFeature //TODO: fix the name, it's not okay
 	{
 		private var points:IPointCollector;
 		private var foundations:GameFoundations;
@@ -32,7 +32,7 @@ package game.world.operators
 		{
 			if (key == Game.FRAME_TO_ACT)
 			{
-				var data:ISearcher = this.foundations.world;
+				var actors:IActors = this.foundations.actors;
 				var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 				
 				const tlcX:int = center.x - 20;
@@ -52,7 +52,7 @@ package game.world.operators
 				{				
 					for (i = tlcX; i < brcX; i++)
 					{
-						actor = data.findObjectByCell(i, j);
+						actor = actors.findObjectByCell(i, j);
 						
 						if (actor && this.moved.indexOf(actor) == -1)
 						{

@@ -3,15 +3,19 @@ package game.world.items.utils
 	import game.core.GameFoundations;
 	import game.core.metric.*;
 	import game.IGame;
+	import game.world.IActors;
 	import game.world.IActorTracker;
-	import game.world.ISearcher;
+	import game.world.IScene;
 	import starling.display.DisplayObject;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class ItemLogicBase implements ICoordinated
 	{
-		protected var world:ISearcher;
+		protected var actors:IActors;
+		protected var scene:IScene;
 		protected var game:IGame;
+		
+		private var actorTracker:IActorTracker;
 		
 		private var view:ItemViewBase;
 		
@@ -19,10 +23,12 @@ package game.world.items.utils
 		{
 			this.view = view;
 			
-			this.world = foundations.world;
-			this.game = foundations.game;
-			
+			this.scene = foundations.scene;
 			this.actors = foundations.actors;
+			
+			this.actorTracker = foundations.actorsTracker;
+			
+			this.game = foundations.game;
 			
 			this.reset();
 		}
@@ -38,7 +44,7 @@ package game.world.items.utils
 			this._x = cell.x;
 			this._y = cell.y;
 			
-			this.actors.addActor(this);
+			this.actorTracker.addActor(this);
 			
 			this.view.standOn(cell);
 		}
@@ -48,7 +54,7 @@ package game.world.items.utils
 			var width:int = (this.game).mapWidth * Game.SECTOR_WIDTH;
 			var cell:CellXY = Metric.getTmpCell(Game.SECTOR_WIDTH + Math.random() * width, Game.SECTOR_WIDTH + Math.random() * width);
 			
-			for (; this.world.findObjectByCell(cell.x, cell.y); )
+			for (; this.actors.findObjectByCell(cell.x, cell.y); )
 				cell.setValue(Game.SECTOR_WIDTH + Math.random() * width, Game.SECTOR_WIDTH + Math.random() * width);
 			
 			return cell;
@@ -58,8 +64,6 @@ package game.world.items.utils
 		 * Position
 		 */
 		
-		private var actors:IActorTracker;
-		
 		private var _x:int;
 		private var _y:int;
 		
@@ -68,12 +72,12 @@ package game.world.items.utils
 		
 		protected function move(change:DCellXY, delay:int):void
 		{
-			if (!this.world.findObjectByCell(this.x + change.x, this.y + change.y))
+			if (!this.actors.findObjectByCell(this.x + change.x, this.y + change.y))
 			{
 				this._x += change.x;
 				this._y += change.y;
 				
-				this.actors.moveActor(this, change);
+				this.actorTracker.moveActor(this, change);
 				
 				this.view.move(this, change, delay + 1);
 			}
@@ -91,7 +95,7 @@ package game.world.items.utils
 		
 		public function applyDestruction():void
 		{
-			this.actors.removeActor(this);
+			this.actorTracker.removeActor(this);
 			
 			this.view.disappear();
 		}
