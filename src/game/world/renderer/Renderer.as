@@ -80,26 +80,41 @@ package game.world.renderer
 			{
 				for (i = tlcX; i < brcX; i++)
 				{
-					if (this.data.getSceneCell(i, j) == Game.ROAD)
+					if (this.data.getSceneCell(i, j) != Game.FALL)
 					{
 						sprite = this.pull.getImage("ground");
 						
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						container.addImage(sprite);
-						
-						number = uint((i * this.xM * 999999000001) | (j * this.yM * 87178291199));
-						
-						if (number % 13 < 3)
+						if (this.data.getSceneCell(i, j) == Game.BASALT)
 						{
-							sprite = this.pull.getImage("stones" + (1 + number % 3));
+							sprite.x += 20;
+							sprite.y -= 10;
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.rotation = Math.PI / 4;
 							
 							container.addImage(sprite);
 						}
+						else if (this.data.getSceneCell(i, j) == Game.ROAD)
+						{
+							sprite.rotation = 0;
+							
+							container.addImage(sprite);
+							
+							number = uint((i * this.xM * 999999000001) | (j * this.yM * 87178291199));
+							
+							if (number % 13 < 3)
+							{
+								sprite = this.pull.getImage("stones" + (1 + number % 3));
+								
+								sprite.x = i * Metric.CELL_WIDTH;
+								sprite.y = j * Metric.CELL_HEIGHT;
+								
+								container.addImage(sprite);
+							}
+						}
+						
 						
 						if (this.data.getSceneCell(i, j + 1) == Game.FALL)
 						{
