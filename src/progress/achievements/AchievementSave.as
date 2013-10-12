@@ -11,7 +11,7 @@ package progress.achievements
 		
 		public function get numberOfAchievements():int
 		{
-			return 3;
+			return 40;
 		}
 		
 		public function getAchievement(id:int):AchievementData

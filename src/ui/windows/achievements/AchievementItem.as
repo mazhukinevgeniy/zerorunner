@@ -25,11 +25,16 @@ package ui.windows.achievements
 		
 		private function locate():void
 		{
-			var xOfCell:int = this.position % HexagonalGrid.NUMBER_OF_TEXTURES_IN_WIDTH;
-			var yOfCell:int = (int)(this.position / HexagonalGrid.NUMBER_OF_TEXTURES_IN_WIDTH);
+			trace(HexagonalGrid.NUMBER_OF_CELL_IN_WIDTH);
+			var xOfCell:int = this.position % HexagonalGrid.NUMBER_OF_CELL_IN_WIDTH;
+			var yOfCell:int = (int)(this.position / HexagonalGrid.NUMBER_OF_CELL_IN_WIDTH);
 			
-			this.x = HexagonalGrid.OFFSET_X + (xOfCell + 0.5) * HexagonalGrid.HEXAGONAL_WIDTH - this.width / 2;
+			this.x = HexagonalGrid.OFFSET_X + (0.5 + xOfCell * 0.75) * HexagonalGrid.HEXAGONAL_WIDTH - this.width / 2;
 			this.y = HexagonalGrid.OFFSET_Y + (yOfCell + 0.5) * HexagonalGrid.HEXAGONAL_HEIGHT - this.height / 2;
+			
+			if (xOfCell % 2 == 1)
+				this.y += 0.5 * HexagonalGrid.HEXAGONAL_HEIGHT;
+			
 		}
 		
 		public function resetSkin(newSkin:Texture):void

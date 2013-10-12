@@ -1,7 +1,5 @@
 package progress.achievements 
 {
-	import starling.display.Image;
-	import starling.textures.Texture;
 	
 	public class AchievementData 
 	{
