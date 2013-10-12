@@ -28,9 +28,6 @@ package
 		public static const WIDTH:int = 640;
 		public static const HEIGHT:int = 480;
 		
-		public static const PROJECT_NAME:String = "zeroRunner";
-		//TODO: move to the savebase
-		
 		public static const FPS:int = 60;
 		
 		

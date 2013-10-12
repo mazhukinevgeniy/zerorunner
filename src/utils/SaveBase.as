@@ -4,11 +4,13 @@ package utils
 	
 	public class SaveBase 
 	{
+		private const PROJECT_NAME:String = "zeroRunner";
+		
 		protected var localSave:SharedObject;
 		
 		public function SaveBase() 
 		{
-			this.localSave = SharedObject.getLocal(Main.PROJECT_NAME);
+			this.localSave = SharedObject.getLocal(this.PROJECT_NAME);
 			
 			this.checkLocalSave();
 		}
