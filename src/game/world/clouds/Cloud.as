@@ -13,9 +13,8 @@ package game.world.clouds
 		
 		public function Cloud(foundations:GameFoundations) 
 		{
-			this.dX = -1 + Math.random() * 2;
-			this.dY = -1 + Math.random() * 2;
-			this.dA = -Math.PI / 256 + Math.random() * Math.PI / 128;
+			this.dX = Math.random() * 5 * (Math.random() < 0.5 ? 1 : -1);
+			this.dY = Math.random() * 5 * (Math.random() < 0.5 ? 1 : -1);
 			
 			super(foundations.assets.getTexture("testcloud"));
 			/*
@@ -54,8 +53,6 @@ package game.world.clouds
 		{
 			this.offsetX += this.dX;
 			this.offsetY += this.dY;
-			
-			this.rotation += this.dA;
 		}
 	}
 
