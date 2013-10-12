@@ -6,44 +6,35 @@ package ui.windows.achievements
 	
 	public class AchievementItem extends Sprite
 	{
+		private var _id:int;
 		
-		private static const RADIUS:Number = 15;
-		
-		private var enableSkin:Image;
-		private var disableSkin:Image;
-		private var skin:Image;
-		
-		private var xCell:Number;
-		private var yCell:Number;
-		private var tableLocks:AchievementsTable;
+		private var _position:int;
 		
 		//TODO: see AchievementBase.as
 		
-		public function AchievementItem(tableLocks:AchievementsTable, xCell:Number = 0, yCell:Number = 0) 
+		public function AchievementItem(id:int, position:int, skin:Texture)
 		{
-			this.enableSkin = new Image(Texture.fromColor(2 * AchievementItem.RADIUS, 2 * AchievementItem.RADIUS, 0x56723412));
-			this.disableSkin = new Image(Texture.fromColor(2 * AchievementItem.RADIUS, 2 * AchievementItem.RADIUS, 0x01928374));
-			
+			this._id = id;
+			this._position = position;
 			super();
-			this.xCell = xCell;
-			this.yCell = yCell;
-			this.tableLocks = tableLocks;
-			this.resetSkin();
-			this.addChild(this.skin);
+			
+			this.resetSkin(skin);
 		}
 		
-		public function unlock():void
+		public function resetSkin(newSkin:Texture):void
 		{
-			this.tableLocks.setCell(this.xCell, this.yCell);
-			this.resetSkin();
+			this.removeChildren();
+			this.addChild(new Image(newSkin));
 		}
 		
-		private function resetSkin():void
+		public function get id():int
 		{
-			if (this.tableLocks.getCell(this.xCell, this.yCell))
-				this.skin = this.disableSkin;
-			else
-				this.skin = this.enableSkin;
+			return this._id;
+		}
+		
+		public function get position():int
+		{
+			return this._position;
 		}
 		
 	}

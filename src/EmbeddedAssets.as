@@ -11,6 +11,12 @@ package
 		[Embed(source="../res/assets/textures/hexagon.png")]
 		public static const hexagon:Class;
 		
+		[Embed(source="../res/assets/textures/atlases/sprites/unimplemented.png")]
+		public static const disabledAchievementSkin:Class;
+		
+		[Embed(source="../res/assets/textures/atlases/sprites/ground.png")]
+		public static const enabledAchievementSkin:Class;
+		
 		//Sounds
 		
 		[Embed(source="../res/assets/sounds/Veloma.mp3")]
