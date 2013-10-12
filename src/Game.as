@@ -10,8 +10,8 @@ package
 		
 		public static const FALL:int = 0;
 		public static const ROAD:int = 1;
-		public static const ICE:int = 2;
-		public static const WATER:int = 3;
+		public static const BASALT:int = 2;
+		public static const LAVA:int = 3;
 		
 		/* POI types */
 		
