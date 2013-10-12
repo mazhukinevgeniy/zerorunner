@@ -4,7 +4,6 @@ package game
 	import game.hud.UIExtendsions;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
-	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -22,13 +21,11 @@ package game
 			
 			new GameUpdateConverter(flow);
 			
-			var atlas:TextureAtlas = assets.getTextureAtlas("gameAtlas");
-			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
 			
 			var foundations:GameFoundations = new GameFoundations
-					(this.flow, this.save, atlas, root);
+					(this.flow, this.save, assets, root);
 			
 			new UIExtendsions(foundations);
 		}

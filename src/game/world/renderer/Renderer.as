@@ -36,7 +36,7 @@ package game.world.renderer
 			this.actors = foundations.actors;
 			
 			this.lines = new Camera(foundations);
-			this.lines.addChild(new Clouds(foundations));
+			foundations.displayRoot.addChild(new Clouds(foundations));
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);

@@ -1,70 +1,54 @@
 package game.world.clouds 
 {
 	import game.core.GameFoundations;
-	import game.core.metric.DCellXY;
-	import game.core.metric.ICoordinated;
-	import game.core.metric.Metric;
-	import game.core.time.Time;
 	import starling.display.Sprite;
-	import utils.PixelPerfectTween;
-	import utils.updates.IUpdateDispatcher;
+	import starling.extensions.krecha.ScrollImage;
+	import starling.extensions.krecha.ScrollTile;
 	import utils.updates.update;
 	
-	public class Clouds extends Sprite
+	public class Clouds extends ScrollImage
 	{
 		private var foundations:GameFoundations;
 		
-		private var centerCloud:Cloud;
-		
-		private var moveTween:PixelPerfectTween;
-		
 		public function Clouds(foundations:GameFoundations) 
 		{
-			super();
-			
-			this.moveTween = new PixelPerfectTween(this, 0);
 			this.foundations = foundations;
 			
-			var flow:IUpdateDispatcher = foundations.flow;
+			super(Main.WIDTH * 1.3, Main.HEIGHT * 1.3, false);
 			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.setCenter);
-			flow.addUpdateListener(Update.moveCenter);
-			flow.addUpdateListener(Update.quitGame);
+			foundations.flow.workWithUpdateListener(this);
+			foundations.flow.addUpdateListener(Update.prerestore);
+			foundations.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function setCenter(item:ICoordinated):void
+		update function prerestore():void
 		{
-			this.centerCloud = new Cloud(this.foundations);
-			this.addChild(this.centerCloud);
+			const numberOfClouds:int = 2 + Math.random() * 2;
 			
-			var anotherOne:Cloud = new Cloud(foundations);
-			anotherOne.rotation = 2;
-			anotherOne.x = 20;
-			this.centerCloud.addChild(anotherOne);
+			var tile:ScrollTile;
 			
-			var oneMore:Cloud = new Cloud(foundations);
-			oneMore.rotation = 1;
-			oneMore.y = -20;
-			anotherOne.addChild(oneMore);
+			for (var i:int = 0; i < numberOfClouds; i++)
+			{
+				tile = this.addLayer(new Cloud(this.foundations));
+				
+				tile.alpha = 0.2 + Math.random() * 0.6;
+				
+				tile.scaleX = tile.scaleY = Math.random() * 3;
+				
+				tile.offsetX = Math.random() * 100;
+				tile.offsetY = Math.random() * 100;
+			}
 			
-			//TODO: parametrize more
-			
-			this.centerCloud.x = item.x * Metric.CELL_WIDTH;
-			this.centerCloud.y = item.y * Metric.CELL_HEIGHT;
-		}
-		
-		update function moveCenter(change:DCellXY, ticksToGo:int):void 
-		{
-			this.moveTween.reset(this.centerCloud, ticksToGo * Time.TIME_BETWEEN_TICKS);
-			this.moveTween.moveTo(this.centerCloud.x + change.x * Metric.CELL_WIDTH, this.centerCloud.y + change.y * Metric.CELL_HEIGHT);
-			
-			this.foundations.juggler.add(this.moveTween);
+			this.pivotX = 0;//Main.WIDTH / 2;
+			this.pivotY = 0;// Main.HEIGHT / 2;
+			//TODO: learn how exactly it works
 		}
 		
 		update function quitGame():void
 		{
-			this.removeChildren();
+			const dispose:Boolean = true;
+			
+			this.removeAll(dispose);
 		}
 	}
 
