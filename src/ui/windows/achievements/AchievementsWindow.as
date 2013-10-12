@@ -1,11 +1,13 @@
 package ui.windows.achievements 
 {
+	import feathers.controls.Label;
 	import feathers.controls.ScrollContainer;
 	import progress.achievements.AchievementData;
 	import progress.achievements.IAchievements;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Quad;
+	import starling.display.Sprite;
 	import starling.textures.Texture;
 	import utils.updates.update;
 	import starling.utils.AssetManager;
@@ -15,14 +17,18 @@ package ui.windows.achievements
 		public static const WIDTH_ACHIEVMENTS_WINDOW:Number = Main.WIDTH;
 		public static const HEIGHT_ACHIEVMENTS_WINDOW:Number = Main.HEIGHT;
 		
-		internal static const NUMBER_CELLS_IN_HEIGHT:int = 5;
+		private static const UNDETERMINED:int = -1;
 		
 		private var assets:AssetManager;
 		
 		private var numberOfAchievements:int
 		
 		private var achievementSave:IAchievements;
+		private var achievementsContainer:Sprite;
 		private var achievements:Vector.<ViewAchievement>;
+		
+		private var achievementDescription:Label;
+		private var lastDisplayedDescription:int;
 		
 		
 		public function AchievementsWindow(assets:AssetManager, achievementSave:IAchievements) 
@@ -39,14 +45,21 @@ package ui.windows.achievements
 			
 			this.assets = assets;
 			
+			this.achievementsContainer = new Sprite();
+			this.achievementDescription = new Label();
+			this.achievementDescription.visible = false;
+			this.lastDisplayedDescription = AchievementsWindow.UNDETERMINED;
+			
 			this.addChild(new HexagonalGrid(this.assets));
+			this.addChild(this.achievementsContainer);
+			this.addChild(this.achievementDescription);
 			
 			this.achievementSave = achievementSave;
 			
 			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
 			
 			this.createAchievementItems();
-			this.drawAchievements();
+			this.redrawAchievements();
 		}
 		
 		private function createAchievementItems():void
@@ -67,18 +80,58 @@ package ui.windows.achievements
 					nameOfSkin = achievementData.disabledSkin;
 				
 				texture = this.assets.getTextureAtlas("gameAtlas").getTexture(nameOfSkin);
-				this.achievements.push(new ViewAchievement(i, achievementData.position, texture));
+				this.achievements.push(new ViewAchievement(i, achievementData.position, texture, this));
 			}
 		}
 		
-		private function drawAchievements():void
+		public override function set visible(newValue:Boolean):void
+		{
+			if (newValue)
+			{
+				this.updateData();
+				//this.redrawAchievements();
+			}
+			
+			super.visible = newValue;
+		}
+		
+		private function updateData():void
+		{
+			
+		}
+		
+		private function redrawAchievements():void
 		{
 			var lenght:int = (this.achievements).length;
 			
 			for (var i:int = 0; i < lenght; ++i)
 			{
-				this.addChild(this.achievements[i]);
+				this.achievementsContainer.addChild(this.achievements[i]);
 			}
+		}
+		
+		public function displayDescription(id:int, mouseX:Number, mouseY:Number):void
+		{
+			if (this.lastDisplayedDescription != id)
+			{
+				var achievementData:AchievementData = this.achievementSave.getAchievement(id);
+			
+				this.achievementDescription.text = achievementData.description;
+				if (mouseX + this.achievementDescription.width > Main.WIDTH)
+					this.achievementDescription.x = mouseX - this.achievementDescription.width;
+				else
+					this.achievementDescription.x = mouseX;
+					
+				if (mouseY - this.achievementDescription.height > 0)
+					this.achievementDescription.y = mouseY + 10;
+				else
+					this.achievementDescription.y = mouseY - 10;
+					
+				this.achievementDescription.visible = true;
+				
+				this.lastDisplayedDescription = id;
+			}
+			
 		}
 	}
 

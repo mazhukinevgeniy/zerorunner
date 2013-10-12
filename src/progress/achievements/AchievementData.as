@@ -10,7 +10,7 @@ package progress.achievements
 		private var _description:String;
 		
 		
-		public function AchievementData(position:int, unlocked:Boolean = false, enabledSkin:String = "ground", disabledSkin:String = "unimplemented", description:String = "this is achievement") 
+		public function AchievementData(position:int, unlocked:Boolean = false, enabledSkin:String = "ground", disabledSkin:String = "unimplemented", description:String = "this is achievement \n this is achievement \n this is achievement \n this is achievement this is achievement") 
 		{
 			var radius:int = 15;
 			

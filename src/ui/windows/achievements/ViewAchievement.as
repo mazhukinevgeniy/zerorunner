@@ -2,6 +2,9 @@ package ui.windows.achievements
 {
 	import starling.display.Image;
 	import starling.display.Sprite;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	
 	internal class ViewAchievement extends Sprite
@@ -10,20 +13,24 @@ package ui.windows.achievements
 		
 		private var position:int;
 		
-		public function ViewAchievement(id:int, position:int, skin:Texture)
+		private var parentContainer:AchievementsWindow;
+		
+		public function ViewAchievement(id:int, position:int, skin:Texture, parentContainer:AchievementsWindow)
 		{
 			this._id = id;
 			this.position = position;
+			this.parentContainer = parentContainer;
 			
 			super();
 			
 			this.resetSkin(skin);
 			this.locate();
+			
+			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
 		}
 		
 		private function locate():void
 		{
-			trace(HexagonalGrid.NUMBER_OF_CELL_IN_WIDTH);
 			var xOfCell:int = this.position % HexagonalGrid.NUMBER_OF_CELL_IN_WIDTH;
 			var yOfCell:int = (int)(this.position / HexagonalGrid.NUMBER_OF_CELL_IN_WIDTH);
 			
@@ -33,6 +40,17 @@ package ui.windows.achievements
 			if (xOfCell % 2 == 1)
 				this.y += 0.5 * HexagonalGrid.HEXAGONAL_HEIGHT;
 			
+		}
+		
+		private function handleContainerTouch(event:TouchEvent):void
+		{
+			var touchHover:Touch = event.getTouch(this, TouchPhase.HOVER)
+			trace(touchHover);
+			
+			if (touchHover)
+			{
+				this.parentContainer.displayDescription(this.id, touchHover.globalX, touchHover.globalY);
+			}	
 		}
 		
 		public function resetSkin(newSkin:Texture):void
