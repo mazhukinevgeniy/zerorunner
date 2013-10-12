@@ -22,7 +22,7 @@ package game.world.clouds
 			
 			this.moveTween = new PixelPerfectTween(this, 0);
 			
-			super(Main.WIDTH * 1.3, Main.HEIGHT * 1.3, false);
+			super(Main.WIDTH, Main.HEIGHT, false);
 			
 			foundations.flow.workWithUpdateListener(this);
 			foundations.flow.addUpdateListener(Update.prerestore);
