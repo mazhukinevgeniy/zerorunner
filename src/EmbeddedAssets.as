@@ -11,6 +11,9 @@ package
 		[Embed(source="../res/assets/textures/hexagon.png")]
 		public static const hexagon:Class;
 		
+		[Embed(source = "../res/assets/textures/testcloud.png")]
+		public static const testcloud :Class;
+		
 		//Sounds
 		
 		[Embed(source="../res/assets/sounds/Veloma.mp3")]
