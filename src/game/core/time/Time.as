@@ -3,24 +3,18 @@ package game.core.time
 	import flash.ui.Keyboard;
 	import game.core.GameFoundations;
 	import starling.animation.Juggler;
-	import starling.core.Starling;
 	import starling.events.EnterFrameEvent;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class Time
 	{
-		private var FPS:int;
-		private var frameCap:int;
+		private var frameCount:int = 0;
 		
-		private var frameCount:int;
 		
-		private static var TBT:Number;
-		public static function get TIME_BETWEEN_TICKS():Number
-		{
-			return Time.TBT;
-		}
-		 //TODO: remove from static
+		private static const FRAMES_PER_CYCLE:int = 5;
+		public static const TIME_BETWEEN_TICKS:Number = Time.FRAMES_PER_CYCLE / Main.FPS;
+		
 		
 		private var _fixed:Boolean = true;
 		private var gameJuggler:Juggler;
@@ -33,28 +27,18 @@ package game.core.time
 		{
 			foundations.displayRoot.addChild(this.pauseView = new PauseView());
 			
-			var flow:IUpdateDispatcher = foundations.flow;
-			
-			this.FPS = Starling.current.nativeStage.frameRate;
-			this.frameCap = this.FPS == 60 ? 5 : 2;
-			
-			this.frameCount = 0;
-			
-			Time.TBT = this.frameCap / this.FPS;
-			
-			
 			
 			this.gameJuggler = foundations.juggler;
 			
 			foundations.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
-			flow.workWithUpdateListener(this);
+			foundations.flow.workWithUpdateListener(this);
 			
-			flow.addUpdateListener(Update.restore);
-			flow.addUpdateListener(Update.gameStopped);
-			flow.addUpdateListener(Update.keyUp);
+			foundations.flow.addUpdateListener(Update.restore);
+			foundations.flow.addUpdateListener(Update.gameStopped);
+			foundations.flow.addUpdateListener(Update.keyUp);
 			
-			this.updateFlow = flow;
+			this.updateFlow = foundations.flow;
 		}
 		
 		update function restore():void
@@ -70,7 +54,7 @@ package game.core.time
 			{
 				this.gameJuggler.advanceTime(event.passedTime);
 				
-				if (this.frameCount < this.frameCap)
+				if (this.frameCount < Time.FRAMES_PER_CYCLE)
 				{
 					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
 					this.frameCount++;

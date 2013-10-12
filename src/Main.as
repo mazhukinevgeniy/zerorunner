@@ -15,6 +15,7 @@ package
 	import starling.utils.AssetManager;
 	import ui.Shell;
 	import utils.adaptTextureAtlasMakerXML;
+	import utils.SoftStarling;
 	import utils.updates.UpdateManager;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
@@ -28,9 +29,12 @@ package
 		public static const HEIGHT:int = 480;
 		
 		public static const PROJECT_NAME:String = "zeroRunner";
+		//TODO: move to the savebase
+		
+		public static const FPS:int = 60;
 		
 		
-		private var mStarling:Starling;
+		private var mStarling:SoftStarling;
 		
 		private var starlingRoot:starling.display.Sprite;
 		private var game:ZeroRunner;
@@ -53,7 +57,7 @@ package
 			
 			Starling.handleLostContext = true;
 			
-			this.mStarling = new Starling(starling.display.Sprite, this.stage);
+			this.mStarling = new SoftStarling(starling.display.Sprite, this.stage);
 			this.mStarling.simulateMultitouch = false;
 			this.mStarling.enableErrorChecking = Capabilities.isDebugger;
 			this.mStarling.start();
@@ -67,12 +71,6 @@ package
 		private function handleRootCreated(event:starling.events.Event):void
 		{
 			this.mStarling.removeEventListener(starling.events.Event.ROOT_CREATED, this.handleRootCreated);
-			
-			if (this.mStarling.context.driverInfo.toLowerCase().indexOf("software") != -1)
-			{
-				this.mStarling.nativeStage.frameRate = 30;
-				trace("GPU is out of business!");
-			}
 			
 			this.starlingRoot = event.data as starling.display.Sprite;
 			

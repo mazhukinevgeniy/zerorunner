@@ -35,6 +35,7 @@ package
 		public static const FRAME_TO_UNLOCK_ACHIEVEMENTS:int = 1;
 		public static const FRAME_TO_REDRAW:int = 2;
 		public static const FRAME_TO_ACT:int = 3;
+		public static const UNUSED_FRAME_1:int = 4;
 		
 		
 		/* Temporary bad things */
