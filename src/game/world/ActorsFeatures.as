@@ -44,12 +44,15 @@ package game.world
 		
 		update function prerestore():void
 		{
+			const mapWidth:int = (this.game).mapWidth;
+			const sectorWidth:int = (this.game).sectorWidth;
+			
 			var i:int;
 			
-			this.width = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
+			this.width = (mapWidth + 2) * sectorWidth;
 			this.actors = new Array();
 			
-			var intWidth:int = (this.game).mapWidth * Game.SECTOR_WIDTH;
+			var intWidth:int = mapWidth * sectorWidth;
 			
 			this.points.clearPointsOfInterest();
 			

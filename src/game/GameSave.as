@@ -11,6 +11,7 @@ package game
 		private var defaultValues:Object = 
 		{
 			gameCurrentWidth: 1,
+			gameSectorWidth: 10,
 			gameCurrentLevel: 1,
 			gameCurrentJunks: 2,
 			gameCurrentGoal: Game.LIGHT_A_BEACON,
@@ -51,6 +52,7 @@ package game
 		
 		public function get level():int { return this.localSave.data.gameCurrentLevel; }
 		public function get mapWidth():int { return this.localSave.data.gameCurrentWidth; }
+		public function get sectorWidth():int { return this.localSave.data.gameSectorWidth; }
 		public function get numberOfJunks():int { return this.localSave.data.gameCurrentJunks; }
 		public function get localGoal():int { return this.localSave.data.gameCurrentGoal; };
 		

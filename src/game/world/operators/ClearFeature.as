@@ -8,9 +8,6 @@ package game.world.operators
 	
 	public class ClearFeature 
 	{
-		public static const CLEAR_RANGE:int = Game.SECTOR_WIDTH / 2;
-		//TODO: parametrize
-		
 		private var width:int;
 		
 		private var foundations:GameFoundations;
@@ -28,7 +25,7 @@ package game.world.operators
 		
 		update function prerestore():void
 		{
-			this.width = ((this.foundations.game).mapWidth + 2) * Game.SECTOR_WIDTH;
+			this.width = ((this.foundations.game).mapWidth + 2) * (this.foundations.game).sectorWidth;
 		}
 		
 		update function numberedFrame(frame:int):void
@@ -36,8 +33,7 @@ package game.world.operators
 			if (frame == Game.FRAME_TO_CLEAR_BORDERS)
 			{
 				var actors:IActors = this.foundations.actors;
-				const DWIDTH:int = ClearFeature.CLEAR_RANGE;
-				//TODO: why rename constant?
+				const DWIDTH:int = (this.foundations.game).sectorWidth / 2;
 				
 				var i:int, j:int;
 				var actor:ItemLogicBase;

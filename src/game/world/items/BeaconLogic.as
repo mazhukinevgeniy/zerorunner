@@ -24,7 +24,7 @@ package game.world.items
 		
 		override protected function getSpawningCell():CellXY
 		{
-			return Metric.getTmpCell(Game.SECTOR_WIDTH * (1 + (this.game).mapWidth) - 1, Game.SECTOR_WIDTH);
+			return Metric.getTmpCell((this.game).sectorWidth * (1 + (this.game).mapWidth) - 1, (this.game).sectorWidth);
 		}
 		
 		

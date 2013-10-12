@@ -40,10 +40,8 @@ package
 		
 		/* Temporary bad things */
 		
-		public static const SECTOR_WIDTH:int = 10;
-		//TODO: parametrize
-		
 		public static const LEVELS_PER_RUN:int = 3;
+		//TODO: parametrize
 		
 		
 		

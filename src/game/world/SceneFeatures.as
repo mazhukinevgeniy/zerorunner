@@ -24,20 +24,23 @@ package game.world
 		
 		update function prerestore():void
 		{
-			this.width = ((this.game).mapWidth + 2) * Game.SECTOR_WIDTH;
-			const secondJGoal:int = this.width - Game.SECTOR_WIDTH;
+			const sectorWidth:int = (this.game).sectorWidth;
+			
+			this.width = ((this.game).mapWidth + 2) * sectorWidth;
+			const secondJGoal:int = this.width - sectorWidth;
 			
 			var j:int, i:int;
 			
 			this.scene.length = this.width * this.width;
 			
 			
-			for (j = 0; j < Game.SECTOR_WIDTH; j++)
+			
+			for (j = 0; j < sectorWidth; j++)
 				for (i = 0; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			for (; j < secondJGoal; j++)
 			{
-				for (i = 0; i < Game.SECTOR_WIDTH; i++)
+				for (i = 0; i < sectorWidth; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 				for (; i < secondJGoal; i++)
 					this.scene[i + j * this.width] = Math.random() < 0.4 ? Game.FALL : Game.ROAD;
@@ -48,12 +51,12 @@ package game.world
 				for (i = 0; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			
-			for (i = Game.SECTOR_WIDTH; i < Game.SECTOR_WIDTH + 4; i++)
-				for (j = this.width - (Game.SECTOR_WIDTH + 4); j < secondJGoal; j++)
+			for (i = sectorWidth; i < sectorWidth + 4; i++)
+				for (j = this.width - (sectorWidth + 4); j < secondJGoal; j++)
 					this.scene[i + j * this.width] = Game.ROAD;
 			
-			for (i = this.width - (Game.SECTOR_WIDTH + 4); i < secondJGoal; i++)
-				for (j = Game.SECTOR_WIDTH; j < Game.SECTOR_WIDTH + 4; j++)
+			for (i = this.width - (sectorWidth + 4); i < secondJGoal; i++)
+				for (j = sectorWidth; j < sectorWidth + 4; j++)
 					this.scene[i + j * this.width] = Game.ROAD;
 			
 			for (i = 0; i < this.width * this.width; i++)

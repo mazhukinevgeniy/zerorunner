@@ -51,11 +51,13 @@ package game.world.items.utils
 		
 		protected function getSpawningCell():CellXY
 		{
-			var width:int = (this.game).mapWidth * Game.SECTOR_WIDTH;
-			var cell:CellXY = Metric.getTmpCell(Game.SECTOR_WIDTH + Math.random() * width, Game.SECTOR_WIDTH + Math.random() * width);
+			const sectorWidth:int = (this.game).sectorWidth;
+			const width:int = (this.game).mapWidth * sectorWidth;
+			
+			var cell:CellXY = Metric.getTmpCell(sectorWidth + Math.random() * width, sectorWidth + Math.random() * width);
 			
 			for (; this.actors.findObjectByCell(cell.x, cell.y); )
-				cell.setValue(Game.SECTOR_WIDTH + Math.random() * width, Game.SECTOR_WIDTH + Math.random() * width);
+				cell.setValue(sectorWidth + Math.random() * width, sectorWidth + Math.random() * width);
 			
 			return cell;
 		}
