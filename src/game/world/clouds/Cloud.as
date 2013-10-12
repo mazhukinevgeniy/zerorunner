@@ -1,14 +1,21 @@
 package game.world.clouds 
 {
+	import flash.events.Event;
 	import game.core.GameFoundations;
+	import starling.core.Starling;
 	import starling.extensions.krecha.ScrollTile;
 	
 	internal class Cloud extends ScrollTile
 	{
+		private var dX:int;
+		private var dY:int;
+		private var dA:Number;
 		
 		public function Cloud(foundations:GameFoundations) 
 		{
-			
+			this.dX = -1 + Math.random() * 2;
+			this.dY = -1 + Math.random() * 2;
+			this.dA = -Math.PI / 256 + Math.random() * Math.PI / 128;
 			
 			super(foundations.assets.getTexture("testcloud"));
 			/*
@@ -32,8 +39,24 @@ package game.world.clouds
 				}*/
 				
 				//TODO: delete?
+				
+				//TODO: generate big cloud textures
+			
+			Starling.current.nativeStage.addEventListener(Event.ENTER_FRAME, this.handleEnterFrame);
 		}
 		
+		internal function die():void
+		{
+			Starling.current.nativeStage.removeEventListener(Event.ENTER_FRAME, this.handleEnterFrame);
+		}
+		
+		private function handleEnterFrame(event:Event):void
+		{
+			this.offsetX += this.dX;
+			this.offsetY += this.dY;
+			
+			this.rotation += this.dA;
+		}
 	}
 
 }

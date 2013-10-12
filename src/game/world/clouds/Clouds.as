@@ -46,6 +46,15 @@ package game.world.clouds
 		
 		update function quitGame():void
 		{
+			for (var i:int = 0; i < this.numLayers; i++)
+			{
+				var cloud:Cloud = this.getLayerAt(i) as Cloud;
+				
+				cloud.die();
+			}
+			
+			
+			
 			const dispose:Boolean = true;
 			
 			this.removeAll(dispose);
