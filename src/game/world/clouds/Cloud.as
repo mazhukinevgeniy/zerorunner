@@ -13,8 +13,12 @@ package game.world.clouds
 		
 		public function Cloud(foundations:GameFoundations) 
 		{
-			this.dX = Math.random() * 5 * (Math.random() < 0.5 ? 1 : -1);
-			this.dY = Math.random() * 5 * (Math.random() < 0.5 ? 1 : -1);
+			do
+			{
+				this.dX = Math.random() * 2 * (Math.random() < 0.5 ? 1 : -1);
+				this.dY = Math.random() * 2 * (Math.random() < 0.5 ? 1 : -1);
+			}
+			while (this.dX == 0 && this.dY == 0);
 			
 			super(foundations.assets.getTexture("testcloud"));
 			/*
