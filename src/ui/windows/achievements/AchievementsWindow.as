@@ -6,6 +6,7 @@ package ui.windows.achievements
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Quad;
+	import starling.textures.Texture;
 	import utils.updates.update;
 	import starling.utils.AssetManager;
 	
@@ -53,20 +54,22 @@ package ui.windows.achievements
 		private function createAchievementItems():void
 		{
 			var achievementData:AchievementData;
-			var nameSkin:String
+			var nameOfSkin:String
+			var texture:Texture;
 			
 			this.achievements = new Vector.<AchievementItem>;
 			
 			for (var i:int = 0; i < this.numberOfAchievements; ++i)
 			{
 				achievementData = this.achievementSave.getAchievement(i);
-				
+
 				if (achievementData.unlocked)
-					nameSkin = achievementData.enabledSkin;
+					nameOfSkin = achievementData.enabledSkin;
 				else
-					nameSkin = achievementData.disabledSkin;
-					
-				this.achievements.push(new AchievementItem(i, achievementData.position, this.assets.getTexture(nameSkin)));
+					nameOfSkin = achievementData.disabledSkin;
+				
+				texture = this.assets.getTextureAtlas("gameAtlas").getTexture(nameOfSkin);
+				this.achievements.push(new AchievementItem(i, achievementData.position, texture));
 			}
 		}
 		

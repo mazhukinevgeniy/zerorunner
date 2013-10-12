@@ -8,17 +8,28 @@ package ui.windows.achievements
 	{
 		private var _id:int;
 		
-		private var _position:int;
+		private var position:int;
 		
 		//TODO: see AchievementBase.as
 		
 		public function AchievementItem(id:int, position:int, skin:Texture)
 		{
 			this._id = id;
-			this._position = position;
+			this.position = position;
+			
 			super();
 			
 			this.resetSkin(skin);
+			this.locate();
+		}
+		
+		private function locate():void
+		{
+			var xOfCell:int = this.position % HexagonalGrid.NUMBER_OF_TEXTURES_IN_WIDTH;
+			var yOfCell:int = (int)(this.position / HexagonalGrid.NUMBER_OF_TEXTURES_IN_WIDTH);
+			
+			this.x = HexagonalGrid.OFFSET_X + (xOfCell + 0.5) * HexagonalGrid.HEXAGONAL_WIDTH - this.width / 2;
+			this.y = HexagonalGrid.OFFSET_Y + (yOfCell + 0.5) * HexagonalGrid.HEXAGONAL_HEIGHT - this.height / 2;
 		}
 		
 		public function resetSkin(newSkin:Texture):void
@@ -31,11 +42,7 @@ package ui.windows.achievements
 		{
 			return this._id;
 		}
-		
-		public function get position():int
-		{
-			return this._position;
-		}
+
 		
 	}
 
