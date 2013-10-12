@@ -22,7 +22,7 @@ package ui.windows.achievements
 		private var numberOfAchievements:int
 		
 		private var achievementSave:IAchievements;
-		private var achievements:Vector.<AchievementItem>;
+		private var achievements:Vector.<ViewAchievement>;
 		
 		
 		public function AchievementsWindow(assets:AssetManager, achievementSave:IAchievements) 
@@ -55,7 +55,7 @@ package ui.windows.achievements
 			var nameOfSkin:String
 			var texture:Texture;
 			
-			this.achievements = new Vector.<AchievementItem>;
+			this.achievements = new Vector.<ViewAchievement>;
 			
 			for (var i:int = 0; i < this.numberOfAchievements; ++i)
 			{
@@ -67,7 +67,7 @@ package ui.windows.achievements
 					nameOfSkin = achievementData.disabledSkin;
 				
 				texture = this.assets.getTextureAtlas("gameAtlas").getTexture(nameOfSkin);
-				this.achievements.push(new AchievementItem(i, achievementData.position, texture));
+				this.achievements.push(new ViewAchievement(i, achievementData.position, texture));
 			}
 		}
 		
