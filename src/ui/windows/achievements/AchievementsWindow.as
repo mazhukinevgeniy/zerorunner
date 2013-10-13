@@ -8,6 +8,9 @@ package ui.windows.achievements
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	import utils.updates.update;
 	import starling.utils.AssetManager;
@@ -25,6 +28,7 @@ package ui.windows.achievements
 		
 		private var achievementSave:IAchievements;
 		private var achievementsContainer:Sprite;
+		private var substrate:Quad;
 		private var achievements:Vector.<ViewAchievement>;
 		
 		private var achievementDescription:Label;
@@ -45,12 +49,15 @@ package ui.windows.achievements
 			
 			this.assets = assets;
 			
+			this.substrate = new Quad(AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW, AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW, 0xFFFFFF);
+			this.substrate.alpha = Number.MIN_VALUE;
 			this.achievementsContainer = new Sprite();
 			this.achievementDescription = new Label();
 			this.achievementDescription.visible = false;
 			this.lastDisplayedDescription = AchievementsWindow.UNDETERMINED;
 			
 			this.addChild(new HexagonalGrid(this.assets));
+			this.achievementsContainer.addChild(this.substrate);
 			this.addChild(this.achievementsContainer);
 			this.addChild(this.achievementDescription);
 			
@@ -60,6 +67,8 @@ package ui.windows.achievements
 			
 			this.createAchievementItems();
 			this.redrawAchievements();
+			
+			this.substrate.addEventListener(TouchEvent.TOUCH, this.handleSubstrateTouch)
 		}
 		
 		private function createAchievementItems():void
@@ -132,6 +141,16 @@ package ui.windows.achievements
 				this.lastDisplayedDescription = id;
 			}
 			
+		}
+		
+		private function handleSubstrateTouch(event:TouchEvent):void
+		{
+			var touchHover:Touch = event.getTouch(this.substrate, TouchPhase.HOVER)
+			
+			if (touchHover)
+			{
+				this.achievementDescription.visible = false;
+			}	
 		}
 	}
 

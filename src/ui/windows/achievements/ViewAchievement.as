@@ -45,7 +45,6 @@ package ui.windows.achievements
 		private function handleContainerTouch(event:TouchEvent):void
 		{
 			var touchHover:Touch = event.getTouch(this, TouchPhase.HOVER)
-			trace(touchHover);
 			
 			if (touchHover)
 			{
