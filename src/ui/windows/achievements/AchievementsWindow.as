@@ -2,6 +2,7 @@ package ui.windows.achievements
 {
 	import feathers.controls.Label;
 	import feathers.controls.ScrollContainer;
+	import flash.geom.Point;
 	import progress.achievements.AchievementData;
 	import progress.achievements.IAchievements;
 	import starling.display.DisplayObjectContainer;
@@ -27,8 +28,10 @@ package ui.windows.achievements
 		private var numberOfAchievements:int
 		
 		private var achievementSave:IAchievements;
+		private var edgesContainer:Sprite;
 		private var achievementsContainer:Sprite;
 		private var substrate:Quad;
+		private var edges:Vector.<Edge>;
 		private var achievements:Vector.<ViewAchievement>;
 		
 		private var achievementDescription:Label;
@@ -52,11 +55,13 @@ package ui.windows.achievements
 			this.substrate = new Quad(AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW, AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW, 0xFFFFFF);
 			this.substrate.alpha = Number.MIN_VALUE;
 			this.achievementsContainer = new Sprite();
+			this.edgesContainer = new Sprite();
 			this.achievementDescription = new Label();
 			this.achievementDescription.visible = false;
 			this.lastDisplayedDescription = AchievementsWindow.UNDETERMINED;
 			
 			this.addChild(new HexagonalGrid(this.assets));
+			this.addChild(this.edgesContainer);
 			this.achievementsContainer.addChild(this.substrate);
 			this.addChild(this.achievementsContainer);
 			this.addChild(this.achievementDescription);
@@ -65,13 +70,28 @@ package ui.windows.achievements
 			
 			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
 			
-			this.createAchievementItems();
-			this.redrawAchievements();
+			this.createEdges();
+			this.createViewAchievement();
+			this.redrawGraph();
 			
 			this.substrate.addEventListener(TouchEvent.TOUCH, this.handleSubstrateTouch)
 		}
 		
-		private function createAchievementItems():void
+		private function createEdges():void
+		{
+			var edgesData:Vector.<Point> = this.achievementSave.edges;
+			var lenght:int;
+			
+			lenght = edgesData.length;
+			this.edges = new Vector.<Edge>;
+			
+			for (var i:int = 0; i < lenght; ++i)
+			{
+				this.edges.push(new Edge(edgesData[i]));
+			}
+		}
+		
+		private function createViewAchievement():void
 		{
 			var achievementData:AchievementData;
 			var nameOfSkin:String
@@ -109,13 +129,21 @@ package ui.windows.achievements
 			
 		}
 		
-		private function redrawAchievements():void
+		private function redrawGraph():void
 		{
+			var i:int;
 			var lenght:int = (this.achievements).length;
 			
-			for (var i:int = 0; i < lenght; ++i)
+			for (i = 0; i < lenght; ++i)
 			{
 				this.achievementsContainer.addChild(this.achievements[i]);
+			}
+			
+			lenght = this.edges.length;
+			
+			for (i = 0; i < lenght; ++i)
+			{
+				this.edgesContainer.addChild(this.edges[i]);
 			}
 		}
 		
