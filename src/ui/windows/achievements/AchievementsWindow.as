@@ -153,7 +153,8 @@ package ui.windows.achievements
 			{
 				var achievementData:AchievementData = this.achievementSave.getAchievement(id);
 			
-				this.achievementDescription.text = achievementData.description;
+				this.achievementDescription.text = achievementData.description + " " +(String)(id);
+				
 				if (mouseX + this.achievementDescription.width > Main.WIDTH)
 					this.achievementDescription.x = mouseX - this.achievementDescription.width;
 				else
@@ -178,6 +179,7 @@ package ui.windows.achievements
 			if (touchHover)
 			{
 				this.achievementDescription.visible = false;
+				this.lastDisplayedDescription = AchievementsWindow.UNDETERMINED;
 			}	
 		}
 	}
