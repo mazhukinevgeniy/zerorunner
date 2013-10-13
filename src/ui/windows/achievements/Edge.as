@@ -6,7 +6,7 @@ package ui.windows.achievements
 	public class Edge extends Quad
 	{
 		private static const WIDTH:Number = 3;
-		private static const HEIGHT:Number = 80;
+		private static const HEIGHT:Number = HexagonalGrid.HEXAGONAL_HEIGHT;
 		
 		public function Edge(point:Point) 
 		{
@@ -29,7 +29,7 @@ package ui.windows.achievements
 				
 			super(Edge.WIDTH, height);
 			
-			this.x = HexagonalGrid.OFFSET_X + (0.5 + xOfCell * 0.75) * HexagonalGrid.HEXAGONAL_WIDTH;
+			this.x = HexagonalGrid.OFFSET_X + (0.5 + xOfCell * 0.75) * HexagonalGrid.HEXAGONAL_WIDTH - this.width / 2;
 			this.y = HexagonalGrid.OFFSET_Y + (yOfCell + 0.5) * HexagonalGrid.HEXAGONAL_HEIGHT;
 			
 			if (xOfCell % 2 == 1)
