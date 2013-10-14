@@ -9,6 +9,7 @@ package data.structs
 			
 		}
 		
+		function get totalDistance():int;
 	}
 
 }

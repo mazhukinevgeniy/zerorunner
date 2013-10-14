@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
-
+	<game>
+		<config>
+			
+		</config>
+		
+		<progress>
+			
+		</progress>
+	</game>
+	
+	<preferences>
+		<mute>false</mute>
+	</preferences>
+	
+	<statistics>
+		
+	</statistics>
 </data>

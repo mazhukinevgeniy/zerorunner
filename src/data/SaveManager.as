@@ -44,15 +44,9 @@ package data
 			
 		}
 		
-		public function get statistics():IStatistic
-		{
-			return this._statistics;
-		}
+		function get numberOfAchievements():int;
 		
-		public function get achievements():IAchievements
-		{
-			return this._achievements;
-		}
+		function getAchievement(id:int):AchievementData
 	}
 
 }

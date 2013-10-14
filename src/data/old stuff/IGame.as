@@ -1,4 +1,4 @@
-package data.old stuff 
+package data.old stuff stuff 
 {
 	
 	public interface IGame 
