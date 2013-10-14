@@ -1,6 +1,7 @@
 package ui 
 {
 	import data.DatabaseManager;
+	import game.core.GameFoundations;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -17,7 +18,8 @@ package ui
 	import utils.updates.UpdateManager;
 	
 	public class Shell
-	{		
+	{
+		private var status:StatusReporter;
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
@@ -28,13 +30,17 @@ package ui
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function Shell(flow:IUpdateDispatcher, displayRoot:DisplayObjectContainer, 
-							assets:AssetManager, database:DatabaseManager, gameRoot:Sprite, ) 
+		public function Shell(displayRoot:DisplayObjectContainer, 
+							database:DatabaseManager, gameRoot:Sprite, foundations:GameFoundations)
+							//TODO: check what can be not passed; think if we need another parameter struct 
 		{
-			this.flow = flow;
-			this.assets = assets;
+			this.status = foundations.statusReporter;
 			
-			this.root = displayRoot;
+			this.flow = foundations.flow;
+			this.assets = foundations.assets;
+			
+			this.root = displayRoot; //lol, hell of a roots
+			//TODO: check what is happening here
 			
 		    this.initializeFeatures(gameRoot, database);
 			this.initializeUsingFlow();
@@ -72,7 +78,7 @@ package ui
 		
 		update function keyUp(keyCode:uint):void
 		{
-			if (keyCode == Keyboard.P && !this.gameIsActive)
+			if (keyCode == Keyboard.P && !this.status.isGameOn)
 			{
 				this.flow.dispatchUpdate(Update.newGame);
 			}
