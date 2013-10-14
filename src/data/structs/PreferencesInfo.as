@@ -1,4 +1,4 @@
-package data 
+package data.structs 
 {
 	
 	public class PreferencesInfo
