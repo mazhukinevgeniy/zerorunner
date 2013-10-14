@@ -1,12 +1,12 @@
 package 
 {
+	import data.DatabaseManager;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
 	import flash.system.Capabilities;
 	import game.ZeroRunner;
 	import preloader.ProgressBar;
-	import progress.SaveManager;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
@@ -104,12 +104,12 @@ package
 				
 				var flow:UpdateManager = new UpdateManager();
 				
-				var progress:SaveManager = new SaveManager(flow);
+				var database:DatabaseManager = new DatabaseManager(flow);
 				
 				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
 				
 				this.game = new ZeroRunner(flow, this.assets, gameRoot);
-				this.shell = new Shell(flow, this.starlingRoot, this.assets, progress, gameRoot);
+				this.shell = new Shell(flow, this.starlingRoot, this.assets, database, gameRoot);
 				
 				Starling.current.stage.color = 0;
 			}

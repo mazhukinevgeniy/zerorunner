@@ -1,5 +1,8 @@
 package data 
 {
+	import data.structs.AchievementInfo;
+	import data.structs.PreferencesInfo;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class DatabaseManager
 	{
@@ -8,11 +11,8 @@ package data
 		public function DatabaseManager(flow:IUpdateDispatcher) 
 		{
 			
-			this._statistics = new StatisticSave(flow);
-			this._achievements = new AchievementSave();
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.numberedFrame);
+			//this._statistics = new StatisticSave(flow);
+			//this._achievements = new AchievementSave();
 		}
 		
 		
@@ -25,6 +25,11 @@ package data
 		public function getAchievement(id:int):AchievementInfo
 		{
 			return new AchievementInfo();
+		}
+		
+		public function get preferences():PreferencesInfo
+		{
+			return new PreferencesInfo();
 		}
 	}
 

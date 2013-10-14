@@ -1,9 +1,9 @@
 package game.hud 
 {
+	import data.structs.ProgressInfo;
 	import feathers.controls.Label;
 	import game.core.GameFoundations;
 	import game.hud.GameOverWindow;
-	import game.IGame;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -13,7 +13,6 @@ package game.hud
 	//TODO: remove dat stupid inheretance
 	public class GameWonWindow extends GameOverWindow
 	{
-		private var game:IGame;
 		
 		private var roundWon:Label;
 		private var runWon:Label;
@@ -23,9 +22,7 @@ package game.hud
 		private var globalMap:GlobalMap;
 		
 		public function GameWonWindow(foundations:GameFoundations) 
-		{
-			this.game = foundations.game;
-			
+		{			
 			this.globalMap = new GlobalMap();
 			
 			this.roundWon = new Label();
@@ -58,12 +55,12 @@ package game.hud
 			flow.addUpdateListener(Update.tellRoundWon);
 		}
 		
-		update function tellRoundWon():void
+		update function tellRoundWon(progress:ProgressInfo):void
 		{
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.roundWon);
 			
-			this.globalMap.draw(this.game);
+			this.globalMap.draw(progress);
 			
 			this.labelContainer.parent.visible = true;
 		}

@@ -36,7 +36,6 @@ package ui
 			
 			this.gameIsActive = false;
 			this.assets = assets;
-			this.progress = progress;
 			
 			this.root = displayRoot;
 			
@@ -58,7 +57,7 @@ package ui
 			this.root.addChild(this.windows);
 			this.root.addChild(this.navigation);
 			
-			new Sounds(this.flow, this.assets);
+			new Sounds(this.flow, this.assets, database.preferences);
 		}
 		
 		private function initializeUsingFlow():void 
