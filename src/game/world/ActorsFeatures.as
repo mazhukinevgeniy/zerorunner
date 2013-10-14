@@ -51,10 +51,8 @@ package game.world
 			new CharacterLogic(this.foundations, this.points);
 			new BeaconLogic(this.foundations);
 			
-			//for (i = 0; i < (this.game).numberOfDroids; i++)
-			//	new TechnicLogic(this.foundations, this.points);
-			
-			//TODO: fix, it's just progresslinked
+			for (i = 0; i < config.numberOfDroids; i++)
+				new TechnicLogic(this.foundations, this.points);
 			
 			for (i = 0; i < config.junks; i++)
 				new JunkLogic(this.foundations, this.points);
