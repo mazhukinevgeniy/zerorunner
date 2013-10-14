@@ -20,11 +20,9 @@ package game.world
 		
 		update function prerestore(config:GameConfig):void
 		{
-			const sectorWidth:int = config.width;
-			//TODO: damn it, there're no more sectors; must write new code
+			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			
-			this.width = ((this.game).mapWidth + 2) * sectorWidth;
-			const secondJGoal:int = this.width - sectorWidth;
+			const secondJGoal:int = this.width - Game.BORDER_WIDTH;
 			
 			var j:int, i:int;
 			
@@ -32,12 +30,12 @@ package game.world
 			
 			
 			
-			for (j = 0; j < sectorWidth; j++)
+			for (j = 0; j < Game.BORDER_WIDTH; j++)
 				for (i = 0; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			for (; j < secondJGoal; j++)
 			{
-				for (i = 0; i < sectorWidth; i++)
+				for (i = 0; i < Game.BORDER_WIDTH; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 				for (; i < secondJGoal; i++)
 					this.scene[i + j * this.width] = Math.random() < 0.4 ? Game.FALL : Game.ROAD;
@@ -48,12 +46,12 @@ package game.world
 				for (i = 0; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			
-			for (i = sectorWidth; i < sectorWidth + 4; i++)
-				for (j = this.width - (sectorWidth + 4); j < secondJGoal; j++)
+			for (i = Game.BORDER_WIDTH; i < Game.BORDER_WIDTH + 4; i++)
+				for (j = this.width - (Game.BORDER_WIDTH + 4); j < secondJGoal; j++)
 					this.scene[i + j * this.width] = Game.ROAD;
 			
-			for (i = this.width - (sectorWidth + 4); i < secondJGoal; i++)
-				for (j = sectorWidth; j < sectorWidth + 4; j++)
+			for (i = this.width - (Game.BORDER_WIDTH + 4); i < secondJGoal; i++)
+				for (j = Game.BORDER_WIDTH; j < Game.BORDER_WIDTH + 4; j++) //TODO: does it makes sense at all? +4, i mean? 
 					this.scene[i + j * this.width] = Game.ROAD;
 			
 			for (i = 0; i < this.width * this.width; i++)

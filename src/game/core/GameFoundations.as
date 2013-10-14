@@ -2,7 +2,6 @@ package game.core
 {
 	import game.core.input.InputManager;
 	import game.core.time.Time;
-	import game.IGame;
 	import game.world.ActorsFeatures;
 	import game.world.IActors;
 	import game.world.IActorTracker;
@@ -21,7 +20,6 @@ package game.core
 	
 	public class GameFoundations 
 	{
-		private var _game:IGame;
 		private var _scene:IScene;
 		private var _juggler:Juggler;
 		private var _input:InputManager;
@@ -31,26 +29,20 @@ package game.core
 		private var _points:IPointCollector;
 		private var _root:DisplayObjectContainer;
 		
-		public function GameFoundations(flow:IUpdateDispatcher, game:IGame, assets:AssetManager, root:Sprite) 
+		public function GameFoundations(flow:IUpdateDispatcher, assets:AssetManager, root:Sprite) 
 		{
 			this._root = root;
 			this._flow = flow;
-			this._game = game;
 			this._assets = assets;
 			this._points = new PointsOfInterest();
 			this._juggler = new Juggler();
 			this._input = new InputManager(flow);
-			this._scene = new SceneFeatures(flow, game);
+			this._scene = new SceneFeatures(flow);
 			this._actors = new ActorsFeatures(this);
 			
 			new Renderer(this);
 			
 			new Time(this);
-		}
-		
-		public function get game():IGame
-		{
-			return this._game;
 		}
 		
 		public function get atlas():TextureAtlas
