@@ -9,7 +9,12 @@ package data.structs
 			
 		}
 		
-		function get totalDistance():int;
+		
+		
+		public function get totalDistance():int
+		{
+			return this.localSave.data.statistics.actors.lifetime.distance;
+		}
 	}
 
 }

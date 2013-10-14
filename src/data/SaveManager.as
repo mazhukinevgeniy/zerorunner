@@ -1,11 +1,12 @@
 package data 
 {
+	import data.structs.AchievementInfo;
 	import flash.net.SharedObject;
 	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class SaveManager
+	public class SaveManager //TODO: rename
 	{
 		protected var localSave:SharedObject;
 		
@@ -44,9 +45,15 @@ package data
 			
 		}
 		
-		function get numberOfAchievements():int;
+		public function get numberOfAchievements():int
+		{
+			return 0;
+		}
 		
-		function getAchievement(id:int):AchievementData
+		public function getAchievement(id:int):AchievementInfo
+		{
+			return new AchievementInfo();
+		}
 	}
 
 }

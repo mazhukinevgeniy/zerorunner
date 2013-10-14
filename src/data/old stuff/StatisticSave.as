@@ -1,4 +1,4 @@
-package data.old stuff 
+package data.old stuff stuff stuff stuff stuff stuff 
 {
 	import game.core.metric.DCellXY;
 	import utils.SaveBase;
@@ -7,7 +7,7 @@ package data.old stuff
 	
 	public class StatisticSave extends SaveBase implements IStatistic
 	{
-		private static const totalDistance:String = "totalDistance";
+		
 		
 		public function StatisticSave(flow:IUpdateDispatcher) 
 		{
@@ -31,25 +31,6 @@ package data.old stuff
 			}
 		}
 		
-		
-		update function moveCenter(change:DCellXY, delay:int):void
-		{
-			this.localSave.data.statistics.actors.lifetime.distance += change.length;
-		}
-		
-		public function get namesOfStatistics():Vector.<String>
-		{
-			var names:Vector.<String> = new Vector.<String>;
-			
-			names.push(StatisticSave.totalDistance);
-			
-			return names;
-		}
-		
-		public function get totalDistance():int
-		{
-			return this.localSave.data.statistics.actors.lifetime.distance;
-		}
 	}
 
 }
