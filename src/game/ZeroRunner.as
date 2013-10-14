@@ -1,6 +1,5 @@
 package game 
 {
-	import data.structs.GameConfig;
 	import game.core.GameFoundations;
 	import game.hud.UIExtendsions;
 	import starling.display.DisplayObject;
@@ -13,7 +12,7 @@ package game
 	{
 		private var flow:IUpdateDispatcher;
 		
-		private var config:GameConfig;
+		private var _foundations:GameFoundations;
 		
 		
 		public function ZeroRunner(flow:IUpdateDispatcher, assets:AssetManager, root:Sprite) 
@@ -23,19 +22,11 @@ package game
 			new GameUpdateConverter(flow);
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			var foundations:GameFoundations = new GameFoundations
-					(this.flow, assets, root);
+			this._foundations = new GameFoundations(this.flow, assets, root);
 			
 			new UIExtendsions(foundations);
-		}
-		
-		update function prerestore(config:GameConfig):void
-		{
-			this.config = config;
-			//TODO: check if it would wind up unused
 		}
 		
 		
@@ -55,6 +46,11 @@ package game
 						//TODO: advance level somehow else (see "tellGameWon" etc)
 					}
 			}
+		}
+		
+		public function get foundations():GameFoundations
+		{
+			return this._foundations;
 		}
 	}
 

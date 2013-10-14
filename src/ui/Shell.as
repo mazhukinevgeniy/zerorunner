@@ -18,7 +18,6 @@ package ui
 	
 	public class Shell
 	{		
-		private var gameIsActive:Boolean;
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
@@ -30,11 +29,9 @@ package ui
 		private var flow:IUpdateDispatcher;
 		
 		public function Shell(flow:IUpdateDispatcher, displayRoot:DisplayObjectContainer, 
-							assets:AssetManager, database:DatabaseManager, gameRoot:Sprite) 
+							assets:AssetManager, database:DatabaseManager, gameRoot:Sprite, ) 
 		{
 			this.flow = flow;
-			
-			this.gameIsActive = false;
 			this.assets = assets;
 			
 			this.root = displayRoot;
@@ -83,15 +80,11 @@ package ui
 		
 		update function newGame():void 
 		{
-			this.gameIsActive = true;
-			
 			this.background.visible = false;
 		}
 		
 		update function quitGame():void
 		{
-			this.gameIsActive = false;
-			
 			this.background.visible = true;
 		}
 		
