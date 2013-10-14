@@ -1,6 +1,7 @@
 package 
 {
 	import data.DatabaseManager;
+	import data.structs.GameConfig;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
@@ -16,6 +17,7 @@ package
 	import ui.Shell;
 	import utils.adaptTextureAtlasMakerXML;
 	import utils.SoftStarling;
+	import utils.updates.update;
 	import utils.updates.UpdateManager;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
@@ -104,6 +106,10 @@ package
 				
 				var flow:UpdateManager = new UpdateManager();
 				
+				flow.workWithUpdateListener(this);
+				flow.addUpdateListener(Update.prerestore);
+				flow.addUpdateListener(Update.quitGame);
+				
 				var database:DatabaseManager = new DatabaseManager(flow);
 				
 				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
@@ -114,6 +120,29 @@ package
 				Starling.current.stage.color = 0;
 			}
 		}
+		
+		
+		/**
+		 * Let us use it like a status reporter. It does makes sense after all.
+		 */
+		
+		private var _isGameOn:Boolean = false;
+		private var _config:GameConfig = null;
+		
+		update function prerestore(config:GameConfig):void
+		{
+			this._config = config;
+			this._isGameOn = true;
+		}
+		
+		update function quitGame():void
+		{
+			this._config = null;
+			this._isGameOn = false;
+		}
+		
+		public function get isGameOn():Boolean { return this._isGameOn; }
+		public function get currentConfig():GameConfig { return this._config; }
 	}
 
 }
