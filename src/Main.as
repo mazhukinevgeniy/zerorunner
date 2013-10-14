@@ -1,7 +1,6 @@
 package 
 {
 	import data.DatabaseManager;
-	import data.structs.GameConfig;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
@@ -106,9 +105,7 @@ package
 				
 				var flow:UpdateManager = new UpdateManager();
 				
-				flow.workWithUpdateListener(this);
-				flow.addUpdateListener(Update.prerestore);
-				flow.addUpdateListener(Update.quitGame);
+				var reporter:StatusReporter = new StatusReporter(flow);
 				
 				var database:DatabaseManager = new DatabaseManager(flow);
 				
@@ -121,28 +118,6 @@ package
 			}
 		}
 		
-		
-		/**
-		 * Let us use it like a status reporter. It does makes sense after all.
-		 */
-		
-		private var _isGameOn:Boolean = false;
-		private var _config:GameConfig = null;
-		
-		update function prerestore(config:GameConfig):void
-		{
-			this._config = config;
-			this._isGameOn = true;
-		}
-		
-		update function quitGame():void
-		{
-			this._config = null;
-			this._isGameOn = false;
-		}
-		
-		public function get isGameOn():Boolean { return this._isGameOn; }
-		public function get currentConfig():GameConfig { return this._config; }
 	}
 
 }
