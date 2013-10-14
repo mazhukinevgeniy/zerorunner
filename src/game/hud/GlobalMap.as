@@ -1,6 +1,6 @@
 package game.hud 
 {
-	import data.structs.ProgressInfo;
+	import data.structs.GameConfig;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
@@ -20,7 +20,7 @@ package game.hud
 			this.addChild(this.map);
 		}
 		
-		internal function draw(state:ProgressInfo):void
+		internal function draw(state:GameConfig):void
 		{
 			this.map.reset();
 			

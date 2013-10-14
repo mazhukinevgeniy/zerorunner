@@ -1,6 +1,6 @@
 package game.hud 
 {
-	import data.structs.ProgressInfo;
+	import data.structs.GameConfig;
 	import feathers.controls.Label;
 	import game.core.GameFoundations;
 	import game.hud.GameOverWindow;
@@ -55,7 +55,7 @@ package game.hud
 			flow.addUpdateListener(Update.tellRoundWon);
 		}
 		
-		update function tellRoundWon(progress:ProgressInfo):void
+		update function tellRoundWon(progress:GameConfig):void
 		{
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.roundWon);
@@ -65,12 +65,12 @@ package game.hud
 			this.labelContainer.parent.visible = true;
 		}
 		
-		update function tellGameWon():void
+		update function tellGameWon(progress:GameConfig):void
 		{
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.runWon);
 			
-			this.globalMap.draw(this.game);
+			this.globalMap.draw(progress);
 			
 			this.labelContainer.parent.visible = true;
 		}
