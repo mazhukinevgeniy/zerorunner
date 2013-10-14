@@ -11,14 +11,16 @@ package ui.themes
 		public static const BUTTON_MENU:String = "button-menu";
 		public static const MUTE_BUTTON:String = "mute-button";
 		public static const RESET_BUTTON:String = "reset-button";
-		public static const TITLE_STATICTICS_PIECE:String = "title-statistics-piece";
 		public static const BUTTON_STATISTICS_ROLL:String = "button-statistics-roll";
 		public static const BUTTON_STATISTICS_FIX:String = "button-statistics-fix";
+		public static const TITLE_STATICTICS_PIECE:String = "title-statistics-piece";
+		public static const MESSAGE:String = "message";
 		
 		private static const DEFAULT_TEXT_FORMAT:TextFormat = new TextFormat("HiLo-Deco", 18, AeonDesktopTheme.PRIMARY_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 		private static const DISABLE_TEXT_FORMAT:TextFormat = new TextFormat("HiLo-Deco", 18, AeonDesktopTheme.DISABLED_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 		
 		private static const STATISTICS_TITLE_TEXT_FORMAT:TextFormat = new TextFormat("HiLo-Deco", 20, AeonDesktopTheme.PRIMARY_TEXT_COLOR, true, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
+		private static const MESSAGE_TEXT_FORMAT:TextFormat = new TextFormat("HiLo-Deco", 17, AeonDesktopTheme.PRIMARY_TEXT_COLOR, true, false, false, null, null, TextFormatAlign.JUSTIFY, 0, 0, 0, 0);
 		
 		private static const SIZE_STATISTICS_BUTTON:Number = 15;
 		
@@ -52,6 +54,7 @@ package ui.themes
 			this.setInitializerForClass( Button, this.buttonStatisticsFix, ExtendedTheme.BUTTON_STATISTICS_FIX);
 			
 			this.setInitializerForClass( Label, this.titleStatisticsPiece, ExtendedTheme.TITLE_STATICTICS_PIECE);
+			this.setInitializerForClass( Label, this.message, ExtendedTheme.MESSAGE);
 		}
 		
 		private function buttonMenu(button:Button):void
@@ -103,6 +106,15 @@ package ui.themes
 			
 			label.textRendererProperties.embedFonts = true;
 			label.textRendererProperties.textFormat = ExtendedTheme.STATISTICS_TITLE_TEXT_FORMAT;
+		}
+		
+		private function message(label:Label):void
+		{
+			this.labelInitializer(label);
+			
+			label.textRendererProperties.wordWrap = true;
+			label.textRendererProperties.embedFonts = true;
+			label.textRendererProperties.textFormat = ExtendedTheme.MESSAGE_TEXT_FORMAT;
 		}
 	}
 
