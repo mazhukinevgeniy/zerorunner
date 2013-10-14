@@ -34,7 +34,7 @@ package ui.windows.achievements
 		private var edges:Vector.<Edge>;
 		private var achievements:Vector.<ViewAchievement>;
 		
-		private var achievementDescription:Label;
+		private var achievementDescription:MessageBubble;
 		private var lastDisplayedDescription:int;
 		
 		
@@ -56,7 +56,7 @@ package ui.windows.achievements
 			this.substrate.alpha = Number.MIN_VALUE;
 			this.achievementsContainer = new Sprite();
 			this.edgesContainer = new Sprite();
-			this.achievementDescription = new Label();
+			this.achievementDescription = new MessageBubble();
 			this.achievementDescription.visible = false;
 			this.lastDisplayedDescription = AchievementsWindow.UNDETERMINED;
 			
@@ -153,20 +153,8 @@ package ui.windows.achievements
 			{
 				var achievementData:AchievementData = this.achievementSave.getAchievement(id);
 			
-				this.achievementDescription.text = achievementData.description + " " +(String)(id);
-				
-				if (mouseX + this.achievementDescription.width > Main.WIDTH)
-					this.achievementDescription.x = mouseX - this.achievementDescription.width;
-				else
-					this.achievementDescription.x = mouseX;
-					
-				if (mouseY - this.achievementDescription.height > 0)
-					this.achievementDescription.y = mouseY + 10;
-				else
-					this.achievementDescription.y = mouseY - 10;
-					
+				this.achievementDescription.updateMessage(achievementData.description + " " + (String)(id), mouseX, mouseY);
 				this.achievementDescription.visible = true;
-				
 				this.lastDisplayedDescription = id;
 			}
 			
