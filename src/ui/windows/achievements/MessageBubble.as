@@ -30,18 +30,23 @@ package ui.windows.achievements
 			this.addChild(this.background);
 			this.addChild(this.message);
 			
-			this.addEventListener(Event.ADDED, this.changeHeight);
+			this.addEventListener(Event.ENTER_FRAME, this.changeHeightAndRelocate);
 		}
 		
-		private function changeHeight(event:Event):void
+		private function changeHeightAndRelocate(event:Event):void
 		{
-			if (this.message.height != lastHeight)
+			if (this.visible)
 			{
-				this.background.height = this.message.height;
-				this.lastHeight = this.message.height;
+				if (this.message.height != lastHeight)
+				{
+					this.background.height = this.message.height;
+					this.lastHeight = this.message.height;
+				}
 				
 				if (this.y + this.height > Main.HEIGHT)
-					this.y = this.y - this.height;
+						this.y = this.y - this.height;
+				
+				trace("enter");
 			}
 		}
 		
