@@ -38,6 +38,11 @@ package
 		public static const UNUSED_FRAME_1:int = 4;
 		
 		
+		/* Constants */
+		
+		public static const BORDER_WIDTH:int = 10;
+		
+		
 		/* Temporary bad things */
 		
 		public static const LEVELS_PER_RUN:int = 3;

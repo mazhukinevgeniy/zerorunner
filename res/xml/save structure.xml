@@ -2,11 +2,15 @@
 <data>
 	<game>
 		<config>
+			<width>10</width>
 			
+			<junks>2</junks>
+			<goal>undefined</goal>
 		</config>
 		
 		<progress>
-			
+			<level>1</level>
+			<activeDroids>0</activeDroids>
 		</progress>
 	</game>
 	

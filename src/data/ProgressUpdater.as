@@ -33,6 +33,13 @@ package data
 				this.localSave.data[value] = this.defaultValues[value];
 		}
 		
+		internal function advanceLevel():void
+		{
+			if (this.level == Game.LEVELS_PER_RUN)
+				this.update::resetProgress();
+			else
+				this.localSave.data.gameCurrentLevel += 1;
+		}
 	}
 
 }
