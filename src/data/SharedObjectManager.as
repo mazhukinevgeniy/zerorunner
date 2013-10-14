@@ -4,6 +4,9 @@ package data
 	import flash.utils.flash_proxy;
 	import flash.utils.Proxy;
 	
+	/**
+	 * This class wraps SharedObject. Its objects are to never be accessed from the outer packages.
+	 */
 	internal dynamic class SharedObjectManager extends Proxy
 	{
 		
@@ -14,9 +17,9 @@ package data
 			checkNaming();
 			
 			const PROJECT_NAME:String = "zeroRunner";
-			
 			this.so = SharedObject.getLocal(PROJECT_NAME);
 			
+			initializeEntries();
 			
 			
 			/**
@@ -36,6 +39,22 @@ package data
 							throw new Error();
 						else 
 							tmp[property] = 1;
+					}
+				}
+			}
+			
+			/**
+			 * This function is used to initialize missed entries
+			 */
+			function initializeEntries():void
+			{
+				for each (obj:Object in Defaults.defaults)
+				{
+					for (property:String in obj)
+					{
+						if (!this.so.data.hasOwnProperty(property)) 
+						//TODO: check if works
+							this.so.data[property] = obj[property];
 					}
 				}
 			}
