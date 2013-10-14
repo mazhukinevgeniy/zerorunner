@@ -1,8 +1,7 @@
 package ui.windows.statistics 
 {
-	import utils.SaveBase;
 
-	public class FormChunkStatistics extends SaveBase
+	public class FormChunkStatistics
 	{		
 		private static const UNDETERMINED:int = -1;
 		
@@ -46,6 +45,8 @@ package ui.windows.statistics
 			this.localSave.data.statistics[this.chunkTitle].order = FormChunkStatistics.UNDETERMINED;
 			this.localSave.data.statistics[this.chunkTitle].isRoll = false;
 			this.localSave.data.statistics[this.chunkTitle].isFix = false;
+			
+			//TODO: implement it as a... preference, i guess.
 		}
 		
 		private function readSave():void

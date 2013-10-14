@@ -8,7 +8,6 @@ package ui.windows.statistics
 	import feathers.dragDrop.IDropTarget;
 	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
-	import progress.statistics.IStatistic;
 	import starling.display.Quad;
 	import starling.events.Event;
 	import ui.navigation.Menu;
@@ -27,16 +26,15 @@ package ui.windows.statistics
 		
 		private var data:Vector.<ChunkStatistics>;
 		
-		private var statistics:IStatistic;
 		private var namesOfStatistics:Vector.<String>;
 		
-		public function StatisticsWindow(statistics:IStatistic) 
+		public function StatisticsWindow() 
 		{
 			this.initializeSizeContainer();
 			this.initializeBackground();
 			this.initializeLayout();
 			this.initializeScrollBar();
-			this.initializePlaceForStatisticsPiece(statistics);
+			this.initializePlaceForStatisticsPiece(); //TODO: what?
 			this.initializeEventListener();
 		}
 		
@@ -82,12 +80,12 @@ package ui.windows.statistics
 			}
 		}
 		
-		private function initializePlaceForStatisticsPiece(statistics:IStatistic):void
+		private function initializePlaceForStatisticsPiece():void
 		{
 			this.data = new Vector.<ChunkStatistics>();
 			
-			this.statistics = statistics;
-			this.namesOfStatistics = this.statistics.namesOfStatistics;
+			this.namesOfStatistics = new < String > ["names, huh?"];
+			//TODO: do it any other way, why do you store titles in the variable?
 		}
 		
 		private function initializeEventListener():void

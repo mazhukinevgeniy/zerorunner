@@ -14,15 +14,14 @@ package game.world
 		{
 			this.scene = new ByteArray();
 			
-			this.game = game;
-			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 		}
 		
 		update function prerestore(config:GameConfig):void
 		{
-			const sectorWidth:int = (this.game).sectorWidth;
+			const sectorWidth:int = config.width;
+			//TODO: damn it, there're no more sectors; must write new code
 			
 			this.width = ((this.game).mapWidth + 2) * sectorWidth;
 			const secondJGoal:int = this.width - sectorWidth;

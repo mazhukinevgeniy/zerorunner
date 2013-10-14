@@ -1,6 +1,6 @@
 package ui 
 {
-	import progress.SaveManager;
+	import data.DatabaseManager;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -22,7 +22,6 @@ package ui
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
-		private var progress:SaveManager;
 		
 		private var background:Background,
 					windows:Windows,
@@ -31,7 +30,7 @@ package ui
 		private var flow:IUpdateDispatcher;
 		
 		public function Shell(flow:IUpdateDispatcher, displayRoot:DisplayObjectContainer, 
-							assets:AssetManager, progress:SaveManager, gameRoot:Sprite) 
+							assets:AssetManager, database:DatabaseManager, gameRoot:Sprite) 
 		{
 			this.flow = flow;
 			
@@ -41,19 +40,19 @@ package ui
 			
 			this.root = displayRoot;
 			
-		    this.initializeFeatures(gameRoot);
+		    this.initializeFeatures(gameRoot, database);
 			this.initializeUsingFlow();
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
-		private function initializeFeatures(gameRoot:Sprite):void
+		private function initializeFeatures(gameRoot:Sprite, database:DatabaseManager):void
 		{
 			new ExtendedTheme(this.root);
 			
 			this.background = new Background(this.flow);
 			this.navigation = new Navigation(this.flow);
-			this.windows = new Windows(this.flow, this.assets, this.progress, gameRoot)
+			this.windows = new Windows(this.flow, this.assets, database, gameRoot)
 			
 			this.root.addChild(this.background);
 			this.root.addChild(this.windows);

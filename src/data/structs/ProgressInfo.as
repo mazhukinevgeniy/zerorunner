@@ -13,7 +13,7 @@ package data.structs
 		/**
 		 * Please note: level must be natural (i.e. it's an integer > 0)
 		 */
-		public function get beacon(level:int):int
+		public function beacon(level:int):int
 		{
 			return this.localSave.data["beaconProgress" + String(level)];
 		}
