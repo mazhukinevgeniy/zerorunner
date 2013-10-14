@@ -1,4 +1,4 @@
-package progress.statistics 
+package data.old stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff 
 {
 	
 	public interface IStatistic 

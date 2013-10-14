@@ -1,5 +1,6 @@
-package progress 
+package data.old stuff 
 {
+	import flash.net.SharedObject;
 	import game.ZeroRunner;
 	import progress.achievements.AchievementSave;
 	import progress.achievements.IAchievements;
@@ -10,6 +11,8 @@ package progress
 	
 	public class SaveManager
 	{
+		protected var localSave:SharedObject;
+		
 		
 		private var activeAchievements:Vector.<int>;
 		
@@ -18,6 +21,11 @@ package progress
 		
 		public function SaveManager(flow:IUpdateDispatcher) 
 		{
+			const PROJECT_NAME:String = "zeroRunner";
+			
+			this.localSave = SharedObject.getLocal(PROJECT_NAME);
+			
+			
 			this.activeAchievements = new Vector.<int>();
 			
 			this._statistics = new StatisticSave(flow);
