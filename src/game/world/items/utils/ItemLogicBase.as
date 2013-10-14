@@ -2,7 +2,6 @@ package game.world.items.utils
 {
 	import game.core.GameFoundations;
 	import game.core.metric.*;
-	import game.IGame;
 	import game.world.IActors;
 	import game.world.IActorTracker;
 	import game.world.IScene;
@@ -13,7 +12,6 @@ package game.world.items.utils
 	{
 		protected var actors:IActors;
 		protected var scene:IScene;
-		protected var game:IGame;
 		
 		private var actorTracker:IActorTracker;
 		
@@ -27,8 +25,6 @@ package game.world.items.utils
 			this.actors = foundations.actors;
 			
 			this.actorTracker = foundations.actorsTracker;
-			
-			this.game = foundations.game;
 			
 			this.reset();
 		}

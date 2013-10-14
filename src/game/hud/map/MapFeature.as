@@ -1,9 +1,9 @@
 package game.hud.map 
 {
+	import data.structs.GameConfig;
 	import flash.utils.ByteArray;
 	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
-	import game.IGame;
 	import game.world.IScene;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
@@ -19,7 +19,6 @@ package game.hud.map
 		private var visited:ByteArray;
 		private var width:int;
 		
-		private var game:IGame;
 		private var scene:IScene;
 		private var center:ICoordinated;
 		
@@ -31,7 +30,6 @@ package game.hud.map
 		{
 			this.visited = new ByteArray();
 			
-			this.game = foundations.game;
 			this.scene = foundations.scene;
 			this.road = new Quad(1, 1, 0xFF0000);
 			
@@ -43,9 +41,9 @@ package game.hud.map
 			foundations.displayRoot.addChild(this.container = new QuadBatch());
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
-			this.width = ((this.game).mapWidth + 2) * (this.game).sectorWidth;
+			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			
 			var length:int = this.visited.length = this.width * this.width;
 			

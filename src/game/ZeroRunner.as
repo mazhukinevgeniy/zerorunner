@@ -1,5 +1,6 @@
 package game 
 {
+	import data.structs.GameConfig;
 	import game.core.GameFoundations;
 	import game.hud.UIExtendsions;
 	import starling.display.DisplayObject;
@@ -11,23 +12,30 @@ package game
 	public class ZeroRunner
 	{
 		private var flow:IUpdateDispatcher;
-		private var save:GameSave;
+		
+		private var config:GameConfig;
 		
 		
 		public function ZeroRunner(flow:IUpdateDispatcher, assets:AssetManager, root:Sprite) 
 		{
 			this.flow = flow;
-			this.save = new GameSave(flow);
 			
 			new GameUpdateConverter(flow);
 			
 			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.numberedFrame);
 			
 			var foundations:GameFoundations = new GameFoundations
-					(this.flow, this.save, assets, root);
+					(this.flow, assets, root);
 			
 			new UIExtendsions(foundations);
+		}
+		
+		update function prerestore(config:GameConfig):void
+		{
+			this.config = config;
+			//TODO: check if it would wind up unused
 		}
 		
 		
@@ -35,7 +43,7 @@ package game
 		{
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{
-				if (this.save.localGoal == Game.LIGHT_A_BEACON)
+				if (this.config.goal == Game.LIGHT_A_BEACON)
 					if (this.save.getBeacon(this.save.level) != Game.NO_BEACON)
 					{
 						if (this.save.level == Game.LEVELS_PER_RUN)
@@ -43,7 +51,8 @@ package game
 						else
 							this.flow.dispatchUpdate(Update.tellRoundWon);
 						
-						this.save.advanceLevel();
+						//this.save.advanceLevel();
+						//TODO: advance level somehow else (see "tellGameWon" etc)
 					}
 			}
 		}
