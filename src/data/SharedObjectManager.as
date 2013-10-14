@@ -6,42 +6,6 @@ package data
 	
 	internal dynamic class SharedObjectManager extends Proxy
 	{
-		private const configDefaults:Object = 
-		{
-			width: 10,
-			
-			junks: 2,
-			goal: Game.LIGHT_A_BEACON
-		};
-		
-		private const progressDefaults:Object = 
-		{
-			level: 1,
-			
-			activeDroids: 0,
-			
-			beacon0: Game.NO_BEACON,
-			beacon1: Game.NO_BEACON,
-			beacon2: Game.NO_BEACON
-		};
-		
-		private const preferencesDefaults:Object = 
-		{
-			mute: false
-		};
-		
-		private const statisticsDefaults:Object = 
-		{
-			distance: 0
-		};
-		
-		private const defaults:Vector.<Object> = new <Object>[
-						this.configDefaults, 
-						this.progressDefaults, 
-						this.preferencesDefaults, 
-						this.statisticsDefaults];
-		
-		
 		
 		protected var so:SharedObject;
 		
