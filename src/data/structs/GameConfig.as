@@ -9,18 +9,22 @@ package data.structs
 			
 		}
 		
-		public function get level():int;
+		public function get mapWidth():int { return this.localSave.data.gameCurrentWidth; }
+		public function get sectorWidth():int { return this.localSave.data.gameSectorWidth; }
 		
-		function get mapWidth():int;
-		function get sectorWidth():int;
+		public function get numberOfJunks():int { return this.localSave.data.gameCurrentJunks; }
 		
-		function get numberOfDroids():int;
-		function get numberOfJunks():int;
-		
-		function get localGoal():int;
+		public function get localGoal():int { return this.localSave.data.gameCurrentGoal; };
 		
 		
-		function getBeacon(level:int):int;
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }

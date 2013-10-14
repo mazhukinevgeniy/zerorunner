@@ -9,6 +9,10 @@ package data.structs
 			
 		}
 		
+		public function get mute():Boolean
+		{
+			return false;//TODO: implement
+		}
 	}
 
 }

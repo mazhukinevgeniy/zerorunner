@@ -15,6 +15,12 @@
 	</preferences>
 	
 	<statistics>
+		<lifetime>
+			<distance>0</distance>
+		</lifetime>
 		
+		<playthrough>
+			
+		</playthrough>
 	</statistics>
 </data>

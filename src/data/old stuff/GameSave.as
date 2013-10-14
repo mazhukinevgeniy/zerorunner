@@ -1,4 +1,4 @@
-package data.old stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff 
+package data.old stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff 
 {
 	import game.core.metric.ICoordinated;
 	import utils.SaveBase;
@@ -39,56 +39,16 @@ package data.old stuff stuff stuff stuff stuff stuff stuff stuff stuff stuff
 				if (!this.localSave.data[value])
 					this.localSave.data[value] = this.defaultValues[value];
 			}
-			
-			if (!this.localSave.data.beaconProgress)
-			{
-				this.localSave.data.beaconProgress = new Array();
-			}
 		}
 		
 		
 		
-		public function get numberOfDroids():int { return this.localSave.data.gameActiveDroids; }
-		
-		public function get level():int { return this.localSave.data.gameCurrentLevel; }
-		public function get mapWidth():int { return this.localSave.data.gameCurrentWidth; }
-		public function get sectorWidth():int { return this.localSave.data.gameSectorWidth; }
-		public function get numberOfJunks():int { return this.localSave.data.gameCurrentJunks; }
-		public function get localGoal():int { return this.localSave.data.gameCurrentGoal; };
-		
-		/**
-		 * Please note: level must be natural (i.e. it's an integer > 0)
-		 */
-		public function getBeacon(level:int):int
-		{
-			return this.localSave.data["beaconProgress" + String(level)];
-		}
 		
 		
 		
-		update function smallBeaconTurnedOn():void
-		{
-			this.localSave.data["beaconProgress" + String(this.level)] = Game.BEACON;
-		}
 		
-		update function technicUnlocked(place:ICoordinated):void
-		{
-			this.localSave.data.gameActiveDroids++;
-		}
 		
-		update function prerestore():void
-		{
-			//for example
-			
-			this.localSave.data.gameActiveDroids = 0;
-			this.localSave.data.gameCurrentJunks = this.level * 2;
-		}
 		
-		update function resetProgress():void
-		{
-			for (var value:String in this.defaultValues)
-				this.localSave.data[value] = this.defaultValues[value];
-		}
 		
 		
 		
