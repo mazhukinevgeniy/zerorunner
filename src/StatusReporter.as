@@ -1,5 +1,6 @@
 package  
 {
+	import data.structs.GameConfig;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class StatusReporter 

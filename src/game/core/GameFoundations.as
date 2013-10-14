@@ -25,15 +25,17 @@ package game.core
 		private var _input:InputManager;
 		private var _assets:AssetManager;
 		private var _actors:ActorsFeatures;
+		private var _status:StatusReporter;
 		private var _flow:IUpdateDispatcher;
 		private var _points:IPointCollector;
 		private var _root:DisplayObjectContainer;
 		
-		public function GameFoundations(flow:IUpdateDispatcher, assets:AssetManager, root:Sprite) 
+		public function GameFoundations(flow:IUpdateDispatcher, status:StatusReporter, assets:AssetManager, root:Sprite) 
 		{
 			this._root = root;
 			this._flow = flow;
 			this._assets = assets;
+			this._status = status;
 			this._points = new PointsOfInterest();
 			this._juggler = new Juggler();
 			this._input = new InputManager(flow);
@@ -63,6 +65,11 @@ package game.core
 		public function get flow():IUpdateDispatcher
 		{
 			return this._flow;
+		}
+		
+		public function get statusReporter():StatusReporter
+		{
+			return this._status;
 		}
 		
 		public function get input():InputManager
