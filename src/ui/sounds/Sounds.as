@@ -2,11 +2,10 @@ package ui.sounds
 {
 	import flash.ui.Keyboard;
 	import starling.utils.AssetManager;
-	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class Sounds extends SaveBase
+	public class Sounds
 	{
 		private var music:MusicManager;
 		private var sound:SoundManager;

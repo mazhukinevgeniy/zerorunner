@@ -1,11 +1,11 @@
 package data 
 {
 	
-	public class SaveManager //TODO: rename
+	public class DatabaseManager
 	{
 		
 		
-		public function SaveManager(flow:IUpdateDispatcher) 
+		public function DatabaseManager(flow:IUpdateDispatcher) 
 		{
 			
 			this._statistics = new StatisticSave(flow);

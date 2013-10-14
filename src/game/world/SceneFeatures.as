@@ -1,7 +1,7 @@
 package game.world 
 {
+	import data.structs.GameConfig;
 	import flash.utils.ByteArray;
-	import game.IGame;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -10,9 +10,7 @@ package game.world
 		private var scene:ByteArray;
 		private var width:int;
 		
-		protected var game:IGame;
-		
-		public function SceneFeatures(flow:IUpdateDispatcher, game:IGame) 
+		public function SceneFeatures(flow:IUpdateDispatcher) 
 		{
 			this.scene = new ByteArray();
 			
@@ -22,7 +20,7 @@ package game.world
 			flow.addUpdateListener(Update.prerestore);
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
 			const sectorWidth:int = (this.game).sectorWidth;
 			
