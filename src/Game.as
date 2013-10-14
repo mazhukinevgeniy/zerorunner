@@ -42,11 +42,7 @@ package
 		
 		public static const BORDER_WIDTH:int = 10;
 		
-		
-		/* Temporary bad things */
-		
-		public static const LEVELS_PER_RUN:int = 3;
-		//TODO: parametrize
+		public static const LEVEL_CAP:int = 3;
 		
 		
 		
