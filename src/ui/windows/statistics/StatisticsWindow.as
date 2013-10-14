@@ -20,80 +20,71 @@ package ui.windows.statistics
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
-		private static const PAGGING:Number = 5;
+		private static const PADDING:Number = 5;
 		
 		private var lastHeight:Number;
 		
-		private var data:Vector.<ChunkStatistics>;
-		
-		private var namesOfStatistics:Vector.<String>;
+		private var blocks:Vector.<ChunkStatistics>;
 		
 		public function StatisticsWindow() 
 		{
-			this.initializeSizeContainer();
-			this.initializeBackground();
-			this.initializeLayout();
-			this.initializeScrollBar();
-			this.initializePlaceForStatisticsPiece(); //TODO: what?
-			this.initializeEventListener();
-		}
-		
-		private function initializeSizeContainer():void
-		{
-			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
-			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
+			setSize();
+			setBackground();
+			setLayout();
+			setScrollBar();
+			addEventListeners();
 			
-			this.lastHeight = 0;
-		}
-		
-		private function initializeBackground():void
-		{
-			var tmp:Quad = new Quad(StatisticsWindow.WIDTH_STATISTICS_WINDOW, 1, 0xFFFFFF);
+			this.blocks = new Vector.<ChunkStatistics>();
 			
-			tmp.alpha = 0.85;
-			this.backgroundSkin = tmp;
-		}
-		
-		private function initializeLayout():void
-		{
-			var layout:VerticalLayout = new VerticalLayout();
-			
-			layout.gap = StatisticsWindow.PAGGING;
-			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_LEFT;
-			this.padding = StatisticsWindow.PAGGING;
-			this.layout = layout;
-		}
-		
-		private function initializeScrollBar():void 
-		{
-			this.scrollBarDisplayMode = ScrollContainer.SCROLL_BAR_DISPLAY_MODE_FIXED;
-			this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
-			this.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_AUTO;
-			this.interactionMode = ScrollContainer.INTERACTION_MODE_MOUSE;
-			
-			this.verticalScrollBarFactory = function():IScrollBar
+			function setSize():void
 			{
-				var newScrollBar:ScrollBar = new ScrollBar();
-				newScrollBar.direction = ScrollBar.DIRECTION_VERTICAL;
+				this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
+				this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
 				
-				return newScrollBar; 
+				this.lastHeight = 0;
 			}
-		}
-		
-		private function initializePlaceForStatisticsPiece():void
-		{
-			this.data = new Vector.<ChunkStatistics>();
 			
-			this.namesOfStatistics = new < String > ["names, huh?"];
-			//TODO: do it any other way, why do you store titles in the variable?
-		}
-		
-		private function initializeEventListener():void
-		{
-			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
-			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
-			this.addEventListener(Event.ADDED, this.alignCenter);
-			this.addEventListener(Event.RESIZE, this.alignCenter);
+			function setBackground():void
+			{
+				var tmp:Quad = new Quad(StatisticsWindow.WIDTH_STATISTICS_WINDOW, 1, 0xFFFFFF);
+				
+				tmp.alpha = 0.85;
+				this.backgroundSkin = tmp;
+			}
+			
+			function setLayout():void
+			{
+				var layout:VerticalLayout = new VerticalLayout();
+				
+				layout.gap = StatisticsWindow.PAGGING;
+				layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_LEFT;
+				this.padding = StatisticsWindow.PAGGING;
+				this.layout = layout;
+			}
+			
+			function setScrollBar():void 
+			{
+				this.scrollBarDisplayMode = ScrollContainer.SCROLL_BAR_DISPLAY_MODE_FIXED;
+				this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
+				this.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_AUTO;
+				this.interactionMode = ScrollContainer.INTERACTION_MODE_MOUSE;
+				
+				this.verticalScrollBarFactory = function():IScrollBar
+				{
+					var newScrollBar:ScrollBar = new ScrollBar();
+					newScrollBar.direction = ScrollBar.DIRECTION_VERTICAL;
+					
+					return newScrollBar; 
+				}
+			}
+			
+			function addEventListeners():void
+			{
+				this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
+				this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
+				this.addEventListener(Event.ADDED, this.alignCenter);
+				this.addEventListener(Event.RESIZE, this.alignCenter);
+			}
 		}
 		
 		private function checkFormat(event:DragDropEvent, dragData:DragData):void
