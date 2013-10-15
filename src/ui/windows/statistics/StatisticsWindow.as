@@ -33,8 +33,6 @@ package ui.windows.statistics
 		
 		private static const PADDING:Number = 5;
 		
-		private var lastHeight:Number;
-		
 		private var blocks:Vector.<ChunkStatistics>;
 		
 		public function StatisticsWindow(database:DatabaseManager) 
@@ -43,9 +41,14 @@ package ui.windows.statistics
 			setBackground();
 			setLayout();
 			setScrollBar();
-			addEventListeners();
 			
 			this.blocks = new Vector.<ChunkStatistics>();
+			
+			//TODO: check if required:
+			/*
+			this.x = (Main.WIDTH + Menu.WIDTH_MENU - this.width) / 2;
+			this.y = (Main.HEIGHT - this.height) / 2;
+			*/
 			
 			function setSize():void
 			{
@@ -88,38 +91,22 @@ package ui.windows.statistics
 					return newScrollBar; 
 				}
 			}
-			
-			function addEventListeners():void
-			{
-				this.addEventListener(Event.ADDED, this.alignCenter);
-				this.addEventListener(Event.RESIZE, this.alignCenter);
-			}
 		}
 		
 		
-		private function alignCenter():void
+		override public function set visible(value:Boolean):void
 		{
-			if (this.lastHeight != this.height)
+			if (value)
 			{
-				this.x = (Main.WIDTH + Menu.WIDTH_MENU - this.width) / 2;
-				this.y = (Main.HEIGHT - this.height) / 2;
-				this.lastHeight = this.height;
-			}
-		}
-		
-		public override function set visible(newValue:Boolean):void
-		{
-			if (newValue)
-			{
-				this.updateData();
-				this.redraw();
+				this.composeView();
 			}
 			
-			super.visible = newValue;
+			super.visible = value;
 		}
 		
-		private function updateData():void
+		private function composeView():void
 		{
+			/* updateData:
 			for (var i:int = 0; i < StatisticsWindow.COUNT_STATISTICS_PIECE; ++i)
 			{
 				var nameOfStatistic:String = this.namesOfStatistics[i]
@@ -132,6 +119,18 @@ package ui.windows.statistics
 					this.createAndPushChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
 				}
 			}
+			 */
+			
+			/* redraw:
+			var lenght:int = this.data.length;
+			
+			this.removeChildren();
+			
+			for (var i:int = 0;  i < lenght; ++i)
+			{
+				this.addChild(this.data[i]);
+			}
+			 */
 		}
 		
 		private function isExistItemInData(nameOfStatistic:String):Boolean
@@ -188,18 +187,6 @@ package ui.windows.statistics
 			else
 			{
 				this.data[index] = newChunk;
-			}
-		}
-		
-		private function redraw():void
-		{
-			var lenght:int = this.data.length;
-			
-			this.removeChildren();
-			
-			for (var i:int = 0;  i < lenght; ++i)
-			{
-				this.addChild(this.data[i]);
 			}
 		}
 		

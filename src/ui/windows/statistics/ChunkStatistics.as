@@ -18,94 +18,32 @@ package ui.windows.statistics
 		private static const GAP:Number = 3;
 		private static const BUTTON_PADDING_TOP:Number = 5;
 		
-		private var parentContainer:StatisticsWindow;
-		
 		private var list:List;
-		private var rollButton:Button;
-		private var fixButton:Button;
 		private var label:Label;
 		
 		private var fullHeight:Number;
-		private var rollHeight:Number;
 		
-		private var isRoll:Boolean;
 		
-		private var saveForm:FormChunkStatistics;
-		private var firstReadSave:Boolean;
-		//TODO: unroll the roll as roll is not the roll roll is roll for
-		
-		public function ChunkStatistics(name:String, newValue:int, parentContainer:StatisticsWindow) 
-		{		
-			this.initializeRollButton();
-			this.initializeFixButton();
+		public function ChunkStatistics(name:String, newValue:int) 
+		{
 			this.initializeTitle(name);
-			this.initializeList(newValue);
-			this.initializeOtherFields(parentContainer);
+			this.initializeList(newValue);//TODO: what value?
+			
+			this.layout = new AnchorLayout();
 			
 			//TODO: absorb constructing functions
-		}
-		
-		private function initializeRollButton():void
-		{
-			this.rollButton = new Button();
-			this.rollButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_ROLL);
-			this.rollButton.layoutData = this.createLayoutData(null, ChunkStatistics.BUTTON_PADDING_TOP);
-			this.addChild(this.rollButton);
-			
-			this.rollButton.addEventListener(Event.TRIGGERED, this.handleRollButtonTriggered);
-		}
-		
-		private function handleRollButtonTriggered(event:Event = null):void
-		{
-			if (!this.isRoll)
-			{
-				this.makeListInvisible();
-			}
-			else
-			{
-				this.makeListVisible();
-			}
-			
-			this.saveForm.isRoll = this.isRoll;
 		}
 
 		private function makeListInvisible():void
 		{
 			this.list.visible = false;
-			this.isRoll = true;
 			this.fullHeight = this.height;
-			this.height = this.rollHeight;
 		}
 		
 		private function makeListVisible():void
 		{
 			this.list.visible = true;
-			this.isRoll = false;
 			this.height = this.fullHeight;
-		}
-		
-		private function initializeFixButton():void
-		{
-			this.fixButton = new Button();
-			this.fixButton.nameList.add(ExtendedTheme.BUTTON_STATISTICS_FIX);
-			this.fixButton.layoutData = this.createLayoutData(null, ChunkStatistics.BUTTON_PADDING_TOP, this.rollButton, ChunkStatistics.GAP)
-			this.addChild(this.fixButton);
-			
-			this.fixButton.addEventListener(Event.TRIGGERED, this.handleFixButtonTriggered);
-		}
-		
-		private function handleFixButtonTriggered(event:Event = null):void
-		{
-			if (this.rollButton.isEnabled)
-			{
-				this.rollButton.isEnabled = false;
-			}
-			else
-			{
-				this.rollButton.isEnabled = true;
-			}
-			
-			this.saveForm.isFix = !this.rollButton.isEnabled
 		}
 		
 		private function initializeTitle(newTitle:String):void
@@ -115,28 +53,6 @@ package ui.windows.statistics
 			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
 			this.label.layoutData = this.createLayoutData(null, 0, this.fixButton, ChunkStatistics.GAP)
 			this.addChild(this.label);
-			
-			this.label.addEventListener(Event.ADDED, this.changeForm);
-		}
-		
-		private function changeForm(event:Event):void
-		{
-			if (this.firstReadSave && this.label.height != 0)
-			{
-				this.rollHeight = this.label.height;
-				
-				if (this.saveForm.isRoll)
-				{
-					this.handleRollButtonTriggered();
-				}
-				
-				if (this.saveForm.isFix)
-				{
-					this.handleFixButtonTriggered();
-				}
-				
-				this.firstReadSave = false;
-			}
 		}
 		
 		private function initializeList(value:int):void
@@ -176,19 +92,6 @@ package ui.windows.statistics
 			
 			return layoutData;
 		}
-		
-		private function initializeOtherFields(parentContainer:StatisticsWindow):void
-		{
-			this.layout = new AnchorLayout();
-			
-			this.isRoll = false;
-			
-			this.saveForm = new FormChunkStatistics(this.title);
-			this.firstReadSave = true;
-			
-			this.parentContainer = parentContainer;
-		}
-		
 		public function get title():String
 		{
 			return this.label.text;
