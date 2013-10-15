@@ -24,36 +24,30 @@ package ui.windows.statistics
 		private var fullHeight:Number;
 		
 		
-		public function ChunkStatistics(name:String, newValue:int) 
+		public function ChunkStatistics(title:String, newValue:int) 
 		{
-			this.initializeTitle(name);
+			setTitle(title);
 			this.initializeList(newValue);//TODO: what value?
 			
 			this.layout = new AnchorLayout();
 			
+			function setTitle(title:String):void
+			{
+				this.label = new Label();
+				this.label.text = title;
+				this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
+				this.label.layoutData = this.createLayoutData(null, 0, this.fixButton, ChunkStatistics.GAP)
+				this.addChild(this.label);
+			}
 			//TODO: absorb constructing functions
-		}
-
-		private function makeListInvisible():void
-		{
-			this.list.visible = false;
-			this.fullHeight = this.height;
-		}
-		
-		private function makeListVisible():void
-		{
-			this.list.visible = true;
-			this.height = this.fullHeight;
+			
+			//TODO: check if required:
+			/*
+			var newList:List = this.writeInList(value);
+			this.list.dataProvider = newList.dataProvider;
+			*/
 		}
 		
-		private function initializeTitle(newTitle:String):void
-		{
-			this.label = new Label();
-			this.label.text = newTitle;
-			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
-			this.label.layoutData = this.createLayoutData(null, 0, this.fixButton, ChunkStatistics.GAP)
-			this.addChild(this.label);
-		}
 		
 		private function initializeList(value:int):void
 		{
@@ -91,16 +85,6 @@ package ui.windows.statistics
 			layoutData.top = top;
 			
 			return layoutData;
-		}
-		public function get title():String
-		{
-			return this.label.text;
-		}
-		
-		public function updateData(value:int):void
-		{
-			var newList:List = this.writeInList(value);
-			this.list.dataProvider = newList.dataProvider;
 		}
 		
 	}
