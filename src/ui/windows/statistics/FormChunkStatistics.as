@@ -14,60 +14,31 @@ package ui.windows.statistics
 		{
 			this.chunkTitle = chunkTitle;
 			
-			super();
-		}
-		
-		override protected function checkLocalSave():void
-		{
-			
-			if (this.localSave.data.statistics == null)
-			{		
-				this.createStatisticsSave();
-			}
-			
-			if (this.localSave.data.statistics[this.chunkTitle] == null)
-			{	
-				this.createNewSave();	
-			}
-			
-			this.readSave();
-		}
-		
-		private function createStatisticsSave():void
-		{
-			this.localSave.data.statistics = new Object();
-		}
-		
-		private function createNewSave():void
-		{
 			this.localSave.data.statistics[this.chunkTitle] = new Object();
-			this.localSave.data.statistics[this.chunkTitle].order = FormChunkStatistics.UNDETERMINED;
 			this.localSave.data.statistics[this.chunkTitle].isRoll = false;
 			this.localSave.data.statistics[this.chunkTitle].isFix = false;
+			
+			this.saveIsRoll = this.localSave.data.statistics[this.chunkTitle].isRoll;
+			this.saveIsFix = this.localSave.data.statistics[this.chunkTitle].isFix;
+			
 			
 			//TODO: implement it as a... preference, i guess.
 		}
 		
-		private function readSave():void
-		{
-			this.saveOrder = this.localSave.data.statistics[this.chunkTitle].order;
-			this.saveIsRoll = this.localSave.data.statistics[this.chunkTitle].isRoll;
-			this.saveIsFix = this.localSave.data.statistics[this.chunkTitle].isFix;
-		}
 		
 		public function get isRoll():Boolean
 		{
 			return this.saveIsRoll;
 		}
 		
-		public function get isFix():Boolean
-		{
-			return this.saveIsFix;
-		}
-		
 		public function set isRoll(newIsRoll:Boolean):void 
 		{
 			this.localSave.data.statistics[this.chunkTitle].isRoll = newIsRoll;
+		}
+		
+		public function get isFix():Boolean
+		{
+			return this.saveIsFix;
 		}
 		
 		public function set isFix(newIsFix:Boolean):void 

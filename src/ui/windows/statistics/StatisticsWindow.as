@@ -1,5 +1,6 @@
 package ui.windows.statistics 
 {
+	import data.DatabaseManager;
 	import feathers.controls.IScrollBar;
 	import feathers.controls.ScrollBar;
 	import feathers.controls.ScrollContainer;
@@ -40,7 +41,7 @@ package ui.windows.statistics
 		
 		private var blocks:Vector.<ChunkStatistics>;
 		
-		public function StatisticsWindow() 
+		public function StatisticsWindow(database:DatabaseManager) 
 		{
 			setSize();
 			setBackground();
@@ -204,7 +205,6 @@ package ui.windows.statistics
 		private function createAndPushChunk(nameOfStatistic:String, value:int):void
 		{
 			var newChunk:ChunkStatistics = new ChunkStatistics(nameOfStatistic, value, this)
-			var order:int = newChunk.order;
 			
 			if (order != -1)
 			{
@@ -240,7 +240,6 @@ package ui.windows.statistics
 			for (var i:int = 0;  i < lenght; ++i)
 			{
 				this.addChild(this.data[i]);
-				this.data[i].order = i;
 			}
 		}
 		
