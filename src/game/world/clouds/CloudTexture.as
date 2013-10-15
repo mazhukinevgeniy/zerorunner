@@ -33,7 +33,7 @@ package game.world.clouds
 		{
 			var bmpData:BitmapData = new BitmapData(100, 100, true, 0x0);
 			
-			//bmpData.draw(shape);
+			bmpData.draw(shape);
 		}
 		
 	}
