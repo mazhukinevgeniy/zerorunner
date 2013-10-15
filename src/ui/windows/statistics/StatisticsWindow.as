@@ -4,10 +4,6 @@ package ui.windows.statistics
 	import feathers.controls.IScrollBar;
 	import feathers.controls.ScrollBar;
 	import feathers.controls.ScrollContainer;
-	import feathers.dragDrop.DragData;
-	import feathers.dragDrop.DragDropManager;
-	import feathers.dragDrop.IDropTarget;
-	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
 	import starling.display.Quad;
 	import starling.events.Event;
@@ -15,7 +11,7 @@ package ui.windows.statistics
 	import utils.updates.update;
 
 	
-	public class StatisticsWindow  extends ScrollContainer implements IDropTarget
+	public class StatisticsWindow  extends ScrollContainer
 	{
 		private const structure:Object = 
 		{
@@ -53,7 +49,7 @@ package ui.windows.statistics
 			
 			function setSize():void
 			{
-				this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
+				this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PADDING;
 				this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
 				
 				this.lastHeight = 0;
@@ -71,9 +67,9 @@ package ui.windows.statistics
 			{
 				var layout:VerticalLayout = new VerticalLayout();
 				
-				layout.gap = StatisticsWindow.PAGGING;
+				layout.gap = StatisticsWindow.PADDING;
 				layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_LEFT;
-				this.padding = StatisticsWindow.PAGGING;
+				this.padding = StatisticsWindow.PADDING;
 				this.layout = layout;
 			}
 			
@@ -95,45 +91,9 @@ package ui.windows.statistics
 			
 			function addEventListeners():void
 			{
-				this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
-				this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
 				this.addEventListener(Event.ADDED, this.alignCenter);
 				this.addEventListener(Event.RESIZE, this.alignCenter);
 			}
-		}
-		
-		private function checkFormat(event:DragDropEvent, dragData:DragData):void
-		{
-			if(dragData.hasDataForFormat(ChunkStatistics.CHUNK_STATISTICS_DRAG_FORMAT))
-			{
-				DragDropManager.acceptDrag(this);
-			}
-		}
-		
-		private function dropContainer(event:DragDropEvent, dragData:DragData):void
-		{
-			var movedContainer:ChunkStatistics = dragData.getDataForFormat(ChunkStatistics.CHUNK_STATISTICS_DRAG_FORMAT);
-			var dataLenght:int = this.data.length;
-			var dropY:Number = event.localY;
-			
-			for (var i:int = 0; i < dataLenght; ++i)
-			{
-				if (this.isDropInTopHalf(i, dropY))
-				{
-					this.changeOrderChunk(movedContainer, i - 1);
-				}
-				else if (this.isDropInBottomHalf(i, dropY))
-				{
-					this.changeOrderChunk(movedContainer, i);
-				}
-			}
-			
-			if (this.isDropInBottomContainer(dropY))
-			{
-				this.changeOrderChunk(movedContainer, dataLenght - 1);
-			}
-			
-			this.redraw();
 		}
 		
 		

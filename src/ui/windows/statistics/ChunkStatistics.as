@@ -5,20 +5,13 @@ package ui.windows.statistics
 	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
 	import feathers.data.ListCollection;
-	import feathers.dragDrop.DragData;
-	import feathers.dragDrop.DragDropManager;
-	import feathers.dragDrop.IDragSource;
-	import feathers.events.DragDropEvent;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
-	import starling.events.Touch;
-	import starling.events.TouchEvent;
-	import starling.events.TouchPhase;
 	import ui.themes.ExtendedTheme;
 	
-	internal class ChunkStatistics extends ScrollContainer implements IDragSource
+	internal class ChunkStatistics extends ScrollContainer
 	{
 		public static const CHUNK_STATISTICS_DRAG_FORMAT:String = "chunk-statistics-drag-format"
 		
@@ -171,12 +164,13 @@ package ui.windows.statistics
 										  leftAnchor:DisplayObject = null, left:Number = 0):AnchorLayoutData
 		{
 			var layoutData:AnchorLayoutData = new AnchorLayoutData();
+			
 			if(leftAnchor != null)
 				layoutData.leftAnchorDisplayObject = leftAnchor;
-				
+			
 			if (topAnchor != null)
 				layoutData.topAnchorDisplayObject = topAnchor;
-
+			
 			layoutData.left = left;
 			layoutData.top = top;
 			
