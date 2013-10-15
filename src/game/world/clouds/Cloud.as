@@ -21,6 +21,7 @@ package game.world.clouds
 			while (this.dX == 0 && this.dY == 0);
 			
 			super(foundations.assets.getTexture("testcloud"));
+			//super(new CloudTexture());
 			
 			/*
 			super();
