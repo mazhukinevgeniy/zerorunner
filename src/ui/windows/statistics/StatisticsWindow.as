@@ -15,7 +15,21 @@ package ui.windows.statistics
 
 	
 	public class StatisticsWindow  extends ScrollContainer implements IDropTarget
-	{	
+	{
+		private const structure:Object = 
+		{
+			global:
+			{
+				distance: "distance" //TODO: find the good syntax
+			},
+			
+			alsotest:
+			{
+				huh: "huh",
+				test: "test"
+			}
+		};
+		
 		public static const COUNT_STATISTICS_PIECE:int = 1;
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
@@ -121,45 +135,6 @@ package ui.windows.statistics
 			this.redraw();
 		}
 		
-		private function isDropInTopHalf (indexDropPlace:int, dropY:Number):Boolean
-		{
-			var yDropPlace:Number = this.data[indexDropPlace].y;
-			var heightDropPlace:Number = this.data[indexDropPlace].height;
-			var isDrop:Boolean = false;
-			
-			if (yDropPlace < dropY && dropY <= yDropPlace + (heightDropPlace / 2) )
-			{
-				isDrop = true;
-			}
-			
-			return isDrop;
-		}
-		
-		private function isDropInBottomHalf (indexDropPlace:int, dropY:Number):Boolean
-		{
-			var yDropPlace:Number = this.data[indexDropPlace].y;
-			var heightDropPlace:Number = this.data[indexDropPlace].height;
-			var isDrop:Boolean = false;
-			
-			if (yDropPlace + (heightDropPlace / 2) < dropY && dropY <= yDropPlace + heightDropPlace )
-			{
-				isDrop = true;
-			}
-			
-			return isDrop;
-		}
-		
-		private function isDropInBottomContainer (dropY:Number):Boolean
-		{
-			var isDrop:Boolean = false;
-			
-			if (this.height - 2 * this.padding < dropY && dropY <= this.height )
-			{
-				isDrop = true;
-			}
-			
-			return isDrop;
-		}
 		
 		private function alignCenter():void
 		{
@@ -169,18 +144,6 @@ package ui.windows.statistics
 				this.y = (Main.HEIGHT - this.height) / 2;
 				this.lastHeight = this.height;
 			}
-		}
-		
-		private function changeOrderChunk(movedContainer:ChunkStatistics, indexItemToMove:int = -1):void
-		{	
-			var lenght:int = this.data.length;
-			
-			this.data.splice(this.data.indexOf(movedContainer), 1);
-			
-			if (indexItemToMove == -1)
-				this.data.unshift(movedContainer)
-			else
-				this.data.splice(indexItemToMove, 0, movedContainer);
 		}
 		
 		public override function set visible(newValue:Boolean):void
@@ -279,11 +242,6 @@ package ui.windows.statistics
 				this.addChild(this.data[i]);
 				this.data[i].order = i;
 			}
-		}
-		
-		internal function dropMiss():void
-		{
-			this.redraw(); 
 		}
 		
 		

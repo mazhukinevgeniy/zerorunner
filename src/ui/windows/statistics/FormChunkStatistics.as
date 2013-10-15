@@ -7,7 +7,6 @@ package ui.windows.statistics
 		
 		private var chunkTitle:String;
 		
-		private var saveOrder:int;
 		private var saveIsRoll:Boolean;
 		private var saveIsFix:Boolean;
 		
@@ -56,11 +55,6 @@ package ui.windows.statistics
 			this.saveIsFix = this.localSave.data.statistics[this.chunkTitle].isFix;
 		}
 		
-		public function get order():int
-		{
-			return this.saveOrder;
-		}
-		
 		public function get isRoll():Boolean
 		{
 			return this.saveIsRoll;
@@ -79,11 +73,6 @@ package ui.windows.statistics
 		public function set isFix(newIsFix:Boolean):void 
 		{
 			this.localSave.data.statistics[this.chunkTitle].isFix = newIsFix
-		}
-		
-		public function set order(newOrder:int):void
-		{
-			this.localSave.data.statistics[this.chunkTitle].order = newOrder;
 		}
 		
 	}

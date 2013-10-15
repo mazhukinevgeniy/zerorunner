@@ -35,7 +35,6 @@ package ui.windows.statistics
 		private var fullHeight:Number;
 		private var rollHeight:Number;
 		
-		private var isDragging:Boolean;
 		private var isRoll:Boolean;
 		
 		private var saveForm:FormChunkStatistics;
@@ -203,58 +202,9 @@ package ui.windows.statistics
 			this.addEventListener(DragDropEvent.DRAG_COMPLETE, this.dropComplete);
 		}
 		
-		private function handleContainerTouch(event:TouchEvent):void 
-		{
-			var touchMoved:Touch = event.getTouch(this, TouchPhase.MOVED)
-			
-			if (touchMoved && event.target != this.rollButton && event.target != this.fixButton)
-			{
-				
-				if (!this.isDragging)
-				{
-					this.startDrag(touchMoved);
-				}
-			}	
-		}
-		
-		private function startDrag(touch:Touch):void
-		{
-			var dragData:DragData = new DragData();
-			
-			dragData.setDataForFormat(ChunkStatistics.CHUNK_STATISTICS_DRAG_FORMAT, this);
-			DragDropManager.startDrag(this, touch, dragData, this);
-			this.isDragging = true;
-		}
-		
-		private function dropComplete(event:DragDropEvent, dragData:DragData):void
-		{
-			this.isDragging = false;
-			if (!event.isDropped) 
-			{
-				this.processDropMiss();
-			}
-		}
-		
-		private function processDropMiss():void
-		{
-			if (!this.isRoll) 
-				this.handleRollButtonTriggered();
-			this.parentContainer.dropMiss();
-		}
-		
 		public function get title():String
 		{
 			return this.label.text;
-		}
-		
-		public function get order():int
-		{
-			return this.saveForm.order;
-		}
-		
-		public function set order(newOrder:int):void
-		{
-			this.saveForm.order = newOrder;
 		}
 		
 		public function updateData(value:int):void
