@@ -1,5 +1,7 @@
 package game.world.clouds 
 {
+	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.events.Event;
 	import starling.display.Sprite;
@@ -9,50 +11,38 @@ package game.world.clouds
 	
 	public class CloudPiece extends Sprite
 	{
-		import flash.display.BitmapData;
-		import flash.display.Shape;
-		import flash.filters.DropShadowFilter;
-		import starling.utils.Color;
+		private static const PATH_BY_TEXTURE:String = "../res/assets/textures/atlases/sprites/unimplemented.png";
 		
-		private var ldr:Loader;
+		private static const NUMBER_OF_CELLS_IN_WIDTH:int = 16;
+		private static const NUMBER_OF_CELLS_IN_HEIGHT:int = 12;
 		
-		public function CloudPiece() 
+		private var loader:Loader;
+		
+		private var widthCloudPiece:Number;
+		private var heightCloudPiece:Number;
+		
+		public function CloudPiece(width:Number, height:Number) 
 		{
-			//var shape:Shape = new Shape();
+			this.widthCloudPiece = width;
+			this.heightCloudPiece = height;
 			
-			/*shape.graphics.beginFill(Color.MAROON);
-			shape.graphics.drawCircle(50, 50, 30);
-			shape.graphics.endFill();
-			shape.filters = [ new DropShadowFilter() ];*/
-			
-			/*var rect:Shape = new Shape();
-			rect.graphics.beginFill(0xFFFFFF);
-			rect.graphics.drawRect(0, 0, 100, 100);
-			rect.graphics.endFill();
-			this.sprite = new flash.display.Sprite();
-			this.sprite.addChild(rect);
-			*/
-			ldr = new Loader();
-			//ldr.mask = rect;*/
-			
-			var url:String = "../res/assets/textures/atlases/sprites/unimplemented.png";
-			var urlReq:URLRequest = new URLRequest(url);
-			ldr.load(urlReq);
+			loader = new Loader();
 
-			ldr.contentLoaderInfo.addEventListener(Event.COMPLETE, imgLoaded);
+			var urlRequest:URLRequest = new URLRequest(CloudPiece.PATH_BY_TEXTURE);
+			loader.load(urlRequest);
+
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, imgLoaded);
 		}
 		
 		private function imgLoaded(event:Event):void
-		{
-			
-			
-			var bmpData:BitmapData = new BitmapData(100, 100, true, 0xFFFFFFFF);
-			bmpData.draw(ldr.content);
+		{	
+			var content:DisplayObject = loader.content;
+			var bmpData:BitmapData = new BitmapData(this.widthCloudPiece, this.heightCloudPiece, true, 0x00FFFFFF);
+			bmpData.draw(content);
 			 
-			//var texture:Texture = Texture.fromColor(100, 100, 0x50654321);
 			var texture:Texture = Texture.fromBitmapData(bmpData);
 			var image:Image = new Image(texture);
-			addChild(image);
+			this.addChild(image);
 		}
 		
 	}

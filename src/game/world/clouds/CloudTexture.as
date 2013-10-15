@@ -8,9 +8,6 @@ package game.world.clouds
 		private static const NUMBER_OF_SECTORS_IN_WIDTH:int = 4;
 		private static const NUMBER_OF_SECTORS_IN_HEIGHT:int = 3;
 		
-		private static const NUMBER_OF_CELLS_IN_WIDTH:int = 16;
-		private static const NUMBER_OF_CELLS_IN_HEIGHT:int = 12;
-		
 		
 		private static const NUMBER_OF_SECTORS:int = Cloud.NUMBER_OF_SECTORS_IN_WIDTH * Cloud.NUMBER_OF_SECTORS_IN_HEIGHT;
 		
