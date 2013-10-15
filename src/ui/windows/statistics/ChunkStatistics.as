@@ -32,7 +32,7 @@ package ui.windows.statistics
 		
 		private var saveForm:FormChunkStatistics;
 		private var firstReadSave:Boolean;
-		
+		//TODO: unroll the roll as roll is not the roll roll is roll for
 		
 		public function ChunkStatistics(name:String, newValue:int, parentContainer:StatisticsWindow) 
 		{		
@@ -42,7 +42,7 @@ package ui.windows.statistics
 			this.initializeList(newValue);
 			this.initializeOtherFields(parentContainer);
 			
-			this.initializeEventListeners();
+			//TODO: absorb constructing functions
 		}
 		
 		private function initializeRollButton():void
@@ -182,18 +182,11 @@ package ui.windows.statistics
 			this.layout = new AnchorLayout();
 			
 			this.isRoll = false;
-			this.isDragging = false;
 			
 			this.saveForm = new FormChunkStatistics(this.title);
 			this.firstReadSave = true;
 			
 			this.parentContainer = parentContainer;
-		}
-		
-		private function initializeEventListeners():void
-		{
-			this.addEventListener(TouchEvent.TOUCH, this.handleContainerTouch);
-			this.addEventListener(DragDropEvent.DRAG_COMPLETE, this.dropComplete);
 		}
 		
 		public function get title():String
