@@ -4,6 +4,7 @@ package game.world.clouds
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.events.Event;
+	import flash.system.LoaderContext;
 	import starling.display.Sprite;
 	import flash.net.URLRequest;
 	import starling.display.Image;
@@ -16,8 +17,6 @@ package game.world.clouds
 		private static const NUMBER_OF_CELLS_IN_WIDTH:int = 16;
 		private static const NUMBER_OF_CELLS_IN_HEIGHT:int = 12;
 		
-		private var loader:Loader;
-		
 		private var widthCloudPiece:Number;
 		private var heightCloudPiece:Number;
 		
@@ -26,17 +25,19 @@ package game.world.clouds
 			this.widthCloudPiece = width;
 			this.heightCloudPiece = height;
 			
-			loader = new Loader();
-
+			var loader:Loader = new Loader();
+			var context:LoaderContext = new LoaderContext();
+			context.checkPolicyFile = true; 
+			
 			var urlRequest:URLRequest = new URLRequest(CloudPiece.PATH_BY_TEXTURE);
-			loader.load(urlRequest);
+			loader.load(urlRequest, context);
 
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, imgLoaded);
 		}
 		
 		private function imgLoaded(event:Event):void
 		{	
-			var content:DisplayObject = loader.content;
+			var content:DisplayObject = event.target.content;
 			var bmpData:BitmapData = new BitmapData(this.widthCloudPiece, this.heightCloudPiece, true, 0x00FFFFFF);
 			bmpData.draw(content);
 			 
