@@ -15,9 +15,9 @@ package data
 			
 			activeDroids: 0,
 			
-			beacon0: Game.NO_BEACON,
 			beacon1: Game.NO_BEACON,
-			beacon2: Game.NO_BEACON
+			beacon2: Game.NO_BEACON,
+			beacon3: Game.NO_BEACON
 		};
 		
 		internal static const preferencesDefaults:Object = 

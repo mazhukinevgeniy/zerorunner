@@ -1,5 +1,6 @@
 package game.hud 
 {
+	import data.StatusReporter;
 	import data.structs.GameConfig;
 	import feathers.controls.Label;
 	import game.core.GameFoundations;
@@ -13,6 +14,7 @@ package game.hud
 	//TODO: remove dat stupid inheretance
 	public class GameWonWindow extends GameOverWindow
 	{
+		private var status:StatusReporter;
 		
 		private var roundWon:Label;
 		private var runWon:Label;
@@ -22,7 +24,9 @@ package game.hud
 		private var globalMap:GlobalMap;
 		
 		public function GameWonWindow(foundations:GameFoundations) 
-		{			
+		{
+			this.status = foundations.statusReporter;
+			
 			this.globalMap = new GlobalMap();
 			
 			this.roundWon = new Label();
@@ -55,8 +59,10 @@ package game.hud
 			flow.addUpdateListener(Update.tellRoundWon);
 		}
 		
-		update function tellRoundWon(progress:GameConfig):void
+		update function tellRoundWon():void
 		{
+			var progress:GameConfig = this.status.currentConfig;
+			
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.roundWon);
 			
@@ -65,8 +71,10 @@ package game.hud
 			this.labelContainer.parent.visible = true;
 		}
 		
-		update function tellGameWon(progress:GameConfig):void
+		update function tellGameWon():void
 		{
+			var progress:GameConfig = this.status.currentConfig;
+			
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.runWon);
 			
