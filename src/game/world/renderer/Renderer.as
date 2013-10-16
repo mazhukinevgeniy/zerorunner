@@ -92,7 +92,7 @@ package game.world.renderer
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
-						if (this.scene.getSceneCell(i, j) == Game.BASALT)
+						if (this.scene.getSceneCell(i, j) == Game.LAVA)
 						{
 							sprite.x += 20;
 							sprite.y -= 10;

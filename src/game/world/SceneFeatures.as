@@ -56,7 +56,7 @@ package game.world
 			
 			for (i = 0; i < this.width * this.width; i++)
 				if (this.scene[i] == Game.ROAD && Math.random() < 0.2)
-					this.scene[i] = Game.BASALT;
+					this.scene[i] = Game.LAVA;
 			
 			//TODO: can optimize
 		}
