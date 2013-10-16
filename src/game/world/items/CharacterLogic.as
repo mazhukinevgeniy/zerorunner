@@ -10,8 +10,8 @@ package game.world.items
 	
 	public class CharacterLogic extends ItemLogicBase
 	{
-		private const MOVE_SPEED:int = 1; //TODO: parametrize
-		private const SOLDERING_POWER:int = 2; //TODO: parametrize
+		private const MOVE_SPEED:int = 1;
+		private const SOLDERING_POWER:int = 2;
 		
 		private var input:InputManager;
 		private var flow:IUpdateDispatcher;
