@@ -191,6 +191,44 @@ package game.world.renderer
 							sprite.y = j * Metric.CELL_HEIGHT;
 							
 							container.addImage(sprite);
+							
+							
+							if (this.scene.getSceneCell(i, j + 1) != Game.LAVA)
+							{
+								sprite = this.pull.getImage("bottom");
+								
+								sprite.x = i * Metric.CELL_WIDTH;
+								sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height / 2;
+								
+								container.addImage(sprite);
+							}
+							if (this.scene.getSceneCell(i + 1, j) != Game.LAVA)
+							{
+								sprite = this.pull.getImage("right");
+								
+								sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width / 2;
+								sprite.y = j * Metric.CELL_HEIGHT;
+								
+								container.addImage(sprite);
+							}
+							if (this.scene.getSceneCell(i - 1, j) != Game.LAVA)
+							{
+								sprite = this.pull.getImage("left");
+								
+								sprite.x = i * Metric.CELL_WIDTH - sprite.width / 2;
+								sprite.y = j * Metric.CELL_HEIGHT;
+								
+								container.addImage(sprite);
+							}
+							if (this.scene.getSceneCell(i, j - 1) != Game.LAVA)
+							{
+								sprite = this.pull.getImage("top");
+								
+								sprite.x = i * Metric.CELL_WIDTH;
+								sprite.y = j * Metric.CELL_HEIGHT - sprite.height / 2;
+								
+								container.addImage(sprite);
+							}
 						}
 					}
 				}
