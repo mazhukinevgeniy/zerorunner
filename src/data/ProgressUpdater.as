@@ -1,45 +1,56 @@
 package data 
 {
+	import game.core.metric.ICoordinated;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	internal class ProgressUpdater 
 	{
+		private var save:SharedObjectManager;
 		
-		public function ProgressUpdater() 
+		public function ProgressUpdater(flow:IUpdateDispatcher, save:SharedObjectManager) 
 		{
+			this.save = save;
 			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.smallBeaconTurnedOn);
+			flow.addUpdateListener(Update.technicUnlocked);
+			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.resetProgress);
 		}
 		
 		update function smallBeaconTurnedOn():void
 		{
-			this.localSave.data["beaconProgress" + String(this.level)] = Game.BEACON;
+			this.save["beacon" + String(this.save.level)] = Game.BEACON;
 		}
 		
 		update function technicUnlocked(place:ICoordinated):void
 		{
-			this.localSave.data.gameActiveDroids++;
+			this.save.activeDroids++;
 		}
 		
 		update function prerestore():void
 		{
 			//for example
 			
-			this.localSave.data.gameActiveDroids = 0;
-			this.localSave.data.gameCurrentJunks = this.level * 2;
+			this.save.activeDroids = 0;
+			this.save.junks = this.save.level * 2;
 		}
 		
 		update function resetProgress():void
 		{
-			for (var value:String in this.defaultValues)
-				this.localSave.data[value] = this.defaultValues[value];
+			for (var value:String in Defaults.progressDefaults)
+				this.save[value] = Defaults.progressDefaults[value];
 		}
-		
+		/*
 		internal function advanceLevel():void
 		{
 			if (this.level == Game.LEVELS_PER_RUN)
 				this.update::resetProgress();
 			else
 				this.localSave.data.gameCurrentLevel += 1;
-		}
+		}*/
+		//TODO: reimplement somehow somewhere
 	}
 
 }

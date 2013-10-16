@@ -33,10 +33,10 @@ package data
 		};
 		
 		internal static const defaults:Vector.<Object> = new <Object>[
-							this.configDefaults, 
-							this.progressDefaults, 
-							this.preferencesDefaults, 
-							this.statisticsDefaults];
+							Defaults.configDefaults, 
+							Defaults.progressDefaults, 
+							Defaults.preferencesDefaults, 
+							Defaults.statisticsDefaults];
 		
 		
 		public function Defaults() 

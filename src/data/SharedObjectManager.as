@@ -19,7 +19,7 @@ package data
 			const PROJECT_NAME:String = "zeroRunner";
 			this.so = SharedObject.getLocal(PROJECT_NAME);
 			
-			initializeEntries();
+			this.initializeEntries();
 			
 			
 			/**
@@ -42,24 +42,23 @@ package data
 					}
 				}
 			}
-			
-			/**
-			 * This function is used to initialize missed entries
-			 */
-			function initializeEntries():void
+		}
+		
+		/**
+		 * This function is used to initialize missed entries
+		 */
+		private function initializeEntries():void
+		{
+			for each (var obj:Object in Defaults.defaults)
 			{
-				for each (var obj:Object in Defaults.defaults)
+				for (var property:String in obj)
 				{
-					for (var property:String in obj)
-					{
-						if (!this.so.data.hasOwnProperty(property)) 
-						//TODO: check if works
-							this.so.data[property] = obj[property];
-					}
+					if (!this.so.data.hasOwnProperty(property)) 
+					//TODO: check if works
+						this.so.data[property] = obj[property];
 				}
 			}
 		}
-		
 		
 		
 		override flash_proxy function getProperty(name:*):* 

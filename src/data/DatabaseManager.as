@@ -14,10 +14,10 @@ package data
 		{
 			this.save = new SharedObjectManager();
 			
-			new AchievementsUpdater(flow);
-			new PreferencesUpdater(flow);
-			new ProgressUpdater(flow);
-			new StatisticsUpdater(flow);
+			new AchievementsUpdater(flow, this.save);
+			new PreferencesUpdater(flow, this.save);
+			new ProgressUpdater(flow, this.save);
+			new StatisticsUpdater(flow, this.save);
 		}
 		
 		
