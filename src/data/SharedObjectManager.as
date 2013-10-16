@@ -53,8 +53,7 @@ package data
 			{
 				for (var property:String in obj)
 				{
-					if (!this.so.data.hasOwnProperty(property)) 
-					//TODO: check if works
+					if (!this.so.data.hasOwnProperty(property))
 						this.so.data[property] = obj[property];
 				}
 			}
