@@ -25,58 +25,50 @@ package ui.windows.statistics
 		
 		public function ChunkStatistics(title:String, data:Vector.<String>) 
 		{
-			setTitle(title);
-			this.initializeList();
+			super();
+			
+			this.setTitle(title);
+			this.initializeList(data);
 			
 			this.layout = new AnchorLayout();
-			
-			function setTitle(title:String):void
-			{
-				this.label = new Label();
-				this.label.text = title;
-				this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
-				this.label.layoutData = this.createLayoutData(null, 0, this.fixButton, ChunkStatistics.GAP)
-				this.addChild(this.label);
-			}
-			//TODO: absorb constructing functions
-			
-			//TODO: check if required:
-			/*
-			var newList:List = this.writeInList(value);
-			this.list.dataProvider = newList.dataProvider;
-			*/
 		}
 		
+		private function setTitle(title:String):void
+		{
+			this.label = new Label();
+			this.label.text = title;
+			this.label.nameList.add(ExtendedTheme.TITLE_STATICTICS_PIECE);
+			this.addChild(this.label);
+		}
 		
-		private function initializeList():void
+		private function initializeList(data:Vector.<String>):void
 		{
 			this.list = new List();
 			
-			var data:Vector.<Object> = new Vector.<Object>;
 			this.list.dataProvider = new ListCollection(data);
 			
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
-			this.list.layoutData = this.createLayoutData(this.label, ChunkStatistics.GAP);
+			this.list.layoutData = createLayoutData(this.label, ChunkStatistics.GAP);
 			this.addChild(this.list);
+			
+			
+			function createLayoutData(topAnchor:DisplayObject = null, top:Number = 0,
+									  leftAnchor:DisplayObject = null, left:Number = 0):AnchorLayoutData
+			{
+				var layoutData:AnchorLayoutData = new AnchorLayoutData();
+				
+				if(leftAnchor != null)
+					layoutData.leftAnchorDisplayObject = leftAnchor;
+				
+				if (topAnchor != null)
+					layoutData.topAnchorDisplayObject = topAnchor;
+				
+				layoutData.left = left;
+				layoutData.top = top;
+				
+				return layoutData;
+			}
 		}
-		
-		private function createLayoutData(topAnchor:DisplayObject = null, top:Number = 0,
-										  leftAnchor:DisplayObject = null, left:Number = 0):AnchorLayoutData
-		{
-			var layoutData:AnchorLayoutData = new AnchorLayoutData();
-			
-			if(leftAnchor != null)
-				layoutData.leftAnchorDisplayObject = leftAnchor;
-			
-			if (topAnchor != null)
-				layoutData.topAnchorDisplayObject = topAnchor;
-			
-			layoutData.left = left;
-			layoutData.top = top;
-			
-			return layoutData;
-		}
-		
 	}
 
 }
