@@ -1,6 +1,7 @@
 package ui.windows.statistics 
 {
 	import data.DatabaseManager;
+	import data.structs.StatisticsInfo;
 	import feathers.controls.IScrollBar;
 	import feathers.controls.ScrollBar;
 	import feathers.controls.ScrollContainer;
@@ -19,8 +20,13 @@ package ui.windows.statistics
 		
 		private static const PADDING:Number = 5;
 		
+		
+		private var data:DatabaseManager;
+		
 		public function StatisticsWindow(database:DatabaseManager) 
 		{
+			this.data = database;
+			
 			setSize();
 			setBackground();
 			setLayout();
@@ -92,37 +98,26 @@ package ui.windows.statistics
 		
 		private function composeView():void
 		{
-			const structure:Object = 
-			{
-				global:
-				{
-					distance: "distance" //TODO: find the good syntax
-				},
-				
-				alsotest:
-				{
-					huh: "huh",
-					test: "test"
-				}
-			};
-			
 			var chunk:ChunkStatistics;
+			var info:StatisticsInfo = (this.data).statistics;
 			
-			/**
-			 * Global statistics
-			 */
 			
-			chunk = new ChunkStatistics("distance");
+			chunk = new ChunkStatistics("global", this.composeGlobalStat(info));
 			this.addChild(chunk);
 			
-			/**
-			 * Also (just for test)
-			 */
-			
-			chunk = new ChunkStatistics("test");
+			chunk = new ChunkStatistics("test", new <String>["huh", "test"]);
 			this.addChild(chunk);
 		}
 		
+		private function composeGlobalStat(info:StatisticsInfo):Vector.<String>
+		{
+			var vect:Vector.<String> = new Vector.<String>();
+			
+			vect.push("distance: " + String(info.totalDistance));
+			vect.push("test-test-test");
+			
+			return vect;
+		}
 	}
 
 }

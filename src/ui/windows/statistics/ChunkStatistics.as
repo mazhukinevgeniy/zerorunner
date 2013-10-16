@@ -13,7 +13,6 @@ package ui.windows.statistics
 	
 	internal class ChunkStatistics extends ScrollContainer
 	{
-		public static const CHUNK_STATISTICS_DRAG_FORMAT:String = "chunk-statistics-drag-format"
 		
 		private static const GAP:Number = 3;
 		private static const BUTTON_PADDING_TOP:Number = 5;
@@ -24,7 +23,7 @@ package ui.windows.statistics
 		private var fullHeight:Number;
 		
 		
-		public function ChunkStatistics(title:String) 
+		public function ChunkStatistics(title:String, data:Vector.<String>) 
 		{
 			setTitle(title);
 			this.initializeList();

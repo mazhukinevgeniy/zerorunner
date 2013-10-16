@@ -3,17 +3,18 @@ package data.structs
 	
 	public class StatisticsInfo 
 	{
+		private var _distance:int;
 		
-		public function StatisticsInfo() 
+		public function StatisticsInfo(distance:int) 
 		{
-			
+			this._distance = distance;
 		}
 		
 		
 		
 		public function get totalDistance():int
 		{
-			return this.localSave.data.statistics.actors.lifetime.distance;
+			return this._distance;
 		}
 	}
 

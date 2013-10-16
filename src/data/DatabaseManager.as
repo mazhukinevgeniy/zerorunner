@@ -2,6 +2,7 @@ package data
 {
 	import data.structs.AchievementInfo;
 	import data.structs.PreferencesInfo;
+	import data.structs.StatisticsInfo;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class DatabaseManager
@@ -30,6 +31,11 @@ package data
 		public function get preferences():PreferencesInfo
 		{
 			return new PreferencesInfo();
+		}
+		
+		public function get statistics():StatisticsInfo
+		{
+			return new StatisticsInfo(0);//TODO: implement better
 		}
 	}
 
