@@ -1,5 +1,6 @@
 package game.world.renderer 
 {
+	import data.structs.GameConfig;
 	import game.core.GameFoundations;
 	import game.core.metric.*;
 	import game.core.time.Time;
@@ -45,7 +46,7 @@ package game.world.renderer
 			this.moveTween = new PixelPerfectTween(this, 0);
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
 			this.scene.reset();
 			this.actors.removeChildren();

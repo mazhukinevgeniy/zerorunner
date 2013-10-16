@@ -1,7 +1,7 @@
 package game.world 
 {
+	import data.structs.GameConfig;
 	import flash.utils.ByteArray;
-	import game.IGame;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -10,24 +10,19 @@ package game.world
 		private var scene:ByteArray;
 		private var width:int;
 		
-		protected var game:IGame;
-		
-		public function SceneFeatures(flow:IUpdateDispatcher, game:IGame) 
+		public function SceneFeatures(flow:IUpdateDispatcher) 
 		{
 			this.scene = new ByteArray();
-			
-			this.game = game;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
-			const sectorWidth:int = (this.game).sectorWidth;
+			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			
-			this.width = ((this.game).mapWidth + 2) * sectorWidth;
-			const secondJGoal:int = this.width - sectorWidth;
+			const secondJGoal:int = this.width - Game.BORDER_WIDTH;
 			
 			var j:int, i:int;
 			
@@ -35,12 +30,12 @@ package game.world
 			
 			
 			
-			for (j = 0; j < sectorWidth; j++)
+			for (j = 0; j < Game.BORDER_WIDTH; j++)
 				for (i = 0; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			for (; j < secondJGoal; j++)
 			{
-				for (i = 0; i < sectorWidth; i++)
+				for (i = 0; i < Game.BORDER_WIDTH; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 				for (; i < secondJGoal; i++)
 					this.scene[i + j * this.width] = Math.random() < 0.4 ? Game.FALL : Game.ROAD;
@@ -51,12 +46,12 @@ package game.world
 				for (i = 0; i < this.width; i++)
 					this.scene[i + j * this.width] = Game.FALL;
 			
-			for (i = sectorWidth; i < sectorWidth + 4; i++)
-				for (j = this.width - (sectorWidth + 4); j < secondJGoal; j++)
+			for (i = Game.BORDER_WIDTH; i < Game.BORDER_WIDTH + 4; i++)
+				for (j = this.width - (Game.BORDER_WIDTH + 4); j < secondJGoal; j++)
 					this.scene[i + j * this.width] = Game.ROAD;
 			
-			for (i = this.width - (sectorWidth + 4); i < secondJGoal; i++)
-				for (j = sectorWidth; j < sectorWidth + 4; j++)
+			for (i = this.width - (Game.BORDER_WIDTH + 4); i < secondJGoal; i++)
+				for (j = Game.BORDER_WIDTH; j < Game.BORDER_WIDTH + 4; j++) //TODO: does it makes sense at all? +4, i mean? 
 					this.scene[i + j * this.width] = Game.ROAD;
 			
 			for (i = 0; i < this.width * this.width; i++)

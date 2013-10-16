@@ -1,15 +1,16 @@
 package game.world.operators 
 {
-	import game.core.GameFoundations;
+	import game.world.IActors;
 	import game.world.items.utils.IPointCollector;
+	import utils.updates.IUpdateDispatcher;
 	
 	public class ActorOperators 
 	{
 		
-		public function ActorOperators(foundations:GameFoundations, points:IPointCollector) 
+		public function ActorOperators(actors:IActors, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
-			new ActFeature(foundations, points);
-			new ClearFeature(foundations);
+			new ActFeature(actors, flow, points);
+			new ClearFeature(actors, flow);
 		}
 		
 	}

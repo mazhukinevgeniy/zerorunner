@@ -1,5 +1,6 @@
 package game.core.input
 {
+	import data.structs.GameConfig;
 	import flash.events.Event;
 	import game.core.metric.DCellXY;
 	import starling.core.Starling;
@@ -45,7 +46,7 @@ package game.core.input
 			this.maxI = 1;
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
 			this.handleDeactivation();
 		}

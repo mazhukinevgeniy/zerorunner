@@ -1,9 +1,9 @@
 package game.world 
 {
+	import data.structs.GameConfig;
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
-	import game.IGame;
 	import game.world.items.BeaconLogic;
 	import game.world.items.CharacterLogic;
 	import game.world.items.JunkLogic;
@@ -19,8 +19,6 @@ package game.world
 		private var actors:Array;
 		private var points:PointsOfInterest;
 		
-		private var game:IGame;
-		
 		private var width:int;
 		
 		private var foundations:GameFoundations;
@@ -29,11 +27,10 @@ package game.world
 		public function ActorsFeatures(foundations:GameFoundations) 
 		{
 			this.points = foundations.pointsOfInterest as PointsOfInterest;
-			this.game = foundations.game;
 			
 			this.foundations = foundations;
 			
-			new ActorOperators(foundations, this.points);
+			new ActorOperators(this, foundations.flow, this.points);
 			
 			var flow:IUpdateDispatcher = foundations.flow;
 			
@@ -42,27 +39,22 @@ package game.world
 			flow.addUpdateListener(Update.technicUnlocked);
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
-			const mapWidth:int = (this.game).mapWidth;
-			const sectorWidth:int = (this.game).sectorWidth;
-			
 			var i:int;
 			
-			this.width = (mapWidth + 2) * sectorWidth;
+			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			this.actors = new Array();
-			
-			var intWidth:int = mapWidth * sectorWidth;
 			
 			this.points.clearPointsOfInterest();
 			
 			new CharacterLogic(this.foundations, this.points);
 			new BeaconLogic(this.foundations);
 			
-			for (i = 0; i < (this.game).numberOfDroids; i++)
+			for (i = 0; i < config.numberOfDroids; i++)
 				new TechnicLogic(this.foundations, this.points);
 			
-			for (i = 0; i < (this.game).numberOfJunks; i++)
+			for (i = 0; i < config.junks; i++)
 				new JunkLogic(this.foundations, this.points);
 		}
 		

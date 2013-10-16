@@ -38,10 +38,11 @@ package
 		public static const UNUSED_FRAME_1:int = 4;
 		
 		
-		/* Temporary bad things */
+		/* Constants */
 		
-		public static const LEVELS_PER_RUN:int = 3;
-		//TODO: parametrize
+		public static const BORDER_WIDTH:int = 10;
+		
+		public static const LEVEL_CAP:int = 3;
 		
 		
 		

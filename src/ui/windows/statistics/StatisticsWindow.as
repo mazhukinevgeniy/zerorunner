@@ -1,54 +1,47 @@
 package ui.windows.statistics 
 {
+	import data.DatabaseManager;
+	import data.structs.StatisticsInfo;
 	import feathers.controls.IScrollBar;
 	import feathers.controls.ScrollBar;
 	import feathers.controls.ScrollContainer;
-	import feathers.dragDrop.DragData;
-	import feathers.dragDrop.DragDropManager;
-	import feathers.dragDrop.IDropTarget;
-	import feathers.events.DragDropEvent;
 	import feathers.layout.VerticalLayout;
-	import progress.statistics.IStatistic;
 	import starling.display.Quad;
 	import starling.events.Event;
 	import ui.navigation.Menu;
 	import utils.updates.update;
 
 	
-	public class StatisticsWindow  extends ScrollContainer implements IDropTarget
-	{	
-		public static const COUNT_STATISTICS_PIECE:int = 1;
+	public class StatisticsWindow  extends ScrollContainer
+	{
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
-		private static const PAGGING:Number = 5;
+		private static const PADDING:Number = 5;
 		
-		private var lastHeight:Number;
 		
-		private var data:Vector.<ChunkStatistics>;
+		private var data:DatabaseManager;
 		
-		private var statistics:IStatistic;
-		private var namesOfStatistics:Vector.<String>;
-		
-		public function StatisticsWindow(statistics:IStatistic) 
+		public function StatisticsWindow(database:DatabaseManager) 
 		{
-			this.initializeSizeContainer();
-			this.initializeBackground();
-			this.initializeLayout();
-			this.initializeScrollBar();
-			this.initializePlaceForStatisticsPiece(statistics);
-			this.initializeEventListener();
-		}
-		
-		private function initializeSizeContainer():void
-		{
-			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PAGGING;
+			this.data = database;
+			
+			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PADDING;
 			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
 			
-			this.lastHeight = 0;
+			
+			this.setBackground();
+			this.setLayout();
+			this.setScrollBar();
+			
+			
+			this.x = (Main.WIDTH - this.width) / 2;
+			this.y = (Main.HEIGHT - this.height) / 4;
+			//TODO: "this.height" is much greater than this height, so normal calculation results in ugly looks;
+			//      it'll work for now, but someday we'll need to resolve or discard this issue
 		}
 		
-		private function initializeBackground():void
+		private function setBackground():void
 		{
 			var tmp:Quad = new Quad(StatisticsWindow.WIDTH_STATISTICS_WINDOW, 1, 0xFFFFFF);
 			
@@ -56,17 +49,17 @@ package ui.windows.statistics
 			this.backgroundSkin = tmp;
 		}
 		
-		private function initializeLayout():void
+		private function setLayout():void
 		{
 			var layout:VerticalLayout = new VerticalLayout();
 			
-			layout.gap = StatisticsWindow.PAGGING;
+			layout.gap = StatisticsWindow.PADDING;
 			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_LEFT;
-			this.padding = StatisticsWindow.PAGGING;
+			this.padding = StatisticsWindow.PADDING;
 			this.layout = layout;
 		}
 		
-		private function initializeScrollBar():void 
+		private function setScrollBar():void 
 		{
 			this.scrollBarDisplayMode = ScrollContainer.SCROLL_BAR_DISPLAY_MODE_FIXED;
 			this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
@@ -82,221 +75,44 @@ package ui.windows.statistics
 			}
 		}
 		
-		private function initializePlaceForStatisticsPiece(statistics:IStatistic):void
+		override public function set visible(value:Boolean):void
 		{
-			this.data = new Vector.<ChunkStatistics>();
-			
-			this.statistics = statistics;
-			this.namesOfStatistics = this.statistics.namesOfStatistics;
-		}
-		
-		private function initializeEventListener():void
-		{
-			this.addEventListener(DragDropEvent.DRAG_ENTER, this.checkFormat);
-			this.addEventListener(DragDropEvent.DRAG_DROP, this.dropContainer);
-			this.addEventListener(Event.ADDED, this.alignCenter);
-			this.addEventListener(Event.RESIZE, this.alignCenter);
-		}
-		
-		private function checkFormat(event:DragDropEvent, dragData:DragData):void
-		{
-			if(dragData.hasDataForFormat(ChunkStatistics.CHUNK_STATISTICS_DRAG_FORMAT))
+			if (value)
 			{
-				DragDropManager.acceptDrag(this);
-			}
-		}
-		
-		private function dropContainer(event:DragDropEvent, dragData:DragData):void
-		{
-			var movedContainer:ChunkStatistics = dragData.getDataForFormat(ChunkStatistics.CHUNK_STATISTICS_DRAG_FORMAT);
-			var dataLenght:int = this.data.length;
-			var dropY:Number = event.localY;
-			
-			for (var i:int = 0; i < dataLenght; ++i)
-			{
-				if (this.isDropInTopHalf(i, dropY))
-				{
-					this.changeOrderChunk(movedContainer, i - 1);
-				}
-				else if (this.isDropInBottomHalf(i, dropY))
-				{
-					this.changeOrderChunk(movedContainer, i);
-				}
-			}
-			
-			if (this.isDropInBottomContainer(dropY))
-			{
-				this.changeOrderChunk(movedContainer, dataLenght - 1);
-			}
-			
-			this.redraw();
-		}
-		
-		private function isDropInTopHalf (indexDropPlace:int, dropY:Number):Boolean
-		{
-			var yDropPlace:Number = this.data[indexDropPlace].y;
-			var heightDropPlace:Number = this.data[indexDropPlace].height;
-			var isDrop:Boolean = false;
-			
-			if (yDropPlace < dropY && dropY <= yDropPlace + (heightDropPlace / 2) )
-			{
-				isDrop = true;
-			}
-			
-			return isDrop;
-		}
-		
-		private function isDropInBottomHalf (indexDropPlace:int, dropY:Number):Boolean
-		{
-			var yDropPlace:Number = this.data[indexDropPlace].y;
-			var heightDropPlace:Number = this.data[indexDropPlace].height;
-			var isDrop:Boolean = false;
-			
-			if (yDropPlace + (heightDropPlace / 2) < dropY && dropY <= yDropPlace + heightDropPlace )
-			{
-				isDrop = true;
-			}
-			
-			return isDrop;
-		}
-		
-		private function isDropInBottomContainer (dropY:Number):Boolean
-		{
-			var isDrop:Boolean = false;
-			
-			if (this.height - 2 * this.padding < dropY && dropY <= this.height )
-			{
-				isDrop = true;
-			}
-			
-			return isDrop;
-		}
-		
-		private function alignCenter():void
-		{
-			if (this.lastHeight != this.height)
-			{
-				this.x = (Main.WIDTH + Menu.WIDTH_MENU - this.width) / 2;
-				this.y = (Main.HEIGHT - this.height) / 2;
-				this.lastHeight = this.height;
-			}
-		}
-		
-		private function changeOrderChunk(movedContainer:ChunkStatistics, indexItemToMove:int = -1):void
-		{	
-			var lenght:int = this.data.length;
-			
-			this.data.splice(this.data.indexOf(movedContainer), 1);
-			
-			if (indexItemToMove == -1)
-				this.data.unshift(movedContainer)
-			else
-				this.data.splice(indexItemToMove, 0, movedContainer);
-		}
-		
-		public override function set visible(newValue:Boolean):void
-		{
-			if (newValue)
-			{
-				this.updateData();
-				this.redraw();
-			}
-			
-			super.visible = newValue;
-		}
-		
-		private function updateData():void
-		{
-			for (var i:int = 0; i < StatisticsWindow.COUNT_STATISTICS_PIECE; ++i)
-			{
-				var nameOfStatistic:String = this.namesOfStatistics[i]
-				if (this.isExistItemInData(nameOfStatistic))
-				{
-					this.updateDataInChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
-				}
-				else
-				{
-					this.createAndPushChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
-				}
-			}
-		}
-		
-		private function isExistItemInData(nameOfStatistic:String):Boolean
-		{
-			var isExist:Boolean = false;
-			
-			for (var i:int = 0; i < this.data.length;  ++i)
-			{
-				if (this.data[i] != null && this.data[i].title == nameOfStatistic)
-				{
-					isExist = true;
-					break;
-				}
-			}
-			
-			return isExist;
-		}
-		
-		private function updateDataInChunk(nameOfStatistic:String, value:int):void
-		{
-			for (var i:int = 0; i < this.data.length;  ++i)
-			{
-				if (this.data[i] != null && this.data[i].title == nameOfStatistic)
-				{
-					this.data[i].updateData(value);
-					break;
-				}
-			}
-		}
-		
-		private function createAndPushChunk(nameOfStatistic:String, value:int):void
-		{
-			var newChunk:ChunkStatistics = new ChunkStatistics(nameOfStatistic, value, this)
-			var order:int = newChunk.order;
-			
-			if (order != -1)
-			{
-				this.putAtIndexInVector(newChunk, order);
+				this.composeView();
 			}
 			else
 			{
-				this.data.push(newChunk);
+				this.removeChildren();
+				//TODO: make sure there's no memory leak
 			}
-		}
-		
-		private function putAtIndexInVector(newChunk:ChunkStatistics, index:int):void
-		{
-			var lenght:int = this.data.length;
 			
-			if (lenght <= index)
-			{
-				for (var i:int = 0; i <= index - lenght; ++i)
-					this.data.push(newChunk);
-			}
-			else
-			{
-				this.data[index] = newChunk;
-			}
+			super.visible = value;
 		}
 		
-		private function redraw():void
+		private function composeView():void
 		{
-			var lenght:int = this.data.length;
+			var chunk:ChunkStatistics;
+			var info:StatisticsInfo = (this.data).statistics;
 			
-			this.removeChildren();
 			
-			for (var i:int = 0;  i < lenght; ++i)
+			chunk = new ChunkStatistics("global", composeGlobalStat(info));
+			this.addChild(chunk);
+			
+			chunk = new ChunkStatistics("test", new <String>["huh", "test"]);
+			this.addChild(chunk);
+			
+			
+			function composeGlobalStat(info:StatisticsInfo):Vector.<String>
 			{
-				this.addChild(this.data[i]);
-				this.data[i].order = i;
+				var vect:Vector.<String> = new Vector.<String>();
+				
+				vect.push("distance: " + String(info.totalDistance));
+				vect.push("test-test-test");
+				
+				return vect;
 			}
 		}
-		
-		internal function dropMiss():void
-		{
-			this.redraw(); 
-		}
-		
 		
 	}
 

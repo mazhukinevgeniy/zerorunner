@@ -1,12 +1,12 @@
 package ui.sounds 
 {
+	import data.structs.PreferencesInfo;
 	import flash.ui.Keyboard;
 	import starling.utils.AssetManager;
-	import utils.SaveBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class Sounds extends SaveBase
+	public class Sounds
 	{
 		private var music:MusicManager;
 		private var sound:SoundManager;
@@ -14,12 +14,18 @@ package ui.sounds
 		private var flow:IUpdateDispatcher
 		
 		
-		public function Sounds(flow:IUpdateDispatcher, assets:AssetManager) 
+		public function Sounds(flow:IUpdateDispatcher, assets:AssetManager, config:PreferencesInfo) 
 		{
 			this.initializeSoundsManagers(assets);
 			this.initializeUsingFlow(flow);
 			
 			super();
+			
+			if (config.mute)
+			{
+				this.update::toggleMute();
+				//TODO: do similar thing for the mutebutton
+			}
 		}
 		
 		private function initializeSoundsManagers(assets:AssetManager):void
@@ -39,27 +45,10 @@ package ui.sounds
 			this.flow.addUpdateListener(Update.toggleMute);
 		}
 		
-		override protected function checkLocalSave():void
-		{
-			if (this.localSave.data.sound == null)
-			{
-				this.localSave.data.sound = new Object();
-				this.localSave.data.sound.muted = false;
-			}
-			
-			if (this.localSave.data.sound.muted)
-			{
-				this.flow.dispatchUpdate(Update.toggleMute);
-				this.localSave.data.sound.muted = true;
-			}
-		}
-		
 		update function toggleMute():void
 		{
 			this.music.toggleSound();
 			this.sound.toggleSound();
-			
-			this.localSave.data.sound.muted = !this.localSave.data.sound.muted;
 		}
 		
 		

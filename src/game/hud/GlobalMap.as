@@ -1,6 +1,6 @@
 package game.hud 
 {
-	import game.IGame;
+	import data.structs.GameConfig;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
@@ -20,13 +20,13 @@ package game.hud
 			this.addChild(this.map);
 		}
 		
-		internal function draw(state:IGame):void
+		internal function draw(state:GameConfig):void
 		{
 			this.map.reset();
 			
-			for (var i:int = 0; i < Game.LEVELS_PER_RUN; i++)
+			for (var i:int = 0; i < Game.LEVEL_CAP; i++)
 			{
-				if (state.getBeacon(i + 1) == Game.BEACON)
+				if (state.beacon(i + 1) == Game.BEACON)
 				{
 					this.regularBeacon.x = i * 20;
 					

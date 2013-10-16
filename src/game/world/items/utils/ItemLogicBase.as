@@ -1,8 +1,8 @@
 package game.world.items.utils 
 {
+	import data.StatusReporter;
 	import game.core.GameFoundations;
 	import game.core.metric.*;
-	import game.IGame;
 	import game.world.IActors;
 	import game.world.IActorTracker;
 	import game.world.IScene;
@@ -13,7 +13,7 @@ package game.world.items.utils
 	{
 		protected var actors:IActors;
 		protected var scene:IScene;
-		protected var game:IGame;
+		protected var status:StatusReporter;
 		
 		private var actorTracker:IActorTracker;
 		
@@ -25,10 +25,9 @@ package game.world.items.utils
 			
 			this.scene = foundations.scene;
 			this.actors = foundations.actors;
+			this.status = foundations.statusReporter;
 			
 			this.actorTracker = foundations.actorsTracker;
-			
-			this.game = foundations.game;
 			
 			this.reset();
 		}
@@ -51,13 +50,13 @@ package game.world.items.utils
 		
 		protected function getSpawningCell():CellXY
 		{
-			const sectorWidth:int = (this.game).sectorWidth;
-			const width:int = (this.game).mapWidth * sectorWidth;
+			const width:int = this.status.currentConfig.width;
 			
-			var cell:CellXY = Metric.getTmpCell(sectorWidth + Math.random() * width, sectorWidth + Math.random() * width);
+			var cell:CellXY = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
+												Game.BORDER_WIDTH + Math.random() * width);
 			
 			for (; this.actors.findObjectByCell(cell.x, cell.y); )
-				cell.setValue(sectorWidth + Math.random() * width, sectorWidth + Math.random() * width);
+				cell.setValue(Game.BORDER_WIDTH + Math.random() * width, Game.BORDER_WIDTH + Math.random() * width);
 			
 			return cell;
 		}

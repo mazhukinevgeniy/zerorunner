@@ -1,6 +1,6 @@
 package game.world.operators 
 {
-	import game.core.GameFoundations;
+	import data.structs.GameConfig;
 	import game.world.IActors;
 	import game.world.items.utils.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
@@ -9,31 +9,27 @@ package game.world.operators
 	public class ClearFeature 
 	{
 		private var width:int;
+		private var actors:IActors;
 		
-		private var foundations:GameFoundations;
-		
-		public function ClearFeature(foundations:GameFoundations) 
+		public function ClearFeature(actors:IActors, flow:IUpdateDispatcher) 
 		{
-			var flow:IUpdateDispatcher = foundations.flow;
-			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			this.foundations = foundations;
+			this.actors = actors;
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
-			this.width = ((this.foundations.game).mapWidth + 2) * (this.foundations.game).sectorWidth;
+			this.width = config.width + 2 * Game.BORDER_WIDTH;
 		}
 		
 		update function numberedFrame(frame:int):void
 		{
 			if (frame == Game.FRAME_TO_CLEAR_BORDERS)
 			{
-				var actors:IActors = this.foundations.actors;
-				const DWIDTH:int = (this.foundations.game).sectorWidth / 2;
+				const DWIDTH:int = Game.BORDER_WIDTH / 2;
 				
 				var i:int, j:int;
 				var actor:ItemLogicBase;
@@ -41,12 +37,12 @@ package game.world.operators
 				for (i = 0; i < this.width; i++)
 					for (j = 0; j < DWIDTH; j++)
 					{
-						actor = actors.findObjectByCell(i, j);
+						actor = this.actors.findObjectByCell(i, j);
 						
 						if (actor)
 							actor.applyDestruction();
 						
-						actor = actors.findObjectByCell(i, this.width - (j + 1));
+						actor = this.actors.findObjectByCell(i, this.width - (j + 1));
 						
 						if (actor)
 							actor.applyDestruction();
@@ -54,12 +50,12 @@ package game.world.operators
 				for (i = 0; i < DWIDTH; i++)
 					for (j = DWIDTH; j < this.width - DWIDTH; j++)
 					{
-						actor = actors.findObjectByCell(i, j);
+						actor = this.actors.findObjectByCell(i, j);
 						
 						if (actor)
 							actor.applyDestruction();
 						
-						actor = actors.findObjectByCell(this.width - (i + 1), j);
+						actor = this.actors.findObjectByCell(this.width - (i + 1), j);
 						
 						if (actor)
 							actor.applyDestruction();

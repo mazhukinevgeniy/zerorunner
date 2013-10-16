@@ -1,6 +1,8 @@
 package ui 
 {
-	import progress.SaveManager;
+	import data.DatabaseManager;
+	import data.StatusReporter;
+	import game.core.GameFoundations;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -17,12 +19,11 @@ package ui
 	import utils.updates.UpdateManager;
 	
 	public class Shell
-	{		
-		private var gameIsActive:Boolean;
+	{
+		private var status:StatusReporter;
 		
 		private var assets:AssetManager;
 		private var root:DisplayObjectContainer;
-		private var progress:SaveManager;
 		
 		private var background:Background,
 					windows:Windows,
@@ -30,36 +31,38 @@ package ui
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function Shell(flow:IUpdateDispatcher, displayRoot:DisplayObjectContainer, 
-							assets:AssetManager, progress:SaveManager, gameRoot:Sprite) 
+		public function Shell(displayRoot:DisplayObjectContainer, 
+							database:DatabaseManager, gameRoot:Sprite, foundations:GameFoundations)
+							//TODO: check what can be not passed; think if we need another parameter struct 
 		{
-			this.flow = flow;
+			this.status = foundations.statusReporter;
+			//TODO: balance stuff. it's overpassed, database.status will work too!
 			
-			this.gameIsActive = false;
-			this.assets = assets;
-			this.progress = progress;
+			this.flow = foundations.flow;
+			this.assets = foundations.assets;
 			
-			this.root = displayRoot;
+			this.root = displayRoot; //lol, hell of a roots
+			//TODO: check what is happening here
 			
-		    this.initializeFeatures(gameRoot);
+		    this.initializeFeatures(gameRoot, database);
 			this.initializeUsingFlow();
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
-		private function initializeFeatures(gameRoot:Sprite):void
+		private function initializeFeatures(gameRoot:Sprite, database:DatabaseManager):void
 		{
 			new ExtendedTheme(this.root);
 			
 			this.background = new Background(this.flow);
-			this.navigation = new Navigation(this.flow);
-			this.windows = new Windows(this.flow, this.assets, this.progress, gameRoot)
+			this.navigation = new Navigation(this.flow, database.preferences);
+			this.windows = new Windows(this.flow, this.assets, database, gameRoot)
 			
 			this.root.addChild(this.background);
 			this.root.addChild(this.windows);
 			this.root.addChild(this.navigation);
 			
-			new Sounds(this.flow, this.assets);
+			new Sounds(this.flow, this.assets, database.preferences);
 		}
 		
 		private function initializeUsingFlow():void 
@@ -77,7 +80,7 @@ package ui
 		
 		update function keyUp(keyCode:uint):void
 		{
-			if (keyCode == Keyboard.P && !this.gameIsActive)
+			if (keyCode == Keyboard.P && !this.status.isGameOn)
 			{
 				this.flow.dispatchUpdate(Update.newGame);
 			}
@@ -85,15 +88,11 @@ package ui
 		
 		update function newGame():void 
 		{
-			this.gameIsActive = true;
-			
 			this.background.visible = false;
 		}
 		
 		update function quitGame():void
 		{
-			this.gameIsActive = false;
-			
 			this.background.visible = true;
 		}
 		
