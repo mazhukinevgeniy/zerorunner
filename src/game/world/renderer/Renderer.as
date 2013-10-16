@@ -1,5 +1,6 @@
 package game.world.renderer 
 {
+	import data.structs.GameConfig;
 	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
@@ -45,7 +46,7 @@ package game.world.renderer
 			this.pull = new TilePull(foundations.atlas);
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
 			this.xM = 1 + Math.random() * 5;
 			this.yM = 1 + Math.random() * 5;

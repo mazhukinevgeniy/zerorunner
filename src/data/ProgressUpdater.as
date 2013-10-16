@@ -1,5 +1,6 @@
 package data 
 {
+	import data.structs.GameConfig;
 	import game.core.metric.ICoordinated;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -29,7 +30,7 @@ package data
 			this.save.activeDroids++;
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
 			//for example
 			

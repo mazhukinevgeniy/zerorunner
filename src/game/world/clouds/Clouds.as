@@ -1,5 +1,6 @@
 package game.world.clouds 
 {
+	import data.structs.GameConfig;
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
 	import game.core.metric.Metric;
@@ -30,9 +31,10 @@ package game.world.clouds
 			foundations.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function prerestore():void
+		update function prerestore(config:GameConfig):void
 		{
 			const numberOfClouds:int = 2 + Math.random() * 2;
+			//TODO: link to config as cloud density is important
 			
 			var tile:ScrollTile;
 			

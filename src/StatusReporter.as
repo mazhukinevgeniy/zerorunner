@@ -13,13 +13,18 @@ package
 		public function StatusReporter(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.quitGame);
 		}
 		
+		update function newGame():void
+		{
+			this._config = new GameConfig(//now you think, what is the right place to generate config? when?
+		}
+		
 		update function prerestore(config:GameConfig):void
 		{
-			this._config = config;
 			this._isGameOn = true;
 		}
 		
