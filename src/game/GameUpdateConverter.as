@@ -6,10 +6,12 @@ package game
 	final internal class GameUpdateConverter
 	{
 		private var flow:IUpdateDispatcher;
+		private var status:StatusReporter;
 		
-		public function GameUpdateConverter(flow:IUpdateDispatcher) 
+		public function GameUpdateConverter(flow:IUpdateDispatcher, data:StatusReporter) 
 		{
 			this.flow = flow;
+			this.status = data;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
@@ -21,7 +23,7 @@ package game
 		
 		update function newGame():void
 		{
-			this.flow.dispatchUpdate(Update.prerestore);
+			this.flow.dispatchUpdate(Update.prerestore, this.status.currentConfig);
 			this.flow.dispatchUpdate(Update.restore);
 		}
 		

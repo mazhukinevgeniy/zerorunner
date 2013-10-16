@@ -22,7 +22,7 @@ package game
 			this.flow = flow;
 			this.status = status;
 			
-			new GameUpdateConverter(flow);
+			new GameUpdateConverter(flow, status);
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
