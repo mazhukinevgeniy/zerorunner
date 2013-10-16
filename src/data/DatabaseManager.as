@@ -41,7 +41,7 @@ package data
 		
 		public function get statistics():StatisticsInfo
 		{
-			return new StatisticsInfo(0);//TODO: implement better
+			return new StatisticsInfo(this.save.distance);
 		}
 		
 		public function get status():StatusReporter
