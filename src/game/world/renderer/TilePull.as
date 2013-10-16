@@ -13,7 +13,8 @@ package game.world.renderer
 			var titles:Vector.<String> = new < String > 
 										   ["ground", "S", "W", "E", "N",
 											"NE", "NW", "SE", "SW",
-											"stones1", "stones2", "stones3"];
+											"stones1", "stones2", "stones3",
+											"bottom", "left", "top", "right", "lava"];
 			
 			this.textures = new Object();
 			
