@@ -87,40 +87,6 @@ package game.world.renderer
 				{
 					if (this.scene.getSceneCell(i, j) != Game.FALL)
 					{
-						sprite = this.pull.getImage("ground");
-						
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT;
-						
-						if (this.scene.getSceneCell(i, j) == Game.LAVA)
-						{
-							sprite.x += 20;
-							sprite.y -= 10;
-							
-							sprite.rotation = Math.PI / 4;
-							
-							container.addImage(sprite);
-						}
-						else if (this.scene.getSceneCell(i, j) == Game.ROAD)
-						{
-							sprite.rotation = 0;
-							
-							container.addImage(sprite);
-							
-							number = uint((i * this.xM * 999999000001) | (j * this.yM * 87178291199));
-							
-							if (number % 13 < 3)
-							{
-								sprite = this.pull.getImage("stones" + (1 + number % 3));
-								
-								sprite.x = i * Metric.CELL_WIDTH;
-								sprite.y = j * Metric.CELL_HEIGHT;
-								
-								container.addImage(sprite);
-							}
-						}
-						
-						
 						if (this.scene.getSceneCell(i, j + 1) == Game.FALL)
 						{
 							sprite = this.pull.getImage("S");
@@ -190,6 +156,39 @@ package game.world.renderer
 							
 							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+							
+							container.addImage(sprite);
+						}
+						
+						if (this.scene.getSceneCell(i, j) == Game.ROAD)
+						{
+							sprite = this.pull.getImage("ground");
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = j * Metric.CELL_HEIGHT;
+							
+							container.addImage(sprite);
+							
+							number = uint((i * this.xM * 999999000001) | (j * this.yM * 87178291199));
+							
+							if (number % 13 < 3)
+							{
+								sprite = this.pull.getImage("stones" + (1 + number % 3));
+								
+								sprite.x = i * Metric.CELL_WIDTH;
+								sprite.y = j * Metric.CELL_HEIGHT;
+								
+								container.addImage(sprite);
+							}
+							
+							
+						}
+						else if (this.scene.getSceneCell(i, j) == Game.LAVA)
+						{
+							sprite = this.pull.getImage("lava");
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = j * Metric.CELL_HEIGHT;
 							
 							container.addImage(sprite);
 						}
