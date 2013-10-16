@@ -1,5 +1,6 @@
 package ui.navigation 
 {
+	import data.structs.PreferencesInfo;
 	import feathers.controls.Button;
 	import flash.ui.Keyboard;
 	import starling.display.Sprite;
@@ -14,7 +15,7 @@ package ui.navigation
 		
 		private var button:Button;
 		
-		public function MuteButton(flow:IUpdateDispatcher) 
+		public function MuteButton(flow:IUpdateDispatcher, preferences:PreferencesInfo) 
 		{
 			super();
 			
@@ -30,6 +31,11 @@ package ui.navigation
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.keyUp);
 			this.flow.addUpdateListener(Update.toggleMute);
+			
+			if (preferences.mute)
+				this.button.label = "Unmute";
+			else
+				this.button.label = "Mute";
 		}
 		
 		private function locate(event:Event):void
@@ -45,27 +51,23 @@ package ui.navigation
 		
 		update function toggleMute():void
 		{
-			this.toggleTitleMuteButton();
-		}
-		
-		private function toggleTitleMuteButton():void
-		{
-			if (this.button.label == "Mute")
-			{
-				this.button.label = "Unmute";
-			}
-			else
-			{
-				this.button.label = "Mute";
-			}
+			this.toggleTitle();
 		}
 		
 		update function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.M)
-				this.toggleTitleMuteButton();
+				this.toggleTitle();
 		}
 		
+		
+		private function toggleTitle():void
+		{
+			if (this.button.label == "Mute")
+				this.button.label = "Unmute";
+			else
+				this.button.label = "Mute";
+		}
 	}
 
 }

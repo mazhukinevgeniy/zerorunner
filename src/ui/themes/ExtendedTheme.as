@@ -66,7 +66,6 @@ package ui.themes
 			this.buttonInitializer(button);
 			
 			button.defaultLabelProperties.embedFonts = true;
-			button.label = "Mute";
 			button.width = ExtendedTheme.MUTE_BUTTON_WIDTH;
 			button.height = ExtendedTheme.MUTE_BUTTON_HEIGHT;
 		}

@@ -53,7 +53,7 @@ package ui
 			new ExtendedTheme(this.root);
 			
 			this.background = new Background(this.flow);
-			this.navigation = new Navigation(this.flow);
+			this.navigation = new Navigation(this.flow, database.preferences);
 			this.windows = new Windows(this.flow, this.assets, database, gameRoot)
 			
 			this.root.addChild(this.background);
