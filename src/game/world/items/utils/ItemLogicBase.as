@@ -1,5 +1,6 @@
 package game.world.items.utils 
 {
+	import data.StatusReporter;
 	import game.core.GameFoundations;
 	import game.core.metric.*;
 	import game.world.IActors;

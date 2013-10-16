@@ -9,10 +9,12 @@ package data
 	{
 		private var save:SharedObjectManager;
 		
+		private var _status:StatusReporter;
 		
 		public function DatabaseManager(flow:IUpdateDispatcher) 
 		{
 			this.save = new SharedObjectManager();
+			this._status = new StatusReporter(flow, this.save);
 			
 			new AchievementsUpdater(flow, this.save);
 			new PreferencesUpdater(flow, this.save);
@@ -40,6 +42,11 @@ package data
 		public function get statistics():StatisticsInfo
 		{
 			return new StatisticsInfo(0);//TODO: implement better
+		}
+		
+		public function get status():StatusReporter
+		{
+			return this._status;
 		}
 	}
 

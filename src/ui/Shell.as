@@ -1,6 +1,7 @@
 package ui 
 {
 	import data.DatabaseManager;
+	import data.StatusReporter;
 	import game.core.GameFoundations;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
@@ -35,6 +36,7 @@ package ui
 							//TODO: check what can be not passed; think if we need another parameter struct 
 		{
 			this.status = foundations.statusReporter;
+			//TODO: balance stuff. it's overpassed, database.status will work too!
 			
 			this.flow = foundations.flow;
 			this.assets = foundations.assets;

@@ -8,16 +8,19 @@ package data
 	internal class ProgressUpdater 
 	{
 		private var save:SharedObjectManager;
+		private var flow:IUpdateDispatcher;
 		
 		public function ProgressUpdater(flow:IUpdateDispatcher, save:SharedObjectManager) 
 		{
 			this.save = save;
+			this.flow = flow;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.smallBeaconTurnedOn);
 			flow.addUpdateListener(Update.technicUnlocked);
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.resetProgress);
+			flow.addUpdateListener(Update.numberedFrame);
 		}
 		
 		update function smallBeaconTurnedOn():void
@@ -42,6 +45,23 @@ package data
 		{
 			for (var value:String in Defaults.progressDefaults)
 				this.save[value] = Defaults.progressDefaults[value];
+		}
+		
+		update function numberedFrame(key:int):void
+		{
+			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
+			{
+				if (this.save.localGoal == Game.LIGHT_A_BEACON)
+					if (this.save.getBeacon(this.save.level) != Game.NO_BEACON)
+					{
+						if (this.save.level == Game.LEVEL_CAP)
+							this.flow.dispatchUpdate(Update.tellGameWon);
+						else
+							this.flow.dispatchUpdate(Update.tellRoundWon);
+						
+						this.save.advanceLevel();
+					}
+			}
 		}
 		/*
 		internal function advanceLevel():void

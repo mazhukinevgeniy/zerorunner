@@ -104,14 +104,12 @@ package
 								adaptTextureAtlasMakerXML(Main.gameatlas)));
 				
 				var flow:UpdateManager = new UpdateManager();
-				
-				var reporter:StatusReporter = new StatusReporter(flow);
-				
 				var database:DatabaseManager = new DatabaseManager(flow);
+				
 				
 				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
 				
-				this.game = new ZeroRunner(flow, reporter, this.assets, gameRoot);
+				this.game = new ZeroRunner(flow, database.status, this.assets, gameRoot);
 				this.shell = new Shell(this.starlingRoot, database, gameRoot, (this.game).foundations);
 				//TODO: do not pass damn foundations to the shell, it's madness
 				

@@ -3,16 +3,14 @@ package data
 	
 	internal class Defaults 
 	{
-		internal static const configDefaults:Object = 
+		
+		internal static const progressDefaults:Object = 
 		{
 			width: 10,
 			
 			junks: 2,
-			goal: Game.LIGHT_A_BEACON
-		};
-		
-		internal static const progressDefaults:Object = 
-		{
+			goal: Game.LIGHT_A_BEACON,
+			
 			level: 1,
 			
 			activeDroids: 0,
@@ -33,7 +31,6 @@ package data
 		};
 		
 		internal static const defaults:Vector.<Object> = new <Object>[
-							Defaults.configDefaults, 
 							Defaults.progressDefaults, 
 							Defaults.preferencesDefaults, 
 							Defaults.statisticsDefaults];

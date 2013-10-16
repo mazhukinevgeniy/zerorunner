@@ -1,4 +1,4 @@
-package  
+package data
 {
 	import data.structs.GameConfig;
 	import utils.updates.IUpdateDispatcher;
@@ -6,25 +6,24 @@ package
 	
 	public class StatusReporter 
 	{
+		private var save:SharedObjectManager;
 		
 		private var _isGameOn:Boolean = false;
 		private var _config:GameConfig = null;
 		
-		public function StatusReporter(flow:IUpdateDispatcher) 
+		public function StatusReporter(flow:IUpdateDispatcher, save:SharedObjectManager) 
 		{
+			this.save = save;
+			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
-			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.quitGame);
 		}
 		
 		update function newGame():void
 		{
-			this._config = new GameConfig(//now you think, what is the right place to generate config? when?
-		}
-		
-		update function prerestore(config:GameConfig):void
-		{
+			this._config = new GameConfig(save.width, save.junks, save.goal, save.level, save.activeDroids);
+			
 			this._isGameOn = true;
 		}
 		

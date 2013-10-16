@@ -1,5 +1,6 @@
 package game.core 
 {
+	import data.StatusReporter;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
 	import game.world.ActorsFeatures;
