@@ -63,7 +63,9 @@ package data
 		
 		override flash_proxy function getProperty(name:*):* 
 		{
-			return this.so.data[name];
+			if (this.so.data.hasOwnProperty(name))
+				return this.so.data[name];
+			else throw new Error();
 		}
 		
 		override flash_proxy function setProperty(name:*, value:*):void 
