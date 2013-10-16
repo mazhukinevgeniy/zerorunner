@@ -1,7 +1,6 @@
 package game.world.operators 
 {
 	import data.structs.GameConfig;
-	import game.core.GameFoundations;
 	import game.world.IActors;
 	import game.world.items.utils.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
@@ -12,15 +11,13 @@ package game.world.operators
 		private var width:int;
 		private var actors:IActors;
 		
-		public function ClearFeature(foundations:GameFoundations) 
+		public function ClearFeature(actors:IActors, flow:IUpdateDispatcher) 
 		{
-			var flow:IUpdateDispatcher = foundations.flow;
-			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			this.actors = foundations.actors;
+			this.actors = actors;
 		}
 		
 		update function prerestore(config:GameConfig):void

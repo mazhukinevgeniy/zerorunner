@@ -1,6 +1,5 @@
 package game.world.operators 
 {
-	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
 	import game.world.IActors;
 	import game.world.items.utils.IPointCollector;
@@ -11,16 +10,14 @@ package game.world.operators
 	internal class ActFeature //TODO: fix the name, it's not okay
 	{
 		private var points:IPointCollector;
-		private var foundations:GameFoundations;
+		private var actors:IActors;
 		
 		private var moved:Vector.<ItemLogicBase>;
 		
-		public function ActFeature(foundations:GameFoundations, points:IPointCollector) 
+		public function ActFeature(actors:IActors, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
 			this.points = points;
-			this.foundations = foundations;
-			
-			var flow:IUpdateDispatcher = foundations.flow;
+			this.actors = actors;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
@@ -32,7 +29,6 @@ package game.world.operators
 		{
 			if (key == Game.FRAME_TO_ACT)
 			{
-				var actors:IActors = this.foundations.actors;
 				var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 				
 				const tlcX:int = center.x - 20;
@@ -52,7 +48,7 @@ package game.world.operators
 				{				
 					for (i = tlcX; i < brcX; i++)
 					{
-						actor = actors.findObjectByCell(i, j);
+						actor = this.actors.findObjectByCell(i, j);
 						
 						if (actor && this.moved.indexOf(actor) == -1)
 						{
