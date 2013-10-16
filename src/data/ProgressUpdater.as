@@ -55,7 +55,6 @@ package data
 							this.flow.dispatchUpdate(Update.tellRoundWon);
 							
 							this.save.level += 1;
-							this.save.activeDroids = 0; //TODO: check if we can change it
 							this.save.junks = this.save.level * 2;
 						}
 					}
