@@ -24,10 +24,10 @@ package ui.windows.statistics
 		private var fullHeight:Number;
 		
 		
-		public function ChunkStatistics(title:String, newValue:int) 
+		public function ChunkStatistics(title:String) 
 		{
 			setTitle(title);
-			this.initializeList(newValue);//TODO: what value?
+			this.initializeList();
 			
 			this.layout = new AnchorLayout();
 			
@@ -49,25 +49,16 @@ package ui.windows.statistics
 		}
 		
 		
-		private function initializeList(value:int):void
+		private function initializeList():void
 		{
-			this.list = writeInList(value);
+			this.list = new List();
+			
+			var data:Vector.<Object> = new Vector.<Object>;
+			this.list.dataProvider = new ListCollection(data);
+			
 			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
 			this.list.layoutData = this.createLayoutData(this.label, ChunkStatistics.GAP);
 			this.addChild(this.list);
-		}
-		
-		private function writeInList(value:int):List
-		{
-			var list:List = new List();
-			var data:Vector.<Object> = new Vector.<Object>;
-			
-			list.dataProvider = new ListCollection(data);
-			
-			var string:int = value;
-			data.push(string);
-			
-			return list;
 		}
 		
 		private function createLayoutData(topAnchor:DisplayObject = null, top:Number = 0,

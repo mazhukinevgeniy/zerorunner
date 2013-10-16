@@ -13,27 +13,11 @@ package ui.windows.statistics
 	
 	public class StatisticsWindow  extends ScrollContainer
 	{
-		private const structure:Object = 
-		{
-			global:
-			{
-				distance: "distance" //TODO: find the good syntax
-			},
-			
-			alsotest:
-			{
-				huh: "huh",
-				test: "test"
-			}
-		};
 		
-		public static const COUNT_STATISTICS_PIECE:int = 1;
 		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
 		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
 		private static const PADDING:Number = 5;
-		
-		private var blocks:Vector.<ChunkStatistics>;
 		
 		public function StatisticsWindow(database:DatabaseManager) 
 		{
@@ -41,8 +25,6 @@ package ui.windows.statistics
 			setBackground();
 			setLayout();
 			setScrollBar();
-			
-			this.blocks = new Vector.<ChunkStatistics>();
 			
 			//TODO: check if required:
 			/*
@@ -100,96 +82,46 @@ package ui.windows.statistics
 			{
 				this.composeView();
 			}
+			else
+			{
+				this.removeChildren();
+			}
 			
 			super.visible = value;
 		}
 		
 		private function composeView():void
 		{
-			/* updateData:
-			for (var i:int = 0; i < StatisticsWindow.COUNT_STATISTICS_PIECE; ++i)
+			const structure:Object = 
 			{
-				var nameOfStatistic:String = this.namesOfStatistics[i]
-				if (this.isExistItemInData(nameOfStatistic))
+				global:
 				{
-					this.updateDataInChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
-				}
-				else
+					distance: "distance" //TODO: find the good syntax
+				},
+				
+				alsotest:
 				{
-					this.createAndPushChunk(nameOfStatistic, this.statistics[nameOfStatistic]);
+					huh: "huh",
+					test: "test"
 				}
-			}
+			};
+			
+			var chunk:ChunkStatistics;
+			
+			/**
+			 * Global statistics
 			 */
 			
-			/* redraw:
-			var lenght:int = this.data.length;
+			chunk = new ChunkStatistics("distance");
+			this.addChild(chunk);
 			
-			this.removeChildren();
-			
-			for (var i:int = 0;  i < lenght; ++i)
-			{
-				this.addChild(this.data[i]);
-			}
+			/**
+			 * Also (just for test)
 			 */
-		}
-		
-		private function isExistItemInData(nameOfStatistic:String):Boolean
-		{
-			var isExist:Boolean = false;
 			
-			for (var i:int = 0; i < this.data.length;  ++i)
-			{
-				if (this.data[i] != null && this.data[i].title == nameOfStatistic)
-				{
-					isExist = true;
-					break;
-				}
-			}
-			
-			return isExist;
+			chunk = new ChunkStatistics("test");
+			this.addChild(chunk);
 		}
-		
-		private function updateDataInChunk(nameOfStatistic:String, value:int):void
-		{
-			for (var i:int = 0; i < this.data.length;  ++i)
-			{
-				if (this.data[i] != null && this.data[i].title == nameOfStatistic)
-				{
-					this.data[i].updateData(value);
-					break;
-				}
-			}
-		}
-		
-		private function createAndPushChunk(nameOfStatistic:String, value:int):void
-		{
-			var newChunk:ChunkStatistics = new ChunkStatistics(nameOfStatistic, value, this)
-			
-			if (order != -1)
-			{
-				this.putAtIndexInVector(newChunk, order);
-			}
-			else
-			{
-				this.data.push(newChunk);
-			}
-		}
-		
-		private function putAtIndexInVector(newChunk:ChunkStatistics, index:int):void
-		{
-			var lenght:int = this.data.length;
-			
-			if (lenght <= index)
-			{
-				for (var i:int = 0; i <= index - lenght; ++i)
-					this.data.push(newChunk);
-			}
-			else
-			{
-				this.data[index] = newChunk;
-			}
-		}
-		
 		
 	}
 
