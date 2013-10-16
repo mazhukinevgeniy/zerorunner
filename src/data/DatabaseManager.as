@@ -7,13 +7,17 @@ package data
 	
 	public class DatabaseManager
 	{
+		private var save:SharedObjectManager;
 		
 		
 		public function DatabaseManager(flow:IUpdateDispatcher) 
 		{
+			this.save = new SharedObjectManager();
 			
-			//this._statistics = new StatisticSave(flow);
-			//this._achievements = new AchievementSave();
+			new AchievementsUpdater(flow);
+			new PreferencesUpdater(flow);
+			new ProgressUpdater(flow);
+			new StatisticsUpdater(flow);
 		}
 		
 		
@@ -30,7 +34,7 @@ package data
 		
 		public function get preferences():PreferencesInfo
 		{
-			return new PreferencesInfo();
+			return new PreferencesInfo(this.save.mute);
 		}
 		
 		public function get statistics():StatisticsInfo

@@ -1,12 +1,18 @@
 package data 
 {
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	internal class AchievementsUpdater 
 	{
+		private var save:SharedObjectManager;
 		
-		public function AchievementsUpdater() 
+		public function AchievementsUpdater(flow:IUpdateDispatcher, save:SharedObjectManager) 
 		{
+			this.save = save;
 			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.numberedFrame);
 		}
 		
 		

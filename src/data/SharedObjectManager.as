@@ -31,9 +31,9 @@ package data
 			{
 				var tmp:Object = new Object();
 				
-				for each (obj:Object in this.defaults)
+				for each (var obj:Object in this.defaults)
 				{
-					for (property:String in obj)
+					for (var property:String in obj)
 					{
 						if (tmp[property] == 1)
 							throw new Error();
@@ -48,9 +48,9 @@ package data
 			 */
 			function initializeEntries():void
 			{
-				for each (obj:Object in Defaults.defaults)
+				for each (var obj:Object in Defaults.defaults)
 				{
-					for (property:String in obj)
+					for (var property:String in obj)
 					{
 						if (!this.so.data.hasOwnProperty(property)) 
 						//TODO: check if works
