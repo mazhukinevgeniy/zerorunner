@@ -3,6 +3,8 @@ package data
 	import data.structs.AchievementInfo;
 	import data.structs.PreferencesInfo;
 	import data.structs.StatisticsInfo;
+	import progress.achievements.AchievementSave;
+	import progress.achievements.IAchievements;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class DatabaseManager
@@ -47,6 +49,12 @@ package data
 		public function get status():StatusReporter
 		{
 			return this._status;
+		}
+		
+		//TODO: remove this temporary thing
+		public function get achievements():IAchievements
+		{
+			return new AchievementSave();
 		}
 	}
 
