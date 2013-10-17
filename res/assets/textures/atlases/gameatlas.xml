@@ -1,5 +1,9 @@
-<atlas numImages="24">
+<atlas numImages="28">
   <texture file="sprites0.png" trans="true">
+    <image name="1" x="20" y="191" width="10" height="10"/>
+    <image name="3" x="20" y="181" width="10" height="10"/>
+    <image name="7" x="20" y="171" width="10" height="10"/>
+    <image name="9" x="20" y="161" width="10" height="10"/>
     <image name="bottom" x="77" y="200" width="40" height="20"/>
     <image name="E" x="20" y="119" width="5" height="40"/>
     <image name="ground" x="77" y="120" width="40" height="40" trans="false"/>
