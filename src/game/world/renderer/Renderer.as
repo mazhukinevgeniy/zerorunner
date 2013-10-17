@@ -202,15 +202,6 @@ package game.world.renderer
 						container.addImage(sprite);
 						
 						
-						if (this.scene.getSceneCell(i, j + 1) != Game.LAVA)
-						{
-							sprite = this.pull.getImage("bottom");
-							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height / 2;
-							
-							container.addImage(sprite);
-						}
 						if (this.scene.getSceneCell(i + 1, j) != Game.LAVA)
 						{
 							sprite = this.pull.getImage("right");
@@ -235,6 +226,15 @@ package game.world.renderer
 							
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height / 2;
+							
+							container.addImage(sprite);
+						}
+						if (this.scene.getSceneCell(i, j + 1) != Game.LAVA)
+						{
+							sprite = this.pull.getImage("bottom");
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height / 2;
 							
 							container.addImage(sprite);
 						}
