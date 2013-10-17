@@ -1,9 +1,9 @@
 package data 
 {
-	import data.structs.StatisticsInfo;
 	import data.updaters.*;
 	import data.viewers.AchievementViewer;
 	import data.viewers.PreferencesViewer;
+	import data.viewers.StatisticsViewer;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class DatabaseManager
@@ -12,6 +12,7 @@ package data
 		
 		private var _preferences:PreferencesViewer;
 		private var _achievements:AchievementViewer;
+		private var _statistics:StatisticsViewer;
 		
 		private var _status:StatusReporter;
 		
@@ -22,6 +23,7 @@ package data
 			
 			this._preferences = new PreferencesViewer(this.save);
 			this._achievements = new AchievementViewer();
+			this._statistics = new StatisticsViewer(this.save);
 			
 			new AchievementsUpdater(flow, this.save);
 			new PreferencesUpdater(flow, this.save);
@@ -36,9 +38,9 @@ package data
 			return this._preferences;
 		}
 		
-		public function get statistics():StatisticsInfo
+		public function get statistics():StatisticsViewer
 		{
-			return new StatisticsInfo(this.save.distance);
+			return this._statistics;
 		}
 		
 		public function get status():StatusReporter

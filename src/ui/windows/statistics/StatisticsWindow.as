@@ -1,7 +1,7 @@
 package ui.windows.statistics 
 {
 	import data.DatabaseManager;
-	import data.structs.StatisticsInfo;
+	import data.viewers.StatisticsViewer;
 	import feathers.controls.IScrollBar;
 	import feathers.controls.ScrollBar;
 	import feathers.controls.ScrollContainer;
@@ -20,11 +20,11 @@ package ui.windows.statistics
 		private static const PADDING:Number = 5;
 		
 		
-		private var data:DatabaseManager;
+		private var statistics:StatisticsViewer;
 		
 		public function StatisticsWindow(database:DatabaseManager) 
 		{
-			this.data = database;
+			this.statistics = database.statistics;
 			
 			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PADDING;
 			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
@@ -93,17 +93,16 @@ package ui.windows.statistics
 		private function composeView():void
 		{
 			var chunk:ChunkStatistics;
-			var info:StatisticsInfo = (this.data).statistics;
 			
 			
-			chunk = new ChunkStatistics("global", composeGlobalStat(info));
+			chunk = new ChunkStatistics("global", composeGlobalStat(this.statistics));
 			this.addChild(chunk);
 			
 			chunk = new ChunkStatistics("test", new <String>["huh", "test"]);
 			this.addChild(chunk);
 			
 			
-			function composeGlobalStat(info:StatisticsInfo):Vector.<String>
+			function composeGlobalStat(info:StatisticsViewer):Vector.<String>
 			{
 				var vect:Vector.<String> = new Vector.<String>();
 				
