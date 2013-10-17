@@ -1,6 +1,6 @@
 package game.hud 
 {
-	import data.structs.GameConfig;
+	import data.viewers.GameConfig;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;

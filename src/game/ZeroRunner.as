@@ -1,7 +1,7 @@
 package game 
 {
 	import data.StatusReporter;
-	import data.structs.GameConfig;
+	import data.viewers.GameConfig;
 	import game.core.GameFoundations;
 	import game.hud.UIExtendsions;
 	import starling.display.DisplayObject;
@@ -13,20 +13,22 @@ package game
 	public class ZeroRunner
 	{
 		private var flow:IUpdateDispatcher;
-		private var status:StatusReporter;
 		
 		private var _foundations:GameFoundations;
 		
 		
-		public function ZeroRunner(flow:IUpdateDispatcher, status:StatusReporter, assets:AssetManager, root:Sprite) 
+		public function ZeroRunner(flow:IUpdateDispatcher, config:GameConfig, assets:AssetManager, root:Sprite) 
 		{
 			this.flow = flow;
-			this.status = status;
 			
-			new GameUpdateConverter(flow, status);
+			new GameUpdateConverter(flow, config);
 			
 			
-			this._foundations = new GameFoundations(flow, status, assets, root);
+			this._foundations = new GameFoundations(flow, config, assets, root);
+			//So we wind up having the same parameters here and there? Ironical.
+			//TODO: check if it's wise to divide ZeroRunner and GameFoundations
+			//TODO: also check if we need the class named "ZeroRunner"
+			//TODO: i take it "Game" will be just fine... oops, we already have one. Must think more.
 			
 			new UIExtendsions(foundations);
 		}

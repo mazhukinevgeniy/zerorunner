@@ -35,8 +35,7 @@ package ui
 							database:DatabaseManager, gameRoot:Sprite, foundations:GameFoundations)
 							//TODO: check what can be not passed; think if we need another parameter struct 
 		{
-			this.status = foundations.statusReporter;
-			//TODO: balance stuff. it's overpassed, database.status will work too!
+			this.status = database.status;
 			
 			this.flow = foundations.flow;
 			this.assets = foundations.assets;

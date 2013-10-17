@@ -1,6 +1,6 @@
 package game.world.items.utils 
 {
-	import data.StatusReporter;
+	import data.viewers.GameConfig;
 	import game.core.GameFoundations;
 	import game.core.metric.*;
 	import game.world.IActors;
@@ -13,7 +13,7 @@ package game.world.items.utils
 	{
 		protected var actors:IActors;
 		protected var scene:IScene;
-		protected var status:StatusReporter;
+		protected var config:GameConfig;
 		
 		private var actorTracker:IActorTracker;
 		
@@ -25,7 +25,7 @@ package game.world.items.utils
 			
 			this.scene = foundations.scene;
 			this.actors = foundations.actors;
-			this.status = foundations.statusReporter;
+			this.config = foundations.config;
 			
 			this.actorTracker = foundations.actorsTracker;
 			
@@ -50,7 +50,7 @@ package game.world.items.utils
 		
 		protected function getSpawningCell():CellXY
 		{
-			const width:int = this.status.currentConfig.width;
+			const width:int = this.config.width;
 			
 			var cell:CellXY = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
 												Game.BORDER_WIDTH + Math.random() * width);

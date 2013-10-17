@@ -1,6 +1,6 @@
 package game.world.renderer 
 {
-	import data.structs.GameConfig;
+	import data.viewers.GameConfig;
 	import game.core.GameFoundations;
 	import game.core.metric.*;
 	import game.core.time.Time;

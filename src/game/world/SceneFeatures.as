@@ -1,6 +1,6 @@
 package game.world 
 {
-	import data.structs.GameConfig;
+	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

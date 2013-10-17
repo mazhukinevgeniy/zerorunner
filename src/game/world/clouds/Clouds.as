@@ -1,6 +1,6 @@
 package game.world.clouds 
 {
-	import data.structs.GameConfig;
+	import data.viewers.GameConfig;
 	import game.core.GameFoundations;
 	import game.core.metric.DCellXY;
 	import game.core.metric.Metric;

@@ -1,6 +1,5 @@
 package data
 {
-	import data.structs.GameConfig;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -9,7 +8,6 @@ package data
 		private var save:SharedObjectManager;
 		
 		private var _isGameOn:Boolean = false;
-		private var _config:GameConfig = null;
 		
 		public function StatusReporter(flow:IUpdateDispatcher, save:SharedObjectManager) 
 		{
@@ -22,19 +20,15 @@ package data
 		
 		update function newGame():void
 		{
-			this._config = new GameConfig(save.width, save.junks, save.goal, save.level, save.activeDroids);
-			
 			this._isGameOn = true;
 		}
 		
 		update function quitGame():void
 		{
-			this._config = null;
 			this._isGameOn = false;
 		}
 		
 		public function get isGameOn():Boolean { return this._isGameOn; }
-		public function get currentConfig():GameConfig { return this._config; }
 	}
 
 }

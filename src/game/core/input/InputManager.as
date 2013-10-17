@@ -1,6 +1,6 @@
 package game.core.input
 {
-	import data.structs.GameConfig;
+	import data.viewers.GameConfig;
 	import flash.events.Event;
 	import game.core.metric.DCellXY;
 	import starling.core.Starling;

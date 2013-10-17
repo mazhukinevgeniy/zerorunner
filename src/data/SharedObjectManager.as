@@ -1,5 +1,6 @@
 package data 
 {
+	import data.viewers.GameConfig;
 	import flash.net.SharedObject;
 	import flash.utils.flash_proxy;
 	import flash.utils.Proxy;
@@ -48,7 +49,7 @@ package data
 		
 		
 		
-		update function tellGameWon():void
+		update function tellGameWon(config:GameConfig):void
 		{
 			this.update::resetProgress();
 		}

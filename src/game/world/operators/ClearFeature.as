@@ -1,6 +1,6 @@
 package game.world.operators 
 {
-	import data.structs.GameConfig;
+	import data.viewers.GameConfig;
 	import game.world.IActors;
 	import game.world.items.utils.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;

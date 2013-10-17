@@ -1,6 +1,6 @@
 package game.core 
 {
-	import data.StatusReporter;
+	import data.viewers.GameConfig;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
 	import game.world.ActorsFeatures;
@@ -23,20 +23,20 @@ package game.core
 	{
 		private var _scene:IScene;
 		private var _juggler:Juggler;
+		private var _config:GameConfig;
 		private var _input:InputManager;
 		private var _assets:AssetManager;
 		private var _actors:ActorsFeatures;
-		private var _status:StatusReporter;
 		private var _flow:IUpdateDispatcher;
 		private var _points:IPointCollector;
 		private var _root:DisplayObjectContainer;
 		
-		public function GameFoundations(flow:IUpdateDispatcher, status:StatusReporter, assets:AssetManager, root:Sprite) 
+		public function GameFoundations(flow:IUpdateDispatcher, config:GameConfig, assets:AssetManager, root:Sprite) 
 		{
 			this._root = root;
 			this._flow = flow;
 			this._assets = assets;
-			this._status = status;
+			this._config = config;
 			this._points = new PointsOfInterest();
 			this._juggler = new Juggler();
 			this._input = new InputManager(flow);
@@ -68,11 +68,6 @@ package game.core
 			return this._flow;
 		}
 		
-		public function get statusReporter():StatusReporter
-		{
-			return this._status;
-		}
-		
 		public function get input():InputManager
 		{
 			return this._input;
@@ -101,6 +96,11 @@ package game.core
 		public function get pointsOfInterest():IPointCollector
 		{
 			return this._points;
+		}
+		
+		public function get config():GameConfig
+		{
+			return this._config;
 		}
 	}
 

@@ -1,6 +1,6 @@
 package game.hud.map 
 {
-	import data.structs.GameConfig;
+	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;
 	import game.core.GameFoundations;
 	import game.core.metric.ICoordinated;
