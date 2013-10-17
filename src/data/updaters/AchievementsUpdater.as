@@ -1,13 +1,14 @@
-package data 
+package data.updaters 
 {
+	import flash.utils.Proxy;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class AchievementsUpdater 
+	public class AchievementsUpdater 
 	{
-		private var save:SharedObjectManager;
+		private var save:Proxy;
 		
-		public function AchievementsUpdater(flow:IUpdateDispatcher, save:SharedObjectManager) 
+		public function AchievementsUpdater(flow:IUpdateDispatcher, save:Proxy) 
 		{
 			this.save = save;
 			

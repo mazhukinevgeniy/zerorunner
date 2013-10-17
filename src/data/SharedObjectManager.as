@@ -3,16 +3,15 @@ package data
 	import flash.net.SharedObject;
 	import flash.utils.flash_proxy;
 	import flash.utils.Proxy;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
-	/**
-	 * This class wraps SharedObject. Its objects are to never be accessed from the outer packages.
-	 */
 	internal dynamic class SharedObjectManager extends Proxy
 	{
 		
 		protected var so:SharedObject;
 		
-		public function SharedObjectManager() 
+		public function SharedObjectManager(flow:IUpdateDispatcher) 
 		{
 			checkNaming();
 			
@@ -21,6 +20,9 @@ package data
 			
 			this.initializeEntries();
 			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.resetProgress);
+			flow.addUpdateListener(Update.tellGameWon);
 			
 			/**
 			 * This function is used to check if there're identical entry names.
@@ -42,6 +44,19 @@ package data
 					}
 				}
 			}
+		}
+		
+		
+		
+		update function tellGameWon():void
+		{
+			this.update::resetProgress();
+		}
+		
+		update function resetProgress():void
+		{
+			for (var value:String in Defaults.progressDefaults)
+				this[value] = Defaults.progressDefaults[value];
 		}
 		
 		/**

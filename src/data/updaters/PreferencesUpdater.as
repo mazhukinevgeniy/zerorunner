@@ -1,13 +1,14 @@
-package data 
+package data.updaters 
 {
+	import flash.utils.Proxy;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class PreferencesUpdater 
+	public class PreferencesUpdater 
 	{
-		private var save:SharedObjectManager;
+		private var save:Proxy;
 		
-		public function PreferencesUpdater(flow:IUpdateDispatcher, save:SharedObjectManager) 
+		public function PreferencesUpdater(flow:IUpdateDispatcher, save:Proxy) 
 		{
 			this.save = save;
 			
@@ -18,7 +19,7 @@ package data
 		
 		update function toggleMute():void
 		{
-			this.save.mute = !this.save.mute;
+			this.save["mute"] = !this.save["mute"];
 		}
 	}
 

@@ -3,6 +3,7 @@ package data
 	import data.structs.AchievementInfo;
 	import data.structs.PreferencesInfo;
 	import data.structs.StatisticsInfo;
+	import data.updaters.*;
 	import progress.achievements.AchievementSave;
 	import progress.achievements.IAchievements;
 	import utils.updates.IUpdateDispatcher;
@@ -15,7 +16,7 @@ package data
 		
 		public function DatabaseManager(flow:IUpdateDispatcher) 
 		{
-			this.save = new SharedObjectManager();
+			this.save = new SharedObjectManager(flow);
 			this._status = new StatusReporter(flow, this.save);
 			
 			new AchievementsUpdater(flow, this.save);

@@ -1,14 +1,15 @@
-package data 
+package data.updaters 
 {
+	import flash.utils.Proxy;
 	import game.core.metric.DCellXY;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class StatisticsUpdater 
+	public class StatisticsUpdater 
 	{
-		private var save:SharedObjectManager;
+		private var save:Proxy;
 		
-		public function StatisticsUpdater(flow:IUpdateDispatcher, save:SharedObjectManager) 
+		public function StatisticsUpdater(flow:IUpdateDispatcher, save:Proxy) 
 		{
 			this.save = save;
 			
@@ -18,7 +19,7 @@ package data
 		
 		update function moveCenter(change:DCellXY, delay:int):void
 		{
-			this.save.distance += change.length;
+			this.save["distance"] += change.length;
 		}
 		
 	}
