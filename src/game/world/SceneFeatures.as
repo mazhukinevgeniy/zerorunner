@@ -38,7 +38,7 @@ package game.world
 			 */
 			for (j = Game.BORDER_WIDTH; j < secondJGoal; j++)
 				for (i = Game.BORDER_WIDTH; i < secondJGoal; i++)
-					if (Math.random() < 0.4)
+					if (Math.random() < 0.6)
 						this.scene[i + j * this.width] = Game.ROAD;
 			
 			/**
