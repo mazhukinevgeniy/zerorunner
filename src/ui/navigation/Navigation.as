@@ -1,6 +1,6 @@
 package ui.navigation 
 {
-	import data.structs.PreferencesInfo;
+	import data.viewers.PreferencesViewer;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import ui.Windows;
@@ -17,7 +17,7 @@ package ui.navigation
 		
 		private var muteButton:Sprite;
 		
-		public function Navigation(flow:IUpdateDispatcher, preferences:PreferencesInfo) 
+		public function Navigation(flow:IUpdateDispatcher, preferences:PreferencesViewer) 
 		{
 			this.addChild(this.menu = new Menu(flow));
 			this.addChild(this.panel = new Panel(flow));

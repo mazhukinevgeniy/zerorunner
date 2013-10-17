@@ -1,6 +1,6 @@
 package ui.sounds 
 {
-	import data.structs.PreferencesInfo;
+	import data.viewers.PreferencesViewer;
 	import flash.ui.Keyboard;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
@@ -14,7 +14,7 @@ package ui.sounds
 		private var flow:IUpdateDispatcher
 		
 		
-		public function Sounds(flow:IUpdateDispatcher, assets:AssetManager, config:PreferencesInfo) 
+		public function Sounds(flow:IUpdateDispatcher, assets:AssetManager, config:PreferencesViewer) 
 		{
 			this.initializeSoundsManagers(assets);
 			this.initializeUsingFlow(flow);

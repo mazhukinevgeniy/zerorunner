@@ -1,6 +1,6 @@
 package ui.navigation 
 {
-	import data.structs.PreferencesInfo;
+	import data.viewers.PreferencesViewer;
 	import feathers.controls.Button;
 	import flash.ui.Keyboard;
 	import starling.display.Sprite;
@@ -15,7 +15,7 @@ package ui.navigation
 		
 		private var button:Button;
 		
-		public function MuteButton(flow:IUpdateDispatcher, preferences:PreferencesInfo) 
+		public function MuteButton(flow:IUpdateDispatcher, preferences:PreferencesViewer) 
 		{
 			super();
 			

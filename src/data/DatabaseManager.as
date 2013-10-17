@@ -1,14 +1,16 @@
 package data 
 {
 	import data.structs.AchievementSave;
-	import data.structs.PreferencesInfo;
 	import data.structs.StatisticsInfo;
 	import data.updaters.*;
+	import data.viewers.PreferencesViewer;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class DatabaseManager
 	{
 		private var save:SharedObjectManager;
+		
+		private var _preferences:PreferencesViewer;
 		
 		private var _status:StatusReporter;
 		
@@ -16,6 +18,8 @@ package data
 		{
 			this.save = new SharedObjectManager(flow);
 			this._status = new StatusReporter(flow, this.save);
+			
+			this._preferences = new PreferencesViewer(this.save);
 			
 			new AchievementsUpdater(flow, this.save);
 			new PreferencesUpdater(flow, this.save);
@@ -25,9 +29,9 @@ package data
 		
 		
 		
-		public function get preferences():PreferencesInfo
+		public function get preferences():PreferencesViewer
 		{
-			return new PreferencesInfo(this.save.mute);
+			return this._preferences;
 		}
 		
 		public function get statistics():StatisticsInfo
