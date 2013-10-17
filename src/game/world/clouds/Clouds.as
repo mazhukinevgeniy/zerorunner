@@ -42,7 +42,7 @@ package game.world.clouds
 			{
 				tile = this.addLayer(new Cloud(this.foundations));
 				
-				tile.alpha = 0.2 + Math.random() * 0.6;
+				tile.alpha = 0; //TODO: enable again when suitable
 				
 				tile.offsetX = Math.random() * 100;
 				tile.offsetY = Math.random() * 100;
