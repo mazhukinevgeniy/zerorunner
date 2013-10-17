@@ -238,6 +238,52 @@ package game.world.renderer
 							
 							container.addImage(sprite);
 						}
+						
+						
+						if (this.scene.getSceneCell(i + 1, j + 1) != Game.LAVA &&
+							this.scene.getSceneCell(j + 1, j) == Game.LAVA &&
+							this.scene.getSceneCell(j, j + 1) == Game.LAVA)
+						{
+							sprite = this.pull.getImage("3");
+							
+							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
+							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
+							
+							container.addImage(sprite);
+						}
+						if (this.scene.getSceneCell(i - 1, j + 1) != Game.LAVA &&
+							this.scene.getSceneCell(j - 1, j) == Game.LAVA &&
+							this.scene.getSceneCell(j, j + 1) == Game.LAVA)
+						{
+							sprite = this.pull.getImage("1");
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
+							
+							container.addImage(sprite);
+						}
+						if (this.scene.getSceneCell(i + 1, j - 1) != Game.LAVA &&
+							this.scene.getSceneCell(j + 1, j) == Game.LAVA &&
+							this.scene.getSceneCell(j, j - 1) == Game.LAVA)
+						{
+							sprite = this.pull.getImage("9");
+							
+							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
+							sprite.y = j * Metric.CELL_HEIGHT;
+							
+							container.addImage(sprite);
+						}
+						if (this.scene.getSceneCell(i - 1, j - 1) != Game.LAVA &&
+							this.scene.getSceneCell(j - 1, j) == Game.LAVA &&
+							this.scene.getSceneCell(j, j - 1) == Game.LAVA)
+						{
+							sprite = this.pull.getImage("7");
+							
+							sprite.x = i * Metric.CELL_WIDTH;
+							sprite.y = j * Metric.CELL_HEIGHT;
+							
+							container.addImage(sprite);
+						}
 					}
 				}
 			}

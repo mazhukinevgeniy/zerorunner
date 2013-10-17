@@ -14,7 +14,8 @@ package game.world.renderer
 										   ["ground", "S", "W", "E", "N",
 											"NE", "NW", "SE", "SW",
 											"stones1", "stones2", "stones3",
-											"bottom", "left", "top", "right", "lava"];
+											"bottom", "left", "top", "right", "lava",
+											"1", "3", "7", "9"];
 			
 			this.textures = new Object();
 			
