@@ -55,7 +55,7 @@ package data
 							this.flow.dispatchUpdate(Update.tellRoundWon);
 							
 							this.save.level += 1;
-							this.save.junks = this.save.level * 2;
+							this.save.junks = 1;
 						}
 					}
 			}
