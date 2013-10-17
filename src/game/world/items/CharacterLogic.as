@@ -75,18 +75,26 @@ package game.world.items
 				
 				while (action.x != 0 || action.y != 0)
 				{
-					if (this.scene.getSceneCell(this.x + action.x, this.y + action.y) != Game.FALL)
+					var next:int = this.scene.getSceneCell(this.x + action.x, this.y + action.y);
+					
+					if (next != Game.FALL && next != Game.LAVA)
 					{
 						this.move(action, this.MOVE_SPEED);
 						
 						break;
 					}
-					else if (this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y) != Game.FALL)
+					else
 					{
-						this.jump(action, 2);
+						next = this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y);
 						
-						break;
+						if (next != Game.FALL && next != Game.LAVA)
+						{
+							this.jump(action, 2);
+							
+							break;
+						}
 					}
+					
 					
 					action = tmp.pop();
 				}
