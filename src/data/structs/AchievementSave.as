@@ -1,8 +1,8 @@
-package progress.achievements 
+package data.structs 
 {
 	import flash.geom.Point;
 	
-	public class AchievementSave implements IAchievements
+	public class AchievementSave
 	{
 		
 		public function AchievementSave() 
@@ -22,10 +22,8 @@ package progress.achievements
 							   new Point(13, 22), new Point(13, 20), new Point(0, 1), new Point(1, 2), new Point(2, 3)];
 		}
 		
-		public function getAchievement(id:int):AchievementData
-		{
-			return new AchievementData(id);
-		}
+		//public function getAchievement(id:int)
+		//TODO: impelement the way to give suitable save-based amount of information
 	}
 
 }

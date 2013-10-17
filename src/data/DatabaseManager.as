@@ -1,11 +1,9 @@
 package data 
 {
-	import data.structs.AchievementInfo;
+	import data.structs.AchievementSave;
 	import data.structs.PreferencesInfo;
 	import data.structs.StatisticsInfo;
 	import data.updaters.*;
-	import progress.achievements.AchievementSave;
-	import progress.achievements.IAchievements;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class DatabaseManager
@@ -27,16 +25,6 @@ package data
 		
 		
 		
-		public function get numberOfAchievements():int
-		{
-			return 0;
-		}
-		
-		public function getAchievement(id:int):AchievementInfo
-		{
-			return new AchievementInfo();
-		}
-		
 		public function get preferences():PreferencesInfo
 		{
 			return new PreferencesInfo(this.save.mute);
@@ -52,8 +40,8 @@ package data
 			return this._status;
 		}
 		
-		//TODO: remove this temporary thing
-		public function get achievements():IAchievements
+		//TODO: update it just as everything else gets redesigned
+		public function get achievements():AchievementSave
 		{
 			return new AchievementSave();
 		}

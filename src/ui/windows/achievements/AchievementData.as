@@ -1,4 +1,4 @@
-package progress.achievements 
+package ui.windows.achievements 
 {
 	
 	public class AchievementData 

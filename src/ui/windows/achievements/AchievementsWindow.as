@@ -1,10 +1,9 @@
 package ui.windows.achievements 
 {
+	import data.structs.AchievementSave;
 	import feathers.controls.Label;
 	import feathers.controls.ScrollContainer;
 	import flash.geom.Point;
-	import progress.achievements.AchievementData;
-	import progress.achievements.IAchievements;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -27,7 +26,7 @@ package ui.windows.achievements
 		
 		private var numberOfAchievements:int
 		
-		private var achievementSave:IAchievements;
+		private var achievementSave:AchievementSave;
 		private var edgesContainer:Sprite;
 		private var achievementsContainer:Sprite;
 		private var substrate:Quad;
@@ -38,7 +37,7 @@ package ui.windows.achievements
 		private var lastDisplayedDescription:int;
 		
 		
-		public function AchievementsWindow(assets:AssetManager, achievementSave:IAchievements) 
+		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementSave) 
 		{
 			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
@@ -101,7 +100,7 @@ package ui.windows.achievements
 			
 			for (var i:int = 0; i < this.numberOfAchievements; ++i)
 			{
-				achievementData = this.achievementSave.getAchievement(i);
+				achievementData = new AchievementData(i);
 
 				if (achievementData.unlocked)
 					nameOfSkin = achievementData.enabledSkin;
@@ -151,7 +150,7 @@ package ui.windows.achievements
 		{
 			if (this.lastDisplayedDescription != id)
 			{
-				var achievementData:AchievementData = this.achievementSave.getAchievement(id);
+				var achievementData:AchievementData = new AchievementData(id);
 			
 				this.achievementDescription.updateMessage(achievementData.description + " " + (String)(id), mouseX, mouseY);
 				this.achievementDescription.visible = true;
