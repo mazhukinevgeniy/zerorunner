@@ -26,37 +26,41 @@ package game.world
 			
 			var j:int, i:int;
 			
+			/**
+			 * Please note: this code strongly implies that Game.FALL === 0
+			 */
+			this.scene.clear();
 			this.scene.length = this.width * this.width;
 			
 			
+			/**
+			 * Spawning random ground
+			 */
+			for (j = Game.BORDER_WIDTH; j < secondJGoal; j++)
+				for (i = Game.BORDER_WIDTH; i < secondJGoal; i++)
+					if (Math.random() < 0.4)
+						this.scene[i + j * this.width] = Game.ROAD;
 			
-			for (j = 0; j < Game.BORDER_WIDTH; j++)
-				for (i = 0; i < this.width; i++)
-					this.scene[i + j * this.width] = Game.FALL;
-			for (; j < secondJGoal; j++)
-			{
-				for (i = 0; i < Game.BORDER_WIDTH; i++)
-					this.scene[i + j * this.width] = Game.FALL;
-				for (; i < secondJGoal; i++)
-					this.scene[i + j * this.width] = Math.random() < 0.4 ? Game.FALL : Game.ROAD;
-				for (; i < this.width; i++)
-					this.scene[i + j * this.width] = Game.FALL;
-			}
-			for (; j < this.width; j++)
-				for (i = 0; i < this.width; i++)
-					this.scene[i + j * this.width] = Game.FALL;
+			/**
+			 * Adding lava
+			 */
+			for (i = 0; i < this.width * this.width; i++)
+				if (this.scene[i] == Game.ROAD && Math.random() < 0.2)
+					this.scene[i] = Game.LAVA;
 			
+			/**
+			 * Protecting spawn
+			 */
 			for (i = Game.BORDER_WIDTH; i < Game.BORDER_WIDTH + 4; i++)
 				for (j = this.width - (Game.BORDER_WIDTH + 4); j < secondJGoal; j++)
 					this.scene[i + j * this.width] = Game.ROAD;
 			
+			/**
+			 * Protecting the end of the world
+			 */
 			for (i = this.width - (Game.BORDER_WIDTH + 4); i < secondJGoal; i++)
-				for (j = Game.BORDER_WIDTH; j < Game.BORDER_WIDTH + 4; j++) //TODO: does it makes sense at all? +4, i mean? 
+				for (j = Game.BORDER_WIDTH; j < Game.BORDER_WIDTH + 4; j++) 
 					this.scene[i + j * this.width] = Game.ROAD;
-			
-			for (i = 0; i < this.width * this.width; i++)
-				if (this.scene[i] == Game.ROAD && Math.random() < 0.2)
-					this.scene[i] = Game.LAVA;
 			
 			//TODO: can optimize
 		}
