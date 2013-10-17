@@ -1,11 +1,11 @@
-package data.structs 
+package data.viewers 
 {
 	import flash.geom.Point;
 	
-	public class AchievementSave
+	public class AchievementViewer
 	{
 		
-		public function AchievementSave() 
+		public function AchievementViewer() 
 		{
 			
 		}

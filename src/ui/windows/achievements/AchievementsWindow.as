@@ -1,6 +1,6 @@
 package ui.windows.achievements 
 {
-	import data.structs.AchievementSave;
+	import data.viewers.AchievementViewer;
 	import feathers.controls.Label;
 	import feathers.controls.ScrollContainer;
 	import flash.geom.Point;
@@ -26,7 +26,7 @@ package ui.windows.achievements
 		
 		private var numberOfAchievements:int
 		
-		private var achievementSave:AchievementSave;
+		private var achievementSave:AchievementViewer;
 		private var edgesContainer:Sprite;
 		private var achievementsContainer:Sprite;
 		private var substrate:Quad;
@@ -37,7 +37,7 @@ package ui.windows.achievements
 		private var lastDisplayedDescription:int;
 		
 		
-		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementSave) 
+		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementViewer) 
 		{
 			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;

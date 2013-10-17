@@ -1,8 +1,8 @@
 package data 
 {
-	import data.structs.AchievementSave;
 	import data.structs.StatisticsInfo;
 	import data.updaters.*;
+	import data.viewers.AchievementViewer;
 	import data.viewers.PreferencesViewer;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -11,6 +11,7 @@ package data
 		private var save:SharedObjectManager;
 		
 		private var _preferences:PreferencesViewer;
+		private var _achievements:AchievementViewer;
 		
 		private var _status:StatusReporter;
 		
@@ -20,6 +21,7 @@ package data
 			this._status = new StatusReporter(flow, this.save);
 			
 			this._preferences = new PreferencesViewer(this.save);
+			this._achievements = new AchievementViewer();
 			
 			new AchievementsUpdater(flow, this.save);
 			new PreferencesUpdater(flow, this.save);
@@ -44,10 +46,9 @@ package data
 			return this._status;
 		}
 		
-		//TODO: update it just as everything else gets redesigned
-		public function get achievements():AchievementSave
+		public function get achievements():AchievementViewer
 		{
-			return new AchievementSave();
+			return this._achievements;
 		}
 	}
 
