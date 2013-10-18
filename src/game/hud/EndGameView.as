@@ -3,6 +3,7 @@ package game.hud
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import game.core.GameFoundations;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import ui.themes.ExtendedTheme;
@@ -23,7 +24,17 @@ package game.hud
 		{
 			super();
 			
+			
+			var tmpI:Quad = new Quad(400, 200, 0x222222);
+			tmpI.alpha = 0.7;
+			this.addChild(tmpI);
+			this.x = (Main.WIDTH - this.width) / 2;
+			this.y = (Main.HEIGHT - this.height) / 2;
+			
+			
 			this.text = new Label();
+			this.text.x = 20;
+			this.text.y = 20;
 			this.addChild(this.text);
 			
 			
@@ -67,7 +78,7 @@ package game.hud
 				}
 				else if (key == Game.LOST)
 				{
-					
+					this.text.text = "You lose";
 				}
 			}
 		}
