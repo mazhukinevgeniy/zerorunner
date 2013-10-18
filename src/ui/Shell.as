@@ -5,7 +5,6 @@ package ui
 	import game.core.GameFoundations;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
-	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.background.Background;
 	import ui.navigation.Navigation;
@@ -23,7 +22,6 @@ package ui
 		private var status:StatusReporter;
 		
 		private var assets:AssetManager;
-		private var root:DisplayObjectContainer;
 		
 		private var background:Background,
 					windows:Windows,
@@ -32,7 +30,7 @@ package ui
 		private var flow:IUpdateDispatcher;
 		
 		public function Shell(displayRoot:DisplayObjectContainer, 
-							database:DatabaseManager, gameRoot:Sprite, foundations:GameFoundations)
+							database:DatabaseManager, foundations:GameFoundations)
 							//TODO: check what can be not passed; think if we need another parameter struct 
 		{
 			this.status = database.status;
@@ -40,26 +38,23 @@ package ui
 			this.flow = foundations.flow;
 			this.assets = foundations.assets;
 			
-			this.root = displayRoot; //lol, hell of a roots
-			//TODO: check what is happening here
-			
-		    this.initializeFeatures(gameRoot, database);
+		    this.initializeFeatures(displayRoot, foundations.displayRoot, database);
 			this.initializeUsingFlow();
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
-		private function initializeFeatures(gameRoot:Sprite, database:DatabaseManager):void
+		private function initializeFeatures(ownRoot:DisplayObjectContainer, gameRoot:DisplayObjectContainer, database:DatabaseManager):void
 		{
-			new ExtendedTheme(this.root);
+			new ExtendedTheme(ownRoot);
 			
 			this.background = new Background(this.flow);
 			this.navigation = new Navigation(this.flow, database.preferences);
 			this.windows = new Windows(this.flow, this.assets, database, gameRoot)
 			
-			this.root.addChild(this.background);
-			this.root.addChild(this.windows);
-			this.root.addChild(this.navigation);
+			ownRoot.addChild(this.background);
+			ownRoot.addChild(this.windows);
+			ownRoot.addChild(this.navigation);
 			
 			new Sounds(this.flow, this.assets, database.preferences);
 		}

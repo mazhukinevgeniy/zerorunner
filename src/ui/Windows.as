@@ -2,6 +2,7 @@ package ui
 {
 	import data.DatabaseManager;
 	import starling.display.DisplayObject;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.windows.achievements.AchievementsWindow;
@@ -20,7 +21,7 @@ package ui
 		
 		private static const NUMBER_OF_WINDOWS:int = 4;
 		
-		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, database:DatabaseManager, gameRoot:Sprite) 
+		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, database:DatabaseManager, gameRoot:DisplayObjectContainer) 
 		{
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 			
