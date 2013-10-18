@@ -15,7 +15,7 @@ package data
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
-			flow.addUpdateListener(Update.quitGame);
+			flow.addUpdateListener(Update.gameFinished);
 		}
 		
 		update function newGame():void
@@ -23,7 +23,7 @@ package data
 			this._isGameOn = true;
 		}
 		
-		update function quitGame():void
+		update function gameFinished(key:int):void
 		{
 			this._isGameOn = false;
 		}

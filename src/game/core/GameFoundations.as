@@ -1,5 +1,6 @@
 package game.core 
 {
+	import data.DatabaseManager;
 	import data.viewers.GameConfig;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
@@ -31,12 +32,12 @@ package game.core
 		private var _points:IPointCollector;
 		private var _root:DisplayObjectContainer;
 		
-		public function GameFoundations(flow:IUpdateDispatcher, config:GameConfig, assets:AssetManager, root:Sprite) 
+		public function GameFoundations(flow:IUpdateDispatcher, database:DatabaseManager, assets:AssetManager, root:Sprite) 
 		{
 			this._root = root;
 			this._flow = flow;
 			this._assets = assets;
-			this._config = config;
+			this._config = database.config;
 			this._points = new PointsOfInterest();
 			this._juggler = new Juggler();
 			this._input = new InputManager(flow);
@@ -45,7 +46,7 @@ package game.core
 			
 			new Renderer(this);
 			
-			new Time(this);
+			new Time(this, database.status);
 		}
 		
 		public function get atlas():TextureAtlas

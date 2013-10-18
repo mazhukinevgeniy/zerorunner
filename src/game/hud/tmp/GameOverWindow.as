@@ -1,4 +1,4 @@
-package game.hud 
+package game.hud.tmp 
 {
 	import feathers.controls.Button;
 	import feathers.controls.Label;

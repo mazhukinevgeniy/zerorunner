@@ -1,4 +1,4 @@
-package game.hud 
+package game.hud.tmp 
 {
 	import data.viewers.GameConfig;
 	import feathers.controls.Label;

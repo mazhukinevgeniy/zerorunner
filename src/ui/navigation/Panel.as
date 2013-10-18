@@ -1,5 +1,6 @@
 package ui.navigation 
 {
+	import data.StatusReporter;
 	import flash.display.Stage;
 	import flash.geom.Point;
 	import starling.core.Starling;
@@ -16,12 +17,14 @@ package ui.navigation
 	public class Panel extends Sprite
 	{
 		private var flow:IUpdateDispatcher;
+		private var status:StatusReporter;
 		
 		private var menuButton:Button;
 		
-		public function Panel(flow:IUpdateDispatcher) 
+		public function Panel(flow:IUpdateDispatcher, status:StatusReporter) 
 		{
 			this.flow = flow;
+			this.status = status;
 			
 			this.addEventListener(Event.TRIGGERED, this.handleTrigger);
 			
@@ -46,6 +49,9 @@ package ui.navigation
 			
 			if (event.target == this.menuButton)
 			{
+				if (this.status.isGameOn)
+					this.flow.dispatchUpdate(Update.gameFinished, Game.ABANDONED);
+				
 				this.flow.dispatchUpdate(Update.quitGame);
 			}
 		}

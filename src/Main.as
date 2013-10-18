@@ -109,7 +109,7 @@ package
 				
 				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
 				
-				this.game = new ZeroRunner(flow, database.config, this.assets, gameRoot);
+				this.game = new ZeroRunner(flow, database, this.assets, gameRoot);
 				this.shell = new Shell(this.starlingRoot, database, (this.game).foundations);
 				//TODO: do not pass damn foundations to the shell, it's madness
 				

@@ -1,6 +1,6 @@
 package game.core.time 
 {
-	import data.viewers.GameConfig;//TODO: please remove once endgame windows are finalized
+	import data.StatusReporter;
 	import flash.ui.Keyboard;
 	import game.core.GameFoundations;
 	import starling.animation.Juggler;
@@ -18,28 +18,27 @@ package game.core.time
 		
 		
 		private var _fixed:Boolean = true;
-		private var gameJuggler:Juggler;
 		
 		private var updateFlow:IUpdateDispatcher;
+		private var status:StatusReporter;
+		private var gameJuggler:Juggler;
 		
 		private var pauseView:PauseView;
 		
-		public function Time(foundations:GameFoundations) 
+		public function Time(foundations:GameFoundations, status:StatusReporter) 
 		{
 			foundations.displayRoot.addChild(this.pauseView = new PauseView());
 			
 			
 			this.gameJuggler = foundations.juggler;
+			this.status = status;
 			
 			foundations.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
 			foundations.flow.workWithUpdateListener(this);
 			foundations.flow.addUpdateListener(Update.restore);
 			foundations.flow.addUpdateListener(Update.keyUp);
-			foundations.flow.addUpdateListener(Update.quitGame);
-			foundations.flow.addUpdateListener(Update.tellRoundLost);
-			foundations.flow.addUpdateListener(Update.tellGameWon);
-			foundations.flow.addUpdateListener(Update.tellRoundWon);
+			foundations.flow.addUpdateListener(Update.gameFinished);
 			
 			this.updateFlow = foundations.flow;
 		}
@@ -71,7 +70,7 @@ package game.core.time
 		
 		update function keyUp(keyCode:uint):void
 		{
-			if (keyCode == Keyboard.P)
+			if (keyCode == Keyboard.P && this.status.isGameOn)
 			{
 				this.fixed = !this.fixed;
 			}
@@ -79,16 +78,12 @@ package game.core.time
 		
 		
 		
-		update function tellGameWon(progress:GameConfig):void { this.gameStopped(); }
-		update function tellRoundWon(progress:GameConfig):void { this.gameStopped(); }
-		update function tellRoundLost():void { this.gameStopped(); }
-		update function quitGame():void { this.gameStopped(); }
-		
-		private function gameStopped():void
-		{
+		update function gameFinished(key:int):void 
+		{ 
 			this.gameJuggler.purge();
 			
 			this.fixed = true;
+			this.pauseView.visible = false;
 			
 			this.frameCount = 0;
 		}

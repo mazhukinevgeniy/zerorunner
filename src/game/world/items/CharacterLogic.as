@@ -50,7 +50,7 @@ package game.world.items
 		
 		override public function applyDestruction():void
 		{
-			this.flow.dispatchUpdate(Update.tellRoundLost);
+			this.flow.dispatchUpdate(Update.gameFinished, Game.LOST);
 		}
 		
 		override public function act():void
