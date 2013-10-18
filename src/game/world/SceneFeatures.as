@@ -34,19 +34,17 @@ package game.world
 			
 			
 			/**
-			 * Spawning random ground
+			 * Spawning random landscape
 			 */
 			for (j = Game.BORDER_WIDTH; j < secondJGoal; j++)
 				for (i = Game.BORDER_WIDTH; i < secondJGoal; i++)
-					if (Math.random() < 0.6)
+				{
+					var rand:Number = Math.random();
+					if (rand < 0.48)
 						this.scene[i + j * this.width] = Game.ROAD;
-			
-			/**
-			 * Adding lava
-			 */
-			for (i = 0; i < this.width * this.width; i++)
-				if (this.scene[i] == Game.ROAD && Math.random() < 0.2)
-					this.scene[i] = Game.LAVA;
+					else if (rand < 0.6)
+						this.scene[i + j * this.width] = Game.LAVA;
+				}
 			
 			/**
 			 * Protecting spawn
@@ -61,8 +59,6 @@ package game.world
 			for (i = this.width - (Game.BORDER_WIDTH + 4); i < secondJGoal; i++)
 				for (j = Game.BORDER_WIDTH; j < Game.BORDER_WIDTH + 4; j++) 
 					this.scene[i + j * this.width] = Game.ROAD;
-			
-			//TODO: can optimize
 		}
 		
 		public function getSceneCell(x:int, y:int):int
