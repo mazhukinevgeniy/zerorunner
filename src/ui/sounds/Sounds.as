@@ -24,7 +24,6 @@ package ui.sounds
 			if (config.mute)
 			{
 				this.update::toggleMute();
-				//TODO: do similar thing for the mutebutton
 			}
 		}
 		
