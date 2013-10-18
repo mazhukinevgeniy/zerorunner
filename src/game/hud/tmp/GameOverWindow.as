@@ -47,9 +47,6 @@ package game.hud.tmp
 			this.message.addChild(button);
 			
 			this.addUpdateListeners(flow);
-			
-			foundations.displayRoot.addChild(this.message);
-			this.flow = flow;
 		}
 		
 		protected function addMessage(message:DisplayObjectContainer):void

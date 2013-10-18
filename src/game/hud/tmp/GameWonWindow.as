@@ -56,16 +56,12 @@ package game.hud.tmp
 		{
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.roundWon);
-			
-			this.labelContainer.parent.visible = true;
 		}
 		
 		update function tellGameWon(progress:GameConfig):void
 		{
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.runWon);
-			
-			this.labelContainer.parent.visible = true;
 		}
 	}
 

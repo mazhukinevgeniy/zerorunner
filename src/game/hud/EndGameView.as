@@ -20,7 +20,8 @@ package game.hud
 		{
 			super();
 			
-			
+			this.text = new Label();
+			this.addChild(this.text);
 			
 			this.globalMap = new GlobalMap(foundations.config);
 			this.addChild(this.globalMap);
@@ -31,6 +32,8 @@ package game.hud
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.restore);
 			this.flow.addUpdateListener(Update.gameFinished);
+			
+			foundations.displayRoot.addChild(this);
 		}
 		
 		update function restore():void
@@ -47,7 +50,7 @@ package game.hud
 				
 				if (key == Game.WON)
 				{
-					
+					this.text.text = "You win";
 				}
 				else if (key == Game.LOST)
 				{
