@@ -19,11 +19,10 @@ package game.hud.tmp
 		
 		private var labelContainer:Sprite;
 		
-		private var globalMap:GlobalMap;
 		
 		public function GameWonWindow(foundations:GameFoundations) 
 		{
-			this.globalMap = new GlobalMap();
+			
 			
 			this.roundWon = new Label();
 			this.roundWon.text = "You win!";
@@ -42,8 +41,6 @@ package game.hud.tmp
 			this.labelContainer.y = 20;
 			
 			message.addChild(this.labelContainer);
-			
-			message.addChild(this.globalMap);
 		}
 		
 		override protected function addUpdateListeners(flow:IUpdateDispatcher):void
@@ -60,8 +57,6 @@ package game.hud.tmp
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.roundWon);
 			
-			this.globalMap.draw(progress);
-			
 			this.labelContainer.parent.visible = true;
 		}
 		
@@ -69,8 +64,6 @@ package game.hud.tmp
 		{
 			this.labelContainer.removeChildren();
 			this.labelContainer.addChild(this.runWon);
-			
-			this.globalMap.draw(progress);
 			
 			this.labelContainer.parent.visible = true;
 		}

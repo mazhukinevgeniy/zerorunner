@@ -13,12 +13,17 @@ package game.hud
 		
 		private var text:Label;
 		
+		private var globalMap:GlobalMap;
+		
 		
 		public function EndGameView(foundations:GameFoundations) 
 		{
 			super();
 			
 			
+			
+			this.globalMap = new GlobalMap(foundations.config);
+			this.addChild(this.globalMap);
 			
 			
 			this.flow = foundations.flow;
@@ -38,6 +43,7 @@ package game.hud
 			if (key != Game.ABANDONED)
 			{
 				this.visible = true;
+				this.globalMap.redraw();
 				
 				if (key == Game.WON)
 				{

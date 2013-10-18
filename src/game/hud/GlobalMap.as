@@ -7,11 +7,15 @@ package game.hud
 	
 	public class GlobalMap extends Sprite
 	{
+		private var config:GameConfig;
+		
 		private var regularBeacon:Quad;
 		private var map:QuadBatch;
 		
-		public function GlobalMap() 
+		public function GlobalMap(config:GameConfig) 
 		{
+			this.config = config;
+			
 			this.x = this.y = 100;
 			
 			this.regularBeacon = new Quad(10, 10, 0x00FFFF);
@@ -20,13 +24,13 @@ package game.hud
 			this.addChild(this.map);
 		}
 		
-		internal function draw(state:GameConfig):void
+		internal function redraw():void
 		{
 			this.map.reset();
 			
 			for (var i:int = 0; i < Game.LEVEL_CAP; i++)
 			{
-				if (state.beacon(i + 1) == Game.BEACON)
+				if (this.config.beacon(i + 1) == Game.BEACON)
 				{
 					this.regularBeacon.x = i * 20;
 					
