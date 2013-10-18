@@ -1,8 +1,11 @@
 package game.hud 
 {
+	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import game.core.GameFoundations;
 	import starling.display.Sprite;
+	import starling.events.Event;
+	import ui.themes.ExtendedTheme;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -22,6 +25,16 @@ package game.hud
 			
 			this.text = new Label();
 			this.addChild(this.text);
+			
+			
+			var button:Button = new Button();
+			button.label = "Quit";
+			button.x = 60;
+			button.y = 60;
+			button.nameList.add(ExtendedTheme.BUTTON_MENU);
+			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
+			this.addChild(button);
+			
 			
 			this.globalMap = new GlobalMap(foundations.config);
 			this.addChild(this.globalMap);

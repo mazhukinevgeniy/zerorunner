@@ -34,17 +34,7 @@ package game.hud.tmp
 			
 			this.addMessage(this.message);
 			
-			var button:Button = new Button();
-			button.label = "Quit";
 			
-			button.x = 60;
-			button.y = 60;
-			
-			button.nameList.add(ExtendedTheme.BUTTON_MENU);
-			
-			button.addEventListener(Event.TRIGGERED, this.handleTriggered);
-			
-			this.message.addChild(button);
 			
 			this.addUpdateListeners(flow);
 		}
