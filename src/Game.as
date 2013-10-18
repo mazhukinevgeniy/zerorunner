@@ -29,6 +29,12 @@ package
 		
 		public static const LIGHT_A_BEACON:int = 0;
 		
+		/* Endings */
+		
+		public static const LOST:int = 0;
+		public static const WON:int = 1;
+		public static const ABANDONED:int = 2;
+		
 		/* Frame types */
 		
 		public static const FRAME_TO_CLEAR_BORDERS:int = 0;

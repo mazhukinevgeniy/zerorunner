@@ -15,12 +15,8 @@ package
 		public static const prerestore:String = "prerestore";
 		public static const restore:String = "restore";
 		
+		public static const gameFinished:String = "gameFinished";
 		public static const quitGame:String = "quitGame";
-		
-		public static const tellRoundLost:String = "tellRoundLost";
-		public static const tellRoundWon:String = "tellRoundWon";
-		public static const tellGameWon:String = "tellGameWon";
-		//TODO: it feels like methods, so, huh, implement it this way
 		
 		
 		/* In-game updates */

@@ -1,6 +1,5 @@
 package data 
 {
-	import data.viewers.GameConfig;
 	import flash.net.SharedObject;
 	import flash.utils.flash_proxy;
 	import flash.utils.Proxy;
@@ -23,7 +22,6 @@ package data
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.resetProgress);
-			flow.addUpdateListener(Update.tellGameWon);
 			
 			/**
 			 * This function is used to check if there're identical entry names.
@@ -45,13 +43,6 @@ package data
 					}
 				}
 			}
-		}
-		
-		
-		
-		update function tellGameWon(config:GameConfig):void
-		{
-			this.update::resetProgress();
 		}
 		
 		update function resetProgress():void

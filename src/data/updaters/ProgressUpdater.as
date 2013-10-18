@@ -11,14 +11,10 @@ package data.updaters
 		private var save:Proxy;
 		private var flow:IUpdateDispatcher;
 		
-		private var config:GameConfig;
-		
-		public function ProgressUpdater(flow:IUpdateDispatcher, save:Proxy, config:GameConfig) 
+		public function ProgressUpdater(flow:IUpdateDispatcher, save:Proxy) 
 		{
 			this.save = save;
 			this.flow = flow;
-			
-			this.config = config;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.smallBeaconTurnedOn);
@@ -40,24 +36,16 @@ package data.updaters
 		update function numberedFrame(key:int):void
 		{
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
-			{
 				if (this.save["goal"] == Game.LIGHT_A_BEACON)
 					if (this.save["beacon" + String(this.save["level"])] != Game.NO_BEACON)
-					{
-						if (this.save["level"] == Game.LEVEL_CAP)
-						{
-							this.flow.dispatchUpdate(Update.tellGameWon, this.config);
-						}
-						else
-						{
-							this.flow.dispatchUpdate(Update.tellRoundWon, this.config);
-							
-							this.save["level"] += 1;
-							this.save["junks"] = 1;
-						}
-					}
-			}
+						this.flow.dispatchUpdate(Update.gameFinished, Game.WON);
 		}
+		//TODO: use and/or remove
+		/*
+		 * this.update::resetProgress();
+		 * OR if not won maximally:
+		 * this.save["level"] += 1;
+							this.save["junks"] = 1;*/
 	}
 
 }
