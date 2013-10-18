@@ -1,7 +1,6 @@
 package game.hud 
 {
 	import game.core.GameFoundations;
-	import game.hud.map.MapFeature;
 	
 	public class UIExtendsions
 	{
