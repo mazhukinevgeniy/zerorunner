@@ -1,5 +1,6 @@
 package data.updaters 
 {
+	import data.Defaults;
 	import data.viewers.GameConfig;
 	import flash.utils.Proxy;
 	import game.core.metric.ICoordinated;
@@ -20,6 +21,13 @@ package data.updaters
 			flow.addUpdateListener(Update.smallBeaconTurnedOn);
 			flow.addUpdateListener(Update.technicUnlocked);
 			flow.addUpdateListener(Update.numberedFrame);
+			flow.addUpdateListener(Update.resetProgress);
+		}
+		
+		update function resetProgress():void
+		{
+			for (var value:String in Defaults.progressDefaults)
+				this.save[value] = Defaults.progressDefaults[value];
 		}
 		
 		update function smallBeaconTurnedOn():void
@@ -32,7 +40,6 @@ package data.updaters
 			this.save["activeDroids"]++;
 		}
 		
-		//TODO: it's not the place to do it, is it?
 		update function numberedFrame(key:int):void
 		{
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
@@ -40,16 +47,14 @@ package data.updaters
 					if (this.save["beacon" + String(this.save["level"])] != Game.NO_BEACON)
 					{
 						this.flow.dispatchUpdate(Update.gameFinished, Game.WON);
-						this.save["level"]++; //TODO: remove, it's temporary
-						this.save["level"] = this.save["level"] == Game.LEVEL_CAP ? 1 : this.save["level"]; //TODO: remove, it's temporary
+						this.save["level"]++;
+						this.save["junks"] = 1;
+						
+						if (this.save["level"] > Game.LEVEL_CAP)
+							this.update::resetProgress();
 					}
 		}
-		//TODO: use and/or remove
-		/*
-		 * this.update::resetProgress();
-		 * OR if not won maximally:
-		 * this.save["level"] += 1;
-							this.save["junks"] = 1;*/
+		
 	}
 
 }

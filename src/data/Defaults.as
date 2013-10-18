@@ -1,10 +1,10 @@
 package data 
 {
 	
-	internal class Defaults 
+	public class Defaults 
 	{
 		
-		internal static const progressDefaults:Object = 
+		public static const progressDefaults:Object = 
 		{
 			width: 10,
 			

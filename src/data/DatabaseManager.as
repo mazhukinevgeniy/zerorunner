@@ -20,7 +20,7 @@ package data
 		
 		public function DatabaseManager(flow:IUpdateDispatcher) 
 		{
-			this.save = new SharedObjectManager(flow);
+			this.save = new SharedObjectManager();
 			
 			this._status = new StatusReporter(flow, this.save);
 			

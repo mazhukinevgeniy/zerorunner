@@ -3,15 +3,13 @@ package data
 	import flash.net.SharedObject;
 	import flash.utils.flash_proxy;
 	import flash.utils.Proxy;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
 	internal dynamic class SharedObjectManager extends Proxy
 	{
 		
 		protected var so:SharedObject;
 		
-		public function SharedObjectManager(flow:IUpdateDispatcher) 
+		public function SharedObjectManager() 
 		{
 			checkNaming();
 			
@@ -19,9 +17,6 @@ package data
 			this.so = SharedObject.getLocal(PROJECT_NAME);
 			
 			this.initializeEntries();
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.resetProgress);
 			
 			/**
 			 * This function is used to check if there're identical entry names.
@@ -43,12 +38,6 @@ package data
 					}
 				}
 			}
-		}
-		
-		update function resetProgress():void
-		{
-			for (var value:String in Defaults.progressDefaults)
-				this[value] = Defaults.progressDefaults[value];
 		}
 		
 		/**
