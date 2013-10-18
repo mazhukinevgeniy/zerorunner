@@ -38,7 +38,11 @@ package data.updaters
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 				if (this.save["goal"] == Game.LIGHT_A_BEACON)
 					if (this.save["beacon" + String(this.save["level"])] != Game.NO_BEACON)
+					{
 						this.flow.dispatchUpdate(Update.gameFinished, Game.WON);
+						this.save["level"]++; //TODO: remove, it's temporary
+						this.save["level"] = this.save["level"] == Game.LEVEL_CAP ? 1 : this.save["level"]; //TODO: remove, it's temporary
+					}
 		}
 		//TODO: use and/or remove
 		/*

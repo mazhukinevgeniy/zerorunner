@@ -63,28 +63,6 @@ package game.hud.tmp
 			message.addChild(tmp);
 		}
 		
-		protected function addUpdateListeners(flow:IUpdateDispatcher):void
-		{
-			flow.workWithUpdateListener(this);
-			
-			flow.addUpdateListener(Update.restore);
-			flow.addUpdateListener(Update.tellRoundLost);
-		}
-		
-		private function handleTriggered():void
-		{
-			this.flow.dispatchUpdate(Update.quitGame);
-		}
-		
-		update function restore():void
-		{
-			this.message.visible = false;
-		}
-		
-		update function tellRoundLost():void
-		{
-			this.message.visible = true;	
-		}
 	}
 
 }

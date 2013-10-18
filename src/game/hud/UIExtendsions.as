@@ -8,7 +8,7 @@ package game.hud
 		
 		public function UIExtendsions(foundations:GameFoundations) 
 		{
-			new EndGameView(foundations.flow);
+			new EndGameView(foundations);
 			
 			
 			new MapFeature(foundations);
