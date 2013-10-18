@@ -7,14 +7,14 @@ package game.world.operators
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class ActFeature //TODO: fix the name, it's not okay
+	internal class Act
 	{
 		private var points:IPointCollector;
 		private var actors:IActors;
 		
 		private var moved:Vector.<ItemLogicBase>;
 		
-		public function ActFeature(actors:IActors, flow:IUpdateDispatcher, points:IPointCollector) 
+		public function Act(actors:IActors, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
 			this.points = points;
 			this.actors = actors;

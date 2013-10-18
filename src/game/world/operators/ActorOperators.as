@@ -9,8 +9,8 @@ package game.world.operators
 		
 		public function ActorOperators(actors:IActors, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
-			new ActFeature(actors, flow, points);
-			new ClearFeature(actors, flow);
+			new Act(actors, flow, points);
+			new Clear(actors, flow);
 		}
 		
 	}

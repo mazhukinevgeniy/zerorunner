@@ -6,12 +6,12 @@ package game.world.operators
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class ClearFeature 
+	internal class Clear
 	{
 		private var width:int;
 		private var actors:IActors;
 		
-		public function ClearFeature(actors:IActors, flow:IUpdateDispatcher) 
+		public function Clear(actors:IActors, flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
