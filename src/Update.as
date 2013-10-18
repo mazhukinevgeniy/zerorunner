@@ -15,7 +15,6 @@ package
 		public static const prerestore:String = "prerestore";
 		public static const restore:String = "restore";
 		
-		public static const gameStopped:String = "gameStopped";
 		public static const quitGame:String = "quitGame";
 		
 		public static const tellRoundLost:String = "tellRoundLost";

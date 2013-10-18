@@ -1,5 +1,6 @@
 package game.core.time 
 {
+	import data.viewers.GameConfig;//TODO: please remove once endgame windows are finalized
 	import flash.ui.Keyboard;
 	import game.core.GameFoundations;
 	import starling.animation.Juggler;
@@ -33,10 +34,12 @@ package game.core.time
 			foundations.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
 			foundations.flow.workWithUpdateListener(this);
-			
 			foundations.flow.addUpdateListener(Update.restore);
-			foundations.flow.addUpdateListener(Update.gameStopped);
 			foundations.flow.addUpdateListener(Update.keyUp);
+			foundations.flow.addUpdateListener(Update.quitGame);
+			foundations.flow.addUpdateListener(Update.tellRoundLost);
+			foundations.flow.addUpdateListener(Update.tellGameWon);
+			foundations.flow.addUpdateListener(Update.tellRoundWon);
 			
 			this.updateFlow = foundations.flow;
 		}
@@ -66,21 +69,28 @@ package game.core.time
 			}
 		}
 		
-		update function gameStopped():void
-		{
-			this.gameJuggler.purge();
-			
-			this.fixed = true;
-			
-			this.frameCount = 0;
-		}
-		
 		update function keyUp(keyCode:uint):void
 		{
 			if (keyCode == Keyboard.P)
 			{
 				this.fixed = !this.fixed;
 			}
+		}
+		
+		
+		
+		update function tellGameWon(progress:GameConfig):void { this.gameStopped(); }
+		update function tellRoundWon(progress:GameConfig):void { this.gameStopped(); }
+		update function tellRoundLost():void { this.gameStopped(); }
+		update function quitGame():void { this.gameStopped(); }
+		
+		private function gameStopped():void
+		{
+			this.gameJuggler.purge();
+			
+			this.fixed = true;
+			
+			this.frameCount = 0;
 		}
 		
 		

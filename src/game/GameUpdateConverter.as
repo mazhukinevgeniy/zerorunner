@@ -17,9 +17,6 @@ package game
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
-			flow.addUpdateListener(Update.tellRoundLost);
-			flow.addUpdateListener(Update.tellGameWon);
-			flow.addUpdateListener(Update.tellRoundWon);
 		}
 		
 		
@@ -30,10 +27,6 @@ package game
 		}
 		
 		
-		
-		update function tellGameWon(progress:GameConfig):void { this.flow.dispatchUpdate(Update.gameStopped); }
-		update function tellRoundWon(progress:GameConfig):void { this.flow.dispatchUpdate(Update.gameStopped);	}
-		update function tellRoundLost():void { this.flow.dispatchUpdate(Update.gameStopped); }
 		
 	}
 
