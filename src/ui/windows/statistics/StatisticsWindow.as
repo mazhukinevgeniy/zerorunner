@@ -7,7 +7,6 @@ package ui.windows.statistics
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
 	import starling.display.Quad;
-	import starling.events.Event;
 	import ui.navigation.Menu;
 	import utils.updates.update;
 
@@ -24,6 +23,8 @@ package ui.windows.statistics
 		
 		public function StatisticsWindow(database:DatabaseManager) 
 		{
+			super();
+			
 			this.statistics = database.statistics;
 			
 			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PADDING;
@@ -33,12 +34,14 @@ package ui.windows.statistics
 			this.setBackground();
 			this.setLayout();
 			this.setScrollBar();
-			
+		}
+		
+		override public function validate():void 
+		{
+			super.validate();
 			
 			this.x = (Main.WIDTH - this.width) / 2;
-			this.y = (Main.HEIGHT - this.height) / 4;
-			//TODO: "this.height" is much greater than this height, so normal calculation results in ugly looks;
-			//      it'll work for now, but someday we'll need to resolve or discard this issue
+			this.y = (Main.HEIGHT - this.height) / 2;
 		}
 		
 		private function setBackground():void
