@@ -50,12 +50,13 @@ package game.world.clouds
 				
 				new CloudPiece(usedNumberOfElements, sprite);
 				
-				var cloudPiece:DisplayObject = new CloudPiece(usedNumberOfElements, sprite);
+				var cloudPiece:DisplayObject = this.loader.content;//new CloudPiece(usedNumberOfElements, sprite);
 				var bmpData:BitmapData = new BitmapData(cloudPiece.width, cloudPiece.height, true, 0x00FFFFFF);
 				bmpData.draw(cloudPiece);
 				 
 				var texture:Texture = Texture.fromBitmapData(bmpData);
 				var image:Image = new Image(texture);
+				image.visible = false;
 				this.addChild(image);
 			}
 			
