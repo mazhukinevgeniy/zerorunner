@@ -7,8 +7,8 @@ package game.world.clouds
 	internal class CloudBitmap extends BitmapData
 	{
 		
-		internal static const WIDTH:Number = 512;
-		internal static const HEIGHT:Number = 512;
+		internal static const WIDTH:Number = 1024;
+		internal static const HEIGHT:Number = 1024;
 		
 		[Embed(source = "../../../../res/assets/textures/atlases/sprites/unimplemented.png")]
 		private static const BaseCloud:Class;
