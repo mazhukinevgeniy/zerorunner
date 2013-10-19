@@ -41,14 +41,14 @@ package game
 			
 			new GameUpdateConverter(this._flow, this._database.config);
 			
-			this._points = new PointsOfInterest();
+			this._points = new PointsOfInterest(this._flow);
 			this._juggler = new Juggler();
 			this._input = new InputManager(this._flow);
 			this._scene = new SceneFeatures(this._flow);
 			this._actors = new ActorsFeatures(this);
 			
 			new Renderer(this);
-			new Time(this, this._database.status);
+			new Time(this);
 			new UIExtendsions(this);
 		}
 		

@@ -25,13 +25,13 @@ package game.core.time
 		
 		private var pauseView:PauseView;
 		
-		public function Time(foundations:GameElements, status:StatusReporter) 
+		public function Time(foundations:GameElements) 
 		{
 			foundations.displayRoot.addChild(this.pauseView = new PauseView());
 			
 			
 			this.gameJuggler = foundations.juggler;
-			this.status = status;
+			this.status = foundations.database.status;
 			
 			foundations.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			

@@ -1,15 +1,30 @@
 package game.world.items.utils 
 {
 	import game.core.metric.ICoordinated;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
 	public class PointsOfInterest implements IPointCollector
 	{
 		private var types:Array;
 		
-		public function PointsOfInterest() 
+		public function PointsOfInterest(flow:IUpdateDispatcher) 
 		{
-			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.quitGame);
 		}
+		
+		update function prerestore(... args):void
+		{
+			this.types = new Array();
+		}
+		
+		update function quitGame():void
+		{
+			this.types = null;
+		}
+		
 		
 		public function addPointOfInterest(type:int, point:ICoordinated):void
 		{
@@ -48,14 +63,6 @@ package game.world.items.utils
 				vector.splice(position, 1);
 		}
 		
-		/**
-		 * Interfaceless
-		 */
-		
-		public function clearPointsOfInterest():void
-		{
-			this.types = new Array();
-		}
 	}
 
 }

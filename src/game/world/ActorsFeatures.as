@@ -16,21 +16,19 @@ package game.world
 	
 	public class ActorsFeatures implements IActors, IActorTracker
 	{
-		private var actors:Array;
-		private var points:PointsOfInterest;
+		private var foundations:GameElements;
 		
+		
+		private var actors:Array;
 		private var width:int;
 		
-		private var foundations:GameElements;
 		
 		
 		public function ActorsFeatures(foundations:GameElements) 
 		{
-			this.points = foundations.pointsOfInterest as PointsOfInterest;
-			
 			this.foundations = foundations;
 			
-			new ActorOperators(this, foundations.flow, this.points);
+			new ActorOperators(this, foundations.flow, foundations.pointsOfInterest);
 			
 			var flow:IUpdateDispatcher = foundations.flow;
 			
@@ -46,16 +44,14 @@ package game.world
 			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			this.actors = new Array();
 			
-			this.points.clearPointsOfInterest();
-			
-			new CharacterLogic(this.foundations, this.points);
+			new CharacterLogic(this.foundations);
 			new BeaconLogic(this.foundations);
 			
 			for (i = 0; i < config.numberOfDroids; i++)
-				new TechnicLogic(this.foundations, this.points);
+				new TechnicLogic(this.foundations);
 			
 			for (i = 0; i < config.junks; i++)
-				new JunkLogic(this.foundations, this.points);
+				new JunkLogic(this.foundations);
 		}
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase
@@ -83,7 +79,7 @@ package game.world
 		
 		update function technicUnlocked(place:ICoordinated):void
 		{
-			var technic:TechnicLogic = new TechnicLogic(this.foundations, this.points);
+			var technic:TechnicLogic = new TechnicLogic(this.foundations);
 			technic.moveTo(place);
 		}
 	}

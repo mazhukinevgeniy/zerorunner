@@ -30,9 +30,9 @@ package game.world.items
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();
 		
-		public function TechnicLogic(foundations:GameElements, points:IPointCollector) 
+		public function TechnicLogic(foundations:GameElements) 
 		{
-			this.points = points;
+			this.points = foundations.pointsOfInterest;
 			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this);
 			
 			super(new TechnicView(foundations), foundations);

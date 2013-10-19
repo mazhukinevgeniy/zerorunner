@@ -21,14 +21,13 @@ package game.world.items
 		
 		private var view:CharacterView;
 		
-		public function CharacterLogic(foundations:GameElements, points:IPointCollector) 
+		public function CharacterLogic(foundations:GameElements) 
 		{
 			this.input = foundations.input;
 			this.flow = foundations.flow;
 			
-			points.addPointOfInterest(Game.CHARACTER, this);
-			
-			this.points = points;
+			this.points = foundations.pointsOfInterest;
+			this.points.addPointOfInterest(Game.CHARACTER, this);
 			
 			super(this.view = new CharacterView(foundations), foundations);
 		}

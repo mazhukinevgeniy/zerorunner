@@ -12,12 +12,12 @@ package game.world.items
 		
 		private var points:IPointCollector;
 		
-		public function JunkLogic(foundations:GameElements, points:IPointCollector) 
+		public function JunkLogic(foundations:GameElements) 
 		{
 			super(new JunkView(foundations), foundations);
 			
 			this.flow = foundations.flow;
-			this.points = points;
+			this.points = foundations.pointsOfInterest;
 		}
 		
 		public function applySoldering(value:int):void
