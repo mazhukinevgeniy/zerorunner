@@ -152,10 +152,11 @@ package ui.windows.achievements
 		{
 			if (this.lastDisplayedDescription != id)
 			{
-				this.achData.reset(id);
+				this.achData.reset(id); 
 				
-				this.achievementDescription.updateMessage(this.achData.description + " " + (String)(id), 123476, 16574);
+				this.achievementDescription.updateMessage(this.achData.description, this.achievements[id]);
 				this.achievementDescription.visible = true;
+				
 				this.lastDisplayedDescription = id;
 			}
 			

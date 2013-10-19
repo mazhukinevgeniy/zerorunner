@@ -1,6 +1,7 @@
 package ui.windows.achievements 
 {
 	import feathers.controls.Label;
+	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
@@ -31,28 +32,31 @@ package ui.windows.achievements
 		}
 		
 		
-		public function updateMessage(testMessage:String, mouseX:Number, mouseY:Number):void
+		public function updateMessage(testMessage:String, target:DisplayObject):void
 		{
-			const OFFSET:int = 15;
-			
-			this.message.text = testMessage;
-			
-			if (mouseX + this.width < Main.WIDTH)
-				this.x = mouseX + OFFSET;
-			else
-				this.x = Main.WIDTH - (this.width + OFFSET);
-			
-			if (mouseY + this.height < Main.HEIGHT)
-				this.y = mouseY + OFFSET;
-			else
-				this.y = Main.HEIGHT - (this.height + OFFSET);
-			
-			
 			if (this.message.height != lastHeight)
 			{
 				this.background.height = this.message.height;
 				this.lastHeight = this.message.height;
 			}
+			
+			const OFFSET:int = 10;
+			
+			this.message.text = testMessage;
+			
+			if (target.x + target.width + OFFSET + this.width < Main.WIDTH)
+				this.x = target.x + target.width + OFFSET;
+			else
+				this.x = target.x - (this.width + OFFSET);
+			
+			if (target.y + target.height / 2 + this.height / 2 < Main.HEIGHT)
+			{
+				if (target.y + target.height / 2 - this.height / 2 < 0)
+					this.y = OFFSET;
+				else
+					this.y = target.y + target.height / 2 - this.height / 2;
+			}
+			else this.y = Main.HEIGHT - (this.height + OFFSET);
 		}
 		
 	}

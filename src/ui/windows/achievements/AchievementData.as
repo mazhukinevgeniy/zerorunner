@@ -28,7 +28,7 @@ package ui.windows.achievements
 			var disabledSkin:String = "unimplemented";
 			var description:String = "this is achievement \n this is achievement" +
 									 "\n this is achievement\n this is achievement" +
-									 "this is achievement";
+									 "this is achievement " + String(id);
 			
 			this._position = id;
 			this._unlocked = unlocked;
