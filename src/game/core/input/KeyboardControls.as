@@ -46,6 +46,9 @@ package game.core.input
 		        this.input.newInputPiece(true, false, this.RIGHT);
 			else if (event.keyCode == Keyboard.LEFT)
 		        this.input.newInputPiece(true, false, this.LEFT);
+			
+			else if (event.keyCode == Keyboard.SPACE)
+				this.input.spacePressed();
 		}
 	}
 
