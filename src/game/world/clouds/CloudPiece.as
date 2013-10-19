@@ -1,26 +1,39 @@
 package game.world.clouds 
 {
-	import flash.display.DisplayObject;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	
 	public class CloudPiece extends Sprite
 	{
+		private var widthCloudPiece:Number;
+		private var heightCloudPiece:Number;
 		
-		public function CloudPiece(numberOfElements:int, sprite:DisplayObject)
+		private var elements:Vector.<Bitmap>;
+		private var dataBaseCloud:BitmapData;
+		
+		public function CloudPiece(numberOfElements:int, baseCloud:Bitmap)
 		{
 			var size:Number = Math.sqrt(numberOfElements);
 			
-			this.width = (size * sprite.width * 4) / 3;
-			this.height = (size * sprite.height * 4) / 3;
+			this.elements = new Vector.<Bitmap>;
+			this.dataBaseCloud = baseCloud.bitmapData;
+			
+			this.widthCloudPiece = (size * baseCloud.width * 4) / 3;
+			this.heightCloudPiece = (size * baseCloud.height * 4) / 3;
 			
 			for (var i:int = 0; i < numberOfElements; ++i)
 			{
-				var element:DisplayObject = sprite;
-				this.addChild(element);
+				var newElement:Bitmap = new Bitmap(this.dataBaseCloud.clone())
 				
-				element.x = Math.random() * (this.width - sprite.width);
-				element.y = Math.random() * (this.height - sprite.height);
+				elements.push(newElement);
+				elements[i].x = Math.random() * (this.widthCloudPiece - newElement.width);
+				elements[i].y = Math.random() * (this.heightCloudPiece - newElement.height);
+				this.addChild(elements[i]);
 			}
+			
+			this.width = this.widthCloudPiece;
+			this.height = this.heightCloudPiece;
 		}
 		
 	}

@@ -1,6 +1,5 @@
 package ui.background 
 {
-	import game.world.clouds.CloudPiece;
 	import game.world.clouds.CloudTexture;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
