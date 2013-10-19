@@ -15,7 +15,7 @@ package ui.background
 			this.addChild(new Quad(Main.WIDTH, Main.HEIGHT, 0x344322));
 			this.addChild(new ResetButton(flow));
 			
-			this.addChild(new CloudTexture(100));
+			this.addChild(new CloudTexture(int(Math.random() * 100)));
 		}
 	}
 

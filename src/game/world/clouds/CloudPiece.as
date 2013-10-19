@@ -6,47 +6,38 @@ package game.world.clouds
 	
 	public class CloudPiece extends Sprite
 	{
-		private var elements:Vector.<Bitmap>;
 		private var dataBaseCloud:BitmapData;
 		
 		public function CloudPiece(numberOfElements:int, baseCloud:Bitmap)
 		{
 			var size:Number = Math.sqrt(numberOfElements);
 			
-			this.elements = new Vector.<Bitmap>;
 			this.dataBaseCloud = baseCloud.bitmapData;
 			
-			//this.widthCloudPiece = (size * baseCloud.width * 3) / 3;
-			//this.heightCloudPiece = (size * baseCloud.height * 3) / 3;
-			
-			for (var i:int = 0, j:int = 0; i < numberOfElements; ++i, ++j)
+			for (var i:int = 0; i < numberOfElements; ++i)
 			{
 				var newElement:Bitmap = new Bitmap(this.dataBaseCloud.clone())
 				var copyNewElement:Bitmap;
+
+				newElement.x = Math.random() * CloudTexture.WIDTH;
+				newElement.y = Math.random() * CloudTexture.HEIGHT;
+				this.addChild(newElement);
 				
-				this.elements.push(newElement);
-				this.elements[j].x = Math.random() * CloudTexture.WIDTH;
-				this.elements[j].y = Math.random() * CloudTexture.HEIGHT;
-				this.addChild(elements[j]);
-				
-				if (this.elements[j].x + newElement.width > CloudTexture.WIDTH || 
-					this.elements[j].y + newElement.height > CloudTexture.HEIGHT)
+				if (newElement.x + newElement.width > CloudTexture.WIDTH || 
+					newElement.y + newElement.height > CloudTexture.HEIGHT)
 				{
-					trace(this.elements[j].x, this.elements[j].y);
-					copyNewElement = new Bitmap(new BitmapData(40, 40, true, 0xFFFF0000));
-					this.elements.push(copyNewElement);
-					++j;
+					copyNewElement = new Bitmap(this.dataBaseCloud.clone());
 					
-					this.elements[j].x = this.elements[j-1].x;
-					this.elements[j].y = this.elements[j-1].y;
+					copyNewElement.x = newElement.x;
+					copyNewElement.y = newElement.y;
 					
-					if(this.elements[j-1].x + newElement.width > CloudTexture.WIDTH)
-						this.elements[j].x = - (CloudTexture.WIDTH - this.elements[j - 1].x);
+					if(newElement.x + newElement.width > CloudTexture.WIDTH)
+						copyNewElement.x = - (CloudTexture.WIDTH - newElement.x);
 					
-					if(this.elements[j-1].y + newElement.height > CloudTexture.HEIGHT)
-						this.elements[j].y = - (CloudTexture.HEIGHT - this.elements[j - 1].y);
-					trace("new", this.elements[j].x, this.elements[j].y);
-					this.addChild(elements[j]);
+					if(newElement.y + newElement.height > CloudTexture.HEIGHT)
+						copyNewElement.y = - (CloudTexture.HEIGHT - newElement.y);
+						
+					this.addChild(copyNewElement);
 				}
 				
 			}
