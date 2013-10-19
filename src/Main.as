@@ -5,7 +5,7 @@ package
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
 	import flash.system.Capabilities;
-	import game.ZeroRunner;
+	import game.GameElements;
 	import preloader.ProgressBar;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
@@ -35,7 +35,7 @@ package
 		private var mStarling:SoftStarling;
 		
 		private var starlingRoot:starling.display.Sprite;
-		private var game:ZeroRunner;
+		private var game:GameElements;
 		private var shell:Shell;
 		
 		private var progressBar:ProgressBar;
@@ -109,9 +109,10 @@ package
 				
 				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
 				
-				this.game = new ZeroRunner(flow, database, this.assets, gameRoot);
-				this.shell = new Shell(this.starlingRoot, database, (this.game).foundations);
+				this.game = new GameElements(flow, database, this.assets, gameRoot);
+				this.shell = new Shell(this.starlingRoot, database, (this.game));
 				//TODO: do not pass damn foundations to the shell, it's madness
+				//TODO: is it? must think
 				
 				Starling.current.stage.color = 0;
 			}

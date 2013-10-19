@@ -2,7 +2,7 @@ package game.hud
 {
 	import feathers.controls.Button;
 	import feathers.controls.Label;
-	import game.core.GameElements;
+	import game.GameElements;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;

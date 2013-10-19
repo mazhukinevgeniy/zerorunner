@@ -1,9 +1,10 @@
-package game.core 
+package game 
 {
 	import data.DatabaseManager;
 	import data.viewers.GameConfig;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
+	import game.hud.UIExtendsions;
 	import game.world.ActorsFeatures;
 	import game.world.IActors;
 	import game.world.IActorTracker;
@@ -12,7 +13,6 @@ package game.core
 	import game.world.items.utils.PointsOfInterest;
 	import game.world.renderer.Renderer;
 	import game.world.SceneFeatures;
-	import game.ZeroRunner;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -34,6 +34,8 @@ package game.core
 		
 		public function GameElements(flow:IUpdateDispatcher, database:DatabaseManager, assets:AssetManager, root:Sprite) 
 		{
+			new GameUpdateConverter(flow, database.config);
+			
 			this._root = root;
 			this._flow = flow;
 			this._assets = assets;
@@ -45,8 +47,8 @@ package game.core
 			this._actors = new ActorsFeatures(this);
 			
 			new Renderer(this);
-			
 			new Time(this, database.status);
+			new UIExtendsions(this);
 		}
 		
 		public function get atlas():TextureAtlas

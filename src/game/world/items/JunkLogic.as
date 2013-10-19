@@ -1,6 +1,6 @@
 package game.world.items 
 {
-	import game.core.GameElements;
+	import game.GameElements;
 	import game.world.items.utils.IPointCollector;
 	import game.world.items.utils.ISolderable;
 	import game.world.items.utils.ItemLogicBase;

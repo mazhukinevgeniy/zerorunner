@@ -2,7 +2,7 @@ package ui
 {
 	import data.DatabaseManager;
 	import data.StatusReporter;
-	import game.core.GameElements;
+	import game.GameElements;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;

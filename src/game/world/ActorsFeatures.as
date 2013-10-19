@@ -1,9 +1,9 @@
 package game.world 
 {
 	import data.viewers.GameConfig;
-	import game.core.GameElements;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
+	import game.GameElements;
 	import game.world.items.BeaconLogic;
 	import game.world.items.CharacterLogic;
 	import game.world.items.JunkLogic;

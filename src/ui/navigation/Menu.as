@@ -8,7 +8,6 @@ package ui.navigation
 	import starling.utils.AssetManager;
 	import starling.display.Quad;
 	import ui.Windows;
-	import game.ZeroRunner;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class Menu extends ScrollContainer

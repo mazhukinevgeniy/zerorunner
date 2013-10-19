@@ -1,6 +1,6 @@
 package game.hud 
 {
-	import game.core.GameElements;
+	import game.GameElements;
 	
 	public class UIExtendsions
 	{

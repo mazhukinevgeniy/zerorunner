@@ -1,10 +1,10 @@
 package game.world.items 
 {
-	import game.core.GameElements;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.core.time.Time;
+	import game.GameElements;
 	import game.world.items.utils.ItemViewBase;
 	import starling.display.DisplayObject;
 	import starling.display.Image;

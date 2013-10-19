@@ -1,9 +1,9 @@
 package game.world.renderer 
 {
 	import data.viewers.GameConfig;
-	import game.core.GameElements;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
+	import game.GameElements;
 	import game.world.clouds.Clouds;
 	import game.world.IActors;
 	import game.world.IScene;

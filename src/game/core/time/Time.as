@@ -2,7 +2,7 @@ package game.core.time
 {
 	import data.StatusReporter;
 	import flash.ui.Keyboard;
-	import game.core.GameElements;
+	import game.GameElements;
 	import starling.animation.Juggler;
 	import starling.events.EnterFrameEvent;
 	import utils.updates.IUpdateDispatcher;

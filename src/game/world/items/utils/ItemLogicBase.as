@@ -1,8 +1,8 @@
 package game.world.items.utils 
 {
 	import data.viewers.GameConfig;
-	import game.core.GameElements;
 	import game.core.metric.*;
+	import game.GameElements;
 	import game.world.IActors;
 	import game.world.IActorTracker;
 	import game.world.IScene;

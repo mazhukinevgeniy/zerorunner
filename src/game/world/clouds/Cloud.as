@@ -1,7 +1,7 @@
 package game.world.clouds 
 {
 	import flash.events.Event;
-	import game.core.GameElements;
+	import game.GameElements;
 	import starling.core.Starling;
 	import starling.extensions.krecha.ScrollTile;
 	
