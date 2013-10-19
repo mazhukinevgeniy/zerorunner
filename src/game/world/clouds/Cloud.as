@@ -11,7 +11,7 @@ package game.world.clouds
 		private var dY:int;
 		private var dA:Number;
 		
-		public function Cloud(foundations:GameElements) 
+		public function Cloud(foundations:GameElements, cloudiness:int = 0) 
 		{
 			do
 			{
