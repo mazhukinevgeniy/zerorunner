@@ -106,10 +106,7 @@ package
 				var flow:UpdateManager = new UpdateManager();
 				var database:DatabaseManager = new DatabaseManager(flow);
 				
-				
-				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
-				
-				this.game = new GameElements(flow, database, this.assets, gameRoot);
+				this.game = new GameElements(flow, database, this.assets);
 				this.shell = new Shell(this.starlingRoot, database, this.game);
 				
 				Starling.current.stage.color = 0;

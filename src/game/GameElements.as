@@ -32,11 +32,11 @@ package game
 		private var _points:IPointCollector;
 		private var _root:DisplayObjectContainer;
 		
-		public function GameElements(flow:IUpdateDispatcher, database:DatabaseManager, assets:AssetManager, root:Sprite) 
+		public function GameElements(flow:IUpdateDispatcher, database:DatabaseManager, assets:AssetManager) 
 		{
 			new GameUpdateConverter(flow, database.config);
 			
-			this._root = root;
+			this._root = new Sprite();
 			this._flow = flow;
 			this._assets = assets;
 			this._config = database.config;
