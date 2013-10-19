@@ -1,36 +1,65 @@
 package game.world.clouds 
 {
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
+	import flash.display.Loader;
+	import flash.events.Event;
+	import flash.net.URLRequest;
+	import flash.system.LoaderContext;
+	import starling.display.Image;
+	import starling.display.Sprite;
 	import starling.textures.Texture;
 
-	public class CloudTexture extends Texture
+	public class CloudTexture extends Sprite//Texture
 	{
-		private static const NUMBER_OF_SECTORS_IN_WIDTH:int = 4;
-		private static const NUMBER_OF_SECTORS_IN_HEIGHT:int = 3;
+		private static const PATH_BY_TEXTURE:String = "../res/assets/textures/atlases/sprites/unimplemented.png";
 		
+		private var cloudiness:int;
+		private var loader:Loader;
 		
-		private static const NUMBER_OF_SECTORS:int = Cloud.NUMBER_OF_SECTORS_IN_WIDTH * Cloud.NUMBER_OF_SECTORS_IN_HEIGHT;
-		
-		public function CloudTexture() 
+		public function CloudTexture(cloudiness:int) 
 		{
-			var cloudiness:Number = Math.random() * Math.random();
+			this.cloudiness = cloudiness;
 			
-			for (var i:int = 0; i < Cloud.NUMBER_OF_SECTORS; ++i)
-			{
-				var empty:Boolean = Math.random() < cloudiness ? false : true;
-				
-				if (!empty)
-				{
-					this.generateCloudPiece();
-				}
-			}			
+			this.loader = new Loader();
+			var context:LoaderContext = new LoaderContext();
+			context.checkPolicyFile = true; 
+			
+			var urlRequest:URLRequest = new URLRequest(CloudTexture.PATH_BY_TEXTURE);
+			this.loader.load(urlRequest, context);
+
+			this.loader.contentLoaderInfo.addEventListener(Event.COMPLETE, imgLoaded);
 		}
 		
-		private function generateCloudPiece();
-		{
-			var bmpData:BitmapData = new BitmapData(100, 100, true, 0x0);
+		private function imgLoaded(event:Event):void
+		{	
+			var content:DisplayObject = event.target.content;
 			
-			bmpData.draw(shape);
+			this.generateTexture(content);
+		}
+		
+		private function generateTexture(sprite:DisplayObject):void
+		{
+			var numberOfElements:int = int((Math.random() + 3) / 4 * this.cloudiness);
+			var usedNumberOfElements:int;
+			
+			while (numberOfElements != 0)
+			{
+				usedNumberOfElements = numberOfElements;//int(Math.random() * usedNumberOfElements);
+				numberOfElements -= usedNumberOfElements;
+				
+				new CloudPiece(usedNumberOfElements, sprite);
+				
+				var cloudPiece:DisplayObject = new CloudPiece(usedNumberOfElements, sprite);
+				var bmpData:BitmapData = new BitmapData(cloudPiece.width, cloudPiece.height, true, 0x00FFFFFF);
+				bmpData.draw(cloudPiece);
+				 
+				var texture:Texture = Texture.fromBitmapData(bmpData);
+				var image:Image = new Image(texture);
+				this.addChild(image);
+			}
+			
+			
 		}
 		
 	}

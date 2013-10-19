@@ -1,7 +1,7 @@
 package game.world.clouds 
 {
 	import flash.events.Event;
-	import game.core.GameFoundations;
+	import game.GameElements;
 	import starling.core.Starling;
 	import starling.extensions.krecha.ScrollTile;
 	
@@ -11,7 +11,7 @@ package game.world.clouds
 		private var dY:int;
 		private var dA:Number;
 		
-		public function Cloud(foundations:GameFoundations) 
+		public function Cloud(foundations:GameElements, cloudiness:int = 0) 
 		{
 			do
 			{
@@ -21,8 +21,6 @@ package game.world.clouds
 			while (this.dX == 0 && this.dY == 0);
 			
 			super(foundations.assets.getTexture("testcloud"));
-			//super(new CloudTexture());
-			
 			/*
 			super();
 			
