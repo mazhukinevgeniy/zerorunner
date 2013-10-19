@@ -35,8 +35,6 @@ package game.hud
 					this.regularBeacon.x = i * 20;
 					
 					this.map.addQuad(this.regularBeacon);
-					
-					//TODO: make it beautiful
 				}
 			}
 		}
