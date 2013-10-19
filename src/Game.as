@@ -59,7 +59,6 @@ package
 		
 		
 		//TODO: Die more.
-		//TODO: Also make sure roundWon is rendered before config changes.
 	}
 
 }
