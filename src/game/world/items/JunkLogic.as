@@ -1,6 +1,6 @@
 package game.world.items 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.world.items.utils.IPointCollector;
 	import game.world.items.utils.ISolderable;
 	import game.world.items.utils.ItemLogicBase;
@@ -12,7 +12,7 @@ package game.world.items
 		
 		private var points:IPointCollector;
 		
-		public function JunkLogic(foundations:GameFoundations, points:IPointCollector) 
+		public function JunkLogic(foundations:GameElements, points:IPointCollector) 
 		{
 			super(new JunkView(foundations), foundations);
 			

@@ -1,7 +1,7 @@
 package game.world.renderer 
 {
 	import data.viewers.GameConfig;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.world.clouds.Clouds;
@@ -28,7 +28,7 @@ package game.world.renderer
 		private var xM:int;
 		private var yM:int;
 		
-		public function Renderer(foundations:GameFoundations) 
+		public function Renderer(foundations:GameElements) 
 		{
 			var flow:IUpdateDispatcher = foundations.flow;
 			this.points = foundations.pointsOfInterest;

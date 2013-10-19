@@ -1,7 +1,7 @@
 package game.world.renderer 
 {
 	import data.viewers.GameConfig;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.*;
 	import game.core.time.Time;
 	import game.ZeroRunner;
@@ -26,7 +26,7 @@ package game.world.renderer
 		private var moveTween:PixelPerfectTween;
 		
 		
-		public function Camera(foundations:GameFoundations) 
+		public function Camera(foundations:GameElements) 
 		{
 			this.juggler = foundations.juggler;
 			var flow:IUpdateDispatcher = foundations.flow;

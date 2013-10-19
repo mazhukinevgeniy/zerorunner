@@ -2,7 +2,7 @@ package game.hud
 {
 	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.ICoordinated;
 	import game.world.IScene;
 	import starling.display.Quad;
@@ -26,7 +26,7 @@ package game.hud
 		
 		private var road:Quad;
 		
-		public function MapFeature(foundations:GameFoundations) 
+		public function MapFeature(foundations:GameElements) 
 		{
 			this.visited = new ByteArray();
 			

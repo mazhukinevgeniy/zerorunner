@@ -20,7 +20,7 @@ package game.core
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class GameFoundations 
+	public class GameElements 
 	{
 		private var _scene:IScene;
 		private var _juggler:Juggler;
@@ -32,7 +32,7 @@ package game.core
 		private var _points:IPointCollector;
 		private var _root:DisplayObjectContainer;
 		
-		public function GameFoundations(flow:IUpdateDispatcher, database:DatabaseManager, assets:AssetManager, root:Sprite) 
+		public function GameElements(flow:IUpdateDispatcher, database:DatabaseManager, assets:AssetManager, root:Sprite) 
 		{
 			this._root = root;
 			this._flow = flow;

@@ -2,7 +2,7 @@ package ui
 {
 	import data.DatabaseManager;
 	import data.StatusReporter;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.utils.AssetManager;
@@ -30,7 +30,7 @@ package ui
 		private var flow:IUpdateDispatcher;
 		
 		public function Shell(displayRoot:DisplayObjectContainer, 
-							database:DatabaseManager, foundations:GameFoundations)
+							database:DatabaseManager, foundations:GameElements)
 							//TODO: check what can be not passed; think if we need another parameter struct 
 		{
 			this.status = database.status;

@@ -2,7 +2,7 @@ package game.core.time
 {
 	import data.StatusReporter;
 	import flash.ui.Keyboard;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import starling.animation.Juggler;
 	import starling.events.EnterFrameEvent;
 	import utils.updates.IUpdateDispatcher;
@@ -25,7 +25,7 @@ package game.core.time
 		
 		private var pauseView:PauseView;
 		
-		public function Time(foundations:GameFoundations, status:StatusReporter) 
+		public function Time(foundations:GameElements, status:StatusReporter) 
 		{
 			foundations.displayRoot.addChild(this.pauseView = new PauseView());
 			

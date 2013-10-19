@@ -1,13 +1,13 @@
 package game.world.items 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.ICoordinated;
 	import game.world.items.utils.ItemViewBase;
 	
 	internal class TechnicView extends ItemViewBase
 	{
 		
-		public function TechnicView(foundations:GameFoundations) 
+		public function TechnicView(foundations:GameElements) 
 		{
 			super(foundations);
 		}

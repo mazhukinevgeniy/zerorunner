@@ -1,6 +1,6 @@
 package game.world.items.utils 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.*;
 	import game.core.time.Time;
 	import starling.animation.Juggler;
@@ -18,7 +18,7 @@ package game.world.items.utils
 		private var movingTween:PixelPerfectTween;
 		
 		
-		public function ItemViewBase(foundations:GameFoundations) 
+		public function ItemViewBase(foundations:GameElements) 
 		{
 			this.juggler = foundations.juggler;
 			this.atlas = foundations.atlas;

@@ -2,7 +2,7 @@ package game.hud
 {
 	import feathers.controls.Button;
 	import feathers.controls.Label;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -20,7 +20,7 @@ package game.hud
 		private var globalMap:GlobalMap;
 		
 		
-		public function EndGameView(foundations:GameFoundations) 
+		public function EndGameView(foundations:GameElements) 
 		{
 			super();
 			

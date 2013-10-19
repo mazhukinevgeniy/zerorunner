@@ -1,7 +1,7 @@
 package game.world 
 {
 	import data.viewers.GameConfig;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.world.items.BeaconLogic;
@@ -21,10 +21,10 @@ package game.world
 		
 		private var width:int;
 		
-		private var foundations:GameFoundations;
+		private var foundations:GameElements;
 		
 		
-		public function ActorsFeatures(foundations:GameFoundations) 
+		public function ActorsFeatures(foundations:GameElements) 
 		{
 			this.points = foundations.pointsOfInterest as PointsOfInterest;
 			

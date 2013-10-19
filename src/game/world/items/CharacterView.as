@@ -1,6 +1,6 @@
 package game.world.items 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
@@ -21,7 +21,7 @@ package game.world.items
 		
 		private var container:Sprite;
 		
-		public function CharacterView(foundations:GameFoundations) 
+		public function CharacterView(foundations:GameElements) 
 		{
 			super(foundations);
 		}

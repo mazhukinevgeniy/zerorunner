@@ -1,7 +1,7 @@
 package game.world.items.utils 
 {
 	import data.viewers.GameConfig;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.*;
 	import game.world.IActors;
 	import game.world.IActorTracker;
@@ -19,7 +19,7 @@ package game.world.items.utils
 		
 		private var view:ItemViewBase;
 		
-		public function ItemLogicBase(view:ItemViewBase, foundations:GameFoundations) 
+		public function ItemLogicBase(view:ItemViewBase, foundations:GameElements) 
 		{
 			this.view = view;
 			

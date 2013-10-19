@@ -1,6 +1,6 @@
 package game.world.items 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
@@ -30,7 +30,7 @@ package game.world.items
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();
 		
-		public function TechnicLogic(foundations:GameFoundations, points:IPointCollector) 
+		public function TechnicLogic(foundations:GameElements, points:IPointCollector) 
 		{
 			this.points = points;
 			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this);

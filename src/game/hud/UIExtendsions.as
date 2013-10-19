@@ -1,11 +1,11 @@
 package game.hud 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	
 	public class UIExtendsions
 	{
 		
-		public function UIExtendsions(foundations:GameFoundations) 
+		public function UIExtendsions(foundations:GameElements) 
 		{
 			new EndGameView(foundations);
 			

@@ -1,6 +1,6 @@
 package game.world.items 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.*;
 	import game.world.items.utils.ISolderable;
 	import game.world.items.utils.ItemLogicBase;
@@ -15,7 +15,7 @@ package game.world.items
 		
 		private var reported:Boolean;
 		
-		public function BeaconLogic(foundations:GameFoundations) 
+		public function BeaconLogic(foundations:GameElements) 
 		{
 			this.flow = foundations.flow;
 			

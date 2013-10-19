@@ -1,6 +1,6 @@
 package game.world.items 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.Metric;
 	import game.world.items.utils.ItemViewBase;
 	import starling.display.DisplayObject;
@@ -10,7 +10,7 @@ package game.world.items
 	{
 		private var view:Image;
 		
-		public function BeaconView(foundations:GameFoundations) 
+		public function BeaconView(foundations:GameElements) 
 		{
 			super(foundations);
 		}

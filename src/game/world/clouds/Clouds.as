@@ -1,7 +1,7 @@
 package game.world.clouds 
 {
 	import data.viewers.GameConfig;
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.metric.DCellXY;
 	import game.core.metric.Metric;
 	import game.core.time.Time;
@@ -13,11 +13,11 @@ package game.world.clouds
 	
 	public class Clouds extends ScrollImage
 	{
-		private var foundations:GameFoundations;
+		private var foundations:GameElements;
 		
 		private var moveTween:PixelPerfectTween;
 		
-		public function Clouds(foundations:GameFoundations) 
+		public function Clouds(foundations:GameElements) 
 		{
 			this.foundations = foundations;
 			

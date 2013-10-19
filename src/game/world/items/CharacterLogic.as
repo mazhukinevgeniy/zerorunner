@@ -1,6 +1,6 @@
 package game.world.items 
 {
-	import game.core.GameFoundations;
+	import game.core.GameElements;
 	import game.core.input.InputManager;
 	import game.core.metric.*;
 	import game.world.items.utils.IPointCollector;
@@ -21,7 +21,7 @@ package game.world.items
 		
 		private var view:CharacterView;
 		
-		public function CharacterLogic(foundations:GameFoundations, points:IPointCollector) 
+		public function CharacterLogic(foundations:GameElements, points:IPointCollector) 
 		{
 			this.input = foundations.input;
 			this.flow = foundations.flow;
