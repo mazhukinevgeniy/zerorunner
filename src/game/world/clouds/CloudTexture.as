@@ -9,6 +9,9 @@ package game.world.clouds
 
 	public class CloudTexture extends Sprite//Texture
 	{
+		internal static const WIDTH:Number = 640;
+		internal static const HEIGHT:Number = 480;
+		
 		[Embed(source="../../../../res/assets/textures/atlases/sprites/unimplemented.png")]
 		private static const BaseCloud:Class;
 		
@@ -32,8 +35,6 @@ package game.world.clouds
 			{
 				usedNumberOfElements = numberOfElements;//int(Math.random() * usedNumberOfElements);
 				numberOfElements -= usedNumberOfElements;
-				
-				new CloudPiece(usedNumberOfElements, baseCloud);
 				
 				var cloudPiece:DisplayObject = new CloudPiece(usedNumberOfElements, baseCloud);
 				var bmpData:BitmapData = new BitmapData(cloudPiece.width, cloudPiece.height, true, 0x00FFFFFF);
