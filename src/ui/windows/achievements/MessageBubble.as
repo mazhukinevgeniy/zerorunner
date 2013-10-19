@@ -34,15 +34,10 @@ package ui.windows.achievements
 		
 		public function updateMessage(testMessage:String, target:DisplayObject):void
 		{
-			if (this.message.height != lastHeight)
-			{
-				this.background.height = this.message.height;
-				this.lastHeight = this.message.height;
-			}
-			
 			const OFFSET:int = 10;
 			
 			this.message.text = testMessage;
+			this.message.validate(); //TODO: find better way to solve the validation problem
 			
 			if (target.x + target.width + OFFSET + this.width < Main.WIDTH)
 				this.x = target.x + target.width + OFFSET;
@@ -57,6 +52,12 @@ package ui.windows.achievements
 					this.y = target.y + target.height / 2 - this.height / 2;
 			}
 			else this.y = Main.HEIGHT - (this.height + OFFSET);
+			
+			if (this.message.height != lastHeight)
+			{
+				this.background.height = this.message.height;
+				this.lastHeight = this.message.height;
+			}
 		}
 		
 	}
