@@ -97,8 +97,6 @@ package game.world.items
 					
 					action = tmp.pop();
 				}
-				
-				this.input.discardClicks();
 			}
 		}
 		
@@ -139,7 +137,6 @@ package game.world.items
 			
 			
 			this.flow.dispatchUpdate(Update.moveCenter, jChange, this.cooldown + 1);
-			this.input.discardClicks();
 			//TODO: animate
 		}
 		

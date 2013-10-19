@@ -90,13 +90,10 @@ package game.core.input
 				trace("used", this.maxI, "of", int.MAX_VALUE);
 			}
 			
-			return arr;
-		}
-		
-		public function discardClicks():void
-		{
-			for (var i:int = 9; i < 17; i++)
+			for (i = 9; i < 17; i++)
 				this.order[i] = -1;
+			
+			return arr;
 		}
 		
 		
