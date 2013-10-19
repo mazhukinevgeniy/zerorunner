@@ -47,7 +47,7 @@ package game.hud
 			this.addChild(button);
 			
 			
-			this.globalMap = new GlobalMap(foundations.config);
+			this.globalMap = new GlobalMap(foundations.database.config);
 			this.addChild(this.globalMap);
 			
 			

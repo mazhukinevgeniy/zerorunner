@@ -1,7 +1,6 @@
 package game 
 {
 	import data.DatabaseManager;
-	import data.viewers.GameConfig;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
 	import game.hud.UIExtendsions;
@@ -19,35 +18,37 @@ package game
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
+	import utils.updates.UpdateManager;
 	
 	public class GameElements 
 	{
 		private var _scene:IScene;
 		private var _juggler:Juggler;
-		private var _config:GameConfig;
 		private var _input:InputManager;
 		private var _assets:AssetManager;
 		private var _actors:ActorsFeatures;
 		private var _flow:IUpdateDispatcher;
 		private var _points:IPointCollector;
+		private var _database:DatabaseManager;
 		private var _root:DisplayObjectContainer;
 		
-		public function GameElements(flow:IUpdateDispatcher, database:DatabaseManager, assets:AssetManager) 
+		public function GameElements(assets:AssetManager) 
 		{
-			new GameUpdateConverter(flow, database.config);
-			
-			this._root = new Sprite();
-			this._flow = flow;
 			this._assets = assets;
-			this._config = database.config;
+			this._root = new Sprite();
+			this._flow = new UpdateManager();
+			this._database = new DatabaseManager(this._flow);
+			
+			new GameUpdateConverter(this._flow, this._database.config);
+			
 			this._points = new PointsOfInterest();
 			this._juggler = new Juggler();
-			this._input = new InputManager(flow);
-			this._scene = new SceneFeatures(flow);
+			this._input = new InputManager(this._flow);
+			this._scene = new SceneFeatures(this._flow);
 			this._actors = new ActorsFeatures(this);
 			
 			new Renderer(this);
-			new Time(this, database.status);
+			new Time(this, this._database.status);
 			new UIExtendsions(this);
 		}
 		
@@ -101,9 +102,9 @@ package game
 			return this._points;
 		}
 		
-		public function get config():GameConfig
+		public function get database():DatabaseManager
 		{
-			return this._config;
+			return this._database;
 		}
 	}
 

@@ -1,14 +1,12 @@
 package 
 {
-	import data.DatabaseManager;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.ui.ContextMenu;
 	import flash.system.Capabilities;
+	import flash.ui.ContextMenu;
 	import game.GameElements;
 	import preloader.ProgressBar;
 	import starling.core.Starling;
-	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -16,8 +14,6 @@ package
 	import ui.Shell;
 	import utils.adaptTextureAtlasMakerXML;
 	import utils.SoftStarling;
-	import utils.updates.update;
-	import utils.updates.UpdateManager;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
@@ -103,11 +99,9 @@ package
 								this.assets.getTexture("sprites0"), 
 								adaptTextureAtlasMakerXML(Main.gameatlas)));
 				
-				var flow:UpdateManager = new UpdateManager();
-				var database:DatabaseManager = new DatabaseManager(flow);
 				
-				this.game = new GameElements(flow, database, this.assets);
-				this.shell = new Shell(this.starlingRoot, database, this.game);
+				this.game = new GameElements(this.assets);
+				this.shell = new Shell(this.starlingRoot, this.game);
 				
 				Starling.current.stage.color = 0;
 			}

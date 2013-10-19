@@ -25,7 +25,7 @@ package game.world.items.utils
 			
 			this.scene = foundations.scene;
 			this.actors = foundations.actors;
-			this.config = foundations.config;
+			this.config = foundations.database.config;
 			
 			this.actorTracker = foundations.actorsTracker;
 			

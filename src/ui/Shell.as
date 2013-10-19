@@ -29,15 +29,14 @@ package ui
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function Shell(displayRoot:DisplayObjectContainer, 
-							database:DatabaseManager, foundations:GameElements)
+		public function Shell(displayRoot:DisplayObjectContainer, foundations:GameElements)
 		{
-			this.status = database.status;
+			this.status = foundations.database.status;
 			
 			this.flow = foundations.flow;
 			this.assets = foundations.assets;
 			
-		    this.initializeFeatures(displayRoot, foundations.displayRoot, database);
+		    this.initializeFeatures(displayRoot, foundations.displayRoot, foundations.database);
 			this.initializeUsingFlow();
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);

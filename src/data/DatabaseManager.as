@@ -9,6 +9,8 @@ package data
 	
 	public class DatabaseManager
 	{
+		private static var instances:int = 0;
+		
 		private var save:SharedObjectManager;
 		
 		private var _preferences:PreferencesViewer;
@@ -20,6 +22,12 @@ package data
 		
 		public function DatabaseManager(flow:IUpdateDispatcher) 
 		{
+			DatabaseManager.instances++;
+			if (DatabaseManager.instances > 1)
+				throw new Error(); //There must not be more than one DatabaseManager,
+				                   //because it initializes updaters and they will 
+								   //ruin everything
+			
 			this.save = new SharedObjectManager();
 			
 			this._status = new StatusReporter(flow, this.save);
