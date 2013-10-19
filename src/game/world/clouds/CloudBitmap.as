@@ -18,7 +18,8 @@ package game.world.clouds
 			super(CloudBitmap.WIDTH, CloudBitmap.HEIGHT, true, 0x00FFFFFF);
 			
 			var baseCloud:Bitmap = new BaseCloud();
-			var numberOfElements:int = int(cloudiness * (Math.random() + 3) / 4);
+			var numberOfElements:int = 30;//int(cloudiness * (Math.random() + 3) / 4);//TODO: check formula
+			//TODO: invent cloudiness scale
 			
 			var dataBaseCloud:BitmapData = baseCloud.bitmapData; 
 			var container:Sprite = new Sprite();
@@ -41,7 +42,7 @@ package game.world.clouds
 					copyNewElement.y = newElement.y;
 					
 					if(newElement.x + newElement.width > CloudBitmap.WIDTH)
-						copyNewElement.x = - (CloudBitmap.WIDTH - newElement.x);
+						copyNewElement.x = - (CloudBitmap.WIDTH - newElement.x); //TODO: fix junction
 					
 					if(newElement.y + newElement.height > CloudBitmap.HEIGHT)
 						copyNewElement.y = - (CloudBitmap.HEIGHT - newElement.y);
