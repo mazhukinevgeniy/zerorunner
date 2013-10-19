@@ -69,33 +69,42 @@ package game.world.items
 				this.cooldown--;
 			else
 			{
-				var tmp:Vector.<DCellXY> = this.input.getInputCopy();
-				var action:DCellXY = tmp.pop();
-				
-				while (action.x != 0 || action.y != 0)
+				if (this.input.isSpacePressed)
 				{
-					var next:int = this.scene.getSceneCell(this.x + action.x, this.y + action.y);
+					this.input.getInputCopy();
 					
-					if (next != Game.FALL && next != Game.LAVA)
+					this.cooldown = 10;
+				}
+				else
+				{
+					var tmp:Vector.<DCellXY> = this.input.getInputCopy();
+					var action:DCellXY = tmp.pop();
+					
+					while (action.x != 0 || action.y != 0)
 					{
-						this.move(action, this.MOVE_SPEED);
-						
-						break;
-					}
-					else
-					{
-						next = this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y);
+						var next:int = this.scene.getSceneCell(this.x + action.x, this.y + action.y);
 						
 						if (next != Game.FALL && next != Game.LAVA)
 						{
-							this.jump(action, 2);
+							this.move(action, this.MOVE_SPEED);
 							
 							break;
 						}
+						else
+						{
+							next = this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y);
+							
+							if (next != Game.FALL && next != Game.LAVA)
+							{
+								this.jump(action, 2);
+								
+								break;
+							}
+						}
+						
+						
+						action = tmp.pop();
 					}
-					
-					
-					action = tmp.pop();
 				}
 			}
 		}
