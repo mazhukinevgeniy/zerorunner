@@ -3,7 +3,6 @@ package ui.windows.achievements
 	import feathers.controls.Label;
 	import starling.display.Image;
 	import starling.display.Sprite;
-	import starling.events.Event;
 	import starling.textures.Texture;
 	import ui.themes.ExtendedTheme;
 	
@@ -29,37 +28,31 @@ package ui.windows.achievements
 			
 			this.addChild(this.background);
 			this.addChild(this.message);
-			
-			this.addEventListener(Event.ENTER_FRAME, this.changeHeightAndRelocate);
 		}
 		
-		private function changeHeightAndRelocate(event:Event):void
-		{
-			if (this.visible)
-			{
-				if (this.message.height != lastHeight)
-				{
-					this.background.height = this.message.height;
-					this.lastHeight = this.message.height;
-				}
-				
-				if (this.y + this.height > Main.HEIGHT)
-						this.y = this.y - this.height;
-				
-				trace("enter");
-			}
-		}
 		
 		public function updateMessage(testMessage:String, mouseX:Number, mouseY:Number):void
 		{
+			const OFFSET:int = 15;
+			
 			this.message.text = testMessage;
 			
 			if (mouseX + this.width < Main.WIDTH)
-				this.x = mouseX + 10;
+				this.x = mouseX + OFFSET;
 			else
-				this.x = mouseX - this.width;
-				
-			this.y = mouseY;
+				this.x = Main.WIDTH - (this.width + OFFSET);
+			
+			if (mouseY + this.height < Main.HEIGHT)
+				this.y = mouseY + OFFSET;
+			else
+				this.y = Main.HEIGHT - (this.height + OFFSET);
+			
+			
+			if (this.message.height != lastHeight)
+			{
+				this.background.height = this.message.height;
+				this.lastHeight = this.message.height;
+			}
 		}
 		
 	}
