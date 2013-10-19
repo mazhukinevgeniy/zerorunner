@@ -10,16 +10,19 @@ package ui.windows.achievements
 	internal class ViewAchievement extends Sprite
 	{
 		private var _id:int;
-		
 		private var position:int;
 		
 		private var parentContainer:AchievementsWindow;
+		
+		internal var data:AchievementData;
 		
 		public function ViewAchievement(id:int, position:int, skin:Texture, parentContainer:AchievementsWindow)
 		{
 			this._id = id;
 			this.position = position;
 			this.parentContainer = parentContainer;
+			
+			//this. //TODO: what was that?
 			
 			super();
 			
@@ -48,7 +51,7 @@ package ui.windows.achievements
 			
 			if (touchHover)
 			{
-				this.parentContainer.displayDescription(this.id, touchHover.globalX, touchHover.globalY);
+				this.parentContainer.displayDescription(this.id);
 			}	
 		}
 		

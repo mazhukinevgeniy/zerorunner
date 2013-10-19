@@ -36,9 +36,12 @@ package ui.windows.achievements
 		private var achievementDescription:MessageBubble;
 		private var lastDisplayedDescription:int;
 		
+		private var achData:AchievementData;
 		
 		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementViewer) 
 		{
+			this.achData = new AchievementData(1, achievementSave);
+			
 			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
 			
@@ -92,7 +95,6 @@ package ui.windows.achievements
 		
 		private function createViewAchievement():void
 		{
-			var achievementData:AchievementData;
 			var nameOfSkin:String
 			var texture:Texture;
 			
@@ -100,15 +102,15 @@ package ui.windows.achievements
 			
 			for (var i:int = 0; i < this.numberOfAchievements; ++i)
 			{
-				achievementData = new AchievementData(i);
+				this.achData.reset(i);
 
-				if (achievementData.unlocked)
-					nameOfSkin = achievementData.enabledSkin;
+				if (this.achData.unlocked)
+					nameOfSkin = this.achData.enabledSkin;
 				else
-					nameOfSkin = achievementData.disabledSkin;
+					nameOfSkin = this.achData.disabledSkin;
 				
 				texture = this.assets.getTextureAtlas("gameAtlas").getTexture(nameOfSkin);
-				this.achievements.push(new ViewAchievement(i, achievementData.position, texture, this));
+				this.achievements.push(new ViewAchievement(i, this.achData.position, texture, this));
 			}
 		}
 		
@@ -146,13 +148,13 @@ package ui.windows.achievements
 			}
 		}
 		
-		public function displayDescription(id:int, mouseX:Number, mouseY:Number):void
+		public function displayDescription(id:int):void
 		{
 			if (this.lastDisplayedDescription != id)
 			{
-				var achievementData:AchievementData = new AchievementData(id);
-			
-				this.achievementDescription.updateMessage(achievementData.description + " " + (String)(id), mouseX, mouseY);
+				this.achData.reset(id);
+				
+				this.achievementDescription.updateMessage(this.achData.description + " " + (String)(id), 123476, 16574);
 				this.achievementDescription.visible = true;
 				this.lastDisplayedDescription = id;
 			}

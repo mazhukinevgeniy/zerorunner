@@ -1,5 +1,6 @@
 package ui.windows.achievements 
 {
+	import data.viewers.AchievementViewer;
 	
 	public class AchievementData 
 	{
@@ -9,12 +10,27 @@ package ui.windows.achievements
 		private var _disabledSkin:String;
 		private var _description:String;
 		
+		private var save:AchievementViewer;
 		
-		public function AchievementData(position:int, unlocked:Boolean = false, enabledSkin:String = "ground", disabledSkin:String = "unimplemented", description:String = "this is achievement \n this is achievement \n this is achievement \n this is achievement this is achievement") 
+		public function AchievementData(id:int, save:AchievementViewer) 
+		{
+			this.save = save;
+			
+			this.reset(id);
+		}
+		
+		internal function reset(id:int):void
 		{
 			var radius:int = 15;
 			
-			this._position = position;
+			var unlocked:Boolean = false;
+			var enabledSkin:String = "ground";
+			var disabledSkin:String = "unimplemented";
+			var description:String = "this is achievement \n this is achievement" +
+									 "\n this is achievement\n this is achievement" +
+									 "this is achievement";
+			
+			this._position = id;
 			this._unlocked = unlocked;
 			this._enabledSkin = enabledSkin;
 			this._disabledSkin = disabledSkin;
