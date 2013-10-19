@@ -110,9 +110,7 @@ package
 				var gameRoot:starling.display.Sprite = new starling.display.Sprite();
 				
 				this.game = new GameElements(flow, database, this.assets, gameRoot);
-				this.shell = new Shell(this.starlingRoot, database, (this.game));
-				//TODO: do not pass damn foundations to the shell, it's madness
-				//TODO: is it? must think
+				this.shell = new Shell(this.starlingRoot, database, this.game);
 				
 				Starling.current.stage.color = 0;
 			}

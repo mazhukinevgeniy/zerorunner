@@ -31,7 +31,6 @@ package ui
 		
 		public function Shell(displayRoot:DisplayObjectContainer, 
 							database:DatabaseManager, foundations:GameElements)
-							//TODO: check what can be not passed; think if we need another parameter struct 
 		{
 			this.status = database.status;
 			
