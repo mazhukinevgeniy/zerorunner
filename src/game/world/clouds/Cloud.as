@@ -13,8 +13,10 @@ package game.world.clouds
 		private var dY:int;
 		private var dA:Number;
 		
-		public function Cloud(foundations:GameElements, cloudiness:int = 0) 
+		public function Cloud(foundations:GameElements, cloudiness:int = 0) //TODO: pass
 		{
+			cloudiness = int(Math.random() * 50); //TODO: remove
+			
 			do
 			{
 				this.dX = Math.random() * 2 * (Math.random() < 0.5 ? 1 : -1);
@@ -22,7 +24,7 @@ package game.world.clouds
 			}
 			while (this.dX == 0 && this.dY == 0);
 			
-			var bitmapData:BitmapData = new CloudTexture(int(Math.random() * 50));
+			var bitmapData:BitmapData = new CloudBitmap(cloudiness);
 			
 			super(Texture.fromBitmapData(bitmapData));
 			
