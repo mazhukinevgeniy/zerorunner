@@ -1,9 +1,11 @@
 package game.world.clouds 
 {
+	import flash.display.BitmapData;
 	import flash.events.Event;
 	import game.GameElements;
 	import starling.core.Starling;
 	import starling.extensions.krecha.ScrollTile;
+	import starling.textures.Texture;
 	
 	internal class Cloud extends ScrollTile
 	{
@@ -20,7 +22,11 @@ package game.world.clouds
 			}
 			while (this.dX == 0 && this.dY == 0);
 			
-			super(foundations.assets.getTexture("testcloud"));
+			var bitmapData:BitmapData = new CloudTexture(int(Math.random() * 50));
+			
+			super(Texture.fromBitmapData(bitmapData));
+			
+			this.alpha = cloudiness * (Math.random() + 1) / 500 + 1/4;
 			/*
 			super();
 			

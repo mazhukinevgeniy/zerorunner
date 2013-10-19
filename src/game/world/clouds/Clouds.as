@@ -33,16 +33,14 @@ package game.world.clouds
 		
 		update function prerestore(config:GameConfig):void
 		{
-			const numberOfClouds:int = 2 + Math.random() * 2;
+			const numberOfClouds:int = 1;//2 + Math.random() * 2;
 			//TODO: link to config as cloud density is important
 			
 			var tile:ScrollTile;
 			
 			for (var i:int = 0; i < numberOfClouds; i++)
 			{
-				tile = this.addLayer(new Cloud(this.foundations));
-				
-				tile.alpha = 0; //TODO: enable again when suitable
+				tile = this.addLayer(new Cloud(this.foundations));//TODO: pass cloud density
 				
 				tile.offsetX = Math.random() * 100;
 				tile.offsetY = Math.random() * 100;

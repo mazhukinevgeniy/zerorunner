@@ -1,7 +1,5 @@
 package ui.background 
 {
-	import game.world.clouds.CloudTexture;
-	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import utils.updates.IUpdateDispatcher;
@@ -14,8 +12,6 @@ package ui.background
 			super();
 			this.addChild(new Quad(Main.WIDTH, Main.HEIGHT, 0x344322));
 			this.addChild(new ResetButton(flow));
-			
-			this.addChild(new CloudTexture(int(Math.random() * 100)));
 		}
 	}
 
