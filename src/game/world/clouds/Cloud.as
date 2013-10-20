@@ -9,7 +9,6 @@ package game.world.clouds
 	{
 		private var dX:int;
 		private var dY:int;
-		private var dA:Number;
 		
 		public function Cloud(texture:Texture)
 		{

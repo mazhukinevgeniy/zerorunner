@@ -5,7 +5,6 @@ package game.world.clouds
 	import game.core.metric.Metric;
 	import game.core.time.Time;
 	import game.GameElements;
-	import starling.display.Sprite;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;
 	import utils.PixelPerfectTween;
