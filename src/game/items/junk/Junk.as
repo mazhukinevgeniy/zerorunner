@@ -1,14 +1,14 @@
-package game.world.items.character 
+package game.items.junk 
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
 	import utils.updates.update;
 	
-	public class Character 
+	public class Junk 
 	{
 		private var elements:GameElements;
 		
-		public function Character(elements:GameElements) 
+		public function Junk(elements:GameElements) 
 		{
 			this.elements = elements;
 			
@@ -18,7 +18,10 @@ package game.world.items.character
 		
 		update function prerestore(config:GameConfig):void
 		{
-			new CharacterLogic(this.elements);
+			var i:int;
+			
+			for (i = 0; i < config.junks; i++)
+				new JunkLogic(this.elements);
 		}
 	}
 

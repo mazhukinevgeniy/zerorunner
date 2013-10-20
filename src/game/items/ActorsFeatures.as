@@ -1,16 +1,13 @@
-package game.world 
+package game.items 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.world.items.beacon.Beacon;
-	import game.world.items.character.Character;
-	import game.world.items.ItemLogicBase;
-	import game.world.items.junk.Junk;
-	import game.world.items.PointsOfInterest;
-	import game.world.items.technic.Technic;
-	import game.world.operators.ActorOperators;
+	import game.items.beacon.Beacon;
+	import game.items.character.Character;
+	import game.items.junk.Junk;
+	import game.items.technic.Technic;
 	import utils.updates.update;
 	
 	public class ActorsFeatures implements IActors, IActorTracker
@@ -22,7 +19,8 @@ package game.world
 		
 		public function ActorsFeatures(foundations:GameElements) 
 		{
-			new ActorOperators(this, foundations.flow, foundations.pointsOfInterest);
+			new Act(this, foundations.flow, foundations.pointsOfInterest);
+			new Clear(this, foundations.flow);
 			
 			foundations.flow.workWithUpdateListener(this);
 			foundations.flow.addUpdateListener(Update.prerestore);

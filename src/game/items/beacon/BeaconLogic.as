@@ -1,9 +1,9 @@
-package game.world.items.beacon 
+package game.items.beacon 
 {
 	import game.core.metric.*;
 	import game.GameElements;
-	import game.world.items.ISolderable;
-	import game.world.items.ItemLogicBase;
+	import game.items.ISolderable;
+	import game.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	
 	internal class BeaconLogic extends ItemLogicBase implements ISolderable

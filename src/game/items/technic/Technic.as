@@ -1,4 +1,4 @@
-package game.world.items.technic 
+package game.items.technic 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.ICoordinated;

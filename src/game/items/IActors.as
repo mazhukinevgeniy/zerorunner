@@ -1,6 +1,5 @@
-package game.world 
+package game.items 
 {
-	import game.world.items.ItemLogicBase;
 	
 	public interface IActors 
 	{

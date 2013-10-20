@@ -1,14 +1,14 @@
-package game.world.items.beacon 
+package game.items.character 
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
 	import utils.updates.update;
 	
-	public class Beacon 
+	public class Character 
 	{
 		private var elements:GameElements;
 		
-		public function Beacon(elements:GameElements) 
+		public function Character(elements:GameElements) 
 		{
 			this.elements = elements;
 			
@@ -18,9 +18,8 @@ package game.world.items.beacon
 		
 		update function prerestore(config:GameConfig):void
 		{
-			new BeaconLogic(this.elements);
+			new CharacterLogic(this.elements);
 		}
-		
 	}
 
 }

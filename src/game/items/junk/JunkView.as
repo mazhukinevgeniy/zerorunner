@@ -1,7 +1,7 @@
-package game.world.items.junk 
+package game.items.junk 
 {
 	import game.GameElements;
-	import game.world.items.ItemViewBase;
+	import game.items.ItemViewBase;
 	
 	internal class JunkView extends ItemViewBase
 	{

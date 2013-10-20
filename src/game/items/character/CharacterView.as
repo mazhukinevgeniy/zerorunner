@@ -1,11 +1,11 @@
-package game.world.items.character 
+package game.items.character 
 {
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.core.time.Time;
 	import game.GameElements;
-	import game.world.items.ItemViewBase;
+	import game.items.ItemViewBase;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.MovieClip;

@@ -1,9 +1,9 @@
-package game.world.items.junk 
+package game.items.junk 
 {
 	import game.GameElements;
-	import game.world.items.IPointCollector;
-	import game.world.items.ISolderable;
-	import game.world.items.ItemLogicBase;
+	import game.items.ISolderable;
+	import game.items.ItemLogicBase;
+	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	
 	internal class JunkLogic extends ItemLogicBase implements ISolderable

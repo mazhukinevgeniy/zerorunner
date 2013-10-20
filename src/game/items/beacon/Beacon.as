@@ -1,14 +1,14 @@
-package game.world.items.junk 
+package game.items.beacon 
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
 	import utils.updates.update;
 	
-	public class Junk 
+	public class Beacon 
 	{
 		private var elements:GameElements;
 		
-		public function Junk(elements:GameElements) 
+		public function Beacon(elements:GameElements) 
 		{
 			this.elements = elements;
 			
@@ -18,11 +18,9 @@ package game.world.items.junk
 		
 		update function prerestore(config:GameConfig):void
 		{
-			var i:int;
-			
-			for (i = 0; i < config.junks; i++)
-				new JunkLogic(this.elements);
+			new BeaconLogic(this.elements);
 		}
+		
 	}
 
 }

@@ -1,8 +1,8 @@
-package game.world.items.technic 
+package game.items.technic 
 {
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.world.items.ItemViewBase;
+	import game.items.ItemViewBase;
 	
 	internal class TechnicView extends ItemViewBase
 	{
