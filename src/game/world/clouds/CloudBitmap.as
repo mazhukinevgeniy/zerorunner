@@ -7,8 +7,8 @@ package game.world.clouds
 	internal class CloudBitmap extends BitmapData
 	{
 		
-		internal static const WIDTH:Number = 1024;
-		internal static const HEIGHT:Number = 1024;
+		internal static const WIDTH:Number = 256;
+		internal static const HEIGHT:Number = 256;
 		
 		[Embed(source = "../../../../res/assets/textures/atlases/sprites/unimplemented.png")]
 		private static const BaseCloud:Class;
@@ -42,12 +42,27 @@ package game.world.clouds
 					copyNewElement.y = newElement.y;
 					
 					if(newElement.x + newElement.width > CloudBitmap.WIDTH)
-						copyNewElement.x = - (CloudBitmap.WIDTH - newElement.x); //TODO: fix junction
+						copyNewElement.x = int(newElement.x - CloudBitmap.WIDTH); //TODO: fix junction
 					
 					if(newElement.y + newElement.height > CloudBitmap.HEIGHT)
-						copyNewElement.y = - (CloudBitmap.HEIGHT - newElement.y);
+						copyNewElement.y = int(newElement.y - CloudBitmap.HEIGHT);
 						
 					container.addChild(copyNewElement);
+				}
+				if (newElement.x + newElement.width > CloudBitmap.WIDTH && 
+					newElement.y + newElement.height > CloudBitmap.HEIGHT)
+				{
+					var copyUp:Bitmap = new Bitmap(dataBaseCloud.clone());
+					var copyLeft:Bitmap = new Bitmap(dataBaseCloud.clone());
+					
+					copyUp.x = newElement.x;
+					copyUp.y = int(newElement.y - CloudBitmap.HEIGHT);
+					
+					copyLeft.x = int(newElement.x - CloudBitmap.WIDTH);
+					copyLeft.y = newElement.y;
+					
+					container.addChild(copyUp);
+					container.addChild(copyLeft);
 				}
 				
 			}
