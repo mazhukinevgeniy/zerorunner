@@ -32,8 +32,8 @@ package game.world.clouds
 		
 		private function handleEnterFrame(event:Event):void
 		{
-			this.offsetX += this.dX;
-			this.offsetY += this.dY;
+			this.offsetX = int(this.offsetX + this.dX);
+			this.offsetY = int(this.offsetY + this.dY);
 		}
 	}
 
