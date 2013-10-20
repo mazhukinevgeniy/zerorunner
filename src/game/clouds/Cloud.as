@@ -1,4 +1,4 @@
-package game.world.clouds 
+package game.clouds 
 {
 	import flash.events.Event;
 	import starling.core.Starling;

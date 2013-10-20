@@ -59,7 +59,6 @@ package
 		
 		
 		//TODO: Die more.
-		//TODO: move the package: game.world.cloud -> game.cloud
 	}
 
 }

@@ -1,4 +1,4 @@
-package game.world.clouds 
+package game.clouds 
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;

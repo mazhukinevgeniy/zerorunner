@@ -8,7 +8,6 @@ package game.renderer
 	import game.items.ItemLogicBase;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
-	import game.world.clouds.Clouds;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
@@ -37,7 +36,6 @@ package game.renderer
 			this.actors = foundations.actors;
 			
 			this.lines = new Camera(foundations);
-			foundations.displayRoot.addChild(new Clouds(foundations));
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
