@@ -1,4 +1,4 @@
-package game.world.renderer 
+package game.renderer 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.ICoordinated;

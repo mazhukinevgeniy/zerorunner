@@ -4,13 +4,13 @@ package game
 	import game.core.input.InputManager;
 	import game.core.time.Time;
 	import game.hud.UIExtendsions;
+	import game.renderer.Renderer;
 	import game.world.ActorsFeatures;
 	import game.world.IActors;
 	import game.world.IActorTracker;
 	import game.world.IScene;
 	import game.world.items.IPointCollector;
 	import game.world.items.PointsOfInterest;
-	import game.world.renderer.Renderer;
 	import game.world.SceneFeatures;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObjectContainer;
