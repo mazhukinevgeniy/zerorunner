@@ -10,6 +10,10 @@ package game.world.clouds
 		internal static const WIDTH:Number = 1024;
 		internal static const HEIGHT:Number = 1024;
 		
+		private static const MAX_NUMBER_OF_ELEMENTS:int = 165;
+		private static const MIN_NUMBER_OF_ELEMENTS:int = 5;
+		private static const STEP:int = (CloudBitmap.MAX_NUMBER_OF_ELEMENTS - CloudBitmap.MIN_NUMBER_OF_ELEMENTS) / Clouds.SIZE_CLOUDINNESS_SCALE;
+		
 		[Embed(source = "../../../../res/assets/textures/atlases/sprites/unimplemented.png")]
 		private static const BaseCloud:Class;
 		
@@ -18,8 +22,8 @@ package game.world.clouds
 			super(CloudBitmap.WIDTH, CloudBitmap.HEIGHT, true, 0x00FFFFFF);
 			
 			var baseCloud:Bitmap = new BaseCloud();
-			var numberOfElements:int = 30;//int(cloudiness * (Math.random() + 3) / 4);//TODO: check formula
-			//TODO: invent cloudiness scale
+			var numberOfElements:int = cloudiness * CloudBitmap.STEP + CloudBitmap.MIN_NUMBER_OF_ELEMENTS + 
+									   (Math.random() * 100) % CloudBitmap.STEP ;
 			
 			var dataBaseCloud:BitmapData = baseCloud.bitmapData; 
 			var container:Sprite = new Sprite();
@@ -42,7 +46,7 @@ package game.world.clouds
 					copyNewElement.y = newElement.y;
 					
 					if(newElement.x + newElement.width > CloudBitmap.WIDTH)
-						copyNewElement.x = int(newElement.x - CloudBitmap.WIDTH); //TODO: fix junction
+						copyNewElement.x = int(newElement.x - CloudBitmap.WIDTH);
 					
 					if(newElement.y + newElement.height > CloudBitmap.HEIGHT)
 						copyNewElement.y = int(newElement.y - CloudBitmap.HEIGHT);

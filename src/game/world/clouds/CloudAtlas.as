@@ -6,7 +6,7 @@ package game.world.clouds
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
-	public class CloudAtlas extends TextureAtlas
+	internal class CloudAtlas extends TextureAtlas
 	{	
 		
 		public function CloudAtlas(cloudiness:int) 

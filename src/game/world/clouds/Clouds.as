@@ -13,6 +13,8 @@ package game.world.clouds
 	
 	public class Clouds extends ScrollImage
 	{
+		internal static const SIZE_CLOUDINNESS_SCALE:int = 10;
+		
 		private var foundations:GameElements;
 		
 		private var moveTween:PixelPerfectTween;
@@ -36,12 +38,13 @@ package game.world.clouds
 			const numberOfClouds:int = 4;
 			//TODO: link to config as cloud density is important
 			//TODO: cloud density is 1, must link to save (see above)
-			var cloudAtlas:CloudAtlas = new CloudAtlas(1);//TODO: see above
+			var cloudiness:int = 0 % Clouds.SIZE_CLOUDINNESS_SCALE;
+			var cloudAtlas:CloudAtlas = new CloudAtlas(cloudiness);//TODO: see above
 			var tile:ScrollTile;
 			
 			for (var i:int = 0; i < numberOfClouds; i++)
 			{
-				tile = this.addLayer(new Cloud(cloudAtlas.getTexture("texture" + String(i + 1))));//TODO: pass cloud density
+				tile = this.addLayer(new Cloud(cloudAtlas.getTexture("texture" + String(i + 1))));
 				
 				tile.offsetX = Math.random() * 100;
 				tile.offsetY = Math.random() * 100;
