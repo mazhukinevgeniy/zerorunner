@@ -2,7 +2,7 @@ package game.world.operators
 {
 	import data.viewers.GameConfig;
 	import game.world.IActors;
-	import game.world.items.utils.ItemLogicBase;
+	import game.world.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

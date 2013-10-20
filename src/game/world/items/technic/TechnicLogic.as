@@ -1,13 +1,13 @@
-package game.world.items 
+package game.world.items.technic 
 {
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.ISolderable;
-	import game.world.items.utils.ItemLogicBase;
+	import game.world.items.IPointCollector;
+	import game.world.items.ISolderable;
+	import game.world.items.ItemLogicBase;
 	
 	public class TechnicLogic extends ItemLogicBase
 	{

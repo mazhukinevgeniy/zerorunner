@@ -8,8 +8,8 @@ package game
 	import game.world.IActors;
 	import game.world.IActorTracker;
 	import game.world.IScene;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.PointsOfInterest;
+	import game.world.items.IPointCollector;
+	import game.world.items.PointsOfInterest;
 	import game.world.renderer.Renderer;
 	import game.world.SceneFeatures;
 	import starling.animation.Juggler;

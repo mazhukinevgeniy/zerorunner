@@ -4,12 +4,12 @@ package game.world
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.world.items.BeaconLogic;
-	import game.world.items.CharacterLogic;
-	import game.world.items.JunkLogic;
-	import game.world.items.TechnicLogic;
-	import game.world.items.utils.ItemLogicBase;
-	import game.world.items.utils.PointsOfInterest;
+	import game.world.items.beacon.BeaconLogic;
+	import game.world.items.character.CharacterLogic;
+	import game.world.items.ItemLogicBase;
+	import game.world.items.junk.JunkLogic;
+	import game.world.items.PointsOfInterest;
+	import game.world.items.technic.TechnicLogic;
 	import game.world.operators.ActorOperators;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

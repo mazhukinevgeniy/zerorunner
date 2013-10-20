@@ -1,4 +1,4 @@
-package game.world.items.utils 
+package game.world.items 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.*;
@@ -99,6 +99,12 @@ package game.world.items.utils
 			this.actorTracker.removeActor(this);
 			
 			this.view.disappear();
+		}
+		
+		public function applyShock():void
+		{
+			
+			
 		}
 		
 		/**

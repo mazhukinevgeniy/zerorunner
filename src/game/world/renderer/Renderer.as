@@ -7,8 +7,8 @@ package game.world.renderer
 	import game.world.clouds.Clouds;
 	import game.world.IActors;
 	import game.world.IScene;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.ItemLogicBase;
+	import game.world.items.IPointCollector;
+	import game.world.items.ItemLogicBase;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;

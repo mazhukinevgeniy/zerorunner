@@ -1,7 +1,7 @@
 package game.world.operators 
 {
 	import game.world.IActors;
-	import game.world.items.utils.IPointCollector;
+	import game.world.items.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class ActorOperators 

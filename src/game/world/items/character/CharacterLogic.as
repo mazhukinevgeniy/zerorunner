@@ -1,11 +1,11 @@
-package game.world.items 
+package game.world.items.character 
 {
 	import game.core.input.InputManager;
 	import game.core.metric.*;
 	import game.GameElements;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.ISolderable;
-	import game.world.items.utils.ItemLogicBase;
+	import game.world.items.IPointCollector;
+	import game.world.items.ISolderable;
+	import game.world.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class CharacterLogic extends ItemLogicBase

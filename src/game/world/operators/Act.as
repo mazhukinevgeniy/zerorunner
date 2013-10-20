@@ -2,8 +2,8 @@ package game.world.operators
 {
 	import game.core.metric.ICoordinated;
 	import game.world.IActors;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.ItemLogicBase;
+	import game.world.items.IPointCollector;
+	import game.world.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
