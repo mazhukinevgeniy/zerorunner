@@ -36,10 +36,9 @@ package game.world.clouds
 		update function prerestore(config:GameConfig):void
 		{
 			const numberOfClouds:int = 4;
-			//TODO: link to config as cloud density is important
-			//TODO: cloud density is 1, must link to save (see above)
-			var cloudiness:int = 0 % Clouds.SIZE_CLOUDINNESS_SCALE;
-			var cloudAtlas:CloudAtlas = new CloudAtlas(cloudiness);//TODO: see above
+			var cloudiness:int = 2 % Clouds.SIZE_CLOUDINNESS_SCALE;
+			
+			var cloudAtlas:CloudAtlas = new CloudAtlas(cloudiness);
 			var tile:ScrollTile;
 			
 			for (var i:int = 0; i < numberOfClouds; i++)
@@ -49,7 +48,7 @@ package game.world.clouds
 				tile.offsetX = Math.random() * 100;
 				tile.offsetY = Math.random() * 100;
 				
-				tile.alpha = 1 * (Math.random() + 1) / 500 + 1/4;
+				tile.alpha = 1/4;//TODO remove
 			}
 			
 			this.x = this.y = 0;
