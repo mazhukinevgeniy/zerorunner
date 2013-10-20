@@ -8,7 +8,7 @@ package game.world.items.character
 	import game.world.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class CharacterLogic extends ItemLogicBase
+	internal class CharacterLogic extends ItemLogicBase
 	{
 		private const MOVE_SPEED:int = 1;
 		private const SOLDERING_POWER:int = 2;

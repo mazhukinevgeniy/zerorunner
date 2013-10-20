@@ -9,7 +9,7 @@ package game.world.items.technic
 	import game.world.items.ISolderable;
 	import game.world.items.ItemLogicBase;
 	
-	public class TechnicLogic extends ItemLogicBase
+	internal class TechnicLogic extends ItemLogicBase
 	{
 		private const MOVE_SPEED:int = 0;
 		private const SOLDERING_POWER:int = 3;
@@ -189,9 +189,8 @@ package game.world.items.technic
 			}
 		}
 		
-		//DANGER
 		
-		public function moveTo(target:ICoordinated):void
+		internal function moveTo(target:ICoordinated):void
 		{
 			super.move(Metric.getTmpDCell(target.x - this.x, target.y - this.y), -1);
 		}

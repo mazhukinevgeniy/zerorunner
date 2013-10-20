@@ -6,7 +6,7 @@ package game.world.items.beacon
 	import game.world.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class BeaconLogic extends ItemLogicBase implements ISolderable
+	internal class BeaconLogic extends ItemLogicBase implements ISolderable
 	{
 		private const MAXIMUM_CONSTRUCTION:int = 50;
 		

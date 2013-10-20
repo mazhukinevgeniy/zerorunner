@@ -6,7 +6,7 @@ package game.world.items.junk
 	import game.world.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class JunkLogic extends ItemLogicBase implements ISolderable
+	internal class JunkLogic extends ItemLogicBase implements ISolderable
 	{
 		private var flow:IUpdateDispatcher;
 		

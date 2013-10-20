@@ -4,21 +4,21 @@ package game.world
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.world.items.beacon.Beacon;
 	import game.world.items.beacon.BeaconLogic;
+	import game.world.items.character.Character;
 	import game.world.items.character.CharacterLogic;
 	import game.world.items.ItemLogicBase;
+	import game.world.items.junk.Junk;
 	import game.world.items.junk.JunkLogic;
 	import game.world.items.PointsOfInterest;
+	import game.world.items.technic.Technic;
 	import game.world.items.technic.TechnicLogic;
 	import game.world.operators.ActorOperators;
-	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class ActorsFeatures implements IActors, IActorTracker
 	{
-		private var foundations:GameElements;
-		
-		
 		private var actors:Array;
 		private var width:int;
 		
@@ -26,33 +26,30 @@ package game.world
 		
 		public function ActorsFeatures(foundations:GameElements) 
 		{
-			this.foundations = foundations;
-			
 			new ActorOperators(this, foundations.flow, foundations.pointsOfInterest);
 			
-			var flow:IUpdateDispatcher = foundations.flow;
+			foundations.flow.workWithUpdateListener(this);
+			foundations.flow.addUpdateListener(Update.prerestore);
+			foundations.flow.addUpdateListener(Update.quitGame);
 			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
-			flow.addUpdateListener(Update.technicUnlocked);
+			new Character(foundations);
+			new Beacon(foundations);
+			new Technic(foundations);
+			new Junk(foundations);
 		}
+		
 		
 		update function prerestore(config:GameConfig):void
 		{
-			var i:int;
-			
 			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			this.actors = new Array();
-			
-			new CharacterLogic(this.foundations);
-			new BeaconLogic(this.foundations);
-			
-			for (i = 0; i < config.numberOfDroids; i++)
-				new TechnicLogic(this.foundations);
-			
-			for (i = 0; i < config.junks; i++)
-				new JunkLogic(this.foundations);
 		}
+		
+		update function quitGame():void
+		{
+			this.actors = null;
+		}
+		
 		
 		public function findObjectByCell(x:int, y:int):ItemLogicBase
 		{
@@ -76,12 +73,6 @@ package game.world
 			this.actors[actor.x + actor.y * this.width] = null;
 		}
 		
-		
-		update function technicUnlocked(place:ICoordinated):void
-		{
-			var technic:TechnicLogic = new TechnicLogic(this.foundations);
-			technic.moveTo(place);
-		}
 	}
 
 }
