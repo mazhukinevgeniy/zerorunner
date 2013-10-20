@@ -5,15 +5,11 @@ package game.world
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.world.items.beacon.Beacon;
-	import game.world.items.beacon.BeaconLogic;
 	import game.world.items.character.Character;
-	import game.world.items.character.CharacterLogic;
 	import game.world.items.ItemLogicBase;
 	import game.world.items.junk.Junk;
-	import game.world.items.junk.JunkLogic;
 	import game.world.items.PointsOfInterest;
 	import game.world.items.technic.Technic;
-	import game.world.items.technic.TechnicLogic;
 	import game.world.operators.ActorOperators;
 	import utils.updates.update;
 	
