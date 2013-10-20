@@ -3,9 +3,9 @@ package game.world.items
 	import data.viewers.GameConfig;
 	import game.core.metric.*;
 	import game.GameElements;
+	import game.scene.IScene;
 	import game.world.IActors;
 	import game.world.IActorTracker;
-	import game.world.IScene;
 	import starling.display.DisplayObject;
 	import utils.updates.IUpdateDispatcher;
 	

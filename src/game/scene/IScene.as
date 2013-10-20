@@ -1,4 +1,4 @@
-package game.world 
+package game.scene 
 {
 	
 	public interface IScene 
