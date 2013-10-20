@@ -12,7 +12,7 @@ package
 		public static const hexagon:Class;
 		
 		[Embed(source = "../res/assets/textures/testcloud.png")]
-		public static const testcloud :Class;
+		public static const testcloud:Class;
 		
 		//Sounds
 		

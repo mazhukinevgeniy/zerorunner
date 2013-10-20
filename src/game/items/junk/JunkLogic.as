@@ -1,12 +1,12 @@
-package game.world.items 
+package game.items.junk 
 {
 	import game.GameElements;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.ISolderable;
-	import game.world.items.utils.ItemLogicBase;
+	import game.items.ISolderable;
+	import game.items.ItemLogicBase;
+	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class JunkLogic extends ItemLogicBase implements ISolderable
+	internal class JunkLogic extends ItemLogicBase implements ISolderable
 	{
 		private var flow:IUpdateDispatcher;
 		

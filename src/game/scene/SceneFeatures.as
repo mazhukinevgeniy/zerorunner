@@ -1,4 +1,4 @@
-package game.world 
+package game.scene 
 {
 	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;

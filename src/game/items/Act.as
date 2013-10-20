@@ -1,9 +1,7 @@
-package game.world.operators 
+package game.items 
 {
 	import game.core.metric.ICoordinated;
-	import game.world.IActors;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.ItemLogicBase;
+	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

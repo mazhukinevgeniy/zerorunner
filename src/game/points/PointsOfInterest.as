@@ -1,4 +1,4 @@
-package game.world.items.utils 
+package game.points 
 {
 	import game.core.metric.ICoordinated;
 	import utils.updates.IUpdateDispatcher;

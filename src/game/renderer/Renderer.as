@@ -1,14 +1,14 @@
-package game.world.renderer 
+package game.renderer 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
+	import game.items.IActors;
+	import game.items.ItemLogicBase;
+	import game.points.IPointCollector;
+	import game.scene.IScene;
 	import game.world.clouds.Clouds;
-	import game.world.IActors;
-	import game.world.IScene;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.ItemLogicBase;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.QuadBatch;

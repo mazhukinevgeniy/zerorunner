@@ -9,11 +9,12 @@ package game.core.input
 	
 	public class InputManager
 	{
+		private var changes:Vector.<DCellXY>;
 		
 		private var order:Vector.<int>;
 		private var maxI:int;
 		
-		private var changes:Vector.<DCellXY>;
+		private var _isSpacePressed:Boolean;
 		
 		public function InputManager(flow:IUpdateDispatcher)
 		{
@@ -44,6 +45,8 @@ package game.core.input
 				this.order[i] = -1;
 			
 			this.maxI = 1;
+			
+			this._isSpacePressed = false;
 		}
 		
 		update function prerestore(config:GameConfig):void
@@ -90,13 +93,10 @@ package game.core.input
 				trace("used", this.maxI, "of", int.MAX_VALUE);
 			}
 			
-			return arr;
-		}
-		
-		public function discardClicks():void
-		{
-			for (var i:int = 9; i < 17; i++)
+			for (i = 9; i < 17; i++)
 				this.order[i] = -1;
+			
+			return arr;
 		}
 		
 		
@@ -117,6 +117,20 @@ package game.core.input
 				this.pop(tmp + InputManager.PRESS);
 			}
 		}
+		
+		internal function spacePressed():void
+		{
+			this._isSpacePressed = true;
+		}
+		
+		public function get isSpacePressed():Boolean
+		{
+			var tmp:Boolean = this._isSpacePressed;
+			this._isSpacePressed = false;
+			
+			return tmp;
+		}
+		
 		
 		private static const NO_DIRECTION:int = 0;
 		

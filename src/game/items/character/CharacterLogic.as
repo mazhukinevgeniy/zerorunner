@@ -1,14 +1,14 @@
-package game.world.items 
+package game.items.character 
 {
 	import game.core.input.InputManager;
 	import game.core.metric.*;
 	import game.GameElements;
-	import game.world.items.utils.IPointCollector;
-	import game.world.items.utils.ISolderable;
-	import game.world.items.utils.ItemLogicBase;
+	import game.items.ISolderable;
+	import game.items.ItemLogicBase;
+	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class CharacterLogic extends ItemLogicBase
+	internal class CharacterLogic extends ItemLogicBase
 	{
 		private const MOVE_SPEED:int = 1;
 		private const SOLDERING_POWER:int = 2;
@@ -69,36 +69,43 @@ package game.world.items
 				this.cooldown--;
 			else
 			{
-				var tmp:Vector.<DCellXY> = this.input.getInputCopy();
-				var action:DCellXY = tmp.pop();
-				
-				while (action.x != 0 || action.y != 0)
+				if (this.input.isSpacePressed)
 				{
-					var next:int = this.scene.getSceneCell(this.x + action.x, this.y + action.y);
+					this.input.getInputCopy();
 					
-					if (next != Game.FALL && next != Game.LAVA)
+					this.cooldown = 10;
+				}
+				else
+				{
+					var tmp:Vector.<DCellXY> = this.input.getInputCopy();
+					var action:DCellXY = tmp.pop();
+					
+					while (action.x != 0 || action.y != 0)
 					{
-						this.move(action, this.MOVE_SPEED);
-						
-						break;
-					}
-					else
-					{
-						next = this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y);
+						var next:int = this.scene.getSceneCell(this.x + action.x, this.y + action.y);
 						
 						if (next != Game.FALL && next != Game.LAVA)
 						{
-							this.jump(action, 2);
+							this.move(action, this.MOVE_SPEED);
 							
 							break;
 						}
+						else
+						{
+							next = this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y);
+							
+							if (next != Game.FALL && next != Game.LAVA)
+							{
+								this.jump(action, 2);
+								
+								break;
+							}
+						}
+						
+						
+						action = tmp.pop();
 					}
-					
-					
-					action = tmp.pop();
 				}
-				
-				this.input.discardClicks();
 			}
 		}
 		
@@ -139,7 +146,6 @@ package game.world.items
 			
 			
 			this.flow.dispatchUpdate(Update.moveCenter, jChange, this.cooldown + 1);
-			this.input.discardClicks();
 			//TODO: animate
 		}
 		

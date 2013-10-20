@@ -4,7 +4,7 @@ package game.hud
 	import flash.utils.ByteArray;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.world.IScene;
+	import game.scene.IScene;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import utils.updates.update;

@@ -1,11 +1,9 @@
-package game.world.items.utils 
+package game.items 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.*;
 	import game.GameElements;
-	import game.world.IActors;
-	import game.world.IActorTracker;
-	import game.world.IScene;
+	import game.scene.IScene;
 	import starling.display.DisplayObject;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -99,6 +97,12 @@ package game.world.items.utils
 			this.actorTracker.removeActor(this);
 			
 			this.view.disappear();
+		}
+		
+		public function applyShock():void
+		{
+			
+			
 		}
 		
 		/**
