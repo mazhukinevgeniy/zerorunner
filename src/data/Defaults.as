@@ -17,7 +17,9 @@ package data
 			
 			beacon1: Game.NO_BEACON,
 			beacon2: Game.NO_BEACON,
-			beacon3: Game.NO_BEACON
+			beacon3: Game.NO_BEACON,
+			
+			cloudiness: 0
 		};
 		
 		internal static const preferencesDefaults:Object = 

@@ -48,6 +48,7 @@ package data.updaters
 					{
 						this.flow.dispatchUpdate(Update.gameFinished, Game.WON);
 						this.save["level"]++;
+						this.save["cloudiness"] += 2;
 						this.save["junks"] = 1;
 						
 						if (this.save["level"] > Game.LEVEL_CAP)

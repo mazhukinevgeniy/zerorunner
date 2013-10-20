@@ -16,7 +16,7 @@ package data.viewers
 		public function get goal():int { return this.save["goal"]; }
 		public function get level():int { return this.save["level"]; }
 		public function get numberOfDroids():int { return this.save["activeDroids"]; }
-		
+		public function get cloudiness():int { return this.save["cloudiness"]; }
 		
 		
 		

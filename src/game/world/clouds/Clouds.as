@@ -36,7 +36,7 @@ package game.world.clouds
 		update function prerestore(config:GameConfig):void
 		{
 			const numberOfClouds:int = 4;
-			var cloudiness:int = 2 % Clouds.SIZE_CLOUDINNESS_SCALE;
+			var cloudiness:int = config.cloudiness % Clouds.SIZE_CLOUDINNESS_SCALE;
 			
 			var cloudAtlas:CloudAtlas = new CloudAtlas(cloudiness);
 			var tile:ScrollTile;
