@@ -155,7 +155,7 @@ package game.items.technic
 		
 		private function moveInDirection(direction:int):void
 		{
-			this.lastChange = TechnicLogic.moves[direction];
+			var change:DCellXY = this.lastChange = TechnicLogic.moves[direction];
 			
 			this.move(this.lastChange, this.MOVE_SPEED);
 		}

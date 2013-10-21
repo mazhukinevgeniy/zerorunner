@@ -5,6 +5,7 @@ package game.items.base.cores
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.items.base.CoreBase;
+	import game.items.base.ItemBase;
 	
 	public class ExistenceCore extends CoreBase implements ICoordinated
 	{
@@ -25,17 +26,21 @@ package game.items.base.cores
 		
 		protected function move(change:DCellXY, delay:int):void
 		{
-			if (!this.actors.findObjectByCell(this.x + change.x, this.y + change.y))
+			var blocker:ItemBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
+			
+			if (!blocker)
 			{
+				this.item.cooldown = delay;
+				
 				this._x += change.x;
 				this._y += change.y;
 				
 				this.actorTracker.moveActor(this, change);
 				
-				this.view.move(this, change, delay + 1);
+				this.item.view.move(this, change, delay + 1);
 			}
 			else
-				throw new Error();
+				this.item.collider.collideWith(blocker);
 		}
 		
 		public function applyDestruction():void

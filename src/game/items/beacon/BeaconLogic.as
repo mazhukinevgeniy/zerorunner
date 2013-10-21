@@ -15,11 +15,11 @@ package game.items.beacon
 		
 		private var reported:Boolean;
 		
-		public function BeaconLogic(foundations:GameElements) 
+		public function BeaconLogic(cell:ICoordinated, foundations:GameElements) 
 		{
 			this.flow = foundations.flow;
 			
-			super(this.view = new BeaconView(foundations), foundations);
+			super(cell, this.view = new BeaconView(foundations), foundations);
 			
 			super.reset();
 			
