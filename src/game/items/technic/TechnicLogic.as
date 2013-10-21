@@ -160,25 +160,6 @@ package game.items.technic
 			this.move(this.lastChange, this.MOVE_SPEED);
 		}
 		
-		override protected function move(change:DCellXY, delay:int):void
-		{
-			var actor:ItemBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
-			
-			if (!actor)
-				super.move(change, delay);
-			else if (actor is ISolderable)
-			{
-				var tower:ISolderable = actor as ISolderable;
-				tower.applySoldering(this.SOLDERING_POWER);
-				
-				if (tower.progress >= 1)
-				{
-					this.goal = null;
-					this.points.removePointOfInterest(Game.TOWER, actor);
-				}
-			}
-		}
-		
 		
 		internal function moveTo(target:ICoordinated):void
 		{

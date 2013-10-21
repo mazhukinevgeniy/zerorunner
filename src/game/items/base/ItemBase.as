@@ -6,6 +6,7 @@ package game.items.base
 	import game.items.base.cores.ContraptionCore;
 	import game.items.base.cores.ElectricityCore;
 	import game.items.base.cores.ExistenceCore;
+	import starling.display.DisplayObject;
 	
 	public class ItemBase
 	{
