@@ -21,15 +21,15 @@ package game.items.beacon
 		update function prerestore(config:GameConfig):void
 		{
 			do
-				var cell:CellXY = this.getCell();
+				var cell:CellXY = this.getCell(config);
 			while (this.elements.actors.findObjectByCell(cell.x, cell.y));
 			
 			new BeaconLogic(cell, this.elements);
 		}
 		
-		private function getCell():CellXY
+		private function getCell(config:GameConfig):CellXY
 		{
-			return Metric.getTmpCell(Game.BORDER_WIDTH + this.config.width - 1, 
+			return Metric.getTmpCell(Game.BORDER_WIDTH + config.width - 1, 
 									 Game.BORDER_WIDTH);
 		}
 	}

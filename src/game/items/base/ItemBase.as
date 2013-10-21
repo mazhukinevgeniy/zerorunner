@@ -16,9 +16,6 @@ package game.items.base
 		protected var _collider:CollisionCore;
 		protected var _activity:ActivityCore;
 		
-		
-		private var actorTracker:IActorTracker;
-		
 		private var view:ItemViewBase;
 		
 		/**
@@ -27,8 +24,6 @@ package game.items.base
 		public function ItemBase(cell:ICoordinated, view:ItemViewBase) 
 		{
 			this.view = view;
-			
-			this.actorTracker = foundations.actorsTracker;
 			
 			//TODO: set all cores
 		}
