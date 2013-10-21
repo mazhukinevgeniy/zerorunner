@@ -30,27 +30,14 @@ package game.items.character
 			this.points.addPointOfInterest(Game.CHARACTER, this);
 			
 			super(this.view = new CharacterView(foundations), foundations);
-		}
-		
-		override protected function getSpawningCell():CellXY
-		{
-			return Metric.getTmpCell(Game.BORDER_WIDTH, Game.BORDER_WIDTH + this.config.width - 1);
-		}
-		
-		override protected function reset():void
-		{
-			super.reset();
+			
+			//TODO: initialize all cores
 			
 			this.flow.dispatchUpdate(Update.setCenter, this);
 			
-			this.cooldown = 0;
+			this.cooldown = 0; //TODO: find where to store it
 		}
 		
-		
-		override public function applyDestruction():void
-		{
-			this.flow.dispatchUpdate(Update.gameFinished, Game.LOST);
-		}
 		
 		override public function act():void
 		{
@@ -120,12 +107,6 @@ package game.items.character
 				this.cooldown = this.MOVE_SPEED;
 				
 				this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
-				//TODO: animate
-			}
-			else if (actor is ISolderable)
-			{
-				(actor as ISolderable).applySoldering(this.SOLDERING_POWER);
-				
 				//TODO: animate
 			}
 		}

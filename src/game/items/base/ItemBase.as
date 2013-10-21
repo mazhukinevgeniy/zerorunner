@@ -17,11 +17,6 @@ package game.items.base
 		protected var _activity:ActivityCore;
 		
 		
-		
-		protected var actors:IActors;
-		protected var scene:IScene;
-		protected var config:GameConfig;
-		
 		private var actorTracker:IActorTracker;
 		
 		private var view:ItemViewBase;
@@ -31,12 +26,7 @@ package game.items.base
 		 */
 		public function ItemBase(cell:ICoordinated, view:ItemViewBase) 
 		{
-			
 			this.view = view;
-			
-			this.scene = foundations.scene;
-			this.actors = foundations.actors;
-			this.config = foundations.database.config;
 			
 			this.actorTracker = foundations.actorsTracker;
 			
