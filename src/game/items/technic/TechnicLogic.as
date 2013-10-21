@@ -5,7 +5,6 @@ package game.items.technic
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
-	import game.items.base.ISolderable;
 	import game.items.base.ItemBase;
 	import game.points.IPointCollector;
 	

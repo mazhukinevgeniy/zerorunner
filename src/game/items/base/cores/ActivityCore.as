@@ -1,6 +1,7 @@
 package game.items.base.cores 
 {
 	import game.items.base.CoreBase;
+	import game.items.items_internal;
 	
 	public class ActivityCore extends CoreBase
 	{
@@ -10,7 +11,7 @@ package game.items.base.cores
 			
 		}
 		
-		public function act():void
+		items_internal function act():void
 		{
 			
 		}

@@ -40,7 +40,7 @@ package game.items.base
 			return new Image(this.atlas.getTexture("unimplemented"));
 		}
 		
-		final internal function standOn(cell:ICoordinated):void
+		final items_internal function standOn(cell:ICoordinated):void
 		{
 			this.x = cell.x * Metric.CELL_WIDTH;
 			this.y = cell.y * Metric.CELL_HEIGHT;
@@ -50,7 +50,7 @@ package game.items.base
 			this.visible = true;
 		}
 		
-		final internal function move(goal:ICoordinated, change:DCellXY, delay:int):void
+		final items_internal function move(goal:ICoordinated, change:DCellXY, delay:int):void
 		{
 			this.movingTween.reset(this, delay * Time.TIME_BETWEEN_TICKS);
 			this.movingTween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);
@@ -58,7 +58,7 @@ package game.items.base
 			this.juggler.add(this.movingTween);
 		}
 		
-		final internal function disappear():void
+		final items_internal function disappear():void
 		{
 			this.movingTween.reset(this, 0);
 			

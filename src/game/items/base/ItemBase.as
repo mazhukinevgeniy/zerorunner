@@ -5,6 +5,7 @@ package game.items.base
 	import game.items.base.cores.ContraptionCore;
 	import game.items.base.cores.ElectricityCore;
 	import game.items.base.cores.ExistenceCore;
+	import game.items.items_internal;
 	import starling.display.DisplayObject;
 	
 	public class ItemBase
@@ -15,14 +16,14 @@ package game.items.base
 		protected var _activity:ActivityCore;
 		
 		private var _existence:ExistenceCore;
-		private var view:ItemViewBase;
+		private var _view:ItemViewBase;
 		
 		/**
 		 * Don't call super until the ... //TODO: until what?
 		 */
 		public function ItemBase(view:ItemViewBase, existence:ExistenceCore) 
 		{
-			this.view = view;
+			this._view = view;
 			
 			if (existence == null)
 				this._existence = new ExistenceCore(null);
@@ -38,12 +39,13 @@ package game.items.base
 		
 		
 		
-		final public function get contraption():ContraptionCore { return this._contraption; }
-		final public function get electricity():ElectricityCore { return this._electricity; }
-		final public function get existence():ExistenceCore { return this._existence; }
-		final public function get collider():CollisionCore { return this._collider; }
-		final public function get actor():ActivityCore { return this._activity; }
+		final items_internal function get contraption():ContraptionCore { return this._contraption; }
+		final items_internal function get electricity():ElectricityCore { return this._electricity; }
+		final items_internal function get existence():ExistenceCore { return this._existence; }
+		final items_internal function get collider():CollisionCore { return this._collider; }
+		final items_internal function get actor():ActivityCore { return this._activity; }
 		
+		final items_internal function get view():ItemViewBase { return this._view; }
 		
 		/**
 		 * for the external use
@@ -51,7 +53,7 @@ package game.items.base
 		
 		final public function getView():DisplayObject
 		{
-			return this.view;
+			return this._view;
 		}
 	}
 

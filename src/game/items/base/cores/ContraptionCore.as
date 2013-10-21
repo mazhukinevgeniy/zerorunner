@@ -1,6 +1,7 @@
 package game.items.base.cores 
 {
 	import game.items.base.CoreBase;
+	import game.items.items_internal;
 	
 	public class ContraptionCore extends CoreBase
 	{
@@ -16,7 +17,7 @@ package game.items.base.cores
 			this.item.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
 		}
 		
-		public function applySoldering(value:int):void
+		items_internal function applySoldering(value:int):void
 		{
 			this.constructionStatus += value;
 			this.item.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);

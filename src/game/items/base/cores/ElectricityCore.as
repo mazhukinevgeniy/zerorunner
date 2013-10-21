@@ -1,6 +1,7 @@
 package game.items.base.cores 
 {
 	import game.items.base.CoreBase;
+	import game.items.items_internal;
 	
 	public class ElectricityCore extends CoreBase
 	{
@@ -10,7 +11,7 @@ package game.items.base.cores
 			
 		}
 		
-		public function applyShock():void
+		items_internal function applyShock():void
 		{
 			
 			
