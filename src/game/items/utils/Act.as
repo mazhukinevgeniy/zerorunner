@@ -1,6 +1,8 @@
-package game.items 
+package game.items.utils 
 {
 	import game.core.metric.ICoordinated;
+	import game.items.IActors;
+	import game.items.ItemLogicBase;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

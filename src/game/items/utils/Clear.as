@@ -1,6 +1,8 @@
-package game.items 
+package game.items.utils 
 {
 	import data.viewers.GameConfig;
+	import game.items.IActors;
+	import game.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

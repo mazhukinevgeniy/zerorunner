@@ -8,6 +8,7 @@ package game.items
 	import game.items.character.Character;
 	import game.items.junk.Junk;
 	import game.items.technic.Technic;
+	import game.items.utils.ActorUtils;
 	import utils.updates.update;
 	
 	public class ActorsFeatures implements IActors, IActorTracker
@@ -19,8 +20,7 @@ package game.items
 		
 		public function ActorsFeatures(foundations:GameElements) 
 		{
-			new Act(this, foundations.flow, foundations.pointsOfInterest);
-			new Clear(this, foundations.flow);
+			new ActorUtils(this, foundations.flow, foundations.pointsOfInterest);
 			
 			foundations.flow.workWithUpdateListener(this);
 			foundations.flow.addUpdateListener(Update.prerestore);
