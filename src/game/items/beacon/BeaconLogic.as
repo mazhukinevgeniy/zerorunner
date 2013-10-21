@@ -3,10 +3,10 @@ package game.items.beacon
 	import game.core.metric.*;
 	import game.GameElements;
 	import game.items.base.ISolderable;
-	import game.items.base.ItemLogicBase;
+	import game.items.base.ItemBase;
 	import utils.updates.IUpdateDispatcher;
 	
-	internal class BeaconLogic extends ItemLogicBase
+	internal class BeaconLogic extends ItemBase
 	{
 		private const MAXIMUM_CONSTRUCTION:int = 50;
 		

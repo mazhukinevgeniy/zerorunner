@@ -12,7 +12,7 @@ package game.items.base
 	import starling.display.DisplayObject;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class ItemLogicBase
+	public class ItemBase
 	{
 		protected var _contraption:ContraptionCore;
 		protected var _electricity:ElectricityCore;
@@ -28,7 +28,7 @@ package game.items.base
 		
 		private var view:ItemViewBase;
 		
-		public function ItemLogicBase(cell:CellXY, view:ItemViewBase, foundations:GameElements) 
+		public function ItemBase(cell:CellXY, view:ItemViewBase, foundations:GameElements) 
 		{
 			/*
 			const width:int = this.config.width;

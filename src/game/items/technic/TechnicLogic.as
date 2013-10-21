@@ -6,10 +6,10 @@ package game.items.technic
 	import game.core.metric.Metric;
 	import game.GameElements;
 	import game.items.base.ISolderable;
-	import game.items.base.ItemLogicBase;
+	import game.items.base.ItemBase;
 	import game.points.IPointCollector;
 	
-	internal class TechnicLogic extends ItemLogicBase
+	internal class TechnicLogic extends ItemBase
 	{
 		private const MOVE_SPEED:int = 0;
 		private const SOLDERING_POWER:int = 3;
@@ -43,7 +43,7 @@ package game.items.technic
 		
 		override public function act():void
 		{
-			if (!this.goal || this.goal as ItemLogicBase != this.actors.findObjectByCell(this.goal.x, this.goal.y))
+			if (!this.goal || this.goal as ItemBase != this.actors.findObjectByCell(this.goal.x, this.goal.y))
 			{
 				this.goal = this.points.findPointOfInterest(Game.TOWER);
 				
@@ -129,7 +129,7 @@ package game.items.technic
 					for (i = 0; i < 4; i++)
 					{
 						var change:DCellXY = TechnicLogic.moves[i];
-						var actor:ItemLogicBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
+						var actor:ItemBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
 						
 						if (actor && !(actor is ISolderable && (actor as ISolderable).progress <= 1))
 							this.steps[i] -= 8;
@@ -162,7 +162,7 @@ package game.items.technic
 		
 		override protected function move(change:DCellXY, delay:int):void
 		{
-			var actor:ItemLogicBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
+			var actor:ItemBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
 			
 			if (!actor)
 				super.move(change, delay);

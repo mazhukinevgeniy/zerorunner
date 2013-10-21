@@ -1,7 +1,7 @@
 package game.items.utils 
 {
 	import game.core.metric.ICoordinated;
-	import game.items.base.ItemLogicBase;
+	import game.items.base.ItemBase;
 	import game.items.IActors;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
@@ -12,7 +12,7 @@ package game.items.utils
 		private var points:IPointCollector;
 		private var actors:IActors;
 		
-		private var moved:Vector.<ItemLogicBase>;
+		private var moved:Vector.<ItemBase>;
 		
 		public function Act(actors:IActors, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
@@ -22,7 +22,7 @@ package game.items.utils
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			this.moved = new Vector.<ItemLogicBase>();
+			this.moved = new Vector.<ItemBase>();
 		}
 		
 		update function numberedFrame(key:int):void
@@ -37,7 +37,7 @@ package game.items.utils
 				const brcX:int = center.x + 20;
 				const brcY:int = center.y + 20;
 				
-				var actor:ItemLogicBase;
+				var actor:ItemBase;
 				
 				var i:int;
 				var j:int;
@@ -63,7 +63,7 @@ package game.items.utils
 				
 				for (i = 0; i < length; i++)
 				{
-					actor = others[i] as ItemLogicBase;
+					actor = others[i] as ItemBase;
 					
 					if (this.moved.indexOf(actor) == -1)
 						actor.act();

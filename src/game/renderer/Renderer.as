@@ -4,7 +4,7 @@ package game.renderer
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
-	import game.items.base.ItemLogicBase;
+	import game.items.base.ItemBase;
 	import game.items.IActors;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
@@ -297,7 +297,7 @@ package game.renderer
 			const brcX:int = center.x + 11;
 			const brcY:int = center.y + 9;
 			
-			var actor:ItemLogicBase;
+			var actor:ItemBase;
 			var container:DisplayObjectContainer = this.lines.actors;
 			container.removeChildren();
 			

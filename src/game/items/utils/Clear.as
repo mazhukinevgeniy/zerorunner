@@ -1,7 +1,7 @@
 package game.items.utils 
 {
 	import data.viewers.GameConfig;
-	import game.items.base.ItemLogicBase;
+	import game.items.base.ItemBase;
 	import game.items.IActors;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -32,7 +32,7 @@ package game.items.utils
 				const DWIDTH:int = Game.BORDER_WIDTH / 2;
 				
 				var i:int, j:int;
-				var actor:ItemLogicBase;
+				var actor:ItemBase;
 				
 				for (i = 0; i < this.width; i++)
 					for (j = 0; j < DWIDTH; j++)

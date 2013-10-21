@@ -4,11 +4,11 @@ package game.items.character
 	import game.core.metric.*;
 	import game.GameElements;
 	import game.items.base.ISolderable;
-	import game.items.base.ItemLogicBase;
+	import game.items.base.ItemBase;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	
-	internal class CharacterLogic extends ItemLogicBase
+	internal class CharacterLogic extends ItemBase
 	{
 		private const MOVE_SPEED:int = 1;
 		private const SOLDERING_POWER:int = 2;
@@ -57,7 +57,7 @@ package game.items.character
 			for (var i:int = -5; i < 6; i++)
 				for (var j:int = -5; j < 6; j++)
 				{
-					var actor:ItemLogicBase = this.actors.findObjectByCell(this.x + i, this.y + j);
+					var actor:ItemBase = this.actors.findObjectByCell(this.x + i, this.y + j);
 					
 					if (actor && 
 						actor is ISolderable && 
@@ -111,7 +111,7 @@ package game.items.character
 		
 		override protected function move(change:DCellXY, delay:int):void
 		{
-			var actor:ItemLogicBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
+			var actor:ItemBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
 			if (!actor)
 			{
 				super.move(change, delay);

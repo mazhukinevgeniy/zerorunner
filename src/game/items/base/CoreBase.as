@@ -4,7 +4,7 @@ package game.items.base
 	
 	public class CoreBase 
 	{
-		protected var item:ItemLogicBase;
+		protected var item:ItemBase;
 		
 		public function CoreBase() 
 		{

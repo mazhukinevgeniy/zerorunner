@@ -4,7 +4,7 @@ package game.items
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.items.base.ItemLogicBase;
+	import game.items.base.ItemBase;
 	import game.items.beacon.Beacon;
 	import game.items.character.Character;
 	import game.items.junk.Junk;
@@ -46,24 +46,24 @@ package game.items
 		}
 		
 		
-		public function findObjectByCell(x:int, y:int):ItemLogicBase
+		public function findObjectByCell(x:int, y:int):ItemBase
 		{
 			return this.actors[x + y * this.width];
 		}
 		
 		
-		public function addActor(actor:ItemLogicBase):void
+		public function addActor(actor:ItemBase):void
 		{
 			this.actors[actor.x + actor.y * this.width] = actor;
 		}
 		
-		public function moveActor(actor:ItemLogicBase, change:DCellXY):void
+		public function moveActor(actor:ItemBase, change:DCellXY):void
 		{
 			this.actors[actor.x - change.x + (actor.y - change.y) * this.width] = null;
 			this.actors[actor.x + actor.y * this.width] = actor;
 		}
 		
-		public function removeActor(actor:ItemLogicBase):void
+		public function removeActor(actor:ItemBase):void
 		{
 			this.actors[actor.x + actor.y * this.width] = null;
 		}
