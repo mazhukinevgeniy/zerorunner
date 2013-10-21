@@ -101,12 +101,6 @@ package game.items.base
 			this.view.disappear();
 		}
 		
-		public function applyShock():void
-		{
-			
-			
-		}
-		
 		/**
 		 * for the external use
 		 */
