@@ -11,12 +11,15 @@ package game.items.base.cores
 		public function ContraptionCore(maximum:int) 
 		{
 			this.constructionTarget = maximum;
+			this.constructionStatus = 0;
+			
+			this.item.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
 		}
 		
 		public function applySoldering(value:int):void
 		{
 			this.constructionStatus += value;
-			this.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
+			this.item.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
 			
 			if (this.constructionStatus > this.MAXIMUM_CONSTRUCTION && !this.reported)
 			{

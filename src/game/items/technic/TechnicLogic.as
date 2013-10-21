@@ -30,14 +30,15 @@ package game.items.technic
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();
 		
-		public function TechnicLogic(foundations:GameElements) 
+		public function TechnicLogic(cell:ICoordinated, foundations:GameElements) 
 		{
-			this.points = foundations.pointsOfInterest;
-			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this);
 			
 			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			super(new TechnicView(foundations), foundations);
+			super(new TechnicView(foundations), null/*//TODO: pass valid existence*/);
+			
+			this.points = foundations.pointsOfInterest;
+			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this.existence);
 		}
 		
 		

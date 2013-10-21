@@ -20,7 +20,7 @@ package game.items.beacon
 			return this.view = new Image(this.atlas.getTexture("tmp_tower"));
 		}
 		
-		internal function showConstruction(ratio:Number):void
+		override public function showConstruction(ratio:Number):void
 		{
 			this.view.scaleY = Math.min(1, Math.max(0.01, ratio));
 			

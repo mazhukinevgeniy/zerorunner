@@ -3,12 +3,15 @@ package game.items.base
 	import game.core.metric.*;
 	import game.core.time.Time;
 	import game.GameElements;
+	import game.items.items_internal;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import utils.PixelPerfectTween;
+	
+	use namespace items_internal;
 	
 	public class ItemViewBase extends Sprite
 	{
@@ -28,6 +31,8 @@ package game.items.base
 			
 			this.movingTween = new PixelPerfectTween(this, 0);
 		}
+		
+		items_internal function showConstruction(ratio:Number):void { throw new Error(); }
 		
 		
 		protected function getView():DisplayObject

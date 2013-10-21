@@ -53,12 +53,12 @@ package game.items.utils
 						actor = this.actors.findObjectByCell(i, j);
 						
 						if (actor)
-							actor.applyDestruction();
+							actor.existence.applyDestruction();
 						
 						actor = this.actors.findObjectByCell(this.width - (i + 1), j);
 						
 						if (actor)
-							actor.applyDestruction();
+							actor.existence.applyDestruction();
 					}
 			}
 		}
