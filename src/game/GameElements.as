@@ -80,6 +80,7 @@ package game
 			return this._input;
 		}
 		
+		//TODO: it's a shame to have this powerful thing public
 		public function get actorsTracker():IActorTracker
 		{
 			return this._actors;

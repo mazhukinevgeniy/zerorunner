@@ -4,6 +4,7 @@ package game.items
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.items.base.ItemLogicBase;
 	import game.items.beacon.Beacon;
 	import game.items.character.Character;
 	import game.items.junk.Junk;

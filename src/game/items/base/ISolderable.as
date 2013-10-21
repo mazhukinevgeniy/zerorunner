@@ -1,4 +1,4 @@
-package game.items 
+package game.items.base 
 {
 	
 	public interface ISolderable 

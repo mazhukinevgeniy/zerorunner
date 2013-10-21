@@ -1,8 +1,8 @@
 package game.items.utils 
 {
 	import data.viewers.GameConfig;
+	import game.items.base.ItemLogicBase;
 	import game.items.IActors;
-	import game.items.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

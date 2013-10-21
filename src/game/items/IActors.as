@@ -1,5 +1,6 @@
 package game.items 
 {
+	import game.items.base.ItemLogicBase;
 	
 	public interface IActors 
 	{

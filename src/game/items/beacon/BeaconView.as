@@ -2,7 +2,7 @@ package game.items.beacon
 {
 	import game.core.metric.Metric;
 	import game.GameElements;
-	import game.items.ItemViewBase;
+	import game.items.base.ItemViewBase;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	

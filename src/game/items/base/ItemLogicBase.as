@@ -1,8 +1,10 @@
-package game.items 
+package game.items.base 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.*;
 	import game.GameElements;
+	import game.items.IActors;
+	import game.items.IActorTracker;
 	import game.scene.IScene;
 	import starling.display.DisplayObject;
 	import utils.updates.IUpdateDispatcher;

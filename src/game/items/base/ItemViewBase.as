@@ -1,4 +1,4 @@
-package game.items 
+package game.items.base 
 {
 	import game.core.metric.*;
 	import game.core.time.Time;

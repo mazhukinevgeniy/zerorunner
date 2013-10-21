@@ -4,8 +4,8 @@ package game.renderer
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
+	import game.items.base.ItemLogicBase;
 	import game.items.IActors;
-	import game.items.ItemLogicBase;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
 	import starling.display.DisplayObjectContainer;

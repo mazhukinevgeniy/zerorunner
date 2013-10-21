@@ -5,8 +5,8 @@ package game.items.technic
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
-	import game.items.ISolderable;
-	import game.items.ItemLogicBase;
+	import game.items.base.ISolderable;
+	import game.items.base.ItemLogicBase;
 	import game.points.IPointCollector;
 	
 	internal class TechnicLogic extends ItemLogicBase

@@ -3,8 +3,8 @@ package game.items.character
 	import game.core.input.InputManager;
 	import game.core.metric.*;
 	import game.GameElements;
-	import game.items.ISolderable;
-	import game.items.ItemLogicBase;
+	import game.items.base.ISolderable;
+	import game.items.base.ItemLogicBase;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	
