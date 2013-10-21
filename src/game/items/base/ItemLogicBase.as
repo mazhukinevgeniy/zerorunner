@@ -6,19 +6,17 @@ package game.items.base
 	import game.items.base.cores.ContraptionCore;
 	import game.items.base.cores.ElectricityCore;
 	import game.items.base.cores.ExistenceCore;
-	import game.items.base.cores.RespawnCore;
 	import game.items.IActors;
 	import game.items.IActorTracker;
 	import game.scene.IScene;
 	import starling.display.DisplayObject;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class ItemLogicBase implements ICoordinated
+	public class ItemLogicBase
 	{
 		protected var _contraption:ContraptionCore;
 		protected var _electricity:ElectricityCore;
 		protected var _existence:ExistenceCore;
-		protected var _respawn:RespawnCore;
 		
 		
 		
@@ -67,7 +65,6 @@ package game.items.base
 		final public function get contraption():ContraptionCore { return this._contraption; }
 		final public function get electricity():ElectricityCore { return this._electricity; }
 		final public function get existence():ExistenceCore { return this._existence; }
-		final public function get respawn():RespawnCore { return this._respawn; }
 		
 		
 		/**

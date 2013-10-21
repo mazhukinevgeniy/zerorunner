@@ -35,19 +35,9 @@ package game.items.technic
 			this.points = foundations.pointsOfInterest;
 			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this);
 			
-			super(new TechnicView(foundations), foundations);
-		}
-		
-		override protected function getSpawningCell():CellXY
-		{
 			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			var tmpCell:CellXY = Metric.getTmpCell(this.center.x - 4, this.center.y + 4);
-			
-			while (this.actors.findObjectByCell(tmpCell.x, tmpCell.y))
-				tmpCell.setValue(tmpCell.x, tmpCell.y - 1);
-			
-			return tmpCell;
+			super(new TechnicView(foundations), foundations);
 		}
 		
 		

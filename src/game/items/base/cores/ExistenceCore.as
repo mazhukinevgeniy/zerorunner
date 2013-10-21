@@ -2,19 +2,19 @@ package game.items.base.cores
 {
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
+	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.items.base.CoreBase;
 	
-	public class ExistenceCore extends CoreBase
+	public class ExistenceCore extends CoreBase implements ICoordinated
 	{
 		
 		
 		private var _x:int;
 		private var _y:int;
 		
-		public function ExistenceCore() 
+		public function ExistenceCore(cell:ICoordinated) 
 		{
-			var cell:CellXY = this.getSpawningCell();
 			this._x = cell.x;
 			this._y = cell.y;
 			

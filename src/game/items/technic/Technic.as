@@ -23,13 +23,22 @@ package game.items.technic
 			var i:int;
 			
 			for (i = 0; i < config.numberOfDroids; i++)
+			{/*
+				this.center = this.points.findPointOfInterest(Game.CHARACTER);
+				
+				var tmpCell:CellXY = Metric.getTmpCell(this.center.x - 4, this.center.y + 4);
+				
+				while (this.actors.findObjectByCell(tmpCell.x, tmpCell.y))
+					tmpCell.setValue(tmpCell.x, tmpCell.y - 1);
+				
+				return tmpCell;*/
 				new TechnicLogic(this.elements);
+			}
 		}
 		
 		update function technicUnlocked(place:ICoordinated):void
 		{
-			var technic:TechnicLogic = new TechnicLogic(this.elements);
-			technic.moveTo(place);
+			var technic:TechnicLogic = new TechnicLogic(place, this.elements);
 		}
 	}
 

@@ -6,7 +6,7 @@ package game.items.junk
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	
-	internal class JunkLogic extends ItemLogicBase implements ISolderable
+	internal class JunkLogic extends ItemLogicBase
 	{
 		private var flow:IUpdateDispatcher;
 		
@@ -18,20 +18,6 @@ package game.items.junk
 			
 			this.flow = foundations.flow;
 			this.points = foundations.pointsOfInterest;
-		}
-		
-		public function applySoldering(value:int):void
-		{
-			this.applyDestruction();
-			
-			this.points.removePointOfInterest(Game.TOWER, this);
-			
-			this.flow.dispatchUpdate(Update.technicUnlocked, this);
-		}
-		
-		public function get progress():Number
-		{
-			return 0;
 		}
 		
 	}
