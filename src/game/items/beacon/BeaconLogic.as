@@ -6,7 +6,7 @@ package game.items.beacon
 	import game.items.base.ItemLogicBase;
 	import utils.updates.IUpdateDispatcher;
 	
-	internal class BeaconLogic extends ItemLogicBase implements ISolderable
+	internal class BeaconLogic extends ItemLogicBase
 	{
 		private const MAXIMUM_CONSTRUCTION:int = 50;
 		
@@ -20,18 +20,7 @@ package game.items.beacon
 			this.flow = foundations.flow;
 			
 			super(this.view = new BeaconView(foundations), foundations);
-		}
-		
-		override protected function getSpawningCell():CellXY
-		{
-			return Metric.getTmpCell(Game.BORDER_WIDTH + this.config.width - 1, Game.BORDER_WIDTH);
-		}
-		
-		
-		
-		
-		override protected function reset():void
-		{
+			
 			super.reset();
 			
 			this.reported = false;
@@ -39,6 +28,9 @@ package game.items.beacon
 			this.constructionStatus = 0;
 			this.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
 		}
+		
+		
+		
 	}
 
 }

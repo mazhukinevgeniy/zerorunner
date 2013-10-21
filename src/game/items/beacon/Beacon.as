@@ -1,6 +1,8 @@
 package game.items.beacon 
 {
 	import data.viewers.GameConfig;
+	import game.core.metric.CellXY;
+	import game.core.metric.Metric;
 	import game.GameElements;
 	import utils.updates.update;
 	
@@ -18,9 +20,18 @@ package game.items.beacon
 		
 		update function prerestore(config:GameConfig):void
 		{
-			new BeaconLogic(this.elements);
+			do
+				var cell:CellXY = this.getCell();
+			while (this.elements.actors.findObjectByCell(cell.x, cell.y));
+			
+			new BeaconLogic(cell, this.elements);
 		}
 		
+		private function getCell():CellXY
+		{
+			return Metric.getTmpCell(Game.BORDER_WIDTH + this.config.width - 1, 
+									 Game.BORDER_WIDTH);
+		}
 	}
 
 }
