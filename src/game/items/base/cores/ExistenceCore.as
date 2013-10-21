@@ -16,6 +16,17 @@ package game.items.base.cores
 		
 		public function ExistenceCore(cell:ICoordinated) 
 		{
+			if (cell == null)
+			{
+				const width:int = this.config.width;
+				
+				var cell:CellXY = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
+													Game.BORDER_WIDTH + Math.random() * width);
+				
+				for (; this.actors.findObjectByCell(cell.x, cell.y); )
+					cell.setValue(Game.BORDER_WIDTH + Math.random() * width, Game.BORDER_WIDTH + Math.random() * width);
+			}
+			
 			this._x = cell.x;
 			this._y = cell.y;
 			

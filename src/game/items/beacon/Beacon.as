@@ -6,7 +6,7 @@ package game.items.beacon
 	import game.GameElements;
 	import utils.updates.update;
 	
-	public class Beacon 
+	public class Beacon
 	{
 		private var elements:GameElements;
 		

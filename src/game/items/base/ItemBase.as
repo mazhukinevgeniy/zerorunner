@@ -1,6 +1,7 @@
 package game.items.base 
 {
 	import game.core.metric.ICoordinated;
+	import game.items.base.cores.ActivityCore;
 	import game.items.base.cores.CollisionCore;
 	import game.items.base.cores.ContraptionCore;
 	import game.items.base.cores.ElectricityCore;
@@ -12,6 +13,7 @@ package game.items.base
 		protected var _electricity:ElectricityCore;
 		protected var _existence:ExistenceCore;
 		protected var _collider:CollisionCore;
+		protected var _activity:ActivityCore;
 		
 		
 		
@@ -23,20 +25,11 @@ package game.items.base
 		
 		private var view:ItemViewBase;
 		
-		public function ItemBase(cell:ICoordinated, view:ItemViewBase, foundations:GameElements) 
+		/**
+		 * Don't call super until the ... //TODO: until what?
+		 */
+		public function ItemBase(cell:ICoordinated, view:ItemViewBase) 
 		{
-			/*
-			const width:int = this.config.width;
-			
-			var cell:CellXY = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
-												Game.BORDER_WIDTH + Math.random() * width);
-			
-			for (; this.actors.findObjectByCell(cell.x, cell.y); )
-				cell.setValue(Game.BORDER_WIDTH + Math.random() * width, Game.BORDER_WIDTH + Math.random() * width);
-			
-			return cell; * 
-			 * */
-			//TODO: find where to generate spawning cell
 			
 			this.view = view;
 			
@@ -61,6 +54,7 @@ package game.items.base
 		final public function get electricity():ElectricityCore { return this._electricity; }
 		final public function get existence():ExistenceCore { return this._existence; }
 		final public function get collider():CollisionCore { return this._collider; }
+		final public function get actor():ActivityCore { return this._activity; }
 		
 		
 		/**

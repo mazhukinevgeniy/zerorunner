@@ -5,7 +5,7 @@ package game.items.technic
 	import game.GameElements;
 	import utils.updates.update;
 	
-	public class Technic 
+	public class Technic
 	{
 		private var elements:GameElements;
 		
