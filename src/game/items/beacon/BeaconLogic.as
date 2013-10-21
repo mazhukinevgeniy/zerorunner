@@ -28,12 +28,7 @@ package game.items.beacon
 		}
 		
 		
-		private var constructionStatus:int;
 		
-		public function get progress():Number
-		{
-			return Number(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
-		}
 		
 		override protected function reset():void
 		{
@@ -43,18 +38,6 @@ package game.items.beacon
 			
 			this.constructionStatus = 0;
 			this.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
-		}
-		
-		public function applySoldering(value:int):void
-		{
-			this.constructionStatus += value;
-			this.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
-			
-			if (this.constructionStatus > this.MAXIMUM_CONSTRUCTION && !this.reported)
-			{
-				this.reported = true;
-				this.flow.dispatchUpdate(Update.smallBeaconTurnedOn);
-			}
 		}
 	}
 

@@ -7,15 +7,12 @@ package game.items.base.cores
 	
 	public class ExistenceCore extends CoreBase
 	{
+		
+		
 		private var _x:int;
 		private var _y:int;
 		
 		public function ExistenceCore() 
-		{
-			
-		}
-		
-		override public function reset():void 
 		{
 			var cell:CellXY = this.getSpawningCell();
 			this._x = cell.x;
@@ -24,19 +21,6 @@ package game.items.base.cores
 			this.actorTracker.addActor(this);
 			
 			this.view.standOn(cell);
-		}
-		
-		protected function getSpawningCell():CellXY
-		{
-			const width:int = this.config.width;
-			
-			var cell:CellXY = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
-												Game.BORDER_WIDTH + Math.random() * width);
-			
-			for (; this.actors.findObjectByCell(cell.x, cell.y); )
-				cell.setValue(Game.BORDER_WIDTH + Math.random() * width, Game.BORDER_WIDTH + Math.random() * width);
-			
-			return cell;
 		}
 		
 		protected function move(change:DCellXY, delay:int):void
@@ -52,6 +36,13 @@ package game.items.base.cores
 			}
 			else
 				throw new Error();
+		}
+		
+		public function applyDestruction():void
+		{
+			this.actorTracker.removeActor(this);
+			
+			this.view.disappear();
 		}
 		
 		final public function get x():int {	return this._x;	}

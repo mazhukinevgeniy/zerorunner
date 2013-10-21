@@ -3,6 +3,10 @@ package game.items.base
 	import data.viewers.GameConfig;
 	import game.core.metric.*;
 	import game.GameElements;
+	import game.items.base.cores.ContraptionCore;
+	import game.items.base.cores.ElectricityCore;
+	import game.items.base.cores.ExistenceCore;
+	import game.items.base.cores.RespawnCore;
 	import game.items.IActors;
 	import game.items.IActorTracker;
 	import game.scene.IScene;
@@ -11,6 +15,13 @@ package game.items.base
 	
 	public class ItemLogicBase implements ICoordinated
 	{
+		protected var _contraption:ContraptionCore;
+		protected var _electricity:ElectricityCore;
+		protected var _existence:ExistenceCore;
+		protected var _respawn:RespawnCore;
+		
+		
+		
 		protected var actors:IActors;
 		protected var scene:IScene;
 		protected var config:GameConfig;
@@ -19,8 +30,21 @@ package game.items.base
 		
 		private var view:ItemViewBase;
 		
-		public function ItemLogicBase(view:ItemViewBase, foundations:GameElements) 
+		public function ItemLogicBase(cell:CellXY, view:ItemViewBase, foundations:GameElements) 
 		{
+			/*
+			const width:int = this.config.width;
+			
+			var cell:CellXY = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
+												Game.BORDER_WIDTH + Math.random() * width);
+			
+			for (; this.actors.findObjectByCell(cell.x, cell.y); )
+				cell.setValue(Game.BORDER_WIDTH + Math.random() * width, Game.BORDER_WIDTH + Math.random() * width);
+			
+			return cell; * 
+			 * */
+			//TODO: find where to generate spawning cell
+			
 			this.view = view;
 			
 			this.scene = foundations.scene;
@@ -29,7 +53,7 @@ package game.items.base
 			
 			this.actorTracker = foundations.actorsTracker;
 			
-			this.reset();
+			//TODO: set all cores
 		}
 		
 		public function act():void
@@ -37,21 +61,14 @@ package game.items.base
 			
 		}
 		
-		protected function reset():void
-		{
-			//TODO: reset all cores
-		}
 		
-		/**********
-		 ** What you can suffer
-		 *********/
 		
-		public function applyDestruction():void
-		{
-			this.actorTracker.removeActor(this);
-			
-			this.view.disappear();
-		}
+		
+		final public function get contraption():ContraptionCore { return this._contraption; }
+		final public function get electricity():ElectricityCore { return this._electricity; }
+		final public function get existence():ExistenceCore { return this._existence; }
+		final public function get respawn():RespawnCore { return this._respawn; }
+		
 		
 		/**
 		 * for the external use
