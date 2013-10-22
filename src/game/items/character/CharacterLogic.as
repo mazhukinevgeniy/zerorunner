@@ -1,7 +1,7 @@
 package game.items.character 
 {
 	import game.core.input.InputManager;
-	import game.core.metric.*;
+	import game.core.metric.DCellXY;
 	import game.GameElements;
 	import game.items.base.ItemBase;
 	import game.items.items_internal;

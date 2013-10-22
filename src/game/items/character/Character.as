@@ -1,8 +1,6 @@
 package game.items.character 
 {
 	import data.viewers.GameConfig;
-	import game.core.metric.ICoordinated;
-	import game.core.metric.Metric;
 	import game.GameElements;
 	import utils.updates.update;
 	
@@ -20,11 +18,7 @@ package game.items.character
 		
 		update function prerestore(config:GameConfig):void
 		{
-			var cell:ICoordinated = 
-				Metric.getTmpCell(Game.BORDER_WIDTH, 
-								  Game.BORDER_WIDTH + config.width - 1);
-			
-			new CharacterLogic(cell, this.elements);
+			new CharacterLogic(this.elements);
 		}
 	}
 
