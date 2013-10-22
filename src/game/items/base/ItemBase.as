@@ -1,5 +1,7 @@
 package game.items.base 
 {
+	import game.core.metric.ICoordinated;
+	import game.GameElements;
 	import game.items.base.cores.ActivityCore;
 	import game.items.base.cores.CollisionCore;
 	import game.items.base.cores.ContraptionCore;
@@ -21,12 +23,12 @@ package game.items.base
 		/**
 		 * Don't call super until the ... //TODO: until what?
 		 */
-		public function ItemBase(view:ItemViewBase, existence:ExistenceCore) 
+		public function ItemBase(view:ItemViewBase, elements:GameElements, existence:ExistenceCore) 
 		{
 			this._view = view;
 			
 			if (existence == null)
-				this._existence = new ExistenceCore(null);
+				this._existence = new ExistenceCore(elements, null);
 			else
 				this._existence = existence;
 		}

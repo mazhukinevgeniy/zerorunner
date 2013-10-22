@@ -6,9 +6,10 @@ package game.items.junk
 	internal class JunkLogic extends ItemBase
 	{
 		
-		public function JunkLogic(foundations:GameElements) 
+		public function JunkLogic(elements:GameElements) 
 		{
-			super(new JunkView(foundations), null);
+			super(new JunkView(elements), elements, null);
+			//TODO: must pass concrete existence to avoid flying junks
 		}
 		
 	}

@@ -1,9 +1,9 @@
 package game.items.base.cores 
 {
-	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
+	import game.GameElements;
 	import game.items.base.CoreBase;
 	import game.items.base.ItemBase;
 	import game.items.items_internal;
@@ -15,17 +15,16 @@ package game.items.base.cores
 		private var _x:int;
 		private var _y:int;
 		
-		public function ExistenceCore(cell:ICoordinated) 
+		public function ExistenceCore(elements:GameElements, cell:ICoordinated) 
 		{
 			if (cell == null)
 			{
-				const width:int = this.config.width;
+				const width:int = elements.database.config.width;
 				
-				cell = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
-													Game.BORDER_WIDTH + Math.random() * width);
-				
-				for (; this.actors.findObjectByCell(cell.x, cell.y); )
-					cell.setValue(Game.BORDER_WIDTH + Math.random() * width, Game.BORDER_WIDTH + Math.random() * width);
+				do
+					cell = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
+											 Game.BORDER_WIDTH + Math.random() * width);
+				while (elements.actors.findObjectByCell(cell.x, cell.y));
 			}
 			
 			this._x = cell.x;

@@ -3,8 +3,11 @@ package game.items.beacon
 	import game.core.metric.Metric;
 	import game.GameElements;
 	import game.items.base.ItemViewBase;
+	import game.items.items_internal;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
+	
+	use namespace items_internal;
 	
 	internal class BeaconView extends ItemViewBase
 	{
@@ -20,7 +23,7 @@ package game.items.beacon
 			return this.view = new Image(this.atlas.getTexture("tmp_tower"));
 		}
 		
-		override public function showConstruction(ratio:Number):void
+		override items_internal function showConstruction(ratio:Number):void
 		{
 			this.view.scaleY = Math.min(1, Math.max(0.01, ratio));
 			

@@ -3,10 +3,12 @@ package game.items.character
 	import game.core.input.InputManager;
 	import game.core.metric.*;
 	import game.GameElements;
-	import game.items.base.ISolderable;
 	import game.items.base.ItemBase;
+	import game.items.items_internal;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
+	
+	use namespace items_internal;
 	
 	internal class CharacterLogic extends ItemBase
 	{
@@ -19,17 +21,15 @@ package game.items.character
 		
 		private var cooldown:int;
 		
-		private var view:CharacterView;
-		
 		public function CharacterLogic(foundations:GameElements) 
 		{
 			this.input = foundations.input;
 			this.flow = foundations.flow;
 			
-			this.points = foundations.pointsOfInterest;
-			this.points.addPointOfInterest(Game.CHARACTER, this);
+			super(new CharacterView(foundations), new Existence(foundations));
 			
-			super(this.view = new CharacterView(foundations), foundations);
+			this.points = foundations.pointsOfInterest;
+			this.points.addPointOfInterest(Game.CHARACTER, this.existence);
 			
 			//TODO: initialize all cores
 			

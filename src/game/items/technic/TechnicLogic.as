@@ -5,8 +5,12 @@ package game.items.technic
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
+	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
+	import game.items.items_internal;
 	import game.points.IPointCollector;
+	
+	use namespace items_internal;
 	
 	internal class TechnicLogic extends ItemBase
 	{
@@ -29,12 +33,12 @@ package game.items.technic
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();
 		
-		public function TechnicLogic(cell:ICoordinated, foundations:GameElements) 
+		public function TechnicLogic(cell:ICoordinated, elements:GameElements) 
 		{
 			
 			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			super(new TechnicView(foundations), null/*//TODO: pass valid existence*/);
+			super(new TechnicView(elements), elements, new ExistenceCore(elements, cell));
 			
 			this.points = foundations.pointsOfInterest;
 			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this.existence);
