@@ -3,8 +3,11 @@ package game.items.utils
 	import data.viewers.GameConfig;
 	import game.items.base.ItemBase;
 	import game.items.Items;
+	import game.items.items_internal;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
+	
+	use namespace items_internal;
 	
 	internal class Clear
 	{

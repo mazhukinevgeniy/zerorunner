@@ -13,7 +13,7 @@ package game.items.base.cores
 	
 	public class ExistenceCore extends CoreBase implements ICoordinated
 	{
-		private var items:Items;
+		protected var items:Items;
 		
 		private var _x:int;
 		private var _y:int;
