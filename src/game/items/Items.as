@@ -9,27 +9,28 @@ package game.items
 	import game.items.character.Character;
 	import game.items.junk.Junk;
 	import game.items.technic.Technic;
+	import game.items.utils.ItemUtils;
 	import utils.updates.update;
 	
-	public class Items implements IActors, IActorTracker
+	public class Items
 	{
 		private var items:Array;
 		private var width:int;
 		
 		
 		
-		public function Items(foundations:GameElements) 
+		public function Items(elements:GameElements) 
 		{
-			new ItemUtils(this, foundations.flow, foundations.pointsOfInterest);
+			new ItemUtils(this, elements.flow, elements.pointsOfInterest);
 			
-			foundations.flow.workWithUpdateListener(this);
-			foundations.flow.addUpdateListener(Update.prerestore);
-			foundations.flow.addUpdateListener(Update.quitGame);
+			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.quitGame);
 			
-			new Character(foundations);
-			new Beacon(foundations);
-			new Technic(foundations);
-			new Junk(foundations);
+			new Character(elements);
+			new Beacon(elements);
+			new Technic(elements);
+			new Junk(elements);
 		}
 		
 		

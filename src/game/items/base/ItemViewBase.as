@@ -21,10 +21,10 @@ package game.items.base
 		private var movingTween:PixelPerfectTween;
 		
 		
-		public function ItemViewBase(foundations:GameElements) 
+		public function ItemViewBase(elements:GameElements) 
 		{
-			this.juggler = foundations.juggler;
-			this.atlas = foundations.atlas;
+			this.juggler = elements.juggler;
+			this.atlas = elements.atlas;
 			
 			super();
 			this.addChild(this.getView());

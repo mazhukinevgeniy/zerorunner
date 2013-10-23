@@ -38,16 +38,16 @@ package game.items.technic
 			
 			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			super(new TechnicView(elements), elements, new ExistenceCore(elements, cell));
+			super(new TechnicView(elements), elements, new ExistenceCore(this, elements, cell));
 			
-			this.points = foundations.pointsOfInterest;
+			this.points = elements.pointsOfInterest;
 			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this.existence);
 		}
 		
 		
 		override public function act():void
 		{
-			if (!this.goal || this.goal as ItemBase != this.actors.findObjectByCell(this.goal.x, this.goal.y))
+			if (!this.goal || this.goal as ItemBase != this.items.findObjectByCell(this.goal.x, this.goal.y))
 			{
 				this.goal = this.points.findPointOfInterest(Game.TOWER);
 				

@@ -1,7 +1,9 @@
 package game.items.technic 
 {
 	import data.viewers.GameConfig;
+	import game.core.metric.CellXY;
 	import game.core.metric.ICoordinated;
+	import game.core.metric.Metric;
 	import game.GameElements;
 	import utils.updates.update;
 	
@@ -23,16 +25,15 @@ package game.items.technic
 			var i:int;
 			
 			for (i = 0; i < config.numberOfDroids; i++)
-			{/*
-				this.center = this.points.findPointOfInterest(Game.CHARACTER);
+			{
+				var center:ICoordinated = this.elements.pointsOfInterest.findPointOfInterest(Game.CHARACTER);
 				
-				var tmpCell:CellXY = Metric.getTmpCell(this.center.x - 4, this.center.y + 4);
+				var tmpCell:CellXY = Metric.getTmpCell(center.x - 4, center.y + 4);
 				
-				while (this.actors.findObjectByCell(tmpCell.x, tmpCell.y))
+				while (this.elements.items.findObjectByCell(tmpCell.x, tmpCell.y))
 					tmpCell.setValue(tmpCell.x, tmpCell.y - 1);
 				
-				return tmpCell;*/
-				new TechnicLogic(this.elements);
+				new TechnicLogic(tmpCell, this.elements);
 			}
 		}
 		

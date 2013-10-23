@@ -14,22 +14,22 @@ package game.clouds
 	{
 		internal static const SIZE_CLOUDINNESS_SCALE:int = 10;
 		
-		private var foundations:GameElements;
+		private var elements:GameElements;
 		
 		private var moveTween:PixelPerfectTween;
 		
-		public function Clouds(foundations:GameElements) 
+		public function Clouds(elements:GameElements) 
 		{
-			this.foundations = foundations;
+			this.elements = elements;
 			
 			this.moveTween = new PixelPerfectTween(this, 0);
 			
 			super(Main.WIDTH, Main.HEIGHT, false);
 			
-			foundations.flow.workWithUpdateListener(this);
-			foundations.flow.addUpdateListener(Update.prerestore);
-			foundations.flow.addUpdateListener(Update.moveCenter);
-			foundations.flow.addUpdateListener(Update.quitGame);
+			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.moveCenter);
+			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
 		update function prerestore(config:GameConfig):void
@@ -60,7 +60,7 @@ package game.clouds
 			this.moveTween.animate("tilesOffsetX", this.tilesOffsetX - Metric.CELL_WIDTH * change.x);
 			this.moveTween.animate("tilesOffsetY", this.tilesOffsetY - Metric.CELL_HEIGHT * change.y);
 			
-			this.foundations.juggler.add(this.moveTween);
+			this.elements.juggler.add(this.moveTween);
 		}
 		
 		update function quitGame():void

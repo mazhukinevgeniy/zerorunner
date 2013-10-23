@@ -2,7 +2,7 @@ package game.items.utils
 {
 	import game.core.metric.ICoordinated;
 	import game.items.base.ItemBase;
-	import game.items.IActors;
+	import game.items.Items;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -10,14 +10,14 @@ package game.items.utils
 	internal class Act
 	{
 		private var points:IPointCollector;
-		private var actors:IActors;
+		private var items:Items;
 		
 		private var moved:Vector.<ItemBase>;
 		
-		public function Act(actors:IActors, flow:IUpdateDispatcher, points:IPointCollector) 
+		public function Act(items:Items, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
 			this.points = points;
-			this.actors = actors;
+			this.items = items;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
@@ -37,7 +37,7 @@ package game.items.utils
 				const brcX:int = center.x + 20;
 				const brcY:int = center.y + 20;
 				
-				var actor:ItemBase;
+				var item:ItemBase;
 				
 				var i:int;
 				var j:int;
@@ -48,12 +48,12 @@ package game.items.utils
 				{				
 					for (i = tlcX; i < brcX; i++)
 					{
-						actor = this.actors.findObjectByCell(i, j);
+						item = this.items.findObjectByCell(i, j);
 						
-						if (actor && this.moved.indexOf(actor) == -1)
+						if (item && this.moved.indexOf(item) == -1)
 						{
-							actor.act();
-							this.moved.push(actor);
+							item.act();
+							this.moved.push(item);
 						}
 					}
 				}
@@ -63,10 +63,10 @@ package game.items.utils
 				
 				for (i = 0; i < length; i++)
 				{
-					actor = others[i] as ItemBase;
+					item = others[i] as ItemBase;
 					
-					if (this.moved.indexOf(actor) == -1)
-						actor.act();
+					if (this.moved.indexOf(item) == -1)
+						item.act();
 				}
 			}
 		}

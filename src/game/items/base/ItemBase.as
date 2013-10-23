@@ -22,15 +22,12 @@ package game.items.base
 		
 		private var _cooldown:int = 0;
 		
-		/**
-		 * Don't call super until the ... //TODO: until what?
-		 */
 		public function ItemBase(view:ItemViewBase, elements:GameElements, existence:ExistenceCore) 
 		{
 			this._view = view;
 			
 			if (existence == null)
-				this._existence = new ExistenceCore(elements, null);
+				this._existence = new ExistenceCore(this, elements, null);
 			else
 				this._existence = existence;
 		}

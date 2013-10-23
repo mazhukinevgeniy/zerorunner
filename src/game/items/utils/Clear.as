@@ -2,22 +2,22 @@ package game.items.utils
 {
 	import data.viewers.GameConfig;
 	import game.items.base.ItemBase;
-	import game.items.IActors;
+	import game.items.Items;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	internal class Clear
 	{
 		private var width:int;
-		private var actors:IActors;
+		private var items:Items;
 		
-		public function Clear(actors:IActors, flow:IUpdateDispatcher) 
+		public function Clear(items:Items, flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			this.actors = actors;
+			this.items = items;
 		}
 		
 		update function prerestore(config:GameConfig):void

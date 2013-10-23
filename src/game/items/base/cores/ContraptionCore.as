@@ -4,11 +4,12 @@ package game.items.base.cores
 	import game.items.base.ItemBase;
 	import game.items.items_internal;
 	
+	use namespace items_internal;
+	
 	public class ContraptionCore extends CoreBase
 	{
-		private var constructionTarget:int;
-		
-		private var constructionStatus:int;
+		protected var constructionTarget:int;
+		protected var constructionStatus:int;
 		
 		public function ContraptionCore(item:ItemBase, maximum:int) 
 		{
@@ -17,19 +18,13 @@ package game.items.base.cores
 			this.constructionTarget = maximum;
 			this.constructionStatus = 0;
 			
-			this.item.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
+			this.item.view.showConstruction(this.constructionStatus / this.constructionTarget);
 		}
 		
 		items_internal function applySoldering(value:int):void
 		{
 			this.constructionStatus += value;
-			this.item.view.showConstruction(this.constructionStatus / this.MAXIMUM_CONSTRUCTION);
-			
-			if (this.constructionStatus > this.MAXIMUM_CONSTRUCTION && !this.reported)
-			{
-				this.reported = true;
-				this.flow.dispatchUpdate(Update.smallBeaconTurnedOn);
-			}
+			this.item.view.showConstruction(this.constructionStatus / this.constructionTarget);
 		}
 		
 		public function get progress():Number

@@ -13,9 +13,9 @@ package game.items.beacon
 	{
 		private var view:Image;
 		
-		public function BeaconView(foundations:GameElements) 
+		public function BeaconView(elements:GameElements) 
 		{
-			super(foundations);
+			super(elements);
 		}
 		
 		override protected function getView():DisplayObject

@@ -20,7 +20,7 @@ package game.hud
 		private var globalMap:GlobalMap;
 		
 		
-		public function EndGameView(foundations:GameElements) 
+		public function EndGameView(elements:GameElements) 
 		{
 			super();
 			
@@ -47,17 +47,17 @@ package game.hud
 			this.addChild(button);
 			
 			
-			this.globalMap = new GlobalMap(foundations.database.config);
+			this.globalMap = new GlobalMap(elements.database.config);
 			this.addChild(this.globalMap);
 			
 			
-			this.flow = foundations.flow;
+			this.flow = elements.flow;
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.restore);
 			this.flow.addUpdateListener(Update.gameFinished);
 			
-			foundations.displayRoot.addChild(this);
+			elements.displayRoot.addChild(this);
 		}
 		
 		update function restore():void

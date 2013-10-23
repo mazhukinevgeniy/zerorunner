@@ -7,9 +7,9 @@ package game.items.base.cores
 	public class CollisionCore extends CoreBase
 	{
 		
-		public function CollisionCore() 
+		public function CollisionCore(item:ItemBase) 
 		{
-			
+			super(item);
 		}
 		
 		items_internal function collideWith(blocker:ItemBase):void

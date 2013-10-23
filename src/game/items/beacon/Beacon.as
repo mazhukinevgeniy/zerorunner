@@ -22,7 +22,7 @@ package game.items.beacon
 		{
 			do
 				var cell:CellXY = this.getCell(config);
-			while (this.elements.actors.findObjectByCell(cell.x, cell.y));
+			while (this.elements.items.findObjectByCell(cell.x, cell.y));
 			
 			new BeaconLogic(cell, this.elements);
 		}

@@ -21,14 +21,14 @@ package game.items.character
 		
 		private var cooldown:int;
 		
-		public function CharacterLogic(foundations:GameElements) 
+		public function CharacterLogic(elements:GameElements) 
 		{
-			this.input = foundations.input;
-			this.flow = foundations.flow;
+			this.input = elements.input;
+			this.flow = elements.flow;
 			
-			super(new CharacterView(foundations), new Existence(foundations));
+			super(new CharacterView(elements), new Existence(elements));
 			
-			this.points = foundations.pointsOfInterest;
+			this.points = elements.pointsOfInterest;
 			this.points.addPointOfInterest(Game.CHARACTER, this.existence);
 			
 			//TODO: initialize all cores

@@ -1,20 +1,16 @@
 package game.items.beacon 
 {
-	import game.core.metric.*;
+	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
-	import utils.updates.IUpdateDispatcher;
 	
 	internal class BeaconLogic extends ItemBase
 	{
-		private const MAXIMUM_CONSTRUCTION:int = 50;
 		
-		private var flow:IUpdateDispatcher;
-		
-		public function BeaconLogic(cell:ICoordinated, foundations:GameElements) 
+		public function BeaconLogic(cell:ICoordinated, elements:GameElements) 
 		{
-			super(new BeaconView(foundations), new ExistenceCore(cell));
+			super(new BeaconView(elements), elements, new ExistenceCore(this, elements, cell));
 		}
 		
 		

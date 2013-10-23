@@ -5,7 +5,7 @@ package game.renderer
 	import game.core.metric.Metric;
 	import game.GameElements;
 	import game.items.base.ItemBase;
-	import game.items.IActors;
+	import game.items.Items;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
 	import starling.display.DisplayObjectContainer;
@@ -17,7 +17,7 @@ package game.renderer
 	public class Renderer 
 	{
 		private var scene:IScene;
-		private var actors:IActors;
+		private var items:Items;
 		
 		private var points:IPointCollector;
 		private var lines:Camera;
@@ -27,21 +27,21 @@ package game.renderer
 		private var xM:int;
 		private var yM:int;
 		
-		public function Renderer(foundations:GameElements) 
+		public function Renderer(elements:GameElements) 
 		{
-			var flow:IUpdateDispatcher = foundations.flow;
-			this.points = foundations.pointsOfInterest;
+			var flow:IUpdateDispatcher = elements.flow;
+			this.points = elements.pointsOfInterest;
 			
-			this.scene = foundations.scene;
-			this.actors = foundations.actors;
+			this.scene = elements.scene;
+			this.items = elements.items;
 			
-			this.lines = new Camera(foundations);
+			this.lines = new Camera(elements);
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			this.pull = new TilePull(foundations.atlas);
+			this.pull = new TilePull(elements.atlas);
 		}
 		
 		update function prerestore(config:GameConfig):void
@@ -297,7 +297,7 @@ package game.renderer
 			const brcX:int = center.x + 11;
 			const brcY:int = center.y + 9;
 			
-			var actor:ItemBase;
+			var item:ItemBase;
 			var container:DisplayObjectContainer = this.lines.actors;
 			container.removeChildren();
 			
@@ -308,11 +308,11 @@ package game.renderer
 			{				
 				for (i = tlcX; i < brcX; i++)
 				{
-					actor = this.actors.findObjectByCell(i, j);
+					item = this.items.findObjectByCell(i, j);
 					
-					if (actor)
+					if (item)
 					{
-						container.addChild(actor.getView());
+						container.addChild(item.getView());
 					}
 				}
 			}

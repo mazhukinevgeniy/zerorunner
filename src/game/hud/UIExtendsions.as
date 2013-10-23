@@ -5,12 +5,12 @@ package game.hud
 	public class UIExtendsions
 	{
 		
-		public function UIExtendsions(foundations:GameElements) 
+		public function UIExtendsions(elements:GameElements) 
 		{
-			new EndGameView(foundations);
+			new EndGameView(elements);
 			
 			
-			new MapFeature(foundations);
+			new MapFeature(elements);
 		}
 		
 	}

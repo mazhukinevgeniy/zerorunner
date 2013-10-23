@@ -7,9 +7,9 @@ package game.items.technic
 	internal class TechnicView extends ItemViewBase
 	{
 		
-		public function TechnicView(foundations:GameElements) 
+		public function TechnicView(elements:GameElements) 
 		{
-			super(foundations);
+			super(elements);
 		}
 		
 		internal function animateSoldering(target:ICoordinated, delay:int):void

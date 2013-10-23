@@ -6,16 +6,14 @@ package game.items.base.cores
 	import game.GameElements;
 	import game.items.base.CoreBase;
 	import game.items.base.ItemBase;
-	import game.items.IActors;
-	import game.items.IActorTracker;
+	import game.items.Items;
 	import game.items.items_internal;
 	
 	use namespace items_internal;
 	
 	public class ExistenceCore extends CoreBase implements ICoordinated
 	{
-		private var actorTracker:IActorTracker;
-		private var actors:IActors;
+		private var items:Items;
 		
 		private var _x:int;
 		private var _y:int;
@@ -24,8 +22,7 @@ package game.items.base.cores
 		{
 			super(item);
 			
-			this.actorTracker = elements.actorsTracker;
-			this.actors = elements.actors;
+			this.items = elements.items;
 			
 			if (cell == null)
 			{
@@ -34,13 +31,13 @@ package game.items.base.cores
 				do
 					cell = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
 											 Game.BORDER_WIDTH + Math.random() * width);
-				while (elements.actors.findObjectByCell(cell.x, cell.y));
+				while (this.items.findObjectByCell(cell.x, cell.y));
 			}
 			
 			this._x = cell.x;
 			this._y = cell.y;
 			
-			this.actorTracker.addActor(this.item);
+			this.items.addItem(this);
 			
 			this.item.view.standOn(cell);
 			
@@ -48,7 +45,7 @@ package game.items.base.cores
 		
 		items_internal function move(change:DCellXY, delay:int):void
 		{
-			var blocker:ItemBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
+			var blocker:ItemBase = this.items.findObjectByCell(this.x + change.x, this.y + change.y);
 			
 			if (!blocker)
 			{
@@ -57,7 +54,7 @@ package game.items.base.cores
 				this._x += change.x;
 				this._y += change.y;
 				
-				this.actorTracker.moveActor(this, change);
+				this.items.moveItem(this, change);
 				
 				this.item.view.move(this, change, delay + 1);
 			}
@@ -67,9 +64,9 @@ package game.items.base.cores
 		
 		items_internal function applyDestruction():void
 		{
-			this.actorTracker.removeActor(this);
+			this.items.removeItem(this);
 			
-			this.view.disappear();
+			this.item.view.disappear();
 		}
 		
 		final public function get x():int {	return this._x;	}

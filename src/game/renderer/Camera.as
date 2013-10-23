@@ -25,10 +25,10 @@ package game.renderer
 		private var moveTween:PixelPerfectTween;
 		
 		
-		public function Camera(foundations:GameElements) 
+		public function Camera(elements:GameElements) 
 		{
-			this.juggler = foundations.juggler;
-			var flow:IUpdateDispatcher = foundations.flow;
+			this.juggler = elements.juggler;
+			var flow:IUpdateDispatcher = elements.flow;
 			
 			this.container = new Sprite();
 			this.container.addChild(this.scene = new QuadBatch());
@@ -40,7 +40,7 @@ package game.renderer
 			flow.addUpdateListener(Update.moveCenter);
 			flow.addUpdateListener(Update.prerestore);
 			
-			foundations.displayRoot.addChild(this.container);
+			elements.displayRoot.addChild(this.container);
 			
 			this.moveTween = new PixelPerfectTween(this, 0);
 		}

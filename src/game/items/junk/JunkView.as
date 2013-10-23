@@ -6,9 +6,9 @@ package game.items.junk
 	internal class JunkView extends ItemViewBase
 	{
 		
-		public function JunkView(foundations:GameElements) 
+		public function JunkView(elements:GameElements) 
 		{
-			super(foundations);
+			super(elements);
 		}
 		
 	}

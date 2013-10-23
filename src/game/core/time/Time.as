@@ -25,22 +25,22 @@ package game.core.time
 		
 		private var pauseView:PauseView;
 		
-		public function Time(foundations:GameElements) 
+		public function Time(elements:GameElements) 
 		{
-			foundations.displayRoot.addChild(this.pauseView = new PauseView());
+			elements.displayRoot.addChild(this.pauseView = new PauseView());
 			
 			
-			this.gameJuggler = foundations.juggler;
-			this.status = foundations.database.status;
+			this.gameJuggler = elements.juggler;
+			this.status = elements.database.status;
 			
-			foundations.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
+			elements.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
-			foundations.flow.workWithUpdateListener(this);
-			foundations.flow.addUpdateListener(Update.restore);
-			foundations.flow.addUpdateListener(Update.keyUp);
-			foundations.flow.addUpdateListener(Update.gameFinished);
+			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.restore);
+			elements.flow.addUpdateListener(Update.keyUp);
+			elements.flow.addUpdateListener(Update.gameFinished);
 			
-			this.updateFlow = foundations.flow;
+			this.updateFlow = elements.flow;
 		}
 		
 		update function restore():void

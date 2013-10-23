@@ -21,9 +21,9 @@ package game.items.character
 		
 		private var container:Sprite;
 		
-		public function CharacterView(foundations:GameElements) 
+		public function CharacterView(elements:GameElements) 
 		{
-			super(foundations);
+			super(elements);
 		}
 		
 		override protected function getView():DisplayObject
