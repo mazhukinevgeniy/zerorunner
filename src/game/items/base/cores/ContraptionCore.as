@@ -1,6 +1,7 @@
 package game.items.base.cores 
 {
 	import game.items.base.CoreBase;
+	import game.items.base.ItemBase;
 	import game.items.items_internal;
 	
 	public class ContraptionCore extends CoreBase
@@ -9,8 +10,10 @@ package game.items.base.cores
 		
 		private var constructionStatus:int;
 		
-		public function ContraptionCore(maximum:int) 
+		public function ContraptionCore(item:ItemBase, maximum:int) 
 		{
+			super(item);
+			
 			this.constructionTarget = maximum;
 			this.constructionStatus = 0;
 			

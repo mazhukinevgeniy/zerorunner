@@ -20,6 +20,8 @@ package game.items.base
 		private var _existence:ExistenceCore;
 		private var _view:ItemViewBase;
 		
+		private var _cooldown:int = 0;
+		
 		/**
 		 * Don't call super until the ... //TODO: until what?
 		 */
@@ -48,6 +50,9 @@ package game.items.base
 		final items_internal function get actor():ActivityCore { return this._activity; }
 		
 		final items_internal function get view():ItemViewBase { return this._view; }
+		
+		final items_internal function get cooldown():int { return this._cooldown; }
+		final items_internal function set cooldown(value:int):void { this._cooldown = value; }
 		
 		/**
 		 * for the external use

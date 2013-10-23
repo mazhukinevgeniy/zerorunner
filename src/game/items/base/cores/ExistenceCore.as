@@ -6,17 +6,27 @@ package game.items.base.cores
 	import game.GameElements;
 	import game.items.base.CoreBase;
 	import game.items.base.ItemBase;
+	import game.items.IActors;
+	import game.items.IActorTracker;
 	import game.items.items_internal;
+	
+	use namespace items_internal;
 	
 	public class ExistenceCore extends CoreBase implements ICoordinated
 	{
-		
+		private var actorTracker:IActorTracker;
+		private var actors:IActors;
 		
 		private var _x:int;
 		private var _y:int;
 		
-		public function ExistenceCore(elements:GameElements, cell:ICoordinated) 
+		public function ExistenceCore(item:ItemBase, elements:GameElements, cell:ICoordinated) 
 		{
+			super(item);
+			
+			this.actorTracker = elements.actorsTracker;
+			this.actors = elements.actors;
+			
 			if (cell == null)
 			{
 				const width:int = elements.database.config.width;
@@ -30,9 +40,10 @@ package game.items.base.cores
 			this._x = cell.x;
 			this._y = cell.y;
 			
-			this.actorTracker.addActor(this);
+			this.actorTracker.addActor(this.item);
 			
-			this.view.standOn(cell);
+			this.item.view.standOn(cell);
+			
 		}
 		
 		items_internal function move(change:DCellXY, delay:int):void
