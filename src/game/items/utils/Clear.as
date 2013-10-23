@@ -32,33 +32,33 @@ package game.items.utils
 				const DWIDTH:int = Game.BORDER_WIDTH / 2;
 				
 				var i:int, j:int;
-				var actor:ItemBase;
+				var item:ItemBase;
 				
 				for (i = 0; i < this.width; i++)
 					for (j = 0; j < DWIDTH; j++)
 					{
-						actor = this.actors.findObjectByCell(i, j);
+						item = this.items.findObjectByCell(i, j);
 						
-						if (actor)
-							actor.existence.applyDestruction();
+						if (item)
+							item.existence.applyDestruction();
 						
-						actor = this.actors.findObjectByCell(i, this.width - (j + 1));
+						item = this.items.findObjectByCell(i, this.width - (j + 1));
 						
-						if (actor)
-							actor.existence.applyDestruction();
+						if (item)
+							item.existence.applyDestruction();
 					}
 				for (i = 0; i < DWIDTH; i++)
 					for (j = DWIDTH; j < this.width - DWIDTH; j++)
 					{
-						actor = this.actors.findObjectByCell(i, j);
+						item = this.items.findObjectByCell(i, j);
 						
-						if (actor)
-							actor.existence.applyDestruction();
+						if (item)
+							item.existence.applyDestruction();
 						
-						actor = this.actors.findObjectByCell(this.width - (i + 1), j);
+						item = this.items.findObjectByCell(this.width - (i + 1), j);
 						
-						if (actor)
-							actor.existence.applyDestruction();
+						if (item)
+							item.existence.applyDestruction();
 					}
 			}
 		}

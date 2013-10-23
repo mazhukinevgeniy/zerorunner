@@ -133,9 +133,9 @@ package game.items.technic
 					for (i = 0; i < 4; i++)
 					{
 						var change:DCellXY = TechnicLogic.moves[i];
-						var actor:ItemBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
+						var item:ItemBase = this.items.findObjectByCell(this.x + change.x, this.y + change.y);
 						
-						if (actor && !(actor is ISolderable && (actor as ISolderable).progress <= 1))
+						if (item && !(item.contraption && item.contraption.progress <= 1))
 							this.steps[i] -= 8;
 						
 						if ((change.x == -this.lastChange.x) && (change.y == -this.lastChange.y))

@@ -17,7 +17,7 @@ package game.renderer
 	{
 		private var container:Sprite;
 		
-		internal var actors:Sprite;
+		internal var items:Sprite;
 		internal var scene:QuadBatch;
 		
 		private var juggler:Juggler;
@@ -32,13 +32,14 @@ package game.renderer
 			
 			this.container = new Sprite();
 			this.container.addChild(this.scene = new QuadBatch());
-			this.container.addChild(this.actors = new Sprite());
+			this.container.addChild(this.items = new Sprite());
 			
 			flow.workWithUpdateListener(this);
 			
 			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.moveCenter);
 			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.quitGame);
 			
 			elements.displayRoot.addChild(this.container);
 			
@@ -48,8 +49,14 @@ package game.renderer
 		update function prerestore(config:GameConfig):void
 		{
 			this.scene.reset();
-			this.actors.removeChildren();
+			this.items.removeChildren();
 		}
+		
+		update function quitGame():void
+		{
+			this.scene.reset();
+			this.items.removeChildren();
+		}//TODO: avoid doublecode
 		
 		update function setCenter(center:ICoordinated):void
 		{

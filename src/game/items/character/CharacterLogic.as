@@ -44,12 +44,11 @@ package game.items.character
 			for (var i:int = -5; i < 6; i++)
 				for (var j:int = -5; j < 6; j++)
 				{
-					var actor:ItemBase = this.actors.findObjectByCell(this.x + i, this.y + j);
+					var item:ItemBase = this.items.findObjectByCell(this.x + i, this.y + j);
 					
-					if (actor && 
-						actor is ISolderable && 
-						(actor as ISolderable).progress < 1)
-						this.points.addPointOfInterest(Game.TOWER, actor);
+					if (item && item.contraption && 
+						item.contraption.progress < 1)
+						this.points.addPointOfInterest(Game.TOWER, item);
 				}
 			
 			if (this.cooldown > 0)
@@ -103,7 +102,7 @@ package game.items.character
 			var obstacles:int = 0;
 			
 			for (var i:int = 0; i < multiplier; i++)
-				if (this.actors.findObjectByCell(this.x + (i + 1) * change.x, this.y + (i + 1) * change.y))
+				if (this.items.findObjectByCell(this.x + (i + 1) * change.x, this.y + (i + 1) * change.y))
 					return;
 			
 			this.cooldown = this.MOVE_SPEED * 2 * multiplier;

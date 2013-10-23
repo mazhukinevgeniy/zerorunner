@@ -2,6 +2,9 @@ package game.items.character
 {
 	import game.items.base.cores.CollisionCore;
 	import game.items.base.ItemBase;
+	import game.items.items_internal;
+	
+	use namespace items_internal;
 	
 	internal class Collider extends CollisionCore
 	{
@@ -13,9 +16,9 @@ package game.items.character
 		
 		override public function collideWith(blocker:ItemBase):void 
 		{
-			if (actor is ISolderable)
+			if (blocker.contraption)
 			{
-				(actor as ISolderable).applySoldering(this.SOLDERING_POWER);
+				blocker.contraption.applySoldering(this.SOLDERING_POWER);
 				
 				//TODO: animate
 			}

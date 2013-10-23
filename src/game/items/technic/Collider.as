@@ -2,6 +2,9 @@ package game.items.technic
 {
 	import game.items.base.cores.CollisionCore;
 	import game.items.base.ItemBase;
+	import game.items.items_internal;
+	
+	use namespace items_internal;
 	
 	internal class Collider extends CollisionCore
 	{
@@ -13,15 +16,14 @@ package game.items.technic
 		
 		override public function collideWith(blocker:ItemBase):void 
 		{
-			if (actor is ISolderable)
+			if (blocker.contraption)
 			{
-				var tower:ISolderable = actor as ISolderable;
-				tower.applySoldering(this.SOLDERING_POWER);
+				blocker.contraption.applySoldering(this.SOLDERING_POWER);
 				
-				if (tower.progress >= 1)
+				if (blocker.contraption.finished)
 				{
 					this.goal = null;
-					this.points.removePointOfInterest(Game.TOWER, actor);
+					this.points.removePointOfInterest(Game.TOWER, blocker.existence);
 				}
 			}
 		}

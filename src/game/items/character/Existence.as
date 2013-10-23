@@ -23,14 +23,13 @@ package game.items.character
 		
 		override items_internal function move(change:DCellXY, delay:int):void
 		{
-			var actor:ItemBase = this.actors.findObjectByCell(this.x + change.x, this.y + change.y);
-			if (!actor)
+			if (!this.items.findObjectByCell(this.x + change.x, this.y + change.y))
 			{
 				super.move(change, delay);
 				this.view.animateWalking(change, delay);
 				
 				this.cooldown = this.MOVE_SPEED;
-				
+				//TODO: something is broken, broken to the core, infection is growing, pulled until it's tore!
 				this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
 				//TODO: animate
 			}

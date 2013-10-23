@@ -55,7 +55,7 @@ package game.renderer
 			if (key == Game.FRAME_TO_REDRAW)
 			{
 				this.redrawScene();
-				this.redrawActors();
+				this.redrawItems();
 			}
 		}
 		
@@ -287,7 +287,7 @@ package game.renderer
 			}
 		}
 		
-		private function redrawActors():void
+		private function redrawItems():void
 		{
 			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
 			
@@ -298,7 +298,7 @@ package game.renderer
 			const brcY:int = center.y + 9;
 			
 			var item:ItemBase;
-			var container:DisplayObjectContainer = this.lines.actors;
+			var container:DisplayObjectContainer = this.lines.items;
 			container.removeChildren();
 			
 			var i:int;
