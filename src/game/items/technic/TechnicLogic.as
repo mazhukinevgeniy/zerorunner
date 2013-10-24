@@ -67,15 +67,17 @@ package game.items.technic
 			}
 			else
 			{
-				if (Metric.distance(this.existence, this.goal) == 1)
+				var position:ICoordinated = this.existence;
+				
+				if (Metric.distance(position, this.goal) == 1)
 				{
 					this.existence.moveTo(this.goal, this.MOVE_SPEED);
 				}
 				else
 				{
-					if (Math.abs(this.goal.x - this.x) > Math.abs(this.goal.y - this.y))
+					if (Math.abs(this.goal.x - position.x) > Math.abs(this.goal.y - position.y))
 					{
-						if (this.goal.x > this.x)
+						if (this.goal.x > position.x)
 						{
 							this.steps[this.RIGHT] = 4;
 							this.steps[this.LEFT] = 1;
@@ -86,7 +88,7 @@ package game.items.technic
 							this.steps[this.LEFT] = 4;
 						}
 						
-						if (this.goal.y > this.y)
+						if (this.goal.y > position.y)
 						{
 							this.steps[this.DOWN] = 3;
 							this.steps[this.UP] = 2;
@@ -99,7 +101,7 @@ package game.items.technic
 					}				
 					else
 					{
-						if (this.goal.x > this.x)
+						if (this.goal.x > position.x)
 						{
 							this.steps[this.RIGHT] = 3;
 							this.steps[this.LEFT] = 2;
@@ -110,7 +112,7 @@ package game.items.technic
 							this.steps[this.LEFT] = 3;
 						}
 						
-						if (this.goal.y > this.y)
+						if (this.goal.y > position.y)
 						{
 							this.steps[this.DOWN] = 4;
 							this.steps[this.UP] = 1;
@@ -122,11 +124,11 @@ package game.items.technic
 						}
 					}
 					
-					if (this.goal.x == this.x)
+					if (this.goal.x == position.x)
 					{
 						this.steps[this.LEFT] = this.steps[this.RIGHT] = 2;
 					}
-					if (this.goal.y == this.y)
+					if (this.goal.y == position.y)
 					{
 						this.steps[this.UP] = this.steps[this.DOWN] = 2;
 					}
@@ -136,9 +138,9 @@ package game.items.technic
 					for (i = 0; i < 4; i++)
 					{
 						var change:DCellXY = TechnicLogic.moves[i];
-						var item:ItemBase = this.items.findObjectByCell(this.x + change.x, this.y + change.y);
+						var item:ItemBase = this.items.findObjectByCell(position.x + change.x, position.y + change.y);
 						
-						if (item && !(item.contraption && item.contraption.progress <= 1))
+						if (item && !(item.contraption && !item.contraption.finished))
 							this.steps[i] -= 8;
 						
 						if ((change.x == -this.lastChange.x) && (change.y == -this.lastChange.y))
@@ -164,13 +166,8 @@ package game.items.technic
 		{
 			var change:DCellXY = this.lastChange = TechnicLogic.moves[direction];
 			
-			this.move(this.lastChange, this.MOVE_SPEED);
+			this.existence.move(this.lastChange, this.MOVE_SPEED);
 		}
 		
-		
-		internal function moveTo(target:ICoordinated):void
-		{
-			super.move(Metric.getTmpDCell(target.x - this.x, target.y - this.y), -1);
-		}
 	}
 }
