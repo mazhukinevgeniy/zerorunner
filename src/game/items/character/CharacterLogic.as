@@ -2,53 +2,58 @@ package game.items.character
 {
 	import game.core.input.InputManager;
 	import game.core.metric.DCellXY;
+	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.base.ItemBase;
+	import game.items.Items;
 	import game.items.items_internal;
 	import game.points.IPointCollector;
+	import game.scene.IScene;
 	import utils.updates.IUpdateDispatcher;
 	
 	use namespace items_internal;
 	
 	internal class CharacterLogic extends ItemBase
 	{
-		private const MOVE_SPEED:int = 1;
-		private const SOLDERING_POWER:int = 2;
+		private const SOLDERING_POWER:int = 2;//TODO: replace
 		
 		private var input:InputManager;
 		private var flow:IUpdateDispatcher;
 		private var points:IPointCollector;
-		
-		private var cooldown:int;
+		private var items:Items;
+		private var scene:IScene;
 		
 		public function CharacterLogic(elements:GameElements) 
 		{
 			this.input = elements.input;
 			this.flow = elements.flow;
+			this.items = elements.items;
+			this.scene = elements.scene;
 			
-			super(new CharacterView(elements), new Existence(elements));
+			var view:CharacterView = new CharacterView(elements);
+			
+			super(view, elements, new Existence(this, view, elements));
 			
 			this.points = elements.pointsOfInterest;
 			this.points.addPointOfInterest(Game.CHARACTER, this.existence);
 			
 			//TODO: initialize all cores
 			
-			this.flow.dispatchUpdate(Update.setCenter, this);
-			
-			this.cooldown = 0; //TODO: find where to store it
+			this.flow.dispatchUpdate(Update.setCenter, this.existence);
 		}
 		
 		
 		override public function act():void
 		{
+			var pos:ICoordinated = this.existence;
+			
 			for (var i:int = -5; i < 6; i++)
 				for (var j:int = -5; j < 6; j++)
 				{
-					var item:ItemBase = this.items.findObjectByCell(this.x + i, this.y + j);
+					var item:ItemBase = this.items.findObjectByCell(pos.x + i, pos.y + j);
 					
-					if (item && item.contraption && 
-						item.contraption.progress < 1)
-						this.points.addPointOfInterest(Game.TOWER, item);
+					if (item && item.contraption && !item.contraption.finished)
+						this.points.addPointOfInterest(Game.TOWER, item.existence);
 				}
 			
 			if (this.cooldown > 0)
@@ -68,21 +73,21 @@ package game.items.character
 					
 					while (action.x != 0 || action.y != 0)
 					{
-						var next:int = this.scene.getSceneCell(this.x + action.x, this.y + action.y);
+						var next:int = this.scene.getSceneCell(pos.x + action.x, pos.y + action.y);
 						
 						if (next != Game.FALL && next != Game.LAVA)
 						{
-							this.move(action, this.MOVE_SPEED);
+							this.existence.move(action);
 							
 							break;
 						}
 						else
 						{
-							next = this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y);
+							next = this.scene.getSceneCell(pos.x + 2 * action.x, pos.y + 2 * action.y);
 							
 							if (next != Game.FALL && next != Game.LAVA)
 							{
-								this.jump(action, 2);
+								(this.existence as Existence).jump(action, 2);
 								
 								break;
 							}
@@ -96,25 +101,6 @@ package game.items.character
 		}
 		
 		
-		
-		final protected function jump(change:DCellXY, multiplier:int):void
-		{
-			var obstacles:int = 0;
-			
-			for (var i:int = 0; i < multiplier; i++)
-				if (this.items.findObjectByCell(this.x + (i + 1) * change.x, this.y + (i + 1) * change.y))
-					return;
-			
-			this.cooldown = this.MOVE_SPEED * 2 * multiplier;
-			
-			var jChange:DCellXY = Metric.getTmpDCell(change.x * multiplier, change.y * multiplier);
-			
-			super.move(jChange, this.cooldown);
-			
-			
-			this.flow.dispatchUpdate(Update.moveCenter, jChange, this.cooldown + 1);
-			//TODO: animate
-		}
 		
 	}
 

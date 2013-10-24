@@ -15,7 +15,6 @@ package game.items.technic
 	
 	internal class TechnicLogic extends ItemBase
 	{
-		private const MOVE_SPEED:int = 0;
 		private const SOLDERING_POWER:int = 3;
 		
 		private const LEFT:int = 0;
@@ -37,13 +36,15 @@ package game.items.technic
 		
 		public function TechnicLogic(cell:ICoordinated, elements:GameElements) 
 		{
+			const MOVE_SPEED:int = 0;
+			
 			this.items = elements.items;
 			this.points = elements.pointsOfInterest;
 			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this.existence);
 			
 			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			super(new TechnicView(elements), elements, new ExistenceCore(this, elements, cell));
+			super(new TechnicView(elements), elements, new ExistenceCore(this, elements, cell, MOVE_SPEED));
 			
 		}
 		
@@ -71,7 +72,7 @@ package game.items.technic
 				
 				if (Metric.distance(position, this.goal) == 1)
 				{
-					this.existence.moveTo(this.goal, this.MOVE_SPEED);
+					this.existence.moveTo(this.goal);
 				}
 				else
 				{
@@ -166,7 +167,7 @@ package game.items.technic
 		{
 			var change:DCellXY = this.lastChange = TechnicLogic.moves[direction];
 			
-			this.existence.move(this.lastChange, this.MOVE_SPEED);
+			this.existence.move(this.lastChange);
 		}
 		
 	}

@@ -18,7 +18,9 @@ package game.items.base.cores
 		private var _x:int;
 		private var _y:int;
 		
-		public function ExistenceCore(item:ItemBase, elements:GameElements, cell:ICoordinated) 
+		private var _delay:int;
+		
+		public function ExistenceCore(item:ItemBase, elements:GameElements, cell:ICoordinated, delay:int = 2) 
 		{
 			super(item);
 			
@@ -41,10 +43,13 @@ package game.items.base.cores
 			
 			this.item.view.standOn(cell);
 			
+			this._delay = delay;
 		}
 		
-		items_internal function move(change:DCellXY, delay:int):void
+		items_internal function move(change:DCellXY):void
 		{
+			var delay:int = this._delay;
+			
 			var blocker:ItemBase = this.items.findObjectByCell(this.x + change.x, this.y + change.y);
 			
 			if (!blocker)
@@ -64,8 +69,9 @@ package game.items.base.cores
 				this.item.collider.collideWith(blocker);
 		}
 		
-		items_internal function moveTo(goal:ICoordinated, delay:int):void
+		items_internal function moveTo(goal:ICoordinated):void
 		{
+			var delay:int = this._delay;
 			var blocker:ItemBase = this.items.findObjectByCell(goal.x, goal.y);
 			
 			if (!blocker)
