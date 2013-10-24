@@ -50,7 +50,7 @@ package game.items.base
 			this.visible = true;
 		}
 		
-		final items_internal function move(goal:ICoordinated, change:DCellXY, delay:int):void
+		final items_internal function moveTo(goal:ICoordinated, delay:int):void
 		{
 			this.movingTween.reset(this, delay * Time.TIME_BETWEEN_TICKS);
 			this.movingTween.moveTo(goal.x * Metric.CELL_WIDTH, goal.y * Metric.CELL_HEIGHT);

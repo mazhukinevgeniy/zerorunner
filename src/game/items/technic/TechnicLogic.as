@@ -7,6 +7,7 @@ package game.items.technic
 	import game.GameElements;
 	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
+	import game.items.Items;
 	import game.items.items_internal;
 	import game.points.IPointCollector;
 	
@@ -29,19 +30,21 @@ package game.items.technic
 		private var center:ICoordinated;
 		
 		private var points:IPointCollector;
+		private var items:Items;
 		
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();
 		
 		public function TechnicLogic(cell:ICoordinated, elements:GameElements) 
 		{
+			this.items = elements.items;
+			this.points = elements.pointsOfInterest;
+			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this.existence);
 			
 			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
 			super(new TechnicView(elements), elements, new ExistenceCore(this, elements, cell));
 			
-			this.points = elements.pointsOfInterest;
-			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this.existence);
 		}
 		
 		
@@ -64,9 +67,9 @@ package game.items.technic
 			}
 			else
 			{
-				if (Metric.distance(this, this.goal) == 1)
+				if (Metric.distance(this.existence, this.goal) == 1)
 				{
-					this.move(Metric.getTmpDCell(this.goal.x - this.x, this.goal.y - this.y), this.MOVE_SPEED);
+					this.existence.moveTo(this.goal, this.MOVE_SPEED);
 				}
 				else
 				{

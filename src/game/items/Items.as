@@ -1,7 +1,6 @@
 package game.items 
 {
 	import data.viewers.GameConfig;
-	import game.core.metric.DCellXY;
 	import game.GameElements;
 	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
@@ -49,12 +48,6 @@ package game.items
 		
 		items_internal function addItem(item:ExistenceCore):void
 		{
-			this.items[item.x + item.y * this.width] = item;
-		}
-		
-		items_internal function moveItem(item:ExistenceCore, change:DCellXY):void
-		{
-			this.items[item.x - change.x + (item.y - change.y) * this.width] = null;
 			this.items[item.x + item.y * this.width] = item;
 		}
 		

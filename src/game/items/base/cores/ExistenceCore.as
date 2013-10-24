@@ -51,12 +51,35 @@ package game.items.base.cores
 			{
 				this.item.cooldown = delay;
 				
+				this.items.removeItem(this);
+				
 				this._x += change.x;
 				this._y += change.y;
 				
-				this.items.moveItem(this, change);
+				this.items.addItem(this);
 				
-				this.item.view.move(this, change, delay + 1);
+				this.item.view.moveTo(this, delay + 1);
+			}
+			else
+				this.item.collider.collideWith(blocker);
+		}
+		
+		items_internal function moveTo(goal:ICoordinated, delay:int):void
+		{
+			var blocker:ItemBase = this.items.findObjectByCell(goal.x, goal.y);
+			
+			if (!blocker)
+			{
+				this.item.cooldown = delay;
+				
+				this.items.removeItem(this);
+				
+				this._x = goal.x;
+				this._y = goal.y;
+				
+				this.items.addItem(this);
+				
+				this.item.view.moveTo(this, delay + 1);
 			}
 			else
 				this.item.collider.collideWith(blocker);
