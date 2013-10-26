@@ -27,7 +27,7 @@ package ui
 			
 			windows[Windows.GAME] = gameRoot;
 			windows[Windows.STATISTICS] = new StatisticsWindow(database);
-			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(assets, database.achievements);
+			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(assets, database.achievements, flow);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
 			
 			for (var i:int = 0; i < Windows.NUMBER_OF_WINDOWS; ++i)

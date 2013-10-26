@@ -1,19 +1,19 @@
 package data.viewers 
 {
 	import flash.geom.Point;
+	import flash.utils.Proxy;
 	
 	public class AchievementViewer
 	{
 		
-		public function AchievementViewer() 
+		private var save:Proxy;
+		
+		public function AchievementViewer(save:Proxy) 
 		{
-			
+			this.save = save;
 		}
 		
-		public function get numberOfAchievements():int
-		{
-			return 40;
-		}
+		public function get numberOfAchievements():int { return this.save["numberOfAchievements"]; }
 		
 		public function get edges():Vector.<Point>
 		{

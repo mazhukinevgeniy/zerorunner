@@ -32,10 +32,16 @@ package data
 			distance: 0
 		};
 		
+		internal static const achievementsDefaults:Object = 
+		{
+			numberOfAchievements: 0
+		};
+		
 		internal static const defaults:Vector.<Object> = new <Object>[
 							Defaults.progressDefaults, 
 							Defaults.preferencesDefaults, 
-							Defaults.statisticsDefaults];
+							Defaults.statisticsDefaults,
+							Defaults.achievementsDefaults];
 		
 		
 		public function Defaults() 

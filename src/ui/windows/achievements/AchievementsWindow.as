@@ -12,6 +12,7 @@ package ui.windows.achievements
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import starling.utils.AssetManager;
 	
@@ -38,7 +39,9 @@ package ui.windows.achievements
 		
 		private var achData:AchievementData;
 		
-		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementViewer) 
+		private var generator:AchievementsGenerator;
+		
+		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementViewer, flow:IUpdateDispatcher) 
 		{
 			this.achData = new AchievementData(1, achievementSave);
 			
@@ -69,8 +72,11 @@ package ui.windows.achievements
 			this.addChild(this.achievementDescription);
 			
 			this.achievementSave = achievementSave;
+			this.generator = new AchievementsGenerator(flow);
 			
 			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
+			if (this.numberOfAchievements == 0)
+				this.generator.createAchievement();
 			
 			this.createEdges();
 			this.createViewAchievement();

@@ -14,6 +14,7 @@ package data.updaters
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
+			flow.addUpdateListener(Update.createAchievements);
 		}
 		
 		
@@ -30,6 +31,11 @@ package data.updaters
 				} 
 				*/
 			}
+			
+		}
+		
+		update function createAchievements():void
+		{
 			
 		}
 	}
