@@ -44,7 +44,7 @@ package game.items.technic
 			
 			this.center = this.points.findPointOfInterest(Game.CHARACTER);
 			
-			super(new TechnicView(elements), elements, new ExistenceCore(this, elements, cell, MOVE_SPEED));
+			super(elements, new ExistenceCore(this, elements, cell, MOVE_SPEED));
 			
 		}
 		

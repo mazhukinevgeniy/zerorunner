@@ -18,14 +18,11 @@ package game.items.base
 		protected var _activity:ActivityCore;
 		
 		private var _existence:ExistenceCore;
-		private var _view:ItemViewBase;
 		
 		private var _cooldown:int = 0;
 		
-		public function ItemBase(view:ItemViewBase, elements:GameElements, existence:ExistenceCore) 
+		public function ItemBase(elements:GameElements, existence:ExistenceCore) 
 		{
-			this._view = view;
-			
 			if (existence == null)
 				this._existence = new ExistenceCore(this, elements, null);
 			else
@@ -46,8 +43,6 @@ package game.items.base
 		final items_internal function get collider():CollisionCore { return this._collider; }
 		final items_internal function get actor():ActivityCore { return this._activity; }
 		
-		final items_internal function get view():ItemViewBase { return this._view; }
-		
 		final items_internal function get cooldown():int { return this._cooldown; }
 		final items_internal function set cooldown(value:int):void { this._cooldown = value; }
 		
@@ -55,10 +50,7 @@ package game.items.base
 		 * for the external use
 		 */
 		
-		final public function getView():DisplayObject
-		{
-			return this._view;
-		}
+		
 	}
 
 }

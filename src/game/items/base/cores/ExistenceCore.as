@@ -41,8 +41,6 @@ package game.items.base.cores
 			
 			this.items.addItem(this);
 			
-			this.item.view.standOn(cell);
-			
 			this._delay = delay;
 		}
 		
@@ -62,8 +60,6 @@ package game.items.base.cores
 				this._y += change.y;
 				
 				this.items.addItem(this);
-				
-				this.item.view.moveTo(this, delay + 1);
 			}
 			else
 				this.item.collider.collideWith(blocker);
@@ -84,8 +80,6 @@ package game.items.base.cores
 				this._y = goal.y;
 				
 				this.items.addItem(this);
-				
-				this.item.view.moveTo(this, delay + 1);
 			}
 			else
 				this.item.collider.collideWith(blocker);
@@ -94,8 +88,6 @@ package game.items.base.cores
 		items_internal function applyDestruction():void
 		{
 			this.items.removeItem(this);
-			
-			this.item.view.disappear();
 		}
 		
 		final public function get x():int {	return this._x;	}

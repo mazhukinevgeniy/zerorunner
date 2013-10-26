@@ -16,11 +16,9 @@ package game.items.character
 		private const MOVE_SPEED:int = 1;
 		
 		
-		private var view:CharacterView;
-		
 		private var flow:IUpdateDispatcher;
 		
-		public function Existence(item:CharacterLogic, view:CharacterView, elements:GameElements) 
+		public function Existence(item:CharacterLogic, elements:GameElements) 
 		{
 			var cell:ICoordinated =
 				Metric.getTmpCell(Game.BORDER_WIDTH, 
@@ -28,7 +26,6 @@ package game.items.character
 			
 			super(item, elements, cell, this.MOVE_SPEED);
 			
-			this.view = view;
 			this.flow = elements.flow;
 		}
 		
@@ -39,7 +36,6 @@ package game.items.character
 			if (!this.items.findObjectByCell(this.x + change.x, this.y + change.y))
 			{
 				super.move(change);
-				this.view.animateWalking(change, delay);
 				
 				this.item.cooldown = delay;
 				//TODO: something is broken, broken to the core, infection is growing, pulled until it's tore!

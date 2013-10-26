@@ -30,9 +30,7 @@ package game.items.character
 			this.items = elements.items;
 			this.scene = elements.scene;
 			
-			var view:CharacterView = new CharacterView(elements);
-			
-			super(view, elements, new Existence(this, view, elements));
+			super(elements, new Existence(this, elements));
 			
 			this.points = elements.pointsOfInterest;
 			this.points.addPointOfInterest(Game.CHARACTER, this.existence);

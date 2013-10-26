@@ -17,14 +17,11 @@ package game.items.base.cores
 			
 			this.constructionTarget = maximum;
 			this.constructionStatus = 0;
-			
-			this.item.view.showConstruction(this.progress);
 		}
 		
 		items_internal function applySoldering(value:int):void
 		{
 			this.constructionStatus += value;
-			this.item.view.showConstruction(this.progress);
 		}
 		
 		items_internal function get finished():Boolean

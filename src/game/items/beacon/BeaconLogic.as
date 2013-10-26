@@ -10,7 +10,7 @@ package game.items.beacon
 		
 		public function BeaconLogic(cell:ICoordinated, elements:GameElements) 
 		{
-			super(new BeaconView(elements), elements, new ExistenceCore(this, elements, cell));
+			super(elements, new ExistenceCore(this, elements, cell));
 		}
 		
 		

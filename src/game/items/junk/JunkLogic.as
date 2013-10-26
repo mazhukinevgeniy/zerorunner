@@ -8,7 +8,7 @@ package game.items.junk
 		
 		public function JunkLogic(elements:GameElements) 
 		{
-			super(new JunkView(elements), elements, null);
+			super(elements, null);
 			//TODO: must pass concrete existence to avoid flying junks
 		}
 		
