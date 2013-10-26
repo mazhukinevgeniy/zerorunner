@@ -78,10 +78,6 @@ package ui.windows.achievements
 			if (this.numberOfAchievements == 0)
 				this.generator.createAchievement();
 			
-			this.createEdges();
-			this.createViewAchievement();
-			this.redrawGraph();
-			
 			this.substrate.addEventListener(TouchEvent.TOUCH, this.handleSubstrateTouch)
 		}
 		
@@ -105,6 +101,7 @@ package ui.windows.achievements
 			var texture:Texture;
 			
 			this.achievements = new Vector.<ViewAchievement>;
+			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
 			
 			for (var i:int = 0; i < this.numberOfAchievements; ++i)
 			{
@@ -124,8 +121,11 @@ package ui.windows.achievements
 		{
 			if (newValue)
 			{
-				this.updateData();
+				//this.updateData();
 				//this.redrawAchievements();
+				this.createEdges();
+				this.createViewAchievement();
+				this.redrawGraph();
 			}
 			
 			super.visible = newValue;
@@ -140,6 +140,9 @@ package ui.windows.achievements
 		{
 			var i:int;
 			var lenght:int = (this.achievements).length;
+			
+			this.achievementsContainer.removeChildren();
+			this.edgesContainer.removeChildren();
 			
 			for (i = 0; i < lenght; ++i)
 			{

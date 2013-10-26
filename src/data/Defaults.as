@@ -32,7 +32,7 @@ package data
 			distance: 0
 		};
 		
-		internal static const achievementsDefaults:Object = 
+		public static const achievementsDefaults:Object = 
 		{
 			numberOfAchievements: 0
 		};

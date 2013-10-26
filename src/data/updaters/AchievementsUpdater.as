@@ -1,5 +1,7 @@
 package data.updaters 
 {
+	import data.Defaults;
+	import flash.geom.Point;
 	import flash.utils.Proxy;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -15,6 +17,7 @@ package data.updaters
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.createAchievements);
+			flow.addUpdateListener(Update.resetProgress);
 		}
 		
 		
@@ -34,9 +37,18 @@ package data.updaters
 			
 		}
 		
-		update function createAchievements():void
+		update function createAchievements(data:Vector.<Point>):void
 		{
+			var id:int = this.save["numberOfAchievements"] + 1;
+			this.save["numberOfAchievements"] = id;
 			
+			this.save[String(id)] = data;			
+		}
+		
+		update function resetProgress():void
+		{
+			for (var value:String in Defaults.achievementsDefaults)
+				this.save[value] = Defaults.achievementsDefaults[value];
 		}
 	}
 
