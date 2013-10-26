@@ -58,7 +58,7 @@ package game.items
 		
 		
 		
-		public function findObjectByCell(x:int, y:int):ItemBase
+		public function findObjectByCell(x:int, y:int):ExistenceCore
 		{
 			return this.items[x + y * this.width];
 		}

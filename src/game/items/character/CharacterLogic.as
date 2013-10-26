@@ -4,6 +4,7 @@ package game.items.character
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
@@ -48,10 +49,10 @@ package game.items.character
 			for (var i:int = -5; i < 6; i++)
 				for (var j:int = -5; j < 6; j++)
 				{
-					var item:ItemBase = this.items.findObjectByCell(pos.x + i, pos.y + j);
+					var item:ExistenceCore = this.items.findObjectByCell(pos.x + i, pos.y + j);
 					
-					if (item && item.contraption && !item.contraption.finished)
-						this.points.addPointOfInterest(Game.TOWER, item.existence);
+					if (item && item.item.contraption && !item.item.contraption.finished) //TODO: fix syntax
+						this.points.addPointOfInterest(Game.TOWER, item);
 				}
 			
 			if (this.cooldown > 0)

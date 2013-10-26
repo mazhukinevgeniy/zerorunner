@@ -48,7 +48,7 @@ package game.items.base.cores
 		{
 			var delay:int = this._delay;
 			
-			var blocker:ItemBase = this.items.findObjectByCell(this.x + change.x, this.y + change.y);
+			var blocker:ExistenceCore = this.items.findObjectByCell(this.x + change.x, this.y + change.y);
 			
 			if (!blocker)
 			{
@@ -62,13 +62,13 @@ package game.items.base.cores
 				this.items.addItem(this);
 			}
 			else
-				this.item.collider.collideWith(blocker);
+				this.item.collider.collideWith(blocker.item);
 		}
 		
 		items_internal function moveTo(goal:ICoordinated):void
 		{
 			var delay:int = this._delay;
-			var blocker:ItemBase = this.items.findObjectByCell(goal.x, goal.y);
+			var blocker:ExistenceCore = this.items.findObjectByCell(goal.x, goal.y);
 			
 			if (!blocker)
 			{
@@ -82,7 +82,7 @@ package game.items.base.cores
 				this.items.addItem(this);
 			}
 			else
-				this.item.collider.collideWith(blocker);
+				this.item.collider.collideWith(blocker.item);
 		}
 		
 		items_internal function applyDestruction():void

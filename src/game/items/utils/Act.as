@@ -1,8 +1,9 @@
 package game.items.utils 
 {
 	import game.core.metric.ICoordinated;
-	import game.items.base.ItemBase;
+	import game.items.base.cores.ExistenceCore;
 	import game.items.Items;
+	import game.items.items_internal;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -12,7 +13,7 @@ package game.items.utils
 		private var points:IPointCollector;
 		private var items:Items;
 		
-		private var moved:Vector.<ItemBase>;
+		private var moved:Vector.<ExistenceCore>;
 		
 		public function Act(items:Items, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
@@ -22,7 +23,7 @@ package game.items.utils
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			this.moved = new Vector.<ItemBase>();
+			this.moved = new Vector.<ExistenceCore>();
 		}
 		
 		update function numberedFrame(key:int):void
@@ -37,7 +38,7 @@ package game.items.utils
 				const brcX:int = center.x + 20;
 				const brcY:int = center.y + 20;
 				
-				var item:ItemBase;
+				var item:ExistenceCore;
 				
 				var i:int;
 				var j:int;
@@ -51,8 +52,8 @@ package game.items.utils
 						item = this.items.findObjectByCell(i, j);
 						
 						if (item && this.moved.indexOf(item) == -1)
-						{
-							item.act();
+						{//TODO: namespace violation! fix it
+							item.items_internal::item.act(); //TODO: fix syntax
 							this.moved.push(item);
 						}
 					}
@@ -63,10 +64,10 @@ package game.items.utils
 				
 				for (i = 0; i < length; i++)
 				{
-					item = others[i] as ItemBase;
+					item = others[i] as ExistenceCore;
 					
 					if (this.moved.indexOf(item) == -1)
-						item.act();
+						item.items_internal::item.act();
 				}
 			}
 		}
