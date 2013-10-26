@@ -16,7 +16,7 @@ package data.updaters
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
-			flow.addUpdateListener(Update.createAchievements);
+			flow.addUpdateListener(Update.openedAchievement);
 			flow.addUpdateListener(Update.resetProgress);
 		}
 		
@@ -37,12 +37,20 @@ package data.updaters
 			
 		}
 		
-		update function createAchievements(data:Vector.<Point>):void
+		update function openedAchievement(numberOfNew:int):void
 		{
-			var id:int = this.save["numberOfAchievements"] + 1;
-			this.save["numberOfAchievements"] = id;
+			var data:Vector.<Point>;
+			var type:int = 0;
+			var condition:int = 20;
+			var id:int = this.save["numberOfAchievements"];
 			
-			this.save[String(id)] = data;			
+			for (var i:int = 0; i < numberOfNew; ++i, ++id)
+			{
+				data = new <Point>[new Point(type, condition)];
+				
+				this.save["numberOfAchievements"]++;
+				this.save[String(id)] = data;			
+			}
 		}
 		
 		update function resetProgress():void

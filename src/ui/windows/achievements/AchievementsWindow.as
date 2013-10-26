@@ -39,7 +39,7 @@ package ui.windows.achievements
 		
 		private var achData:AchievementData;
 		
-		private var generator:AchievementsGenerator;
+		private var flow:IUpdateDispatcher;
 		
 		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementViewer, flow:IUpdateDispatcher) 
 		{
@@ -72,11 +72,12 @@ package ui.windows.achievements
 			this.addChild(this.achievementDescription);
 			
 			this.achievementSave = achievementSave;
-			this.generator = new AchievementsGenerator(flow);
+			this.flow = flow;
 			
 			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
 			if (this.numberOfAchievements == 0)
-				this.generator.createAchievement();
+				this.flow.dispatchUpdate(Update.openedAchievement, 1);
+				
 			
 			this.substrate.addEventListener(TouchEvent.TOUCH, this.handleSubstrateTouch)
 		}

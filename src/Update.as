@@ -40,7 +40,7 @@ package
 		
 		public static const resetProgress:String = "resetProgress";
 		
-		public static const createAchievements:String = "createAchievements";
+		public static const openedAchievement:String = "openedAchievement";
 		
 		
 		/* End of updates */
