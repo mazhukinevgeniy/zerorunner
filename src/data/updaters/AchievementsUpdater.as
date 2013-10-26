@@ -8,6 +8,10 @@ package data.updaters
 	
 	public class AchievementsUpdater 
 	{
+		private static const TEST_TYPE:int = 0;
+		
+		private static const ADDRESSES:Vector.<String> = new < String > ["distance"];
+		
 		private var save:Proxy;
 		
 		public function AchievementsUpdater(flow:IUpdateDispatcher, save:Proxy) 
@@ -25,12 +29,30 @@ package data.updaters
 		{
 			if (frame == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{
+				var number:int = this.save["achievements"].length;
+				var achievementData:Vector.<Object>;
+				var lenghtData:int;
+				
+				for (var i:int = 0; i < number; ++i)
+				{
+					achievementData = this.save["achievements"][i];
+					lenghtData = achievementData.length;
+					for (var j:int = 0; j < lenghtData; ++j)
+						if (this.save[AchievementsUpdater.ADDRESSES[achievementData[j].x]] >= achievementData[j].y)
+							achievementData.splice(j, 1);
+							
+					if (achievementData.length == 0)
+					{
+						this.save["achievements"].splice(i, 1);
+						trace("achievement complete");
+					}
+				}
 				/*
 				var length:int = this.activeAchievements.length;
 				
 				for (var i:int = 0; i < length; i++)
 				{
-					this.activeAchievements[i].checkIfUnlocked(this.localSave.data);
+					this.activeAchievements[i].checkIfUnlocked(this.localSave.achievementData);
 				} 
 				*/
 			}
@@ -39,17 +61,16 @@ package data.updaters
 		
 		update function openedAchievement(numberOfNew:int):void
 		{
-			var data:Vector.<Point>;
-			var type:int = 0;
+			var achievementData:Vector.<Object>;
+			var type:int = AchievementsUpdater.TEST_TYPE;
 			var condition:int = 20;
-			var id:int = this.save["numberOfAchievements"];
+			var id:int = this.save["achievements"].length;
 			
 			for (var i:int = 0; i < numberOfNew; ++i, ++id)
 			{
-				data = new <Point>[new Point(type, condition)];
+				achievementData = new <Object>[new Point(type, condition)];
 				
-				this.save["numberOfAchievements"]++;
-				this.save[String(id)] = data;			
+				this.save["achievements"].push(achievementData);			
 			}
 		}
 		

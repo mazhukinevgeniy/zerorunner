@@ -1,5 +1,6 @@
 package data 
 {
+	import flash.geom.Point;
 	
 	public class Defaults 
 	{
@@ -34,7 +35,7 @@ package data
 		
 		public static const achievementsDefaults:Object = 
 		{
-			numberOfAchievements: 0
+			achievements: new Vector.<Vector.<Object>>
 		};
 		
 		internal static const defaults:Vector.<Object> = new <Object>[
