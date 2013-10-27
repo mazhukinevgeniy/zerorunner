@@ -5,18 +5,10 @@ package
 	{
 		//TODO: embed everything here
 		
-		/* UI */
+		/* Sprites */
 		
-		[Embed(source = "../res/textures/shell0.png")]
-		public static const shell0:Class;
-		
-		/* Game */
-		
-		[Embed(source="../res/textures/items0.png")]
-		public static const items0:Class;
-		
-		[Embed(source="../res/textures/scene0.png")]
-		public static const scene0:Class;
+		[Embed(source="../res/atlases/sprites0.png")]
+		public static const sprites0:Class;
 		
 		/* Sounds */
 		

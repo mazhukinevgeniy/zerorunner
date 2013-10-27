@@ -35,7 +35,7 @@ package game.renderer
 		
 		private function initializeSprites(assets:AssetManager):void
 		{
-			var atlas:TextureAtlas = assets.getTextureAtlas("items");
+			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
 			
 			var titles:Vector.<String> = new < String > 
 										   ["unimplemented", "hero_stand"];

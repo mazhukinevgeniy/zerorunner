@@ -4,7 +4,7 @@ package utils
 	
 	public class AtlasXML
 	{
-		[Embed(source = "../../res/textures/atlases.xml", mimeType = "application/octet-stream")]
+		[Embed(source="../../res/atlases/atlases.xml", mimeType = "application/octet-stream")]
 		private static const atlases:Class;
 		
 		public function AtlasXML() 

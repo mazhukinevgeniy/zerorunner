@@ -11,7 +11,7 @@ package game.renderer
 		
 		public function TilePull(assets:AssetManager) 
 		{
-			var atlas:TextureAtlas = assets.getTextureAtlas("scene");
+			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
 			
 			var titles:Vector.<String> = new < String > 
 										   ["ground", 
