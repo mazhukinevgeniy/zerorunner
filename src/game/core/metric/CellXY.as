@@ -9,12 +9,6 @@ package game.core.metric
 			this._x = x; this._y = y;
 		}
 		
-		public function setValue(x:int, y:int):void
-		{
-			this._x = x;
-			this._y = y;
-		}
-		
 		public function isEqualTo(coordinates:ICoordinated):Boolean
 		{
 			return (this._x == coordinates.x) && (this._y == coordinates.y);

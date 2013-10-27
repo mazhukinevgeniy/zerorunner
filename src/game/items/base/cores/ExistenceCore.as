@@ -1,5 +1,6 @@
 package game.items.base.cores 
 {
+	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
@@ -30,10 +31,14 @@ package game.items.base.cores
 			{
 				const width:int = elements.database.config.width;
 				
-				do
-					cell = Metric.getTmpCell(Game.BORDER_WIDTH + Math.random() * width, 
-											 Game.BORDER_WIDTH + Math.random() * width);
-				while (this.items.findObjectByCell(cell.x, cell.y));
+				var tmpCell:CellXY = new CellXY(Game.BORDER_WIDTH + Math.random() * width, 
+												Game.BORDER_WIDTH + Math.random() * width);
+				
+				while (this.items.findObjectByCell(tmpCell.x, tmpCell.y))
+					tmpCell.setValue(Game.BORDER_WIDTH + Math.random() * width, 
+									 Game.BORDER_WIDTH + Math.random() * width);
+				
+				cell = tmpCell;
 			}
 			
 			this._x = cell.x;

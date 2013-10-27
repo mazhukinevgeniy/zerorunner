@@ -28,7 +28,7 @@ package game.items.technic
 			{
 				var center:ICoordinated = this.elements.pointsOfInterest.findPointOfInterest(Game.CHARACTER);
 				
-				var tmpCell:CellXY = Metric.getTmpCell(center.x - 4, center.y + 4);
+				var tmpCell:CellXY = new CellXY(center.x - 4, center.y + 4);
 				
 				while (this.elements.items.findObjectByCell(tmpCell.x, tmpCell.y))
 					tmpCell.setValue(tmpCell.x, tmpCell.y - 1);

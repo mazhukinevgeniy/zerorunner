@@ -4,6 +4,7 @@ package game.items.technic
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
+	import game.core.metric.ProtectedDCellXY;
 	import game.GameElements;
 	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
@@ -23,7 +24,8 @@ package game.items.technic
 		private const DOWN:int = 3;
 		
 		private static var moves:Vector.<DCellXY> = new <DCellXY>[
-			new DCellXY( -1, 0), new DCellXY(0, -1), new DCellXY(1, 0), new DCellXY(0, 1)];
+			new ProtectedDCellXY( -1, 0), new ProtectedDCellXY(0, -1), 
+			new ProtectedDCellXY(1, 0), new ProtectedDCellXY(0, 1)];
 		
 		private var goal:ICoordinated;
 		private var center:ICoordinated;

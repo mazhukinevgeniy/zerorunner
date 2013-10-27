@@ -3,6 +3,7 @@ package game.core.input
 	import data.viewers.GameConfig;
 	import flash.events.Event;
 	import game.core.metric.DCellXY;
+	import game.core.metric.ProtectedDCellXY;
 	import starling.core.Starling;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -31,8 +32,8 @@ package game.core.input
 			
 			for (var i:int = 0; i < 5; i++)
 			{
-				this.changes[i] = new DCellXY(	i == 1 ? 1 : i == 3 ? -1 : 0,
-												i == 2 ? 1 : i == 4 ? -1 : 0);
+				this.changes[i] = new ProtectedDCellXY(	i == 1 ? 1 : i == 3 ? -1 : 0,
+														i == 2 ? 1 : i == 4 ? -1 : 0);
 			}
 			
 			this.order = new Vector.<int>(17, true);

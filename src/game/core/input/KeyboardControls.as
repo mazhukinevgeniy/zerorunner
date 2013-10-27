@@ -2,16 +2,17 @@ package game.core.input
 {
 	import flash.ui.Keyboard;
 	import game.core.metric.DCellXY;
+	import game.core.metric.ProtectedDCellXY;
 	import starling.core.Starling;
 	import starling.events.EventDispatcher;
 	import starling.events.KeyboardEvent;
 	
 	internal class KeyboardControls
 	{
-		private const UP:DCellXY = new DCellXY(0, -1);
-		private const DOWN:DCellXY = new DCellXY(0, 1);
-		private const RIGHT:DCellXY = new DCellXY(1, 0);
-		private const LEFT:DCellXY = new DCellXY(-1, 0);
+		private const UP:DCellXY = new ProtectedDCellXY(0, -1);
+		private const DOWN:DCellXY = new ProtectedDCellXY(0, 1);
+		private const RIGHT:DCellXY = new ProtectedDCellXY(1, 0);
+		private const LEFT:DCellXY = new ProtectedDCellXY(-1, 0);
 		
 		private var input:InputManager;
 		

@@ -1,8 +1,8 @@
 package game.items.character 
 {
+	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
-	import game.core.metric.Metric;
 	import game.GameElements;
 	import game.items.base.cores.ExistenceCore;
 	import game.items.Items;
@@ -20,9 +20,9 @@ package game.items.character
 		
 		public function Existence(item:CharacterLogic, elements:GameElements) 
 		{
-			var cell:ICoordinated =
-				Metric.getTmpCell(Game.BORDER_WIDTH, 
-								  Game.BORDER_WIDTH + elements.database.config.width - 1);
+			var cell:CellXY = new CellXY
+					(Game.BORDER_WIDTH, 
+					 Game.BORDER_WIDTH + elements.database.config.width - 1);
 			
 			super(item, elements, cell, this.MOVE_SPEED);
 			
@@ -52,12 +52,12 @@ package game.items.character
 				if (this.items.findObjectByCell(this.x + (i + 1) * change.x, this.y + (i + 1) * change.y))
 					return;
 			
-			var jChange:DCellXY = Metric.getTmpDCell(change.x * multiplier, change.y * multiplier);
+			change.setValue(change.x * multiplier, change.y * multiplier);
 			
-			super.move(jChange);
+			super.move(change);
 			this.item.cooldown = this.MOVE_SPEED * 2 * multiplier;
 			
-			this.flow.dispatchUpdate(Update.moveCenter, jChange, this.item.cooldown + 1);
+			this.flow.dispatchUpdate(Update.moveCenter, change, this.item.cooldown + 1);
 			//TODO: animate
 		}
 		
