@@ -8,7 +8,7 @@ package utils
 		var numberOfAtlases:int = xml.texture.length();
 		for (var i:int = 0; i < numberOfAtlases; i++)
 		{
-			var aXML:XML = adaptTextureAtlasMakerXML(xml.textures[i]);
+			var aXML:XML = adaptTextureAtlasMakerXML(xml.texture[i]);
 			var name:String = removeExistingExtension(aXML.@imagePath);
 			
 			var atlas:TextureAtlas = new TextureAtlas(assets.getTexture(name), aXML);
@@ -44,7 +44,7 @@ package utils
 		function removeExistingExtension(str:String):String
 		{
 			var result:String = "";
-			var length:int = String.length(str);
+			var length:int = str.length;
 			
 			for (var i:int = 0; i < length; i++)
 			{
@@ -59,7 +59,7 @@ package utils
 		function removeExistingZero(str:String):String
 		{
 			var result:String = "";
-			var length:int = String.length(str);
+			var length:int = str.length;
 			
 			for (var i:int = 0; i < length; i++)
 			{

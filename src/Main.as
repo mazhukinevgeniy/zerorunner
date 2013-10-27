@@ -11,6 +11,8 @@ package
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.Shell;
+	import utils.AtlasXML;
+	import utils.initializeAtlasMakerAtlases;
 	import utils.SoftStarling;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
@@ -88,6 +90,7 @@ package
 				this.removeChild(this.progressBar);
 				this.progressBar = null;
 				
+				initializeAtlasMakerAtlases(this.assets, AtlasXML.getOne());
 				
 				this.game = new GameElements(this.assets);
 				this.shell = new Shell(this.starlingRoot, this.game);

@@ -18,11 +18,6 @@ package
 		[Embed(source="../res/textures/scene0.png")]
 		public static const scene0:Class;
 		
-		/* XML */
-		
-		[Embed(source = "../res/textures/atlases.xml")]
-		public static const atlases:Class;
-		
 		/* Sounds */
 		
 		[Embed(source = "../res/sounds/Veloma.mp3")]
