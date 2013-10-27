@@ -2,6 +2,7 @@ package game.renderer
 {
 	import starling.display.Image;
 	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
 	internal class TilePull 
@@ -10,6 +11,8 @@ package game.renderer
 		
 		public function TilePull(assets:AssetManager) 
 		{
+			var atlas:TextureAtlas = assets.getTextureAtlas("scene");
+			
 			var titles:Vector.<String> = new < String > 
 										   ["ground", 
 											"ground_S", "ground_W", "ground_E", "ground_N",
@@ -24,7 +27,7 @@ package game.renderer
 			var length:int = titles.length;
 			for (var i:int = 0; i < length; i++)
 			{
-				this.textures[titles[i]] = new Image(assets.getTexture(titles[i]));
+				this.textures[titles[i]] = new Image(atlas.getTexture(titles[i]));
 			}
 		}
 		

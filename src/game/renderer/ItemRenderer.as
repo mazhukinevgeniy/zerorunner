@@ -8,6 +8,7 @@ package game.renderer
 	import game.points.IPointCollector;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
+	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.updates.update;
 	
@@ -34,6 +35,8 @@ package game.renderer
 		
 		private function initializeSprites(assets:AssetManager):void
 		{
+			var atlas:TextureAtlas = assets.getTextureAtlas("items");
+			
 			var titles:Vector.<String> = new < String > 
 										   ["unimplemented", "hero_stand"];
 			
@@ -42,7 +45,7 @@ package game.renderer
 			var length:int = titles.length;
 			for (var i:int = 0; i < length; i++)
 			{
-				this.sprites[titles[i]] = new Image(assets.getTexture(titles[i]));
+				this.sprites[titles[i]] = new Image(atlas.getTexture(titles[i]));
 			}
 		}
 		
