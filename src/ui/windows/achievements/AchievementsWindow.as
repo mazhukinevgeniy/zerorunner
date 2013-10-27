@@ -109,7 +109,7 @@ package ui.windows.achievements
 				else
 					nameOfSkin = this.achData.disabledSkin;
 				
-				texture = this.assets.getTextureAtlas("gameAtlas").getTexture(nameOfSkin);
+				texture = this.assets.getTexture(nameOfSkin);
 				this.achievements.push(new ViewAchievement(i, this.achData.position, texture, this));
 			}
 		}

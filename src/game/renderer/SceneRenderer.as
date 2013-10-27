@@ -31,7 +31,7 @@ package game.renderer
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			
-			this.pull = new TilePull(elements.atlas);
+			this.pull = new TilePull(elements.assets);
 			
 			
 			this.points = elements.pointsOfInterest;

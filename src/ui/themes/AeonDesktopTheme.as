@@ -87,10 +87,10 @@ package ui.themes
 
 	public class AeonDesktopTheme extends DisplayListWatcher
 	{
-		[Embed(source="../../../res/assets/ui/aeon.png")]
+		[Embed(source="../../../res/ui/aeon.png")]
 		protected static const ATLAS_IMAGE:Class;
 
-		[Embed(source="../../../res/assets/ui/aeon.xml",mimeType="application/octet-stream")]
+		[Embed(source="../../../res/ui/aeon.xml",mimeType="application/octet-stream")]
 		protected static const ATLAS_XML:Class;
 
 		protected static const FOCUS_INDICATOR_SCALE_9_GRID:Rectangle = new Rectangle(5, 4, 1, 14);

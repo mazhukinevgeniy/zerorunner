@@ -8,7 +8,7 @@ package game.renderer
 	import game.points.IPointCollector;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
-	import starling.textures.TextureAtlas;
+	import starling.utils.AssetManager;
 	import utils.updates.update;
 	
 	internal class ItemRenderer extends QuadBatch
@@ -29,10 +29,10 @@ package game.renderer
 			this.points = elements.pointsOfInterest;
 			this.items = elements.items;
 			
-			this.initializeSprites(elements.atlas);
+			this.initializeSprites(elements.assets);
 		}
 		
-		private function initializeSprites(atlas:TextureAtlas):void
+		private function initializeSprites(assets:AssetManager):void
 		{
 			var titles:Vector.<String> = new < String > 
 										   ["unimplemented", "hero_stand"];
@@ -42,7 +42,7 @@ package game.renderer
 			var length:int = titles.length;
 			for (var i:int = 0; i < length; i++)
 			{
-				this.sprites[titles[i]] = new Image(atlas.getTexture(titles[i]));
+				this.sprites[titles[i]] = new Image(assets.getTexture(titles[i]));
 			}
 		}
 		

@@ -53,11 +53,6 @@ package game
 			new UIExtendsions(this);
 		}
 		
-		public function get atlas():TextureAtlas
-		{
-			return this._assets.getTextureAtlas("gameAtlas");
-		}
-		
 		public function get assets():AssetManager
 		{
 			return this._assets;
