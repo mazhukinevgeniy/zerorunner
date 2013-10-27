@@ -14,7 +14,7 @@ package game.clouds
 		private static const MIN_NUMBER_OF_ELEMENTS:int = 5;
 		private static const STEP:int = (CloudBitmap.MAX_NUMBER_OF_ELEMENTS - CloudBitmap.MIN_NUMBER_OF_ELEMENTS) / Clouds.SIZE_CLOUDINNESS_SCALE;
 		
-		[Embed(source = "../../../res/textures/unimplemented.png")]
+		[Embed(source="../../../res/textures/clouds/unimplemented.png")]
 		private static const BaseCloud:Class;
 		
 		public function CloudBitmap(cloudiness:int) 
