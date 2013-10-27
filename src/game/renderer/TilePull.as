@@ -28,7 +28,7 @@ package game.renderer
 		
 		public function getImage(title:String):Image
 		{
-			return this.textures[title];
+			return this.textures[title]; //TODO: optimize by using vector and int keys
 		}
 	}
 
