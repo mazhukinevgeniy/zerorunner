@@ -36,7 +36,7 @@ package game.items.utils
 				const DWIDTH:int = Game.BORDER_WIDTH / 2;
 				
 				var i:int, j:int;
-				var item:ExistenceCore;
+				var item:ItemBase;
 				
 				for (i = 0; i < this.width; i++)
 					for (j = 0; j < DWIDTH; j++)
@@ -44,12 +44,12 @@ package game.items.utils
 						item = this.items.findObjectByCell(i, j);
 						
 						if (item)
-							item.applyDestruction();
+							item.existence.applyDestruction();
 						
 						item = this.items.findObjectByCell(i, this.width - (j + 1));
 						
 						if (item)
-							item.applyDestruction();
+							item.existence.applyDestruction();
 					}
 				for (i = 0; i < DWIDTH; i++)
 					for (j = DWIDTH; j < this.width - DWIDTH; j++)
@@ -57,12 +57,12 @@ package game.items.utils
 						item = this.items.findObjectByCell(i, j);
 						
 						if (item)
-							item.applyDestruction();
+							item.existence.applyDestruction();
 						
 						item = this.items.findObjectByCell(this.width - (i + 1), j);
 						
 						if (item)
-							item.applyDestruction();
+							item.existence.applyDestruction();
 					}
 			}
 		}

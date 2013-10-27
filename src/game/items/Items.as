@@ -2,7 +2,6 @@ package game.items
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
-	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
 	import game.items.beacon.Beacon;
 	import game.items.character.Character;
@@ -46,19 +45,19 @@ package game.items
 		
 		
 		
-		items_internal function addItem(item:ExistenceCore):void
+		items_internal function addItem(x:int, y:int, item:ItemBase):void
 		{
-			this.items[item.x + item.y * this.width] = item;
+			this.items[x + y * this.width] = item;
 		}
 		
-		items_internal function removeItem(item:ExistenceCore):void
+		items_internal function removeItem(x:int, y:int):void
 		{
-			this.items[item.x + item.y * this.width] = null;
+			this.items[x + y * this.width] = null;
 		}
 		
 		
 		
-		public function findObjectByCell(x:int, y:int):ExistenceCore
+		public function findObjectByCell(x:int, y:int):ItemBase
 		{
 			return this.items[x + y * this.width];
 		}

@@ -51,7 +51,7 @@ package game.items.technic
 		
 		override public function act():void
 		{
-			if (!this.goal || this.goal as ExistenceCore != this.items.findObjectByCell(this.goal.x, this.goal.y))
+			if (!this.goal || (this.goal as ExistenceCore).item != this.items.findObjectByCell(this.goal.x, this.goal.y))
 			{
 				this.goal = this.points.findPointOfInterest(Game.TOWER);
 				
@@ -139,9 +139,9 @@ package game.items.technic
 					for (i = 0; i < 4; i++)
 					{
 						var change:DCellXY = TechnicLogic.moves[i];
-						var item:ExistenceCore = this.items.findObjectByCell(position.x + change.x, position.y + change.y);
+						var item:ItemBase = this.items.findObjectByCell(position.x + change.x, position.y + change.y);
 						
-						if (item && !(item.item.contraption && !item.item.contraption.finished)) //TODO: fix syntax
+						if (item && !(item.contraption && !item.contraption.finished))
 							this.steps[i] -= 8;
 						
 						if ((change.x == -this.lastChange.x) && (change.y == -this.lastChange.y))

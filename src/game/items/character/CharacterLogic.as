@@ -49,10 +49,10 @@ package game.items.character
 			for (var i:int = -5; i < 6; i++)
 				for (var j:int = -5; j < 6; j++)
 				{
-					var item:ExistenceCore = this.items.findObjectByCell(pos.x + i, pos.y + j);
+					var item:ItemBase = this.items.findObjectByCell(pos.x + i, pos.y + j);
 					
-					if (item && item.item.contraption && !item.item.contraption.finished) //TODO: fix syntax
-						this.points.addPointOfInterest(Game.TOWER, item);
+					if (item && item.contraption && !item.contraption.finished)
+						this.points.addPointOfInterest(Game.TOWER, item.existence);
 				}
 			
 			if (this.cooldown > 0)

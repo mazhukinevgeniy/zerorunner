@@ -39,7 +39,7 @@ package game.items.base.cores
 			this._x = cell.x;
 			this._y = cell.y;
 			
-			this.items.addItem(this);
+			this.items.addItem(this._x, this._y, this.item);
 			
 			this._delay = delay;
 		}
@@ -48,46 +48,47 @@ package game.items.base.cores
 		{
 			var delay:int = this._delay;
 			
-			var blocker:ExistenceCore = this.items.findObjectByCell(this.x + change.x, this.y + change.y);
+			var blocker:ItemBase = 
+					this.items.findObjectByCell(this._x + change.x, this._y + change.y);
 			
 			if (!blocker)
 			{
 				this.item.cooldown = delay;
 				
-				this.items.removeItem(this);
+				this.items.removeItem(this._x, this._y);
 				
 				this._x += change.x;
 				this._y += change.y;
 				
-				this.items.addItem(this);
+				this.items.addItem(this._x, this._y, this.item);
 			}
 			else
-				this.item.collider.collideWith(blocker.item);
+				this.item.collider.collideWith(blocker);
 		}
 		
 		items_internal function moveTo(goal:ICoordinated):void
 		{
 			var delay:int = this._delay;
-			var blocker:ExistenceCore = this.items.findObjectByCell(goal.x, goal.y);
+			var blocker:ItemBase = this.items.findObjectByCell(goal.x, goal.y);
 			
 			if (!blocker)
 			{
 				this.item.cooldown = delay;
 				
-				this.items.removeItem(this);
+				this.items.removeItem(this._x, this._y);
 				
 				this._x = goal.x;
 				this._y = goal.y;
 				
-				this.items.addItem(this);
+				this.items.addItem(this._x, this._y, this.item);
 			}
 			else
-				this.item.collider.collideWith(blocker.item);
+				this.item.collider.collideWith(blocker);
 		}
 		
 		items_internal function applyDestruction():void
 		{
-			this.items.removeItem(this);
+			this.items.removeItem(this._x, this._y);
 		}
 		
 		final public function get x():int {	return this._x;	}
