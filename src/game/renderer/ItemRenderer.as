@@ -17,7 +17,8 @@ package game.renderer
 		private var points:IPointCollector;
 		private var items:Items;
 		
-		private var sprites:Object; //TODO: optimize by using vector and int keys
+		private var unimplemented:Image; //TODO: implement, lol
+		private var hero_stand:Image;
 		
 		public function ItemRenderer(elements:GameElements) 
 		{
@@ -40,12 +41,10 @@ package game.renderer
 			var titles:Vector.<String> = new < String > 
 										   ["unimplemented", "hero_stand"];
 			
-			this.sprites = new Object();
-			
 			var length:int = titles.length;
 			for (var i:int = 0; i < length; i++)
 			{
-				this.sprites[titles[i]] = new Image(atlas.getTexture(titles[i]));
+				this[titles[i]] = new Image(atlas.getTexture(titles[i]));
 			}
 		}
 		
@@ -72,7 +71,7 @@ package game.renderer
 			const brcX:int = center.x + 13;
 			const brcY:int = center.y + 11;
 			
-			var sprite:Image = this.sprites.unimplemented;
+			var sprite:Image = this.unimplemented;
 			
 			for (var i:int = tlcX; i < brcX; i++)
 				for (var j:int = tlcY; j < brcY; j++)
