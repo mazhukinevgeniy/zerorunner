@@ -9,7 +9,6 @@ package
 	import starling.core.Starling;
 	import starling.events.Event;
 	import starling.display.Sprite;
-	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import ui.Shell;
 	import utils.SoftStarling;

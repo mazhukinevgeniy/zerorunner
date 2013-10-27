@@ -84,7 +84,7 @@ package game.renderer
 					{
 						if (this.scene.getSceneCell(i, j + 1) == Game.FALL)
 						{
-							sprite = this.pull.getImage("S");
+							sprite = this.pull.getImage("ground_S");
 							
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
@@ -93,7 +93,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i + 1, j) == Game.FALL)
 						{
-							sprite = this.pull.getImage("E");
+							sprite = this.pull.getImage("ground_E");
 							
 							sprite.x = (i + 1) * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT;
@@ -102,7 +102,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i - 1, j) == Game.FALL)
 						{
-							sprite = this.pull.getImage("W");
+							sprite = this.pull.getImage("ground_W");
 							
 							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = j * Metric.CELL_HEIGHT;
@@ -111,7 +111,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i, j - 1) == Game.FALL)
 						{
-							sprite = this.pull.getImage("N");
+							sprite = this.pull.getImage("ground_N");
 							
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
@@ -120,7 +120,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i + 1, j + 1) == Game.FALL)
 						{
-							sprite = this.pull.getImage("SE");
+							sprite = this.pull.getImage("ground_SE");
 							
 							sprite.x = (i + 1) * Metric.CELL_WIDTH;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
@@ -129,7 +129,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i - 1, j + 1) == Game.FALL)
 						{
-							sprite = this.pull.getImage("SW");
+							sprite = this.pull.getImage("ground_SW");
 							
 							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
@@ -138,7 +138,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i + 1, j - 1) == Game.FALL)
 						{
-							sprite = this.pull.getImage("NE");
+							sprite = this.pull.getImage("ground_NE");
 							
 							sprite.x = (i + 1) * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
@@ -147,7 +147,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i - 1, j - 1) == Game.FALL)
 						{
-							sprite = this.pull.getImage("NW");
+							sprite = this.pull.getImage("ground_NW");
 							
 							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
@@ -199,7 +199,7 @@ package game.renderer
 						
 						if (this.scene.getSceneCell(i + 1, j) != Game.LAVA)
 						{
-							sprite = this.pull.getImage("right");
+							sprite = this.pull.getImage("lava_E");
 							
 							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width / 2;
 							sprite.y = j * Metric.CELL_HEIGHT;
@@ -208,7 +208,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i - 1, j) != Game.LAVA)
 						{
-							sprite = this.pull.getImage("left");
+							sprite = this.pull.getImage("lava_W");
 							
 							sprite.x = i * Metric.CELL_WIDTH - sprite.width / 2;
 							sprite.y = j * Metric.CELL_HEIGHT;
@@ -217,7 +217,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i, j - 1) != Game.LAVA)
 						{
-							sprite = this.pull.getImage("top");
+							sprite = this.pull.getImage("lava_N");
 							
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT - sprite.height / 2;
@@ -226,7 +226,7 @@ package game.renderer
 						}
 						if (this.scene.getSceneCell(i, j + 1) != Game.LAVA)
 						{
-							sprite = this.pull.getImage("bottom");
+							sprite = this.pull.getImage("lava_S");
 							
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height / 2;
@@ -239,7 +239,7 @@ package game.renderer
 							this.scene.getSceneCell(i + 1, j) == Game.LAVA &&
 							this.scene.getSceneCell(i, j + 1) == Game.LAVA)
 						{
-							sprite = this.pull.getImage("3");
+							sprite = this.pull.getImage("lava_SE");
 							
 							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
@@ -250,7 +250,7 @@ package game.renderer
 							this.scene.getSceneCell(i - 1, j) == Game.LAVA &&
 							this.scene.getSceneCell(i, j + 1) == Game.LAVA)
 						{
-							sprite = this.pull.getImage("1");
+							sprite = this.pull.getImage("lava_SW");
 							
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
@@ -261,7 +261,7 @@ package game.renderer
 							this.scene.getSceneCell(i + 1, j) == Game.LAVA &&
 							this.scene.getSceneCell(i, j - 1) == Game.LAVA)
 						{
-							sprite = this.pull.getImage("9");
+							sprite = this.pull.getImage("lava_NE");
 							
 							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
 							sprite.y = j * Metric.CELL_HEIGHT;
@@ -272,7 +272,7 @@ package game.renderer
 							this.scene.getSceneCell(i - 1, j) == Game.LAVA &&
 							this.scene.getSceneCell(i, j - 1) == Game.LAVA)
 						{
-							sprite = this.pull.getImage("7");
+							sprite = this.pull.getImage("lava_NW");
 							
 							sprite.x = i * Metric.CELL_WIDTH;
 							sprite.y = j * Metric.CELL_HEIGHT;
