@@ -12,14 +12,13 @@ package game.items.base
 	public class ItemBase extends CellXY
 	{
 		protected var _contraption:ContraptionCore;
-		protected var _electricity:ElectricityCore;
 		protected var _collider:CollisionCore;
 		protected var _activity:ActivityCore;
 		
 		protected var items:Items;
 		
 		
-		private var _occupation:ItemOccupation;
+		private var _occupation:OccupationCore;
 		
 		public function ItemBase(elements:GameElements, cell:CellXY) 
 		{
@@ -62,7 +61,6 @@ package game.items.base
 		
 		
 		final items_internal function get contraption():ContraptionCore { return this._contraption; }
-		final items_internal function get electricity():ElectricityCore { return this._electricity; }
 		final items_internal function get collider():CollisionCore { return this._collider; }
 		final items_internal function get activity():ActivityCore { return this._activity; }
 	}

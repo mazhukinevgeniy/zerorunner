@@ -4,7 +4,6 @@ package game.items.character
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.items.base.cores.ExistenceCore;
 	import game.items.Items;
 	import game.items.items_internal;
 	import utils.updates.IUpdateDispatcher;
@@ -14,20 +13,6 @@ package game.items.character
 	internal class Existence extends ExistenceCore
 	{
 		private const MOVE_SPEED:int = 1;
-		
-		
-		private var flow:IUpdateDispatcher;
-		
-		public function Existence(item:CharacterLogic, elements:GameElements) 
-		{
-			var cell:CellXY = new CellXY
-					(Game.BORDER_WIDTH, 
-					 Game.BORDER_WIDTH + elements.database.config.width - 1);
-			
-			super(item, elements, cell, this.MOVE_SPEED);
-			
-			this.flow = elements.flow;
-		}
 		
 		override items_internal function move(change:DCellXY):void
 		{
