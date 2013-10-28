@@ -6,7 +6,6 @@ package game.items.technic
 	import game.core.metric.Metric;
 	import game.core.metric.ProtectedDCellXY;
 	import game.GameElements;
-	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
@@ -31,7 +30,6 @@ package game.items.technic
 		private var center:ICoordinated;
 		
 		private var points:IPointCollector;
-		private var items:Items;
 		
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();

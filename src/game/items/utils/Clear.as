@@ -1,7 +1,6 @@
 package game.items.utils 
 {
 	import data.viewers.GameConfig;
-	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
@@ -44,12 +43,12 @@ package game.items.utils
 						item = this.items.findObjectByCell(i, j);
 						
 						if (item)
-							item.existence.applyDestruction();
+							item.applyDestruction();
 						
 						item = this.items.findObjectByCell(i, this.width - (j + 1));
 						
 						if (item)
-							item.existence.applyDestruction();
+							item.applyDestruction();
 					}
 				for (i = 0; i < DWIDTH; i++)
 					for (j = DWIDTH; j < this.width - DWIDTH; j++)
@@ -57,12 +56,12 @@ package game.items.utils
 						item = this.items.findObjectByCell(i, j);
 						
 						if (item)
-							item.existence.applyDestruction();
+							item.applyDestruction();
 						
 						item = this.items.findObjectByCell(this.width - (i + 1), j);
 						
 						if (item)
-							item.existence.applyDestruction();
+							item.applyDestruction();
 					}
 			}
 		}

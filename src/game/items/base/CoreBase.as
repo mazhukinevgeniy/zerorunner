@@ -2,7 +2,7 @@ package game.items.base
 {
 	import game.items.items_internal;
 	
-	public class CoreBase 
+	internal class CoreBase 
 	{
 		private var _item:ItemBase;
 		

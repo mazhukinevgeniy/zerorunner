@@ -1,6 +1,8 @@
 package game.items 
 {
 	import data.viewers.GameConfig;
+	import game.core.metric.DCellXY;
+	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.base.ItemBase;
 	import game.items.beacon.Beacon;
@@ -45,14 +47,49 @@ package game.items
 		
 		
 		
-		items_internal function addItem(x:int, y:int, item:ItemBase):void
+		items_internal function addItem(item:ItemBase):void
 		{
-			this.items[x + y * this.width] = item;
+			this.items[item.x + item.y * this.width] = item;
 		}
 		
-		items_internal function removeItem(x:int, y:int):void
+		items_internal function moveItemBy(item:ItemBase, change:DCellXY):void
 		{
-			this.items[x + y * this.width] = null;
+			var blocker:ItemBase = 
+					this.findObjectByCell(item.x + change.x, item.y + change.y);
+			
+			if (!blocker)
+			{
+				this.items.removeItem(this._x, this._y);
+				
+				this._x += change.x;
+				this._y += change.y;
+				
+				this.items.addItem(this._x, this._y, this);
+			}
+			else
+				this.collider.collideWith(blocker);
+		}
+		
+		items_internal function moveItemTo(item:ItemBase, goal:ICoordinated):void
+		{
+			var blocker:ItemBase = this.findObjectByCell(goal.x, goal.y);
+			
+			if (!blocker)
+			{
+				this.items.removeItem(item.x, item.y);
+				
+				this._x = goal.x;
+				this._y = goal.y;
+				
+				this.items.addItem(this._x, this._y, this);
+			}
+			else
+				this.collider.collideWith(blocker);
+		}
+		
+		items_internal function removeItem(item:ItemBase):void
+		{
+			this.items[item.x + item.y * this.width] = null;
 		}
 		
 		

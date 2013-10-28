@@ -11,7 +11,7 @@ package game.core.metric
 			super(x, y);
 		}
 		
-		override public function setValue(x:int, y:int):void 
+		final override public function setValue(x:int, y:int):void 
 		{
 			throw new Error();
 		}

@@ -4,7 +4,6 @@ package game.items.character
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.items.base.cores.ExistenceCore;
 	import game.items.base.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
@@ -21,7 +20,6 @@ package game.items.character
 		private var input:InputManager;
 		private var flow:IUpdateDispatcher;
 		private var points:IPointCollector;
-		private var items:Items;
 		private var scene:IScene;
 		
 		public function CharacterLogic(elements:GameElements) 

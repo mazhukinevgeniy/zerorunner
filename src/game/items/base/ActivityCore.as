@@ -1,7 +1,5 @@
-package game.items.base.cores 
+package game.items.base 
 {
-	import game.items.base.CoreBase;
-	import game.items.base.ItemBase;
 	import game.items.items_internal;
 	
 	public class ActivityCore extends CoreBase

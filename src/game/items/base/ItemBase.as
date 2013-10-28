@@ -1,37 +1,61 @@
 package game.items.base 
 {
-	import game.core.metric.ICoordinated;
+	import game.core.metric.CellXY;
+	import game.core.metric.DCellXY;
 	import game.GameElements;
-	import game.items.base.cores.ActivityCore;
-	import game.items.base.cores.CollisionCore;
-	import game.items.base.cores.ContraptionCore;
-	import game.items.base.cores.ElectricityCore;
-	import game.items.base.cores.ExistenceCore;
+	import game.items.Items;
 	import game.items.items_internal;
 	import starling.display.DisplayObject;
 	
-	public class ItemBase
+	use namespace items_internal;
+	
+	public class ItemBase extends CellXY
 	{
 		protected var _contraption:ContraptionCore;
 		protected var _electricity:ElectricityCore;
 		protected var _collider:CollisionCore;
 		protected var _activity:ActivityCore;
 		
-		private var _existence:ExistenceCore;
+		protected var items:Items;
 		
-		private var _cooldown:int = 0;
 		
-		public function ItemBase(elements:GameElements, existence:ExistenceCore) 
+		private var _occupation:ItemOccupation;
+		
+		public function ItemBase(elements:GameElements, cell:CellXY) 
 		{
-			if (existence == null)
-				this._existence = new ExistenceCore(this, elements, null);
-			else
-				this._existence = existence;
+			this.items = elements.items;
+			
+			if (cell == null)
+			{
+				const width:int = elements.database.config.width;
+				
+				cell = new CellXY(Game.BORDER_WIDTH + Math.random() * width, 
+								  Game.BORDER_WIDTH + Math.random() * width);
+				
+				while (this.items.findObjectByCell(cell.x, cell.y))
+					cell.setValue(Game.BORDER_WIDTH + Math.random() * width, 
+								  Game.BORDER_WIDTH + Math.random() * width);
+			}
+			
+			super(cell.x, cell.y);
+			
+			this.items.addItem(this);
 		}
 		
-		public function act():void
+		
+		final override public function setValue(x:int, y:int):void { throw new Error(); }
+		items_internal function setValue(x:int, y:int):void { super.setValue(x, y); }
+		
+		
+		
+		protected function onMoved():void
 		{
 			
+		}//TODO: how must it be implemented?
+		
+		items_internal function applyDestruction():void
+		{
+			this.items.removeItem(this);
 		}
 		
 		
@@ -39,18 +63,8 @@ package game.items.base
 		
 		final items_internal function get contraption():ContraptionCore { return this._contraption; }
 		final items_internal function get electricity():ElectricityCore { return this._electricity; }
-		final items_internal function get existence():ExistenceCore { return this._existence; }
 		final items_internal function get collider():CollisionCore { return this._collider; }
-		final items_internal function get actor():ActivityCore { return this._activity; }
-		
-		final items_internal function get cooldown():int { return this._cooldown; }
-		final items_internal function set cooldown(value:int):void { this._cooldown = value; }
-		
-		/**
-		 * for the external use
-		 */
-		
-		
+		final items_internal function get activity():ActivityCore { return this._activity; }
 	}
 
 }
