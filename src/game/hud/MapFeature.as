@@ -38,7 +38,9 @@ package game.hud
 			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			
-			elements.displayRoot.addChild(this.container = new QuadBatch());
+			this.container = new QuadBatch();
+			//elements.displayRoot.addChild(this.container);
+			//TODO: show or delete
 		}
 		
 		update function prerestore(config:GameConfig):void
