@@ -77,7 +77,7 @@ package game.renderer
 		{
 			this.reset(); 
 			
-			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
+			var center:ICoordinated = this.points.getCharacter();
 			
 			const tlcX:int = center.x - 10;
 			const tlcY:int = center.y - 8;

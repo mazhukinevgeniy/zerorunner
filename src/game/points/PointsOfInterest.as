@@ -1,68 +1,87 @@
 package game.points 
 {
 	import game.core.metric.ICoordinated;
+	import game.items.base.ItemBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class PointsOfInterest implements IPointCollector
 	{
-		private var types:Array;
+		private var towers:Vector.<ItemBase>;
+		private var actives:Vector.<ItemBase>;
+		
+		private var character:ICoordinated;
 		
 		public function PointsOfInterest(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.quitGame);
 		}
 		
 		update function prerestore(... args):void
 		{
-			this.types = new Array();
+			this.towers = new Vector.<ItemBase>();
+			this.actives = new Vector.<ItemBase>();
+		}
+		
+		update function setCenter(center:ICoordinated):void
+		{
+			this.character = center;
 		}
 		
 		update function quitGame():void
 		{
-			this.types = null;
+			this.towers = null;
+			this.actives = null;
+			this.character = null;
 		}
 		
 		
-		public function addPointOfInterest(type:int, point:ICoordinated):void
+		
+		public function addTower(tower:ItemBase):void 
+		{ 
+			if (this.towers.indexOf(tower) == -1)
+				this.towers.push(tower);
+		}
+		
+		public function getTower():ItemBase 
+		{ 
+			return this.towers[int(Math.random() * this.towers.length)];
+		}
+		
+		public function removeTower(tower:ItemBase):void 
 		{
-			if (this.types[type] == null)
-				this.types[type] = new Vector.<ICoordinated>();
-			if (this.types[type].indexOf(point) == -1)
-				this.types[type].push(point);
+			var pos:int = this.towers.indexOf(tower);
+			if (pos != -1)
+				this.towers.splice(pos, 1); 
 		}
 		
-		public function findPointOfInterest(type:int):ICoordinated
+		
+		public function getCharacter():ICoordinated
 		{
-			var vector:Vector.<ICoordinated> = this.types[type];
-			if (!vector) 
-				return null;
-			
-			var length:int = vector.length;
-			if (length == 0)
-				return null;
-			
-			return vector[int(Math.random() * length)];
+			return this.character;
 		}
 		
-		public function getPointsOfInterest(type:int):Vector.<ICoordinated>
+		
+		public function addAlwaysActive(item:ItemBase):void
 		{
-			return this.types[type];
+			if (this.actives.indexOf(item) == -1)
+				this.actives.push(item);
 		}
 		
-		public function removePointOfInterest(type:int, point:ICoordinated):void
+		public function removeAlwaysActive(item:ItemBase):void
 		{
-			var vector:Vector.<ICoordinated> = this.types[type];
-			if (!vector) 
-				return;
-			
-			var position:int = vector.indexOf(point);
-			if (position != -1)
-				vector.splice(position, 1);
+			var pos:int = this.actives.indexOf(item);
+			if (pos != -1)
+				this.actives.splice(pos, 1); 
 		}
 		
+		public function getAlwaysActives():Vector.<ItemBase>
+		{
+			return this.actives;
+		}
 	}
 
 }

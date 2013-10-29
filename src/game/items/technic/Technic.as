@@ -26,7 +26,7 @@ package game.items.technic
 			
 			for (i = 0; i < config.numberOfDroids; i++)
 			{
-				var center:ICoordinated = this.elements.pointsOfInterest.findPointOfInterest(Game.CHARACTER);
+				var center:ICoordinated = this.elements.pointsOfInterest.getCharacter();
 				
 				var tmpCell:CellXY = new CellXY(center.x - 4, center.y + 4);
 				
@@ -37,7 +37,7 @@ package game.items.technic
 			}
 		}
 		
-		update function technicUnlocked(place:ICoordinated):void
+		update function technicUnlocked(place:CellXY):void
 		{
 			var technic:TechnicLogic = new TechnicLogic(place, this.elements);
 		}

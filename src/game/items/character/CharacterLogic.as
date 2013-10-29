@@ -37,11 +37,10 @@ package game.items.character
 			super(elements, cell);
 			
 			this.points = elements.pointsOfInterest;
-			this.points.addPointOfInterest(Game.CHARACTER, this.existence);
 			
 			//TODO: initialize all cores
 			
-			this.flow.dispatchUpdate(Update.setCenter, this.existence);
+			this.flow.dispatchUpdate(Update.setCenter, this);
 		}
 		
 		

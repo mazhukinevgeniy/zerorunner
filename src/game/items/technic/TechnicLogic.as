@@ -34,17 +34,17 @@ package game.items.technic
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();
 		
-		public function TechnicLogic(cell:ICoordinated, elements:GameElements) 
+		public function TechnicLogic(cell:CellXY, elements:GameElements) 
 		{
 			const MOVE_SPEED:int = 0;
 			
 			this.items = elements.items;
 			this.points = elements.pointsOfInterest;
-			this.points.addPointOfInterest(Game.ALWAYS_ACTIVE, this.existence);
+			this.points.addAlwaysActive(this);
 			
-			this.center = this.points.findPointOfInterest(Game.CHARACTER);
+			this.center = this.points.getCharacter();
 			
-			super(elements, new ExistenceCore(this, elements, cell, MOVE_SPEED));
+			super(elements, cell);
 			
 		}
 		
@@ -54,7 +54,8 @@ package game.items.technic
 		{
 			var change:DCellXY = this.lastChange = TechnicLogic.moves[direction];
 			
-			this.existence.move(this.lastChange);
+			//this.existence.move(this.lastChange);
+			//TODO: implement moving
 		}
 		
 	}

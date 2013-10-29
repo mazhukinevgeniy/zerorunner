@@ -1,14 +1,20 @@
 package game.points 
 {
 	import game.core.metric.ICoordinated;
+	import game.items.base.ItemBase;
 	
 	public interface IPointCollector 
 	{
-		function addPointOfInterest(type:int, point:ICoordinated):void;
-		function removePointOfInterest(type:int, point:ICoordinated):void;
+		//TODO: check if we can name it better then "tower"
+		function addTower(tower:ItemBase):void;
+		function removeTower(tower:ItemBase):void;
+		function getTower():ItemBase;
 		
-		function findPointOfInterest(type:int):ICoordinated;
-		function getPointsOfInterest(type:int):Vector.<ICoordinated>;
+		function getCharacter():ICoordinated;
+		
+		function addAlwaysActive(item:ItemBase):void;
+		function removeAlwaysActive(item:ItemBase):void;
+		function getAlwaysActives():Vector.<ItemBase>;
 	}
 	
 }

@@ -13,12 +13,6 @@ package
 		public static const BASALT:int = 2;
 		public static const LAVA:int = 3;
 		
-		/* POI types */
-		
-		public static const TOWER:int = 0;
-		public static const CHARACTER:int = 1;
-		public static const ALWAYS_ACTIVE:int = 2;
-		
 		/* Beacon types */
 		
 		public static const NO_BEACON:int = 0;
