@@ -10,6 +10,8 @@ package game.items.character
 		
 		public function Character(elements:GameElements) 
 		{
+			
+			
 			this.elements = elements;
 			
 			elements.flow.workWithUpdateListener(this);

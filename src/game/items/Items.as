@@ -9,12 +9,15 @@ package game.items
 	import game.items.junk.Junk;
 	import game.items.technic.Technic;
 	import game.items.utils.ItemUtils;
+	import game.points.IPointCollector;
 	import utils.updates.update;
 	
 	use namespace items_internal;
 	
 	public class Items
 	{
+		private var points:IPointCollector;
+		
 		private var items:Array;
 		private var width:int;
 		
@@ -26,6 +29,7 @@ package game.items
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			new Character(elements);
@@ -39,6 +43,24 @@ package game.items
 		{
 			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			this.items = new Array();
+		}
+		
+		update function numberedFrame(key:int):void
+		{/*
+			if (key == Game.UNUSED_FRAME_1) //right before you act
+			{
+				var pos:ICoordinated = this.character;
+			
+				for (var i:int = -5; i < 6; i++)
+					for (var j:int = -5; j < 6; j++)
+					{
+						var item:ItemBase = this.items.findObjectByCell(pos.x + i, pos.y + j);
+						
+						if (item && item.contraption && !item.contraption.finished)
+							this.points.addPointOfInterest(Game.TOWER, item.existence);
+					}
+			}*///TODO: realize where will it be in place
+			//TODO: learn how to avoid the trouble when enlisted point dies
 		}
 		
 		update function quitGame():void

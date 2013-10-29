@@ -36,6 +36,8 @@ package game.items.character
 			
 			super(elements, cell);
 			
+			this._activity = new Activity(this, elements);
+			
 			this.points = elements.pointsOfInterest;
 			
 			//TODO: initialize all cores
@@ -44,7 +46,10 @@ package game.items.character
 		}
 		
 		
-		
+		override items_internal function applyDestruction():void
+		{
+			this.flow.dispatchUpdate(Update.gameFinished, Game.LOST);
+		}
 		
 		
 		

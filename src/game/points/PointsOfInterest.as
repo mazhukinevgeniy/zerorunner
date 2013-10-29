@@ -2,6 +2,7 @@ package game.points
 {
 	import game.core.metric.ICoordinated;
 	import game.items.ItemBase;
+	import game.items.Items;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
