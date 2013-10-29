@@ -19,6 +19,11 @@ package game.items
 		{
 			return false;
 		}
+		
+		items_internal function trySoldering(value:int):Boolean
+		{
+			return false;
+		}
 	}
 
 }

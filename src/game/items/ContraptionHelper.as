@@ -5,12 +5,12 @@ package game.items
 	
 	use namespace items_internal;
 	
-	public class ContraptionCore extends CoreBase
+	public class ContraptionHelper extends OccupationCore
 	{
 		protected var constructionTarget:int;
 		protected var constructionStatus:int;
 		
-		public function ContraptionCore(item:ItemBase, maximum:int) 
+		public function ContraptionHelper(item:ItemBase, maximum:int) 
 		{
 			super(item);
 			
@@ -18,19 +18,22 @@ package game.items
 			this.constructionStatus = 0;
 		}
 		
-		items_internal function applySoldering(value:int):void
+		override items_internal function trySoldering(value:int):Boolean
 		{
 			this.constructionStatus += value;
+			
+			return true;
 		}
 		
-		items_internal function get finished():Boolean
-		{
-			return this.progress >= 1;
-		}
 		
-		protected function get progress():Number
+		
+		final protected function get progress():Number
 		{
 			return Number(this.constructionStatus / this.constructionTarget);
+		}
+		final protected function get finished():Boolean
+		{
+			return this.progress >= 1;
 		}
 	}
 

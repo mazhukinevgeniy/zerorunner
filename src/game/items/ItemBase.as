@@ -14,14 +14,12 @@ package game.items
 	{
 		internal var _x:int, _y:int;
 		
-		protected var _contraption:ContraptionCore;
-		protected var _collider:CollisionCore;
-		protected var _activity:ActivityCore;
+		private var _activity:ActivityCore;
+		private var _occupation:OccupationCore;
 		
 		protected var items:Items;
 		
 		
-		private var _occupation:OccupationCore;
 		
 		public function ItemBase(elements:GameElements, cell:CellXY) 
 		{
@@ -59,8 +57,6 @@ package game.items
 		
 		
 		
-		final items_internal function get contraption():ContraptionCore { return this._contraption; }
-		final items_internal function get collider():CollisionCore { return this._collider; }
 		final items_internal function get activity():ActivityCore { return this._activity; }
 		
 		
