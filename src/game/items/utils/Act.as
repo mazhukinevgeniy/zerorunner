@@ -1,19 +1,21 @@
 package game.items.utils 
 {
 	import game.core.metric.ICoordinated;
-	import game.items.base.cores.ExistenceCore;
+	import game.items.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
+	use namespace items_internal;
+	
 	internal class Act
 	{
 		private var points:IPointCollector;
 		private var items:Items;
 		
-		private var moved:Vector.<ExistenceCore>;
+		private var moved:Vector.<ItemBase>;
 		
 		public function Act(items:Items, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
@@ -23,14 +25,14 @@ package game.items.utils
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			this.moved = new Vector.<ExistenceCore>();
+			this.moved = new Vector.<ItemBase>();
 		}
 		
 		update function numberedFrame(key:int):void
 		{
 			if (key == Game.FRAME_TO_ACT)
 			{
-				var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
+				var center:ICoordinated = this.points.getCharacter();
 				
 				const tlcX:int = center.x - 20;
 				const tlcY:int = center.y - 20;
@@ -38,7 +40,7 @@ package game.items.utils
 				const brcX:int = center.x + 20;
 				const brcY:int = center.y + 20;
 				
-				var item:ExistenceCore;
+				var item:ItemBase;
 				
 				var i:int;
 				var j:int;
@@ -51,23 +53,23 @@ package game.items.utils
 					{
 						item = this.items.findObjectByCell(i, j);
 						
-						if (item && this.moved.indexOf(item) == -1)
-						{//TODO: namespace violation! fix it
-							item.items_internal::item.act(); //TODO: fix syntax
+						if (item && item.activity && this.moved.indexOf(item) == -1)
+						{
+							item.activity.act();
 							this.moved.push(item);
 						}
 					}
 				}
 				
-				var others:Vector.<ICoordinated> = this.points.getPointsOfInterest(Game.ALWAYS_ACTIVE);
+				var others:Vector.<ItemBase> = this.points.getAlwaysActives();
 				var length:int = others ? others.length : 0;
 				
 				for (i = 0; i < length; i++)
 				{
-					item = others[i] as ExistenceCore;
+					item = others[i];
 					
 					if (this.moved.indexOf(item) == -1)
-						item.items_internal::item.act();
+						item.activity.act();
 				}
 			}
 		}

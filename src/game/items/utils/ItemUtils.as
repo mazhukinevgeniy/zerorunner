@@ -14,7 +14,7 @@ package game.items.utils
 			if (ItemUtils.created > 1)
 				throw new Error();
 			
-			//new Act(items, flow, points);//TODO: must enable
+			new Act(items, flow, points);
 			new Clear(items, flow);
 		}
 		
