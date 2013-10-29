@@ -1,6 +1,6 @@
-package game.items.base 
+package game.items 
 {
-	import game.items.base.ItemBase;
+	import game.items.ItemBase;
 	import game.items.items_internal;
 	
 	public class CollisionCore extends CoreBase

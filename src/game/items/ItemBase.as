@@ -1,7 +1,8 @@
-package game.items.base 
+package game.items 
 {
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
+	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.items_internal;
@@ -9,8 +10,10 @@ package game.items.base
 	
 	use namespace items_internal;
 	
-	public class ItemBase extends CellXY
+	public class ItemBase implements ICoordinated
 	{
+		internal var _x:int, _y:int;
+		
 		protected var _contraption:ContraptionCore;
 		protected var _collider:CollisionCore;
 		protected var _activity:ActivityCore;
@@ -36,15 +39,11 @@ package game.items.base
 								  Game.BORDER_WIDTH + Math.random() * width);
 			}
 			
-			super(cell.x, cell.y);
+			this._x = cell.x;
+			this._y = cell.y;
 			
 			this.items.addItem(this);
 		}
-		
-		
-		final override public function setValue(x:int, y:int):void { throw new Error(); }
-		items_internal function setValue(x:int, y:int):void { super.setValue(x, y); }
-		
 		
 		
 		protected function onMoved():void
@@ -63,6 +62,11 @@ package game.items.base
 		final items_internal function get contraption():ContraptionCore { return this._contraption; }
 		final items_internal function get collider():CollisionCore { return this._collider; }
 		final items_internal function get activity():ActivityCore { return this._activity; }
+		
+		
+		
+		public function get x():int { return this._x; }
+		public function get y():int { return this._y; }
 	}
 
 }

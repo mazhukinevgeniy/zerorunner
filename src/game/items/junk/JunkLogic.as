@@ -1,7 +1,7 @@
 package game.items.junk 
 {
 	import game.GameElements;
-	import game.items.base.ItemBase;
+	import game.items.ItemBase;
 	
 	internal class JunkLogic extends ItemBase
 	{

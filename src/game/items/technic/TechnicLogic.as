@@ -6,7 +6,7 @@ package game.items.technic
 	import game.core.metric.Metric;
 	import game.core.metric.ProtectedDCellXY;
 	import game.GameElements;
-	import game.items.base.ItemBase;
+	import game.items.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
 	import game.points.IPointCollector;

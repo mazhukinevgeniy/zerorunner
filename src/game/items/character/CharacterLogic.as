@@ -5,7 +5,7 @@ package game.items.character
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.items.base.ItemBase;
+	import game.items.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
 	import game.points.IPointCollector;

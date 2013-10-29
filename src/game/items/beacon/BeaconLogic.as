@@ -2,7 +2,7 @@ package game.items.beacon
 {
 	import game.core.metric.CellXY;
 	import game.GameElements;
-	import game.items.base.ItemBase;
+	import game.items.ItemBase;
 	
 	internal class BeaconLogic extends ItemBase
 	{

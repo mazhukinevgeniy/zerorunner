@@ -1,4 +1,4 @@
-package game.items.base 
+package game.items 
 {
 	import game.items.items_internal;
 	
