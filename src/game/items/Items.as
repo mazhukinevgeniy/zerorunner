@@ -4,13 +4,14 @@ package game.items
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.items.base.ItemBase;
 	import game.items.beacon.Beacon;
 	import game.items.character.Character;
 	import game.items.junk.Junk;
 	import game.items.technic.Technic;
 	import game.items.utils.ItemUtils;
 	import utils.updates.update;
+	
+	use namespace items_internal;
 	
 	public class Items
 	{
@@ -59,15 +60,18 @@ package game.items
 			
 			if (!blocker)
 			{
-				this.items.removeItem(this._x, this._y);
+				//item.occupation.move
+				//TODO: make something
 				
-				this._x += change.x;
-				this._y += change.y;
+				this.removeItem(item);
 				
-				this.items.addItem(this._x, this._y, this);
+				item._x += change.x;
+				item._y += change.y;
+				
+				this.addItem(item);
 			}
 			else
-				this.collider.collideWith(blocker);
+				item.collider.collideWith(blocker);
 		}
 		
 		items_internal function moveItemTo(item:ItemBase, goal:ICoordinated):void
@@ -76,15 +80,15 @@ package game.items
 			
 			if (!blocker)
 			{
-				this.items.removeItem(item.x, item.y);
+				this.removeItem(item);
 				
-				this._x = goal.x;
-				this._y = goal.y;
+				item._x = goal.x;
+				item._y = goal.y;
 				
-				this.items.addItem(this._x, this._y, this);
+				this.addItem(item);
 			}
 			else
-				this.collider.collideWith(blocker);
+				item.collider.collideWith(blocker);
 		}
 		
 		items_internal function removeItem(item:ItemBase):void
