@@ -12,12 +12,16 @@ package game.items.character
 	
 	internal class Activity extends ActivityCore
 	{
+		private var item:ICoordinated;
+		
 		private var input:InputManager;
 		private var scene:IScene;
 		
 		public function Activity(item:CharacterLogic, elements:GameElements) 
 		{
-			super(item);
+			super();
+			
+			this.item = item;
 			
 			this.input = elements.input;
 			this.scene = elements.scene;

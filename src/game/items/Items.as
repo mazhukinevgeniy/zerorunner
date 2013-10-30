@@ -12,7 +12,8 @@ package game.items
 	import game.points.IPointCollector;
 	import utils.updates.update;
 	
-	use namespace items_internal;
+	//use namespace items_internal;
+	//TODO: do not use
 	
 	public class Items
 	{
@@ -85,15 +86,17 @@ package game.items
 				//item.occupation.move
 				//TODO: make something
 				
-				this.removeItem(item);
+				this.items_internal::removeItem(item);
 				
 				item._x += change.x;
 				item._y += change.y;
 				
-				this.addItem(item);
+				this.items_internal::addItem(item);
 			}
 			else
-				item.collider.collideWith(blocker);
+				throw new Error();
+				//item.collider.collideWith(blocker);
+				//TODO: handle such things inside of activities
 		}
 		
 		items_internal function moveItemTo(item:ItemBase, goal:ICoordinated):void
@@ -102,15 +105,17 @@ package game.items
 			
 			if (!blocker)
 			{
-				this.removeItem(item);
+				this.items_internal::removeItem(item);
 				
 				item._x = goal.x;
 				item._y = goal.y;
 				
-				this.addItem(item);
+				this.items_internal::addItem(item);
 			}
 			else
-				item.collider.collideWith(blocker);
+				throw new Error();
+				//item.collider.collideWith(blocker);
+				//TODO: handle such things inside of activities
 		}
 		
 		items_internal function removeItem(item:ItemBase):void

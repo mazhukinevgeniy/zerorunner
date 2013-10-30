@@ -8,6 +8,7 @@ package game.items.character
 	import game.items.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
+	import game.items.OccupationCore;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
 	import utils.updates.IUpdateDispatcher;
@@ -34,13 +35,10 @@ package game.items.character
 					(Game.BORDER_WIDTH, 
 					 Game.BORDER_WIDTH + elements.database.config.width - 1);
 			
-			super(elements, cell);
-			
-			this._activity = new Activity(this, elements);
+			super(elements, new Activity(this, elements), new OccupationCore(), cell);
+			//TODO: used custom occupation core
 			
 			this.points = elements.pointsOfInterest;
-			
-			//TODO: initialize all cores
 			
 			this.flow.dispatchUpdate(Update.setCenter, this);
 		}

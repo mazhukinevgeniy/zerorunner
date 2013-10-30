@@ -6,9 +6,11 @@ package game.items.technic
 	import game.core.metric.Metric;
 	import game.core.metric.ProtectedDCellXY;
 	import game.GameElements;
+	import game.items.ActivityCore;
 	import game.items.ItemBase;
 	import game.items.Items;
 	import game.items.items_internal;
+	import game.items.OccupationCore;
 	import game.points.IPointCollector;
 	
 	use namespace items_internal;
@@ -44,8 +46,8 @@ package game.items.technic
 			
 			this.center = this.points.getCharacter();
 			
-			super(elements, cell);
-			
+			super(elements, new ActivityCore(), new OccupationCore(), cell);
+			//TODO: use custom occupation core and custom activity core
 		}
 		
 		

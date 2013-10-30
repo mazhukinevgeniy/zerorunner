@@ -21,9 +21,12 @@ package game.items
 		
 		
 		
-		public function ItemBase(elements:GameElements, cell:CellXY) 
+		public function ItemBase(elements:GameElements, activity:ActivityCore, occupation:OccupationCore, cell:CellXY = null) 
 		{
 			this.items = elements.items;
+			
+			this._activity = activity;
+			this._occupation = occupation;
 			
 			if (cell == null)
 			{
