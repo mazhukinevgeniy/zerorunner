@@ -1,6 +1,5 @@
 package game.items 
 {
-	import game.items.items_internal;
 	
 	public class OccupationCore 
 	{
@@ -10,17 +9,17 @@ package game.items
 			
 		}
 		
-		items_internal function tryMove():Boolean
+		item_exposure function tryMove():Boolean
 		{
 			return false;
 		}
 		
-		items_internal function tryShock():Boolean
+		item_exposure function tryShock():Boolean
 		{
 			return false;
 		}
 		
-		items_internal function trySoldering(value:int):Boolean
+		item_exposure function trySoldering(value:int):Boolean
 		{
 			return false;
 		}

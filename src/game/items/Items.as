@@ -12,8 +12,6 @@ package game.items
 	import game.points.IPointCollector;
 	import utils.updates.update;
 	
-	//use namespace items_internal;
-	//TODO: do not use
 	
 	public class Items
 	{
@@ -71,12 +69,12 @@ package game.items
 		
 		
 		
-		items_internal function addItem(item:ItemBase):void
+		internal function addItem(item:ItemBase):void
 		{
 			this.items[item.x + item.y * this.width] = item;
 		}
 		
-		items_internal function moveItemBy(item:ItemBase, change:DCellXY):void
+		internal function moveItemBy(item:ItemBase, change:DCellXY):void
 		{
 			var blocker:ItemBase = 
 					this.findObjectByCell(item.x + change.x, item.y + change.y);
@@ -86,12 +84,12 @@ package game.items
 				//item.occupation.move
 				//TODO: make something
 				
-				this.items_internal::removeItem(item);
+				this.removeItem(item);
 				
 				item._x += change.x;
 				item._y += change.y;
 				
-				this.items_internal::addItem(item);
+				this.addItem(item);
 			}
 			else
 				throw new Error();
@@ -99,18 +97,18 @@ package game.items
 				//TODO: handle such things inside of activities
 		}
 		
-		items_internal function moveItemTo(item:ItemBase, goal:ICoordinated):void
+		internal function moveItemTo(item:ItemBase, goal:ICoordinated):void
 		{
 			var blocker:ItemBase = this.findObjectByCell(goal.x, goal.y);
 			
 			if (!blocker)
 			{
-				this.items_internal::removeItem(item);
+				this.removeItem(item);
 				
 				item._x = goal.x;
 				item._y = goal.y;
 				
-				this.items_internal::addItem(item);
+				this.addItem(item);
 			}
 			else
 				throw new Error();
@@ -118,7 +116,7 @@ package game.items
 				//TODO: handle such things inside of activities
 		}
 		
-		items_internal function removeItem(item:ItemBase):void
+		internal function removeItem(item:ItemBase):void
 		{
 			this.items[item.x + item.y * this.width] = null;
 		}

@@ -5,27 +5,23 @@ package game.items
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.Items;
-	import game.items.items_internal;
 	import starling.display.DisplayObject;
 	
-	use namespace items_internal;
 	
 	public class ItemBase implements ICoordinated
 	{
 		internal var _x:int, _y:int;
 		
-		private var _activity:ActivityCore;
 		private var _occupation:OccupationCore;
 		
 		protected var items:Items;
+		//TODO: check if need
 		
 		
-		
-		public function ItemBase(elements:GameElements, activity:ActivityCore, occupation:OccupationCore, cell:CellXY = null) 
+		public function ItemBase(elements:GameElements, occupation:OccupationCore, cell:CellXY = null) 
 		{
 			this.items = elements.items;
 			
-			this._activity = activity;
 			this._occupation = occupation;
 			
 			if (cell == null)
@@ -52,16 +48,25 @@ package game.items
 			
 		}//TODO: how must it be implemented?
 		
-		items_internal function applyDestruction():void
+		internal function applyDestruction():void
 		{
 			this.items.removeItem(this);
+		}//TODO: is it here?
+		
+		
+		
+		public function act():void
+		{
+			
+		}
+		
+		public function collideWith(blocker:ItemBase):void
+		{
+			
 		}
 		
 		
-		
-		
-		final items_internal function get activity():ActivityCore { return this._activity; }
-		
+		final public function get occupation():OccupationCore { return this._occupation; }
 		
 		
 		public function get x():int { return this._x; }

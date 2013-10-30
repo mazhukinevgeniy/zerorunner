@@ -3,11 +3,9 @@ package game.items.utils
 	import data.viewers.GameConfig;
 	import game.items.ItemBase;
 	import game.items.Items;
-	import game.items.items_internal;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	use namespace items_internal;
 	
 	internal class Clear
 	{
@@ -42,26 +40,26 @@ package game.items.utils
 					{
 						item = this.items.findObjectByCell(i, j);
 						
-						if (item)
+						/*if (item)
 							item.applyDestruction();
 						
 						item = this.items.findObjectByCell(i, this.width - (j + 1));
 						
 						if (item)
-							item.applyDestruction();
+							item.applyDestruction();*/ //TODO: work with item's occupation
 					}
 				for (i = 0; i < DWIDTH; i++)
 					for (j = DWIDTH; j < this.width - DWIDTH; j++)
 					{
 						item = this.items.findObjectByCell(i, j);
 						
-						if (item)
+						/*if (item)
 							item.applyDestruction();
 						
 						item = this.items.findObjectByCell(this.width - (i + 1), j);
 						
 						if (item)
-							item.applyDestruction();
+							item.applyDestruction();*/ //TODO: work with item's occupation
 					}
 			}
 		}

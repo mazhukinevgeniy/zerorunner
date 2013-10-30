@@ -3,12 +3,10 @@ package game.items.utils
 	import game.core.metric.ICoordinated;
 	import game.items.ItemBase;
 	import game.items.Items;
-	import game.items.items_internal;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	use namespace items_internal;
 	
 	internal class Act
 	{
@@ -53,9 +51,9 @@ package game.items.utils
 					{
 						item = this.items.findObjectByCell(i, j);
 						
-						if (item && item.activity && this.moved.indexOf(item) == -1)
+						if (item && this.moved.indexOf(item) == -1)
 						{
-							item.activity.act();
+							item.act();
 							this.moved.push(item);
 						}
 					}
@@ -69,7 +67,7 @@ package game.items.utils
 					item = others[i];
 					
 					if (this.moved.indexOf(item) == -1)
-						item.activity.act();
+						item.act();
 				}
 			}
 		}
