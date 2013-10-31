@@ -18,11 +18,6 @@ package game.items
 		{
 			return false;
 		}
-		
-		item_exposure function trySoldering(value:int):Boolean
-		{
-			return false;
-		}
 	}
 
 }
