@@ -1,14 +1,14 @@
 package game.items.utils 
 {
 	import game.core.metric.ICoordinated;
-	import game.items.item_exposure;
 	import game.items.Items;
+	import game.items.items_internal;
 	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	use namespace item_exposure;
+	use namespace items_internal;
 	
 	internal class Act
 	{

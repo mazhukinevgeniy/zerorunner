@@ -23,12 +23,12 @@ package game.items
 		
 		
 		
-		final item_exposure function tryMove():Boolean
+		final items_internal function tryMove():Boolean
 		{
 			return false;
 		}
 		
-		final item_exposure function tryShock():Boolean
+		final items_internal function tryShock():Boolean
 		{
 			return false;
 		}

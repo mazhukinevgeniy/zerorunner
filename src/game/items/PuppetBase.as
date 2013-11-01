@@ -52,7 +52,7 @@ package game.items
 		public function get x():int { return this._x; }
 		public function get y():int { return this._y; }
 		
-		item_exposure function get master():MasterBase
+		items_internal function get master():MasterBase
 		{//TODO: rename the namespace
 			return this._master;
 		}
