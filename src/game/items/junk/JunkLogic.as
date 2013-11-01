@@ -1,9 +1,9 @@
 package game.items.junk 
 {
 	import game.GameElements;
-	import game.items.ItemBase;
+	import game.items.PuppetBase;
 	
-	internal class JunkLogic extends ItemBase
+	internal class JunkLogic extends PuppetBase
 	{
 		
 		public function JunkLogic(elements:GameElements) 

@@ -1,19 +1,21 @@
 package game.items.utils 
 {
 	import game.core.metric.ICoordinated;
-	import game.items.ItemBase;
+	import game.items.item_exposure;
 	import game.items.Items;
+	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
+	use namespace item_exposure;
 	
 	internal class Act
 	{
 		private var points:IPointCollector;
 		private var items:Items;
 		
-		private var moved:Vector.<ItemBase>;
+		private var moved:Vector.<PuppetBase>;
 		
 		public function Act(items:Items, flow:IUpdateDispatcher, points:IPointCollector) 
 		{
@@ -23,7 +25,7 @@ package game.items.utils
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
 			
-			this.moved = new Vector.<ItemBase>();
+			this.moved = new Vector.<PuppetBase>();
 		}
 		
 		update function numberedFrame(key:int):void
@@ -38,7 +40,7 @@ package game.items.utils
 				const brcX:int = center.x + 20;
 				const brcY:int = center.y + 20;
 				
-				var item:ItemBase;
+				var item:PuppetBase;
 				
 				var i:int;
 				var j:int;
@@ -53,13 +55,13 @@ package game.items.utils
 						
 						if (item && this.moved.indexOf(item) == -1)
 						{
-							item.act();
+							item.master.act();
 							this.moved.push(item);
 						}
 					}
 				}
 				
-				var others:Vector.<ItemBase> = this.points.getAlwaysActives();
+				var others:Vector.<PuppetBase> = this.points.getAlwaysActives();
 				var length:int = others ? others.length : 0;
 				
 				for (i = 0; i < length; i++)
@@ -67,7 +69,7 @@ package game.items.utils
 					item = others[i];
 					
 					if (this.moved.indexOf(item) == -1)
-						item.act();
+						item.master.act();
 				}
 			}
 		}

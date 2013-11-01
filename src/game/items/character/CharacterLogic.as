@@ -5,14 +5,14 @@ package game.items.character
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.items.ItemBase;
 	import game.items.Items;
+	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
 	import utils.updates.IUpdateDispatcher;
 	
 	
-	internal class CharacterLogic extends ItemBase
+	internal class CharacterLogic extends PuppetBase
 	{
 		private const SOLDERING_POWER:int = 2;//TODO: replace
 		
@@ -46,49 +46,7 @@ package game.items.character
 			this.flow.dispatchUpdate(Update.gameFinished, Game.LOST);
 		}*///TODO: move to the occupation (because dying is business too)
 		
-		override public function act():void
-		{
-			if (this.input.isSpacePressed)
-			{
-				this.input.getInputCopy();
-				
-				//this.cooldown = 10;
-				//TODO: todo
-			}
-			else
-			{				
-				var tmp:Vector.<DCellXY> = this.input.getInputCopy();
-				var action:DCellXY = tmp.pop();
-				
-				while (action.x != 0 || action.y != 0)
-				{
-					var next:int = this.scene.getSceneCell(this.x + action.x, this.y + action.y);
-					
-					if (next != Game.FALL && next != Game.LAVA)
-					{
-						//this.existence.move(action);
-						//TODO: todo
-						
-						break;
-					}
-					else
-					{
-						next = this.scene.getSceneCell(this.x + 2 * action.x, this.y + 2 * action.y);
-						
-						if (next != Game.FALL && next != Game.LAVA)
-						{
-							//(this.existence as Existence).jump(action, 2);
-							//TODO: TODO
-							
-							break;
-						}
-					}
-					
-					
-					action = tmp.pop();
-				}
-			}
-		}
+		
 		
 		/*override items_internal function move(change:DCellXY):void
 		{

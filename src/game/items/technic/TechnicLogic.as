@@ -6,11 +6,11 @@ package game.items.technic
 	import game.core.metric.Metric;
 	import game.core.metric.ProtectedDCellXY;
 	import game.GameElements;
-	import game.items.ItemBase;
 	import game.items.Items;
+	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	
-	internal class TechnicLogic extends ItemBase
+	internal class TechnicLogic extends PuppetBase //TODO: rename logics to puppets as there's no logic in them
 	{
 		private const SOLDERING_POWER:int = 3;
 		

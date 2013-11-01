@@ -3,7 +3,6 @@ package game.renderer
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
-	import game.items.ItemBase;
 	import game.items.Items;
 	import game.points.IPointCollector;
 	import starling.display.Image;

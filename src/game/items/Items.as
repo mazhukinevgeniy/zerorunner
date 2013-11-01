@@ -69,14 +69,14 @@ package game.items
 		
 		
 		
-		internal function addItem(item:ItemBase):void
+		internal function addItem(item:PuppetBase):void
 		{
 			this.items[item.x + item.y * this.width] = item;
 		}
 		
-		internal function moveItemBy(item:ItemBase, change:DCellXY):void
+		internal function moveItemBy(item:PuppetBase, change:DCellXY):void
 		{
-			var blocker:ItemBase = 
+			var blocker:PuppetBase = 
 					this.findObjectByCell(item.x + change.x, item.y + change.y);
 			
 			if (!blocker)
@@ -97,9 +97,9 @@ package game.items
 				//TODO: handle such things inside of activities
 		}
 		
-		internal function moveItemTo(item:ItemBase, goal:ICoordinated):void
+		internal function moveItemTo(item:PuppetBase, goal:ICoordinated):void
 		{
-			var blocker:ItemBase = this.findObjectByCell(goal.x, goal.y);
+			var blocker:PuppetBase = this.findObjectByCell(goal.x, goal.y);
 			
 			if (!blocker)
 			{
@@ -116,14 +116,14 @@ package game.items
 				//TODO: handle such things inside of activities
 		}
 		
-		internal function removeItem(item:ItemBase):void
+		internal function removeItem(item:PuppetBase):void
 		{
 			this.items[item.x + item.y * this.width] = null;
 		}
 		
 		
 		
-		public function findObjectByCell(x:int, y:int):ItemBase
+		public function findObjectByCell(x:int, y:int):PuppetBase
 		{
 			return this.items[x + y * this.width];
 		}

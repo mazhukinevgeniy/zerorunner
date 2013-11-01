@@ -8,15 +8,17 @@ package game.items
 	import starling.display.DisplayObject;
 	
 	
-	public class ItemBase implements ICoordinated
+	public class PuppetBase implements ICoordinated
 	{
+		private var _master:MasterBase;
+		
 		internal var _x:int, _y:int;
 		
 		protected var items:Items;
 		//TODO: check if need
 		
 		
-		public function ItemBase(elements:GameElements, cell:CellXY = null) 
+		public function PuppetBase(elements:GameElements, cell:CellXY = null) 
 		{
 			this.items = elements.items;
 			
@@ -44,33 +46,16 @@ package game.items
 			
 		}//TODO: how must it be implemented?
 		
-		internal function applyDestruction():void
-		{
-			this.items.removeItem(this);
-		}//TODO: is it here?
 		
-		
-		
-		public function act():void
-		{
-			
-		}
-		
-		
-		
-		final item_exposure function tryMove():Boolean
-		{
-			return false;
-		}
-		
-		final item_exposure function tryShock():Boolean
-		{
-			return false;
-		}
 		
 		
 		public function get x():int { return this._x; }
 		public function get y():int { return this._y; }
+		
+		item_exposure function get master():MasterBase
+		{//TODO: rename the namespace
+			return this._master;
+		}
 	}
 
 }
