@@ -12,17 +12,13 @@ package game.items
 	{
 		internal var _x:int, _y:int;
 		
-		private var _occupation:OccupationCore;
-		
 		protected var items:Items;
 		//TODO: check if need
 		
 		
-		public function ItemBase(elements:GameElements, occupation:OccupationCore, cell:CellXY = null) 
+		public function ItemBase(elements:GameElements, cell:CellXY = null) 
 		{
 			this.items = elements.items;
-			
-			this._occupation = occupation;
 			
 			if (cell == null)
 			{
@@ -60,13 +56,17 @@ package game.items
 			
 		}
 		
-		public function collideWith(blocker:ItemBase):void
+		
+		
+		final item_exposure function tryMove():Boolean
 		{
-			
+			return false;
 		}
 		
-		
-		final public function get occupation():OccupationCore { return this._occupation; }
+		final item_exposure function tryShock():Boolean
+		{
+			return false;
+		}
 		
 		
 		public function get x():int { return this._x; }

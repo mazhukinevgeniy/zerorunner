@@ -8,7 +8,6 @@ package game.items.technic
 	import game.GameElements;
 	import game.items.ItemBase;
 	import game.items.Items;
-	import game.items.OccupationCore;
 	import game.points.IPointCollector;
 	
 	internal class TechnicLogic extends ItemBase
@@ -42,8 +41,8 @@ package game.items.technic
 			
 			this.center = this.points.getCharacter();
 			
-			super(elements, new OccupationCore(), cell);
-			//TODO: use custom occupation core and override activity methods
+			super(elements, cell);
+			//TODO: override occupations
 		}
 		
 		
