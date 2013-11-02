@@ -4,10 +4,10 @@ package game.items
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.items.beacon.Beacon;
-	import game.items.character.Character;
-	import game.items.junk.Junk;
-	import game.items.technic.Technic;
+	import game.items.beacon.BeaconMaster;
+	import game.items.character.CharacterMaster;
+	import game.items.droid.DroidMaster;
+	import game.items.junk.JunkMaster;
 	import game.items.utils.ItemUtils;
 	import game.points.IPointCollector;
 	import utils.updates.update;
@@ -31,10 +31,10 @@ package game.items
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
-			new Character(elements);
-			new Beacon(elements);
-			new Technic(elements);
-			new Junk(elements);
+			new CharacterMaster(elements);
+			new BeaconMaster(elements);
+			new DroidMaster(elements);
+			new JunkMaster(elements);
 		}
 		
 		

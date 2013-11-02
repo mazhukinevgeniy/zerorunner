@@ -1,4 +1,4 @@
-package game.items.technic 
+package game.items.droid 
 {
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;

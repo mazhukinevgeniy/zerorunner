@@ -1,17 +1,18 @@
-package game.items.technic 
+package game.items.droid 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.CellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
 	import game.GameElements;
+	import game.items.MasterBase;
 	import utils.updates.update;
 	
-	public class Technic
+	public class DroidMaster extends MasterBase
 	{
 		private var elements:GameElements;
 		
-		public function Technic(elements:GameElements) 
+		public function DroidMaster(elements:GameElements) 
 		{
 			this.elements = elements;
 			

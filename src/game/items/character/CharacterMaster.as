@@ -5,11 +5,11 @@ package game.items.character
 	import game.items.MasterBase;
 	import utils.updates.update;
 	
-	public class Character extends MasterBase //TODO: extend everywhere
+	public class CharacterMaster extends MasterBase
 	{
 		private var elements:GameElements;
 		
-		public function Character(elements:GameElements) 
+		public function CharacterMaster(elements:GameElements) 
 		{
 			
 			

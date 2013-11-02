@@ -2,13 +2,14 @@ package game.items.junk
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
+	import game.items.MasterBase;
 	import utils.updates.update;
 	
-	public class Junk 
+	public class JunkMaster extends MasterBase 
 	{
 		private var elements:GameElements;
 		
-		public function Junk(elements:GameElements) 
+		public function JunkMaster(elements:GameElements) 
 		{
 			this.elements = elements;
 			

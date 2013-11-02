@@ -1,4 +1,4 @@
-package game.items.technic 
+package game.items.droid 
 {
 	import game.items.base.ActivityCore;
 	

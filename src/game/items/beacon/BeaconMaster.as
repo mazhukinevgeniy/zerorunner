@@ -4,13 +4,14 @@ package game.items.beacon
 	import game.core.metric.CellXY;
 	import game.core.metric.Metric;
 	import game.GameElements;
+	import game.items.MasterBase;
 	import utils.updates.update;
 	
-	public class Beacon
+	public class BeaconMaster extends MasterBase
 	{
 		private var elements:GameElements;
 		
-		public function Beacon(elements:GameElements) 
+		public function BeaconMaster(elements:GameElements) 
 		{
 			this.elements = elements;
 			
