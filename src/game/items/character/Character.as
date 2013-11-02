@@ -6,6 +6,7 @@ package game.items.character
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.Items;
+	import game.items.MasterBase;
 	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
@@ -21,7 +22,7 @@ package game.items.character
 		private var points:IPointCollector;
 		private var scene:IScene;
 		
-		public function Character(elements:GameElements) 
+		public function Character(master:MasterBase, elements:GameElements) 
 		{
 			this.input = elements.input;
 			this.flow = elements.flow;
@@ -32,7 +33,7 @@ package game.items.character
 					(Game.BORDER_WIDTH, 
 					 Game.BORDER_WIDTH + elements.database.config.width - 1);
 			
-			super(elements, cell);
+			super(master, elements, cell);
 			//TODO: override occupations
 			
 			this.points = elements.pointsOfInterest;

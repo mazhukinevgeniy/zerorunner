@@ -22,7 +22,7 @@ package game.items.junk
 			var i:int;
 			
 			for (i = 0; i < config.junks; i++)
-				new Junk(this.elements);
+				new Junk(this, this.elements);
 		}
 	}
 

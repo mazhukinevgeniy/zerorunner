@@ -34,13 +34,13 @@ package game.items.droid
 				while (this.elements.items.findObjectByCell(tmpCell.x, tmpCell.y))
 					tmpCell.setValue(tmpCell.x, tmpCell.y - 1);
 				
-				new Droid(tmpCell, this.elements);
+				new Droid(this, this.elements, tmpCell);
 			}
 		}
 		
 		update function droidUnlocked(place:CellXY):void
 		{
-			new Droid(place, this.elements);
+			new Droid(this, this.elements, place);
 		}
 	}
 

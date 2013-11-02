@@ -18,8 +18,9 @@ package game.items
 		//TODO: check if need
 		
 		
-		public function PuppetBase(elements:GameElements, cell:CellXY = null) 
+		public function PuppetBase(master:MasterBase, elements:GameElements, cell:CellXY = null) 
 		{
+			this._master = master;
 			this.items = elements.items;
 			
 			if (cell == null)

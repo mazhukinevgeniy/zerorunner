@@ -24,7 +24,7 @@ package game.items.beacon
 			var cell:CellXY = new CellXY(Game.BORDER_WIDTH + config.width - 1, 
 										 Game.BORDER_WIDTH);
 			
-			new Beacon(cell, this.elements);
+			new Beacon(this, this.elements, cell);
 		}
 	}
 

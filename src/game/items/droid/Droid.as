@@ -7,6 +7,7 @@ package game.items.droid
 	import game.core.metric.ProtectedDCellXY;
 	import game.GameElements;
 	import game.items.Items;
+	import game.items.MasterBase;
 	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	
@@ -31,7 +32,7 @@ package game.items.droid
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();
 		
-		public function Droid(cell:CellXY, elements:GameElements) 
+		public function Droid(master:MasterBase, elements:GameElements, cell:CellXY) 
 		{
 			const MOVE_SPEED:int = 0;
 			
@@ -41,7 +42,7 @@ package game.items.droid
 			
 			this.center = this.points.getCharacter();
 			
-			super(elements, cell);
+			super(master, elements, cell);
 			//TODO: override occupations
 		}
 		
