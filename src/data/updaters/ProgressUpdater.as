@@ -19,7 +19,7 @@ package data.updaters
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.smallBeaconTurnedOn);
-			flow.addUpdateListener(Update.technicUnlocked);
+			flow.addUpdateListener(Update.droidUnlocked);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.resetProgress);
 		}
@@ -35,7 +35,7 @@ package data.updaters
 			this.save["beacon" + String(this.save["level"])] = Game.BEACON;
 		}
 		
-		update function technicUnlocked(place:ICoordinated):void
+		update function droidUnlocked(place:ICoordinated):void
 		{
 			this.save["activeDroids"]++;
 		}

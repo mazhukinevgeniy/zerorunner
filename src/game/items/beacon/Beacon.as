@@ -4,10 +4,10 @@ package game.items.beacon
 	import game.GameElements;
 	import game.items.PuppetBase;
 	
-	internal class BeaconLogic extends PuppetBase
+	internal class Beacon extends PuppetBase
 	{
 		
-		public function BeaconLogic(cell:CellXY, elements:GameElements) 
+		public function Beacon(cell:CellXY, elements:GameElements) 
 		{
 			super(elements, null);
 			//TODO: override occupations

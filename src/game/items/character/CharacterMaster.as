@@ -21,7 +21,7 @@ package game.items.character
 		
 		update function prerestore(config:GameConfig):void
 		{
-			new CharacterLogic(this.elements);
+			new Character(this.elements);
 		}
 		
 		override public function act():void

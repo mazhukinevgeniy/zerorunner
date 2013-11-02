@@ -12,7 +12,7 @@ package game.items.character
 	import utils.updates.IUpdateDispatcher;
 	
 	
-	internal class CharacterLogic extends PuppetBase
+	internal class Character extends PuppetBase
 	{
 		private const SOLDERING_POWER:int = 2;//TODO: replace
 		
@@ -21,7 +21,7 @@ package game.items.character
 		private var points:IPointCollector;
 		private var scene:IScene;
 		
-		public function CharacterLogic(elements:GameElements) 
+		public function Character(elements:GameElements) 
 		{
 			this.input = elements.input;
 			this.flow = elements.flow;

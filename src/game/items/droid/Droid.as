@@ -10,7 +10,7 @@ package game.items.droid
 	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	
-	internal class TechnicLogic extends PuppetBase //TODO: rename logics to puppets as there's no logic in them
+	internal class Droid extends PuppetBase //TODO: rename logics to puppets as there's no logic in them
 	{
 		private const SOLDERING_POWER:int = 3;
 		
@@ -31,7 +31,7 @@ package game.items.droid
 		private var steps:Vector.<int> = new Vector.<int>(4, true);
 		private var lastChange:DCellXY = Metric.getRandomDCell();
 		
-		public function TechnicLogic(cell:CellXY, elements:GameElements) 
+		public function Droid(cell:CellXY, elements:GameElements) 
 		{
 			const MOVE_SPEED:int = 0;
 			
@@ -49,7 +49,7 @@ package game.items.droid
 		
 		private function moveInDirection(direction:int):void
 		{
-			var change:DCellXY = this.lastChange = TechnicLogic.moves[direction];
+			var change:DCellXY = this.lastChange = Droid.moves[direction];
 			
 			//this.existence.move(this.lastChange);
 			//TODO: implement moving

@@ -18,7 +18,7 @@ package game.items.droid
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.prerestore);
-			elements.flow.addUpdateListener(Update.technicUnlocked);
+			elements.flow.addUpdateListener(Update.droidUnlocked);
 		}
 		
 		update function prerestore(config:GameConfig):void
@@ -34,13 +34,13 @@ package game.items.droid
 				while (this.elements.items.findObjectByCell(tmpCell.x, tmpCell.y))
 					tmpCell.setValue(tmpCell.x, tmpCell.y - 1);
 				
-				new TechnicLogic(tmpCell, this.elements);
+				new Droid(tmpCell, this.elements);
 			}
 		}
 		
-		update function technicUnlocked(place:CellXY):void
+		update function droidUnlocked(place:CellXY):void
 		{
-			var technic:TechnicLogic = new TechnicLogic(place, this.elements);
+			new Droid(place, this.elements);
 		}
 	}
 
