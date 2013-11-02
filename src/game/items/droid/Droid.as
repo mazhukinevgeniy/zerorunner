@@ -10,7 +10,7 @@ package game.items.droid
 	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	
-	internal class Droid extends PuppetBase //TODO: rename logics to puppets as there's no logic in them
+	internal class Droid extends PuppetBase
 	{
 		private const SOLDERING_POWER:int = 3;
 		
