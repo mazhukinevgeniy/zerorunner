@@ -22,7 +22,7 @@ package
 		/* In-game updates */
 		
 		public static const smallBeaconTurnedOn:String = "smallBeaconTurnedOn";
-		public static const droidUnlocked:String = "technicUnlocked";
+		public static const droidUnlocked:String = "droidUnlocked";
 		
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
