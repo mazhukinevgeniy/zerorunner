@@ -53,7 +53,7 @@ package game.items
 		public function get y():int { return this._y; }
 		
 		items_internal function get master():MasterBase
-		{//TODO: rename the namespace
+		{
 			return this._master;
 		}
 	}
