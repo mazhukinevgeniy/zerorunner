@@ -74,11 +74,6 @@ package ui.windows.achievements
 			this.achievementsSave = achievementsSave;
 			this.flow = flow;
 			
-			this.numberOfAchievements = this.achievementsSave.numberOfAchievements;
-			if (this.numberOfAchievements == 0)
-				this.flow.dispatchUpdate(Update.openedAchievement, 1);
-				
-			
 			this.substrate.addEventListener(TouchEvent.TOUCH, this.handleSubstrateTouch)
 		}
 		

@@ -11,10 +11,12 @@ package data.updaters
 		private static const TEST_TYPE:int = 0;
 		private static const OPEN:int = 0;
 		private static const CLOSED:int = 1;
+		private static const UNDEFINED:int = -1;
 		
 		private static const ADDRESSES:Vector.<String> = new < String > ["distance"];
 		
 		private var save:Proxy;
+		
 		private var openAchievements:Vector.<Vector.<Object>>;
 		
 		public function AchievementsUpdater(flow:IUpdateDispatcher, save:Proxy) 
@@ -22,11 +24,13 @@ package data.updaters
 			this.save = save;
 			
 			this.openAchievements = new Vector.<Vector.<Object>>;
-			this.initializeOpenAchievements();
 			
+			this.initializeOpenAchievements();
+			if (this.save["achievements"].length == 0)
+				this.openAchievement(AchievementsUpdater.UNDEFINED);
+				
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
-			flow.addUpdateListener(Update.openedAchievement);
 			flow.addUpdateListener(Update.resetProgress);
 		}
 		
@@ -42,13 +46,13 @@ package data.updaters
 				achievementData = this.save["achievements"][i];
 				if (achievementData[0].y == AchievementsUpdater.OPEN)
 				{
-					this.openAchievements.push(new Vector.<Object>[achievementData[0].clone]);
+					this.openAchievements.push(achievementData.slice());
 					lastOpenAchievement++;
 					
 					lenghtData = achievementData.length;
 					for (var j:int = 1; j < lenghtData; ++j)
-						if (this.save[AchievementsUpdater.ADDRESSES[achievementData[j].x]] < achievementData[j].y)
-							this.openAchievements[lastOpenAchievement].push(achievementData[j].clone);
+						if (this.save[AchievementsUpdater.ADDRESSES[achievementData[j].x]] >= achievementData[j].y)
+							this.openAchievements[lastOpenAchievement].splice(j, 1);
 				}
 			}
 		}
@@ -68,31 +72,30 @@ package data.updaters
 					lenghtData = achievementData.length;
 					for (var j:int = 1; j < lenghtData; ++j)
 						if (this.save[AchievementsUpdater.ADDRESSES[achievementData[j].x]] >= achievementData[j].y)
+						{
 							achievementData.splice(j, 1);
+							lenghtData--;
+							j--;
+						}
 							
 					if (achievementData.length == 1)
 					{
 						this.closeAchievement(int(achievementData[0].x));
 						this.openAchievements.splice(i, 1);
+						number--;
+						i--;
 						
 						trace("achievement complete");
 						//TODO реакция на выполненую ачивку
 					}
 				}
-				/*
-				var length:int = this.activeAchievements.length;
-				
-				for (var i:int = 0; i < length; i++)
-				{
-					this.activeAchievements[i].checkIfUnlocked(this.localSave.achievementData);
-				} 
-				*/
 			}
 			
 		}
 		
-		update function openedAchievement(numberOfNew:int):void
+		private function openAchievement(idClosed:int):void
 		{
+			var numberOfNew:int = 1;
 			var achievementData:Vector.<Object>;
 			var type:int = AchievementsUpdater.TEST_TYPE;
 			var condition:int = 20;
