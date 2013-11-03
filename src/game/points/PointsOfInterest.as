@@ -18,6 +18,7 @@ package game.points
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.setCenter);
+			flow.addUpdateListener(Update.puppetDies);
 			flow.addUpdateListener(Update.quitGame);
 		}
 		
@@ -30,6 +31,21 @@ package game.points
 		update function setCenter(center:ICoordinated):void
 		{
 			this.character = center;
+		}
+		
+		update function puppetDies(puppet:PuppetBase):void
+		{
+			var pos:int = this.contraptions.indexOf(puppet);
+			
+			if (pos != -1)
+				this.contraptions.splice(pos, 1);
+			else
+			{
+				pos = this.actives.indexOf(puppet);
+				
+				if (pos != -1)
+					this.actives.splice(pos, 1);
+			}
 		}
 		
 		update function quitGame():void

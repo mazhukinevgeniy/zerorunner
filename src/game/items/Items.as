@@ -59,7 +59,6 @@ package game.items
 							this.points.addPointOfInterest(Game.TOWER, item.existence);
 					}
 			}*///TODO: realize where will it be in place
-			//TODO: learn how to avoid the trouble when enlisted point dies
 		}
 		
 		update function quitGame():void

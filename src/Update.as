@@ -27,6 +27,7 @@ package
 		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
+		public static const puppetDies:String = "puppetDies";
 		
 		/* Time updates */
 		
