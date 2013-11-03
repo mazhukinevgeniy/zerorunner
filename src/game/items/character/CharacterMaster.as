@@ -4,6 +4,7 @@ package game.items.character
 	import game.core.input.InputManager;
 	import game.core.metric.DCellXY;
 	import game.GameElements;
+	import game.items.Items;
 	import game.items.items_internal;
 	import game.items.MasterBase;
 	import game.items.PuppetBase;
@@ -18,6 +19,7 @@ package game.items.character
 		
 		private var input:InputManager;
 		private var scene:IScene;
+		private var items:Items;
 		
 		public function CharacterMaster(elements:GameElements) 
 		{
@@ -25,6 +27,7 @@ package game.items.character
 			
 			this.input = elements.input;
 			this.scene = elements.scene;
+			this.items = elements.items;
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.prerestore);
@@ -51,30 +54,35 @@ package game.items.character
 					var tmp:Vector.<DCellXY> = this.input.getInputCopy();
 					var action:DCellXY = tmp.pop();
 					
+					var x:int = puppet.x;
+					var y:int = puppet.y;
+					
 					while (action.x != 0 || action.y != 0)
 					{
-						var next:int = this.scene.getSceneCell(puppet.x + action.x, puppet.y + action.y);
-						
-						if (next != Game.FALL && next != Game.LAVA)
+						if (!this.items.findObjectByCell(x + action.x, y + action.y))
 						{
-							//this.existence.move(action);
-							//TODO: todo
-							
-							break;
-						}
-						else
-						{
-							next = this.scene.getSceneCell(puppet.x + 2 * action.x, puppet.y + 2 * action.y);
+							var next:int = this.scene.getSceneCell(x + action.x, y + action.y);
 							
 							if (next != Game.FALL && next != Game.LAVA)
 							{
-								//(this.existence as Existence).jump(action, 2);
-								//TODO: TODO
+								//this.existence.move(action);
+								//TODO: todo
 								
 								break;
 							}
+							else
+							{
+								next = this.scene.getSceneCell(x + 2 * action.x, y + 2 * action.y);
+								
+								if (next != Game.FALL && next != Game.LAVA)
+								{
+									//(this.existence as Existence).jump(action, 2);
+									//TODO: TODO
+									
+									break;
+								}
+							}	
 						}
-						
 						
 						action = tmp.pop();
 					}
