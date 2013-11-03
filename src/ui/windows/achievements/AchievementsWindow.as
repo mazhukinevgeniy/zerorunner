@@ -67,7 +67,7 @@ package ui.windows.achievements
 			
 			this.addChild(new HexagonalGrid(this.assets));
 			this.addChild(this.edgesContainer);
-			this.achievementsContainer.addChild(this.substrate);
+			this.addChild(this.substrate);
 			this.addChild(this.achievementsContainer);
 			this.addChild(this.achievementDescription);
 			
@@ -130,11 +130,6 @@ package ui.windows.achievements
 			}
 			
 			super.visible = newValue;
-		}
-		
-		private function updateData():void
-		{
-			
 		}
 		
 		private function redrawGraph():void
