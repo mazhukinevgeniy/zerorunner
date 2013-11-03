@@ -13,11 +13,10 @@ package game.items
 	{
 		private var _master:MasterBase;
 		
-		internal var _x:int, _y:int;
+		private var _x:int, _y:int;
 		private var occupation:int;
 		
-		
-		protected var items:Items;
+		private var items:Items;
 		
 		/* Used to avoid creation. */
 		private var dcHelper:DCellXY;
@@ -45,12 +44,11 @@ package game.items
 			this._y = cell.y;
 			
 			this.items.addItem(this);
+			
+			this.onSpawned();
 		}
 		
 		
-		
-		final public function get x():int { return this._x; }
-		final public function get y():int { return this._y; }
 		
 		final items_internal function get master():MasterBase { return this._master; }
 		final items_internal function get free():Boolean { return this.occupation == Game.FREE; }
@@ -61,6 +59,13 @@ package game.items
 			//if behaviour is charge based, this dependancy is to be adressed by master
 			//TODO: read above
 		}
+		
+		
+		
+		/** Position and movements */
+		
+		final public function get x():int { return this._x; }
+		final public function get y():int { return this._y; }
 		
 		final items_internal function forceMoveTo(target:ICoordinated):void
 		{
@@ -87,13 +92,16 @@ package game.items
 			//TODO: preferably convert to forceMoveBy call with sweets
 		}
 		
-		/**
-		 * Override if need special execution
-		 */
-		protected function onMoved(change:DCellXY):void
-		{
-			
-		}
+		/** END OF Position and movements */
+		
+		
+		/** Things to override */
+		
+		protected function get movespeed():int { return 1; }
+		
+		protected function onMoved(change:DCellXY):void { }
+		
+		protected function onSpawned():void { }
 	}
 
 }

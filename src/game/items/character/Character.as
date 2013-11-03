@@ -15,29 +15,20 @@ package game.items.character
 	
 	internal class Character extends PuppetBase
 	{
-				
-		private var input:InputManager;
 		private var flow:IUpdateDispatcher;
-		private var points:IPointCollector;
-		private var scene:IScene;
 		
 		public function Character(master:MasterBase, elements:GameElements) 
 		{
-			this.input = elements.input;
 			this.flow = elements.flow;
-			this.items = elements.items;
-			this.scene = elements.scene;
 			
 			var cell:CellXY = new CellXY
 					(Game.BORDER_WIDTH, 
 					 Game.BORDER_WIDTH + elements.database.config.width - 1);
 			
 			super(master, elements, cell);
-			
-			this.points = elements.pointsOfInterest;
-			
-			this.flow.dispatchUpdate(Update.setCenter, this);
 		}
+		
+		override protected function get movespeed():int { return 1; }//TODO: want 2
 		
 		/*
 		override internal function applyDestruction():void
@@ -64,12 +55,6 @@ package game.items.character
 		
 		items_internal function jump(change:DCellXY, multiplier:int):void
 		{
-			var obstacles:int = 0;
-			
-			for (var i:int = 0; i < multiplier; i++)
-				if (this.items.findObjectByCell(this.x + (i + 1) * change.x, this.y + (i + 1) * change.y))
-					return;
-			
 			change.setValue(change.x * multiplier, change.y * multiplier);
 			
 			super.move(change);
@@ -79,6 +64,15 @@ package game.items.character
 			//TODO: animate
 		}*/
 		
+		override protected function onMoved(change:DCellXY):void 
+		{
+			this.flow.dispatchUpdate(Update.moveCenter, change, this.movespeed);
+		}
+		
+		override protected function onSpawned():void 
+		{
+			this.flow.dispatchUpdate(Update.setCenter, this);
+		}
 	}
 
 }
