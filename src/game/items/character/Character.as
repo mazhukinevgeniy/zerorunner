@@ -31,20 +31,6 @@ package game.items.character
 		override protected function get movespeed():int { return 1; }//TODO: want 2
 		
 		
-		/*override items_internal function move(change:DCellXY):void
-		{
-			var delay:int = this.MOVE_SPEED;
-			
-			if (!this.items.findObjectByCell(this.x + change.x, this.y + change.y))
-			{
-				super.move(change);
-				
-				this.item.cooldown = delay;
-				//TODO: something is broken, broken to the core, infection is growing, pulled until it's tore!
-			}
-		}
-		*/
-		
 		override protected function onMoved(change:DCellXY):void 
 		{
 			this.flow.dispatchUpdate(Update.moveCenter, change, this.movespeed);
