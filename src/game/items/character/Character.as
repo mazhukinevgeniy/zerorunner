@@ -15,8 +15,7 @@ package game.items.character
 	
 	internal class Character extends PuppetBase
 	{
-		private const SOLDERING_POWER:int = 2;//TODO: replace
-		
+				
 		private var input:InputManager;
 		private var flow:IUpdateDispatcher;
 		private var points:IPointCollector;
@@ -34,7 +33,6 @@ package game.items.character
 					 Game.BORDER_WIDTH + elements.database.config.width - 1);
 			
 			super(master, elements, cell);
-			//TODO: override occupations
 			
 			this.points = elements.pointsOfInterest;
 			
