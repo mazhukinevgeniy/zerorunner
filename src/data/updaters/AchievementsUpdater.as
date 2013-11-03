@@ -42,13 +42,13 @@ package data.updaters
 				achievementData = this.save["achievements"][i];
 				if (achievementData[0].y == AchievementsUpdater.OPEN)
 				{
-					this.openAchievements.push(achievementData);
+					this.openAchievements.push(new Vector.<Object>[achievementData[0].clone]);
 					lastOpenAchievement++;
 					
 					lenghtData = achievementData.length;
 					for (var j:int = 1; j < lenghtData; ++j)
-						if (this.save[AchievementsUpdater.ADDRESSES[achievementData[j].x]] >= achievementData[j].y)
-							this.openAchievements[lastOpenAchievement].splice(i, 1);//this.openAchievements[lastOpenAchievement].push(new Point(achievementData[j].x, achievementData[j].y));
+						if (this.save[AchievementsUpdater.ADDRESSES[achievementData[j].x]] < achievementData[j].y)
+							this.openAchievements[lastOpenAchievement].push(achievementData[j].clone);
 				}
 			}
 		}
@@ -74,7 +74,9 @@ package data.updaters
 					{
 						this.closeAchievement(int(achievementData[0].x));
 						this.openAchievements.splice(i, 1);
+						
 						trace("achievement complete");
+						//TODO реакция на выполненую ачивку
 					}
 				}
 				/*
@@ -99,9 +101,10 @@ package data.updaters
 			for (var i:int = 0; i < numberOfNew; ++i, ++id)
 			{
 				achievementData = new <Object>[new Point(id, AchievementsUpdater.OPEN), new Point(type, condition)];
+				condition++;
 				
 				this.save["achievements"].push(achievementData);
-				this.openAchievements.push(achievementData);
+				this.openAchievements.push(achievementData.slice());
 			}
 		}
 		

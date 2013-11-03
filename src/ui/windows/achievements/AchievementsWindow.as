@@ -27,7 +27,7 @@ package ui.windows.achievements
 		
 		private var numberOfAchievements:int
 		
-		private var achievementSave:AchievementViewer;
+		private var achievementsSave:AchievementViewer;
 		private var edgesContainer:Sprite;
 		private var achievementsContainer:Sprite;
 		private var substrate:Quad;
@@ -37,13 +37,13 @@ package ui.windows.achievements
 		private var achievementDescription:MessageBubble;
 		private var lastDisplayedDescription:int;
 		
-		private var achData:AchievementData;
+		private var achData:Achievement;
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementViewer, flow:IUpdateDispatcher) 
+		public function AchievementsWindow(assets:AssetManager, achievementsSave:AchievementViewer, flow:IUpdateDispatcher) 
 		{
-			this.achData = new AchievementData(1, achievementSave);
+			//this.achData = this.achievementsSave
 			
 			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
@@ -71,10 +71,10 @@ package ui.windows.achievements
 			this.addChild(this.achievementsContainer);
 			this.addChild(this.achievementDescription);
 			
-			this.achievementSave = achievementSave;
+			this.achievementsSave = achievementsSave;
 			this.flow = flow;
 			
-			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
+			this.numberOfAchievements = this.achievementsSave.numberOfAchievements;
 			if (this.numberOfAchievements == 0)
 				this.flow.dispatchUpdate(Update.openedAchievement, 1);
 				
@@ -84,7 +84,7 @@ package ui.windows.achievements
 		
 		private function createEdges():void
 		{
-			var edgesData:Vector.<Point> = this.achievementSave.edges;
+			var edgesData:Vector.<Point> = this.achievementsSave.edges;
 			var lenght:int;
 			
 			lenght = edgesData.length;
@@ -102,11 +102,11 @@ package ui.windows.achievements
 			var texture:Texture;
 			
 			this.achievements = new Vector.<ViewAchievement>;
-			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
+			this.numberOfAchievements = this.achievementsSave.numberOfAchievements;
 			
 			for (var i:int = 0; i < this.numberOfAchievements; ++i)
 			{
-				this.achData.reset(i);
+				this.achData = this.achievementsSave.getAchievement(i);
 
 				if (this.achData.unlocked)
 					nameOfSkin = this.achData.enabledSkin;
@@ -162,7 +162,7 @@ package ui.windows.achievements
 		{
 			if (this.lastDisplayedDescription != id)
 			{
-				this.achData.reset(id); 
+				this.achData = this.achievementsSave.getAchievement(id);
 				
 				this.achievementDescription.updateMessage(this.achData.description, this.achievements[id]);
 				this.achievementDescription.visible = true;

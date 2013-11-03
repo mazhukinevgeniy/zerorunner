@@ -14,7 +14,7 @@ package ui.windows.achievements
 		
 		private var parentContainer:AchievementsWindow;
 		
-		internal var data:AchievementData;
+		internal var data:Achievement;
 		
 		public function ViewAchievement(id:int, position:int, skin:Texture, parentContainer:AchievementsWindow)
 		{

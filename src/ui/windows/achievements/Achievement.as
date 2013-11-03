@@ -2,8 +2,10 @@ package ui.windows.achievements
 {
 	import data.viewers.AchievementViewer;
 	
-	public class AchievementData 
+	public class Achievement
 	{
+		private static const BASE_DATA:int = 0;
+		
 		private var _position:int;
 		private var _unlocked:Boolean;
 		private var _enabledSkin:String;
@@ -12,25 +14,25 @@ package ui.windows.achievements
 		
 		private var save:AchievementViewer;
 		
-		public function AchievementData(id:int, save:AchievementViewer) 
+		public function Achievement(data:Vector.<Object>) 
 		{
 			this.save = save;
 			
-			this.reset(id);
+			this.initialize(data);
 		}
 		
-		internal function reset(id:int):void
+		private function initialize(data:Vector.<Object>):void
 		{
 			var radius:int = 15;
-			
-			var unlocked:Boolean = false;
+			var unlocked:Boolean;
 			var enabledSkin:String = "ground";
 			var disabledSkin:String = "unimplemented";
-			var description:String = "this is achievement \n this is achievement" +
-									 "\n this is achievement\n this is achievement" +
-									 "this is achievement " + String(id);
+			var description:String = "this is achievement about distance - " + String(data[1].y);
 			
-			this._position = id;
+			if (data[Achievement.BASE_DATA].y == 0) unlocked = false;
+			else unlocked = true;
+			
+			this._position = data[Achievement.BASE_DATA].x;
 			this._unlocked = unlocked;
 			this._enabledSkin = enabledSkin;
 			this._disabledSkin = disabledSkin;

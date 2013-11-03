@@ -2,6 +2,7 @@ package data.viewers
 {
 	import flash.geom.Point;
 	import flash.utils.Proxy;
+	import ui.windows.achievements.Achievement;
 	
 	public class AchievementViewer
 	{
@@ -23,9 +24,19 @@ package data.viewers
 			return AchievementViewer.EDGES;
 		}
 		
-		public function getAchievement(id:int):Vector.<Point>
+		public function getAchievement(id:int):Achievement
 		{
-			return this.save[String(id)];
+			var number:int = this.save["achievements"].length;
+			var achievementData:Vector.<Object>;
+			var achievement:Achievement;
+			
+			for (var i:int = 0; i < number; ++i)
+			{
+				achievementData = this.save["achievements"][i];
+				if (achievementData[0].x == id)
+					achievement = new Achievement(achievementData);
+			}
+			return achievement;
 		}
 		//TODO: impelement the way to give suitable save-based amount of information
 	}
