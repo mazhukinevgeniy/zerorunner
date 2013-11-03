@@ -1,7 +1,6 @@
 package game 
 {
 	import data.DatabaseManager;
-	import game.clouds.Clouds;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
 	import game.hud.UIExtendsions;
@@ -47,7 +46,6 @@ package game
 			this._items = new Items(this);
 			
 			new Renderer(this);
-			this._root.addChild(new Clouds(this));
 			
 			new Time(this);
 			new UIExtendsions(this);
