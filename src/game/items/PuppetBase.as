@@ -50,9 +50,21 @@ package game.items
 			this.onSpawned();
 		}
 		
+		final items_internal function forceDestruction():void
+		{
+			this.occupation = Game.DYING;
+		}
+		
 		final items_internal function tickPassed():void
 		{
 			//TODO: advance the state
+			
+			if (this.occupation == Game.DYING)
+			{
+				this.items.removeItem(this);
+				
+				this.onDied();
+			}
 		}
 		
 		
@@ -98,6 +110,10 @@ package game.items
 			this.dcHelper.setValue(change.x * length, change.y * length);
 			
 			this.forceMoveBy(this.dcHelper);
+			
+			//this.item.cooldown = this.MOVE_SPEED * 2 * multiplier;
+			//TODO: implement delaying
+			//TODO: handle onMoved conflict (can't apply custom delay)
 		}
 		
 		/** END OF Position and movements */
@@ -108,8 +124,8 @@ package game.items
 		protected function get movespeed():int { return 1; }
 		
 		protected function onMoved(change:DCellXY):void { }
-		
 		protected function onSpawned():void { }
+		protected function onDied():void { }
 	}
 
 }

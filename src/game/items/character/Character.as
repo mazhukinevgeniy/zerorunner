@@ -30,13 +30,6 @@ package game.items.character
 		
 		override protected function get movespeed():int { return 1; }//TODO: want 2
 		
-		/*
-		override internal function applyDestruction():void
-		{
-			this.flow.dispatchUpdate(Update.gameFinished, Game.LOST);
-		}*///TODO: move to the occupation (because dying is business too)
-		
-		
 		
 		/*override items_internal function move(change:DCellXY):void
 		{
@@ -50,16 +43,7 @@ package game.items.character
 				//TODO: something is broken, broken to the core, infection is growing, pulled until it's tore!
 			}
 		}
-		
-		items_internal function jump(change:DCellXY, multiplier:int):void
-		{
-			change.setValue(change.x * multiplier, change.y * multiplier);
-			
-			super.move(change);
-			this.item.cooldown = this.MOVE_SPEED * 2 * multiplier;
-			
-			this.flow.dispatchUpdate(Update.moveCenter, change, this.item.cooldown + 1);
-		}*/
+		*/
 		
 		override protected function onMoved(change:DCellXY):void 
 		{
@@ -69,6 +53,11 @@ package game.items.character
 		override protected function onSpawned():void 
 		{
 			this.flow.dispatchUpdate(Update.setCenter, this);
+		}
+		
+		override protected function onDied():void 
+		{
+			this.flow.dispatchUpdate(Update.gameFinished, Game.LOST);
 		}
 	}
 

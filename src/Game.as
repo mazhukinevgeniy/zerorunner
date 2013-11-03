@@ -42,6 +42,7 @@ package
 		public static const FREE:int = 0;
 		public static const MOVING:int = 1;
 		public static const SHOCKING:int = 2;
+		public static const DYING:int = 3;
 		
 		/* Constants */
 		
