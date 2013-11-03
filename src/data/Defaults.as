@@ -35,9 +35,7 @@ package data
 		
 		public static const achievementsDefaults:Object = 
 		{
-			openAchievements: new Vector.<Vector.<Object>>,
-			closedAchievements: new Vector.<Number>,
-			numberOfAchievements: 0
+			achievements: new Vector.<Vector.<Object>>
 		};
 		
 		internal static const defaults:Vector.<Object> = new <Object>[

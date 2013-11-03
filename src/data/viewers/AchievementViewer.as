@@ -16,7 +16,7 @@ package data.viewers
 			this.save = save;
 		}
 		
-		public function get numberOfAchievements():int { return this.save["numberOfAchievements"]; }
+		public function get numberOfAchievements():int { return this.save["achievements"].length; }
 		
 		public function get edges():Vector.<Point>
 		{
