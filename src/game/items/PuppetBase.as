@@ -7,24 +7,27 @@ package game.items
 	import game.items.Items;
 	import starling.display.DisplayObject;
 	
+	use namespace items_internal;
 	
 	public class PuppetBase implements ICoordinated
 	{
 		private var _master:MasterBase;
 		
 		internal var _x:int, _y:int;
-		
-		protected var items:Items;
-		//TODO: check if need
-		
 		private var occupation:int;
 		
 		
+		protected var items:Items;
+		
+		/* Used to avoid creation. */
+		private var dcHelper:DCellXY;
 		
 		public function PuppetBase(master:MasterBase, elements:GameElements, cell:CellXY = null) 
 		{
 			this._master = master;
 			this.items = elements.items;
+			
+			this.dcHelper = new DCellXY(0, 0);
 			
 			if (cell == null)
 			{
@@ -61,12 +64,22 @@ package game.items
 		
 		final items_internal function forceMoveTo(target:ICoordinated):void
 		{
-			//TODO: convert to moveBy call
+			this.dcHelper.setValue(target.x - this._x, target.y - this._y);
+			
+			this.forceMoveBy(this.dcHelper);
 		}
 		
 		final items_internal function forceMoveBy(change:DCellXY):void
 		{
-			//TODO: call onMoved
+			this.items.removeItem(this);
+			
+			this._x += change.x;
+			this._y += change.y;
+			
+			this.items.addItem(this);
+			
+			
+			this.onMoved(change);
 		}
 		
 		final items_internal function forceJumpBy(change:DCellXY, length:int):void

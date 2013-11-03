@@ -63,47 +63,6 @@ package game.items
 			this.items[item.x + item.y * this.width] = item;
 		}
 		
-		internal function moveItemBy(item:PuppetBase, change:DCellXY):void
-		{
-			var blocker:PuppetBase = 
-					this.findObjectByCell(item.x + change.x, item.y + change.y);
-			
-			if (!blocker)
-			{
-				//item.occupation.move
-				//TODO: make something
-				
-				this.removeItem(item);
-				
-				item._x += change.x;
-				item._y += change.y;
-				
-				this.addItem(item);
-			}
-			else
-				throw new Error();
-				//item.collider.collideWith(blocker);
-				//TODO: handle such things inside of activities
-		}
-		
-		internal function moveItemTo(item:PuppetBase, goal:ICoordinated):void
-		{
-			var blocker:PuppetBase = this.findObjectByCell(goal.x, goal.y);
-			
-			if (!blocker)
-			{
-				this.removeItem(item);
-				
-				item._x = goal.x;
-				item._y = goal.y;
-				
-				this.addItem(item);
-			}
-			else
-				throw new Error();
-				//item.collider.collideWith(blocker);
-				//TODO: handle such things inside of activities
-		}
 		
 		internal function removeItem(item:PuppetBase):void
 		{

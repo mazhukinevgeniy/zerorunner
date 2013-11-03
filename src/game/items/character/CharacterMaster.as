@@ -25,16 +25,16 @@ package game.items.character
 		{
 			this.elements = elements;
 			
-			this.input = elements.input;
-			this.scene = elements.scene;
-			this.items = elements.items;
-			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.prerestore);
 		}
 		
 		update function prerestore(config:GameConfig):void
 		{
+			this.input = elements.input;
+			this.scene = elements.scene;
+			this.items = elements.items;
+			
 			new Character(this, this.elements);
 		}
 		
