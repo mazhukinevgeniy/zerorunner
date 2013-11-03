@@ -1,6 +1,8 @@
 package game.items 
 {
 	
+	use namespace items_internal;
+	
 	public class MasterBase 
 	{
 		
@@ -16,7 +18,7 @@ package game.items
 		
 		
 		
-		public function act():void
+		items_internal function actOn(puppet:PuppetBase):void
 		{
 			
 		}

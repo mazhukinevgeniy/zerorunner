@@ -55,7 +55,7 @@ package game.items.utils
 						
 						if (item && this.moved.indexOf(item) == -1)
 						{
-							item.master.act();
+							item.master.actOn(item);
 							this.moved.push(item);
 						}
 					}
@@ -69,7 +69,7 @@ package game.items.utils
 					item = others[i];
 					
 					if (this.moved.indexOf(item) == -1)
-						item.master.act();
+						item.master.actOn(item);
 				}
 			}
 		}

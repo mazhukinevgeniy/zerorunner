@@ -2,8 +2,12 @@ package game.items.character
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
+	import game.items.items_internal;
 	import game.items.MasterBase;
+	import game.items.PuppetBase;
 	import utils.updates.update;
+	
+	use namespace items_internal;
 	
 	public class CharacterMaster extends MasterBase
 	{
@@ -24,7 +28,7 @@ package game.items.character
 			new Character(this, this.elements);
 		}
 		
-		override public function act():void
+		override items_internal function actOn(puppet:PuppetBase):void
 		{
 		/*	if (this.input.isSpacePressed)
 			{
