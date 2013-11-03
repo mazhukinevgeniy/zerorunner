@@ -45,25 +45,36 @@ package game.items
 		}
 		
 		
-		protected function onMoved():void
-		{
-			
-		}//TODO: how must it be implemented?
+		
+		final public function get x():int { return this._x; }
+		final public function get y():int { return this._y; }
+		
+		final items_internal function get master():MasterBase { return this._master; }
+		final items_internal function get free():Boolean { return this.occupation == Game.FREE; }
 		
 		
-		
-		
-		public function get x():int { return this._x; }
-		public function get y():int { return this._y; }
-		
-		items_internal function get master():MasterBase { return this._master; }
-		items_internal function get free():Boolean { return this.occupation == Game.FREE; }
-		
-		
-		items_internal function tryShocking(target:ICoordinated = null):void
+		final items_internal function forceShocking(target:ICoordinated = null):void
 		{
 			//if behaviour is charge based, this dependancy is to be adressed by master
 			//TODO: read above
+		}
+		
+		final items_internal function forceMoveTo(target:ICoordinated):void
+		{
+			//TODO: convert to moveBy call
+		}
+		
+		final items_internal function forceMoveBy(change:DCellXY):void
+		{
+			//TODO: call onMoved
+		}
+		
+		/**
+		 * Override if need special execution
+		 */
+		protected function onMoved(change:DCellXY):void
+		{
+			
 		}
 	}
 

@@ -47,7 +47,7 @@ package game.items.character
 					this.input.getInputCopy();
 					//TODO: that's too hacky, use other way
 					
-					puppet.tryShocking();
+					puppet.forceShocking();
 				}
 				else
 				{				
@@ -89,6 +89,8 @@ package game.items.character
 				}
 			}
 		}
+		
+		//TODO: finalize as much as possible
 	}
 
 }
