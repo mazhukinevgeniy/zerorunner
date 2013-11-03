@@ -65,8 +65,7 @@ package game.items.character
 							
 							if (next != Game.FALL && next != Game.LAVA)
 							{
-								//this.existence.move(action);
-								//TODO: todo
+								puppet.forceMoveBy(action);
 								
 								break;
 							}
@@ -76,8 +75,7 @@ package game.items.character
 								
 								if (next != Game.FALL && next != Game.LAVA)
 								{
-									//(this.existence as Existence).jump(action, 2);
-									//TODO: TODO
+									puppet.forceJumpBy(action, 2);
 									
 									break;
 								}

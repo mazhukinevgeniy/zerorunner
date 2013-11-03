@@ -69,6 +69,11 @@ package game.items
 			//TODO: call onMoved
 		}
 		
+		final items_internal function forceJumpBy(change:DCellXY, length:int):void
+		{
+			//TODO: preferably convert to forceMoveBy call with sweets
+		}
+		
 		/**
 		 * Override if need special execution
 		 */
