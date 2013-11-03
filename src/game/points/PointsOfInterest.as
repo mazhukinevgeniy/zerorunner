@@ -8,7 +8,7 @@ package game.points
 	
 	public class PointsOfInterest implements IPointCollector
 	{
-		private var towers:Vector.<PuppetBase>;
+		private var contraptions:Vector.<PuppetBase>;
 		private var actives:Vector.<PuppetBase>;
 		
 		private var character:ICoordinated;
@@ -23,7 +23,7 @@ package game.points
 		
 		update function prerestore(... args):void
 		{
-			this.towers = new Vector.<PuppetBase>();
+			this.contraptions = new Vector.<PuppetBase>();
 			this.actives = new Vector.<PuppetBase>();
 		}
 		
@@ -34,29 +34,29 @@ package game.points
 		
 		update function quitGame():void
 		{
-			this.towers = null;
+			this.contraptions = null;
 			this.actives = null;
 			this.character = null;
 		}
 		
 		
 		
-		public function addTower(tower:PuppetBase):void 
+		public function addContraption(contraption:PuppetBase):void 
 		{ 
-			if (this.towers.indexOf(tower) == -1)
-				this.towers.push(tower);
+			if (this.contraptions.indexOf(contraption) == -1)
+				this.contraptions.push(contraption);
 		}
 		
-		public function getTower():PuppetBase 
+		public function getContraption():PuppetBase 
 		{ 
-			return this.towers[int(Math.random() * this.towers.length)];
+			return this.contraptions[int(Math.random() * this.contraptions.length)];
 		}
 		
-		public function removeTower(tower:PuppetBase):void 
+		public function removeContraption(contraption:PuppetBase):void 
 		{
-			var pos:int = this.towers.indexOf(tower);
+			var pos:int = this.contraptions.indexOf(contraption);
 			if (pos != -1)
-				this.towers.splice(pos, 1); 
+				this.contraptions.splice(pos, 1); 
 		}
 		
 		

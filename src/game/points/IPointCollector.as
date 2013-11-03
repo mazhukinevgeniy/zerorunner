@@ -5,10 +5,9 @@ package game.points
 	
 	public interface IPointCollector 
 	{
-		//TODO: check if we can name it better then "tower"
-		function addTower(tower:PuppetBase):void;
-		function removeTower(tower:PuppetBase):void;
-		function getTower():PuppetBase;
+		function addContraption(contraption:PuppetBase):void;
+		function removeContraption(contraption:PuppetBase):void;
+		function getContraption():PuppetBase;
 		
 		function getCharacter():ICoordinated;
 		
