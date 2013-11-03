@@ -2,8 +2,6 @@ package game.clouds
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.DCellXY;
-	import game.core.metric.Metric;
-	import game.core.time.Time;
 	import game.GameElements;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;
@@ -55,10 +53,10 @@ package game.clouds
 		
 		update function moveCenter(change:DCellXY, ticksToGo:int):void 
 		{
-			this.moveTween.reset(this, ticksToGo * Time.TIME_BETWEEN_TICKS);
+			this.moveTween.reset(this, ticksToGo * Game.TIME_BETWEEN_TICKS);
 			
-			this.moveTween.animate("tilesOffsetX", this.tilesOffsetX - Metric.CELL_WIDTH * change.x);
-			this.moveTween.animate("tilesOffsetY", this.tilesOffsetY - Metric.CELL_HEIGHT * change.y);
+			this.moveTween.animate("tilesOffsetX", this.tilesOffsetX - Game.CELL_WIDTH * change.x);
+			this.moveTween.animate("tilesOffsetY", this.tilesOffsetY - Game.CELL_HEIGHT * change.y);
 			
 			this.elements.juggler.add(this.moveTween);
 		}

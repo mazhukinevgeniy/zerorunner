@@ -1,7 +1,6 @@
 package game.renderer 
 {
 	import game.core.metric.ICoordinated;
-	import game.core.metric.Metric;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.PuppetBase;
@@ -49,17 +48,7 @@ package game.renderer
 		}
 		
 		
-		update function numberedFrame(key:int):void
-		{
-			this.redraw();
-		}
-		
-		update function quitGame():void
-		{
-			this.reset();
-		}
-		
-		private function redraw():void
+		update function numberedFrame(frame:int):void
 		{
 			this.reset();
 			
@@ -80,13 +69,29 @@ package game.renderer
 					
 					if (item)
 					{
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT;
+						sprite.x = i * Game.CELL_WIDTH;
+						sprite.y = j * Game.CELL_HEIGHT;
+						
+						if (item.occupation == Game.MOVING)
+						{
+							var dX:int = item.x - item.previousPosition.x;
+							var dY:int = item.y - item.previousPosition.y;
+							
+							var progress:Number = 1 - item.getMoveProgress(frame);
+							
+							sprite.x -= int(progress * Game.CELL_WIDTH * dX);
+							sprite.y -= int(progress * Game.CELL_HEIGHT * dY);
+						}
 						
 						this.addImage(sprite);
 					}
 					
 				}
+		}
+		
+		update function quitGame():void
+		{
+			this.reset();
 		}
 	}
 

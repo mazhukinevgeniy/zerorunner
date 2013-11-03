@@ -30,7 +30,6 @@ package game.items.character
 		
 		override protected function get movespeed():int { return 2; }
 		
-		
 		override protected function onMoved(change:DCellXY):void 
 		{
 			this.flow.dispatchUpdate(Update.moveCenter, change, this.movespeed);

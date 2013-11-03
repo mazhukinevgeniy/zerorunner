@@ -12,11 +12,6 @@ package game.core.time
 	{
 		private var frameCount:int = 0;
 		
-		
-		private static const FRAMES_PER_CYCLE:int = 5;
-		public static const TIME_BETWEEN_TICKS:Number = Time.FRAMES_PER_CYCLE / Main.FPS;
-		
-		
 		private var _fixed:Boolean = true;
 		
 		private var updateFlow:IUpdateDispatcher;
@@ -56,7 +51,7 @@ package game.core.time
 			{
 				this.gameJuggler.advanceTime(event.passedTime);
 				
-				if (this.frameCount < Time.FRAMES_PER_CYCLE)
+				if (this.frameCount < Game.FRAMES_PER_CYCLE)
 				{
 					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
 					this.frameCount++;

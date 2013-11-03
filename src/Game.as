@@ -51,6 +51,18 @@ package
 		public static const LEVEL_CAP:int = 3;
 		//TODO: think if it's to be constant
 		
+		/* Time-related */
+		
+		public static const FRAMES_PER_CYCLE:int = 5;
+		public static const TIME_BETWEEN_TICKS:Number = Game.FRAMES_PER_CYCLE / Main.FPS;
+		
+		/* Metric */
+		
+		public static const CELL_WIDTH:int = 40;
+		public static const CELL_HEIGHT:int = 40;
+		
+		public static const CELLS_IN_VISIBLE_WIDTH:int = int(Main.WIDTH / Game.CELL_WIDTH);
+		public static const CELLS_IN_VISIBLE_HEIGHT:int = int(Main.HEIGHT / Game.CELL_HEIGHT);
 		
 		public function Game() 
 		{

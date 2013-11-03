@@ -2,7 +2,6 @@ package game.renderer
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.ICoordinated;
-	import game.core.metric.Metric;
 	import game.GameElements;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
@@ -102,8 +101,8 @@ package game.renderer
 						{
 							sprite = this.ground_S;
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
+							sprite.x = i * Game.CELL_WIDTH;
+							sprite.y = (j + 1) * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}
@@ -111,8 +110,8 @@ package game.renderer
 						{
 							sprite = this.ground_E;
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = (i + 1) * Game.CELL_WIDTH;
+							sprite.y = j * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}
@@ -120,8 +119,8 @@ package game.renderer
 						{
 							sprite = this.ground_W;
 							
-							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = i * Game.CELL_WIDTH - sprite.width;
+							sprite.y = j * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}
@@ -129,8 +128,8 @@ package game.renderer
 						{
 							sprite = this.ground_N;
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+							sprite.x = i * Game.CELL_WIDTH;
+							sprite.y = j * Game.CELL_HEIGHT - sprite.height;
 							
 							this.addImage(sprite);
 						}
@@ -138,8 +137,8 @@ package game.renderer
 						{
 							sprite = this.ground_SE;
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
+							sprite.x = (i + 1) * Game.CELL_WIDTH;
+							sprite.y = (j + 1) * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}
@@ -147,8 +146,8 @@ package game.renderer
 						{
 							sprite = this.ground_SW;
 							
-							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
+							sprite.x = i * Game.CELL_WIDTH - sprite.width;
+							sprite.y = (j + 1) * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}
@@ -156,8 +155,8 @@ package game.renderer
 						{
 							sprite = this.ground_NE;
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+							sprite.x = (i + 1) * Game.CELL_WIDTH;
+							sprite.y = j * Game.CELL_HEIGHT - sprite.height;
 							
 							this.addImage(sprite);
 						}
@@ -165,8 +164,8 @@ package game.renderer
 						{
 							sprite = this.ground_NW;
 							
-							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
+							sprite.x = i * Game.CELL_WIDTH - sprite.width;
+							sprite.y = j * Game.CELL_HEIGHT - sprite.height;
 							
 							this.addImage(sprite);
 						}
@@ -175,8 +174,8 @@ package game.renderer
 						{
 							sprite = this.ground;
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = i * Game.CELL_WIDTH;
+							sprite.y = j * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 							
@@ -186,8 +185,8 @@ package game.renderer
 							{
 								sprite = this["stones" + (1 + number % 3)];
 								
-								sprite.x = i * Metric.CELL_WIDTH;
-								sprite.y = j * Metric.CELL_HEIGHT;
+								sprite.x = i * Game.CELL_WIDTH;
+								sprite.y = j * Game.CELL_HEIGHT;
 								
 								this.addImage(sprite);
 							}
@@ -207,8 +206,8 @@ package game.renderer
 					{
 						sprite = this.lava;
 						
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT;
+						sprite.x = i * Game.CELL_WIDTH;
+						sprite.y = j * Game.CELL_HEIGHT;
 						
 						this.addImage(sprite);
 						
@@ -217,8 +216,8 @@ package game.renderer
 						{
 							sprite = this.lava_E;
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width / 2;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = (i + 1) * Game.CELL_WIDTH - sprite.width / 2;
+							sprite.y = j * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}
@@ -226,8 +225,8 @@ package game.renderer
 						{
 							sprite = this.lava_W;
 							
-							sprite.x = i * Metric.CELL_WIDTH - sprite.width / 2;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = i * Game.CELL_WIDTH - sprite.width / 2;
+							sprite.y = j * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}
@@ -235,8 +234,8 @@ package game.renderer
 						{
 							sprite = this.lava_N;
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT - sprite.height / 2;
+							sprite.x = i * Game.CELL_WIDTH;
+							sprite.y = j * Game.CELL_HEIGHT - sprite.height / 2;
 							
 							this.addImage(sprite);
 						}
@@ -244,8 +243,8 @@ package game.renderer
 						{
 							sprite = this.lava_S;
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height / 2;
+							sprite.x = i * Game.CELL_WIDTH;
+							sprite.y = (j + 1) * Game.CELL_HEIGHT - sprite.height / 2;
 							
 							this.addImage(sprite);
 						}
@@ -257,8 +256,8 @@ package game.renderer
 						{
 							sprite = this.lava_SE;
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
+							sprite.x = (i + 1) * Game.CELL_WIDTH - sprite.width;
+							sprite.y = (j + 1) * Game.CELL_HEIGHT - sprite.height;
 							
 							this.addImage(sprite);
 						}
@@ -268,8 +267,8 @@ package game.renderer
 						{
 							sprite = this.lava_SW;
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
+							sprite.x = i * Game.CELL_WIDTH;
+							sprite.y = (j + 1) * Game.CELL_HEIGHT - sprite.height;
 							
 							this.addImage(sprite);
 						}
@@ -279,8 +278,8 @@ package game.renderer
 						{
 							sprite = this.lava_NE;
 							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = (i + 1) * Game.CELL_WIDTH - sprite.width;
+							sprite.y = j * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}
@@ -290,8 +289,8 @@ package game.renderer
 						{
 							sprite = this.lava_NW;
 							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
+							sprite.x = i * Game.CELL_WIDTH;
+							sprite.y = j * Game.CELL_HEIGHT;
 							
 							this.addImage(sprite);
 						}

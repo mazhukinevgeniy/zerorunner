@@ -15,12 +15,12 @@ package game.items
 		
 		private var _x:int, _y:int;
 		
-		private var occupation:int;
+		private var _occupation:int;
 		
 		private var ticksOccupated:int;
 		private var ticksUntilOccupationEnds:int;
 		
-		private var previousPosition:CellXY;
+		private var _previousPosition:CellXY;
 		
 		private var items:Items;
 		
@@ -33,7 +33,7 @@ package game.items
 			this.items = elements.items;
 			
 			this.dcHelper = new DCellXY(0, 0);
-			this.previousPosition = new CellXY(0, 0);
+			this._previousPosition = new CellXY(0, 0);
 			
 			if (cell == null)
 			{
@@ -57,22 +57,22 @@ package game.items
 		
 		final internal function forceDestruction():void
 		{
-			this.occupation = Game.DYING;
+			this._occupation = Game.DYING;
 		}
 		
 		final internal function tickPassed():void
 		{
-			if (this.occupation == Game.FREE)
+			if (this._occupation == Game.FREE)
 			{
 				
 			}
-			else if (this.occupation == Game.MOVING)
+			else if (this._occupation == Game.MOVING)
 			{
 				this.ticksOccupated++;
 				if (this.ticksOccupated == this.ticksUntilOccupationEnds)
-					this.occupation = Game.FREE;
+					this._occupation = Game.FREE;
 			}			
-			else if (this.occupation == Game.DYING)
+			else if (this._occupation == Game.DYING)
 			{
 				this.items.removeItem(this);
 				
@@ -87,7 +87,7 @@ package game.items
 		
 		
 		final items_internal function get master():MasterBase { return this._master; }
-		final items_internal function get free():Boolean { return this.occupation == Game.FREE; }
+		final items_internal function get free():Boolean { return this._occupation == Game.FREE; }
 		
 		
 		final items_internal function forceShocking(target:ICoordinated = null):void
@@ -99,9 +99,6 @@ package game.items
 		
 		/** Position and movements */
 		
-		final public function get x():int { return this._x; }
-		final public function get y():int { return this._y; }
-		
 		final items_internal function forceMoveTo(target:ICoordinated):void
 		{
 			this.dcHelper.setValue(target.x - this._x, target.y - this._y);
@@ -112,7 +109,7 @@ package game.items
 		final items_internal function forceMoveBy(change:DCellXY):void
 		{
 			this.items.removeItem(this);
-			this.previousPosition.setValue(this._x, this._y);
+			this._previousPosition.setValue(this._x, this._y);
 			
 			this._x += change.x;
 			this._y += change.y;
@@ -120,7 +117,7 @@ package game.items
 			this.items.addItem(this);
 			
 			
-			this.occupation = Game.MOVING;
+			this._occupation = Game.MOVING;
 			this.ticksUntilOccupationEnds = this.movespeed;
 			this.ticksOccupated = 0;
 			
@@ -148,6 +145,22 @@ package game.items
 		protected function onMoved(change:DCellXY):void { }
 		protected function onSpawned():void { }
 		protected function onDied():void { }
+		
+		/** Public getstate methods, used by renderer and others */
+		
+		final public function get x():int { return this._x; }
+		final public function get y():int { return this._y; }
+		
+		final public function get occupation():int { return this._occupation; }
+		final public function get previousPosition():ICoordinated { return this._previousPosition; }
+		
+		final public function getMoveProgress(frame:int):Number 
+		{
+			if (this._occupation != Game.MOVING)
+				throw new Error();
+			else
+				return Number(Number(this.ticksOccupated + Number(frame / Game.FRAMES_PER_CYCLE)) / this.ticksUntilOccupationEnds);
+		}
 	}
 
 }
