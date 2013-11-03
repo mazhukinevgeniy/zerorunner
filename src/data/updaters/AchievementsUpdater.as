@@ -29,13 +29,13 @@ package data.updaters
 		{
 			if (frame == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{
-				var number:int = this.save["achievements"].length;
+				var number:int = this.save["openAchievements"].length;
 				var achievementData:Vector.<Object>;
 				var lenghtData:int;
 				
 				for (var i:int = 0; i < number; ++i)
 				{
-					achievementData = this.save["achievements"][i];
+					achievementData = this.save["openAchievements"][i];
 					lenghtData = achievementData.length;
 					for (var j:int = 0; j < lenghtData; ++j)
 						if (this.save[AchievementsUpdater.ADDRESSES[achievementData[j].x]] >= achievementData[j].y)
@@ -43,7 +43,7 @@ package data.updaters
 							
 					if (achievementData.length == 0)
 					{
-						this.save["achievements"].splice(i, 1);
+						this.save["openAchievements"].splice(i, 1);
 						trace("achievement complete");
 					}
 				}
@@ -64,13 +64,14 @@ package data.updaters
 			var achievementData:Vector.<Object>;
 			var type:int = AchievementsUpdater.TEST_TYPE;
 			var condition:int = 20;
-			var id:int = this.save["achievements"].length;
+			var id:int = this.save["numberOfAchievements"];
+			this.save["numberOfAchievements"]++;
 			
 			for (var i:int = 0; i < numberOfNew; ++i, ++id)
 			{
 				achievementData = new <Object>[new Point(type, condition)];
 				
-				this.save["achievements"].push(achievementData);			
+				this.save["openAchievements"].push(achievementData);			
 			}
 		}
 		
