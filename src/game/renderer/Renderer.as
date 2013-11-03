@@ -28,7 +28,6 @@ package game.renderer
 		}
 		
 		//TODO: check if movecenter needs tickstogo
-		//TODO: check if we need metric
 		
 		update function numberedFrame(frame:int):void 
 		{

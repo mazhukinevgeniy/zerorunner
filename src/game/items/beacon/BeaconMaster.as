@@ -2,7 +2,6 @@ package game.items.beacon
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.CellXY;
-	import game.core.metric.Metric;
 	import game.GameElements;
 	import game.items.MasterBase;
 	import utils.updates.update;
