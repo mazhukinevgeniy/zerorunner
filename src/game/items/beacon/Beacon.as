@@ -10,7 +10,7 @@ package game.items.beacon
 		
 		public function Beacon(master:MasterBase, elements:GameElements, cell:CellXY) 
 		{
-			super(master, elements, null);
+			super(master, elements, cell);
 			//TODO: override occupations
 		}
 		
