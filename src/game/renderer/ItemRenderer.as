@@ -16,7 +16,7 @@ package game.renderer
 		private var points:IPointCollector;
 		private var items:Items;
 		
-		private var unimplemented:Image; //TODO: implement, lol
+		private var unimplemented:Image;
 		private var hero_stand:Image;
 		
 		public function ItemRenderer(elements:GameElements) 
