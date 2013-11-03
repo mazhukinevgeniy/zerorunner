@@ -14,7 +14,9 @@ package game.items
 		private var _master:MasterBase;
 		
 		private var _x:int, _y:int;
+		
 		private var occupation:int;
+		private var timeToDo:int;
 		
 		private var items:Items;
 		
@@ -48,6 +50,10 @@ package game.items
 			this.onSpawned();
 		}
 		
+		final items_internal function tickPassed():void
+		{
+			//TODO: advance the state
+		}
 		
 		
 		final items_internal function get master():MasterBase { return this._master; }
@@ -89,7 +95,9 @@ package game.items
 		
 		final items_internal function forceJumpBy(change:DCellXY, length:int):void
 		{
-			//TODO: preferably convert to forceMoveBy call with sweets
+			this.dcHelper.setValue(change.x * length, change.y * length);
+			
+			this.forceMoveBy(this.dcHelper);
 		}
 		
 		/** END OF Position and movements */

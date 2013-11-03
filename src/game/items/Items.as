@@ -24,7 +24,7 @@ package game.items
 		
 		public function Items(elements:GameElements) 
 		{
-			new ItemUtils(this, elements.flow, elements.pointsOfInterest);
+			new ItemUtils(this, elements.flow, elements.pointsOfInterest, this.items);
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.prerestore);

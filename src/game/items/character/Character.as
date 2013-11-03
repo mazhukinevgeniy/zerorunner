@@ -48,8 +48,6 @@ package game.items.character
 				
 				this.item.cooldown = delay;
 				//TODO: something is broken, broken to the core, infection is growing, pulled until it's tore!
-				this.flow.dispatchUpdate(Update.moveCenter, change, delay + 1);
-				//TODO: animate
 			}
 		}
 		
@@ -61,7 +59,6 @@ package game.items.character
 			this.item.cooldown = this.MOVE_SPEED * 2 * multiplier;
 			
 			this.flow.dispatchUpdate(Update.moveCenter, change, this.item.cooldown + 1);
-			//TODO: animate
 		}*/
 		
 		override protected function onMoved(change:DCellXY):void 

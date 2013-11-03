@@ -21,15 +21,14 @@ package game.items
 		items_internal function actOn(puppet:PuppetBase):void
 		{
 			
-		}
-		
+		}		
 		
 		
 		final items_internal function tryMove():Boolean
 		{
 			return false;
 		}
-		
+		//TODO: fix them all
 		final items_internal function tryShock():Boolean
 		{
 			return false;
