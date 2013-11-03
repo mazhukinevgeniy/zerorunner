@@ -28,7 +28,6 @@ package game.items
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.prerestore);
-			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			new CharacterMaster(elements);
@@ -42,11 +41,6 @@ package game.items
 		{
 			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			this.items = new Array();
-		}
-		
-		update function numberedFrame(key:int):void
-		{
-			//TODO: check if can remove
 		}
 		
 		update function quitGame():void
