@@ -58,6 +58,8 @@ package game.items
 		
 		internal function addItem(item:PuppetBase):void
 		{
+			if (this.items[item.x + item.y * this.width])
+				throw new Error();
 			this.items[item.x + item.y * this.width] = item;
 		}
 		
