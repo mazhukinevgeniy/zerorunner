@@ -100,26 +100,26 @@ package game.items
 					{
 						item = this.findObjectByCell(i, j);
 						
-						/*if (item)
-							item.applyDestruction();
+						if (item)
+							item.forceDestruction();
 						
-						item = this.items.findObjectByCell(i, this.width - (j + 1));
+						item = this.findObjectByCell(i, this.width - (j + 1));
 						
 						if (item)
-							item.applyDestruction();*/ //TODO: work with item's occupation
+							item.forceDestruction();
 					}
 				for (i = 0; i < DWIDTH; i++)
 					for (j = DWIDTH; j < this.width - DWIDTH; j++)
 					{
 						item = this.findObjectByCell(i, j);
 						
-						/*if (item)
-							item.applyDestruction();
+						if (item)
+							item.forceDestruction();
 						
-						item = this.items.findObjectByCell(this.width - (i + 1), j);
+						item = this.findObjectByCell(this.width - (i + 1), j);
 						
 						if (item)
-							item.applyDestruction();*/ //TODO: work with item's occupation
+							item.forceDestruction();
 					}
 			}
 		}

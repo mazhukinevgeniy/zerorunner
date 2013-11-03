@@ -52,7 +52,7 @@ package game.items
 			this.onSpawned();
 		}
 		
-		final items_internal function forceDestruction():void
+		final internal function forceDestruction():void
 		{
 			this.occupation = Game.DYING;
 		}

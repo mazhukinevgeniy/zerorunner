@@ -11,10 +11,10 @@ package game.items
 			
 		}
 		
-		internal function applyDestruction():void
+		items_internal function tryDestructionOn(puppet:PuppetBase):void
 		{
-			//this.items.removeItem(this);
-		}//TODO: is it here?
+			puppet.forceDestruction();
+		}
 		
 		
 		
