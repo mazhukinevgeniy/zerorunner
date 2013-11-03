@@ -24,12 +24,12 @@ package game.items
 		}		
 		
 		
-		final items_internal function tryMove():Boolean
+		final items_internal function tryMoveOn(puppet:PuppetBase):Boolean
 		{
 			return false;
 		}
-		//TODO: fix them all
-		final items_internal function tryShock():Boolean
+		
+		final items_internal function tryShockOn(puppet:PuppetBase):Boolean
 		{
 			return false;
 		}
