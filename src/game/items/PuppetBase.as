@@ -89,8 +89,7 @@ package game.items
 		
 		final items_internal function forceShocking(target:ICoordinated = null):void
 		{
-			//if behaviour is charge based, this dependancy is to be adressed by master
-			//TODO: read above
+			
 		}
 		
 		
@@ -131,7 +130,6 @@ package game.items
 			this.forceMoveBy(this.dcHelper);
 			
 			//this.item.cooldown = this.MOVE_SPEED * 2 * multiplier;
-			//TODO: implement delaying
 			//TODO: handle onMoved conflict (can't apply custom delay)
 			//TODO: think if jumps must be slower than walking
 		}
