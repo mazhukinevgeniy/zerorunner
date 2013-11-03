@@ -20,6 +20,8 @@ package game.items
 		private var ticksOccupated:int;
 		private var ticksUntilOccupationEnds:int;
 		
+		private var previousPosition:CellXY;
+		
 		private var items:Items;
 		
 		/* Used to avoid creation. */
@@ -31,6 +33,7 @@ package game.items
 			this.items = elements.items;
 			
 			this.dcHelper = new DCellXY(0, 0);
+			this.previousPosition = new CellXY(0, 0);
 			
 			if (cell == null)
 			{
@@ -109,6 +112,7 @@ package game.items
 		final items_internal function forceMoveBy(change:DCellXY):void
 		{
 			this.items.removeItem(this);
+			this.previousPosition.setValue(this._x, this._y);
 			
 			this._x += change.x;
 			this._y += change.y;

@@ -4,6 +4,7 @@ package game.renderer
 	import game.core.metric.Metric;
 	import game.GameElements;
 	import game.items.Items;
+	import game.items.PuppetBase;
 	import game.points.IPointCollector;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
@@ -74,15 +75,18 @@ package game.renderer
 			
 			for (var i:int = tlcX; i < brcX; i++)
 				for (var j:int = tlcY; j < brcY; j++)
-					if (this.items.findObjectByCell(i, j))
+				{
+					var item:PuppetBase = this.items.findObjectByCell(i, j);
+					
+					if (item)
 					{
 						sprite.x = i * Metric.CELL_WIDTH;
 						sprite.y = j * Metric.CELL_HEIGHT;
 						
 						this.addImage(sprite);
 					}
-			
-			//TODO: find and render everyone
+					
+				}
 		}
 	}
 
