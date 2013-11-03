@@ -70,7 +70,7 @@ package game.items.character
 								
 								break;
 							}
-							else
+							else if (!this.items.findObjectByCell(x + 2 * action.x, y + 2 * action.y))
 							{
 								next = this.scene.getSceneCell(x + 2 * action.x, y + 2 * action.y);
 								
