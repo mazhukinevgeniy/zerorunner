@@ -28,7 +28,7 @@ package game.items.character
 			super(master, elements, cell);
 		}
 		
-		override protected function get movespeed():int { return 1; }//TODO: want 2
+		override protected function get movespeed():int { return 2; }
 		
 		
 		override protected function onMoved(change:DCellXY):void 

@@ -16,7 +16,9 @@ package game.items
 		private var _x:int, _y:int;
 		
 		private var occupation:int;
-		private var timeToDo:int;
+		
+		private var ticksOccupated:int;
+		private var ticksUntilOccupationEnds:int;
 		
 		private var items:Items;
 		
@@ -55,16 +57,29 @@ package game.items
 			this.occupation = Game.DYING;
 		}
 		
-		final items_internal function tickPassed():void
+		final internal function tickPassed():void
 		{
-			//TODO: advance the state
-			
-			if (this.occupation == Game.DYING)
+			if (this.occupation == Game.FREE)
+			{
+				
+			}
+			else if (this.occupation == Game.MOVING)
+			{
+				this.ticksOccupated++;
+				if (this.ticksOccupated == this.ticksUntilOccupationEnds)
+					this.occupation = Game.FREE;
+			}			
+			else if (this.occupation == Game.DYING)
 			{
 				this.items.removeItem(this);
 				
 				this.onDied();
 			}
+		}
+		
+		final internal function act():void
+		{
+			this._master.actOn(this);
 		}
 		
 		
@@ -102,6 +117,10 @@ package game.items
 			this.items.addItem(this);
 			
 			
+			this.occupation = Game.MOVING;
+			this.ticksUntilOccupationEnds = this.movespeed;
+			this.ticksOccupated = 0;
+			
 			this.onMoved(change);
 		}
 		
@@ -114,6 +133,7 @@ package game.items
 			//this.item.cooldown = this.MOVE_SPEED * 2 * multiplier;
 			//TODO: implement delaying
 			//TODO: handle onMoved conflict (can't apply custom delay)
+			//TODO: think if jumps must be slower than walking
 		}
 		
 		/** END OF Position and movements */

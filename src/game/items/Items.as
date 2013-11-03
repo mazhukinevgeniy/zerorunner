@@ -8,9 +8,9 @@ package game.items
 	import game.items.character.CharacterMaster;
 	//import game.items.droid.DroidMaster;
 	import game.items.junk.JunkMaster;
-	import game.items.utils.ItemUtils;
 	import game.points.IPointCollector;
 	import utils.updates.update;
+	
 	
 	
 	public class Items
@@ -20,27 +20,108 @@ package game.items
 		private var items:Array;
 		private var width:int;
 		
-		
+		private var moved:Vector.<PuppetBase>;
 		
 		public function Items(elements:GameElements) 
 		{
-			new ItemUtils(this, elements.flow, elements.pointsOfInterest, this.items);
+			this.points = elements.pointsOfInterest;
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			new CharacterMaster(elements);
 			new BeaconMaster(elements);
 			//new DroidMaster(elements); //TODO: see DroidMaster.as
 			new JunkMaster(elements);
+			
+			this.moved = new Vector.<PuppetBase>();
 		}
-		
+		//TODO: internalize as much as possible
 		
 		update function prerestore(config:GameConfig):void
 		{
 			this.width = config.width + 2 * Game.BORDER_WIDTH;
 			this.items = new Array();
+		}
+		
+		update function numberedFrame(key:int):void
+		{
+			var i:int, j:int;
+			var item:PuppetBase;
+			
+			if (key == Game.FRAME_TO_ACT)
+			{
+				for each (var pup:PuppetBase in this.items)
+					pup.tickPassed(); //TODO: check if troublesome
+				
+				var center:ICoordinated = this.points.getCharacter();
+				
+				const tlcX:int = center.x - 20;
+				const tlcY:int = center.y - 20;
+				
+				const brcX:int = center.x + 20;
+				const brcY:int = center.y + 20;
+				
+				this.moved.length = 0;
+				
+				for (j = tlcY; j < brcY; j++)
+				{				
+					for (i = tlcX; i < brcX; i++)
+					{
+						item = this.findObjectByCell(i, j);
+						
+						if (item && this.moved.indexOf(item) == -1)
+						{
+							item.act();
+							this.moved.push(item);
+						}
+					}
+				}
+				
+				var others:Vector.<PuppetBase> = this.points.getAlwaysActives();
+				var length:int = others ? others.length : 0;
+				
+				for (i = 0; i < length; i++)
+				{
+					item = others[i];
+					
+					if (this.moved.indexOf(item) == -1)
+						item.act();
+				}
+			}
+			else if (key == Game.FRAME_TO_CLEAR_BORDERS)
+			{
+				const DWIDTH:int = Game.BORDER_WIDTH / 2;
+				
+				for (i = 0; i < this.width; i++)
+					for (j = 0; j < DWIDTH; j++)
+					{
+						item = this.findObjectByCell(i, j);
+						
+						/*if (item)
+							item.applyDestruction();
+						
+						item = this.items.findObjectByCell(i, this.width - (j + 1));
+						
+						if (item)
+							item.applyDestruction();*/ //TODO: work with item's occupation
+					}
+				for (i = 0; i < DWIDTH; i++)
+					for (j = DWIDTH; j < this.width - DWIDTH; j++)
+					{
+						item = this.findObjectByCell(i, j);
+						
+						/*if (item)
+							item.applyDestruction();
+						
+						item = this.items.findObjectByCell(this.width - (i + 1), j);
+						
+						if (item)
+							item.applyDestruction();*/ //TODO: work with item's occupation
+					}
+			}
 		}
 		
 		update function quitGame():void
@@ -60,7 +141,7 @@ package game.items
 		
 		internal function removeItem(item:PuppetBase):void
 		{
-			this.items[item.x + item.y * this.width] = null;
+			delete this.items[item.x + item.y * this.width];
 		}
 		
 		
