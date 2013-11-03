@@ -42,6 +42,23 @@ package game.items.droid
 		{
 			new Droid(this, this.elements, place);
 		}
+		
+		/*
+			if (key == Game.UNUSED_FRAME_1) //right before you act
+			{
+				var pos:ICoordinated = this.character;
+			
+				for (var i:int = -5; i < 6; i++)
+					for (var j:int = -5; j < 6; j++)
+					{
+						var item:ItemBase = this.items.findObjectByCell(pos.x + i, pos.y + j);
+						
+						if (item && item.contraption && !item.contraption.finished)
+							this.points.addPointOfInterest(Game.TOWER, item.existence);
+					}
+			}*/
+		//TODO: enable droids as soon as you have an idea about how they choose a target
+		//it's a valid hostility scale: friendly, contraption, hostile. huh?
 	}
 
 }

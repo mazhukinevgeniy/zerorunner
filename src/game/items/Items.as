@@ -6,7 +6,7 @@ package game.items
 	import game.GameElements;
 	import game.items.beacon.BeaconMaster;
 	import game.items.character.CharacterMaster;
-	import game.items.droid.DroidMaster;
+	//import game.items.droid.DroidMaster;
 	import game.items.junk.JunkMaster;
 	import game.items.utils.ItemUtils;
 	import game.points.IPointCollector;
@@ -33,7 +33,7 @@ package game.items
 			
 			new CharacterMaster(elements);
 			new BeaconMaster(elements);
-			new DroidMaster(elements);
+			//new DroidMaster(elements); //TODO: see DroidMaster.as
 			new JunkMaster(elements);
 		}
 		
@@ -45,20 +45,8 @@ package game.items
 		}
 		
 		update function numberedFrame(key:int):void
-		{/*
-			if (key == Game.UNUSED_FRAME_1) //right before you act
-			{
-				var pos:ICoordinated = this.character;
-			
-				for (var i:int = -5; i < 6; i++)
-					for (var j:int = -5; j < 6; j++)
-					{
-						var item:ItemBase = this.items.findObjectByCell(pos.x + i, pos.y + j);
-						
-						if (item && item.contraption && !item.contraption.finished)
-							this.points.addPointOfInterest(Game.TOWER, item.existence);
-					}
-			}*///TODO: realize where will it be in place
+		{
+			//TODO: check if can remove
 		}
 		
 		update function quitGame():void
