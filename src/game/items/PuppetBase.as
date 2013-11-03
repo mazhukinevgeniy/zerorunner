@@ -17,6 +17,9 @@ package game.items
 		protected var items:Items;
 		//TODO: check if need
 		
+		private var occupation:int;
+		
+		
 		
 		public function PuppetBase(master:MasterBase, elements:GameElements, cell:CellXY = null) 
 		{
@@ -53,9 +56,14 @@ package game.items
 		public function get x():int { return this._x; }
 		public function get y():int { return this._y; }
 		
-		items_internal function get master():MasterBase
+		items_internal function get master():MasterBase { return this._master; }
+		items_internal function get free():Boolean { return this.occupation == Game.FREE; }
+		
+		
+		items_internal function tryShocking(target:ICoordinated = null):void
 		{
-			return this._master;
+			//if behaviour is charge based, this dependancy is to be adressed by master
+			//TODO: read above
 		}
 	}
 

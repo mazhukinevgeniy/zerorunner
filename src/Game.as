@@ -37,13 +37,18 @@ package
 		public static const FRAME_TO_ACT:int = 3;
 		public static const UNUSED_FRAME_1:int = 4;
 		
+		/* Occupations */
+		
+		public static const FREE:int = 0;
+		public static const MOVING:int = 1;
+		public static const SHOCKING:int = 2;
 		
 		/* Constants */
 		
 		public static const BORDER_WIDTH:int = 10;
 		
 		public static const LEVEL_CAP:int = 3;
-		
+		//TODO: think if it's to be constant
 		
 		
 		public function Game() 
