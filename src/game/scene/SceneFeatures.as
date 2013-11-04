@@ -41,9 +41,9 @@ package game.scene
 				{
 					var rand:Number = Math.random();
 					if (rand < 0.48)
-						this.scene[i + j * this.width] = Game.ROAD;
+						this.scene[i + j * this.width] = Game.SCENE_ROAD;
 					else if (rand < 0.6)
-						this.scene[i + j * this.width] = Game.LAVA;
+						this.scene[i + j * this.width] = Game.SCENE_LAVA;
 				}
 			
 			/**
@@ -51,14 +51,14 @@ package game.scene
 			 */
 			for (i = Game.BORDER_WIDTH; i < Game.BORDER_WIDTH + 4; i++)
 				for (j = this.width - (Game.BORDER_WIDTH + 4); j < secondJGoal; j++)
-					this.scene[i + j * this.width] = Game.ROAD;
+					this.scene[i + j * this.width] = Game.SCENE_ROAD;
 			
 			/**
 			 * Protecting the end of the world
 			 */
 			for (i = this.width - (Game.BORDER_WIDTH + 4); i < secondJGoal; i++)
 				for (j = Game.BORDER_WIDTH; j < Game.BORDER_WIDTH + 4; j++) 
-					this.scene[i + j * this.width] = Game.ROAD;
+					this.scene[i + j * this.width] = Game.SCENE_ROAD;
 		}
 		
 		public function getSceneCell(x:int, y:int):int

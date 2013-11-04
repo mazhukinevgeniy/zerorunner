@@ -9,15 +9,15 @@ package data
 			width: 10,
 			
 			junks: 2,
-			goal: Game.LIGHT_A_BEACON,
+			goal: Game.GOAL_LIGHT_A_BEACON,
 			
 			level: 1,
 			
 			activeDroids: 0,
 			
-			beacon1: Game.NO_BEACON,
-			beacon2: Game.NO_BEACON,
-			beacon3: Game.NO_BEACON,
+			beacon1: Game.CONTRAIL_NO_BEACON,
+			beacon2: Game.CONTRAIL_NO_BEACON,
+			beacon3: Game.CONTRAIL_NO_BEACON,
 			
 			cloudiness: 0
 		};

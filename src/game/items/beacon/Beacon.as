@@ -1,25 +1,20 @@
 package game.items.beacon 
 {
-	import data.viewers.GameConfig;
+	import game.core.metric.CellXY;
 	import game.GameElements;
-	import utils.updates.update;
+	import game.items.MasterBase;
+	import game.items.PuppetBase;
 	
-	public class Beacon 
+	internal class Beacon extends PuppetBase
 	{
-		private var elements:GameElements;
 		
-		public function Beacon(elements:GameElements) 
+		public function Beacon(master:MasterBase, elements:GameElements, cell:CellXY) 
 		{
-			this.elements = elements;
-			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			super(master, elements, cell);
+			//TODO: override occupations
 		}
 		
-		update function prerestore(config:GameConfig):void
-		{
-			new BeaconLogic(this.elements);
-		}
+		override public function get type():int { return Game.ITEM_BEACON; }
 		
 	}
 

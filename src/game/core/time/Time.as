@@ -12,11 +12,6 @@ package game.core.time
 	{
 		private var frameCount:int = 0;
 		
-		
-		private static const FRAMES_PER_CYCLE:int = 5;
-		public static const TIME_BETWEEN_TICKS:Number = Time.FRAMES_PER_CYCLE / Main.FPS;
-		
-		
 		private var _fixed:Boolean = true;
 		
 		private var updateFlow:IUpdateDispatcher;
@@ -25,22 +20,22 @@ package game.core.time
 		
 		private var pauseView:PauseView;
 		
-		public function Time(foundations:GameElements) 
+		public function Time(elements:GameElements) 
 		{
-			foundations.displayRoot.addChild(this.pauseView = new PauseView());
+			elements.displayRoot.addChild(this.pauseView = new PauseView());
 			
 			
-			this.gameJuggler = foundations.juggler;
-			this.status = foundations.database.status;
+			this.gameJuggler = elements.juggler;
+			this.status = elements.database.status;
 			
-			foundations.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
+			elements.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
-			foundations.flow.workWithUpdateListener(this);
-			foundations.flow.addUpdateListener(Update.restore);
-			foundations.flow.addUpdateListener(Update.keyUp);
-			foundations.flow.addUpdateListener(Update.gameFinished);
+			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.restore);
+			elements.flow.addUpdateListener(Update.keyUp);
+			elements.flow.addUpdateListener(Update.gameFinished);
 			
-			this.updateFlow = foundations.flow;
+			this.updateFlow = elements.flow;
 		}
 		
 		update function restore():void
@@ -56,7 +51,7 @@ package game.core.time
 			{
 				this.gameJuggler.advanceTime(event.passedTime);
 				
-				if (this.frameCount < Time.FRAMES_PER_CYCLE)
+				if (this.frameCount < Game.FRAMES_PER_CYCLE)
 				{
 					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
 					this.frameCount++;

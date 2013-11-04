@@ -71,7 +71,6 @@ package ui.themes
 	import feathers.textures.Scale3Textures;
 	import feathers.textures.Scale9Textures;
 
-	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
@@ -84,15 +83,12 @@ package ui.themes
 	import starling.events.Event;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+	
+	import game.GameElements;
+	
 
 	public class AeonDesktopTheme extends DisplayListWatcher
 	{
-		[Embed(source="../../../res/assets/ui/aeon.png")]
-		protected static const ATLAS_IMAGE:Class;
-
-		[Embed(source="../../../res/assets/ui/aeon.xml",mimeType="application/octet-stream")]
-		protected static const ATLAS_XML:Class;
-
 		protected static const FOCUS_INDICATOR_SCALE_9_GRID:Rectangle = new Rectangle(5, 4, 1, 14);
 		protected static const BUTTON_SCALE_9_GRID:Rectangle = new Rectangle(6, 6, 70, 10);
 		protected static const SELECTED_BUTTON_SCALE_9_GRID:Rectangle = new Rectangle(6, 6, 52, 10);
@@ -140,7 +136,7 @@ package ui.themes
 			return new TextFieldTextEditor();
 		}
 
-		public function AeonDesktopTheme(container:DisplayObjectContainer = null)
+		public function AeonDesktopTheme(elements:GameElements, container:DisplayObjectContainer = null)
 		{
 			if(!container)
 			{
@@ -156,7 +152,8 @@ package ui.themes
 			{
 				this.root.addEventListener(Event.ADDED_TO_STAGE, root_addedToStageHandler);
 			}
-			this.initialize();
+			
+			this.initialize(elements);
 		}
 
 		public function get originalDPI():int
@@ -170,8 +167,7 @@ package ui.themes
 		}
 
 		protected var atlas:TextureAtlas;
-		protected var atlasBitmapData:BitmapData;
-
+		
 		protected var defaultTextFormat:TextFormat;
 		protected var disabledTextFormat:TextFormat;
 
@@ -291,15 +287,10 @@ package ui.themes
 				this.atlas.dispose();
 				this.atlas = null;
 			}
-			if(this.atlasBitmapData)
-			{
-				this.atlasBitmapData.dispose();
-				this.atlasBitmapData = null;
-			}
 			super.dispose();
 		}
 
-		protected function initialize():void
+		protected function initialize(elements:GameElements):void
 		{
 			FocusManager.isEnabled = true;
 
@@ -309,16 +300,7 @@ package ui.themes
 			Callout.stagePaddingTop = Callout.stagePaddingRight = Callout.stagePaddingBottom =
 				Callout.stagePaddingLeft = 16;
 
-			const atlasBitmapData:BitmapData = (new ATLAS_IMAGE()).bitmapData;
-			this.atlas = new TextureAtlas(Texture.fromBitmapData(atlasBitmapData, false), XML(new ATLAS_XML()));
-			if(Starling.handleLostContext)
-			{
-				this.atlasBitmapData = atlasBitmapData;
-			}
-			else
-			{
-				atlasBitmapData.dispose();
-			}
+			this.atlas = elements.assets.getTextureAtlas("sprites");
 
 			this.defaultTextFormat = new TextFormat("_sans", 11, PRIMARY_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 			this.disabledTextFormat = new TextFormat("_sans", 11, DISABLED_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);

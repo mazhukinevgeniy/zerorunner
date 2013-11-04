@@ -1,68 +1,104 @@
 package game.points 
 {
 	import game.core.metric.ICoordinated;
+	import game.items.Items;
+	import game.items.PuppetBase;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
 	public class PointsOfInterest implements IPointCollector
 	{
-		private var types:Array;
+		private var contraptions:Vector.<PuppetBase>;
+		private var actives:Vector.<PuppetBase>;
+		
+		private var character:ICoordinated;
 		
 		public function PointsOfInterest(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.setCenter);
+			flow.addUpdateListener(Update.puppetDies);
 			flow.addUpdateListener(Update.quitGame);
 		}
 		
 		update function prerestore(... args):void
 		{
-			this.types = new Array();
+			this.contraptions = new Vector.<PuppetBase>();
+			this.actives = new Vector.<PuppetBase>();
+		}
+		
+		update function setCenter(center:ICoordinated):void
+		{
+			this.character = center;
+		}
+		
+		update function puppetDies(puppet:PuppetBase):void
+		{
+			var pos:int = this.contraptions.indexOf(puppet);
+			
+			if (pos != -1)
+				this.contraptions.splice(pos, 1);
+			else
+			{
+				pos = this.actives.indexOf(puppet);
+				
+				if (pos != -1)
+					this.actives.splice(pos, 1);
+			}
 		}
 		
 		update function quitGame():void
 		{
-			this.types = null;
+			this.contraptions = null;
+			this.actives = null;
+			this.character = null;
 		}
 		
 		
-		public function addPointOfInterest(type:int, point:ICoordinated):void
+		
+		public function addContraption(contraption:PuppetBase):void 
+		{ 
+			if (this.contraptions.indexOf(contraption) == -1)
+				this.contraptions.push(contraption);
+		}
+		
+		public function getContraption():PuppetBase 
+		{ 
+			return this.contraptions[int(Math.random() * this.contraptions.length)];
+		}
+		
+		public function removeContraption(contraption:PuppetBase):void 
 		{
-			if (this.types[type] == null)
-				this.types[type] = new Vector.<ICoordinated>();
-			if (this.types[type].indexOf(point) == -1)
-				this.types[type].push(point);
+			var pos:int = this.contraptions.indexOf(contraption);
+			if (pos != -1)
+				this.contraptions.splice(pos, 1); 
 		}
 		
-		public function findPointOfInterest(type:int):ICoordinated
+		
+		public function getCharacter():ICoordinated
 		{
-			var vector:Vector.<ICoordinated> = this.types[type];
-			if (!vector) 
-				return null;
-			
-			var length:int = vector.length;
-			if (length == 0)
-				return null;
-			
-			return vector[int(Math.random() * length)];
+			return this.character;
 		}
 		
-		public function getPointsOfInterest(type:int):Vector.<ICoordinated>
+		
+		public function addAlwaysActive(item:PuppetBase):void
 		{
-			return this.types[type];
+			if (this.actives.indexOf(item) == -1)
+				this.actives.push(item);
 		}
 		
-		public function removePointOfInterest(type:int, point:ICoordinated):void
+		public function removeAlwaysActive(item:PuppetBase):void
 		{
-			var vector:Vector.<ICoordinated> = this.types[type];
-			if (!vector) 
-				return;
-			
-			var position:int = vector.indexOf(point);
-			if (position != -1)
-				vector.splice(position, 1);
+			var pos:int = this.actives.indexOf(item);
+			if (pos != -1)
+				this.actives.splice(pos, 1); 
 		}
 		
+		public function getAlwaysActives():Vector.<PuppetBase>
+		{
+			return this.actives;
+		}
 	}
 
 }

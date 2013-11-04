@@ -1,321 +1,55 @@
 package game.renderer 
 {
-	import data.viewers.GameConfig;
-	import game.core.metric.ICoordinated;
-	import game.core.metric.Metric;
+	import game.clouds.Clouds;
 	import game.GameElements;
-	import game.items.IActors;
-	import game.items.ItemLogicBase;
-	import game.points.IPointCollector;
-	import game.scene.IScene;
-	import starling.display.DisplayObjectContainer;
-	import starling.display.Image;
-	import starling.display.QuadBatch;
-	import utils.updates.IUpdateDispatcher;
+	import game.items.PuppetBase;
+	import starling.display.Sprite;
 	import utils.updates.update;
 	
-	public class Renderer 
+	public class Renderer extends Sprite
 	{
-		private var scene:IScene;
-		private var actors:IActors;
+		private var character:PuppetBase;
 		
-		private var points:IPointCollector;
-		private var lines:Camera;
+		private var clouds:Clouds;
 		
-		private var pull:TilePull;
-		
-		private var xM:int;
-		private var yM:int;
-		
-		public function Renderer(foundations:GameElements) 
+		public function Renderer(elements:GameElements) 
 		{
-			var flow:IUpdateDispatcher = foundations.flow;
-			this.points = foundations.pointsOfInterest;
+			super();
 			
-			this.scene = foundations.scene;
-			this.actors = foundations.actors;
+			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.setCenter);
+			elements.flow.addUpdateListener(Update.numberedFrame);
 			
-			this.lines = new Camera(foundations);
+			elements.displayRoot.addChild(this);
+			elements.displayRoot.addChild(this.clouds = new Clouds(elements));
 			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
-			flow.addUpdateListener(Update.numberedFrame);
-			
-			this.pull = new TilePull(foundations.atlas);
+			this.addChild(new SceneRenderer(elements));
+			this.addChild(new ItemRenderer(elements));
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function setCenter(center:PuppetBase):void
 		{
-			this.xM = 1 + Math.random() * 5;
-			this.yM = 1 + Math.random() * 5;
+			this.character = center;
 		}
 		
-		update function numberedFrame(key:int):void
+		//TODO: check if movecenter needs tickstogo
+		
+		update function numberedFrame(frame:int):void 
 		{
-			if (key == Game.FRAME_TO_REDRAW)
+			this.x = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
+            this.y = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
+			
+			if (this.character.occupation == Game.OCCUPATION_MOVING)
 			{
-				this.redrawScene();
-				this.redrawActors();
-			}
-		}
-		
-		private function redrawScene():void
-		{
-			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
-			
-			const tlcX:int = center.x - 10;
-			const tlcY:int = center.y - 8;
-			
-			const brcX:int = center.x + 11;
-			const brcY:int = center.y + 9;
-			
-			var sprite:Image;
-			
-			const container:QuadBatch = this.lines.scene;
-			container.reset();
-			
-			var i:int;
-			var j:int;
-			
-			var number:uint;
-			
-			for (j = tlcY; j < brcY; j++)
-			{
-				for (i = tlcX; i < brcX; i++)
-				{
-					if (this.scene.getSceneCell(i, j) != Game.FALL)
-					{
-						if (this.scene.getSceneCell(i, j + 1) == Game.FALL)
-						{
-							sprite = this.pull.getImage("S");
-							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i + 1, j) == Game.FALL)
-						{
-							sprite = this.pull.getImage("E");
-							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j) == Game.FALL)
-						{
-							sprite = this.pull.getImage("W");
-							
-							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = j * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i, j - 1) == Game.FALL)
-						{
-							sprite = this.pull.getImage("N");
-							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i + 1, j + 1) == Game.FALL)
-						{
-							sprite = this.pull.getImage("SE");
-							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j + 1) == Game.FALL)
-						{
-							sprite = this.pull.getImage("SW");
-							
-							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i + 1, j - 1) == Game.FALL)
-						{
-							sprite = this.pull.getImage("NE");
-							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j - 1) == Game.FALL)
-						{
-							sprite = this.pull.getImage("NW");
-							
-							sprite.x = i * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = j * Metric.CELL_HEIGHT - sprite.height;
-							
-							container.addImage(sprite);
-						}
-						
-						if (this.scene.getSceneCell(i, j) == Game.ROAD)
-						{
-							sprite = this.pull.getImage("ground");
-							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-							
-							number = uint((i * this.xM * 999999000001) | (j * this.yM * 87178291199));
-							
-							if (number % 13 < 3)
-							{
-								sprite = this.pull.getImage("stones" + (1 + number % 3));
-								
-								sprite.x = i * Metric.CELL_WIDTH;
-								sprite.y = j * Metric.CELL_HEIGHT;
-								
-								container.addImage(sprite);
-							}
-							
-							
-						}
-					}
-				}
+				var dX:int = this.character.x - this.character.previousPosition.x;
+				var dY:int = this.character.y - this.character.previousPosition.y;
 				
+				var progress:Number = 1 - this.character.getProgress(frame);
+				
+				this.x += int(progress * Game.CELL_WIDTH * dX);
+				this.y += int(progress * Game.CELL_HEIGHT * dY);
 			}
 			
-			for (j = tlcY; j < brcY; j++)
-			{
-				for (i = tlcX; i < brcX; i++)
-				{
-					if (this.scene.getSceneCell(i, j) == Game.LAVA)
-					{
-						sprite = this.pull.getImage("lava");
-						
-						sprite.x = i * Metric.CELL_WIDTH;
-						sprite.y = j * Metric.CELL_HEIGHT;
-						
-						container.addImage(sprite);
-						
-						
-						if (this.scene.getSceneCell(i + 1, j) != Game.LAVA)
-						{
-							sprite = this.pull.getImage("right");
-							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width / 2;
-							sprite.y = j * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j) != Game.LAVA)
-						{
-							sprite = this.pull.getImage("left");
-							
-							sprite.x = i * Metric.CELL_WIDTH - sprite.width / 2;
-							sprite.y = j * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i, j - 1) != Game.LAVA)
-						{
-							sprite = this.pull.getImage("top");
-							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT - sprite.height / 2;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i, j + 1) != Game.LAVA)
-						{
-							sprite = this.pull.getImage("bottom");
-							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height / 2;
-							
-							container.addImage(sprite);
-						}
-						
-						
-						if (this.scene.getSceneCell(i + 1, j + 1) != Game.LAVA &&
-							this.scene.getSceneCell(i + 1, j) == Game.LAVA &&
-							this.scene.getSceneCell(i, j + 1) == Game.LAVA)
-						{
-							sprite = this.pull.getImage("3");
-							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j + 1) != Game.LAVA &&
-							this.scene.getSceneCell(i - 1, j) == Game.LAVA &&
-							this.scene.getSceneCell(i, j + 1) == Game.LAVA)
-						{
-							sprite = this.pull.getImage("1");
-							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = (j + 1) * Metric.CELL_HEIGHT - sprite.height;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i + 1, j - 1) != Game.LAVA &&
-							this.scene.getSceneCell(i + 1, j) == Game.LAVA &&
-							this.scene.getSceneCell(i, j - 1) == Game.LAVA)
-						{
-							sprite = this.pull.getImage("9");
-							
-							sprite.x = (i + 1) * Metric.CELL_WIDTH - sprite.width;
-							sprite.y = j * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j - 1) != Game.LAVA &&
-							this.scene.getSceneCell(i - 1, j) == Game.LAVA &&
-							this.scene.getSceneCell(i, j - 1) == Game.LAVA)
-						{
-							sprite = this.pull.getImage("7");
-							
-							sprite.x = i * Metric.CELL_WIDTH;
-							sprite.y = j * Metric.CELL_HEIGHT;
-							
-							container.addImage(sprite);
-						}
-					}
-				}
-			}
-		}
-		
-		private function redrawActors():void
-		{
-			var center:ICoordinated = this.points.findPointOfInterest(Game.CHARACTER);
-			
-			const tlcX:int = center.x - 10;
-			const tlcY:int = center.y - 8;
-			
-			const brcX:int = center.x + 11;
-			const brcY:int = center.y + 9;
-			
-			var actor:ItemLogicBase;
-			var container:DisplayObjectContainer = this.lines.actors;
-			container.removeChildren();
-			
-			var i:int;
-			var j:int;
-			
-			for (j = tlcY; j < brcY; j++)
-			{				
-				for (i = tlcX; i < brcX; i++)
-				{
-					actor = this.actors.findObjectByCell(i, j);
-					
-					if (actor)
-					{
-						container.addChild(actor.getView());
-					}
-				}
-			}
 		}
 	}
 

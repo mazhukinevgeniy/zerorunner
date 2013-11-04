@@ -18,8 +18,7 @@
     <class path="src" />
     <class path="extensions" />
     <class path="..\extensions" />
-    <class path="..\feathers" />
-    <class path="..\starling" />
+    <class path="lib" />
   </classpaths>
   <!-- Build options -->
   <build>

@@ -1,13 +1,10 @@
 package game 
 {
 	import data.DatabaseManager;
-	import game.clouds.Clouds;
 	import game.core.input.InputManager;
 	import game.core.time.Time;
 	import game.hud.UIExtendsions;
-	import game.items.ActorsFeatures;
-	import game.items.IActors;
-	import game.items.IActorTracker;
+	import game.items.Items;
 	import game.points.IPointCollector;
 	import game.points.PointsOfInterest;
 	import game.renderer.Renderer;
@@ -23,11 +20,11 @@ package game
 	
 	public class GameElements 
 	{
+		private var _items:Items;
 		private var _scene:IScene;
 		private var _juggler:Juggler;
 		private var _input:InputManager;
 		private var _assets:AssetManager;
-		private var _actors:ActorsFeatures;
 		private var _flow:IUpdateDispatcher;
 		private var _points:IPointCollector;
 		private var _database:DatabaseManager;
@@ -46,18 +43,12 @@ package game
 			this._juggler = new Juggler();
 			this._input = new InputManager(this._flow);
 			this._scene = new SceneFeatures(this._flow);
-			this._actors = new ActorsFeatures(this);
+			this._items = new Items(this);
 			
 			new Renderer(this);
-			this._root.addChild(new Clouds(this));
 			
 			new Time(this);
 			new UIExtendsions(this);
-		}
-		
-		public function get atlas():TextureAtlas
-		{
-			return this._assets.getTextureAtlas("gameAtlas");
 		}
 		
 		public function get assets():AssetManager
@@ -80,14 +71,9 @@ package game
 			return this._input;
 		}
 		
-		public function get actorsTracker():IActorTracker
+		public function get items():Items
 		{
-			return this._actors;
-		}
-		
-		public function get actors():IActors
-		{
-			return this._actors;
+			return this._items;
 		}
 		
 		public function get scene():IScene

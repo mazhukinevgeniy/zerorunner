@@ -1,24 +1,49 @@
 package game.items.character 
 {
-	import data.viewers.GameConfig;
+	import game.core.input.InputManager;
+	import game.core.metric.CellXY;
+	import game.core.metric.DCellXY;
+	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import utils.updates.update;
+	import game.items.Items;
+	import game.items.MasterBase;
+	import game.items.PuppetBase;
+	import game.points.IPointCollector;
+	import game.scene.IScene;
+	import utils.updates.IUpdateDispatcher;
 	
-	public class Character 
+	
+	internal class Character extends PuppetBase
 	{
-		private var elements:GameElements;
+		private var flow:IUpdateDispatcher;
 		
-		public function Character(elements:GameElements) 
+		public function Character(master:MasterBase, elements:GameElements) 
 		{
-			this.elements = elements;
+			this.flow = elements.flow;
 			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			var cell:CellXY = new CellXY
+					(Game.BORDER_WIDTH, 
+					 Game.BORDER_WIDTH + elements.database.config.width - 1);
+			
+			super(master, elements, cell);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		override protected function get movespeed():int { return 2; }
+		override public function get type():int { return Game.ITEM_CHARACTER; }
+		
+		override protected function onMoved(change:DCellXY):void 
 		{
-			new CharacterLogic(this.elements);
+			this.flow.dispatchUpdate(Update.moveCenter, change, this.movespeed);
+		}
+		
+		override protected function onSpawned():void 
+		{
+			this.flow.dispatchUpdate(Update.setCenter, this);
+		}
+		
+		override protected function onDied():void 
+		{
+			this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_LOST);
 		}
 	}
 

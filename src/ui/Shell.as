@@ -29,32 +29,32 @@ package ui
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function Shell(displayRoot:DisplayObjectContainer, foundations:GameElements)
+		public function Shell(displayRoot:DisplayObjectContainer, elements:GameElements)
 		{
-			this.status = foundations.database.status;
+			this.status = elements.database.status;
 			
-			this.flow = foundations.flow;
-			this.assets = foundations.assets;
+			this.flow = elements.flow;
+			this.assets = elements.assets;
 			
-		    this.initializeFeatures(displayRoot, foundations.displayRoot, foundations.database);
+		    this.initializeFeatures(elements, displayRoot);
 			this.initializeUsingFlow();
 			
 			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
-		private function initializeFeatures(ownRoot:DisplayObjectContainer, gameRoot:DisplayObjectContainer, database:DatabaseManager):void
+		private function initializeFeatures(elements:GameElements, ownRoot:DisplayObjectContainer):void
 		{
-			new ExtendedTheme(ownRoot);
+			new ExtendedTheme(elements, ownRoot);
 			
 			this.background = new Background(this.flow);
-			this.navigation = new Navigation(this.flow, database);
-			this.windows = new Windows(this.flow, this.assets, database, gameRoot)
+			this.navigation = new Navigation(this.flow, elements.database);
+			this.windows = new Windows(this.flow, this.assets, elements.database, elements.displayRoot)
 			
 			ownRoot.addChild(this.background);
 			ownRoot.addChild(this.windows);
 			ownRoot.addChild(this.navigation);
 			
-			new Sounds(this.flow, this.assets, database.preferences);
+			new Sounds(this.flow, this.assets, elements.database.preferences);
 		}
 		
 		private function initializeUsingFlow():void 

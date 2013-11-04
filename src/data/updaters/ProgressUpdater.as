@@ -19,7 +19,7 @@ package data.updaters
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.smallBeaconTurnedOn);
-			flow.addUpdateListener(Update.technicUnlocked);
+			flow.addUpdateListener(Update.droidUnlocked);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.resetProgress);
 		}
@@ -32,10 +32,10 @@ package data.updaters
 		
 		update function smallBeaconTurnedOn():void
 		{
-			this.save["beacon" + String(this.save["level"])] = Game.BEACON;
+			this.save["beacon" + String(this.save["level"])] = Game.CONTRAIL_SMALL_BEACON;
 		}
 		
-		update function technicUnlocked(place:ICoordinated):void
+		update function droidUnlocked(place:ICoordinated):void
 		{
 			this.save["activeDroids"]++;
 		}
@@ -43,10 +43,10 @@ package data.updaters
 		update function numberedFrame(key:int):void
 		{
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
-				if (this.save["goal"] == Game.LIGHT_A_BEACON)
-					if (this.save["beacon" + String(this.save["level"])] != Game.NO_BEACON)
+				if (this.save["goal"] == Game.GOAL_LIGHT_A_BEACON)
+					if (this.save["beacon" + String(this.save["level"])] != Game.CONTRAIL_NO_BEACON)
 					{
-						this.flow.dispatchUpdate(Update.gameFinished, Game.WON);
+						this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_WON);
 						this.save["level"]++;
 						this.save["cloudiness"] += 2;
 						this.save["junks"] = 1;

@@ -26,19 +26,21 @@ package game.hud
 		
 		private var road:Quad;
 		
-		public function MapFeature(foundations:GameElements) 
+		public function MapFeature(elements:GameElements) 
 		{
 			this.visited = new ByteArray();
 			
-			this.scene = foundations.scene;
+			this.scene = elements.scene;
 			this.road = new Quad(1, 1, 0xFF0000);
 			
-			foundations.flow.workWithUpdateListener(this);
-			foundations.flow.addUpdateListener(Update.prerestore);
-			foundations.flow.addUpdateListener(Update.setCenter);
-			foundations.flow.addUpdateListener(Update.numberedFrame);
+			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.setCenter);
+			elements.flow.addUpdateListener(Update.numberedFrame);
 			
-			foundations.displayRoot.addChild(this.container = new QuadBatch());
+			this.container = new QuadBatch();
+			//elements.displayRoot.addChild(this.container);
+			//TODO: show or delete
 		}
 		
 		update function prerestore(config:GameConfig):void
@@ -72,7 +74,7 @@ package game.hud
 						{
 							this.visited[i + this.width * j] = this.VISITED;
 							
-							if (this.scene.getSceneCell(i, j) != Game.FALL)
+							if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 							{
 								this.road.x = i;
 								this.road.y = j;

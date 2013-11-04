@@ -1,28 +1,19 @@
 package game.items.junk 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
-	import utils.updates.update;
+	import game.items.MasterBase;
+	import game.items.PuppetBase;
 	
-	public class Junk 
+	internal class Junk extends PuppetBase
 	{
-		private var elements:GameElements;
 		
-		public function Junk(elements:GameElements) 
+		public function Junk(master:MasterBase, elements:GameElements) 
 		{
-			this.elements = elements;
-			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			super(master, elements, null);
+			//TODO: override occupations
 		}
 		
-		update function prerestore(config:GameConfig):void
-		{
-			var i:int;
-			
-			for (i = 0; i < config.junks; i++)
-				new JunkLogic(this.elements);
-		}
+		override public function get type():int { return Game.ITEM_JUNK; }
 	}
 
 }

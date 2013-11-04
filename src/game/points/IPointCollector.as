@@ -1,14 +1,19 @@
 package game.points 
 {
 	import game.core.metric.ICoordinated;
+	import game.items.PuppetBase;
 	
 	public interface IPointCollector 
 	{
-		function addPointOfInterest(type:int, point:ICoordinated):void;
-		function removePointOfInterest(type:int, point:ICoordinated):void;
+		function addContraption(contraption:PuppetBase):void;
+		function removeContraption(contraption:PuppetBase):void;
+		function getContraption():PuppetBase;
 		
-		function findPointOfInterest(type:int):ICoordinated;
-		function getPointsOfInterest(type:int):Vector.<ICoordinated>;
+		function getCharacter():ICoordinated;
+		
+		function addAlwaysActive(item:PuppetBase):void;
+		function removeAlwaysActive(item:PuppetBase):void;
+		function getAlwaysActives():Vector.<PuppetBase>;
 	}
 	
 }

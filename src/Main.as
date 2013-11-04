@@ -9,19 +9,16 @@ package
 	import starling.core.Starling;
 	import starling.events.Event;
 	import starling.display.Sprite;
-	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import ui.Shell;
-	import utils.adaptTextureAtlasMakerXML;
+	import utils.AtlasXML;
+	import utils.initializeAtlasMakerAtlases;
 	import utils.SoftStarling;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
 	public class Main extends flash.display.Sprite 
 	{
-		[Embed(source = "../res/assets/textures/atlases/gameatlas.xml", mimeType="application/octet-stream")]
-		internal static const gameatlas:Class; 
-		
 		public static const WIDTH:int = 640;
 		public static const HEIGHT:int = 480;
 		
@@ -93,12 +90,7 @@ package
 				this.removeChild(this.progressBar);
 				this.progressBar = null;
 				
-				this.assets.addTextureAtlas(
-						"gameAtlas", 
-						new TextureAtlas(
-								this.assets.getTexture("sprites0"), 
-								adaptTextureAtlasMakerXML(Main.gameatlas)));
-				
+				initializeAtlasMakerAtlases(this.assets, AtlasXML.getOne());
 				
 				this.game = new GameElements(this.assets);
 				this.shell = new Shell(this.starlingRoot, this.game);

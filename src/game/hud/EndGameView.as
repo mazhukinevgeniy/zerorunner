@@ -20,7 +20,7 @@ package game.hud
 		private var globalMap:GlobalMap;
 		
 		
-		public function EndGameView(foundations:GameElements) 
+		public function EndGameView(elements:GameElements) 
 		{
 			super();
 			
@@ -47,17 +47,17 @@ package game.hud
 			this.addChild(button);
 			
 			
-			this.globalMap = new GlobalMap(foundations.database.config);
+			this.globalMap = new GlobalMap(elements.database.config);
 			this.addChild(this.globalMap);
 			
 			
-			this.flow = foundations.flow;
+			this.flow = elements.flow;
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.restore);
 			this.flow.addUpdateListener(Update.gameFinished);
 			
-			foundations.displayRoot.addChild(this);
+			elements.displayRoot.addChild(this);
 		}
 		
 		update function restore():void
@@ -67,16 +67,16 @@ package game.hud
 		
 		update function gameFinished(key:int):void
 		{
-			if (key != Game.ABANDONED)
+			if (key != Game.ENDING_ABANDONED)
 			{
 				this.visible = true;
 				this.globalMap.redraw();
 				
-				if (key == Game.WON)
+				if (key == Game.ENDING_WON)
 				{
 					this.text.text = "You win";
 				}
-				else if (key == Game.LOST)
+				else if (key == Game.ENDING_LOST)
 				{
 					this.text.text = "You lose";
 				}

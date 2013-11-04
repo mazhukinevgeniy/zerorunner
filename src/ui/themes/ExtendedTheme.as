@@ -1,6 +1,7 @@
 package ui.themes 
 {
 	import feathers.controls.Label;
+	import game.GameElements;
 	import starling.display.DisplayObjectContainer;
 	import feathers.controls.Button;
 	import flash.text.TextFormatAlign;
@@ -30,19 +31,21 @@ package ui.themes
 		private static const RESET_BUTTON_WIDTH:int = 120;
 		private static const RESET_BUTTON_HEIGHT:int = 20;
 		
-		public function ExtendedTheme(root:DisplayObjectContainer)
+		public function ExtendedTheme(elements:GameElements, root:DisplayObjectContainer)
 		{
-			super(root);
-		} 
+			super(elements, root);
+		} //TODO: damn it, where am i? why are we overriding custom classes? to add stuff we need? do we need ALL the stuff?
+		//TODO: what if i told you it would fit into the one class if we remove everything we don't need?
 		
-		override protected function initialize():void
+		override protected function initialize(elements:GameElements):void
 		{
-			super.initialize();
+			super.initialize(elements);
 			
 			this.defaultTextFormat = ExtendedTheme.DEFAULT_TEXT_FORMAT;
 			this.disabledTextFormat = ExtendedTheme.DISABLE_TEXT_FORMAT;
 			
 			this.setNewInitializersForClasses();
+			//TODO: please notice the hell of initializations. burn it all!
 		}
 		
 		private function setNewInitializersForClasses():void
