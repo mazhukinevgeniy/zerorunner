@@ -32,9 +32,9 @@ package game.items
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			new CharacterMaster(elements);
-			new BeaconMaster(elements);
+			//new BeaconMaster(elements);//TODO: enable; it's just because of rendering
 			//new DroidMaster(elements); //TODO: see DroidMaster.as
-			new JunkMaster(elements);
+			//new JunkMaster(elements);//TODO: enable; it's just because of rendering
 			
 			this.moved = new Vector.<PuppetBase>();
 		}

@@ -16,8 +16,6 @@ package game.renderer
 		private var points:IPointCollector;
 		private var items:Items;
 		
-		private var unimplemented:Image;
-		
 		private var sprites:Vector.<Vector.<Vector.<Image>>>;
 		
 		public function ItemRenderer(elements:GameElements) 
@@ -52,6 +50,7 @@ package game.renderer
 			
 			var spritelist:Vector.<Array> = new < Array > [
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, "hero_stand"),
+					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, "hero_side_0_0"),
 					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented")];
 			
 			
@@ -87,7 +86,7 @@ package game.renderer
 			const brcX:int = center.x + 14;
 			const brcY:int = center.y + 12;
 			
-			var sprite:Image = this.unimplemented;
+			var sprite:Image;
 			
 			for (var i:int = tlcX; i < brcX; i++)
 				for (var j:int = tlcY; j < brcY; j++)
@@ -96,6 +95,8 @@ package game.renderer
 					
 					if (item)
 					{
+						sprite = this.sprites[item.type][item.occupation][0];//TODO: implement scaling from progress
+						
 						sprite.x = i * Game.CELL_WIDTH;
 						sprite.y = j * Game.CELL_HEIGHT;
 						
@@ -109,6 +110,9 @@ package game.renderer
 							sprite.x -= int(progress * Game.CELL_WIDTH * dX);
 							sprite.y -= int(progress * Game.CELL_HEIGHT * dY);
 						}
+						
+						if (item.type == Game.ITEM_CHARACTER)
+							sprite.y -= Game.CELL_HEIGHT;
 						
 						this.addImage(sprite);
 					}
