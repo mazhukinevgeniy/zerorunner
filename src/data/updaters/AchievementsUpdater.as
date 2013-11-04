@@ -95,11 +95,6 @@ package data.updaters
 		
 		private function openAchievement(idClosed:int):void
 		{
-			if (idClosed != AchievementsUpdater.UNDEFINED)
-			{
-				var index:int = (Math.random() * 100) % this.save["achievements"].length;
-				idClosed = this.save["achievements"][index][0].x;
-			}
 			var newIds:Vector.<int> = this.getNewIdAchievements(idClosed);
 			var numberOfNew:int = newIds.length;
 			var achievementData:Vector.<Object>;
@@ -158,14 +153,6 @@ package data.updaters
 								i--;
 								break;
 							}
-				}
-				
-				var remain:int = (Math.random() * 100) % lengthNewIds;
-				var deleted:int;
-				for (var k:int = 0; k < lengthNewIds - remain; lengthNewIds--)
-				{
-					deleted = (Math.random() * 100) % k;
-					newIds.splice(k, 1);
 				}
 				
 			}
