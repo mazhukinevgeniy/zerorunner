@@ -43,6 +43,7 @@ package game.renderer
 			var spritelist:Vector.<Array> = new < Array > [
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, "hero_stand"),
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, "hero_side_0_0", "hero_side_0_1"),
+					new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, "tmp_tower"), //TODO: use the nice new sprite
 					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented")];
 			//TODO: enlist sprites here
 			
@@ -110,15 +111,15 @@ package game.renderer
 			var center:ICoordinated = this.points.getCharacter();
 			
 			const tlcX:int = center.x - 13;
-			const tlcY:int = center.y - 11;
-			
 			const brcX:int = center.x + 14;
+			
+			const tlcY:int = center.y - 11;
 			const brcY:int = center.y + 12;
 			
 			var sprite:Image;
 			
-			for (var i:int = tlcX; i < brcX; i++)
-				for (var j:int = tlcY; j < brcY; j++)
+			for (var j:int = tlcY; j < brcY; j++)
+				for (var i:int = tlcX; i < brcX; i++)
 				{
 					var item:PuppetBase = this.items.findObjectByCell(i, j);
 					
@@ -142,6 +143,8 @@ package game.renderer
 						
 						if (item.type == Game.ITEM_CHARACTER)
 							sprite.y -= Game.CELL_HEIGHT;
+						else if (item.type == Game.ITEM_BEACON)
+							sprite.y -= 2 * Game.CELL_HEIGHT;//3 * Game.CELL_HEIGHT;
 						
 						this.addImage(sprite);
 					}

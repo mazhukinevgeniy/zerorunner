@@ -14,7 +14,7 @@ package game.items.beacon
 			//TODO: override occupations
 		}
 		
-		
+		override public function get type():int { return Game.ITEM_BEACON; }
 		
 	}
 
