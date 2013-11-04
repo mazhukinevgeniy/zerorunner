@@ -34,7 +34,7 @@ package game.items
 			new CharacterMaster(elements);
 			new BeaconMaster(elements);
 			//new DroidMaster(elements); //TODO: see DroidMaster.as
-			//new JunkMaster(elements);//TODO: enable; it's just because of rendering
+			new JunkMaster(elements);
 			
 			this.moved = new Vector.<PuppetBase>();
 		}

@@ -13,6 +13,7 @@ package game.items.junk
 			//TODO: override occupations
 		}
 		
+		override public function get type():int { return Game.ITEM_JUNK; }
 	}
 
 }
