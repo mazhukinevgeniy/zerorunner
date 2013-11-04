@@ -43,7 +43,7 @@ package game.renderer
 			var spritelist:Vector.<Array> = new < Array > [
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, "hero_stand"),
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, "hero_side_0_0", "hero_side_0_1"),
-					new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, "tmp_tower"), //TODO: use the nice new sprite
+					new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, "tow1"),
 					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented")];
 			//TODO: enlist sprites here
 			
@@ -141,10 +141,7 @@ package game.renderer
 							sprite.y -= int(progress * Game.CELL_HEIGHT * dY);
 						}
 						
-						if (item.type == Game.ITEM_CHARACTER)
-							sprite.y -= Game.CELL_HEIGHT;
-						else if (item.type == Game.ITEM_BEACON)
-							sprite.y -= 2 * Game.CELL_HEIGHT;//3 * Game.CELL_HEIGHT;
+						sprite.y += Game.CELL_HEIGHT - sprite.height;
 						
 						this.addImage(sprite);
 					}
