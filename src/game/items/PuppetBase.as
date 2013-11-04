@@ -70,7 +70,10 @@ package game.items
 			{
 				this.ticksOccupated++;
 				if (this.ticksOccupated == this.ticksUntilOccupationEnds)
+				{
 					this._occupation = Game.OCCUPATION_FREE;
+					this.ticksOccupated = this.ticksUntilOccupationEnds = 0;
+				}
 			}			
 			else if (this._occupation == Game.OCCUPATION_DYING)
 			{
@@ -156,12 +159,13 @@ package game.items
 		
 		public function get type():int { throw new Error(); }
 		
-		final public function getMoveProgress(frame:int):Number 
+		final public function getProgress(frame:int):Number 
 		{
-			if (this._occupation != Game.OCCUPATION_MOVING)
-				throw new Error();
-			else
-				return Number(Number(this.ticksOccupated + Number(frame / Game.FRAMES_PER_CYCLE)) / this.ticksUntilOccupationEnds);
+			return Number(Number(this.ticksOccupated + Number(frame / Game.FRAMES_PER_CYCLE)) / this.ticksUntilOccupationEnds);
+		}
+		final public function isLastFrame(flashFrame:int):Boolean
+		{
+			return (this.ticksOccupated + 1 == this.ticksUntilOccupationEnds) && (flashFrame == Game.FRAMES_PER_CYCLE - 1);
 		}
 	}
 

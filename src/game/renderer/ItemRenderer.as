@@ -17,6 +17,7 @@ package game.renderer
 		private var items:Items;
 		
 		private var sprites:Vector.<Vector.<Vector.<Image>>>;
+		private var altsprites:Vector.<Vector.<Vector.<Image>>>;
 		
 		public function ItemRenderer(elements:GameElements) 
 		{
@@ -34,43 +35,71 @@ package game.renderer
 		
 		private function initializeSprites(assets:AssetManager):void
 		{
-			this.sprites = new Vector.<Vector.<Vector.<Image>>>(Game.NUMBER_OF_ITEM_TYPES, true);
-			
-			var i:int, j:int;
-			
-			for (i = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
-			{
-				this.sprites[i] = new Vector.<Vector.<Image>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
-				
-				for (j = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
-					this.sprites[i][j] = new Vector.<Image>();
-			}
+			this.initializeVectors("sprites");
+			this.initializeVectors("altsprites");
 			
 			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
 			
 			var spritelist:Vector.<Array> = new < Array > [
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, "hero_stand"),
-					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, "hero_side_0_0"),
+					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, "hero_side_0_0", "hero_side_0_1"),
 					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented")];
-			
-			
 			//TODO: enlist sprites here
 			
+			this.initializeImages(spritelist, this.sprites, atlas);
 			
-			var length:int = spritelist.length;
+			var altspritelist:Vector.<Array> = new < Array > [
+					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, "hero_side_1_0", "hero_side_1_1"),
+					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented")];
+			
+			this.initializeImages(altspritelist, this.altsprites, atlas);
+			
+			this.removeEmptyAnimations(this.altsprites);
+		}
+		
+		private function initializeVectors(title:String):void
+		{
+			this[title] = new Vector.<Vector.<Vector.<Image>>>(Game.NUMBER_OF_ITEM_TYPES, true);
+			
+			var i:int, j:int;
+			
+			for (i = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
+			{
+				this[title][i] = new Vector.<Vector.<Image>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
+				
+				for (j = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
+					this[title][i][j] = new Vector.<Image>();
+			}
+		}
+		
+		private function initializeImages(list:Vector.<Array>, 
+										  images:Vector.<Vector.<Vector.<Image>>>, 
+										  atlas:TextureAtlas):void
+		{
+			var length:int = list.length;
+			var i:int, j:int;
+			
 			for (i = 0; i < length; i++)
 			{
-				var jLength:int = spritelist[i].length;
-				var type:int = spritelist[i][0];
-				var occupation:int = spritelist[i][1];
+				var jLength:int = list[i].length;
+				var type:int = list[i][0];
+				var occupation:int = list[i][1];
 				
 				for (j = 2; j < jLength; j++)
 				{
-					var spritename:String = spritelist[i][j];
+					var spritename:String = list[i][j];
 					
-					this.sprites[type][occupation].push(new Image(atlas.getTexture(spritename)));
+					images[type][occupation].push(new Image(atlas.getTexture(spritename)));
 				}
 			}
+		}
+		
+		private function removeEmptyAnimations(vector:Vector.<Vector.<Vector.<Image>>>):void
+		{
+			for (var i:int = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
+				for (var j:int = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
+					if (vector[i][j].length == 0)
+						vector[i][j] = null;
 		}
 		
 		
@@ -95,7 +124,7 @@ package game.renderer
 					
 					if (item)
 					{
-						sprite = this.sprites[item.type][item.occupation][0];//TODO: implement scaling from progress
+						sprite = this.getAnimationFrame(item, frame);
 						
 						sprite.x = i * Game.CELL_WIDTH;
 						sprite.y = j * Game.CELL_HEIGHT;
@@ -105,7 +134,7 @@ package game.renderer
 							var dX:int = item.x - item.previousPosition.x;
 							var dY:int = item.y - item.previousPosition.y;
 							
-							var progress:Number = 1 - item.getMoveProgress(frame);
+							var progress:Number = 1 - item.getProgress(frame);
 							
 							sprite.x -= int(progress * Game.CELL_WIDTH * dX);
 							sprite.y -= int(progress * Game.CELL_HEIGHT * dY);
@@ -118,6 +147,31 @@ package game.renderer
 					}
 					
 				}
+		}
+		
+		private function getAnimationFrame(item:PuppetBase, flashFrame:int):Image
+		{
+			var type:int = item.type;
+			var occupation:int = item.occupation;
+			
+			var aLength:int = this.sprites[type][occupation].length;
+			
+			var frame:int = int(item.getProgress(flashFrame) * aLength);
+			
+			var toReturn:Image = this.sprites[type][occupation][frame];
+			
+			if (this.altsprites[type][occupation] && item.isLastFrame(flashFrame))
+				this.swapAnimations(type, occupation);
+			
+			return toReturn;
+		}
+		
+		private function swapAnimations(type:int, occupation:int):void
+		{
+			var tmp:Vector.<Image> = this.altsprites[type][occupation];
+			
+			this.altsprites[type][occupation] = this.sprites[type][occupation];
+			this.sprites[type][occupation] = tmp;
 		}
 		
 		update function quitGame():void

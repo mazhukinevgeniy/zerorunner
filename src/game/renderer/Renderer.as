@@ -44,7 +44,7 @@ package game.renderer
 				var dX:int = this.character.x - this.character.previousPosition.x;
 				var dY:int = this.character.y - this.character.previousPosition.y;
 				
-				var progress:Number = 1 - this.character.getMoveProgress(frame);
+				var progress:Number = 1 - this.character.getProgress(frame);
 				
 				this.x += int(progress * Game.CELL_WIDTH * dX);
 				this.y += int(progress * Game.CELL_HEIGHT * dY);
