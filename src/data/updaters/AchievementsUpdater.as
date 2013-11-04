@@ -147,6 +147,15 @@ package data.updaters
 								break;
 							}
 				}
+				
+				var remain:int = (Math.random() * 100) % lengthNewIds;
+				var deleted:int;
+				for (var k:int = 0; k < lengthNewIds - remain; lengthNewIds--)
+				{
+					deleted = (Math.random() * 100) % k;
+					newIds.splice(k, 1);
+				}
+				
 			}
 				
 			return newIds;
