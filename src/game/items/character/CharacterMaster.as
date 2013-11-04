@@ -38,7 +38,7 @@ package game.items.character
 			new Character(this, this.elements);
 		}
 		
-		override items_internal function actOn(puppet:PuppetBase):void
+		override protected function act(puppet:PuppetBase):void
 		{
 			if (puppet.free)
 			{

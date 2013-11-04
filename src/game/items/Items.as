@@ -11,7 +11,7 @@ package game.items
 	import game.points.IPointCollector;
 	import utils.updates.update;
 	
-	
+	use namespace items_internal;
 	
 	public class Items
 	{
@@ -38,7 +38,6 @@ package game.items
 			
 			this.moved = new Vector.<PuppetBase>();
 		}
-		//TODO: internalize as much as possible
 		
 		update function prerestore(config:GameConfig):void
 		{
@@ -74,7 +73,7 @@ package game.items
 						
 						if (item && this.moved.indexOf(item) == -1)
 						{
-							item.act();
+							item._master.actOn(item);
 							this.moved.push(item);
 						}
 					}
@@ -88,7 +87,7 @@ package game.items
 					item = others[i];
 					
 					if (this.moved.indexOf(item) == -1)
-						item.act();
+						item._master.actOn(item);
 				}
 			}
 			else if (key == Game.FRAME_TO_CLEAR_BORDERS)

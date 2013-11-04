@@ -11,7 +11,7 @@ package game.items
 	
 	public class PuppetBase implements ICoordinated
 	{
-		private var _master:MasterBase;
+		internal var _master:MasterBase;
 		
 		private var _x:int, _y:int;
 		
@@ -55,11 +55,6 @@ package game.items
 			this.onSpawned();
 		}
 		
-		final internal function forceDestruction():void
-		{
-			this._occupation = Game.OCCUPATION_DYING;
-		}
-		
 		final internal function tickPassed():void
 		{
 			if (this._occupation == Game.OCCUPATION_FREE)
@@ -83,15 +78,15 @@ package game.items
 			}
 		}
 		
-		final internal function act():void
-		{
-			this._master.actOn(this);
-		}
-		
 		
 		final items_internal function get master():MasterBase { return this._master; }
 		final items_internal function get free():Boolean { return this._occupation == Game.OCCUPATION_FREE; }
 		
+		
+		final items_internal function forceDestruction():void
+		{
+			this._occupation = Game.OCCUPATION_DYING;
+		}
 		
 		final items_internal function forceShocking(target:ICoordinated = null):void
 		{

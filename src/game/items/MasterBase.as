@@ -11,18 +11,23 @@ package game.items
 			
 		}
 		
+		
+		
+		internal function actOn(puppet:PuppetBase):void
+		{
+			this.act(puppet);
+		}
+		
+		protected function act(puppet:PuppetBase):void
+		{
+			
+		}
+		
+		
 		items_internal function tryDestructionOn(puppet:PuppetBase):void
 		{
 			puppet.forceDestruction();
 		}
-		
-		
-		
-		items_internal function actOn(puppet:PuppetBase):void
-		{
-			
-		}		
-		
 		
 		final items_internal function tryMoveOn(puppet:PuppetBase):Boolean
 		{
