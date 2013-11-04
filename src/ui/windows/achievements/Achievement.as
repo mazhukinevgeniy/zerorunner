@@ -27,7 +27,7 @@ package ui.windows.achievements
 			var unlocked:Boolean;
 			var enabledSkin:String = "ground";
 			var disabledSkin:String = "unimplemented";
-			var description:String = "this is achievement about distance - " + String(data[1].y);
+			var description:String = "this is achievement about distance - " + String(data[1].y) + "\n\n"+ String(data[Achievement.BASE_DATA].x);
 			
 			if (data[Achievement.BASE_DATA].y == 0) unlocked = false;
 			else unlocked = true;

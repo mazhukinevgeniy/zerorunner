@@ -95,6 +95,11 @@ package data.updaters
 		
 		private function openAchievement(idClosed:int):void
 		{
+			if (idClosed != AchievementsUpdater.UNDEFINED)
+			{
+				var index:int = (Math.random() * 100) % this.save["achievements"].length;
+				idClosed = this.save["achievements"][index][0].x;
+			}
 			var newIds:Vector.<int> = this.getNewIdAchievements(idClosed);
 			var numberOfNew:int = newIds.length;
 			var achievementData:Vector.<Object>;
@@ -103,11 +108,12 @@ package data.updaters
 			
 			for (var i:int = 0; i < numberOfNew; ++i)
 			{
-				 condition = int(Math.random() * 50);
+				condition = int(Math.random() * 50);
 				achievementData = new <Object>[new Point(newIds[i], AchievementsUpdater.OPEN), new Point(type, condition)];
 				
 				this.save["achievements"].push(achievementData);
 				this.openAchievements.push(achievementData.slice());
+				this.addEdge(new Point(idClosed, newIds[i]));
 			}
 		}
 		
@@ -116,17 +122,23 @@ package data.updaters
 			var newIds:Vector.<int> = new Vector.<int>;
 			
 			if (idClosed == AchievementsUpdater.UNDEFINED)
-				newIds.push(0);
+				newIds.push(20);
 			else
 			{
 				var lengthNewIds:int;
 				var numberOfAchievements:int = this.save["achievements"].length;
 				
-				newIds.push(idClosed + 8, idClosed - 8, idClosed + 1, idClosed - 1);
+				newIds.push(idClosed + 8, idClosed - 8);
 				if (idClosed % 2 == 1)
-					newIds.push(idClosed + 7, idClosed + 9);
+				{
+					newIds.push(idClosed + 7, idClosed - 1);
+					if (idClosed % 8 != 7) newIds.push(idClosed + 9, idClosed + 1);
+				}
 				else
-					newIds.push(idClosed - 7, idClosed - 9);
+				{
+					newIds.push(idClosed - 7, idClosed + 1);
+					if (idClosed % 8 != 0) newIds.push(idClosed - 9, idClosed - 1);
+				}
 				
 				lengthNewIds = newIds.length;
 				for (var i:int = 0; i < lengthNewIds; ++i)
@@ -174,6 +186,11 @@ package data.updaters
 			}
 			
 			this.openAchievement(id);
+		}
+		
+		private function addEdge(edge:Point):void
+		{
+			this.save["achievementsEdge"].push(edge);
 		}
 		
 		update function resetProgress():void

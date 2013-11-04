@@ -23,7 +23,7 @@ package data.viewers
 		
 		public function get edges():Vector.<Point>
 		{
-			return AchievementViewer.EDGES;
+			return Vector.<Point>(this.save["achievementsEdge"]);
 		}
 		
 		public function getAchievement(idOrIndex:int, isId:Boolean = true):Achievement
