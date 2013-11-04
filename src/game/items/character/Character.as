@@ -29,6 +29,7 @@ package game.items.character
 		}
 		
 		override protected function get movespeed():int { return 2; }
+		override public function get type():int { return Game.CHARACTER; }
 		
 		override protected function onMoved(change:DCellXY):void 
 		{

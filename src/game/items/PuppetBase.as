@@ -154,6 +154,8 @@ package game.items
 		final public function get occupation():int { return this._occupation; }
 		final public function get previousPosition():ICoordinated { return this._previousPosition; }
 		
+		public function get type():int { throw new Error(); }
+		
 		final public function getMoveProgress(frame:int):Number 
 		{
 			if (this._occupation != Game.MOVING)

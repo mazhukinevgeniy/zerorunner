@@ -7,6 +7,14 @@ package
 	 */
 	public class Game 
 	{
+		/* Object types */
+		
+		public static const CHARACTER:int = 0;
+		public static const JUNK:int = 1;
+		public static const BEACON:int = 2;
+		
+		public static const NUMBER_OF_ITEM_TYPES:int = 3;
+		
 		/* Landscape types */
 		
 		public static const FALL:int = 0;
@@ -18,7 +26,7 @@ package
 		
 		public static const NO_BEACON:int = 0;
 		public static const BIG_BEACON:int = 1;
-		public static const BEACON:int = 2;
+		public static const SMALL_BEACON:int = 2;
 		
 		/* Goal types */
 		
@@ -41,9 +49,16 @@ package
 		/* Occupations */
 		
 		public static const FREE:int = 0;
-		public static const MOVING:int = 1;
+		public static const MOVING:int = 1; //TODO: check if can remove
 		public static const SHOCKING:int = 2;
 		public static const DYING:int = 3;
+		public static const MOVING_UP:int = 4;
+		public static const MOVING_DOWN:int = 5;
+		public static const MOVING_LEFT:int = 6;
+		public static const MOVING_RIGHT:int = 7;
+		public static const TAKING_SHOCK:int = 8;
+		
+		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 9;
 		
 		/* Constants */
 		

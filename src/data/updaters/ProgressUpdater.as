@@ -32,7 +32,7 @@ package data.updaters
 		
 		update function smallBeaconTurnedOn():void
 		{
-			this.save["beacon" + String(this.save["level"])] = Game.BEACON;
+			this.save["beacon" + String(this.save["level"])] = Game.SMALL_BEACON;
 		}
 		
 		update function droidUnlocked(place:ICoordinated):void

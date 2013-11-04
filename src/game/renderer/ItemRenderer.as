@@ -17,7 +17,8 @@ package game.renderer
 		private var items:Items;
 		
 		private var unimplemented:Image;
-		private var hero_stand:Image;
+		
+		private var sprites:Vector.<Vector.<Vector.<Image>>>;
 		
 		public function ItemRenderer(elements:GameElements) 
 		{
@@ -35,15 +36,41 @@ package game.renderer
 		
 		private function initializeSprites(assets:AssetManager):void
 		{
+			this.sprites = new Vector.<Vector.<Vector.<Image>>>(Game.NUMBER_OF_ITEM_TYPES, true);
+			
+			var i:int, j:int;
+			
+			for (i = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
+			{
+				this.sprites[i] = new Vector.<Vector.<Image>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
+				
+				for (j = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
+					this.sprites[i][j] = new Vector.<Image>();
+			}
+			
 			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
 			
-			var titles:Vector.<String> = new < String > 
-										   ["unimplemented", "hero_stand"];
+			var spritelist:Vector.<Array> = new < Array > [
+					new Array(Game.CHARACTER, Game.FREE, "hero_stand"),
+					new Array(Game.JUNK, Game.FREE, "unimplemented", "unimplemented")];
 			
-			var length:int = titles.length;
-			for (var i:int = 0; i < length; i++)
+			
+			//TODO: enlist sprites here
+			
+			
+			var length:int = spritelist.length;
+			for (i = 0; i < length; i++)
 			{
-				this[titles[i]] = new Image(atlas.getTexture(titles[i]));
+				var jLength:int = spritelist[i].length;
+				var type:int = spritelist[i][0];
+				var occupation:int = spritelist[i][1];
+				
+				for (j = 2, j < jLength; j++)
+				{
+					var spritename:String = spritelist[i][j];
+					
+					this.sprites[type][occupation].push(new Image(atlas.getTexture(spritename)));
+				}
 			}
 		}
 		
@@ -54,11 +81,11 @@ package game.renderer
 			
 			var center:ICoordinated = this.points.getCharacter();
 			
-			const tlcX:int = center.x - 12;
-			const tlcY:int = center.y - 10;
+			const tlcX:int = center.x - 13;
+			const tlcY:int = center.y - 11;
 			
-			const brcX:int = center.x + 13;
-			const brcY:int = center.y + 11;
+			const brcX:int = center.x + 14;
+			const brcY:int = center.y + 12;
 			
 			var sprite:Image = this.unimplemented;
 			
