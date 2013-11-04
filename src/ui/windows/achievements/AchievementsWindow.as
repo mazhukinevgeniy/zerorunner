@@ -148,13 +148,13 @@ package ui.windows.achievements
 			}
 		}
 		
-		public function displayDescription(id:int):void
+		public function displayDescription(id:int, target:ViewAchievement):void
 		{
 			if (this.lastDisplayedDescription != id)
 			{
 				this.achData = this.achievementsSave.getAchievement(id);
 				
-				this.achievementDescription.updateMessage(this.achData.description, this.achievements[id]);
+				this.achievementDescription.updateMessage(this.achData.description, target);
 				this.achievementDescription.visible = true;
 				
 				this.lastDisplayedDescription = id;

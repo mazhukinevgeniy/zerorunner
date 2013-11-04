@@ -118,8 +118,36 @@ package data.updaters
 			if (idClosed == AchievementsUpdater.UNDEFINED)
 				newIds.push(0);
 			else
-				//TODO нормальную генерацию новых айди
-				newIds.push(1, 2, 5);
+			{
+				var lengthNewIds:int;
+				var numberOfAchievements:int = this.save["achievements"].length;
+				
+				newIds.push(idClosed + 8, idClosed - 8, idClosed + 1, idClosed - 1);
+				if (idClosed % 2 == 1)
+					newIds.push(idClosed + 7, idClosed + 9);
+				else
+					newIds.push(idClosed - 7, idClosed - 9);
+				
+				lengthNewIds = newIds.length;
+				for (var i:int = 0; i < lengthNewIds; ++i)
+				{
+					if (newIds[i] < 0 || newIds[i] > 39)
+					{
+						newIds.splice(i, 1)
+						lengthNewIds--;
+						i--;
+					}
+					else
+						for (var j:int = 0; j < numberOfAchievements; ++j)
+							if (newIds[i] == this.save["achievements"][j][0].x)
+							{
+								newIds.splice(i, 1)
+								lengthNewIds--;
+								i--;
+								break;
+							}
+				}
+			}
 				
 			return newIds;
 		}

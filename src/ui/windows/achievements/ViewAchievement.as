@@ -47,7 +47,7 @@ package ui.windows.achievements
 			
 			if (touchHover)
 			{
-				this.parentContainer.displayDescription(this.id);
+				this.parentContainer.displayDescription(this.id, this);
 			}	
 		}
 		
