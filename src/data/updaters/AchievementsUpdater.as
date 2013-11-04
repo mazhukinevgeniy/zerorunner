@@ -95,20 +95,33 @@ package data.updaters
 		
 		private function openAchievement(idClosed:int):void
 		{
-			var numberOfNew:int = 1;
+			var newIds:Vector.<int> = this.getNewIdAchievements(idClosed);
+			var numberOfNew:int = newIds.length;
 			var achievementData:Vector.<Object>;
 			var type:int = AchievementsUpdater.TEST_TYPE;
-			var condition:int = 20;
-			var id:int = this.save["achievements"].length;
+			var condition:int;
 			
-			for (var i:int = 0; i < numberOfNew; ++i, ++id)
+			for (var i:int = 0; i < numberOfNew; ++i)
 			{
-				achievementData = new <Object>[new Point(id, AchievementsUpdater.OPEN), new Point(type, condition)];
-				condition++;
+				 condition = int(Math.random() * 50);
+				achievementData = new <Object>[new Point(newIds[i], AchievementsUpdater.OPEN), new Point(type, condition)];
 				
 				this.save["achievements"].push(achievementData);
 				this.openAchievements.push(achievementData.slice());
 			}
+		}
+		
+		private function getNewIdAchievements(idClosed:int):Vector.<int>
+		{
+			var newIds:Vector.<int> = new Vector.<int>;
+			
+			if (idClosed == AchievementsUpdater.UNDEFINED)
+				newIds.push(0);
+			else
+				//TODO нормальную генерацию новых айди
+				newIds.push(1, 2, 5);
+				
+			return newIds;
 		}
 		
 		private function closeAchievement(id:int):void
@@ -122,6 +135,8 @@ package data.updaters
 				if (achievementData[0].x == id)
 					achievementData[0].y = AchievementsUpdater.CLOSED;
 			}
+			
+			this.openAchievement(id);
 		}
 		
 		update function resetProgress():void

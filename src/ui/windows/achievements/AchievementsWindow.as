@@ -101,7 +101,7 @@ package ui.windows.achievements
 			
 			for (var i:int = 0; i < this.numberOfAchievements; ++i)
 			{
-				this.achData = this.achievementsSave.getAchievement(i);
+				this.achData = this.achievementsSave.getAchievement(i, false);
 
 				if (this.achData.unlocked)
 					nameOfSkin = this.achData.enabledSkin;
@@ -109,7 +109,7 @@ package ui.windows.achievements
 					nameOfSkin = this.achData.disabledSkin;
 				
 				texture = this.assets.getTextureAtlas("gameAtlas").getTexture(nameOfSkin);
-				this.achievements.push(new ViewAchievement(i, this.achData.position, texture, this));
+				this.achievements.push(new ViewAchievement(this.achData.position, texture, this));
 			}
 		}
 		
