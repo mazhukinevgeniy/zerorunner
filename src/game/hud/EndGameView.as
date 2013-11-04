@@ -67,16 +67,16 @@ package game.hud
 		
 		update function gameFinished(key:int):void
 		{
-			if (key != Game.ABANDONED)
+			if (key != Game.ENDING_ABANDONED)
 			{
 				this.visible = true;
 				this.globalMap.redraw();
 				
-				if (key == Game.WON)
+				if (key == Game.ENDING_WON)
 				{
 					this.text.text = "You win";
 				}
-				else if (key == Game.LOST)
+				else if (key == Game.ENDING_LOST)
 				{
 					this.text.text = "You lose";
 				}

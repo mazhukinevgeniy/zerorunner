@@ -39,7 +39,7 @@ package game.renderer
 			this.x = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
             this.y = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
 			
-			if (this.character.occupation == Game.MOVING)
+			if (this.character.occupation == Game.OCCUPATION_MOVING)
 			{
 				var dX:int = this.character.x - this.character.previousPosition.x;
 				var dY:int = this.character.y - this.character.previousPosition.y;

@@ -50,7 +50,7 @@ package ui.navigation
 			if (event.target == this.menuButton)
 			{
 				if (this.status.isGameOn)
-					this.flow.dispatchUpdate(Update.gameFinished, Game.ABANDONED);
+					this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_ABANDONED);
 				
 				this.flow.dispatchUpdate(Update.quitGame);
 			}

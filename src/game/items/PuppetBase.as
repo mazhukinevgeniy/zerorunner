@@ -57,22 +57,22 @@ package game.items
 		
 		final internal function forceDestruction():void
 		{
-			this._occupation = Game.DYING;
+			this._occupation = Game.OCCUPATION_DYING;
 		}
 		
 		final internal function tickPassed():void
 		{
-			if (this._occupation == Game.FREE)
+			if (this._occupation == Game.OCCUPATION_FREE)
 			{
 				
 			}
-			else if (this._occupation == Game.MOVING)
+			else if (this._occupation == Game.OCCUPATION_MOVING)
 			{
 				this.ticksOccupated++;
 				if (this.ticksOccupated == this.ticksUntilOccupationEnds)
-					this._occupation = Game.FREE;
+					this._occupation = Game.OCCUPATION_FREE;
 			}			
-			else if (this._occupation == Game.DYING)
+			else if (this._occupation == Game.OCCUPATION_DYING)
 			{
 				this.items.removeItem(this);
 				
@@ -87,7 +87,7 @@ package game.items
 		
 		
 		final items_internal function get master():MasterBase { return this._master; }
-		final items_internal function get free():Boolean { return this._occupation == Game.FREE; }
+		final items_internal function get free():Boolean { return this._occupation == Game.OCCUPATION_FREE; }
 		
 		
 		final items_internal function forceShocking(target:ICoordinated = null):void
@@ -117,7 +117,7 @@ package game.items
 			this.items.addItem(this);
 			
 			
-			this._occupation = Game.MOVING;
+			this._occupation = Game.OCCUPATION_MOVING;
 			this.ticksUntilOccupationEnds = this.movespeed;
 			this.ticksOccupated = 0;
 			
@@ -158,7 +158,7 @@ package game.items
 		
 		final public function getMoveProgress(frame:int):Number 
 		{
-			if (this._occupation != Game.MOVING)
+			if (this._occupation != Game.OCCUPATION_MOVING)
 				throw new Error();
 			else
 				return Number(Number(this.ticksOccupated + Number(frame / Game.FRAMES_PER_CYCLE)) / this.ticksUntilOccupationEnds);

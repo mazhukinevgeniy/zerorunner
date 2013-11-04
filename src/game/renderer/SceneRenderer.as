@@ -95,9 +95,9 @@ package game.renderer
 			{
 				for (i = tlcX; i < brcX; i++)
 				{
-					if (this.scene.getSceneCell(i, j) != Game.FALL)
+					if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 					{
-						if (this.scene.getSceneCell(i, j + 1) == Game.FALL)
+						if (this.scene.getSceneCell(i, j + 1) == Game.SCENE_FALL)
 						{
 							sprite = this.ground_S;
 							
@@ -106,7 +106,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i + 1, j) == Game.FALL)
+						if (this.scene.getSceneCell(i + 1, j) == Game.SCENE_FALL)
 						{
 							sprite = this.ground_E;
 							
@@ -115,7 +115,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j) == Game.FALL)
+						if (this.scene.getSceneCell(i - 1, j) == Game.SCENE_FALL)
 						{
 							sprite = this.ground_W;
 							
@@ -124,7 +124,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i, j - 1) == Game.FALL)
+						if (this.scene.getSceneCell(i, j - 1) == Game.SCENE_FALL)
 						{
 							sprite = this.ground_N;
 							
@@ -133,7 +133,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i + 1, j + 1) == Game.FALL)
+						if (this.scene.getSceneCell(i + 1, j + 1) == Game.SCENE_FALL)
 						{
 							sprite = this.ground_SE;
 							
@@ -142,7 +142,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j + 1) == Game.FALL)
+						if (this.scene.getSceneCell(i - 1, j + 1) == Game.SCENE_FALL)
 						{
 							sprite = this.ground_SW;
 							
@@ -151,7 +151,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i + 1, j - 1) == Game.FALL)
+						if (this.scene.getSceneCell(i + 1, j - 1) == Game.SCENE_FALL)
 						{
 							sprite = this.ground_NE;
 							
@@ -160,7 +160,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j - 1) == Game.FALL)
+						if (this.scene.getSceneCell(i - 1, j - 1) == Game.SCENE_FALL)
 						{
 							sprite = this.ground_NW;
 							
@@ -170,7 +170,7 @@ package game.renderer
 							this.addImage(sprite);
 						}
 						
-						if (this.scene.getSceneCell(i, j) == Game.ROAD)
+						if (this.scene.getSceneCell(i, j) == Game.SCENE_ROAD)
 						{
 							sprite = this.ground;
 							
@@ -202,7 +202,7 @@ package game.renderer
 			{
 				for (i = tlcX; i < brcX; i++)
 				{
-					if (this.scene.getSceneCell(i, j) == Game.LAVA)
+					if (this.scene.getSceneCell(i, j) == Game.SCENE_LAVA)
 					{
 						sprite = this.lava;
 						
@@ -212,7 +212,7 @@ package game.renderer
 						this.addImage(sprite);
 						
 						
-						if (this.scene.getSceneCell(i + 1, j) != Game.LAVA)
+						if (this.scene.getSceneCell(i + 1, j) != Game.SCENE_LAVA)
 						{
 							sprite = this.lava_E;
 							
@@ -221,7 +221,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j) != Game.LAVA)
+						if (this.scene.getSceneCell(i - 1, j) != Game.SCENE_LAVA)
 						{
 							sprite = this.lava_W;
 							
@@ -230,7 +230,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i, j - 1) != Game.LAVA)
+						if (this.scene.getSceneCell(i, j - 1) != Game.SCENE_LAVA)
 						{
 							sprite = this.lava_N;
 							
@@ -239,7 +239,7 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i, j + 1) != Game.LAVA)
+						if (this.scene.getSceneCell(i, j + 1) != Game.SCENE_LAVA)
 						{
 							sprite = this.lava_S;
 							
@@ -250,9 +250,9 @@ package game.renderer
 						}
 						
 						
-						if (this.scene.getSceneCell(i + 1, j + 1) != Game.LAVA &&
-							this.scene.getSceneCell(i + 1, j) == Game.LAVA &&
-							this.scene.getSceneCell(i, j + 1) == Game.LAVA)
+						if (this.scene.getSceneCell(i + 1, j + 1) != Game.SCENE_LAVA &&
+							this.scene.getSceneCell(i + 1, j) == Game.SCENE_LAVA &&
+							this.scene.getSceneCell(i, j + 1) == Game.SCENE_LAVA)
 						{
 							sprite = this.lava_SE;
 							
@@ -261,9 +261,9 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j + 1) != Game.LAVA &&
-							this.scene.getSceneCell(i - 1, j) == Game.LAVA &&
-							this.scene.getSceneCell(i, j + 1) == Game.LAVA)
+						if (this.scene.getSceneCell(i - 1, j + 1) != Game.SCENE_LAVA &&
+							this.scene.getSceneCell(i - 1, j) == Game.SCENE_LAVA &&
+							this.scene.getSceneCell(i, j + 1) == Game.SCENE_LAVA)
 						{
 							sprite = this.lava_SW;
 							
@@ -272,9 +272,9 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i + 1, j - 1) != Game.LAVA &&
-							this.scene.getSceneCell(i + 1, j) == Game.LAVA &&
-							this.scene.getSceneCell(i, j - 1) == Game.LAVA)
+						if (this.scene.getSceneCell(i + 1, j - 1) != Game.SCENE_LAVA &&
+							this.scene.getSceneCell(i + 1, j) == Game.SCENE_LAVA &&
+							this.scene.getSceneCell(i, j - 1) == Game.SCENE_LAVA)
 						{
 							sprite = this.lava_NE;
 							
@@ -283,9 +283,9 @@ package game.renderer
 							
 							this.addImage(sprite);
 						}
-						if (this.scene.getSceneCell(i - 1, j - 1) != Game.LAVA &&
-							this.scene.getSceneCell(i - 1, j) == Game.LAVA &&
-							this.scene.getSceneCell(i, j - 1) == Game.LAVA)
+						if (this.scene.getSceneCell(i - 1, j - 1) != Game.SCENE_LAVA &&
+							this.scene.getSceneCell(i - 1, j) == Game.SCENE_LAVA &&
+							this.scene.getSceneCell(i, j - 1) == Game.SCENE_LAVA)
 						{
 							sprite = this.lava_NW;
 							

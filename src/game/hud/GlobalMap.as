@@ -30,7 +30,7 @@ package game.hud
 			
 			for (var i:int = 0; i < Game.LEVEL_CAP; i++)
 			{
-				if (this.config.beacon(i + 1) == Game.SMALL_BEACON)
+				if (this.config.beacon(i + 1) == Game.CONTRAIL_SMALL_BEACON)
 				{
 					this.regularBeacon.x = i * 20;
 					

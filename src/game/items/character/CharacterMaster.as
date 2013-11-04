@@ -63,7 +63,7 @@ package game.items.character
 						{
 							var next:int = this.scene.getSceneCell(x + action.x, y + action.y);
 							
-							if (next != Game.FALL && next != Game.LAVA)
+							if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
 							{
 								puppet.forceMoveBy(action);
 								
@@ -73,7 +73,7 @@ package game.items.character
 							{
 								next = this.scene.getSceneCell(x + 2 * action.x, y + 2 * action.y);
 								
-								if (next != Game.FALL && next != Game.LAVA)
+								if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
 								{
 									puppet.forceJumpBy(action, 2);
 									

@@ -29,7 +29,7 @@ package game.items.character
 		}
 		
 		override protected function get movespeed():int { return 2; }
-		override public function get type():int { return Game.CHARACTER; }
+		override public function get type():int { return Game.ITEM_CHARACTER; }
 		
 		override protected function onMoved(change:DCellXY):void 
 		{
@@ -43,7 +43,7 @@ package game.items.character
 		
 		override protected function onDied():void 
 		{
-			this.flow.dispatchUpdate(Update.gameFinished, Game.LOST);
+			this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_LOST);
 		}
 	}
 

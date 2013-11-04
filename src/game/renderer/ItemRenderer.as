@@ -51,8 +51,8 @@ package game.renderer
 			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
 			
 			var spritelist:Vector.<Array> = new < Array > [
-					new Array(Game.CHARACTER, Game.FREE, "hero_stand"),
-					new Array(Game.JUNK, Game.FREE, "unimplemented", "unimplemented")];
+					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, "hero_stand"),
+					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented")];
 			
 			
 			//TODO: enlist sprites here
@@ -65,7 +65,7 @@ package game.renderer
 				var type:int = spritelist[i][0];
 				var occupation:int = spritelist[i][1];
 				
-				for (j = 2, j < jLength; j++)
+				for (j = 2; j < jLength; j++)
 				{
 					var spritename:String = spritelist[i][j];
 					
@@ -99,7 +99,7 @@ package game.renderer
 						sprite.x = i * Game.CELL_WIDTH;
 						sprite.y = j * Game.CELL_HEIGHT;
 						
-						if (item.occupation == Game.MOVING)
+						if (item.occupation == Game.OCCUPATION_MOVING)
 						{
 							var dX:int = item.x - item.previousPosition.x;
 							var dY:int = item.y - item.previousPosition.y;

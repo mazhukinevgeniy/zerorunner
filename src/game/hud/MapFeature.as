@@ -74,7 +74,7 @@ package game.hud
 						{
 							this.visited[i + this.width * j] = this.VISITED;
 							
-							if (this.scene.getSceneCell(i, j) != Game.FALL)
+							if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 							{
 								this.road.x = i;
 								this.road.y = j;
