@@ -90,7 +90,14 @@ package game.items
 		
 		final items_internal function forceShocking(target:ICoordinated = null):void
 		{
+			this._occupation = Game.OCCUPATION_SHOCKING;
+		}
+		
+		final items_internal function forceShocked():void
+		{
+			this._occupation = Game.OCCUPATION_TAKING_SHOCK;
 			
+			this.onShocked();
 		}
 		
 		
@@ -140,8 +147,9 @@ package game.items
 		
 		protected function get movespeed():int { return 1; }
 		
-		protected function onMoved(change:DCellXY):void { }
 		protected function onSpawned():void { }
+		protected function onMoved(change:DCellXY):void { }
+		protected function onShocked():void { }
 		protected function onDied():void { }
 		
 		/** Public getstate methods, used by renderer and others */

@@ -48,6 +48,21 @@ package game.items.character
 					//TODO: that's too hacky, use other way
 					
 					puppet.forceShocking();
+					
+					var tlcX:int = puppet.x - 1;
+					var tlcY:int = puppet.y - 1;
+					
+					for (var i:int = 0; i < 3; i++)
+						for (var j:int = 0; j < 3; j++)
+							if (i * j != 1)
+							{
+								var target:PuppetBase = this.items.findObjectByCell(tlcX + i, tlcY + j);
+								
+								if (target)
+									target.master.tryShockOn(target);
+							}
+					
+					//TODO: instantly work with the other masters
 				}
 				else
 				{				

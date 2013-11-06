@@ -24,19 +24,23 @@ package game.items
 		}
 		
 		
-		items_internal function tryDestructionOn(puppet:PuppetBase):void
+		items_internal function tryDestructionOn(puppet:PuppetBase):Boolean
 		{
 			puppet.forceDestruction();
+			
+			return true;
 		}
 		
-		final items_internal function tryMoveOn(puppet:PuppetBase):Boolean
+		items_internal function tryMoveOn(puppet:PuppetBase):Boolean
 		{
-			return false;
+			return false; //TODO: use or delete
 		}
 		
-		final items_internal function tryShockOn(puppet:PuppetBase):Boolean
+		items_internal function tryShockOn(puppet:PuppetBase):Boolean
 		{
-			return false;
+			puppet.forceShocked();
+			
+			return true;
 		}
 	}
 
