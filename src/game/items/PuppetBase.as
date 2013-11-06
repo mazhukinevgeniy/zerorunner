@@ -69,12 +69,20 @@ package game.items
 					this._occupation = Game.OCCUPATION_FREE;
 					this.ticksOccupated = this.ticksUntilOccupationEnds = 0;
 				}
-			}			
+			}
 			else if (this._occupation == Game.OCCUPATION_DYING)
 			{
 				this.items.removeItem(this);
 				
 				this.onDied();
+			}
+			else if (this._occupation == Game.OCCUPATION_SHOCKING)
+			{
+				this._occupation = Game.OCCUPATION_FREE;
+			}
+			else if (this._occupation == Game.OCCUPATION_TAKING_SHOCK)
+			{
+				this._occupation = Game.OCCUPATION_FREE;
 			}
 		}
 		
