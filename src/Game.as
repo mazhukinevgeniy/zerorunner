@@ -23,7 +23,7 @@ package
 		public static const SCENE_BASALT:int = 2;
 		public static const SCENE_LAVA:int = 3;
 		
-		/* What have you left types */
+		/* What have you left types *///TODO: check if this comment makes sense
 		
 		public static const CONTRAIL_NO_BEACON:int = 0;
 		public static const CONTRAIL_BIG_BEACON:int = 1;
@@ -63,10 +63,8 @@ package
 		
 		/* Constants */
 		
-		public static const BORDER_WIDTH:int = 10;
-		
-		public static const LEVEL_CAP:int = 3;
-		//TODO: think if it's to be constant
+		public static const MAP_WIDTH:int = 20;
+		public static const MAP_HEIGHT:int = 15;
 		
 		/* Time-related */
 		
