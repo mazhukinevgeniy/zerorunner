@@ -23,7 +23,7 @@ package game.items.character
 			
 			var cell:CellXY = new CellXY
 					(Game.BORDER_WIDTH, 
-					 Game.BORDER_WIDTH + elements.database.config.width - 1);
+					 Game.BORDER_WIDTH + Game.MAP_WIDTH - 1);
 			
 			super(master, elements, cell);
 		}

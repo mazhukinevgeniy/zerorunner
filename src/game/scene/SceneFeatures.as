@@ -20,7 +20,7 @@ package game.scene
 		
 		update function prerestore(config:GameConfig):void
 		{
-			this.width = config.width + 2 * Game.BORDER_WIDTH;
+			this.width = Game.MAP_WIDTH + 2 * Game.BORDER_WIDTH;
 			
 			const secondJGoal:int = this.width - Game.BORDER_WIDTH;
 			

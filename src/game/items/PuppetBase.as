@@ -37,7 +37,7 @@ package game.items
 			
 			if (cell == null)
 			{
-				const width:int = elements.database.config.width;
+				const width:int = Game.MAP_WIDTH;
 				
 				cell = new CellXY(Game.BORDER_WIDTH + Math.random() * width, 
 								  Game.BORDER_WIDTH + Math.random() * width);

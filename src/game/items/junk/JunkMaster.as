@@ -21,7 +21,9 @@ package game.items.junk
 		{
 			var i:int;
 			
-			for (i = 0; i < config.junks; i++)
+			const NUMBER_OF_JUNKS:int = 4;
+			
+			for (i = 0; i < NUMBER_OF_JUNKS; i++)
 				new Junk(this, this.elements);
 		}
 	}

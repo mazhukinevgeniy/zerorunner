@@ -45,7 +45,7 @@ package game.hud
 		
 		update function prerestore(config:GameConfig):void
 		{
-			this.width = config.width + 2 * Game.BORDER_WIDTH;
+			this.width = Game.MAP_WIDTH + 2 * Game.BORDER_WIDTH;
 			
 			var length:int = this.visited.length = this.width * this.width;
 			

@@ -20,7 +20,7 @@ package game.items.beacon
 		
 		update function prerestore(config:GameConfig):void
 		{
-			var cell:CellXY = new CellXY(Game.BORDER_WIDTH + config.width - 1, 
+			var cell:CellXY = new CellXY(Game.BORDER_WIDTH + Game.MAP_WIDTH - 1, 
 										 Game.BORDER_WIDTH);
 			
 			new Beacon(this, this.elements, cell);

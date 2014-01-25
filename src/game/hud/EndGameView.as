@@ -17,8 +17,6 @@ package game.hud
 		
 		private var text:Label;
 		
-		private var globalMap:GlobalMap;
-		
 		
 		public function EndGameView(elements:GameElements) 
 		{
@@ -47,9 +45,6 @@ package game.hud
 			this.addChild(button);
 			
 			
-			this.globalMap = new GlobalMap(elements.database.config);
-			this.addChild(this.globalMap);
-			
 			
 			this.flow = elements.flow;
 			
@@ -70,7 +65,6 @@ package game.hud
 			if (key != Game.ENDING_ABANDONED)
 			{
 				this.visible = true;
-				this.globalMap.redraw();
 				
 				if (key == Game.ENDING_WON)
 				{
