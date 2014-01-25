@@ -29,10 +29,6 @@ package
 		public static const CONTRAIL_BIG_BEACON:int = 1;
 		public static const CONTRAIL_SMALL_BEACON:int = 2;
 		
-		/* Goal types */
-		
-		public static const GOAL_LIGHT_A_BEACON:int = 0;
-		
 		/* Endings */
 		
 		public static const ENDING_LOST:int = 0;

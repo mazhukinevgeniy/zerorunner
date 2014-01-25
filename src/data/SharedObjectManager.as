@@ -27,7 +27,7 @@ package data
 			{
 				var tmp:Object = new Object();
 				
-				for each (var obj:Object in this.defaults)
+				for each (var obj:Object in Defaults.defaults)
 				{
 					for (var property:String in obj)
 					{

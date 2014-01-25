@@ -18,7 +18,6 @@ package data.updaters
 			this.flow = flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.smallBeaconTurnedOn);
 			flow.addUpdateListener(Update.droidUnlocked);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.resetProgress);
@@ -30,11 +29,6 @@ package data.updaters
 				this.save[value] = Defaults.progressDefaults[value];
 		}
 		
-		update function smallBeaconTurnedOn():void
-		{
-			this.save["beacon" + String(this.save["level"])] = Game.CONTRAIL_SMALL_BEACON;
-		}
-		
 		update function droidUnlocked(place:ICoordinated):void
 		{
 			this.save["activeDroids"]++;
@@ -42,18 +36,15 @@ package data.updaters
 		
 		update function numberedFrame(key:int):void
 		{
+			/*
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
-				if (this.save["goal"] == Game.GOAL_LIGHT_A_BEACON)
-					if (this.save["beacon" + String(this.save["level"])] != Game.CONTRAIL_NO_BEACON)
+				if (this.save["goal"] == Game.GOAL_LIGHT_A_BEACON) //стоит цель...
+					if (this.save["beacon" + String(this.save["level"])] != Game.CONTRAIL_NO_BEACON)//выполнен критерий...
 					{
-						this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_WON);
-						this.save["level"]++;
-						this.save["cloudiness"] += 2;
-						this.save["junks"] = 1;
-						
-						if (this.save["level"] > Game.LEVEL_CAP)
-							this.update::resetProgress();
+						//кабум
 					}
+					
+			*/
 		}
 		
 	}
