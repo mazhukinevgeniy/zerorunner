@@ -24,7 +24,7 @@ package game.items
 		
 		private var items:Items;
 		
-		/* Used to avoid creation. */
+		/* Used to avoid repeatable object creation. */
 		private var dcHelper:DCellXY;
 		
 		public function PuppetBase(master:MasterBase, elements:GameElements, cell:CellXY = null) 
@@ -39,12 +39,12 @@ package game.items
 			{
 				const width:int = Game.MAP_WIDTH;
 				
-				cell = new CellXY(Game.BORDER_WIDTH + Math.random() * width, 
-								  Game.BORDER_WIDTH + Math.random() * width);
+				cell = new CellXY(10 + Math.random() * (width - 20), 
+								  10 + Math.random() * (width - 20)); //TODO: get rid of this dirty hardcode
 				
-				while (this.items.findObjectByCell(cell.x, cell.y))
-					cell.setValue(Game.BORDER_WIDTH + Math.random() * width, 
-								  Game.BORDER_WIDTH + Math.random() * width);
+				while (this.items.findObjectByCell(cell.x, cell.y))//TODO: get rid of this dirty hardcode
+					cell.setValue(10 + Math.random() * (width - 20), 
+								  10 + Math.random() * (width - 20));
 			}
 			
 			this._x = cell.x;

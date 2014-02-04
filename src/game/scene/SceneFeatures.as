@@ -20,15 +20,13 @@ package game.scene
 		
 		update function prerestore(config:GameConfig):void
 		{
-			this.width = Game.MAP_WIDTH + 2 * Game.BORDER_WIDTH;
-			
-			const secondJGoal:int = this.width - Game.BORDER_WIDTH;
+			this.width = Game.MAP_WIDTH;
 			
 			var j:int, i:int;
 			
 			/**
 			 * Please note: this code strongly implies that Game.FALL === 0
-			 */
+			 *///TODO: check if it still does
 			this.scene.clear();
 			this.scene.length = this.width * this.width;
 			
@@ -36,8 +34,8 @@ package game.scene
 			/**
 			 * Spawning random landscape
 			 */
-			for (j = Game.BORDER_WIDTH; j < secondJGoal; j++)
-				for (i = Game.BORDER_WIDTH; i < secondJGoal; i++)
+			for (j = 0; j < this.width; j++)
+				for (i = 0; i < this.width; i++)
 				{
 					var rand:Number = Math.random();
 					if (rand < 0.48)
@@ -49,16 +47,10 @@ package game.scene
 			/**
 			 * Protecting spawn
 			 */
-			for (i = Game.BORDER_WIDTH; i < Game.BORDER_WIDTH + 4; i++)
-				for (j = this.width - (Game.BORDER_WIDTH + 4); j < secondJGoal; j++)
+			for (i = 10; i < 14; i++)
+				for (j = this.width - 14; j < this.width - 10; j++)
 					this.scene[i + j * this.width] = Game.SCENE_ROAD;
-			
-			/**
-			 * Protecting the end of the world
-			 */
-			for (i = this.width - (Game.BORDER_WIDTH + 4); i < secondJGoal; i++)
-				for (j = Game.BORDER_WIDTH; j < Game.BORDER_WIDTH + 4; j++) 
-					this.scene[i + j * this.width] = Game.SCENE_ROAD;
+			//TODO: get rid of this dirty hardcode
 		}
 		
 		public function getSceneCell(x:int, y:int):int

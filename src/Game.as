@@ -20,7 +20,7 @@ package
 		
 		public static const SCENE_FALL:int = 0;
 		public static const SCENE_ROAD:int = 1;
-		public static const SCENE_BASALT:int = 2;
+		public static const SCENE_BASALT:int = 2;//TODO: check: what basalt? there's no such thing i bet
 		public static const SCENE_LAVA:int = 3;
 		
 		/* What have you left types *///TODO: check if this comment makes sense
@@ -38,10 +38,10 @@ package
 		/* Frame types */
 		
 		public static const FRAME_TO_ACT:int = 0;
-		public static const FRAME_TO_CLEAR_BORDERS:int = 1;
+		public static const FRAME_UNUSED_FRAME_1:int = 1;
 		public static const FRAME_TO_UNLOCK_ACHIEVEMENTS:int = 2;
 		public static const FRAME_TO_REDRAW:int = 3;
-		public static const FRAME_UNUSED_FRAME_1:int = 4;
+		public static const FRAME_UNUSED_FRAME_2:int = 4;
 		
 		/* Occupations */
 		
@@ -59,8 +59,7 @@ package
 		
 		/* Constants */
 		
-		public static const MAP_WIDTH:int = 200;		
-		public static const BORDER_WIDTH:int = 10;
+		public static const MAP_WIDTH:int = 400;
 		
 		/* Time-related */
 		

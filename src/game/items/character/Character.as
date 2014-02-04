@@ -22,8 +22,8 @@ package game.items.character
 			this.flow = elements.flow;
 			
 			var cell:CellXY = new CellXY
-					(Game.BORDER_WIDTH, 
-					 Game.BORDER_WIDTH + Game.MAP_WIDTH - 1);
+					(10, 
+					 Game.MAP_WIDTH - 11);//TODO: get rid of this dirty hardcode
 			
 			super(master, elements, cell);
 		}

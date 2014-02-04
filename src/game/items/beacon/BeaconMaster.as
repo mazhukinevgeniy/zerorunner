@@ -20,8 +20,8 @@ package game.items.beacon
 		
 		update function prerestore(config:GameConfig):void
 		{
-			var cell:CellXY = new CellXY(Game.BORDER_WIDTH + Game.MAP_WIDTH - 1, 
-										 Game.BORDER_WIDTH);
+			var cell:CellXY = new CellXY(Game.MAP_WIDTH - 11, 
+										 10);//TODO: get rid of this dirty hardcode
 			
 			new Beacon(this, this.elements, cell);
 		}

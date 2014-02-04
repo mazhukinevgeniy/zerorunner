@@ -41,7 +41,7 @@ package game.items
 		
 		update function prerestore(config:GameConfig):void
 		{
-			this.width = Game.MAP_WIDTH + 2 * Game.BORDER_WIDTH;
+			this.width = Game.MAP_WIDTH;
 			this.items = new Array();
 		}
 		
@@ -89,37 +89,6 @@ package game.items
 					if (this.moved.indexOf(item) == -1)
 						item._master.actOn(item);
 				}
-			}
-			else if (key == Game.FRAME_TO_CLEAR_BORDERS)
-			{
-				const DWIDTH:int = Game.BORDER_WIDTH / 2;
-				
-				for (i = 0; i < this.width; i++)
-					for (j = 0; j < DWIDTH; j++)
-					{
-						item = this.findObjectByCell(i, j);
-						
-						if (item)
-							item.forceDestruction();
-						
-						item = this.findObjectByCell(i, this.width - (j + 1));
-						
-						if (item)
-							item.forceDestruction();
-					}
-				for (i = 0; i < DWIDTH; i++)
-					for (j = DWIDTH; j < this.width - DWIDTH; j++)
-					{
-						item = this.findObjectByCell(i, j);
-						
-						if (item)
-							item.forceDestruction();
-						
-						item = this.findObjectByCell(this.width - (i + 1), j);
-						
-						if (item)
-							item.forceDestruction();
-					}
 			}
 		}
 		
