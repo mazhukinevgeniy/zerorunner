@@ -1,5 +1,6 @@
 package game.renderer 
 {
+	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.Items;
@@ -13,11 +14,17 @@ package game.renderer
 	
 	internal class ItemRenderer extends QuadBatch
 	{
+		private const TOP:int = 0;
+		private const DOWN:int = 1;
+		private const LEFT:int = 2;
+		private const RIGHT:int = 3; /* Please note: this is the default direction */
+		
+		
 		private var points:IPointCollector;
 		private var items:Items;
 		
-		private var sprites:Vector.<Vector.<Vector.<Image>>>;
-		private var altsprites:Vector.<Vector.<Vector.<Image>>>;
+		private var sprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
+		private var altsprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
 		
 		public function ItemRenderer(elements:GameElements) 
 		{
@@ -40,11 +47,19 @@ package game.renderer
 			
 			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
 			
-			var spritelist:Vector.<Array> = new < Array > [
-					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, "hero_stand"),
-					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, "hero_side_0_0", "hero_side_0_1"),
-					new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, "tow1"),
-					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented")];
+			var spritelist:Vector.<Array> = new < Array > 
+					[
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.RIGHT, "hero_stand"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.TOP, "hero_stand"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.LEFT, "hero_stand"),//TODO: add other textures
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.DOWN, "hero_stand"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "hero_side_0_0", "hero_side_0_1"),//TODO: add other textures
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "hero_side_0_0", "hero_side_0_1"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.TOP, "hero_side_0_0", "hero_side_0_1"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.DOWN, "hero_side_0_0", "hero_side_0_1"),
+						new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, this.RIGHT, "tow1"),
+						new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented")
+					];
 			//TODO: enlist sprites here
 			
 			this.initializeImages(spritelist, this.sprites, atlas);
@@ -60,21 +75,26 @@ package game.renderer
 		
 		private function initializeVectors(title:String):void
 		{
-			this[title] = new Vector.<Vector.<Vector.<Image>>>(Game.NUMBER_OF_ITEM_TYPES, true);
+			this[title] = new Vector.<Vector.<Vector.<Vector.<Image>>>>(Game.NUMBER_OF_ITEM_TYPES, true);
 			
-			var i:int, j:int;
+			var i:int, j:int, k:int;
 			
 			for (i = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
 			{
-				this[title][i] = new Vector.<Vector.<Image>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
+				this[title][i] = new Vector.<Vector.<Vector.<Image>>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
 				
 				for (j = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
-					this[title][i][j] = new Vector.<Image>();
+				{
+					this[title][i][j] = new Vector.<Vector.<Image>>(4, true);
+					
+					for (k = 0; k < 4; k++)
+						this[title][i][j][k] = new Vector.<Image>();
+				}
 			}
 		}
 		
 		private function initializeImages(list:Vector.<Array>, 
-										  images:Vector.<Vector.<Vector.<Image>>>, 
+										  images:Vector.<Vector.<Vector.<Vector.<Image>>>>, 
 										  atlas:TextureAtlas):void
 		{
 			var length:int = list.length;
@@ -85,22 +105,25 @@ package game.renderer
 				var jLength:int = list[i].length;
 				var type:int = list[i][0];
 				var occupation:int = list[i][1];
+				var direction:int = list[i][2];
 				
-				for (j = 2; j < jLength; j++)
+				for (j = 3; j < jLength; j++)
 				{
 					var spritename:String = list[i][j];
 					
-					images[type][occupation].push(new Image(atlas.getTexture(spritename)));
+					images[type][occupation][direction].push(
+						new Image(atlas.getTexture(spritename)));
 				}
 			}
 		}
 		
-		private function removeEmptyAnimations(vector:Vector.<Vector.<Vector.<Image>>>):void
+		private function removeEmptyAnimations(vector:Vector.<Vector.<Vector.<Vector.<Image>>>>):void
 		{
 			for (var i:int = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
 				for (var j:int = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
-					if (vector[i][j].length == 0)
-						vector[i][j] = null;
+					for (var k:int = 0; k < 4; k++)
+						if (vector[i][j][k].length == 0)
+							vector[i][j][k] = null;
 		}
 		
 		
@@ -110,7 +133,7 @@ package game.renderer
 			
 			var center:ICoordinated = this.points.getCharacter();
 			
-			const tlcX:int = center.x - 13;
+			const tlcX:int = center.x - 13;//TODO: check if can reduce constants
 			const brcX:int = center.x + 14;
 			
 			const tlcY:int = center.y - 11;
@@ -153,25 +176,39 @@ package game.renderer
 		{
 			var type:int = item.type;
 			var occupation:int = item.occupation;
+			var direction:int = this.getDirection(item);
 			
-			var aLength:int = this.sprites[type][occupation].length;
+			var animationLength:int = this.sprites[type][occupation][direction].length;
+			var frame:int = int(item.getProgress(flashFrame) * animationLength);
 			
-			var frame:int = int(item.getProgress(flashFrame) * aLength);
+			var toReturn:Image = this.sprites[type][occupation][direction][frame];
 			
-			var toReturn:Image = this.sprites[type][occupation][frame];
-			
-			if (this.altsprites[type][occupation] && item.isLastFrame(flashFrame))
-				this.swapAnimations(type, occupation);
+			if (this.altsprites[type][occupation][direction] && item.isLastFrame(flashFrame))
+				this.swapAnimations(type, occupation, direction);
 			
 			return toReturn;
 		}
 		
-		private function swapAnimations(type:int, occupation:int):void
+		private function swapAnimations(type:int, occupation:int, direction:int):void
 		{
-			var tmp:Vector.<Image> = this.altsprites[type][occupation];
+			var tmp:Vector.<Image> = this.altsprites[type][occupation][direction];
 			
-			this.altsprites[type][occupation] = this.sprites[type][occupation];
-			this.sprites[type][occupation] = tmp;
+			this.altsprites[type][occupation][direction] = this.sprites[type][occupation][direction];
+			this.sprites[type][occupation][direction] = tmp;
+		}
+		
+		private function getDirection(item:PuppetBase):int
+		{
+			var change:DCellXY = item.moveInProgress;
+			
+			if (change.x < 0)
+				return this.LEFT;
+			else if (change.y > 0)
+				return this.DOWN;
+			else if (change.y < 0)
+				return this.TOP;
+			else 
+				return this.RIGHT;
 		}
 		
 		update function quitGame():void

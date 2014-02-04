@@ -69,7 +69,7 @@ package game.items
 					this._occupation = Game.OCCUPATION_FREE;
 					this.ticksOccupated = this.ticksUntilOccupationEnds = 0;
 					
-					this._moveInProgress.setValue(0, 0);
+					//this._moveInProgress.setValue(0, 0);//TODO: check if we're good without it
 				}
 			}
 			else if (this._occupation == Game.OCCUPATION_DYING)

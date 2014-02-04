@@ -6,7 +6,7 @@ package
 	 * Collection of global game-related constants, codes etc
 	 */
 	public class Game 
-	{
+	{		
 		/* Object types */
 		
 		public static const ITEM_CHARACTER:int = 0;
