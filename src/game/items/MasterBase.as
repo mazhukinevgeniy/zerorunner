@@ -36,12 +36,6 @@ package game.items
 			return false; //TODO: use or delete
 		}
 		
-		items_internal function tryShockOn(puppet:PuppetBase):Boolean
-		{
-			puppet.forceShocked();
-			
-			return true;
-		}
 	}
 
 }

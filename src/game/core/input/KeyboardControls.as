@@ -27,26 +27,32 @@ package game.core.input
 		
 		private function handleKeyDown(event:KeyboardEvent):void
 		{
+			const KEY:Boolean = true;
+			const PRESSED:Boolean = true;
+			
 			if (event.keyCode == Keyboard.UP)
-		        this.input.newInputPiece(true, true, this.UP);
+		        this.input.newInputPiece(KEY, PRESSED, this.UP);
             else if (event.keyCode == Keyboard.DOWN)
-		        this.input.newInputPiece(true, true, this.DOWN);
+		        this.input.newInputPiece(KEY, PRESSED, this.DOWN);
 			else if (event.keyCode == Keyboard.RIGHT)
-		        this.input.newInputPiece(true, true, this.RIGHT);
+		        this.input.newInputPiece(KEY, PRESSED, this.RIGHT);
 			else if (event.keyCode == Keyboard.LEFT)
-		        this.input.newInputPiece(true, true, this.LEFT);
+		        this.input.newInputPiece(KEY, PRESSED, this.LEFT);
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
+			const KEY:Boolean = true;
+			const PRESSED:Boolean = false;
+			
 			if (event.keyCode == Keyboard.UP)
-		        this.input.newInputPiece(true, false, this.UP);
+		        this.input.newInputPiece(KEY, PRESSED, this.UP);
             else if (event.keyCode == Keyboard.DOWN)
-		        this.input.newInputPiece(true, false, this.DOWN);
+		        this.input.newInputPiece(KEY, PRESSED, this.DOWN);
 			else if (event.keyCode == Keyboard.RIGHT)
-		        this.input.newInputPiece(true, false, this.RIGHT);
+		        this.input.newInputPiece(KEY, PRESSED, this.RIGHT);
 			else if (event.keyCode == Keyboard.LEFT)
-		        this.input.newInputPiece(true, false, this.LEFT);
+		        this.input.newInputPiece(KEY, PRESSED, this.LEFT);
 			
 			else if (event.keyCode == Keyboard.SPACE)
 				this.input.spacePressed();

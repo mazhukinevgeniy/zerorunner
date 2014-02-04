@@ -17,6 +17,9 @@ package game.items.character
 	{
 		private var flow:IUpdateDispatcher;
 		
+		
+		internal var isFlying:Boolean = false;
+		
 		public function Character(master:MasterBase, elements:GameElements) 
 		{
 			this.flow = elements.flow;

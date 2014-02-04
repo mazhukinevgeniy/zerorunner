@@ -78,14 +78,6 @@ package game.items
 				
 				this.onDied();
 			}
-			else if (this._occupation == Game.OCCUPATION_SHOCKING)
-			{
-				this._occupation = Game.OCCUPATION_FREE;
-			}
-			else if (this._occupation == Game.OCCUPATION_TAKING_SHOCK)
-			{
-				this._occupation = Game.OCCUPATION_FREE;
-			}
 		}
 		
 		
@@ -96,18 +88,6 @@ package game.items
 		final items_internal function forceDestruction():void
 		{
 			this._occupation = Game.OCCUPATION_DYING;
-		}
-		
-		final items_internal function forceShocking(target:ICoordinated = null):void
-		{
-			this._occupation = Game.OCCUPATION_SHOCKING;
-		}
-		
-		final items_internal function forceShocked():void
-		{
-			this._occupation = Game.OCCUPATION_TAKING_SHOCK;
-			
-			this.onShocked();
 		}
 		
 		
@@ -159,7 +139,6 @@ package game.items
 		
 		protected function onSpawned():void { }
 		protected function onMoved(change:DCellXY):void { }
-		protected function onShocked():void { }
 		protected function onDied():void { }
 		
 		/** Public getstate methods, used by renderer and others */

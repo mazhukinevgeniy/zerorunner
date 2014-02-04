@@ -47,13 +47,11 @@ package
 		
 		public static const OCCUPATION_FREE:int = 0;
 		public static const OCCUPATION_MOVING:int = 1; //TODO: check if can remove
-		public static const OCCUPATION_SHOCKING:int = 2;
-		public static const OCCUPATION_DYING:int = 3;
-		public static const OCCUPATION_MOVING_UP:int = 4;
-		public static const OCCUPATION_MOVING_DOWN:int = 5;
-		public static const OCCUPATION_MOVING_LEFT:int = 6;
-		public static const OCCUPATION_MOVING_RIGHT:int = 7;
-		public static const OCCUPATION_TAKING_SHOCK:int = 8;
+		public static const OCCUPATION_DYING:int = 2;
+		public static const OCCUPATION_MOVING_UP:int = 3;
+		public static const OCCUPATION_MOVING_DOWN:int = 4;
+		public static const OCCUPATION_MOVING_LEFT:int = 5;
+		public static const OCCUPATION_MOVING_RIGHT:int = 6;
 		
 		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 9;
 		

@@ -44,61 +44,46 @@ package game.items.character
 			{
 				if (this.input.isSpacePressed)
 				{
-					this.input.getInputCopy();
-					//TODO: that's too hacky, use other way
+					const isFlying:Boolean = (puppet as Character).isFlying;
 					
-					puppet.forceShocking();
+					//TODO: add fuel-related logic
+					(puppet as Character).isFlying = !isFlying;
 					
-					var tlcX:int = puppet.x - 1;
-					var tlcY:int = puppet.y - 1;
-					
-					for (var i:int = 0; i < 3; i++)
-						for (var j:int = 0; j < 3; j++)
-							if (i * j != 1)
-							{
-								var target:PuppetBase = this.items.findObjectByCell(tlcX + i, tlcY + j);
-								
-								if (target)
-									target.master.tryShockOn(target);
-							}
-					
-					//TODO: instantly work with the other masters
 				}
-				else
-				{				
-					var tmp:Vector.<DCellXY> = this.input.getInputCopy();
-					var action:DCellXY = tmp.pop();
-					
-					var x:int = puppet.x;
-					var y:int = puppet.y;
-					
-					while (action.x != 0 || action.y != 0)
+				
+				
+				var tmp:Vector.<DCellXY> = this.input.getInputCopy();
+				var action:DCellXY = tmp.pop();
+				
+				var x:int = puppet.x;
+				var y:int = puppet.y;
+				
+				while (action.x != 0 || action.y != 0)
+				{
+					if (!this.items.findObjectByCell(x + action.x, y + action.y))
 					{
-						if (!this.items.findObjectByCell(x + action.x, y + action.y))
+						var next:int = this.scene.getSceneCell(x + action.x, y + action.y);
+						
+						if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
 						{
-							var next:int = this.scene.getSceneCell(x + action.x, y + action.y);
+							puppet.forceMoveBy(action);
+							
+							break;
+						}
+						else if (!this.items.findObjectByCell(x + 2 * action.x, y + 2 * action.y))
+						{
+							next = this.scene.getSceneCell(x + 2 * action.x, y + 2 * action.y);
 							
 							if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
 							{
-								puppet.forceMoveBy(action);
+								puppet.forceJumpBy(action, 2);
 								
 								break;
 							}
-							else if (!this.items.findObjectByCell(x + 2 * action.x, y + 2 * action.y))
-							{
-								next = this.scene.getSceneCell(x + 2 * action.x, y + 2 * action.y);
-								
-								if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
-								{
-									puppet.forceJumpBy(action, 2);
-									
-									break;
-								}
-							}	
-						}
-						
-						action = tmp.pop();
+						}	
 					}
+					
+					action = tmp.pop();
 				}
 			}
 		}

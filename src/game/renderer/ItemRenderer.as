@@ -43,11 +43,8 @@ package game.renderer
 			var spritelist:Vector.<Array> = new < Array > [
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, "hero_stand"),
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, "hero_side_0_0", "hero_side_0_1"),
-					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_SHOCKING, "unimplemented"),
 					new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, "tow1"),
-					new Array(Game.ITEM_BEACON, Game.OCCUPATION_TAKING_SHOCK, "unimplemented"),
-					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented"),
-					new Array(Game.ITEM_JUNK, Game.OCCUPATION_TAKING_SHOCK, "unimplemented")];
+					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, "unimplemented", "unimplemented")];
 			//TODO: enlist sprites here
 			
 			this.initializeImages(spritelist, this.sprites, atlas);
