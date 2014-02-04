@@ -38,6 +38,9 @@ package game.core.input
 		        this.input.newInputPiece(KEY, PRESSED, this.RIGHT);
 			else if (event.keyCode == Keyboard.LEFT)
 		        this.input.newInputPiece(KEY, PRESSED, this.LEFT);
+			
+			else if (event.keyCode == Keyboard.SPACE)
+				this.input.spacePressed();
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void
@@ -53,9 +56,6 @@ package game.core.input
 		        this.input.newInputPiece(KEY, PRESSED, this.RIGHT);
 			else if (event.keyCode == Keyboard.LEFT)
 		        this.input.newInputPiece(KEY, PRESSED, this.LEFT);
-			
-			else if (event.keyCode == Keyboard.SPACE)
-				this.input.spacePressed();
 		}
 	}
 

@@ -42,13 +42,12 @@ package game.items.character
 		{
 			if (puppet.free)
 			{
+				const isFlying:Boolean = (puppet as Character).isFlying;
+				
 				if (this.input.isSpacePressed)
 				{
-					const isFlying:Boolean = (puppet as Character).isFlying;
-					
 					//TODO: add fuel-related logic
 					(puppet as Character).isFlying = !isFlying;
-					
 				}
 				
 				
@@ -64,23 +63,19 @@ package game.items.character
 					{
 						var next:int = this.scene.getSceneCell(x + action.x, y + action.y);
 						
-						if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
+						if (!isFlying)
 						{
-							puppet.forceMoveBy(action);
-							
-							break;
-						}
-						else if (!this.items.findObjectByCell(x + 2 * action.x, y + 2 * action.y))
-						{
-							next = this.scene.getSceneCell(x + 2 * action.x, y + 2 * action.y);
-							
 							if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
 							{
-								puppet.forceJumpBy(action, 2);
+								puppet.forceMoveBy(action);
 								
 								break;
 							}
-						}	
+						}
+						else
+						{
+							
+						}
 					}
 					
 					action = tmp.pop();
