@@ -31,11 +31,6 @@ package game.items
 			return true;
 		}
 		
-		items_internal function tryMoveOn(puppet:PuppetBase):Boolean
-		{
-			return false; //TODO: use or delete
-		}
-		
 	}
 
 }

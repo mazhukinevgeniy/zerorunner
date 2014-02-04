@@ -18,8 +18,6 @@ package game.items.character
 		private var flow:IUpdateDispatcher;
 		
 		
-		internal var isFlying:Boolean = false;
-		
 		public function Character(master:MasterBase, elements:GameElements) 
 		{
 			this.flow = elements.flow;
@@ -33,6 +31,11 @@ package game.items.character
 		
 		override protected function get movespeed():int { return 2; }
 		override public function get type():int { return Game.ITEM_CHARACTER; }
+		
+		override protected function get canFly():Boolean 
+		{ 
+			return true; //TODO: oil logic is nice to implement here
+		}
 		
 		override protected function onMoved(change:DCellXY):void 
 		{

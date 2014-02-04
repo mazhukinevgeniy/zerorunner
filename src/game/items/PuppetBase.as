@@ -61,6 +61,11 @@ package game.items
 			{
 				
 			}
+			else if (this._occupation == Game.OCCUPATION_FLOATING)
+			{
+				if (!this.canFly)
+					this._occupation = Game.OCCUPATION_FALLING;
+			}
 			else if (this._occupation == Game.OCCUPATION_MOVING)
 			{
 				this.ticksOccupated++;
@@ -68,8 +73,15 @@ package game.items
 				{
 					this._occupation = Game.OCCUPATION_FREE;
 					this.ticksOccupated = this.ticksUntilOccupationEnds = 0;
-					
-					//this._moveInProgress.setValue(0, 0);//TODO: check if we're good without it
+				}
+			}
+			else if (this._occupation == Game.OCCUPATION_FLYING)
+			{
+				this.ticksOccupated++;
+				if (this.ticksOccupated == this.ticksUntilOccupationEnds)
+				{
+					this._occupation = Game.OCCUPATION_FLOATING;
+					this.ticksOccupated = this.ticksUntilOccupationEnds = 0;
 				}
 			}
 			else if (this._occupation == Game.OCCUPATION_DYING)
@@ -78,12 +90,16 @@ package game.items
 				
 				this.onDied();
 			}
+			else if (this._occupation == Game.OCCUPATION_FALLING)
+			{
+				//TODO: take damage or something
+				
+				this._occupation = Game.OCCUPATION_FREE;
+			}
 		}
 		
 		
 		final items_internal function get master():MasterBase { return this._master; }
-		final items_internal function get free():Boolean { return this._occupation == Game.OCCUPATION_FREE; }
-		
 		
 		final items_internal function forceDestruction():void
 		{
@@ -93,13 +109,6 @@ package game.items
 		
 		
 		/** Position and movements */
-		
-		final items_internal function forceMoveTo(target:ICoordinated):void
-		{
-			this.dcHelper.setValue(target.x - this._x, target.y - this._y);
-			
-			this.forceMoveBy(this.dcHelper);
-		}
 		
 		final items_internal function forceMoveBy(change:DCellXY):void
 		{
@@ -119,6 +128,16 @@ package game.items
 			this.onMoved(change);
 		}
 		
+		final items_internal function forceFlyingBy(change:DCellXY):void
+		{
+			this.forceMoveBy(change);
+			//TODO: create standalone implementation, so there can be different speed or something
+			
+			this._occupation = Game.OCCUPATION_FLYING;
+		}
+		
+		
+		
 		final items_internal function forceJumpBy(change:DCellXY, length:int):void
 		{
 			this.dcHelper.setValue(change.x * length, change.y * length);
@@ -128,6 +147,23 @@ package game.items
 			//this.item.cooldown = this.MOVE_SPEED * 2 * multiplier;
 			//TODO: handle onMoved conflict (can't apply custom delay)
 			//TODO: think if jumps must be slower than walking
+			//TODO: delete if possible after all
+		}
+		
+		final items_internal function forceAirborne():void
+		{
+			if (this._occupation != Game.OCCUPATION_FREE)
+				throw new Error("conflict here, try to avoid the case (forceAirborne failed)");
+			
+			this._occupation = Game.OCCUPATION_FLOATING;
+		}
+		
+		final items_internal function forceStanding():void
+		{
+			if (this._occupation != Game.OCCUPATION_FLOATING)
+				throw new Error("conflict here, try to avoid the case (forceStanding failed)");
+			
+			this._occupation = Game.OCCUPATION_FREE;
 		}
 		
 		/** END OF Position and movements */
@@ -136,10 +172,12 @@ package game.items
 		/** Things to override */
 		
 		protected function get movespeed():int { return 1; }
+		protected function get canFly():Boolean { return false; }
 		
 		protected function onSpawned():void { }
 		protected function onMoved(change:DCellXY):void { }
 		protected function onDied():void { }
+		
 		
 		/** Public getstate methods, used by renderer and others */
 		

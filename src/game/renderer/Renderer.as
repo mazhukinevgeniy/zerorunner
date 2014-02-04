@@ -39,7 +39,8 @@ package game.renderer
 			this.x = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
             this.y = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
 			
-			if (this.character.occupation == Game.OCCUPATION_MOVING)
+			if (this.character.occupation == Game.OCCUPATION_MOVING ||
+				this.character.occupation == Game.OCCUPATION_FLYING)
 			{
 				var dX:int = this.character.moveInProgress.x;
 				var dY:int = this.character.moveInProgress.y;

@@ -161,7 +161,8 @@ package game.renderer
 						sprite.x = i * Game.CELL_WIDTH;
 						sprite.y = j * Game.CELL_HEIGHT;
 						
-						if (item.occupation == Game.OCCUPATION_MOVING)
+						if (item.occupation == Game.OCCUPATION_MOVING ||
+							item.occupation == Game.OCCUPATION_FLYING)
 						{
 							var dX:int = item.moveInProgress.x;
 							var dY:int = item.moveInProgress.y;

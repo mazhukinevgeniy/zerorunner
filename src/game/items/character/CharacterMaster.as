@@ -40,41 +40,68 @@ package game.items.character
 		
 		override protected function act(puppet:PuppetBase):void
 		{
-			if (puppet.free)
+			var isStanding:Boolean = (puppet.occupation == Game.OCCUPATION_FREE);
+			var isFlying:Boolean = (puppet.occupation == Game.OCCUPATION_FLOATING);
+			
+			if (this.input.isSpacePressed)
 			{
-				const isFlying:Boolean = (puppet as Character).isFlying;
-				
-				if (this.input.isSpacePressed)
+				if (isStanding)
 				{
-					//TODO: add fuel-related logic
-					(puppet as Character).isFlying = !isFlying;
+					puppet.forceAirborne();
+					
+					isStanding = false; 
+					isFlying = true;
 				}
-				
-				
-				var tmp:Vector.<DCellXY> = this.input.getInputCopy();
-				var action:DCellXY = tmp.pop();
-				
-				var x:int = puppet.x;
-				var y:int = puppet.y;
-				
+				else if (isFlying)
+				{
+					puppet.forceStanding();
+					
+					isStanding = true; 
+					isFlying = false;
+				}
+			}
+			
+			var tmp:Vector.<DCellXY> = this.input.getInputCopy();
+			var action:DCellXY = tmp.pop();
+			
+			var x:int = puppet.x;
+			var y:int = puppet.y;
+			
+			var next:int;
+			
+			
+			if (isStanding)
+			{
 				while (action.x != 0 || action.y != 0)
 				{
 					if (!this.items.findObjectByCell(x + action.x, y + action.y))
 					{
-						var next:int = this.scene.getSceneCell(x + action.x, y + action.y);
+						next = this.scene.getSceneCell(x + action.x, y + action.y);
 						
-						if (!isFlying)
+						if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
 						{
-							if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
-							{
-								puppet.forceMoveBy(action);
-								
-								break;
-							}
-						}
-						else
-						{
+							puppet.forceMoveBy(action);
 							
+							break;
+						}
+					}
+					
+					action = tmp.pop();
+				}
+			}
+			else if (isFlying)
+			{
+				while (action.x != 0 || action.y != 0)
+				{
+					if (!this.items.findObjectByCell(x + action.x, y + action.y))
+					{
+						next = this.scene.getSceneCell(x + action.x, y + action.y);
+						
+						if (next != Game.SCENE_LAVA)
+						{
+							puppet.forceFlyingBy(action);
+							
+							break;
 						}
 					}
 					
@@ -82,8 +109,6 @@ package game.items.character
 				}
 			}
 		}
-		
-		//TODO: finalize as much as possible
 	}
 
 }

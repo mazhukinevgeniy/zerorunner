@@ -49,9 +49,10 @@ package
 		public static const OCCUPATION_MOVING:int = 1;
 		public static const OCCUPATION_FLOATING:int = 2;
 		public static const OCCUPATION_FLYING:int = 3;
-		public static const OCCUPATION_DYING:int = 4;
+		public static const OCCUPATION_FALLING:int = 4;
+		public static const OCCUPATION_DYING:int = 5;
 		
-		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 5;
+		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 6;
 		
 		/* Constants */
 		
