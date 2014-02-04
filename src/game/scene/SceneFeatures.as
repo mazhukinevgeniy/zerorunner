@@ -55,6 +55,12 @@ package game.scene
 		
 		public function getSceneCell(x:int, y:int):int
 		{
+			x = (x + this.width) % this.width;
+			y = (y + this.width) % this.width;
+			
+			if (x < 0 || y < 0)
+				trace("huh");
+			
 			return this.scene[x + y * this.width];
 		}
 	}

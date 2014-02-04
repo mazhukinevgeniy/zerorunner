@@ -70,9 +70,9 @@ package game.hud
 				for (var i:int = this.center.x - 7; i < iGoal; i++)
 					for (var j:int = this.center.y - 5; j < jGoal; j++)
 					{
-						if (this.visited[i + this.width * j] == this.NOT_VISITED)
+						if (this.visited[(i + this.width) % this.width + this.width * (j + this.width) % this.width] == this.NOT_VISITED)
 						{
-							this.visited[i + this.width * j] = this.VISITED;
+							this.visited[(i + this.width) % this.width + this.width * (j + this.width) % this.width] = this.VISITED;
 							
 							if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 							{

@@ -124,8 +124,8 @@ package game.items
 			this.items.removeItem(this);
 			this._previousPosition.setValue(this._x, this._y);
 			
-			this._x += change.x;
-			this._y += change.y;
+			this._x = (change.x + this._x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			this._y = (change.y + this._y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
 			
 			this.items.addItem(this);
 			
