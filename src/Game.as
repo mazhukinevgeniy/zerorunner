@@ -59,7 +59,7 @@ package
 		
 		/* Constants */
 		
-		public static const MAP_WIDTH:int = 30;
+		public static const MAP_WIDTH:int = 400;
 		
 		/* Time-related */
 		
