@@ -46,14 +46,12 @@ package
 		/* Occupations */
 		
 		public static const OCCUPATION_FREE:int = 0;
-		public static const OCCUPATION_MOVING:int = 1; //TODO: check if can remove
-		public static const OCCUPATION_DYING:int = 2;
-		public static const OCCUPATION_MOVING_UP:int = 3;
-		public static const OCCUPATION_MOVING_DOWN:int = 4;
-		public static const OCCUPATION_MOVING_LEFT:int = 5;
-		public static const OCCUPATION_MOVING_RIGHT:int = 6;
+		public static const OCCUPATION_MOVING:int = 1;
+		public static const OCCUPATION_FLOATING:int = 2;
+		public static const OCCUPATION_FLYING:int = 3;
+		public static const OCCUPATION_DYING:int = 4;
 		
-		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 9;
+		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 5;
 		
 		/* Constants */
 		
