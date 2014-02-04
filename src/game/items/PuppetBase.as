@@ -20,7 +20,7 @@ package game.items
 		private var ticksOccupated:int;
 		private var ticksUntilOccupationEnds:int;
 		
-		private var _previousPosition:CellXY;
+		private var _moveInProgress:DCellXY;
 		
 		private var items:Items;
 		
@@ -33,7 +33,7 @@ package game.items
 			this.items = elements.items;
 			
 			this.dcHelper = new DCellXY(0, 0);
-			this._previousPosition = new CellXY(0, 0);
+			this._moveInProgress = new DCellXY(0, 0);
 			
 			if (cell == null)
 			{
@@ -68,6 +68,8 @@ package game.items
 				{
 					this._occupation = Game.OCCUPATION_FREE;
 					this.ticksOccupated = this.ticksUntilOccupationEnds = 0;
+					
+					this._moveInProgress.setValue(0, 0);
 				}
 			}
 			else if (this._occupation == Game.OCCUPATION_DYING)
@@ -122,7 +124,7 @@ package game.items
 		final items_internal function forceMoveBy(change:DCellXY):void
 		{
 			this.items.removeItem(this);
-			this._previousPosition.setValue(this._x, this._y);
+			this._moveInProgress.setValue(change.x, change.y);
 			
 			this._x = (change.x + this._x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
 			this._y = (change.y + this._y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
@@ -166,7 +168,6 @@ package game.items
 		final public function get y():int { return this._y; }
 		
 		final public function get occupation():int { return this._occupation; }
-		final public function get previousPosition():ICoordinated { return this._previousPosition; }
 		
 		public function get type():int { throw new Error(); }
 		
@@ -174,8 +175,12 @@ package game.items
 		{
 			return Number(Number(this.ticksOccupated + Number(frame / Game.FRAMES_PER_CYCLE)) / this.ticksUntilOccupationEnds);
 		}
+		final public function get moveInProgress():DCellXY { return this._moveInProgress; }
+		
+		
+		
 		final public function isLastFrame(flashFrame:int):Boolean
-		{
+		{//TODO: check if it should be here
 			return (this.ticksOccupated + 1 == this.ticksUntilOccupationEnds) && (flashFrame == Game.FRAMES_PER_CYCLE - 1);
 		}
 	}

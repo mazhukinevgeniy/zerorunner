@@ -1,6 +1,7 @@
 package game.renderer 
 {
 	import data.viewers.GameConfig;
+	import game.core.metric.CellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.points.IPointCollector;
@@ -25,6 +26,8 @@ package game.renderer
 		
 		private var points:IPointCollector;
 		private var scene:IScene;
+		
+		private var previousCenter:CellXY;
 		
 		public function SceneRenderer(elements:GameElements) 
 		{
@@ -51,19 +54,28 @@ package game.renderer
 					 "lava_S", "lava_W", "lava_E", "lava_N",
 					 "lava_NE", "lava_NW", "lava_SE", "lava_SW"])
 				this[key] = new Image(atlas.getTexture(key));
+			
+			
+			this.previousCenter = new CellXY(0, 0);
 		}
 		
 		update function prerestore(config:GameConfig):void
 		{
 			this.xM = 1 + Math.random() * 5;
 			this.yM = 1 + Math.random() * 5;
+			
+			this.previousCenter.setValue(0, 0);
 		}
 		
 		update function numberedFrame(key:int):void
 		{
-			if (key == Game.FRAME_TO_REDRAW)
+			var center:ICoordinated = this.points.getCharacter();
+			
+			if (!this.previousCenter.isEqualTo(center))
 			{
-				this.redraw();
+				this.redraw(center);
+				
+				this.previousCenter.setValue(center.x, center.y);
 			}
 		}
 		
@@ -72,11 +84,9 @@ package game.renderer
 			this.reset();
 		}
 		
-		private function redraw():void
+		private function redraw(center:ICoordinated):void
 		{
-			this.reset(); 
-			
-			var center:ICoordinated = this.points.getCharacter();
+			this.reset();
 			
 			const tlcX:int = center.x - 10;
 			const tlcY:int = center.y - 8;
@@ -179,7 +189,14 @@ package game.renderer
 							
 							this.addImage(sprite);
 							
-							number = uint((i * this.xM * 999999000001) | (j * this.yM * 87178291199));
+							number = 
+								uint(
+									 (((i + Game.MAP_WIDTH) % Game.MAP_WIDTH) 
+									 * this.xM * 999999000001) 
+									|
+									 (((j + Game.MAP_WIDTH) % Game.MAP_WIDTH) 
+									 * this.yM * 87178291199)
+									);
 							
 							if (number % 13 < 3)
 							{

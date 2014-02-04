@@ -18,7 +18,6 @@ package game.items
 		private var points:IPointCollector;
 		
 		private var items:Array;
-		private var width:int;
 		
 		private var moved:Vector.<PuppetBase>;
 		
@@ -41,7 +40,6 @@ package game.items
 		
 		update function prerestore(config:GameConfig):void
 		{
-			this.width = Game.MAP_WIDTH;
 			this.items = new Array();
 		}
 		
@@ -101,22 +99,25 @@ package game.items
 		
 		internal function addItem(item:PuppetBase):void
 		{
-			if (this.items[item.x + item.y * this.width])
+			if (this.items[item.x + item.y * Game.MAP_WIDTH])
 				throw new Error();
-			this.items[item.x + item.y * this.width] = item;
+			this.items[item.x + item.y * Game.MAP_WIDTH] = item;
 		}
 		
 		
 		internal function removeItem(item:PuppetBase):void
 		{
-			delete this.items[item.x + item.y * this.width];
+			delete this.items[item.x + item.y * Game.MAP_WIDTH];
 		}
 		
 		
 		
 		public function findObjectByCell(x:int, y:int):PuppetBase
 		{
-			return this.items[x + y * this.width];
+			x = (x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			y = (y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			
+			return this.items[x + y * Game.MAP_WIDTH];
 		}
 	}
 

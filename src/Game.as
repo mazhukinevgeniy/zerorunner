@@ -38,9 +38,9 @@ package
 		/* Frame types */
 		
 		public static const FRAME_TO_ACT:int = 0;
-		public static const FRAME_UNUSED_FRAME_1:int = 1;
-		public static const FRAME_TO_UNLOCK_ACHIEVEMENTS:int = 2;
-		public static const FRAME_TO_REDRAW:int = 3;
+		public static const FRAME_TO_UNLOCK_ACHIEVEMENTS:int = 1;
+		public static const FRAME_UNUSED_FRAME_0:int = 2;
+		public static const FRAME_UNUSED_FRAME_1:int = 3;
 		public static const FRAME_UNUSED_FRAME_2:int = 4;
 		
 		/* Occupations */

@@ -8,7 +8,6 @@ package game.scene
 	public class SceneFeatures implements IScene
 	{
 		private var scene:ByteArray;
-		private var width:int;
 		
 		public function SceneFeatures(flow:IUpdateDispatcher) 
 		{
@@ -20,48 +19,43 @@ package game.scene
 		
 		update function prerestore(config:GameConfig):void
 		{
-			this.width = Game.MAP_WIDTH;
-			
 			var j:int, i:int;
 			
 			/**
 			 * Please note: this code strongly implies that Game.FALL === 0
 			 *///TODO: check if it still does
 			this.scene.clear();
-			this.scene.length = this.width * this.width;
+			this.scene.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
 			
 			
 			/**
 			 * Spawning random landscape
 			 */
-			for (j = 0; j < this.width; j++)
-				for (i = 0; i < this.width; i++)
+			for (j = 0; j < Game.MAP_WIDTH; j++)
+				for (i = 0; i < Game.MAP_WIDTH; i++)
 				{
 					var rand:Number = Math.random();
 					if (rand < 0.48)
-						this.scene[i + j * this.width] = Game.SCENE_ROAD;
+						this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_ROAD;
 					else if (rand < 0.6)
-						this.scene[i + j * this.width] = Game.SCENE_LAVA;
+						this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_LAVA;
 				}
 			
 			/**
 			 * Protecting spawn
 			 */
 			for (i = 10; i < 14; i++)
-				for (j = this.width - 14; j < this.width - 10; j++)
-					this.scene[i + j * this.width] = Game.SCENE_ROAD;
+				for (j = Game.MAP_WIDTH - 14; j < Game.MAP_WIDTH - 10; j++)
+					this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_ROAD;
 			//TODO: get rid of this dirty hardcode
 		}
 		
 		public function getSceneCell(x:int, y:int):int
 		{
-			x = (x + this.width) % this.width;
-			y = (y + this.width) % this.width;
+			x = (x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			y = (y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
 			
-			if (x < 0 || y < 0)
-				trace("huh");
-			
-			return this.scene[x + y * this.width];
+			return this.scene[x + y * Game.MAP_WIDTH];
 		}
 	}
 

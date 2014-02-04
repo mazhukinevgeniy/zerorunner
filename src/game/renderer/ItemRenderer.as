@@ -135,8 +135,8 @@ package game.renderer
 						
 						if (item.occupation == Game.OCCUPATION_MOVING)
 						{
-							var dX:int = item.x - item.previousPosition.x;
-							var dY:int = item.y - item.previousPosition.y;
+							var dX:int = item.moveInProgress.x;
+							var dY:int = item.moveInProgress.y;
 							
 							var progress:Number = 1 - item.getProgress(frame);
 							

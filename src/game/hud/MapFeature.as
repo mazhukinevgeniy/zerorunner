@@ -17,7 +17,6 @@ package game.hud
 		private const VISITED:int = 1;
 		
 		private var visited:ByteArray;
-		private var width:int;
 		
 		private var scene:IScene;
 		private var center:ICoordinated;
@@ -44,10 +43,8 @@ package game.hud
 		}
 		
 		update function prerestore(config:GameConfig):void
-		{
-			this.width = Game.MAP_WIDTH + 2;
-			
-			var length:int = this.visited.length = this.width * this.width;
+		{			
+			var length:int = this.visited.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
 			
 			for (var i:int = 0; i < length; i++)
 				this.visited[i] = this.NOT_VISITED;
@@ -70,14 +67,14 @@ package game.hud
 				for (var i:int = this.center.x - 7; i < iGoal; i++)
 					for (var j:int = this.center.y - 5; j < jGoal; j++)
 					{
-						if (this.visited[(i + this.width) % this.width + this.width * (j + this.width) % this.width] == this.NOT_VISITED)
+						if (this.visited[(i + Game.MAP_WIDTH) % Game.MAP_WIDTH + Game.MAP_WIDTH * (j + Game.MAP_WIDTH) % Game.MAP_WIDTH] == this.NOT_VISITED)
 						{
-							this.visited[(i + this.width) % this.width + this.width * (j + this.width) % this.width] = this.VISITED;
+							this.visited[(i + Game.MAP_WIDTH) % Game.MAP_WIDTH + Game.MAP_WIDTH * (j + Game.MAP_WIDTH) % Game.MAP_WIDTH] = this.VISITED;
 							
 							if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 							{
-								this.road.x = i;
-								this.road.y = j;
+								this.road.x = (i + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+								this.road.y = (j + Game.MAP_WIDTH) % Game.MAP_WIDTH;
 								
 								this.container.addQuad(this.road);
 							}

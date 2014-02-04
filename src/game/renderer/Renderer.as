@@ -41,8 +41,8 @@ package game.renderer
 			
 			if (this.character.occupation == Game.OCCUPATION_MOVING)
 			{
-				var dX:int = this.character.x - this.character.previousPosition.x;
-				var dY:int = this.character.y - this.character.previousPosition.y;
+				var dX:int = this.character.moveInProgress.x;
+				var dY:int = this.character.moveInProgress.y;
 				
 				var progress:Number = 1 - this.character.getProgress(frame);
 				
