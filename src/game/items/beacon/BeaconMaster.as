@@ -3,6 +3,7 @@ package game.items.beacon
 	import data.viewers.GameConfig;
 	import game.core.metric.CellXY;
 	import game.GameElements;
+	import game.items.Items;
 	import game.items.MasterBase;
 	import utils.updates.update;
 	
@@ -20,10 +21,17 @@ package game.items.beacon
 		
 		update function prerestore(config:GameConfig):void
 		{
-			var cell:CellXY = new CellXY(Game.MAP_WIDTH - 11, 
-										 10);//TODO: get rid of this dirty hardcode
+			var cell:CellXY = new CellXY(0, 0);
+			var items:Items = this.elements.items;
 			
-			new Beacon(this, this.elements, cell);
+			for (var i:int = 0; i < Game.MAP_WIDTH; i++)
+				for (var j:int = 0; j < Game.MAP_WIDTH; j++)
+					if (Math.random() < 0.1 && !items.findObjectByCell(i, j))
+					{
+						cell.setValue(i, j);
+						
+						new Beacon(this, this.elements, cell);
+					}
 		}
 	}
 
