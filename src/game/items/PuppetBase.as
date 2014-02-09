@@ -68,7 +68,7 @@ package game.items
 			else if (this._occupation == Game.OCCUPATION_FLOATING)
 			{
 				if (!this.canFly)
-					this._occupation = Game.OCCUPATION_FALLING;
+					this._occupation = Game.OCCUPATION_FREE;
 			}
 			else if (this._occupation == Game.OCCUPATION_MOVING)
 			{
@@ -93,12 +93,6 @@ package game.items
 				this.items.removeItem(this);
 				
 				this.onDied();
-			}
-			else if (this._occupation == Game.OCCUPATION_FALLING)
-			{
-				//TODO: take damage or something
-				
-				this._occupation = Game.OCCUPATION_FREE;
 			}
 		}
 		
