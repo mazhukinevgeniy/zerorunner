@@ -4,6 +4,7 @@ package game.items.character
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
+	import game.fuel.IFuel;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.MasterBase;
@@ -16,11 +17,13 @@ package game.items.character
 	internal class Character extends PuppetBase
 	{
 		private var flow:IUpdateDispatcher;
+		private var fuel:IFuel;
 		
 		
 		public function Character(master:MasterBase, elements:GameElements) 
 		{
 			this.flow = elements.flow;
+			this.fuel = elements.fuel;
 			
 			var cell:CellXY = new CellXY
 					(10, 
@@ -35,7 +38,7 @@ package game.items.character
 		
 		override protected function get canFly():Boolean 
 		{ 
-			return true; //TODO: oil logic is nice to implement here
+			return this.fuel.getAmountOfFuel() > 0;
 		}
 		
 		override protected function onMoved(change:DCellXY):void 

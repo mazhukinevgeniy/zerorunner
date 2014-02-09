@@ -31,9 +31,9 @@ package game.items.character
 		
 		update function prerestore(config:GameConfig):void
 		{
-			this.input = elements.input;
-			this.scene = elements.scene;
-			this.items = elements.items;
+			this.input = this.elements.input;
+			this.scene = this.elements.scene;
+			this.items = this.elements.items;
 			
 			new Character(this, this.elements);
 		}
