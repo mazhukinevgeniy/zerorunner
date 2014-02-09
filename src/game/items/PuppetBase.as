@@ -1,5 +1,6 @@
 package game.items 
 {
+	import feathers.controls.popups.VerticalCenteredPopUpContentManager;
 	import game.core.metric.CellXY;
 	import game.core.metric.DCellXY;
 	import game.core.metric.ICoordinated;
@@ -39,18 +40,21 @@ package game.items
 			{
 				const width:int = Game.MAP_WIDTH;
 				
-				cell = new CellXY(10 + Math.random() * (width - 20), 
-								  10 + Math.random() * (width - 20)); //TODO: get rid of this dirty hardcode
+				cell = new CellXY(Math.random() * width, 
+								  Math.random() * width);
 				
-				while (this.items.findObjectByCell(cell.x, cell.y))//TODO: get rid of this dirty hardcode
-					cell.setValue(10 + Math.random() * (width - 20), 
-								  10 + Math.random() * (width - 20));
+				while (this.items.findAnyObjectByCell(cell.x, cell.y))
+					cell.setValue(Math.random() * width, 
+								  Math.random() * width);
 			}
 			
 			this._x = cell.x;
 			this._y = cell.y;
 			
-			this.items.addItem(this);
+			if (this.isPassive)
+				this.items.addPassiveItem(this);
+			else
+				this.items.addActiveItem(this);
 			
 			this.onSpawned();
 		}
@@ -118,7 +122,7 @@ package game.items
 			this._x = (change.x + this._x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
 			this._y = (change.y + this._y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
 			
-			this.items.addItem(this);
+			this.items.addActiveItem(this);
 			
 			
 			this._occupation = Game.OCCUPATION_MOVING;
@@ -173,6 +177,7 @@ package game.items
 		
 		protected function get movespeed():int { return 1; }
 		protected function get canFly():Boolean { return false; }
+		protected function get isPassive():Boolean { return false; }
 		
 		protected function onSpawned():void { }
 		protected function onMoved(change:DCellXY):void { }

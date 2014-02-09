@@ -26,7 +26,7 @@ package game.items.beacon
 			
 			for (var i:int = 0; i < Game.MAP_WIDTH; i++)
 				for (var j:int = 0; j < Game.MAP_WIDTH; j++)
-					if (Math.random() < 0.1 && !items.findObjectByCell(i, j))
+					if (Math.random() < 0.1 && !items.findAnyObjectByCell(i, j))
 					{
 						cell.setValue(i, j);
 						

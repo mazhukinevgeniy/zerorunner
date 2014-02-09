@@ -16,6 +16,7 @@ package game.items.beacon
 		
 		override public function get type():int { return Game.ITEM_BEACON; }
 		
+		override protected function get isPassive():Boolean { return true; }
 	}
 
 }

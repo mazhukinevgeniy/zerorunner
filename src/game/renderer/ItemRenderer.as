@@ -152,7 +152,7 @@ package game.renderer
 			for (var j:int = tlcY; j < brcY; j++)
 				for (var i:int = tlcX; i < brcX; i++)
 				{
-					var item:PuppetBase = this.items.findObjectByCell(i, j);
+					var item:PuppetBase = this.items.findAnyObjectByCell(i, j);
 					
 					if (item)
 					{

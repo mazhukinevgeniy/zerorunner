@@ -17,7 +17,8 @@ package game.items
 	{
 		private var points:IPointCollector;
 		
-		private var items:Array;
+		private var activeItems:Array;
+		private var passiveItems:Array;
 		
 		private var moved:Vector.<PuppetBase>;
 		
@@ -40,7 +41,8 @@ package game.items
 		
 		update function prerestore(config:GameConfig):void
 		{
-			this.items = new Array();
+			this.activeItems = new Array();
+			this.passiveItems = new Array();
 		}
 		
 		update function numberedFrame(key:int):void
@@ -50,7 +52,7 @@ package game.items
 			
 			if (key == Game.FRAME_TO_ACT)
 			{
-				for each (var pup:PuppetBase in this.items)
+				for each (var pup:PuppetBase in this.activeItems)
 					pup.tickPassed(); //TODO: check if troublesome
 				
 				var center:ICoordinated = this.points.getCharacter();
@@ -67,7 +69,7 @@ package game.items
 				{				
 					for (i = tlcX; i < brcX; i++)
 					{
-						item = this.findObjectByCell(i, j);
+						item = this.findActiveObjectByCell(i, j);
 						
 						if (item && this.moved.indexOf(item) == -1)
 						{
@@ -92,32 +94,75 @@ package game.items
 		
 		update function quitGame():void
 		{
-			this.items = null;
+			this.activeItems = null;
+			this.passiveItems = null;
 		}
 		
 		
 		
-		internal function addItem(item:PuppetBase):void
+		internal function addActiveItem(item:PuppetBase):void
 		{
-			if (this.items[item.x + item.y * Game.MAP_WIDTH])
+			if (this.activeItems[item.x + item.y * Game.MAP_WIDTH] ||
+				this.passiveItems[item.x + item.y * Game.MAP_WIDTH])
 				throw new Error();
-			this.items[item.x + item.y * Game.MAP_WIDTH] = item;
+			this.activeItems[item.x + item.y * Game.MAP_WIDTH] = item;
 		}
 		
+		internal function addPassiveItem(item:PuppetBase):void
+		{
+			if (this.activeItems[item.x + item.y * Game.MAP_WIDTH] ||
+				this.passiveItems[item.x + item.y * Game.MAP_WIDTH])
+				throw new Error();
+			this.passiveItems[item.x + item.y * Game.MAP_WIDTH] = item;
+		}
+		
+		internal function activateItem(item:PuppetBase):void
+		{
+			if (this.activeItems[item.x + item.y * Game.MAP_WIDTH] ||
+				!this.passiveItems[item.x + item.y * Game.MAP_WIDTH])
+				throw new Error();
+			
+			this.passiveItems[item.x + item.y * Game.MAP_WIDTH] = null;
+			this.activeItems[item.x + item.y * Game.MAP_WIDTH] = item;
+		}
+		
+		internal function deactivateItem(item:PuppetBase):void
+		{
+			if (!this.activeItems[item.x + item.y * Game.MAP_WIDTH] ||
+				this.passiveItems[item.x + item.y * Game.MAP_WIDTH])
+				throw new Error();
+			
+			this.passiveItems[item.x + item.y * Game.MAP_WIDTH] = item;
+			this.activeItems[item.x + item.y * Game.MAP_WIDTH] = null;
+		}
 		
 		internal function removeItem(item:PuppetBase):void
 		{
-			delete this.items[item.x + item.y * Game.MAP_WIDTH];
+			delete this.passiveItems[item.x + item.y * Game.MAP_WIDTH];
+			delete this.activeItems[item.x + item.y * Game.MAP_WIDTH];
 		}
 		
 		
 		
-		public function findObjectByCell(x:int, y:int):PuppetBase
+		public function findAnyObjectByCell(x:int, y:int):PuppetBase
 		{
 			x = (x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
 			y = (y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
 			
-			return this.items[x + y * Game.MAP_WIDTH];
+			var item:PuppetBase = this.activeItems[x + y * Game.MAP_WIDTH];
+			
+			if (item == null)
+				item = this.passiveItems[x + y * Game.MAP_WIDTH];
+			
+			return item;
+		}
+		
+		public function findActiveObjectByCell(x:int, y:int):PuppetBase
+		{
+			x = (x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			y = (y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			
+			return this.activeItems[x + y * Game.MAP_WIDTH];
 		}
 	}
 
