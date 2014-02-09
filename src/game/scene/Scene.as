@@ -5,11 +5,11 @@ package game.scene
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class SceneFeatures implements IScene
+	public class Scene implements IScene
 	{
 		private var scene:ByteArray;
 		
-		public function SceneFeatures(flow:IUpdateDispatcher) 
+		public function Scene(flow:IUpdateDispatcher) 
 		{
 			this.scene = new ByteArray();
 			

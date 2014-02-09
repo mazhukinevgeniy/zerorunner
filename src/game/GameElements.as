@@ -9,7 +9,7 @@ package game
 	import game.points.PointsOfInterest;
 	import game.renderer.Renderer;
 	import game.scene.IScene;
-	import game.scene.SceneFeatures;
+	import game.scene.Scene;
 	import starling.animation.Juggler;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -42,7 +42,7 @@ package game
 			this._points = new PointsOfInterest(this._flow);
 			this._juggler = new Juggler();
 			this._input = new InputManager(this._flow);
-			this._scene = new SceneFeatures(this._flow);
+			this._scene = new Scene(this._flow);
 			this._items = new Items(this);
 			
 			new Renderer(this);
