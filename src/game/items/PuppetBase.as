@@ -134,10 +134,20 @@ package game.items
 		
 		final items_internal function forceFlyingBy(change:DCellXY):void
 		{
-			this.forceMoveBy(change);
-			//TODO: create standalone implementation, so there can be different speed or something
+			this.items.removeItem(this);
+			this._moveInProgress.setValue(change.x, change.y);
+			
+			this._x = (change.x + this._x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			this._y = (change.y + this._y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			
+			this.items.addActiveItem(this);
+			
 			
 			this._occupation = Game.OCCUPATION_FLYING;
+			this.ticksUntilOccupationEnds = this.flyingSpeed;
+			this.ticksOccupated = 0;
+			
+			this.onMoved(change);
 		}
 		
 		
@@ -175,7 +185,8 @@ package game.items
 		
 		/** Things to override */
 		
-		protected function get movespeed():int { return 1; }
+		protected function get movespeed():int { return 2; }
+		protected function get flyingSpeed():int { return 1; }
 		protected function get canFly():Boolean { return false; }
 		protected function get isPassive():Boolean { return false; }
 		

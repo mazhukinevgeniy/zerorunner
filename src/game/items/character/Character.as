@@ -30,6 +30,7 @@ package game.items.character
 		}
 		
 		override protected function get movespeed():int { return 2; }
+		override protected function get flyingSpeed():int { return 1; }
 		override public function get type():int { return Game.ITEM_CHARACTER; }
 		
 		override protected function get canFly():Boolean 
