@@ -49,7 +49,12 @@ package game.fuel
 				var occ:int = this.character.occupation;
 				
 				if (occ == Game.OCCUPATION_FLOATING || occ == Game.OCCUPATION_FLYING)
+				{
 					this.amountOfFuel -= this.BASE_WASTE;
+					
+					if (this.amountOfFuel < 0)
+						this.amountOfFuel = 0;
+				}
 				else if (this.amountOfFuel < this.MAX_CAPACITY)
 				{
 					this.amountOfFuel += this.BASE_REGENERATION;
