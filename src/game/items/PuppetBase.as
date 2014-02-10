@@ -108,7 +108,7 @@ package game.items
 		
 		/** Position and movements */
 		
-		final items_internal function forceMoveBy(change:DCellXY):void
+		final items_internal function startMovingBy(change:DCellXY):void
 		{
 			this.items.removeItem(this);
 			this._moveInProgress.setValue(change.x, change.y);
@@ -126,7 +126,7 @@ package game.items
 			this.onMoved(change);
 		}
 		
-		final items_internal function forceFlyingBy(change:DCellXY):void
+		final items_internal function startFlyingBy(change:DCellXY):void
 		{
 			if (this.canFly)
 			{
@@ -148,18 +148,6 @@ package game.items
 		}
 		
 		
-		
-		final items_internal function forceJumpBy(change:DCellXY, length:int):void
-		{
-			this.dcHelper.setValue(change.x * length, change.y * length);
-			
-			this.forceMoveBy(this.dcHelper);
-			
-			//this.item.cooldown = this.MOVE_SPEED * 2 * multiplier;
-			//TODO: handle onMoved conflict (can't apply custom delay)
-			//TODO: think if jumps must be slower than walking
-			//TODO: delete if possible after all
-		}
 		
 		final items_internal function forceAirborne():void
 		{

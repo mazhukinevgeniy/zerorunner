@@ -80,7 +80,7 @@ package game.items.character
 						
 						if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
 						{
-							puppet.forceMoveBy(action);
+							puppet.startMovingBy(action);
 							
 							break;
 						}
@@ -99,7 +99,7 @@ package game.items.character
 						
 						if (next != Game.SCENE_LAVA)
 						{
-							puppet.forceFlyingBy(action);
+							puppet.startFlyingBy(action);
 							
 							break;
 						}
