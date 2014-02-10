@@ -128,20 +128,23 @@ package game.items
 		
 		final items_internal function forceFlyingBy(change:DCellXY):void
 		{
-			this.items.removeItem(this);
-			this._moveInProgress.setValue(change.x, change.y);
-			
-			this._x = (change.x + this._x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-			this._y = (change.y + this._y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-			
-			this.items.addActiveItem(this);
-			
-			
-			this._occupation = Game.OCCUPATION_FLYING;
-			this.ticksUntilOccupationEnds = this.flyingSpeed;
-			this.ticksOccupated = 0;
-			
-			this.onMoved(change);
+			if (this.canFly)
+			{
+				this.items.removeItem(this);
+				this._moveInProgress.setValue(change.x, change.y);
+				
+				this._x = (change.x + this._x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+				this._y = (change.y + this._y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+				
+				this.items.addActiveItem(this);
+				
+				
+				this._occupation = Game.OCCUPATION_FLYING;
+				this.ticksUntilOccupationEnds = this.flyingSpeed;
+				this.ticksOccupated = 0;
+				
+				this.onMoved(change);
+			}
 		}
 		
 		
