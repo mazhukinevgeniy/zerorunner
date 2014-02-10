@@ -26,8 +26,8 @@ package game.items.character
 			this.fuel = elements.fuel;
 			
 			var cell:CellXY = new CellXY
-					(10, 
-					 Game.MAP_WIDTH - 11);//TODO: get rid of this dirty hardcode
+					(Math.random() * Game.MAP_WIDTH, 
+					 Math.random() * Game.MAP_WIDTH);
 			
 			super(master, elements, cell);
 		}
