@@ -29,6 +29,8 @@ package
 		
 		public static const puppetDies:String = "puppetDies";
 		
+		public static const setMark:String = "setMark";
+		
 		/* Time updates */
 		
 		public static const numberedFrame:String = "numberedFrame";

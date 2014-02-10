@@ -24,6 +24,7 @@ package game.renderer
 			elements.displayRoot.addChild(this.clouds = new Clouds(elements));
 			
 			this.addChild(new SceneRenderer(elements));
+			this.addChild(new GroundLevelMarksRenderer(elements));
 			this.addChild(new ItemRenderer(elements));
 		}
 		

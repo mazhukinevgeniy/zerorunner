@@ -48,6 +48,7 @@ package game
 			this._scene = new Scene(this._flow);
 			this._items = new Items(this);
 			this._fuel = new FuelTracker(this);
+			//TODO: add cataclysm manager here
 			
 			new Renderer(this);
 			
