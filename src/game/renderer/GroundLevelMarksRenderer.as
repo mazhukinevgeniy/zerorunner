@@ -75,6 +75,8 @@ package game.renderer
 						this.addQuad(view);
 					}
 				}
+				
+				this.hasChanges = false;
 			}
 		}
 		
