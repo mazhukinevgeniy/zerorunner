@@ -7,7 +7,7 @@ package game.projectiles
 		
 		public function Projectiles(elements:GameElements) 
 		{
-			
+			//TODO: generate "clouds", which are supposed to act as something meaningful and spawn singular projectiles
 		}
 		
 	}
