@@ -9,6 +9,8 @@ package game
 	import game.items.Items;
 	import game.points.IPointCollector;
 	import game.points.PointsOfInterest;
+	import game.projectiles.IProjectileManager;
+	import game.projectiles.Projectiles;
 	import game.renderer.Renderer;
 	import game.scene.IScene;
 	import game.scene.Scene;
@@ -32,6 +34,7 @@ package game
 		private var _points:IPointCollector;
 		private var _database:DatabaseManager;
 		private var _root:DisplayObjectContainer;
+		private var _projectiles:IProjectileManager;
 		
 		public function GameElements(assets:AssetManager) 
 		{
@@ -45,10 +48,11 @@ package game
 			this._points = new PointsOfInterest(this._flow);
 			this._juggler = new Juggler();
 			this._input = new InputManager(this._flow);
+			
 			this._scene = new Scene(this._flow);
 			this._items = new Items(this);
 			this._fuel = new FuelTracker(this);
-			//TODO: add cataclysm manager here
+			this._projectiles = new Projectiles(this);
 			
 			new Renderer(this);
 			
@@ -66,6 +70,7 @@ package game
 		public function get database():DatabaseManager { return this._database; }
 		public function get pointsOfInterest():IPointCollector { return this._points; }
 		public function get displayRoot():DisplayObjectContainer { return this._root; }
+		public function get projectiles():IProjectileManager { return this._projectiles; }
 	}
 
 }
