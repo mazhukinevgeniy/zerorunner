@@ -1,8 +1,8 @@
 package game.renderer 
 {
-	import game.clouds.Clouds;
 	import game.GameElements;
 	import game.items.PuppetBase;
+	import game.renderer.clouds.Clouds;
 	import starling.display.Sprite;
 	import utils.updates.update;
 	
@@ -10,7 +10,6 @@ package game.renderer
 	{
 		private var character:PuppetBase;
 		
-		private var clouds:Clouds;
 		
 		public function Renderer(elements:GameElements) 
 		{
@@ -21,7 +20,7 @@ package game.renderer
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			
 			elements.displayRoot.addChild(this);
-			elements.displayRoot.addChild(this.clouds = new Clouds(elements));
+			elements.displayRoot.addChild(new Clouds(elements));
 			
 			this.addChild(new SceneRenderer(elements));
 			this.addChild(new GroundLevelMarksRenderer(elements));

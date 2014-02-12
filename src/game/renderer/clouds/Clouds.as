@@ -1,4 +1,4 @@
-package game.clouds 
+package game.renderer.clouds 
 {
 	import data.viewers.GameConfig;
 	import game.core.metric.DCellXY;
