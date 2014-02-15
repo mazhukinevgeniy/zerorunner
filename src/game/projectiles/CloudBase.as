@@ -11,6 +11,11 @@ package game.projectiles
 			
 		}
 		
+		
+		internal function spawnProjectiles():void
+		{
+			throw new Error("must implement");
+		}
 	}
 
 }

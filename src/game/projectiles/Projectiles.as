@@ -9,6 +9,8 @@ package game.projectiles
 	{
 		private var projectiles:Array;
 		
+		private var clouds:Vector.<CloudBase>;
+		
 		public function Projectiles(elements:GameElements) 
 		{
 			//TODO: generate "clouds", which are supposed to act as something meaningful and spawn singular projectiles
@@ -19,6 +21,9 @@ package game.projectiles
 			flow.addUpdateListener(Update.prerestore);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.quitGame);
+			
+			this.clouds = new Vector.<CloudBase>();
+			//this.clouds.push(new 
 		}
 		
 		
@@ -29,9 +34,15 @@ package game.projectiles
 		
 		update function numberedFrame(frame:int):void
 		{
+			//TODO: move every single projectile now
+			
+			
 			if (frame == Game.FRAME_TO_RUN_CATACLYSM)
 			{
-				
+				for (var i:int = 0; i < this.clouds.length; i++)
+				{
+					this.clouds[i].spawnProjectiles();
+				}
 			}
 		}
 		
