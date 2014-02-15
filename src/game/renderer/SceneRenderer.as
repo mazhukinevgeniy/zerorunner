@@ -56,7 +56,7 @@ package game.renderer
 				this[key] = new Image(atlas.getTexture(key));
 			
 			
-			this.previousCenter = new CellXY(0, 0);
+			this.previousCenter = new CellXY(-1, -1);
 		}
 		
 		update function prerestore(config:GameConfig):void
@@ -64,7 +64,7 @@ package game.renderer
 			this.xM = 1 + Math.random() * 5;
 			this.yM = 1 + Math.random() * 5;
 			
-			this.previousCenter.setValue(0, 0);
+			this.previousCenter.setValue(-1, -1);
 		}
 		
 		update function numberedFrame(key:int):void
