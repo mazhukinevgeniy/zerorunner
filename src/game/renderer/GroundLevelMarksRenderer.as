@@ -34,7 +34,7 @@ package game.renderer
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.quitGame);
 			
-			this.shardIncView = new Quad(4, 4, 0xFF0000);
+			this.shardIncView = new Quad(16, 16, 0xFF0000);
 		}
 		
 		update function prerestore(config:GameConfig):void
