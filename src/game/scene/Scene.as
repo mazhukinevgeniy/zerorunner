@@ -41,13 +41,13 @@ package game.scene
 					this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_FALL;
 					
 					if (Math.random() < 0.25)
-						i = (i + 1 + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+						i = normalize(i + 1);
 					else if (Math.random() < 0.33)
-						i = (i - 1 + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+						i = normalize(i - 1);
 					else if (Math.random() < 0.5)
-						j = (j + 1 + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+						j = normalize(j + 1);
 					else
-						j = (j - 1 + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+						j = normalize(j - 1);
 				}
 			}
 			
@@ -68,13 +68,13 @@ package game.scene
 					this.scene[(i + j * Game.MAP_WIDTH + Game.MAP_WIDTH + 1) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_LAVA;
 					
 					if (Math.random() < 0.25)
-						i = (i + 1 + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+						i = normalize(i + 1);
 					else if (Math.random() < 0.33)
-						i = (i - 1 + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+						i = normalize(i - 1);
 					else if (Math.random() < 0.5)
-						j = (j + 1 + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+						j = normalize(j + 1);
 					else
-						j = (j - 1 + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+						j = normalize(j - 1);
 				}
 			}
 			
@@ -96,8 +96,8 @@ package game.scene
 		
 		public function getSceneCell(x:int, y:int):int
 		{
-			x = (x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-			y = (y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			x = normalize(x);
+			y = normalize(y);
 			
 			return this.scene[x + y * Game.MAP_WIDTH];
 		}

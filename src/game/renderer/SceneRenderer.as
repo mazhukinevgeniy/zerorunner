@@ -191,11 +191,9 @@ package game.renderer
 							
 							number = 
 								uint(
-									 (((i + Game.MAP_WIDTH) % Game.MAP_WIDTH) 
-									 * this.xM * 999999000001) 
+									 (normalize(i) * this.xM * 999999000001) 
 									|
-									 (((j + Game.MAP_WIDTH) % Game.MAP_WIDTH) 
-									 * this.yM * 87178291199)
+									 (normalize(j) * this.yM * 87178291199)
 									);
 							
 							if (number % 13 < 3)

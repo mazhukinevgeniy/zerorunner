@@ -23,6 +23,9 @@ package game.projectiles
 			this.projectiles = projectiles;
 			
 			this.tmpCell = new CellXY(0, 0);
+			
+			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.prerestore);
 		}
 		
 		override internal function spawnProjectiles():void 
@@ -32,8 +35,8 @@ package game.projectiles
 			
 			const RADIUS:int = 5;
 			
-			const tlX:int = (this.center.x - RADIUS + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-			const tlY:int = (this.center.y - RADIUS + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			const tlX:int = normalize(this.center.x - RADIUS);
+			const tlY:int = normalize(this.center.y - RADIUS);
 			
 			for (var i:int = 0; i < NUMBER_OF_SPAWNS; i++)
 			{

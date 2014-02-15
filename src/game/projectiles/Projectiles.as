@@ -31,7 +31,7 @@ package game.projectiles
 			this.unusedProjectiles = new Vector.<Projectile>();
 			
 			this.clouds = new Vector.<CloudBase>();
-			this.clouds.push(new TemporaryCloud(elements));
+			this.clouds.push(new TemporaryCloud(elements, this));
 		}
 		
 		
@@ -101,8 +101,8 @@ package game.projectiles
 		
 		public function getProjectile(x:int, y:int):Projectile
 		{
-			x = (x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-			y = (y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			x = normalize(x);
+			y = normalize(y);
 			
 			return this.projectiles[x + y * Game.MAP_WIDTH];
 		}

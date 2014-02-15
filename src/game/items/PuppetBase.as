@@ -113,8 +113,8 @@ package game.items
 			this.items.removeItem(this);
 			this._moveInProgress.setValue(change.x, change.y);
 			
-			this._x = (change.x + this._x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-			this._y = (change.y + this._y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			this._x = normalize(change.x + this._x);
+			this._y = normalize(change.y + this._y);
 			
 			this.items.addActiveItem(this);
 			
@@ -133,8 +133,8 @@ package game.items
 				this.items.removeItem(this);
 				this._moveInProgress.setValue(change.x, change.y);
 				
-				this._x = (change.x + this._x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-				this._y = (change.y + this._y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+				this._x = normalize(change.x + this._x);
+				this._y = normalize(change.y + this._y);
 				
 				this.items.addActiveItem(this);
 				

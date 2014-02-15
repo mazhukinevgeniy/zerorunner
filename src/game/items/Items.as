@@ -146,8 +146,8 @@ package game.items
 		
 		public function findAnyObjectByCell(x:int, y:int):PuppetBase
 		{
-			x = (x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-			y = (y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			x = normalize(x);
+			y = normalize(y);
 			
 			var item:PuppetBase = this.activeItems[x + y * Game.MAP_WIDTH];
 			
@@ -159,8 +159,8 @@ package game.items
 		
 		public function findActiveObjectByCell(x:int, y:int):PuppetBase
 		{
-			x = (x + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-			y = (y + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+			x = normalize(x);
+			y = normalize(y);
 			
 			return this.activeItems[x + y * Game.MAP_WIDTH];
 		}

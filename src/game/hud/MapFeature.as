@@ -67,14 +67,14 @@ package game.hud
 				for (var i:int = this.center.x - 7; i < iGoal; i++)
 					for (var j:int = this.center.y - 5; j < jGoal; j++)
 					{
-						if (this.visited[(i + Game.MAP_WIDTH) % Game.MAP_WIDTH + Game.MAP_WIDTH * (j + Game.MAP_WIDTH) % Game.MAP_WIDTH] == this.NOT_VISITED)
+						if (this.visited[normalize(i) + Game.MAP_WIDTH * normalize(j)] == this.NOT_VISITED)
 						{
-							this.visited[(i + Game.MAP_WIDTH) % Game.MAP_WIDTH + Game.MAP_WIDTH * (j + Game.MAP_WIDTH) % Game.MAP_WIDTH] = this.VISITED;
+							this.visited[normalize(i) + Game.MAP_WIDTH * normalize(j)] = this.VISITED;
 							
 							if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 							{
-								this.road.x = (i + Game.MAP_WIDTH) % Game.MAP_WIDTH;
-								this.road.y = (j + Game.MAP_WIDTH) % Game.MAP_WIDTH;
+								this.road.x = normalize(i);
+								this.road.y = normalize(j);
 								
 								this.container.addQuad(this.road);
 							}
