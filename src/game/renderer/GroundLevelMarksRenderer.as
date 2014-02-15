@@ -3,6 +3,7 @@ package game.renderer
 	import data.viewers.GameConfig;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.projectiles.Projectile;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import utils.updates.IUpdateDispatcher;
@@ -29,7 +30,8 @@ package game.renderer
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.prerestore);
-			flow.addUpdateListener(Update.setMark);
+			flow.addUpdateListener(Update.projectileLaunched);
+			flow.addUpdateListener(Update.projectileLanded);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.quitGame);
 			
@@ -42,14 +44,22 @@ package game.renderer
 			this.hasChanges = false;
 		}
 		
-		update function setMark(type:int, cell:ICoordinated):void
+		update function projectileLaunched(projectile:Projectile):void
 		{
 			this.hasChanges = true;
 			
-			if (type == Game.MARK_NO_MARK)
-				delete this.marks[cell.x + Game.MAP_WIDTH * cell.y];
-			else
-				this.marks[cell.x + Game.MAP_WIDTH * cell.y] = type;
+			var cell:ICoordinated = projectile.cell;
+			
+			this.marks[cell.x + Game.MAP_WIDTH * cell.y] = projectile.type;
+		}
+		
+		update function projectileLanded(projectile:Projectile):void
+		{
+			this.hasChanges = true;
+			
+			var cell:ICoordinated = projectile.cell;
+			
+			delete this.marks[cell.x + cell.y * Game.MAP_WIDTH];
 		}
 		
 		update function numberedFrame(frame:int):void
@@ -62,7 +72,7 @@ package game.renderer
 				
 				for (var i:String in this.marks)
 				{
-					if (this.marks[i] == Game.MARK_SHARD_INCOMING)
+					if (this.marks[i] == Game.PROJECTILE_SHARD)
 					{
 						view = this.shardIncView;
 						

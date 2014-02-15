@@ -29,7 +29,8 @@ package
 		
 		public static const puppetDies:String = "puppetDies";
 		
-		public static const setMark:String = "setMark";
+		public static const projectileLaunched:String = "projectileLaunched";
+		public static const projectileLanded:String = "projectileLanded";
 		
 		/* Time updates */
 		

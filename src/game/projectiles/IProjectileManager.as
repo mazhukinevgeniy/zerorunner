@@ -1,13 +1,10 @@
 package game.projectiles 
 {
 	
-	/**
-	 * ...
-	 * @author 
-	 */
 	public interface IProjectileManager 
 	{
 		
+		function getProjectile(x:int, y:int):Projectile;
 	}
 	
 }

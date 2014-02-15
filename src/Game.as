@@ -53,10 +53,9 @@ package
 		
 		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 5;
 		
-		/* Marks */
+		/* Projectiles */
 		
-		public static const MARK_NO_MARK:int = 0;
-		public static const MARK_SHARD_INCOMING:int = 1;
+		public static const PROJECTILE_SHARD:int = 0;
 		
 		/* Constants */
 		
