@@ -78,6 +78,12 @@ package game.projectiles
 		update function projectileLanded(projectile:Projectile):void
 		{
 			this.projectilesToStore.push(projectile);
+			
+			
+			if (projectile.type == Game.PROJECTILE_SHARD)
+			{
+				//TODO: smash
+			}
 		}
 		
 		update function quitGame():void

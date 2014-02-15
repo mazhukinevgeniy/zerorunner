@@ -39,22 +39,9 @@ package game.projectiles
 		{
 			this._height -= this._speed;
 			
-			if (this._height == 0)
+			if (this._height <= 0)
 			{
-				this.onLanded();
 				this.flow.dispatchUpdate(Update.projectileLanded, this);
-			}
-		}
-		
-		private function onLanded():void
-		{
-			if (this.type == 0)
-			{
-				
-			}
-			else if (false)//TODO: write landing mechanics here, why not
-			{
-				
 			}
 		}
 		
