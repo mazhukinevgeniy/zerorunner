@@ -18,8 +18,6 @@ package game.projectiles
 		
 		public function Projectiles(elements:GameElements) 
 		{
-			//TODO: generate "clouds", which are supposed to act as something meaningful and spawn singular projectiles
-			
 			this.flow = elements.flow;
 			
 			this.flow.workWithUpdateListener(this);
@@ -33,7 +31,7 @@ package game.projectiles
 			this.unusedProjectiles = new Vector.<Projectile>();
 			
 			this.clouds = new Vector.<CloudBase>();
-			//this.clouds.push(new 
+			this.clouds.push(new TemporaryCloud(elements));
 		}
 		
 		
