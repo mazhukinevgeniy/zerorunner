@@ -20,6 +20,7 @@ package game.renderer
 		private var projectiles:IProjectileManager;
 		
 		private var shard:Quad;
+		private var trajectory:Quad;
 		
 		/* Used by getTrajectoryCoordinates() */
 		private var tmpCell:CellXY;
@@ -41,6 +42,7 @@ package game.renderer
 			this.tmpCell = new CellXY(0, 0);
 			
 			this.shard = new Quad(int(Game.CELL_WIDTH * 0.7), int(Game.CELL_HEIGHT * 0.7), 0xFFFFFF);
+			this.trajectory = new Quad(2, 2, 0xFF2222);
 		}
 		
 		update function prerestore(config:GameConfig):void
@@ -72,13 +74,25 @@ package game.renderer
 							view.x = (x + i) * Game.CELL_WIDTH;
 							view.y = (y + j) * Game.CELL_HEIGHT;
 							
-							view.x += (Game.CELL_WIDTH - view.width) / 2;
-							view.y += (Game.CELL_HEIGHT - view.height) / 2;
-							
 							this.getTrajectoryCoordinates(proj.height);
 							
 							view.x += this.tmpCell.x;
 							view.y += this.tmpCell.y;
+							
+							var tr:Quad = this.trajectory;
+							
+							for (var k:int = 0; k < proj.height; k++)
+							{
+								tr.x = (x + i) * Game.CELL_WIDTH;
+								tr.y = (y + j) * Game.CELL_HEIGHT;
+								
+								this.getTrajectoryCoordinates(k);
+								
+								tr.x += this.tmpCell.x;
+								tr.y += this.tmpCell.y;
+								
+								this.addQuad(tr);
+							}
 							
 							this.addQuad(view);
 						}
@@ -93,10 +107,11 @@ package game.renderer
 		
 		private function getTrajectoryCoordinates(height:int):void
 		{
-			const X_STEP:int = 8;
-			const Y_STEP:int = -12;
+			const X_STEP:int = 2;
+			const Y_STEP:int = 1;
 			
-			this.tmpCell.setValue(height * X_STEP, height * Y_STEP);
+			this.tmpCell.setValue(height * X_STEP, 
+								  ((Game.MAX_PROJ_HEIGHT - height) * (Game.MAX_PROJ_HEIGHT - height) * Y_STEP / 10) - Game.MAX_PROJ_HEIGHT * Game.MAX_PROJ_HEIGHT * Y_STEP / 10);
 		}
 	}
 

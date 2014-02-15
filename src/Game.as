@@ -57,6 +57,8 @@ package
 		
 		public static const PROJECTILE_SHARD:int = 0;
 		
+		public static const MAX_PROJ_HEIGHT:int = 60;
+		
 		/* Constants */
 		
 		public static const MAP_WIDTH:int = 1600;

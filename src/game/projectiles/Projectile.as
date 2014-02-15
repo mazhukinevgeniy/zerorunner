@@ -29,7 +29,7 @@ package game.projectiles
 			
 			this._cell.setValue(x, y);
 			
-			this._height = 60;
+			this._height = Game.MAX_PROJ_HEIGHT;
 			this._speed = 1;
 			
 			this.flow.dispatchUpdate(Update.projectileLaunched, this);
