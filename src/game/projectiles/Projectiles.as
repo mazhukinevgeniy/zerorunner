@@ -72,7 +72,7 @@ package game.projectiles
 		{
 			var cell:ICoordinated = projectile.cell;
 			
-			this.projectiles[cell.x + Game.MAP_WIDTH * cell.y] = projectile.type;
+			this.projectiles[cell.x + Game.MAP_WIDTH * cell.y] = projectile;
 		}
 		
 		update function projectileLanded(projectile:Projectile):void
@@ -86,16 +86,14 @@ package game.projectiles
 		}
 		
 		
-		internal function getNewProjectile(type:int, x:int, y:int):Projectile
+		internal function getNewProjectile(type:int, x:int, y:int):void
 		{
 			var projectile:Projectile = this.unusedProjectiles.pop();
 			
 			if (projectile)
 				projectile.reassign(type, x, y);
 			else
-				projectile = new Projectile(this.flow, type, x, y);
-			
-			return projectile;
+				new Projectile(this.flow, type, x, y);
 		}
 		
 		

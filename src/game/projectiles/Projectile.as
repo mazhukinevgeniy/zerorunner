@@ -18,12 +18,9 @@ package game.projectiles
 		{
 			this.flow = flow;
 			
+			this._cell = new CellXY(0, 0);
 			
-			this._type = type;
-			this._cell = new CellXY(x, y);
-			
-			this._height = 10;
-			this._speed = 1;
+			this.reassign(type, x, y);
 		}
 		
 		internal function reassign(type:int, x:int, y:int):void
@@ -32,8 +29,10 @@ package game.projectiles
 			
 			this._cell.setValue(x, y);
 			
-			this._height = 10;
+			this._height = 30;
 			this._speed = 1;
+			
+			this.flow.dispatchUpdate(Update.projectileLaunched, this);
 		}
 		
 		internal function advance():void
