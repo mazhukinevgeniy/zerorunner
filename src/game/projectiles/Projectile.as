@@ -29,7 +29,7 @@ package game.projectiles
 			
 			this._cell.setValue(x, y);
 			
-			this._height = 30;
+			this._height = 60;
 			this._speed = 1;
 			
 			this.flow.dispatchUpdate(Update.projectileLaunched, this);
@@ -60,6 +60,7 @@ package game.projectiles
 		
 		public function get type():int { return this._type; }
 		public function get cell():ICoordinated { return this._cell; }
+		public function get height():int { return this._height; }
 	}
 
 }

@@ -30,8 +30,8 @@ package game.projectiles
 		
 		override internal function spawnProjectiles():void 
 		{
-			const NUMBER_OF_SPAWNS:int = 2;
-			const NUMBER_OF_TRIES:int = 4;
+			const NUMBER_OF_SPAWNS:int = 1;
+			const NUMBER_OF_TRIES:int = 2;
 			
 			const RADIUS:int = 5; //TODO: check this hardcode
 			
