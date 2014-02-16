@@ -21,11 +21,6 @@ package hotkeys
 		
 		override internal function processInput(keyUp:Boolean, keyCode:uint):void 
 		{
-			/*if (keyCode == Keyboard.P && this.status.isGameOn)
-			{
-				this.fixed = !this.fixed; //toggleGamePause
-			}*///TODO: repair that
-			
 			if (keyCode == Keyboard.UP)
 				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.UP);
 			else if (keyCode == Keyboard.DOWN)
@@ -34,8 +29,14 @@ package hotkeys
 				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.RIGHT);
 			else if (keyCode == Keyboard.LEFT)
 				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.LEFT);
-			else if (!keyUp && keyCode == Keyboard.SPACE)
-				this.flow.dispatchUpdate(Update.spacePressed);
+			
+			else if (!keyUp)
+			{
+				if (keyCode == Keyboard.SPACE)
+					this.flow.dispatchUpdate(Update.spacePressed);
+				else if (keyCode == Keyboard.P)
+					this.flow.dispatchUpdate(Update.togglePause);
+			}
 		}
 	}
 

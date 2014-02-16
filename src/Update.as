@@ -13,6 +13,8 @@ package
 		public static const newInputPiece:String = "newInputPiece";
 		public static const spacePressed:String = "spacePressed";
 		
+		public static const togglePause:String = "togglePause";
+		
 		
 		/* Metagame updates */
 		

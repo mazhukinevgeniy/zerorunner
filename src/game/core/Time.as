@@ -32,6 +32,7 @@ package game.core
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
+			elements.flow.addUpdateListener(Update.togglePause);
 			elements.flow.addUpdateListener(Update.gameFinished);
 			
 			this.updateFlow = elements.flow;
@@ -62,6 +63,11 @@ package game.core
 			}
 		}
 		
+		
+		update function togglePause():void
+		{
+			this.fixed = !this._fixed;
+		}
 		
 		update function gameFinished(key:int):void 
 		{ 
