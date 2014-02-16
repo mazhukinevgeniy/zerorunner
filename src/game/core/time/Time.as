@@ -2,7 +2,6 @@ package game.core.time
 {
 	import data.StatusReporter;
 	import data.viewers.GameConfig;
-	import flash.ui.Keyboard;
 	import game.GameElements;
 	import starling.animation.Juggler;
 	import starling.events.EnterFrameEvent;
@@ -33,7 +32,6 @@ package game.core.time
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
-			elements.flow.addUpdateListener(Update.keyUp);
 			elements.flow.addUpdateListener(Update.gameFinished);
 			
 			this.updateFlow = elements.flow;
@@ -63,15 +61,6 @@ package game.core.time
 				}
 			}
 		}
-		
-		update function keyUp(keyCode:uint):void
-		{
-			if (keyCode == Keyboard.P && this.status.isGameOn)
-			{
-				this.fixed = !this.fixed;
-			}
-		}
-		
 		
 		
 		update function gameFinished(key:int):void 

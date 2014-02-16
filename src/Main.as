@@ -28,8 +28,10 @@ package
 		private var mStarling:SoftStarling;
 		
 		private var starlingRoot:starling.display.Sprite;
+		
 		private var game:GameElements;
 		private var shell:Shell;
+		private var hotkeys:HotkeyManager;
 		
 		private var progressBar:ProgressBar;
 		private var assets:AssetManager;
@@ -94,6 +96,7 @@ package
 				
 				this.game = new GameElements(this.assets);
 				this.shell = new Shell(this.starlingRoot, this.game);
+				this.hotkeys = new HotkeyManager((this.game).database, Starling.current.nativeStage);
 				
 				Starling.current.stage.color = 0;
 			}

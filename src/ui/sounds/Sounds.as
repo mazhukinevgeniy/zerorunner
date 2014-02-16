@@ -1,7 +1,6 @@
 package ui.sounds 
 {
 	import data.viewers.PreferencesViewer;
-	import flash.ui.Keyboard;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -40,7 +39,6 @@ package ui.sounds
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.keyUp);
 			this.flow.addUpdateListener(Update.toggleMute);
 		}
 		
@@ -48,13 +46,6 @@ package ui.sounds
 		{
 			this.music.toggleSound();
 			this.sound.toggleSound();
-		}
-		
-		
-		update function keyUp(keyCode:uint):void
-		{
-			if (keyCode == Keyboard.M)
-				this.update::toggleMute();
 		}
 	}
 

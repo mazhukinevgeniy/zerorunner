@@ -11,8 +11,6 @@ package ui
 	import ui.sounds.Sounds;
 	import ui.Windows;
 	import ui.themes.ExtendedTheme;
-	import flash.ui.Keyboard;
-	import flash.events.KeyboardEvent;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import utils.updates.UpdateManager;
@@ -38,8 +36,6 @@ package ui
 			
 		    this.initializeFeatures(elements, displayRoot);
 			this.initializeUsingFlow();
-			
-			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 		}
 		
 		private function initializeFeatures(elements:GameElements, ownRoot:DisplayObjectContainer):void
@@ -61,21 +57,7 @@ package ui
 		{
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.newGame);
-			this.flow.addUpdateListener(Update.keyUp);
 			this.flow.addUpdateListener(Update.quitGame);
-		}
-		
-		private function handleKeyUp(event:KeyboardEvent):void
-		{
-			this.flow.dispatchUpdate(Update.keyUp, event.keyCode);
-		}
-		
-		update function keyUp(keyCode:uint):void
-		{
-			if (keyCode == Keyboard.P && !this.status.isGameOn)
-			{
-				this.flow.dispatchUpdate(Update.newGame);
-			}
 		}
 		
 		update function newGame():void 

@@ -5,7 +5,10 @@ package
 	{
 		/* Input updates */
 		
-		public static const keyUp:String = "keyUp";
+		public static const toggleMute:String = "toggleMute";
+		public static const toggleWindow:String = "toggleWindow";
+		
+		public static const resetProgress:String = "resetProgress";
 		
 		
 		/* Metagame updates */
@@ -40,14 +43,6 @@ package
 		/* Time updates */
 		
 		public static const numberedFrame:String = "numberedFrame";
-		
-		
-		/* Shell updates */
-		
-		public static const toggleMute:String = "toggleMute";
-		public static const toggleWindow:String = "toggleWindow";
-		
-		public static const resetProgress:String = "resetProgress";
 		
 		
 		/* End of updates */

@@ -2,7 +2,6 @@ package ui.navigation
 {
 	import data.viewers.PreferencesViewer;
 	import feathers.controls.Button;
-	import flash.ui.Keyboard;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import ui.themes.ExtendedTheme;
@@ -29,7 +28,6 @@ package ui.navigation
 			this.flow = flow;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.keyUp);
 			this.flow.addUpdateListener(Update.toggleMute);
 			
 			if (preferences.mute)
@@ -52,12 +50,6 @@ package ui.navigation
 		update function toggleMute():void
 		{
 			this.toggleTitle();
-		}
-		
-		update function keyUp(keyCode:uint):void
-		{
-			if (keyCode == Keyboard.M)
-				this.toggleTitle();
 		}
 		
 		
