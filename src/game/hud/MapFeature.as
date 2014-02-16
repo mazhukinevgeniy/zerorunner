@@ -30,7 +30,7 @@ package game.hud
 			this.visited = new ByteArray();
 			
 			this.scene = elements.scene;
-			this.road = new Quad(1, 1, 0xFF0000);
+			this.road = new Quad(2, 2, 0x999900);
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.prerestore);
@@ -49,7 +49,7 @@ package game.hud
 				this.visited[i] = this.NOT_VISITED;
 		}
 		
-		update function setCenter(center:ICoordinated):void
+		update function setCenter(center:ICoordinated):void//TODO: use this update where it will be of use
 		{
 			this.center = center;
 			
@@ -72,8 +72,8 @@ package game.hud
 							
 							if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 							{
-								this.road.x = normalize(i);
-								this.road.y = normalize(j);
+								this.road.x = 2 * normalize(i);
+								this.road.y = 2 * normalize(j);
 								
 								this.container.addQuad(this.road);
 							}
