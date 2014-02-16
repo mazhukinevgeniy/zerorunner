@@ -24,7 +24,7 @@ package game.core.input
 			new KeyboardControls(this);
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.restore);
 			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
 			
@@ -50,7 +50,7 @@ package game.core.input
 			this._isSpacePressed = false;
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function restore(config:GameConfig):void
 		{
 			this.handleDeactivation();
 		}

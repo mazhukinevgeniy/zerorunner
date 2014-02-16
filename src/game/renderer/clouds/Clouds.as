@@ -25,12 +25,12 @@ package game.renderer.clouds
 			super(Main.WIDTH, Main.HEIGHT, false);
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.moveCenter);
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function restore(config:GameConfig):void
 		{
 			const numberOfClouds:int = 4;
 			var cloudiness:int = config.cloudiness % Clouds.SIZE_CLOUDINNESS_SCALE;

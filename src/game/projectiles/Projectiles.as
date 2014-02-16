@@ -28,7 +28,7 @@ package game.projectiles
 			this.scene = elements.scene;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.prerestore);
+			this.flow.addUpdateListener(Update.restore);
 			this.flow.addUpdateListener(Update.projectileLaunched);
 			this.flow.addUpdateListener(Update.projectileLanded);
 			this.flow.addUpdateListener(Update.numberedFrame);
@@ -42,7 +42,7 @@ package game.projectiles
 		}
 		
 		
-		update function prerestore(config:GameConfig):void
+		update function restore(config:GameConfig):void
 		{
 			this.projectiles = new Array();
 		}

@@ -1,5 +1,6 @@
 package game.hud 
 {
+	import data.viewers.GameConfig;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import game.GameElements;
@@ -55,9 +56,10 @@ package game.hud
 			elements.displayRoot.addChild(this);
 		}
 		
-		update function restore():void
+		update function restore(config:GameConfig):void
 		{
 			this.visible = false;
+			//TODO: check if actually needed
 		}
 		
 		update function gameFinished(key:int):void

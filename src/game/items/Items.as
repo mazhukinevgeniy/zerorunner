@@ -27,7 +27,7 @@ package game.items
 			this.points = elements.pointsOfInterest;
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
@@ -39,7 +39,7 @@ package game.items
 			this.moved = new Vector.<PuppetBase>();
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function restore(config:GameConfig):void
 		{
 			this.activeItems = new Array();
 			this.passiveItems = new Array();

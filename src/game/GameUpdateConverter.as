@@ -22,8 +22,7 @@ package game
 		
 		update function newGame():void
 		{
-			this.flow.dispatchUpdate(Update.prerestore, this.config);
-			this.flow.dispatchUpdate(Update.restore);
+			this.flow.dispatchUpdate(Update.restore, this.config);
 		}
 		
 		

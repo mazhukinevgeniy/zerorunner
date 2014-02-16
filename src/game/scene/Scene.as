@@ -14,10 +14,10 @@ package game.scene
 			this.scene = new ByteArray();
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.restore);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function restore(config:GameConfig):void
 		{
 			var j:int, i:int, k:int;
 			

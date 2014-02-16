@@ -33,7 +33,7 @@ package game.hud
 			this.road = new Quad(2, 2, 0x999900);
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
@@ -42,7 +42,7 @@ package game.hud
 			elements.displayRoot.addChild(this.container);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function restore(config:GameConfig):void
 		{			
 			var length:int = this.visited.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
 			

@@ -12,7 +12,6 @@ package
 		
 		public static const newGame:String = "newGame";
 		
-		public static const prerestore:String = "prerestore";
 		public static const restore:String = "restore";
 		
 		public static const gameFinished:String = "gameFinished";

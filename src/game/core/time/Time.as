@@ -1,6 +1,7 @@
 package game.core.time 
 {
 	import data.StatusReporter;
+	import data.viewers.GameConfig;
 	import flash.ui.Keyboard;
 	import game.GameElements;
 	import starling.animation.Juggler;
@@ -38,7 +39,7 @@ package game.core.time
 			this.updateFlow = elements.flow;
 		}
 		
-		update function restore():void
+		update function restore(config:GameConfig):void
 		{
 			this.fixed = false;
 			

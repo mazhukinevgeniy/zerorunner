@@ -17,10 +17,10 @@ package game.items.beacon
 			this.elements = elements;
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.restore);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function restore(config:GameConfig):void
 		{
 			var cell:CellXY = new CellXY(0, 0);
 			var items:Items = this.elements.items;

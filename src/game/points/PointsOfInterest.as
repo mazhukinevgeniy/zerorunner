@@ -1,5 +1,6 @@
 package game.points 
 {
+	import data.viewers.GameConfig;
 	import game.core.metric.ICoordinated;
 	import game.items.Items;
 	import game.items.PuppetBase;
@@ -16,13 +17,13 @@ package game.points
 		public function PointsOfInterest(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.restore);
 			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.puppetDies);
 			flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function prerestore(... args):void
+		update function restore(config:GameConfig):void
 		{
 			this.contraptions = new Vector.<PuppetBase>();
 			this.actives = new Vector.<PuppetBase>();
