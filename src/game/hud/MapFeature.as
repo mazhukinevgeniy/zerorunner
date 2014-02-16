@@ -36,6 +36,7 @@ package game.hud
 			elements.flow.addUpdateListener(Update.prerestore);
 			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
+			elements.flow.addUpdateListener(Update.quitGame);
 			
 			this.container = new QuadBatch();
 			elements.displayRoot.addChild(this.container);
@@ -47,6 +48,7 @@ package game.hud
 			
 			for (var i:int = 0; i < length; i++)
 				this.visited[i] = this.NOT_VISITED;
+				/* OPTIMIZABLE */
 		}
 		
 		update function setCenter(center:ICoordinated):void//TODO: use this update where it will be of use
@@ -80,6 +82,13 @@ package game.hud
 						}
 					}
 			}
+		}
+		
+		update function quitGame():void
+		{
+			this.container.reset();
+			
+			this.visited.clear();
 		}
 	}
 
