@@ -6,47 +6,37 @@ package hotkeys
 	import flash.events.KeyboardEvent;
 	
 	public class Hotkeys
-	{
-		private static var created:Boolean = false;
-		//private var hotkeys:
-		
+	{		
 		private var status:StatusReporter;
 		
-		private var ingame:InGameProcessor;
-		private var inshell:InShellProcessor;
+		private var processors:Object;
+		
+		
+		private const UP:Boolean = true;
 		
 		public function Hotkeys(data:DatabaseManager, root:IEventDispatcher) 
 		{
-			if (Hotkeys.created)
-				throw new Error();
-			else
-				Hotkeys.created = true;
-			
-			
 			this.status = (data).status;
 			
 			root.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
+			root.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);
+			
+			this.processors = new Object();
+			const GAME_IS_ON:Boolean = true;
+			
+			this.processors[GAME_IS_ON] = new InGameProcessor();
+			this.processors[!GAME_IS_ON] = new InShellProcessor();
 		}
 		
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
-			/*
-			if (keyCode == Keyboard.P && !this.status.isGameOn)
-			{
-				this.flow.dispatchUpdate(Update.newGame);//startGame
-			}
-			
-			if (keyCode == Keyboard.P && this.status.isGameOn)
-			{
-				this.fixed = !this.fixed; //toggleGamePause
-			}
-			
-			
-			
-			if (keyCode == Keyboard.M)
-				this.update::toggleMute();//it's okay out of game
-			*/
+			this.processors[this.status.isGameOn].processInput(this.UP, event.keyCode);
+		}
+		
+		private function handleKeyDown(event:KeyboardEvent):void
+		{
+			this.processors[this.status.isGameOn].processInput(!this.UP, event.keyCode);
 		}
 	}
 

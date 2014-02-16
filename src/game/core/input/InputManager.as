@@ -21,8 +21,6 @@ package game.core.input
 		{
 			super();
 			
-			new KeyboardControls(this);
-			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.restore);
 			
