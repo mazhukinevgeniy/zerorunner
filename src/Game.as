@@ -89,7 +89,6 @@ package
 		}
 		
 		
-		//TODO: Die more.
 		//TODO: check if achievement background is broken after achievements return to develop
 	}
 

@@ -5,6 +5,7 @@ package
 	import flash.system.Capabilities;
 	import flash.ui.ContextMenu;
 	import game.GameElements;
+	import hotkeys.Hotkeys;
 	import preloader.ProgressBar;
 	import starling.core.Starling;
 	import starling.events.Event;
@@ -31,7 +32,7 @@ package
 		
 		private var game:GameElements;
 		private var shell:Shell;
-		private var hotkeys:HotkeyManager;
+		private var hotkeys:Hotkeys;
 		
 		private var progressBar:ProgressBar;
 		private var assets:AssetManager;
@@ -96,7 +97,7 @@ package
 				
 				this.game = new GameElements(this.assets);
 				this.shell = new Shell(this.starlingRoot, this.game);
-				this.hotkeys = new HotkeyManager((this.game).database, Starling.current.nativeStage);
+				this.hotkeys = new Hotkeys((this.game).database, Starling.current.nativeStage);
 				
 				Starling.current.stage.color = 0;
 			}

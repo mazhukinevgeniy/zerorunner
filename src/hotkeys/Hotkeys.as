@@ -1,18 +1,28 @@
-package  
+package hotkeys
 {
 	import data.DatabaseManager;
 	import data.StatusReporter;
 	import flash.events.IEventDispatcher;
 	import flash.events.KeyboardEvent;
 	
-	internal class HotkeyManager 
+	public class Hotkeys
 	{
+		private static var created:Boolean = false;
 		//private var hotkeys:
 		
 		private var status:StatusReporter;
 		
-		public function HotkeyManager(data:DatabaseManager, root:IEventDispatcher) 
+		private var ingame:InGameProcessor;
+		private var inshell:InShellProcessor;
+		
+		public function Hotkeys(data:DatabaseManager, root:IEventDispatcher) 
 		{
+			if (Hotkeys.created)
+				throw new Error();
+			else
+				Hotkeys.created = true;
+			
+			
 			this.status = (data).status;
 			
 			root.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
