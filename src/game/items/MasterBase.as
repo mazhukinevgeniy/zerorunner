@@ -24,13 +24,13 @@ package game.items
 		}
 		
 		
-		items_internal function tryDestructionOn(puppet:PuppetBase):Boolean
+		final public function tryDestructionOn(puppet:PuppetBase):Boolean
 		{
 			puppet.forceDestruction();
 			
 			return true;
 		}
-		
+		//TODO: this class is weird, fix it
 	}
 
 }

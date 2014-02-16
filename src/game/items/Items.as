@@ -118,20 +118,12 @@ package game.items
 		
 		internal function activateItem(item:PuppetBase):void
 		{
-			if (this.activeItems[item.x + item.y * Game.MAP_WIDTH] ||
-				!this.passiveItems[item.x + item.y * Game.MAP_WIDTH])
-				throw new Error();
-			
 			this.passiveItems[item.x + item.y * Game.MAP_WIDTH] = null;
 			this.activeItems[item.x + item.y * Game.MAP_WIDTH] = item;
 		}
 		
 		internal function deactivateItem(item:PuppetBase):void
 		{
-			if (!this.activeItems[item.x + item.y * Game.MAP_WIDTH] ||
-				this.passiveItems[item.x + item.y * Game.MAP_WIDTH])
-				throw new Error();
-			
 			this.passiveItems[item.x + item.y * Game.MAP_WIDTH] = item;
 			this.activeItems[item.x + item.y * Game.MAP_WIDTH] = null;
 		}

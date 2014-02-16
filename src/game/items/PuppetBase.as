@@ -85,11 +85,16 @@ package game.items
 		}
 		
 		
-		final items_internal function get master():MasterBase { return this._master; }
+		final public function get master():MasterBase { return this._master; }
+		//TODO: should it be items_internal? i have to think
 		
 		final items_internal function forceDestruction():void
 		{
+			this.items.activateItem(this);
+			
 			this._occupation = Game.OCCUPATION_DYING;
+			
+			//TODO: adress the issue: this thing can interrupt walking
 		}
 		
 		

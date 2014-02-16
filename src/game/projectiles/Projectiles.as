@@ -3,6 +3,9 @@ package game.projectiles
 	import data.viewers.GameConfig;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.items.Items;
+	import game.items.PuppetBase;
+	import game.scene.IScene;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -15,10 +18,14 @@ package game.projectiles
 		private var clouds:Vector.<CloudBase>;
 		
 		private var flow:IUpdateDispatcher;
+		private var items:Items;
+		private var scene:IScene;
 		
 		public function Projectiles(elements:GameElements) 
 		{
 			this.flow = elements.flow;
+			this.items = elements.items;
+			this.scene = elements.scene;
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.prerestore);
@@ -82,7 +89,19 @@ package game.projectiles
 			
 			if (projectile.type == Game.PROJECTILE_SHARD)
 			{
-				//TODO: smash
+				var x:int = projectile.cell.x;
+				var y:int = projectile.cell.y;
+				
+				var target:PuppetBase = this.items.findAnyObjectByCell(x, y);
+				
+				if (target)
+				{
+					target.master.tryDestructionOn(target);
+				}
+				else if (this.scene.getSceneCell(x, y) == Game.SCENE_ROAD)
+				{
+					this.flow.dispatchUpdate(Update.dropShard, projectile);
+				}
 			}
 		}
 		
