@@ -35,6 +35,7 @@ package game.hud
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.setCenter);
+			elements.flow.addUpdateListener(Update.toggleMap);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
@@ -58,6 +59,11 @@ package game.hud
 			this.center = center;
 			
 			this.container.reset();
+		}
+		
+		update function toggleMap():void
+		{
+			this.container.visible = !this.container.visible;
 		}
 		
 		update function numberedFrame(key:int):void
