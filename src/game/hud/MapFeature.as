@@ -38,8 +38,7 @@ package game.hud
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			
 			this.container = new QuadBatch();
-			//elements.displayRoot.addChild(this.container);
-			//TODO: show or delete
+			elements.displayRoot.addChild(this.container);
 		}
 		
 		update function prerestore(config:GameConfig):void

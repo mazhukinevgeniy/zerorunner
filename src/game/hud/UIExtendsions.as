@@ -7,12 +7,10 @@ package game.hud
 		
 		public function UIExtendsions(elements:GameElements) 
 		{
-			new EndGameView(elements);
-			
-			
-			new MapFeature(elements);//TODO: make it work
-			
 			new FuelView(elements);
+			new MapFeature(elements);
+			
+			new EndGameView(elements);
 		}
 		
 	}
