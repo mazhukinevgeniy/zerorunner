@@ -20,18 +20,22 @@ package
 		
 		/* In-game updates */
 		
-		public static const smallBeaconTurnedOn:String = "smallBeaconTurnedOn";
-		public static const droidUnlocked:String = "droidUnlocked";
-		
-		public static const moveCenter:String = "moveCenter";
 		public static const setCenter:String = "setCenter";
 		
-		public static const puppetDies:String = "puppetDies";
+		public static const puppetDies:String = "puppetDies"; //It was used for the categorising purposes
 		
 		public static const projectileLaunched:String = "projectileLaunched";
 		public static const projectileLanded:String = "projectileLanded";
 		
 		public static const dropShard:String = "dropShard";
+		
+		
+		/* Stat updates */
+		
+		public static const moveCenter:String = "moveCenter";
+		
+		public static const droidUnlocked:String = "droidUnlocked"; //It's not used, consider deleting
+		
 		
 		/* Time updates */
 		
