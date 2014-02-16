@@ -97,7 +97,7 @@ package
 				
 				this.game = new GameElements(this.assets);
 				this.shell = new Shell(this.starlingRoot, this.game);
-				this.hotkeys = new Hotkeys((this.game).database, Starling.current.nativeStage);
+				this.hotkeys = new Hotkeys(this.game, Starling.current.nativeStage);
 				
 				Starling.current.stage.color = 0;
 			}

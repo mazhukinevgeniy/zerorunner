@@ -1,6 +1,8 @@
 package hotkeys 
 {
+	import game.GameElements;
 	import game.metric.ProtectedDCellXY;
+	import utils.updates.IUpdateDispatcher;
 	
 	internal class InGameProcessor extends ProcessorBase
 	{
@@ -9,9 +11,11 @@ package hotkeys
 		private const RIGHT:ProtectedDCellXY = new ProtectedDCellXY(1, 0);
 		private const LEFT:ProtectedDCellXY = new ProtectedDCellXY(-1, 0);
 		
-		public function InGameProcessor() 
+		private var flow:IUpdateDispatcher;
+		
+		public function InGameProcessor(elements:GameElements) 
 		{
-			
+			this.flow = elements.flow;
 		}
 		
 		override internal function processInput(keyUp:Boolean, keyCode:uint):void 

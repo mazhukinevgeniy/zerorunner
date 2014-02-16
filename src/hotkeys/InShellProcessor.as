@@ -1,12 +1,17 @@
 package hotkeys 
 {
+	import game.GameElements;
+	import utils.updates.IUpdateDispatcher;
 	
 	internal class InShellProcessor extends ProcessorBase
 	{
+		private var flow:IUpdateDispatcher;
 		
-		public function InShellProcessor() 
+		public function InShellProcessor(elements:GameElements) 
 		{
 			
+			
+			this.flow = elements.flow;
 		}
 		
 		override internal function processInput(keyUp:Boolean, keyCode:uint):void 

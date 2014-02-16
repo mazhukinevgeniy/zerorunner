@@ -1,9 +1,9 @@
 package hotkeys
 {
-	import data.DatabaseManager;
 	import data.StatusReporter;
 	import flash.events.IEventDispatcher;
 	import flash.events.KeyboardEvent;
+	import game.GameElements;
 	
 	public class Hotkeys
 	{		
@@ -14,9 +14,9 @@ package hotkeys
 		
 		private const UP:Boolean = true;
 		
-		public function Hotkeys(data:DatabaseManager, root:IEventDispatcher) 
+		public function Hotkeys(elements:GameElements, root:IEventDispatcher) 
 		{
-			this.status = (data).status;
+			this.status = elements.database.status;
 			
 			root.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 			root.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);
@@ -24,8 +24,8 @@ package hotkeys
 			this.processors = new Object();
 			const GAME_IS_ON:Boolean = true;
 			
-			this.processors[GAME_IS_ON] = new InGameProcessor();
-			this.processors[!GAME_IS_ON] = new InShellProcessor();
+			this.processors[GAME_IS_ON] = new InGameProcessor(elements);
+			this.processors[!GAME_IS_ON] = new InShellProcessor(elements);
 		}
 		
 		
