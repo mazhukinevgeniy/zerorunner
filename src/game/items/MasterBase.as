@@ -15,7 +15,8 @@ package game.items
 		
 		internal function actOn(puppet:PuppetBase):void
 		{
-			this.act(puppet);
+			if (puppet.occupation != Game.OCCUPATION_DYING)
+				this.act(puppet);
 		}
 		
 		protected function act(puppet:PuppetBase):void
