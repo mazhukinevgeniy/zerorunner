@@ -28,25 +28,13 @@ package game.items
 		/* Used to avoid repeatable object creation. */
 		private var dcHelper:DCellXY;
 		
-		public function PuppetBase(master:MasterBase, elements:GameElements, cell:CellXY = null) 
+		public function PuppetBase(master:MasterBase, elements:GameElements, cell:ICoordinated) 
 		{
 			this._master = master;
 			this.items = elements.items;
 			
 			this.dcHelper = new DCellXY(0, 0);
 			this._moveInProgress = new DCellXY(0, 0);
-			
-			if (cell == null)
-			{
-				const width:int = Game.MAP_WIDTH;
-				
-				cell = new CellXY(Math.random() * width, 
-								  Math.random() * width);
-				
-				while (this.items.findAnyObjectByCell(cell.x, cell.y))
-					cell.setValue(Math.random() * width, 
-								  Math.random() * width);
-			}
 			
 			this._x = cell.x;
 			this._y = cell.y;

@@ -66,15 +66,14 @@ package game.renderer
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.TOP, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.DOWN, "unimplemented"),
 						new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, this.RIGHT, "tow1"),
-						new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented")
+						new Array(Game.ITEM_SHARD, Game.OCCUPATION_FREE, this.RIGHT, "standing_shard")
 					];
 			//TODO: enlist sprites here
 			
 			this.initializeImages(spritelist, this.sprites, atlas);
 			
 			var altspritelist:Vector.<Array> = new < Array > [
-					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "hero_side_1_0", "hero_side_1_1"),
-					new Array(Game.ITEM_JUNK, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented", "unimplemented")];
+					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "hero_side_1_0", "hero_side_1_1")];
 			
 			this.initializeImages(altspritelist, this.altsprites, atlas);
 			

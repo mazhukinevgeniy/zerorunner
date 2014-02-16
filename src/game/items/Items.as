@@ -6,8 +6,8 @@ package game.items
 	import game.GameElements;
 	import game.items.beacon.BeaconMaster;
 	import game.items.character.CharacterMaster;
+	import game.items.shard.ShardMaster;
 	//import game.items.droid.DroidMaster;
-	import game.items.junk.JunkMaster;
 	import game.points.IPointCollector;
 	import utils.updates.update;
 	
@@ -34,7 +34,7 @@ package game.items
 			new CharacterMaster(elements);
 			new BeaconMaster(elements);
 			//new DroidMaster(elements); //TODO: see DroidMaster.as
-			new JunkMaster(elements);
+			new ShardMaster(elements);
 			
 			this.moved = new Vector.<PuppetBase>();
 		}

@@ -32,6 +32,8 @@ package
 		public static const projectileLaunched:String = "projectileLaunched";
 		public static const projectileLanded:String = "projectileLanded";
 		
+		public static const dropShard:String = "dropShard";
+		
 		/* Time updates */
 		
 		public static const numberedFrame:String = "numberedFrame";

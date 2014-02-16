@@ -10,9 +10,9 @@ package
 		/* Object types */
 		
 		public static const ITEM_CHARACTER:int = 0;
-		public static const ITEM_JUNK:int = 1;
-		public static const ITEM_BEACON:int = 2;
-		public static const ITEM_DROID:int = 3;
+		public static const ITEM_BEACON:int = 1;
+		public static const ITEM_DROID:int = 2;
+		public static const ITEM_SHARD:int = 3;
 		
 		public static const NUMBER_OF_ITEM_TYPES:int = 4;
 		
