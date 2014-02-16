@@ -94,6 +94,8 @@ package game.items
 			
 			this._occupation = Game.OCCUPATION_DYING;
 			
+			this._moveInProgress.setValue(1, 0); /* to be right-directioned */
+			
 			//TODO: adress the issue: this thing can interrupt walking
 		}
 		
