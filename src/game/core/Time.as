@@ -47,7 +47,7 @@ package game.core
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
 		{
-			if (!this.fixed)
+			if (!this.fixed && !this.status.isMapOn)
 			{
 				this.gameJuggler.advanceTime(event.passedTime);
 				

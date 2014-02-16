@@ -23,6 +23,7 @@ package data
 		update function newGame():void
 		{
 			this._isGameOn = true;
+			this._isMapOn = false;
 		}
 		
 		update function toggleMap():void
@@ -37,6 +38,7 @@ package data
 		}
 		
 		public function get isGameOn():Boolean { return this._isGameOn; }
+		public function get isMapOn():Boolean { return this._isMapOn; }
 	}
 
 }
