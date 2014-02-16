@@ -10,6 +10,12 @@ package game.core
 	
 	public class InputManager
 	{
+		private const PRESS:int = 0;
+		private const CLICK:int = 8;
+		private const KEYBOARD:int = 0;
+		private const MOUSE:int = 4;
+		
+		
 		private var changes:Vector.<DCellXY>;
 		
 		private var order:Vector.<int>;
@@ -64,9 +70,9 @@ package game.core
 			{
 				arr[i] = this.changes[i];
 				vals[i] = Math.max(this.order[i], 
-				                  this.order[i + InputManager.MOUSE],
-				                  this.order[i + InputManager.CLICK], 
-								  this.order[i + InputManager.CLICK + InputManager.MOUSE])
+				                  this.order[i + this.MOUSE],
+				                  this.order[i + this.CLICK], 
+								  this.order[i + this.CLICK + this.MOUSE])
 			}
 			for (i = 0; i < 4; i++)
 				for (var j:int = i + 1; j < 5; j++)
@@ -103,17 +109,17 @@ package game.core
 		{	
 			var tmp:int = 0;
 			
-			tmp += isKeyboard ? InputManager.KEYBOARD : InputManager.MOUSE;
+			tmp += isKeyboard ? this.KEYBOARD : this.MOUSE;
 			tmp += this.dCXYtoInt(change);
 			
 			if (isOn)
 			{
-				this.bubble(tmp + InputManager.PRESS);
-				this.bubble(tmp + InputManager.CLICK); 
+				this.bubble(tmp + this.PRESS);
+				this.bubble(tmp + this.CLICK); 
 			}
 			else
 			{
-				this.pop(tmp + InputManager.PRESS);
+				this.pop(tmp + this.PRESS);
 			}
 		}
 		
@@ -137,11 +143,6 @@ package game.core
 		{
 			return 2 * item.x * item.x - item.x + 3 * item.y * item.y - item.y;
 		}
-		
-		private static const PRESS:int = 0;
-		private static const CLICK:int = 8;
-		private static const KEYBOARD:int = 0;
-		private static const MOUSE:int = 4;
 		
 		private function bubble(value:int):void
 		{
