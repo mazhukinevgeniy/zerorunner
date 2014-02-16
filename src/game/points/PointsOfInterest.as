@@ -1,9 +1,9 @@
 package game.points 
 {
 	import data.viewers.GameConfig;
-	import game.core.metric.ICoordinated;
 	import game.items.Items;
 	import game.items.PuppetBase;
+	import game.metric.ICoordinated;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

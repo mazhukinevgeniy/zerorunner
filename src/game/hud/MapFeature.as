@@ -2,8 +2,8 @@ package game.hud
 {
 	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.metric.ICoordinated;
 	import game.scene.IScene;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;

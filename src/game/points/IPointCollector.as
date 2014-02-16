@@ -1,7 +1,7 @@
 package game.points 
 {
-	import game.core.metric.ICoordinated;
 	import game.items.PuppetBase;
+	import game.metric.ICoordinated;
 	
 	public interface IPointCollector 
 	{//TODO: it's multifunctional which is bad for a class or interface; REPAIR

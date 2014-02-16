@@ -1,9 +1,9 @@
 package game.renderer 
 {
 	import data.viewers.GameConfig;
-	import game.core.metric.CellXY;
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.metric.CellXY;
+	import game.metric.ICoordinated;
 	import game.points.IPointCollector;
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;

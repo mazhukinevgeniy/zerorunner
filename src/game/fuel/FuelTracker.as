@@ -1,8 +1,8 @@
 package game.fuel 
 {
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.PuppetBase;
+	import game.metric.ICoordinated;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

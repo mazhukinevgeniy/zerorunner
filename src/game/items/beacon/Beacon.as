@@ -1,9 +1,9 @@
 package game.items.beacon 
 {
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.MasterBase;
 	import game.items.PuppetBase;
+	import game.metric.ICoordinated;
 	
 	internal class Beacon extends PuppetBase
 	{

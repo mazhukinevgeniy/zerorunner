@@ -1,14 +1,14 @@
 package game.items.character 
 {
-	import game.core.input.InputManager;
-	import game.core.metric.CellXY;
-	import game.core.metric.DCellXY;
-	import game.core.metric.ICoordinated;
+	import game.core.InputManager;
 	import game.fuel.IFuel;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.MasterBase;
 	import game.items.PuppetBase;
+	import game.metric.CellXY;
+	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import game.points.IPointCollector;
 	import game.scene.IScene;
 	import utils.updates.IUpdateDispatcher;

@@ -1,10 +1,10 @@
 package game.items.beacon 
 {
 	import data.viewers.GameConfig;
-	import game.core.metric.CellXY;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.MasterBase;
+	import game.metric.CellXY;
 	import game.scene.IScene;
 	import utils.updates.update;
 	

@@ -1,6 +1,6 @@
 package hotkeys 
 {
-	import game.core.metric.ProtectedDCellXY;
+	import game.metric.ProtectedDCellXY;
 	
 	internal class InGameProcessor extends ProcessorBase
 	{

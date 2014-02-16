@@ -1,10 +1,10 @@
-package game.core.time 
+package game.core 
 {
 	import starling.display.Sprite;
 	import starling.text.TextField;
 	
 	internal class PauseView extends Sprite
-	{
+	{//TODO: move to renderer
 		private var notification:TextField;
 		
 		public function PauseView() 

@@ -1,4 +1,4 @@
-package game.core.metric 
+package game.metric 
 {
 	
 	public interface ICoordinated 

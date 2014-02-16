@@ -1,7 +1,7 @@
 package game.renderer 
 {
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.metric.ICoordinated;
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
 	import starling.display.Quad;

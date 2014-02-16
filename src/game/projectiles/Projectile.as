@@ -1,7 +1,7 @@
 package game.projectiles 
 {
-	import game.core.metric.CellXY;
-	import game.core.metric.ICoordinated;
+	import game.metric.CellXY;
+	import game.metric.ICoordinated;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class Projectile 

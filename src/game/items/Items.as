@@ -1,13 +1,13 @@
 package game.items 
 {
 	import data.viewers.GameConfig;
-	import game.core.metric.DCellXY;
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.beacon.BeaconMaster;
 	import game.items.character.CharacterMaster;
 	import game.items.shard.ShardMaster;
 	//import game.items.droid.DroidMaster;
+	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import game.points.IPointCollector;
 	import utils.updates.update;
 	

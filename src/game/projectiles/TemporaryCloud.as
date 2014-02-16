@@ -1,8 +1,8 @@
 package game.projectiles 
 {
-	import game.core.metric.CellXY;
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
+	import game.metric.CellXY;
+	import game.metric.ICoordinated;
 	import game.points.IPointCollector;
 	import utils.updates.update;
 	

@@ -1,10 +1,10 @@
 package game.renderer 
 {
-	import game.core.metric.DCellXY;
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.PuppetBase;
+	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import game.points.IPointCollector;
 	import starling.display.Image;
 	import starling.display.QuadBatch;

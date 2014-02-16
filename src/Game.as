@@ -1,6 +1,6 @@
 package  
 {
-	import game.core.metric.ICoordinated;
+	import game.metric.ICoordinated;
 	
 	/**
 	 * Collection of global game-related constants, codes etc

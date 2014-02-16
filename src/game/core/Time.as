@@ -1,4 +1,4 @@
-package game.core.time 
+package game.core 
 {
 	import data.StatusReporter;
 	import data.viewers.GameConfig;

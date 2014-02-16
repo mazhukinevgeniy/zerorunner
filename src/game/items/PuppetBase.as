@@ -1,11 +1,11 @@
 package game.items 
 {
 	import feathers.controls.popups.VerticalCenteredPopUpContentManager;
-	import game.core.metric.CellXY;
-	import game.core.metric.DCellXY;
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.Items;
+	import game.metric.CellXY;
+	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import starling.display.DisplayObject;
 	
 	use namespace items_internal;

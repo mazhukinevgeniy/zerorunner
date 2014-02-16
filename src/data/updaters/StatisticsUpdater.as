@@ -1,7 +1,7 @@
 package data.updaters 
 {
 	import flash.utils.Proxy;
-	import game.core.metric.DCellXY;
+	import game.metric.DCellXY;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

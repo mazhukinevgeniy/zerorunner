@@ -3,7 +3,7 @@ package data.updaters
 	import data.Defaults;
 	import data.viewers.GameConfig;
 	import flash.utils.Proxy;
-	import game.core.metric.ICoordinated;
+	import game.metric.ICoordinated;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

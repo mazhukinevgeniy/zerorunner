@@ -1,9 +1,9 @@
-package game.core.input
+package game.core
 {
 	import data.viewers.GameConfig;
 	import flash.events.Event;
-	import game.core.metric.DCellXY;
-	import game.core.metric.ProtectedDCellXY;
+	import game.metric.DCellXY;
+	import game.metric.ProtectedDCellXY;
 	import starling.core.Starling;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;

@@ -1,8 +1,8 @@
 package game.renderer.clouds 
 {
 	import data.viewers.GameConfig;
-	import game.core.metric.DCellXY;
 	import game.GameElements;
+	import game.metric.DCellXY;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;
 	import utils.PixelPerfectTween;

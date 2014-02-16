@@ -1,9 +1,9 @@
 package game.items.shard 
 {
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.MasterBase;
 	import game.items.PuppetBase;
+	import game.metric.ICoordinated;
 	
 	internal class Shard extends PuppetBase
 	{

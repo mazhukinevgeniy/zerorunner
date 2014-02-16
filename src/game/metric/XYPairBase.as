@@ -1,4 +1,4 @@
-package game.core.metric 
+package game.metric 
 {
 	
 	internal class XYPairBase

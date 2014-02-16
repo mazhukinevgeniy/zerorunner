@@ -1,4 +1,4 @@
-package game.core.metric 
+package game.metric 
 {
 	/**
 	 * Use this class if you want to have reusable CellXYs which are never broken

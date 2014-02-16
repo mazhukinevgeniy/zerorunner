@@ -1,8 +1,8 @@
 package game 
 {
 	import data.DatabaseManager;
-	import game.core.input.InputManager;
-	import game.core.time.Time;
+	import game.core.InputManager;
+	import game.core.Time;
 	import game.fuel.FuelTracker;
 	import game.fuel.IFuel;
 	import game.hud.UIExtendsions;

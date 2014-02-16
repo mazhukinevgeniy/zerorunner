@@ -1,10 +1,10 @@
 package game.projectiles 
 {
 	import data.viewers.GameConfig;
-	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.PuppetBase;
+	import game.metric.ICoordinated;
 	import game.scene.IScene;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
