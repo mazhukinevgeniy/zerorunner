@@ -29,6 +29,8 @@ package game.core
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.restore);
+			flow.addUpdateListener(Update.newInputPiece);
+			flow.addUpdateListener(Update.spacePressed);
 			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
 			
@@ -105,11 +107,12 @@ package game.core
 		}
 		
 		
-		internal function newInputPiece(isKeyboard:Boolean, isOn:Boolean, change:DCellXY):void
+		update function newInputPiece(isOn:Boolean, change:DCellXY):void
 		{	
 			var tmp:int = 0;
 			
-			tmp += isKeyboard ? this.KEYBOARD : this.MOUSE;
+			//tmp += isKeyboard ? this.KEYBOARD : this.MOUSE;
+			tmp += this.KEYBOARD;
 			tmp += this.dCXYtoInt(change);
 			
 			if (isOn)
@@ -123,7 +126,7 @@ package game.core
 			}
 		}
 		
-		internal function spacePressed():void
+		update function spacePressed():void
 		{
 			this._isSpacePressed = true;
 		}
@@ -131,7 +134,7 @@ package game.core
 		public function get isSpacePressed():Boolean
 		{
 			var tmp:Boolean = this._isSpacePressed;
-			this._isSpacePressed = false;
+			this._isSpacePressed = false;//TODO: actually it shouldn't be implemented like that
 			
 			return tmp;
 		}

@@ -1,5 +1,6 @@
 package hotkeys 
 {
+	import flash.ui.Keyboard;
 	import game.GameElements;
 	import game.metric.ProtectedDCellXY;
 	import utils.updates.IUpdateDispatcher;
@@ -23,41 +24,19 @@ package hotkeys
 			/*if (keyCode == Keyboard.P && this.status.isGameOn)
 			{
 				this.fixed = !this.fixed; //toggleGamePause
-			}*/
+			}*///TODO: repair that
+			
+			if (keyCode == Keyboard.UP)
+				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.UP);
+			else if (keyCode == Keyboard.DOWN)
+				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.DOWN);
+			else if (keyCode == Keyboard.RIGHT)
+				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.RIGHT);
+			else if (keyCode == Keyboard.LEFT)
+				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.LEFT);
+			else if (!keyUp && keyCode == Keyboard.SPACE)
+				this.flow.dispatchUpdate(Update.spacePressed);
 		}
-		
-		/*private function handleKeyDown(event:KeyboardEvent):void
-		{
-			const KEY:Boolean = true;
-			const PRESSED:Boolean = true;
-			
-			if (event.keyCode == Keyboard.UP)
-		        this.input.newInputPiece(KEY, PRESSED, this.UP);
-            else if (event.keyCode == Keyboard.DOWN)
-		        this.input.newInputPiece(KEY, PRESSED, this.DOWN);
-			else if (event.keyCode == Keyboard.RIGHT)
-		        this.input.newInputPiece(KEY, PRESSED, this.RIGHT);
-			else if (event.keyCode == Keyboard.LEFT)
-		        this.input.newInputPiece(KEY, PRESSED, this.LEFT);
-			
-			else if (event.keyCode == Keyboard.SPACE)
-				this.input.spacePressed();
-		}
-		
-		private function handleKeyUp(event:KeyboardEvent):void
-		{
-			const KEY:Boolean = true;
-			const PRESSED:Boolean = false;
-			
-			if (event.keyCode == Keyboard.UP)
-		        this.input.newInputPiece(KEY, PRESSED, this.UP);
-            else if (event.keyCode == Keyboard.DOWN)
-		        this.input.newInputPiece(KEY, PRESSED, this.DOWN);
-			else if (event.keyCode == Keyboard.RIGHT)
-		        this.input.newInputPiece(KEY, PRESSED, this.RIGHT);
-			else if (event.keyCode == Keyboard.LEFT)
-		        this.input.newInputPiece(KEY, PRESSED, this.LEFT);
-		}*/
 	}
 
 }

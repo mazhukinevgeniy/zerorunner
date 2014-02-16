@@ -10,6 +10,9 @@ package
 		
 		public static const resetProgress:String = "resetProgress";
 		
+		public static const newInputPiece:String = "newInputPiece";
+		public static const spacePressed:String = "spacePressed";
+		
 		
 		/* Metagame updates */
 		
