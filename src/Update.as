@@ -14,6 +14,7 @@ package
 		public static const spacePressed:String = "spacePressed";
 		
 		public static const togglePause:String = "togglePause";
+		public static const toggleMap:String = "toggleMap";
 		
 		
 		/* Metagame updates */

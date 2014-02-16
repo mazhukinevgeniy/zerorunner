@@ -1,5 +1,6 @@
 package hotkeys 
 {
+	import data.StatusReporter;
 	import flash.ui.Keyboard;
 	import game.GameElements;
 	import game.metric.ProtectedDCellXY;
@@ -13,6 +14,7 @@ package hotkeys
 		private const LEFT:ProtectedDCellXY = new ProtectedDCellXY(-1, 0);
 		
 		private var flow:IUpdateDispatcher;
+		private var status:StatusReporter;
 		
 		public function InGameProcessor(elements:GameElements) 
 		{
@@ -36,6 +38,8 @@ package hotkeys
 					this.flow.dispatchUpdate(Update.spacePressed);
 				else if (keyCode == Keyboard.P)
 					this.flow.dispatchUpdate(Update.togglePause);
+				else if (keyCode == Keyboard.M)
+					this.flow.dispatchUpdate(Update.toggleMap);
 			}
 		}
 	}

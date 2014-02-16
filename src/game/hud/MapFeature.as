@@ -49,6 +49,8 @@ package game.hud
 			for (var i:int = 0; i < length; i++)
 				this.visited[i] = this.NOT_VISITED;
 				/* OPTIMIZABLE */
+			
+			this.container.visible = false;
 		}
 		
 		update function setCenter(center:ICoordinated):void//TODO: use this update where it will be of use
@@ -89,6 +91,8 @@ package game.hud
 			this.container.reset();
 			
 			this.visited.clear();
+			
+			this.container.visible = false;
 		}
 	}
 

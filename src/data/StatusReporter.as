@@ -8,6 +8,7 @@ package data
 		private var save:SharedObjectManager;
 		
 		private var _isGameOn:Boolean = false;
+		private var _isMapOn:Boolean = false;
 		
 		public function StatusReporter(flow:IUpdateDispatcher, save:SharedObjectManager) 
 		{
@@ -15,7 +16,8 @@ package data
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
-			flow.addUpdateListener(Update.gameFinished);
+			flow.addUpdateListener(Update.toggleMap);
+			flow.addUpdateListener(Update.quitGame);
 		}
 		
 		update function newGame():void
@@ -23,9 +25,15 @@ package data
 			this._isGameOn = true;
 		}
 		
-		update function gameFinished(key:int):void
+		update function toggleMap():void
+		{
+			this._isMapOn = !this._isMapOn;
+		}
+		
+		update function quitGame():void
 		{
 			this._isGameOn = false;
+			this._isMapOn = false;
 		}
 		
 		public function get isGameOn():Boolean { return this._isGameOn; }
