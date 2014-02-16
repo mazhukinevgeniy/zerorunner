@@ -1,6 +1,6 @@
 package game.fuel 
 {
-	import data.viewers.GameConfig;
+	import game.core.metric.ICoordinated;
 	import game.GameElements;
 	import game.items.PuppetBase;
 	import utils.updates.IUpdateDispatcher;
@@ -16,8 +16,6 @@ package game.fuel
 		
 		private var amountOfFuel:int;
 		
-		private var elements:GameElements;
-		
 		private var character:PuppetBase;
 		
 		public function FuelTracker(elements:GameElements) 
@@ -28,18 +26,15 @@ package game.fuel
 			var flow:IUpdateDispatcher = elements.flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.numberedFrame);
-			
-			
-			this.elements = elements;
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function setCenter(center:ICoordinated):void
 		{
 			this.amountOfFuel = this.MAX_CAPACITY;
 			
-			this.character = this.elements.pointsOfInterest.getCharacter() as PuppetBase;
+			this.character = center as PuppetBase;
 		}
 		
 		update function numberedFrame(frame:int):void

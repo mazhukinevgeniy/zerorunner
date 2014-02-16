@@ -16,7 +16,6 @@ package game.renderer
 	{
 		private var center:ICoordinated;
 		
-		private var points:IPointCollector;
 		private var projectiles:IProjectileManager;
 		
 		private var shard:Quad;
@@ -27,15 +26,12 @@ package game.renderer
 		
 		public function ProjectileRenderer(elements:GameElements) 
 		{
-			//TODO: let's try to render the projectile and its path at the same time
-			
-			this.points = elements.pointsOfInterest;
 			this.projectiles = elements.projectiles;
 			
 			var flow:IUpdateDispatcher = elements.flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.quitGame);
 			
@@ -45,9 +41,9 @@ package game.renderer
 			this.trajectory = new Quad(2, 2, 0xFF2222);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function setCenter(center:ICoordinated):void
 		{
-			this.center = this.points.getCharacter();
+			this.center = center;
 		}
 		
 		update function numberedFrame(frame:int):void

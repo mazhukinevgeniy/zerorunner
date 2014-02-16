@@ -1,9 +1,7 @@
 package game.renderer 
 {
-	import data.viewers.GameConfig;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
-	import game.points.IPointCollector;
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
 	import starling.display.Quad;
@@ -14,7 +12,6 @@ package game.renderer
 	internal class GroundLevelMarksRenderer extends QuadBatch
 	{		
 		private var projectiles:IProjectileManager;
-		private var points:IPointCollector;
 		
 		private var shardIncView:Quad;
 		
@@ -25,21 +22,20 @@ package game.renderer
 			super();
 			
 			this.projectiles = elements.projectiles;
-			this.points = elements.pointsOfInterest;
 			
 			var flow:IUpdateDispatcher = elements.flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.prerestore);
+			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.quitGame);
 			
 			this.shardIncView = new Quad(16, 16, 0xFF0000);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function setCenter(center:ICoordinated):void
 		{
-			this.center = this.points.getCharacter();
+			this.center = center;
 		}
 		
 		update function numberedFrame(frame:int):void

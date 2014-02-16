@@ -1,6 +1,5 @@
 package game.items.droid 
 {
-	import data.viewers.GameConfig;
 	import game.core.metric.CellXY;
 	import game.core.metric.ICoordinated;
 	import game.core.metric.Metric;
@@ -17,18 +16,16 @@ package game.items.droid
 			this.elements = elements;
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.droidUnlocked);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function setCenter(center:ICoordinated):void
 		{
 			var i:int;
 			
 			for (i = 0; i < config.numberOfDroids; i++)
 			{
-				var center:ICoordinated = this.elements.pointsOfInterest.getCharacter();
-				
 				var tmpCell:CellXY = new CellXY(center.x - 4, center.y + 4);
 				
 				while (this.elements.items.findObjectByCell(tmpCell.x, tmpCell.y))

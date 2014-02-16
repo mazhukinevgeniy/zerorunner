@@ -1,6 +1,5 @@
 package game.renderer 
 {
-	import data.viewers.GameConfig;
 	import game.core.metric.CellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
@@ -24,9 +23,9 @@ package game.renderer
 		private var xM:int = 1 + Math.random() * 5;
 		private var yM:int = 1 + Math.random() * 5;
 		
-		private var points:IPointCollector;
 		private var scene:IScene;
 		
+		private var center:ICoordinated;
 		private var previousCenter:CellXY;
 		
 		public function SceneRenderer(elements:GameElements) 
@@ -35,12 +34,11 @@ package game.renderer
 			
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			
-			this.points = elements.pointsOfInterest;
 			this.scene = elements.scene;
 			
 			
@@ -59,23 +57,23 @@ package game.renderer
 			this.previousCenter = new CellXY(-1, -1);
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function setCenter(center:ICoordinated):void
 		{
 			this.xM = 1 + Math.random() * 5;
 			this.yM = 1 + Math.random() * 5;
 			
-			this.previousCenter.setValue(-1, -1);
+			this.previousCenter.setValue( -1, -1);
+			
+			this.center = center;
 		}
 		
 		update function numberedFrame(key:int):void
 		{
-			var center:ICoordinated = this.points.getCharacter();
-			
-			if (!this.previousCenter.isEqualTo(center))
+			if (!this.previousCenter.isEqualTo(this.center))
 			{
-				this.redraw(center);
+				this.redraw();
 				
-				this.previousCenter.setValue(center.x, center.y);
+				this.previousCenter.setValue(this.center.x, this.center.y);
 			}
 		}
 		
@@ -84,15 +82,15 @@ package game.renderer
 			this.reset();
 		}
 		
-		private function redraw(center:ICoordinated):void
+		private function redraw():void
 		{
 			this.reset();
 			
-			const tlcX:int = center.x - 10;
-			const tlcY:int = center.y - 8;
+			const tlcX:int = this.center.x - 10;
+			const tlcY:int = this.center.y - 8;
 			
-			const brcX:int = center.x + 11;
-			const brcY:int = center.y + 9;
+			const brcX:int = this.center.x + 11;
+			const brcY:int = this.center.y + 9;
 			
 			var sprite:Image;
 			

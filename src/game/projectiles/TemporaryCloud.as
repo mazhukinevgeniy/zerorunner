@@ -1,6 +1,5 @@
 package game.projectiles 
 {
-	import data.viewers.GameConfig;
 	import game.core.metric.CellXY;
 	import game.core.metric.ICoordinated;
 	import game.GameElements;
@@ -11,21 +10,18 @@ package game.projectiles
 	{
 		private var center:ICoordinated;
 		
-		
-		private var points:IPointCollector;
 		private var projectiles:Projectiles;
 		
 		private var tmpCell:CellXY;
 		
 		public function TemporaryCloud(elements:GameElements, projectiles:Projectiles) 
 		{
-			this.points = elements.pointsOfInterest;
 			this.projectiles = projectiles;
 			
 			this.tmpCell = new CellXY(0, 0);
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.prerestore);
+			elements.flow.addUpdateListener(Update.setCenter);
 		}
 		
 		override internal function spawnProjectiles():void 
@@ -59,9 +55,9 @@ package game.projectiles
 			}
 		}
 		
-		update function prerestore(config:GameConfig):void
+		update function setCenter(center:ICoordinated):void
 		{
-			this.center = this.points.getCharacter();
+			this.center = center;
 		}
 	}
 
