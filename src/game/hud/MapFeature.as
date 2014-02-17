@@ -103,6 +103,13 @@ package game.hud
 				this.container.addQuad(borderPiece);
 			}
 			
+			var back:Quad = new Quad(MAX_WIDTH - 2 * this.BORDER_WIDTH,
+									 MAX_WIDTH - 2 * this.BORDER_WIDTH,
+									 0xADD8E6);
+			back.x = back.y = this.BORDER_WIDTH;
+			
+			this.container.addQuad(back);
+			
 			this.minX = -(MAX_WIDTH - Main.WIDTH);
 			this.minY = -(MAX_WIDTH - Main.HEIGHT);
 		}
