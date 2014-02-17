@@ -25,8 +25,7 @@ package game.items.character
 			this.flow = elements.flow;
 			this.fuel = elements.fuel;
 			
-			var cell:CellXY = new CellXY(0, 0);
-			//this way we're most likely to experience weird things caused by not normalized coordinates somewhere
+			var cell:CellXY = new CellXY(30, 30);
 			
 			super(master, elements, cell);
 		}
