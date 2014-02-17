@@ -31,6 +31,11 @@ package game.hud
 		
 		private var road:Quad;
 		
+		private var minX:int;
+		private var maxX:int = 0;
+		private var minY:int;
+		private var maxY:int = 0;
+		
 		public function MapFeature(elements:GameElements) 
 		{
 			this.visited = new ByteArray();
@@ -68,9 +73,9 @@ package game.hud
 			
 			var borderPiece:Quad = new Quad(BORDER_WIDTH, BORDER_WIDTH, Color.NAVY);
 			
-			const MAX_WIDTH:int = Game.MAP_WIDTH * Game.CELL_WIDTH + 2 * BORDER_WIDTH;
+			const MAX_WIDTH:int = Game.MAP_WIDTH * this.C_WIDTH + 2 * BORDER_WIDTH;
 			
-			if ((Game.MAP_WIDTH * Game.CELL_WIDTH) % BORDER_WIDTH != 0)
+			if ((Game.MAP_WIDTH * this.C_WIDTH) % BORDER_WIDTH != 0)
 				throw new Error("can't render map borders");
 			
 			for (i = 0; i < MAX_WIDTH; i += BORDER_WIDTH)
@@ -93,6 +98,9 @@ package game.hud
 				
 				this.container.addQuad(borderPiece);
 			}
+			
+			this.minX = -(MAX_WIDTH - Main.WIDTH);
+			this.minY = -(MAX_WIDTH - Main.HEIGHT);
 		}
 		
 		update function setCenter(center:ICoordinated):void//TODO: use this update where it will be of use
