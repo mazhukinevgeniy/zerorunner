@@ -2,17 +2,21 @@ package game.hud
 {
 	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;
+	import game.core.InputManager;
 	import game.GameElements;
 	import game.metric.ICoordinated;
 	import game.scene.IScene;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
+	import starling.utils.Color;
 	import utils.updates.update;
 	
 	use namespace update;
 	
 	public class MapFeature 
 	{
+		private const C_WIDTH:int = 2;
+		
 		private const NOT_VISITED:int = 0;
 		private const VISITED:int = 1;
 		
@@ -20,6 +24,8 @@ package game.hud
 		
 		private var scene:IScene;
 		private var center:ICoordinated;
+		
+		private var input:InputManager;
 		
 		private var container:QuadBatch;
 		
@@ -30,6 +36,8 @@ package game.hud
 			this.visited = new ByteArray();
 			
 			this.scene = elements.scene;
+			this.input = elements.input;
+			
 			this.road = new Quad(2, 2, 0x999900);
 			
 			elements.flow.workWithUpdateListener(this);
@@ -44,14 +52,47 @@ package game.hud
 		}
 		
 		update function restore(config:GameConfig):void
-		{			
+		{
+			var i:int;
+			
 			var length:int = this.visited.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
 			
-			for (var i:int = 0; i < length; i++)
+			for (i = 0; i < length; i++)
 				this.visited[i] = this.NOT_VISITED;
 				/* OPTIMIZABLE */
 			
+			this.container.reset();
 			this.container.visible = false;
+			
+			const BORDER_WIDTH:int = 40;
+			
+			var borderPiece:Quad = new Quad(BORDER_WIDTH, BORDER_WIDTH, Color.NAVY);
+			
+			const MAX_WIDTH:int = Game.MAP_WIDTH * Game.CELL_WIDTH + 2 * BORDER_WIDTH;
+			
+			if ((Game.MAP_WIDTH * Game.CELL_WIDTH) % BORDER_WIDTH != 0)
+				throw new Error("can't render map borders");
+			
+			for (i = 0; i < MAX_WIDTH; i += BORDER_WIDTH)
+			{
+				borderPiece.y = 0;
+				borderPiece.x = i;
+				
+				this.container.addQuad(borderPiece);
+				
+				borderPiece.y = MAX_WIDTH - BORDER_WIDTH;
+				
+				this.container.addQuad(borderPiece);
+				
+				borderPiece.x = 0;
+				borderPiece.y = i;
+				
+				this.container.addQuad(borderPiece);
+				
+				borderPiece.x = MAX_WIDTH - BORDER_WIDTH;
+				
+				this.container.addQuad(borderPiece);
+			}
 		}
 		
 		update function setCenter(center:ICoordinated):void//TODO: use this update where it will be of use
@@ -64,6 +105,8 @@ package game.hud
 		update function toggleMap():void
 		{
 			this.container.visible = !this.container.visible;
+			
+			this.input.getInputCopy();//TODO: fix when syntax is revised
 		}
 		
 		update function numberedFrame(key:int):void
