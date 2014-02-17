@@ -31,7 +31,7 @@ package game.hud
 		
 		private var container:QuadBatch;
 		
-		private var road:Quad;
+		private var tiles:Array;
 		
 		private var minX:int;
 		private var maxX:int = 0;
@@ -45,7 +45,10 @@ package game.hud
 			this.scene = elements.scene;
 			this.input = elements.input;
 			
-			this.road = new Quad(2, 2, 0x999900);
+			this.tiles = new Array();
+			this.tiles[Game.SCENE_LAVA] = new Quad(2, 2, 0xFF0000);
+			this.tiles[Game.SCENE_FALL] = new Quad(2, 2, 0x000000);
+			this.tiles[Game.SCENE_ROAD] = new Quad(2, 2, 0x8B4513);
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
@@ -132,13 +135,12 @@ package game.hud
 						{
 							this.visited[normalize(i) + Game.MAP_WIDTH * normalize(j)] = this.VISITED;
 							
-							if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
-							{
-								this.road.x = this.BORDER_WIDTH + this.C_WIDTH * normalize(i);
-								this.road.y = this.BORDER_WIDTH + this.C_WIDTH * normalize(j);
-								
-								this.container.addQuad(this.road);
-							}
+							var quad:Quad = this.tiles[this.scene.getSceneCell(i, j)];
+							
+							quad.x = this.BORDER_WIDTH + this.C_WIDTH * normalize(i);
+							quad.y = this.BORDER_WIDTH + this.C_WIDTH * normalize(j);
+							
+							this.container.addQuad(quad);
 						}
 					}
 			}
