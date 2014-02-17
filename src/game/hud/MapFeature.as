@@ -160,8 +160,13 @@ package game.hud
 			
 			const STEP:int = 4;
 			
-			this.container.x -= STEP * action.x;
-			this.container.y -= STEP * action.y;
+			while (action && (action.x + action.y != 0))//implying it's 0 if both are 0
+			{
+				this.container.x -= STEP * action.x;
+				this.container.y -= STEP * action.y;
+				
+				action = input.pop();
+			}//TODO: something is wrong here, must investigate someday
 			
 			if (this.container.x < this.minX)
 				this.container.x = this.minX;
