@@ -16,6 +16,7 @@ package game.hud
 	public class MapFeature 
 	{
 		private const C_WIDTH:int = 2;
+		private const BORDER_WIDTH:int = 40;
 		
 		private const NOT_VISITED:int = 0;
 		private const VISITED:int = 1;
@@ -69,23 +70,21 @@ package game.hud
 			this.container.reset();
 			this.container.visible = false;
 			
-			const BORDER_WIDTH:int = 40;
+			var borderPiece:Quad = new Quad(this.BORDER_WIDTH, this.BORDER_WIDTH, Color.NAVY);
 			
-			var borderPiece:Quad = new Quad(BORDER_WIDTH, BORDER_WIDTH, Color.NAVY);
+			const MAX_WIDTH:int = Game.MAP_WIDTH * this.C_WIDTH + 2 * this.BORDER_WIDTH;
 			
-			const MAX_WIDTH:int = Game.MAP_WIDTH * this.C_WIDTH + 2 * BORDER_WIDTH;
-			
-			if ((Game.MAP_WIDTH * this.C_WIDTH) % BORDER_WIDTH != 0)
+			if ((Game.MAP_WIDTH * this.C_WIDTH) % this.BORDER_WIDTH != 0)
 				throw new Error("can't render map borders");
 			
-			for (i = 0; i < MAX_WIDTH; i += BORDER_WIDTH)
+			for (i = 0; i < MAX_WIDTH; i += this.BORDER_WIDTH)
 			{
 				borderPiece.y = 0;
 				borderPiece.x = i;
 				
 				this.container.addQuad(borderPiece);
 				
-				borderPiece.y = MAX_WIDTH - BORDER_WIDTH;
+				borderPiece.y = MAX_WIDTH - this.BORDER_WIDTH;
 				
 				this.container.addQuad(borderPiece);
 				
@@ -94,7 +93,7 @@ package game.hud
 				
 				this.container.addQuad(borderPiece);
 				
-				borderPiece.x = MAX_WIDTH - BORDER_WIDTH;
+				borderPiece.x = MAX_WIDTH - this.BORDER_WIDTH;
 				
 				this.container.addQuad(borderPiece);
 			}
@@ -133,8 +132,8 @@ package game.hud
 							
 							if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 							{
-								this.road.x = 2 * normalize(i);
-								this.road.y = 2 * normalize(j);
+								this.road.x = this.BORDER_WIDTH + this.C_WIDTH * normalize(i);
+								this.road.y = this.BORDER_WIDTH + this.C_WIDTH * normalize(j);
 								
 								this.container.addQuad(this.road);
 							}
