@@ -138,14 +138,17 @@ package game.hud
 				for (var i:int = this.center.x - 7; i < iGoal; i++)
 					for (var j:int = this.center.y - 5; j < jGoal; j++)
 					{
-						if (this.visited[normalize(i) + Game.MAP_WIDTH * normalize(j)] == this.NOT_VISITED)
+						var nI:int = normalize(i);
+						var nJ:int = normalize(j);
+						
+						if (this.visited[nI + Game.MAP_WIDTH * nJ] == this.NOT_VISITED)
 						{
-							this.visited[normalize(i) + Game.MAP_WIDTH * normalize(j)] = this.VISITED;
+							this.visited[nI + Game.MAP_WIDTH * nJ] = this.VISITED;
 							
 							var quad:Quad = this.tiles[this.scene.getSceneCell(i, j)];
 							
-							quad.x = this.BORDER_WIDTH + this.C_WIDTH * normalize(i);
-							quad.y = this.BORDER_WIDTH + this.C_WIDTH * normalize(j);
+							quad.x = this.BORDER_WIDTH + this.C_WIDTH * nI;
+							quad.y = this.BORDER_WIDTH + this.C_WIDTH * nJ;
 							
 							this.container.addQuad(quad);
 						}
