@@ -4,6 +4,7 @@ package game.hud
 	import flash.utils.ByteArray;
 	import game.core.InputManager;
 	import game.GameElements;
+	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.scene.IScene;
 	import starling.display.Quad;
@@ -51,6 +52,7 @@ package game.hud
 			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.toggleMap);
 			elements.flow.addUpdateListener(Update.numberedFrame);
+			elements.flow.addUpdateListener(Update.frameOfTheMapMode);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			this.container = new QuadBatch();
@@ -140,6 +142,27 @@ package game.hud
 						}
 					}
 			}
+		}
+		
+		update function frameOfTheMapMode():void
+		{
+			var input:Vector.<DCellXY> = this.input.getInputCopy();
+			var action:DCellXY = input.pop();
+			
+			const STEP:int = 4;
+			
+			this.container.x -= STEP * action.x;
+			this.container.y -= STEP * action.y;
+			
+			if (this.container.x < this.minX)
+				this.container.x = this.minX;
+			else if (this.container.x > this.maxX)
+				this.container.x = this.maxX;
+			
+			if (this.container.y < this.minY)
+				this.container.y = this.minY;
+			else if (this.container.y > this.maxY)
+				this.container.y = this.maxY;
 		}
 		
 		update function quitGame():void

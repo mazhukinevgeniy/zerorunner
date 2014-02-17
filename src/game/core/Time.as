@@ -47,7 +47,11 @@ package game.core
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
 		{
-			if (!this.fixed && !this.status.isMapOn)
+			if (this.status.isMapOn)
+			{
+				this.updateFlow.dispatchUpdate(Update.frameOfTheMapMode);
+			}
+			else if (!this.fixed)
 			{
 				this.gameJuggler.advanceTime(event.passedTime);
 				

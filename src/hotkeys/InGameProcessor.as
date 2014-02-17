@@ -24,32 +24,34 @@ package hotkeys
 		
 		override internal function processInput(keyUp:Boolean, keyCode:uint):void 
 		{
-			if (status.isMapOn)
-			{
-				//TODO: add map-specific controls
-			}
+			if (keyCode == Keyboard.UP)
+				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.UP);
+			else if (keyCode == Keyboard.DOWN)
+				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.DOWN);
+			else if (keyCode == Keyboard.RIGHT)
+				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.RIGHT);
+			else if (keyCode == Keyboard.LEFT)
+				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.LEFT);
 			else
 			{
-				if (keyCode == Keyboard.UP)
-					this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.UP);
-				else if (keyCode == Keyboard.DOWN)
-					this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.DOWN);
-				else if (keyCode == Keyboard.RIGHT)
-					this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.RIGHT);
-				else if (keyCode == Keyboard.LEFT)
-					this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.LEFT);
-				
-				else if (!keyUp)
+				if (status.isMapOn)
 				{
-					if (keyCode == Keyboard.SPACE)
-						this.flow.dispatchUpdate(Update.spacePressed);
-					else if (keyCode == Keyboard.P)
-						this.flow.dispatchUpdate(Update.togglePause);
+					//TODO: add map-specific controls
 				}
+				else
+				{
+					if (!keyUp)
+					{
+						if (keyCode == Keyboard.SPACE)
+							this.flow.dispatchUpdate(Update.spacePressed);
+						else if (keyCode == Keyboard.P)
+							this.flow.dispatchUpdate(Update.togglePause);
+					}
+				}
+				
+				if (!keyUp && keyCode == Keyboard.M)
+					this.flow.dispatchUpdate(Update.toggleMap);
 			}
-			
-			if (!keyUp && keyCode == Keyboard.M)
-				this.flow.dispatchUpdate(Update.toggleMap);
 		}
 	}
 

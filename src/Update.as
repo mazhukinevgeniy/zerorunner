@@ -49,6 +49,7 @@ package
 		/* Time updates */
 		
 		public static const numberedFrame:String = "numberedFrame";
+		public static const frameOfTheMapMode:String = "frameOfTheMapMode";
 		
 		
 		/* End of updates */
