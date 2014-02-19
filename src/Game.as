@@ -20,7 +20,8 @@ package
 		
 		public static const SCENE_FALL:int = 0;
 		public static const SCENE_GROUND:int = 1;
-		public static const SCENE_LAVA:int = 2;
+		public static const SCENE_SOLID_GROUND:int = 2;
+		public static const SCENE_LAVA:int = 3;
 		
 		/* Endings */
 		

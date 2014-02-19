@@ -49,6 +49,7 @@ package game.hud
 			this.tiles[Game.SCENE_LAVA] = new Quad(2, 2, 0xFF0000);
 			this.tiles[Game.SCENE_FALL] = new Quad(2, 2, 0x000000);
 			this.tiles[Game.SCENE_GROUND] = new Quad(2, 2, 0x8B4513);
+			this.tiles[Game.SCENE_SOLID_GROUND] = new Quad(2, 2, 0x483D8B);
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);

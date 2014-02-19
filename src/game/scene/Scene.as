@@ -82,7 +82,11 @@ package game.scene
 			
 			for (j = 0; j < Game.MAP_WIDTH; j++)
 				for (i = 0; i < Game.MAP_WIDTH; i++)
-					if (Math.random() < 0.05)
+					if ((i % 15) + (j % 15) == 0)//TODO: check that hardcode
+					{
+						this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_SOLID_GROUND;
+					}
+					else if (Math.random() < 0.05)
 					{
 						var rand:Number = Math.random();
 						if (rand < 0.48)
