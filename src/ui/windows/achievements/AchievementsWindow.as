@@ -65,7 +65,7 @@ package ui.windows.achievements
 			this.achievementDescription.visible = false;
 			this.lastDisplayedDescription = AchievementsWindow.UNDETERMINED;
 			
-			this.addChild(new HexagonalGrid(this.assets));
+			//this.addChild(new HexagonalGrid(this.assets));
 			this.addChild(this.edgesContainer);
 			this.addChild(this.substrate);
 			this.addChild(this.achievementsContainer);

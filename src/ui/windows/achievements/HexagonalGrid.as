@@ -30,10 +30,10 @@ package ui.windows.achievements
 		
 		public function HexagonalGrid(assets:AssetManager) 
 		{
-			var texture:Texture = assets.getTexture("hexagon");
-			
-			this.nativeWidthCell = texture.nativeWidth;
-			this.nativeHeightCell = texture.nativeHeight;
+			var texture:Texture = assets.getTextureAtlas("sprites").getTexture("hexagon");//assets.getTexture("hexagon");
+			//TODO: работает как то неправильно взятие текстуры или repeat, починить или удалить при необходимости
+			this.nativeWidthCell = texture.width;
+			this.nativeHeightCell = texture.height;
 			
 			super(texture);
 		
@@ -45,6 +45,7 @@ package ui.windows.achievements
 			
 			this.scaleX *= HexagonalGrid.DISPLAYED_WIDTH_TEXTURES / this.nativeWidthCell;
 			this.scaleY *= HexagonalGrid.DISPLAYED_HEIGHT_TEXTURES / this.nativeHeightCell;
+			
 			
 			this.width *= HexagonalGrid.NUMBER_OF_TEXTURES_IN_WIDTH;
 			this.height *= HexagonalGrid.NUMBER_OF_TEXTURES_IN_HEIGHT;
