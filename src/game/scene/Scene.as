@@ -25,7 +25,7 @@ package game.scene
 			this.scene.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
 			
 			for (i = 0; i < Game.MAP_WIDTH * Game.MAP_WIDTH; i++)
-				this.scene[i] = Game.SCENE_ROAD;
+				this.scene[i] = Game.SCENE_GROUND;
 			
 			/* Everything is solid ground by now */
 			
@@ -86,7 +86,7 @@ package game.scene
 					{
 						var rand:Number = Math.random();
 						if (rand < 0.48)
-							this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_ROAD;
+							this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_GROUND;
 						else if (rand < 0.6)
 							this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_LAVA;
 					}

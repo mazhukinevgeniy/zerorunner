@@ -98,7 +98,7 @@ package game.projectiles
 				{
 					target.master.tryDestructionOn(target);
 				}
-				else if (this.scene.getSceneCell(x, y) == Game.SCENE_ROAD)
+				else if (this.scene.getSceneCell(x, y) == Game.SCENE_GROUND)
 				{
 					this.flow.dispatchUpdate(Update.dropShard, projectile);
 				}

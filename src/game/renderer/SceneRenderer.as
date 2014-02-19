@@ -178,7 +178,7 @@ package game.renderer
 							this.addImage(sprite);
 						}
 						
-						if (this.scene.getSceneCell(i, j) == Game.SCENE_ROAD)
+						if (this.scene.getSceneCell(i, j) == Game.SCENE_GROUND)
 						{
 							sprite = this.ground;
 							

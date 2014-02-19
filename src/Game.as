@@ -19,15 +19,8 @@ package
 		/* Landscape types */
 		
 		public static const SCENE_FALL:int = 0;
-		public static const SCENE_ROAD:int = 1;//TODO: rename, no road here yet
-		public static const SCENE_BASALT:int = 2;//TODO: check: what basalt? there's no such thing i bet
-		public static const SCENE_LAVA:int = 3;
-		
-		/* What have you left types *///TODO: check if this comment makes sense
-		
-		public static const CONTRAIL_NO_BEACON:int = 0;
-		public static const CONTRAIL_BIG_BEACON:int = 1;
-		public static const CONTRAIL_SMALL_BEACON:int = 2;
+		public static const SCENE_GROUND:int = 1;
+		public static const SCENE_LAVA:int = 2;
 		
 		/* Endings */
 		
