@@ -17,7 +17,7 @@ package game.hud
 	public class MapFeature 
 	{
 		private const C_WIDTH:int = 2;
-		private const BORDER_WIDTH:int = 40;
+		private const BORDER_WIDTH:int = 45;
 		
 		private const NOT_VISITED:int = 0;
 		private const VISITED:int = 1;
