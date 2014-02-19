@@ -1,5 +1,6 @@
 package data 
 {
+	import flash.geom.Point;
 	
 	public class Defaults 
 	{
@@ -21,10 +22,17 @@ package data
 			distance: 0
 		};
 		
+		public static const achievementsDefaults:Object = 
+		{
+			achievements: new Vector.<Vector.<Object>>,
+			achievementsEdge: new Vector.<Object>
+		};
+		
 		internal static const defaults:Vector.<Object> = new <Object>[
 							Defaults.progressDefaults, 
 							Defaults.preferencesDefaults, 
-							Defaults.statisticsDefaults];
+							Defaults.statisticsDefaults,
+							Defaults.achievementsDefaults];
 		
 		
 		public function Defaults() 

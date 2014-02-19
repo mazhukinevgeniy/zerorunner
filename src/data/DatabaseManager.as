@@ -33,7 +33,7 @@ package data
 			this._status = new StatusReporter(flow, this.save);
 			
 			this._preferences = new PreferencesViewer(this.save);
-			this._achievements = new AchievementViewer();
+			this._achievements = new AchievementViewer(this.save);
 			this._statistics = new StatisticsViewer(this.save);
 			this._config = new GameConfig(this.save);
 			

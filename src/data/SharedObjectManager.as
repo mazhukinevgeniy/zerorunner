@@ -15,7 +15,7 @@ package data
 			
 			const PROJECT_NAME:String = "zeroRunner";
 			this.so = SharedObject.getLocal(PROJECT_NAME);
-			
+			this.so.clear();
 			this.initializeEntries();
 			
 			/**

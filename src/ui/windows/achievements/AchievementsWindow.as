@@ -12,6 +12,7 @@ package ui.windows.achievements
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
+	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import starling.utils.AssetManager;
 	
@@ -26,7 +27,7 @@ package ui.windows.achievements
 		
 		private var numberOfAchievements:int
 		
-		private var achievementSave:AchievementViewer;
+		private var achievementsSave:AchievementViewer;
 		private var edgesContainer:Sprite;
 		private var achievementsContainer:Sprite;
 		private var substrate:Quad;
@@ -36,11 +37,13 @@ package ui.windows.achievements
 		private var achievementDescription:MessageBubble;
 		private var lastDisplayedDescription:int;
 		
-		private var achData:AchievementData;
+		private var achData:Achievement;
 		
-		public function AchievementsWindow(assets:AssetManager, achievementSave:AchievementViewer) 
+		private var flow:IUpdateDispatcher;
+		
+		public function AchievementsWindow(assets:AssetManager, achievementsSave:AchievementViewer, flow:IUpdateDispatcher) 
 		{
-			this.achData = new AchievementData(1, achievementSave);
+			//this.achData = this.achievementsSave
 			
 			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
 			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
@@ -64,24 +67,19 @@ package ui.windows.achievements
 			
 			this.addChild(new HexagonalGrid(this.assets));
 			this.addChild(this.edgesContainer);
-			this.achievementsContainer.addChild(this.substrate);
+			this.addChild(this.substrate);
 			this.addChild(this.achievementsContainer);
 			this.addChild(this.achievementDescription);
 			
-			this.achievementSave = achievementSave;
-			
-			this.numberOfAchievements = this.achievementSave.numberOfAchievements;
-			
-			this.createEdges();
-			this.createViewAchievement();
-			this.redrawGraph();
+			this.achievementsSave = achievementsSave;
+			this.flow = flow;
 			
 			this.substrate.addEventListener(TouchEvent.TOUCH, this.handleSubstrateTouch)
 		}
 		
 		private function createEdges():void
 		{
-			var edgesData:Vector.<Point> = this.achievementSave.edges;
+			var edgesData:Vector.<Point> = this.achievementsSave.edges;
 			var lenght:int;
 			
 			lenght = edgesData.length;
@@ -99,18 +97,24 @@ package ui.windows.achievements
 			var texture:Texture;
 			
 			this.achievements = new Vector.<ViewAchievement>;
+			this.numberOfAchievements = this.achievementsSave.numberOfAchievements;
 			
 			for (var i:int = 0; i < this.numberOfAchievements; ++i)
 			{
-				this.achData.reset(i);
+				this.achData = this.achievementsSave.getAchievement(i, false);
 
 				if (this.achData.unlocked)
 					nameOfSkin = this.achData.enabledSkin;
 				else
 					nameOfSkin = this.achData.disabledSkin;
 				
-				texture = this.assets.getTexture(nameOfSkin);
-				this.achievements.push(new ViewAchievement(i, this.achData.position, texture, this));
+//<<<<<<< HEAD
+				//texture = this.assets.getTexture(nameOfSkin);
+				//this.achievements.push(new ViewAchievement(i, this.achData.position, texture, this));
+//=======
+				texture = this.assets.getTextureAtlas("sprites").getTexture(nameOfSkin);
+				this.achievements.push(new ViewAchievement(this.achData.position, texture, this));
+//>>>>>>> feature/achievments
 			}
 		}
 		
@@ -118,22 +122,23 @@ package ui.windows.achievements
 		{
 			if (newValue)
 			{
-				this.updateData();
+				//this.updateData();
 				//this.redrawAchievements();
+				this.createEdges();
+				this.createViewAchievement();
+				this.redrawGraph();
 			}
 			
 			super.visible = newValue;
-		}
-		
-		private function updateData():void
-		{
-			
 		}
 		
 		private function redrawGraph():void
 		{
 			var i:int;
 			var lenght:int = (this.achievements).length;
+			
+			this.achievementsContainer.removeChildren();
+			this.edgesContainer.removeChildren();
 			
 			for (i = 0; i < lenght; ++i)
 			{
@@ -148,13 +153,13 @@ package ui.windows.achievements
 			}
 		}
 		
-		public function displayDescription(id:int):void
+		public function displayDescription(id:int, target:ViewAchievement):void
 		{
 			if (this.lastDisplayedDescription != id)
 			{
-				this.achData.reset(id); 
+				this.achData = this.achievementsSave.getAchievement(id);
 				
-				this.achievementDescription.updateMessage(this.achData.description, this.achievements[id]);
+				this.achievementDescription.updateMessage(this.achData.description, target);
 				this.achievementDescription.visible = true;
 				
 				this.lastDisplayedDescription = id;
