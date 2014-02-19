@@ -32,7 +32,7 @@ package game.renderer.clouds
 		private function handleEnterFrame(event:Event):void
 		{
 			this.offsetX = int(this.offsetX + this.dX);
-			this.offsetY = int(this.offsetY + this.dY);
+			this.offsetY = int(this.offsetY + this.dY);///TODO: here we can fix the unpausability of clouds
 		}
 	}
 
