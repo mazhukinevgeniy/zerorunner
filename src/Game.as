@@ -13,8 +13,9 @@ package
 		public static const ITEM_BEACON:int = 1;
 		public static const ITEM_DROID:int = 2;
 		public static const ITEM_SHARD:int = 3;
+		public static const ITEM_GENERATOR:int = 4;
 		
-		public static const NUMBER_OF_ITEM_TYPES:int = 4;
+		public static const NUMBER_OF_ITEM_TYPES:int = 5;
 		
 		/* Landscape types */
 		

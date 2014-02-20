@@ -4,6 +4,7 @@ package game.items
 	import game.GameElements;
 	import game.items.beacon.BeaconMaster;
 	import game.items.character.CharacterMaster;
+	import game.items.generator.GeneratorMaster;
 	import game.items.shard.ShardMaster;
 	//import game.items.droid.DroidMaster;
 	import game.metric.DCellXY;
@@ -32,6 +33,7 @@ package game.items
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			new CharacterMaster(elements);
+			new GeneratorMaster(elements);
 			new BeaconMaster(elements);
 			//new DroidMaster(elements); //TODO: see DroidMaster.as
 			new ShardMaster(elements);

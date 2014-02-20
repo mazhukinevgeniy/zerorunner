@@ -71,7 +71,9 @@ package game.renderer
 						new Array(Game.ITEM_BEACON, Game.OCCUPATION_DYING, this.RIGHT, "tow1"),
 						
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_FREE, this.RIGHT, "standing_shard"),
-						new Array(Game.ITEM_SHARD, Game.OCCUPATION_DYING, this.RIGHT, "standing_shard")
+						new Array(Game.ITEM_SHARD, Game.OCCUPATION_DYING, this.RIGHT, "standing_shard"),
+						
+						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented")
 					];
 			//TODO: enlist sprites here
 			
