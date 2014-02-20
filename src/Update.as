@@ -38,6 +38,8 @@ package
 		
 		public static const dropShard:String = "dropShard";
 		
+		public static const generatorPowered:String = "generatorPowered";
+		
 		
 		/* Stat updates */
 		

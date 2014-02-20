@@ -19,6 +19,7 @@ package game.forceFields
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.restore);
+			flow.addUpdateListener(Update.generatorPowered);
 		}
 		
 		update function restore(config:GameConfig):void
@@ -27,10 +28,19 @@ package game.forceFields
 				this.generators[i] = false;
 		}
 		
+		update function generatorPowered(x:int, y:int):void
+		{
+			x /= 15; 
+			y /= 15;
+			
+			this.generators[x + y * this.width] = true;
+		}
 		
 		
 		public function isCellCovered(x:int, y:int):Boolean
 		{
+			//TODO: check if it still works wrong
+			
 			x = normalize(x);
 			y = normalize(y);
 			
@@ -38,14 +48,14 @@ package game.forceFields
 			var mY:int = y % 15;
 			
 			if (mX > 7)
-				x = (x / 15) + 1;
+				x = (((x - mX) / 15) + 1 + this.width) % this.width;
 			else
-				x = (x / 15);
+				x = ((x - mX) / 15);
 			
 			if (mY > 7)
-				y = (y / 15) + 1;
+				y = (((y - mY) / 15) + 1 + this.width) % this.width;
 			else
-				y = (y / 15);
+				y = ((y - mY) / 15);
 			
 			return this.generators[x + y * this.width];
 		}

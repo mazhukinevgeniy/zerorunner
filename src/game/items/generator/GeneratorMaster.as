@@ -14,6 +14,8 @@ package game.items.generator
 		
 		private var elements:GameElements;
 		
+		private var center:ICoordinated;
+		
 		public function GeneratorMaster(elements:GameElements) 
 		{
 			this.elements = elements;
@@ -39,12 +41,30 @@ package game.items.generator
 		
 		update function setCenter(center:ICoordinated):void
 		{
-			
+			this.center = center;
 		}
 		
 		update function numberedFrame(frame:int):void
 		{
-			
+			if (frame == Game.FRAME_TO_ACT)
+			{
+				var x:int = this.center.x % 15;
+				var y:int = this.center.y % 15;
+				
+				var dX:int = x == 1 ? -1 : x == 14 ? 1 : x == 0 ? 0 : 10;
+				var dY:int = y == 1 ? -1 : y == 14 ? 1 : y == 0 ? 0 : 10;
+				
+				if ((dX != 10) && (dY != 10))
+				{
+					x = normalize(this.center.x + dX);
+					y = normalize(this.center.y + dY);
+					
+					//TODO: show the progress
+					if (!this.elements.forceFields.isCellCovered(x, y))
+						this.elements.flow.dispatchUpdate(Update.generatorPowered, x, y);
+				}
+				
+			}
 		}
 		
 		override public function tryDestructionOn(puppet:PuppetBase):Boolean 
