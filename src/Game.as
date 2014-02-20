@@ -13,14 +13,16 @@ package
 		public static const ITEM_BEACON:int = 1;
 		public static const ITEM_DROID:int = 2;
 		public static const ITEM_SHARD:int = 3;
+		public static const ITEM_GENERATOR:int = 4;
 		
-		public static const NUMBER_OF_ITEM_TYPES:int = 4;
+		public static const NUMBER_OF_ITEM_TYPES:int = 5;
 		
 		/* Landscape types */
 		
 		public static const SCENE_FALL:int = 0;
 		public static const SCENE_GROUND:int = 1;
-		public static const SCENE_LAVA:int = 2;
+		public static const SCENE_SOLID_GROUND:int = 2;
+		public static const SCENE_LAVA:int = 3;
 		
 		/* Endings */
 		
@@ -54,7 +56,7 @@ package
 		
 		/* Constants */
 		
-		public static const MAP_WIDTH:int = 400;
+		public static const MAP_WIDTH:int = 450;
 		
 		/* Time-related */
 		
@@ -81,8 +83,6 @@ package
 			return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)
 		}
 		
-		
-		//TODO: check if achievement background is broken after achievements return to develop
 	}
 
 }

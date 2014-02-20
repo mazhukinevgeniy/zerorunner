@@ -16,6 +16,7 @@ package game.renderer
 		private var ground_S:Image, ground_W:Image, ground_E:Image, ground_N:Image;
 		private var ground_NE:Image, ground_NW:Image, ground_SE:Image, ground_SW:Image;
 		private var stones1:Image, stones2:Image, stones3:Image;
+		private var solidGround:Image;
 		private var lava:Image;
 		private var lava_S:Image, lava_W:Image, lava_E:Image, lava_N:Image;
 		private var lava_NE:Image, lava_NW:Image, lava_SE:Image, lava_SW:Image;
@@ -48,6 +49,7 @@ package game.renderer
 					["ground", "ground_S", "ground_W", "ground_E", "ground_N",
 					 "ground_NE", "ground_NW", "ground_SE", "ground_SW",
 					 "stones1", "stones2", "stones3",
+					 "solidGround",
 					 "lava",
 					 "lava_S", "lava_W", "lava_E", "lava_N",
 					 "lava_NE", "lava_NW", "lava_SE", "lava_SW"])
@@ -206,6 +208,17 @@ package game.renderer
 							
 							
 						}
+						else if (this.scene.getSceneCell(i, j) == Game.SCENE_SOLID_GROUND)
+						{//TODO: don't get i,j so often
+						 //TODO: what if we have our own cache? seems semilegit
+							
+							sprite = this.solidGround;
+							
+							sprite.x = i * Game.CELL_WIDTH;
+							sprite.y = j * Game.CELL_HEIGHT;
+							
+							this.addImage(sprite);
+						}
 					}
 				}
 				
@@ -311,6 +324,10 @@ package game.renderer
 				}
 			}
 		}
+		
+		
+		//TODO: the code above must be shrinkable (plus Quadr works on it); ergo, shrink it
+		
 	}
 
 }

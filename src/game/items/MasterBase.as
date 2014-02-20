@@ -25,7 +25,7 @@ package game.items
 		}
 		
 		
-		final public function tryDestructionOn(puppet:PuppetBase):Boolean
+		public function tryDestructionOn(puppet:PuppetBase):Boolean
 		{
 			puppet.forceDestruction();
 			

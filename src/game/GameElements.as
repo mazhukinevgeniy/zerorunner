@@ -3,6 +3,8 @@ package game
 	import data.DatabaseManager;
 	import game.core.InputManager;
 	import game.core.Time;
+	import game.forceFields.ForceFields;
+	import game.forceFields.IForceField;
 	import game.fuel.FuelTracker;
 	import game.fuel.IFuel;
 	import game.hud.UIExtendsions;
@@ -32,6 +34,7 @@ package game
 		private var _assets:AssetManager;
 		private var _flow:IUpdateDispatcher;
 		private var _points:IPointCollector;
+		private var _forceFields:IForceField;
 		private var _database:DatabaseManager;
 		private var _root:DisplayObjectContainer;
 		private var _projectiles:IProjectileManager;
@@ -49,6 +52,7 @@ package game
 			this._juggler = new Juggler();
 			this._input = new InputManager(this._flow);
 			
+			this._forceFields = new ForceFields(this._flow);
 			this._scene = new Scene(this._flow);
 			this._items = new Items(this);
 			this._fuel = new FuelTracker(this);
@@ -68,6 +72,7 @@ package game
 		public function get assets():AssetManager { return this._assets; }
 		public function get flow():IUpdateDispatcher { return this._flow; }
 		public function get database():DatabaseManager { return this._database; }
+		public function get forceFields():IForceField { return this._forceFields; }
 		public function get pointsOfInterest():IPointCollector { return this._points; }
 		public function get displayRoot():DisplayObjectContainer { return this._root; }
 		public function get projectiles():IProjectileManager { return this._projectiles; }

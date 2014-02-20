@@ -2,6 +2,7 @@ package game.items.character
 {
 	import data.viewers.GameConfig;
 	import game.core.InputManager;
+	import game.forceFields.IForceField;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.items_internal;
@@ -20,6 +21,7 @@ package game.items.character
 		private var input:InputManager;
 		private var scene:IScene;
 		private var items:Items;
+		private var force:IForceField;
 		
 		public function CharacterMaster(elements:GameElements) 
 		{
@@ -34,6 +36,7 @@ package game.items.character
 			this.input = this.elements.input;
 			this.scene = this.elements.scene;
 			this.items = this.elements.items;
+			this.force = this.elements.forceFields;
 			
 			new Character(this, this.elements);
 		}
@@ -78,7 +81,7 @@ package game.items.character
 					{
 						next = this.scene.getSceneCell(x + action.x, y + action.y);
 						
-						if (next != Game.SCENE_FALL && next != Game.SCENE_LAVA)
+						if (this.force.isCellCovered(x + action.x, y + action.y) || (next != Game.SCENE_FALL && next != Game.SCENE_LAVA))
 						{
 							puppet.startMovingBy(action);
 							
@@ -97,7 +100,7 @@ package game.items.character
 					{
 						next = this.scene.getSceneCell(x + action.x, y + action.y);
 						
-						if (next != Game.SCENE_LAVA)
+						if (this.force.isCellCovered(x + action.x, y + action.y) || (next != Game.SCENE_LAVA))
 						{
 							puppet.startFlyingBy(action);
 							

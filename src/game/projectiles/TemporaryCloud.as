@@ -1,5 +1,6 @@
 package game.projectiles 
 {
+	import game.forceFields.IForceField;
 	import game.GameElements;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
@@ -11,12 +12,14 @@ package game.projectiles
 		private var center:ICoordinated;
 		
 		private var projectiles:Projectiles;
+		private var force:IForceField;
 		
 		private var tmpCell:CellXY;
 		
 		public function TemporaryCloud(elements:GameElements, projectiles:Projectiles) 
 		{
 			this.projectiles = projectiles;
+			this.force = elements.forceFields;
 			
 			this.tmpCell = new CellXY(0, 0);
 			
@@ -43,7 +46,7 @@ package game.projectiles
 					x = normalize(tlX + (2 * RADIUS + 1) * Math.random());
 					y = normalize(tlY + (2 * RADIUS + 1) * Math.random());
 					
-					if (!this.projectiles.getProjectile(x, y))
+					if (!this.force.isCellCovered(x, y) && !this.projectiles.getProjectile(x, y))
 					{
 						this.projectiles.getNewProjectile(Game.PROJECTILE_SHARD, x, y);
 						
