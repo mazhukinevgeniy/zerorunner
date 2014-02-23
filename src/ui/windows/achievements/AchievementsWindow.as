@@ -79,7 +79,8 @@ package ui.windows.achievements
 		
 		private function createEdges():void
 		{
-			var edgesData:Vector.<Point> = this.achievementsSave.edges;
+			//TODO вернуть или полностью удалить работу с рёбрами
+			var edgesData:Vector.<Point> = new Vector.<Point>;//Vector.<Point>(this.achievementsSave.edges);
 			var lenght:int;
 			
 			lenght = edgesData.length;
@@ -124,7 +125,8 @@ package ui.windows.achievements
 			{
 				//this.updateData();
 				//this.redrawAchievements();
-				this.createEdges();
+				
+				this.createEdges(); 
 				this.createViewAchievement();
 				this.redrawGraph();
 			}

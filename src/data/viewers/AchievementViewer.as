@@ -21,9 +21,9 @@ package data.viewers
 		
 		public function get numberOfAchievements():int { return this.save["achievements"].length; }
 		
-		public function get edges():Vector.<Point>
+		public function get edges():Vector.<Object>
 		{
-			return Vector.<Point>(this.save["achievementsEdge"]);
+			return Vector.<Object>(this.save["achievementsEdge"]);
 		}
 		
 		public function getAchievement(idOrIndex:int, isId:Boolean = true):Achievement
