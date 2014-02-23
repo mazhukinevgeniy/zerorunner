@@ -33,8 +33,6 @@ package game.renderer
 			this.character = center;
 		}
 		
-		//TODO: check if movecenter needs tickstogo
-		
 		update function numberedFrame(frame:int):void 
 		{
 			this.x = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;

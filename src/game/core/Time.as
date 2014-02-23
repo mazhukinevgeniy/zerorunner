@@ -53,6 +53,10 @@ package game.core
 			}
 			else if (!this.fixed)
 			{
+				if (!this.status.isGameOn)
+					throw new Error("numberedFrame must happen in-game only");
+				//TODO: remove when sure it's all right
+				
 				this.gameJuggler.advanceTime(event.passedTime);
 				
 				if (this.frameCount < Game.FRAMES_PER_CYCLE)

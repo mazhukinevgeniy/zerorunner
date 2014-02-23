@@ -2,10 +2,10 @@ package game.renderer.clouds
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
+	import game.items.PuppetBase;
 	import game.metric.DCellXY;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;
-	import utils.PixelPerfectTween;
 	import utils.updates.update;
 	
 	public class Clouds extends ScrollImage
@@ -14,19 +14,18 @@ package game.renderer.clouds
 		
 		private var elements:GameElements;
 		
-		private var moveTween:PixelPerfectTween;
+		private var character:PuppetBase;
 		
 		public function Clouds(elements:GameElements) 
 		{
 			this.elements = elements;
 			
-			this.moveTween = new PixelPerfectTween(this, 0);
-			
 			super(Main.WIDTH, Main.HEIGHT, false);
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
-			elements.flow.addUpdateListener(Update.moveCenter);
+			elements.flow.addUpdateListener(Update.setCenter);
+			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
@@ -45,34 +44,47 @@ package game.renderer.clouds
 				tile.offsetX = Math.random() * 100;
 				tile.offsetY = Math.random() * 100;
 				
-				tile.alpha = 1/4;//TODO remove
+				tile.alpha = 1/4;
 			}
 			
 			this.x = this.y = 0;
 		}
 		
-		update function moveCenter(change:DCellXY, ticksToGo:int):void 
+		update function setCenter(center:PuppetBase):void
 		{
-			this.moveTween.reset(this, ticksToGo * Game.TIME_BETWEEN_TICKS);
-			
-			this.moveTween.animate("tilesOffsetX", this.tilesOffsetX - Game.CELL_WIDTH * change.x);
-			this.moveTween.animate("tilesOffsetY", this.tilesOffsetY - Game.CELL_HEIGHT * change.y);
-			
-			this.elements.juggler.add(this.moveTween);
+			this.character = center;
 		}
 		
-		update function quitGame():void
+		update function numberedFrame(frame:int):void 
 		{
+			this.tilesOffsetX = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
+            this.tilesOffsetY = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
+			
+			if (this.character.occupation == Game.OCCUPATION_MOVING ||
+				this.character.occupation == Game.OCCUPATION_FLYING)
+			{
+				var dX:int = this.character.moveInProgress.x;
+				var dY:int = this.character.moveInProgress.y;
+				
+				var progress:Number = 1 - this.character.getProgress(frame);
+				
+				this.tilesOffsetX += int(progress * Game.CELL_WIDTH * dX);
+				this.tilesOffsetY += int(progress * Game.CELL_HEIGHT * dY);
+			}
+			
+			
 			for (var i:int = 0; i < this.numLayers; i++)
 			{
 				var cloud:Cloud = this.getLayerAt(i) as Cloud;
 				
-				cloud.die();
+				
+				cloud.offsetX = int(cloud.offsetX + cloud.dX);
+				cloud.offsetY = int(cloud.offsetY + cloud.dY);
 			}
-			
-			this.moveTween.reset(this, 0);
-			
-			
+		}
+		
+		update function quitGame():void
+		{
 			const dispose:Boolean = true;
 			
 			this.removeAll(dispose);
