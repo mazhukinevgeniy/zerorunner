@@ -4,7 +4,6 @@ package game.renderer
 	import game.GameElements;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
-	import game.points.IPointCollector;
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
 	import starling.display.Quad;

@@ -3,7 +3,6 @@ package game.renderer
 	import game.GameElements;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
-	import game.points.IPointCollector;
 	import game.scene.IScene;
 	import starling.display.Image;
 	import starling.display.QuadBatch;

@@ -9,7 +9,6 @@ package game.items.character
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
-	import game.points.IPointCollector;
 	import game.scene.IScene;
 	import utils.updates.IUpdateDispatcher;
 	

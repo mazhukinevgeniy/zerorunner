@@ -4,7 +4,6 @@ package game.projectiles
 	import game.GameElements;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
-	import game.points.IPointCollector;
 	import utils.updates.update;
 	
 	internal class TemporaryCloud extends CloudBase

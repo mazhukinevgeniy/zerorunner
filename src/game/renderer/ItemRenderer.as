@@ -5,7 +5,6 @@ package game.renderer
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
-	import game.points.IPointCollector;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	import starling.textures.TextureAtlas;
@@ -19,9 +18,9 @@ package game.renderer
 		private const LEFT:int = 2;
 		private const RIGHT:int = 3; /* Please note: this is the default direction */
 		
-		
-		private var points:IPointCollector;
 		private var items:Items;
+		
+		private var center:ICoordinated;
 		
 		private var sprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
 		private var altsprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
@@ -31,10 +30,10 @@ package game.renderer
 			super();
 			
 			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
-			this.points = elements.pointsOfInterest;
 			this.items = elements.items;
 			
 			this.initializeSprites(elements.assets);
@@ -140,12 +139,16 @@ package game.renderer
 							vector[i][j][k] = null;
 		}
 		
+		update function setCenter(center:ICoordinated):void
+		{
+			this.center = center;
+		}
 		
 		update function numberedFrame(frame:int):void
 		{
 			this.reset();
 			
-			var center:ICoordinated = this.points.getCharacter();
+			var center:ICoordinated = this.center;
 			
 			const tlcX:int = center.x - 13;//TODO: check if can reduce constants
 			const brcX:int = center.x + 14;
@@ -229,6 +232,8 @@ package game.renderer
 		update function quitGame():void
 		{
 			this.reset();
+			
+			this.center = null;
 		}
 	}
 

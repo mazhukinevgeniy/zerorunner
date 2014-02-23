@@ -9,26 +9,24 @@ package game.items
 	//import game.items.droid.DroidMaster;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
-	import game.points.IPointCollector;
 	import utils.updates.update;
 	
 	use namespace items_internal;
 	
 	public class Items
 	{
-		private var points:IPointCollector;
-		
 		private var activeItems:Array;
 		private var passiveItems:Array;
 		
 		private var moved:Vector.<PuppetBase>;
 		
+		private var center:ICoordinated;
+		
 		public function Items(elements:GameElements) 
-		{
-			this.points = elements.pointsOfInterest;
-			
+		{			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
+			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
@@ -47,6 +45,11 @@ package game.items
 			this.passiveItems = new Array();
 		}
 		
+		update function setCenter(center:ICoordinated):void
+		{
+			this.center = center;
+		}
+		
 		update function numberedFrame(key:int):void
 		{
 			var i:int, j:int;
@@ -57,7 +60,7 @@ package game.items
 				for each (var pup:PuppetBase in this.activeItems)
 					pup.tickPassed(); //TODO: check if troublesome
 				
-				var center:ICoordinated = this.points.getCharacter();
+				var center:ICoordinated = this.center;
 				
 				const tlcX:int = center.x - 20;
 				const tlcY:int = center.y - 20;
@@ -81,16 +84,6 @@ package game.items
 					}
 				}
 				
-				var others:Vector.<PuppetBase> = this.points.getAlwaysActives();
-				var length:int = others ? others.length : 0;
-				
-				for (i = 0; i < length; i++)
-				{
-					item = others[i];
-					
-					if (this.moved.indexOf(item) == -1)
-						item._master.actOn(item);
-				}
 			}
 		}
 		
