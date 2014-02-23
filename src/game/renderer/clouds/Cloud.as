@@ -1,14 +1,12 @@
 package game.renderer.clouds 
 {
-	import flash.events.Event;
-	import starling.core.Starling;
 	import starling.extensions.krecha.ScrollTile;
 	import starling.textures.Texture;
 	
 	internal class Cloud extends ScrollTile
 	{
-		private var dX:int;
-		private var dY:int;
+		internal var dX:int;
+		internal var dY:int;
 		
 		public function Cloud(texture:Texture)
 		{
@@ -20,19 +18,6 @@ package game.renderer.clouds
 			while (this.dX == 0 && this.dY == 0);
 			
 			super(texture);
-			
-			Starling.current.nativeStage.addEventListener(Event.ENTER_FRAME, this.handleEnterFrame);
-		}
-		
-		internal function die():void
-		{
-			Starling.current.nativeStage.removeEventListener(Event.ENTER_FRAME, this.handleEnterFrame);
-		}
-		
-		private function handleEnterFrame(event:Event):void
-		{
-			this.offsetX = int(this.offsetX + this.dX);
-			this.offsetY = int(this.offsetY + this.dY);///TODO: here we can fix the unpausability of clouds
 		}
 	}
 
