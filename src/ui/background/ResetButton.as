@@ -13,13 +13,14 @@ package ui.background
 		private var button:Button;
 		
 		public function ResetButton(flow:IUpdateDispatcher)
+		//TODO отправить в настройки
 		{
 			this.button = new Button();
-			this.button.nameList.add(ExtendedTheme.RESET_BUTTON);
 			this.addChild(this.button);
+			button.label = "Reset Button";
 			
 			this.button.addEventListener(Event.TRIGGERED, this.handleTriggered);
-			this.button.addEventListener(Event.ADDED_TO_STAGE, this.locate);
+			this.button.addEventListener(Event.RESIZE, this.locate);
 			
 			this.flow = flow;
 		}

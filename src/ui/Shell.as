@@ -9,6 +9,7 @@ package ui
 	import ui.background.Background;
 	import ui.navigation.Navigation;
 	import ui.sounds.Sounds;
+	import ui.themes.Theme;
 	import ui.Windows;
 	import ui.themes.ExtendedTheme;
 	import utils.updates.IUpdateDispatcher;
@@ -40,7 +41,7 @@ package ui
 		
 		private function initializeFeatures(elements:GameElements, ownRoot:DisplayObjectContainer):void
 		{
-			new ExtendedTheme(elements, ownRoot);
+			new Theme(elements, ownRoot);
 			
 			this.background = new Background(this.flow);
 			this.navigation = new Navigation(this.flow, elements.database);

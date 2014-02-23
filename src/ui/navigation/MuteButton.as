@@ -10,6 +10,9 @@ package ui.navigation
 	
 	public class MuteButton extends Sprite
 	{	
+		private static const MUTE_BUTTON_WIDTH:int = 80;
+		private static const MUTE_BUTTON_HEIGHT:int = 20;
+		
 		private var flow:IUpdateDispatcher;
 		
 		private var button:Button;
@@ -19,11 +22,10 @@ package ui.navigation
 			super();
 			
 			this.button = new Button();
-			this.button.nameList.add(ExtendedTheme.MUTE_BUTTON);
 			this.addChild(this.button);
 			
 			this.button.addEventListener(Event.TRIGGERED, this.handleTriggered);
-			this.button.addEventListener(Event.ADDED_TO_STAGE, this.locate);
+			this.button.addEventListener(Event.RESIZE, this.locate);
 			
 			this.flow = flow;
 			
@@ -38,6 +40,7 @@ package ui.navigation
 		
 		private function locate(event:Event):void
 		{
+			
 			this.x = Main.WIDTH - this.button.width;
 			this.y = Main.HEIGHT - this.button.height;
 		}

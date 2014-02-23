@@ -9,17 +9,14 @@ package data
 		{
 			activeDroids: 0,
 			
-			cloudiness: 0
+			cloudiness: 0,
+			
+			distance: 0
 		};
 		
 		internal static const preferencesDefaults:Object = 
 		{
-			mute: false
-		};
-		
-		internal static const statisticsDefaults:Object = 
-		{
-			distance: 0
+			mute: false//settings are unresettable
 		};
 		
 		public static const achievementsDefaults:Object = 
@@ -30,8 +27,7 @@ package data
 		
 		internal static const defaults:Vector.<Object> = new <Object>[
 							Defaults.progressDefaults, 
-							Defaults.preferencesDefaults, 
-							Defaults.statisticsDefaults,
+							Defaults.preferencesDefaults,
 							Defaults.achievementsDefaults];
 		
 		
