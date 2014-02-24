@@ -64,7 +64,6 @@ package game.fuel
 		public function getAmountOfFuel():int { return this.amountOfFuel; }
 		public function getFuelCap():int {	return this.MAX_CAPACITY; }
 		
-		//TODO: each tick check what the character's occupation is etc
 	}
 
 }

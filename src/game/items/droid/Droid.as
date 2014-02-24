@@ -43,7 +43,6 @@ package game.items.droid
 			this.center = this.points.getCharacter();
 			
 			super(master, elements, cell);
-			//TODO: override occupations
 		}
 		
 		
@@ -53,8 +52,8 @@ package game.items.droid
 			var change:DCellXY = this.lastChange = Droid.moves[direction];
 			
 			//this.existence.move(this.lastChange);
-			//TODO: implement moving
 		}
 		
+		//TODO: deal with that code sooner or later
 	}
 }

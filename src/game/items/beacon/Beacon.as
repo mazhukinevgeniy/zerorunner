@@ -11,7 +11,6 @@ package game.items.beacon
 		public function Beacon(master:MasterBase, elements:GameElements, cell:ICoordinated) 
 		{
 			super(master, elements, cell);
-			//TODO: override occupations
 		}
 		
 		override public function get type():int { return Game.ITEM_BEACON; }

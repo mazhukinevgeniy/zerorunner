@@ -134,7 +134,9 @@ package game.core
 		public function get isSpacePressed():Boolean
 		{
 			var tmp:Boolean = this._isSpacePressed;
-			this._isSpacePressed = false;//TODO: actually it shouldn't be implemented like that
+			this._isSpacePressed = false;
+			//TODO: fix the logic: there must be clean /getting/ methods and, 
+			//      not as the part of them, method that refreshes all the flags
 			
 			return tmp;
 		}
