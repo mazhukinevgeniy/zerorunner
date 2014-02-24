@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<achievements>
+	<achievement title = "Achievement of the % Marathon" type = "cumulative">
+		<grade subtitle = "Least">
+			<challenge>
+				<node>totalWayLength</node>;
+				<node>100</node>;
+				<node>&gt;<!-->--></node>;
+			</challenge>
+			<description>Everybody has to came through the beginning.</description>
+			<picture>../res/achievements/leastMarathon.png</picture>
+		</grade>;
+		<grade subtitle = "Lesser">
+			<challenge>
+				<node>totalWayLength</node>;
+				<node>500</node>;
+				<node>&gt;<!-->--></node>;
+			</challenge>
+			<description>Majority manages to grow up.</description>
+			<picture>../res/achievements/lesserMarathon.png</picture>
+		</grade>;
+		<grade subtitle = "Serious">
+			<challenge>
+				<node>totalWayLength</node>;
+				<node>1000</node>;
+				<node>&gt;<!-->--></node>;
+			</challenge>
+			<description>Some have a bit of luck and willpower.</description>
+			<picture>../res/achievements/seriousMarathon.png</picture>
+		</grade>;
+		<grade subtitle = "Great">
+			<challenge>
+				<node>totalWayLength</node>;
+				<node>3000</node>;
+				<node>&gt;<!-->--></node>;
+			</challenge>
+			<description>Hero comes just once per age. New age begins instantly and burns hard.</description>
+			<picture>../res/achievements/greatMarathon.png</picture>
+		</grade>;
+	</achievement>;
+	<achievement title = "% Butcher" type = "cumulative">
+		<grade subtitle = "Average">
+			<challenge>
+				<node>manualKills</node>;
+				<node>50</node>;
+				<node>&gt;<!-->--></node>;
+			</challenge>
+			<description>Bloodbath happens.</description>
+			<picture>../res/achievements/averageButcher.png</picture>
+		</grade>;
+		<grade subtitle = "Epic">
+			<challenge>
+				<node>manualKills</node>;
+				<node>500</node>;
+				<node>&gt;<!-->--></node>;
+			</challenge>
+			<description>Now you can laugh to the face of ones saying so. They have no idea.</description>
+			<picture>../res/achievements/epicButcher.png</picture>
+		</grade>;
+	</achievement>;
+	<achievement title = "%" type = "shifting">
+		<grade subtitle = "Bloody Marshal">
+			<challenge>
+				<node>menDied</node>;
+				<node>partyKills</node>;
+				<node>/</node>;
+				<node>0.7</node>;
+				<node>&gt;<!-->--></node>;
+			</challenge>
+			<description>You are cinical as hell. Your men fear you over the worst of enemies.</description>
+			<picture>../res/achievements/bloodyMarshal.png</picture>
+		</grade>;
+		<grade subtitle = "Last Paladin">
+			<challenge>
+				<node>menDied</node>;
+				<node>partyKills</node>;
+				<node>/</node>;
+				<node>0.3</node>;
+				<node>&lt;<!--<--></node>;
+			</challenge>
+			<description>You are the hope of your men. They will die for you, but they are never forced to.</description>
+			<picture>../res/achievements/lastPaladin.png</picture>
+		</grade>;
+	</achievement>;
+</achievements>

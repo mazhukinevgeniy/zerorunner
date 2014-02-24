@@ -105,6 +105,9 @@ package game.scene
 			
 			return this.scene[x + y * Game.MAP_WIDTH];
 		}
+		
+		//TODO: make sure scene is effectively stored
+		//TODO: think if you ever need to modify the scene itself; if you don't, it's great
 	}
 
 }
