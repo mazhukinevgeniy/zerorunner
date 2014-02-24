@@ -26,6 +26,8 @@ package game.renderer
 			this.addChild(new GroundLevelMarksRenderer(elements));
 			this.addChild(new ItemRenderer(elements));
 			this.addChild(new ProjectileRenderer(elements));
+			
+			elements.displayRoot.addChild(new PauseView(elements.flow));
 		}
 		
 		update function setCenter(center:PuppetBase):void

@@ -23,6 +23,8 @@ package
 		
 		public static const restore:String = "restore";
 		
+		public static const timeFixed:String = "timeFixed";
+		
 		public static const gameFinished:String = "gameFinished";
 		public static const quitGame:String = "quitGame";
 		

@@ -12,19 +12,14 @@ package game.core
 	{
 		private var frameCount:int = 0;
 		
-		private var _fixed:Boolean = true;
+		private var isFixed:Boolean = true;
 		
 		private var updateFlow:IUpdateDispatcher;
 		private var status:StatusReporter;
 		private var gameJuggler:Juggler;
 		
-		private var pauseView:PauseView;
-		
 		public function Time(elements:GameElements) 
 		{
-			elements.displayRoot.addChild(this.pauseView = new PauseView());
-			
-			
 			this.gameJuggler = elements.juggler;
 			this.status = elements.database.status;
 			
@@ -40,7 +35,7 @@ package game.core
 		
 		update function restore(config:GameConfig):void
 		{
-			this.fixed = false;
+			this.isFixed = false;
 			
 			this.frameCount = 0;
 		}
@@ -51,7 +46,7 @@ package game.core
 			{
 				this.updateFlow.dispatchUpdate(Update.frameOfTheMapMode);
 			}
-			else if (!this.fixed)
+			else if (!this.isFixed)
 			{
 				if (!this.status.isGameOn)
 					throw new Error("numberedFrame must happen in-game only");
@@ -74,32 +69,20 @@ package game.core
 		
 		update function togglePause():void
 		{
-			this.fixed = !this._fixed;
+			this.isFixed = !this.isFixed;
+			
+			this.updateFlow.dispatchUpdate(Update.timeFixed, this.isFixed);
 		}
 		
 		update function gameFinished(key:int):void 
 		{ 
 			this.gameJuggler.purge();
 			
-			this.fixed = true;
-			this.pauseView.visible = false;
+			this.isFixed = true;
 			
 			this.frameCount = 0;
 		}
 		
-		
-		
-		private function get fixed():Boolean
-		{
-			return this._fixed;
-		}
-		
-		private function set fixed(value:Boolean):void
-		{
-			this.pauseView.visible = value;
-			
-			this._fixed = value;
-		}
 	}
 	
 }
