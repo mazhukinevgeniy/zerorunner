@@ -10,8 +10,6 @@ package game.items.generator
 	
 	public class GeneratorMaster extends MasterBase
 	{
-		//TODO: generators are not active, so subscribe to numbered frames and act act act
-		
 		private var elements:GameElements;
 		
 		private var center:ICoordinated;

@@ -6,7 +6,6 @@ package game.items
 	import game.items.character.CharacterMaster;
 	import game.items.generator.GeneratorMaster;
 	import game.items.shard.ShardMaster;
-	//import game.items.droid.DroidMaster;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import utils.updates.update;
@@ -33,7 +32,6 @@ package game.items
 			new CharacterMaster(elements);
 			new GeneratorMaster(elements);
 			new BeaconMaster(elements);
-			//new DroidMaster(elements); //TODO: see DroidMaster.as
 			new ShardMaster(elements);
 			
 			this.moved = new Vector.<PuppetBase>();
@@ -58,7 +56,7 @@ package game.items
 			if (key == Game.FRAME_TO_ACT)
 			{
 				for each (var pup:PuppetBase in this.activeItems)
-					pup.tickPassed(); //TODO: check if troublesome
+					pup.tickPassed();
 				
 				var center:ICoordinated = this.center;
 				

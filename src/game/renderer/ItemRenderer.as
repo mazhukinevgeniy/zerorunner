@@ -52,13 +52,13 @@ package game.renderer
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.TOP, "hero_stand"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.LEFT, "hero_stand"),//TODO: add other textures
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.DOWN, "hero_stand"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "hero_side_0_0", "hero_side_0_1"),//TODO: add other textures
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "hero_side_0_0", "hero_side_0_1"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "hero_side_0_0", "hero_side_0_1"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.TOP, "hero_side_0_0", "hero_side_0_1"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.DOWN, "hero_side_0_0", "hero_side_0_1"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.RIGHT, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.TOP, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.LEFT, "unimplemented"),//TODO: add other textures
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.LEFT, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.DOWN, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.LEFT, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.RIGHT, "unimplemented"),
@@ -74,7 +74,6 @@ package game.renderer
 						
 						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented")
 					];
-			//TODO: enlist sprites here
 			
 			this.initializeImages(spritelist, this.sprites, atlas);
 			
@@ -150,7 +149,7 @@ package game.renderer
 			
 			var center:ICoordinated = this.center;
 			
-			const tlcX:int = center.x - 13;//TODO: check if can reduce constants
+			const tlcX:int = center.x - 13;//TODO: check if can reduce constants and/or hardcode
 			const brcX:int = center.x + 14;
 			
 			const tlcY:int = center.y - 11;

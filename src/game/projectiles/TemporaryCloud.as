@@ -52,8 +52,6 @@ package game.projectiles
 						break;
 					}
 				}
-				
-				//TODO: spawn projectiles
 			}
 		}
 		

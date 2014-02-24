@@ -115,7 +115,7 @@ package game.hud
 			this.minY = -(MAX_WIDTH - Main.HEIGHT);
 		}
 		
-		update function setCenter(center:ICoordinated):void//TODO: use this update where it will be of use
+		update function setCenter(center:ICoordinated):void
 		{
 			this.center = center;
 			
@@ -126,7 +126,8 @@ package game.hud
 		{
 			this.container.visible = !this.container.visible;
 			
-			this.input.getInputCopy();//TODO: fix when syntax is revised
+			this.input.getInputCopy();
+			//TODO: fix it when it breaks because of the inputman fix
 		}
 		
 		update function numberedFrame(key:int):void
@@ -164,13 +165,13 @@ package game.hud
 			
 			const STEP:int = 4;
 			
-			while (action && (action.x + action.y != 0))//implying it's 0 if both are 0
+			while (action && (action.x + action.y != 0))/* implying it's 0 if both are 0 */
 			{
 				this.container.x -= STEP * action.x;
 				this.container.y -= STEP * action.y;
 				
 				action = input.pop();
-			}//TODO: something is wrong here, must investigate someday
+			}
 			
 			if (this.container.x < this.minX)
 				this.container.x = this.minX;

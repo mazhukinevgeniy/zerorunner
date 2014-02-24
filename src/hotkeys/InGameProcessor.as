@@ -36,7 +36,7 @@ package hotkeys
 			{
 				if (status.isMapOn)
 				{
-					//TODO: add map-specific controls
+					/* map-specific controls */
 				}
 				else
 				{

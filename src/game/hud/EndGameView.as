@@ -59,7 +59,6 @@ package game.hud
 		update function restore(config:GameConfig):void
 		{
 			this.visible = false;
-			//TODO: check if actually needed
 		}
 		
 		update function gameFinished(key:int):void
