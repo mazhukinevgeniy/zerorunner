@@ -39,8 +39,6 @@ package game.forceFields
 		
 		public function isCellCovered(x:int, y:int):Boolean
 		{
-			//TODO: check if it still works wrong
-			
 			x = normalize(x);
 			y = normalize(y);
 			
