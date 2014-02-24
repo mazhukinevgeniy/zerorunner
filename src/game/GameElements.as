@@ -14,7 +14,6 @@ package game
 	import game.renderer.Renderer;
 	import game.scene.IScene;
 	import game.scene.Scene;
-	import starling.animation.Juggler;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -27,7 +26,6 @@ package game
 		private var _fuel:IFuel;
 		private var _items:Items;
 		private var _scene:IScene;
-		private var _juggler:Juggler;
 		private var _input:InputManager;
 		private var _assets:AssetManager;
 		private var _flow:IUpdateDispatcher;
@@ -45,7 +43,6 @@ package game
 			
 			new GameUpdateConverter(this._flow, this._database.config);
 			
-			this._juggler = new Juggler();
 			this._input = new InputManager(this._flow);
 			
 			this._forceFields = new ForceFields(this._flow);
@@ -63,7 +60,6 @@ package game
 		public function get fuel():IFuel { return this._fuel; }
 		public function get items():Items { return this._items; }
 		public function get scene():IScene { return this._scene; }
-		public function get juggler():Juggler { return this._juggler; }
 		public function get input():InputManager { return this._input; }
 		public function get assets():AssetManager { return this._assets; }
 		public function get flow():IUpdateDispatcher { return this._flow; }

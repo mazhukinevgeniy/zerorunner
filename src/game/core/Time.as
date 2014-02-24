@@ -3,7 +3,6 @@ package game.core
 	import data.StatusReporter;
 	import data.viewers.GameConfig;
 	import game.GameElements;
-	import starling.animation.Juggler;
 	import starling.events.EnterFrameEvent;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -16,11 +15,9 @@ package game.core
 		
 		private var updateFlow:IUpdateDispatcher;
 		private var status:StatusReporter;
-		private var gameJuggler:Juggler;
 		
 		public function Time(elements:GameElements) 
 		{
-			this.gameJuggler = elements.juggler;
 			this.status = elements.database.status;
 			
 			elements.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
@@ -52,8 +49,6 @@ package game.core
 					throw new Error("numberedFrame must happen in-game only");
 				//TODO: remove when sure it's all right
 				
-				this.gameJuggler.advanceTime(event.passedTime);
-				
 				if (this.frameCount < Game.FRAMES_PER_CYCLE)
 				{
 					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
@@ -76,8 +71,6 @@ package game.core
 		
 		update function gameFinished(key:int):void 
 		{ 
-			this.gameJuggler.purge();
-			
 			this.isFixed = true;
 			
 			this.frameCount = 0;
