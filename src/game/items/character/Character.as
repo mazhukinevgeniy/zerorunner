@@ -1,6 +1,5 @@
 package game.items.character 
 {
-	import game.core.InputManager;
 	import game.fuel.IFuel;
 	import game.GameElements;
 	import game.items.Items;

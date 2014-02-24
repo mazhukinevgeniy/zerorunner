@@ -1,4 +1,4 @@
-package game.core
+package game.input
 {
 	import data.viewers.GameConfig;
 	import flash.events.Event;
@@ -8,7 +8,7 @@ package game.core
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class InputManager
+	public class InputManager implements IKnowInput
 	{
 		private const PRESS:int = 0;
 		private const CLICK:int = 8;

@@ -1,4 +1,4 @@
-package game.core 
+package game 
 {
 	import data.StatusReporter;
 	import data.viewers.GameConfig;
@@ -7,7 +7,7 @@ package game.core
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class Time
+	internal class Time
 	{
 		private var frameCount:int = 0;
 		

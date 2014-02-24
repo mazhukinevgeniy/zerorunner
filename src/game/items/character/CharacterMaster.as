@@ -1,9 +1,9 @@
 package game.items.character 
 {
 	import data.viewers.GameConfig;
-	import game.core.InputManager;
 	import game.forceFields.IForceField;
 	import game.GameElements;
+	import game.input.IKnowInput;
 	import game.items.Items;
 	import game.items.items_internal;
 	import game.items.MasterBase;
@@ -18,7 +18,7 @@ package game.items.character
 	{
 		private var elements:GameElements;
 		
-		private var input:InputManager;
+		private var input:IKnowInput;
 		private var scene:IScene;
 		private var items:Items;
 		private var force:IForceField;

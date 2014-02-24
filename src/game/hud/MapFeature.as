@@ -2,8 +2,8 @@ package game.hud
 {
 	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;
-	import game.core.InputManager;
 	import game.GameElements;
+	import game.input.IKnowInput;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.scene.IScene;
@@ -27,7 +27,7 @@ package game.hud
 		private var scene:IScene;
 		private var center:ICoordinated;
 		
-		private var input:InputManager;
+		private var input:IKnowInput;
 		
 		private var container:QuadBatch;
 		
