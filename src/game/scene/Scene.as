@@ -36,9 +36,12 @@ package game.scene
 				i = Math.random() * Game.MAP_WIDTH;
 				j = Math.random() * Game.MAP_WIDTH;
 				
-				while (Math.random() < 0.95)
+				while (Math.random() < 0.65)
 				{
 					this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_FALL;
+					this.scene[(i + j * Game.MAP_WIDTH + 1) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_FALL;
+					this.scene[(i + j * Game.MAP_WIDTH + Game.MAP_WIDTH) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_FALL;
+					this.scene[(i + j * Game.MAP_WIDTH + Game.MAP_WIDTH + 1) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_FALL;
 					
 					if (Math.random() < 0.25)
 						i = normalize(i + 1);
@@ -53,49 +56,13 @@ package game.scene
 			
 			/* We have canyons now */
 			
-			const NUMBER_OF_LAVA_LAKES:int = Game.MAP_WIDTH * Game.MAP_WIDTH * 0.001;
-			
-			for (k = 0; k < NUMBER_OF_CANYONS; k++)
-			{
-				i = Math.random() * Game.MAP_WIDTH;
-				j = Math.random() * Game.MAP_WIDTH;
-				
-				while (Math.random() < 0.65)
-				{
-					this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_LAVA;
-					this.scene[(i + j * Game.MAP_WIDTH + 1) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_LAVA;
-					this.scene[(i + j * Game.MAP_WIDTH + Game.MAP_WIDTH) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_LAVA;
-					this.scene[(i + j * Game.MAP_WIDTH + Game.MAP_WIDTH + 1) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_LAVA;
-					
-					if (Math.random() < 0.25)
-						i = normalize(i + 1);
-					else if (Math.random() < 0.33)
-						i = normalize(i - 1);
-					else if (Math.random() < 0.5)
-						j = normalize(j + 1);
-					else
-						j = normalize(j - 1);
-				}
-			}
-			
-			/* We have lava lakes now */
-			
 			for (j = 0; j < Game.MAP_WIDTH; j++)
 				for (i = 0; i < Game.MAP_WIDTH; i++)
 					if ((i % 15) + (j % 15) == 0)//TODO: check that hardcode
 					{
-						this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_SOLID_GROUND;
+						if (this.scene[i + j * Game.MAP_WIDTH] == Game.SCENE_GROUND)
+							this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_SOLID_GROUND;
 					}
-					else if (Math.random() < 0.05)
-					{
-						var rand:Number = Math.random();
-						if (rand < 0.48)
-							this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_GROUND;
-						else if (rand < 0.6)
-							this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_LAVA;
-					}
-			
-			/* Added random deviations here */
 		}
 		
 		public function getSceneCell(x:int, y:int):int

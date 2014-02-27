@@ -33,7 +33,8 @@ package game.items.generator
 				{
 					cell.setValue(i * 15, j * 15);
 					
-					new Generator(this, this.elements, cell);
+					if (this.elements.scene.getSceneCell(cell.x, cell.y) == Game.SCENE_SOLID_GROUND)
+						new Generator(this, this.elements, cell);
 				}
 		}
 		
@@ -58,8 +59,12 @@ package game.items.generator
 					y = normalize(this.center.y + dY);
 					
 					//TODO: show the progress
-					if (!this.elements.forceFields.isCellCovered(x, y))
-						this.elements.flow.dispatchUpdate(Update.generatorPowered, x, y);
+					
+					var item:PuppetBase = this.elements.items.findAnyObjectByCell(x, y);
+					
+					if (item && item is Generator)//TODO: remove this superdirty code
+						if (!this.elements.forceFields.isCellCovered(x, y))
+							this.elements.flow.dispatchUpdate(Update.generatorPowered, x, y);
 				}
 				
 			}
