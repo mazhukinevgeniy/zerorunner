@@ -101,9 +101,9 @@ package game.scene
 								
 								for (k = startJ; k < startJ + lengthAbove; k++)
 								{
-									this.scene[k + (prevI - 0) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
-									this.scene[k + (prevI - 1) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
-									this.scene[k + (prevI - 2) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[normalize(k) + (prevI - 0) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[normalize(k) + (prevI - 1) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[normalize(k) + (prevI - 2) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
 								}
 							}
 						}
@@ -130,9 +130,9 @@ package game.scene
 								
 								for (k = startJ; k < startJ + lengthAbove; k++)
 								{
-									this.scene[k + (locI + 0) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
-									this.scene[k + (locI + 1) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
-									this.scene[k + (locI + 2) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[normalize(k) + (locI + 0) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[normalize(k) + (locI + 1) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[normalize(k) + (locI + 2) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
 								}
 							}
 						}
@@ -141,13 +141,45 @@ package game.scene
 			
 			/* We have canyons now */
 			
+			var up:Boolean, down:Boolean, left:Boolean, right:Boolean;
+			var fallsNearby:int;
+			
 			for (j = 0; j < Game.MAP_WIDTH; j++)
 				for (i = 0; i < Game.MAP_WIDTH; i++)
-					if ((i % 15) + (j % 15) == 0)//TODO: check that hardcode
+				{
+					if (this.scene[i + j * Game.MAP_WIDTH] == Game.SCENE_FALL)
 					{
-						if (this.scene[i + j * Game.MAP_WIDTH] == Game.SCENE_GROUND)
-							this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_SOLID_GROUND;
+						up = this.getSceneCell(i, j - 1) == Game.SCENE_FALL;
+						down = this.getSceneCell(i, j + 1) == Game.SCENE_FALL;
+						left = this.getSceneCell(i - 1, j) == Game.SCENE_FALL;
+						right = this.getSceneCell(i + 1, j) == Game.SCENE_FALL;
+						
+						fallsNearby = int(up) + int(down) + int(left) + int(right);
+						
+						if (fallsNearby == 2)
+						{
+							if (up)
+							{
+								if (down)
+									throw new Error();//TODO: don't throw
+								else if (left)
+									this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_TL_DISK;
+								else if (right)
+									this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_TR_DISK;
+							}
+							else if (down)
+							{
+								if (left)
+									this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_BL_DISK;
+								else if (right)
+									this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_BR_DISK;
+							}
+							else
+								throw new Error();
+						}
 					}
+					//TODO: replace some cells with the disk codes
+				}
 		}
 		
 		public function getSceneCell(x:int, y:int):int

@@ -21,8 +21,10 @@ package
 		
 		public static const SCENE_FALL:int = 0;
 		public static const SCENE_GROUND:int = 1;
-		public static const SCENE_SOLID_GROUND:int = 2;
-		public static const SCENE_LAVA:int = 3;
+		public static const SCENE_TL_DISK:int = 2;
+		public static const SCENE_BL_DISK:int = 3;
+		public static const SCENE_TR_DISK:int = 4;
+		public static const SCENE_BR_DISK:int = 5;
 		
 		/* Endings */
 		
@@ -65,8 +67,8 @@ package
 		
 		/* Metric */
 		
-		public static const CELL_WIDTH:int = 40;
-		public static const CELL_HEIGHT:int = 40;
+		public static const CELL_WIDTH:int = 70;
+		public static const CELL_HEIGHT:int = 70;
 		
 		public static const CELLS_IN_VISIBLE_WIDTH:int = int(Main.WIDTH / Game.CELL_WIDTH);
 		public static const CELLS_IN_VISIBLE_HEIGHT:int = int(Main.HEIGHT / Game.CELL_HEIGHT);

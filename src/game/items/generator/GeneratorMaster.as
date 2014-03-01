@@ -33,7 +33,7 @@ package game.items.generator
 				{
 					cell.setValue(i * 15, j * 15);
 					
-					if (this.elements.scene.getSceneCell(cell.x, cell.y) == Game.SCENE_SOLID_GROUND)
+					if (this.elements.scene.getSceneCell(cell.x, cell.y) == Game.SCENE_GROUND)
 						new Generator(this, this.elements, cell);
 				}
 		}

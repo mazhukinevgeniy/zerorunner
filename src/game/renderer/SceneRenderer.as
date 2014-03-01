@@ -11,14 +11,10 @@ package game.renderer
 	
 	internal class SceneRenderer extends QuadBatch
 	{
-		private var ground:Image;
-		private var ground_S:Image, ground_W:Image, ground_E:Image, ground_N:Image;
-		private var ground_NE:Image, ground_NW:Image, ground_SE:Image, ground_SW:Image;
-		private var stones1:Image, stones2:Image, stones3:Image;
-		private var solidGround:Image;
-		private var lava:Image;
-		private var lava_S:Image, lava_W:Image, lava_E:Image, lava_N:Image;
-		private var lava_NE:Image, lava_NW:Image, lava_SE:Image, lava_SW:Image;
+		private var _5:Image;
+		private var _6:Image, _8:Image, _4:Image, _2:Image;
+		private var _3:Image, _9:Image, _7:Image, _1:Image;
+		private var _33:Image, _99:Image, _77:Image, _11:Image;
 		
 		private var xM:int = 1 + Math.random() * 5;
 		private var yM:int = 1 + Math.random() * 5;
@@ -45,14 +41,10 @@ package game.renderer
 			var atlas:TextureAtlas = elements.assets.getTextureAtlas("sprites");
 			
 			for each (var key:String in 
-					["ground", "ground_S", "ground_W", "ground_E", "ground_N",
-					 "ground_NE", "ground_NW", "ground_SE", "ground_SW",
-					 "stones1", "stones2", "stones3",
-					 "solidGround",
-					 "lava",
-					 "lava_S", "lava_W", "lava_E", "lava_N",
-					 "lava_NE", "lava_NW", "lava_SE", "lava_SW"])
-				this[key] = new Image(atlas.getTexture(key));
+					["1", "2", "3", "4", "5",
+					 "6", "7", "8", "9",
+					 "11", "33", "77", "99"])
+				this["_" + key] = new Image(atlas.getTexture(key));
 			
 			
 			this.previousCenter = new CellXY(-1, -1);
@@ -98,7 +90,12 @@ package game.renderer
 			var i:int;
 			var j:int;
 			
-			var number:uint;
+			var up:Boolean, down:Boolean, right:Boolean, left:Boolean;
+			var numberOfBorders:int;
+			
+			var sTitle:String;
+			
+			var tileCode:int;
 			
 			for (j = tlcY; j < brcY; j++)
 			{
@@ -106,226 +103,80 @@ package game.renderer
 				{
 					if (this.scene.getSceneCell(i, j) != Game.SCENE_FALL)
 					{
-						if (this.scene.getSceneCell(i, j + 1) == Game.SCENE_FALL)
-						{
-							sprite = this.ground_S;
-							
-							sprite.x = i * Game.CELL_WIDTH;
-							sprite.y = (j + 1) * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i + 1, j) == Game.SCENE_FALL)
-						{
-							sprite = this.ground_E;
-							
-							sprite.x = (i + 1) * Game.CELL_WIDTH;
-							sprite.y = j * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j) == Game.SCENE_FALL)
-						{
-							sprite = this.ground_W;
-							
-							sprite.x = i * Game.CELL_WIDTH - sprite.width;
-							sprite.y = j * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i, j - 1) == Game.SCENE_FALL)
-						{
-							sprite = this.ground_N;
-							
-							sprite.x = i * Game.CELL_WIDTH;
-							sprite.y = j * Game.CELL_HEIGHT - sprite.height;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i + 1, j + 1) == Game.SCENE_FALL)
-						{
-							sprite = this.ground_SE;
-							
-							sprite.x = (i + 1) * Game.CELL_WIDTH;
-							sprite.y = (j + 1) * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j + 1) == Game.SCENE_FALL)
-						{
-							sprite = this.ground_SW;
-							
-							sprite.x = i * Game.CELL_WIDTH - sprite.width;
-							sprite.y = (j + 1) * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i + 1, j - 1) == Game.SCENE_FALL)
-						{
-							sprite = this.ground_NE;
-							
-							sprite.x = (i + 1) * Game.CELL_WIDTH;
-							sprite.y = j * Game.CELL_HEIGHT - sprite.height;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j - 1) == Game.SCENE_FALL)
-						{
-							sprite = this.ground_NW;
-							
-							sprite.x = i * Game.CELL_WIDTH - sprite.width;
-							sprite.y = j * Game.CELL_HEIGHT - sprite.height;
-							
-							this.addImage(sprite);
-						}
+						up = this.scene.getSceneCell(i, j - 1) == Game.SCENE_FALL;
+						down = this.scene.getSceneCell(i, j + 1) == Game.SCENE_FALL;
+						right = this.scene.getSceneCell(i + 1, j) == Game.SCENE_FALL;
+						left = this.scene.getSceneCell(i - 1, j) == Game.SCENE_FALL;
+						
+						numberOfBorders = int(up) + int(down) + int(left) + int(right);
 						
 						if (this.scene.getSceneCell(i, j) == Game.SCENE_GROUND)
 						{
-							sprite = this.ground;
-							
-							sprite.x = i * Game.CELL_WIDTH;
-							sprite.y = j * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-							
-							number = 
-								uint(
-									 (normalize(i) * this.xM * 999999000001) 
-									|
-									 (normalize(j) * this.yM * 87178291199)
-									);
-							
-							if (number % 13 < 3)
+							if (numberOfBorders > 2)
+								throw new Error();
+							else if (numberOfBorders == 2)
 							{
-								sprite = this["stones" + (1 + number % 3)];
-								
-								sprite.x = i * Game.CELL_WIDTH;
-								sprite.y = j * Game.CELL_HEIGHT;
-								
-								this.addImage(sprite);
+								if (up)
+								{
+									if (right)
+										sTitle = "_99";
+									else if (left)
+										sTitle = "_77";
+									else throw new Error();
+								}
+								else if (down)
+								{
+									if (right)
+										sTitle = "_33";
+									else if (left)
+										sTitle = "_11";
+									else throw new Error();
+								}
+								else throw new Error();
 							}
-							
-							
+							else if (numberOfBorders == 0)
+								sTitle = "_5";
+							else if (up)
+								sTitle = "_8";
+							else if (down)
+								sTitle = "_2";
+							else if (left)
+								sTitle = "_4";
+							else if (right)
+								sTitle = "_6";
+							else throw new Error();
 						}
-						else if (this.scene.getSceneCell(i, j) == Game.SCENE_SOLID_GROUND)
-						{//TODO: don't get i,j so often
-						 //TODO: what if we have our own cache? seems semilegit
+						else
+						{
+							//it must be disk then
+							tileCode = this.scene.getSceneCell(i, j);
 							
-							sprite = this.solidGround;
-							
-							sprite.x = i * Game.CELL_WIDTH;
-							sprite.y = j * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
+							if (tileCode == Game.SCENE_BL_DISK)
+								sTitle = "_1";
+							else if (tileCode == Game.SCENE_TL_DISK)
+								sTitle = "_7";
+							else if (tileCode == Game.SCENE_BR_DISK)
+								sTitle = "_3";
+							else if (tileCode == Game.SCENE_TR_DISK)
+								sTitle = "_9";
+							else throw new Error();
 						}
-					}
-				}
-				
-			}
-			
-			for (j = tlcY; j < brcY; j++)
-			{
-				for (i = tlcX; i < brcX; i++)
-				{
-					if (this.scene.getSceneCell(i, j) == Game.SCENE_LAVA)
-					{
-						sprite = this.lava;
+						
+						sprite = this[sTitle];
 						
 						sprite.x = i * Game.CELL_WIDTH;
 						sprite.y = j * Game.CELL_HEIGHT;
 						
 						this.addImage(sprite);
-						
-						
-						if (this.scene.getSceneCell(i + 1, j) != Game.SCENE_LAVA)
-						{
-							sprite = this.lava_E;
-							
-							sprite.x = (i + 1) * Game.CELL_WIDTH - sprite.width / 2;
-							sprite.y = j * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j) != Game.SCENE_LAVA)
-						{
-							sprite = this.lava_W;
-							
-							sprite.x = i * Game.CELL_WIDTH - sprite.width / 2;
-							sprite.y = j * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i, j - 1) != Game.SCENE_LAVA)
-						{
-							sprite = this.lava_N;
-							
-							sprite.x = i * Game.CELL_WIDTH;
-							sprite.y = j * Game.CELL_HEIGHT - sprite.height / 2;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i, j + 1) != Game.SCENE_LAVA)
-						{
-							sprite = this.lava_S;
-							
-							sprite.x = i * Game.CELL_WIDTH;
-							sprite.y = (j + 1) * Game.CELL_HEIGHT - sprite.height / 2;
-							
-							this.addImage(sprite);
-						}
-						
-						
-						if (this.scene.getSceneCell(i + 1, j + 1) != Game.SCENE_LAVA &&
-							this.scene.getSceneCell(i + 1, j) == Game.SCENE_LAVA &&
-							this.scene.getSceneCell(i, j + 1) == Game.SCENE_LAVA)
-						{
-							sprite = this.lava_SE;
-							
-							sprite.x = (i + 1) * Game.CELL_WIDTH - sprite.width;
-							sprite.y = (j + 1) * Game.CELL_HEIGHT - sprite.height;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j + 1) != Game.SCENE_LAVA &&
-							this.scene.getSceneCell(i - 1, j) == Game.SCENE_LAVA &&
-							this.scene.getSceneCell(i, j + 1) == Game.SCENE_LAVA)
-						{
-							sprite = this.lava_SW;
-							
-							sprite.x = i * Game.CELL_WIDTH;
-							sprite.y = (j + 1) * Game.CELL_HEIGHT - sprite.height;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i + 1, j - 1) != Game.SCENE_LAVA &&
-							this.scene.getSceneCell(i + 1, j) == Game.SCENE_LAVA &&
-							this.scene.getSceneCell(i, j - 1) == Game.SCENE_LAVA)
-						{
-							sprite = this.lava_NE;
-							
-							sprite.x = (i + 1) * Game.CELL_WIDTH - sprite.width;
-							sprite.y = j * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
-						if (this.scene.getSceneCell(i - 1, j - 1) != Game.SCENE_LAVA &&
-							this.scene.getSceneCell(i - 1, j) == Game.SCENE_LAVA &&
-							this.scene.getSceneCell(i, j - 1) == Game.SCENE_LAVA)
-						{
-							sprite = this.lava_NW;
-							
-							sprite.x = i * Game.CELL_WIDTH;
-							sprite.y = j * Game.CELL_HEIGHT;
-							
-							this.addImage(sprite);
-						}
 					}
+						 //TODO: don't get i,j so often
+						 //TODO: what if we have our own cache? seems semilegit
+						 
+						 //TODO: add 1-, 2-, 3-
 				}
+				
 			}
 		}
-		
-		
-		//TODO: the code above must be shrinkable (plus Quadr works on it); ergo, shrink it
 		
 	}
 
