@@ -21,6 +21,8 @@ package game.scene
 		{
 			var j:int, i:int, k:int;
 			
+			var length:int;
+			
 			this.scene.clear();
 			this.scene.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
 			
@@ -29,28 +31,111 @@ package game.scene
 			
 			/* Everything is solid ground by now */
 			
-			const NUMBER_OF_CANYONS:int = Game.MAP_WIDTH * Game.MAP_WIDTH * 0.05;
+			if (Game.MAP_WIDTH % 3 != 0)
+				throw new Error("can't generate map");
 			
-			for (k = 0; k < NUMBER_OF_CANYONS; k++)
+			for (i = 0; i < Game.MAP_WIDTH / 3; i++) /* filling rows */
 			{
-				i = Math.random() * Game.MAP_WIDTH;
-				j = Math.random() * Game.MAP_WIDTH;
-				
-				while (Math.random() < 0.65)
+				for (j = 0; j < Game.MAP_WIDTH; j++)
 				{
-					this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_FALL;
-					this.scene[(i + j * Game.MAP_WIDTH + 1) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_FALL;
-					this.scene[(i + j * Game.MAP_WIDTH + Game.MAP_WIDTH) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_FALL;
-					this.scene[(i + j * Game.MAP_WIDTH + Game.MAP_WIDTH + 1) % (Game.MAP_WIDTH * Game.MAP_WIDTH)] = Game.SCENE_FALL;
-					
-					if (Math.random() < 0.25)
-						i = normalize(i + 1);
-					else if (Math.random() < 0.33)
-						i = normalize(i - 1);
-					else if (Math.random() < 0.5)
-						j = normalize(j + 1);
+					if (Math.random() > 0.4) /* adding falls */
+					{
+						length = 3 + Math.random() * 3;
+						
+						if (j + length >= Game.MAP_WIDTH)
+							length = Game.MAP_WIDTH - j - 1;
+						
+						if (length < 3)
+							length = 0;
+						
+						for (k = 0; k < length; k++)
+						{
+							if (j < Game.MAP_WIDTH)
+							{
+								this.scene[j + (i * 3 + 0) * Game.MAP_WIDTH] = Game.SCENE_FALL;
+								this.scene[j + (i * 3 + 1) * Game.MAP_WIDTH] = Game.SCENE_FALL;
+								this.scene[j + (i * 3 + 2) * Game.MAP_WIDTH] = Game.SCENE_FALL;
+							}
+							
+							j++;
+						}
+						
+						j++;
+					}
 					else
-						j = normalize(j - 1);
+					{
+						j += 1;
+					}
+				}
+			}
+			
+			var lengthAbove:int;
+			var startJ:int;
+			
+			for (i = 0; i < Game.MAP_WIDTH / 3; i++)
+			{
+				for (j = 0; j < Game.MAP_WIDTH; j++)
+				{
+					var locI:int = i * 3;
+					var prevI:int = normalize(locI - 1);
+					
+					if (this.scene[j + locI * Game.MAP_WIDTH] == Game.SCENE_GROUND)
+						if (this.getSceneCell(j - 1, prevI) == Game.SCENE_FALL &&
+							this.getSceneCell(j, prevI) == Game.SCENE_FALL &&
+							this.getSceneCell(j + 1, prevI) == Game.SCENE_FALL) //three falls above
+						{
+							if (this.getSceneCell(j - 1, locI) == Game.SCENE_FALL ||
+								this.getSceneCell(j + 1, locI) == Game.SCENE_FALL) //we have bad angle here
+							{
+								lengthAbove = 3;
+								startJ = j - 1;
+								
+								for (k = 2; this.getSceneCell(j + k, prevI) == Game.SCENE_FALL; k++)
+									lengthAbove++;
+									
+								for (k = 2; this.getSceneCell(j - k, prevI) == Game.SCENE_FALL; k++)
+								{
+									lengthAbove++;
+									startJ--;
+								}
+								
+								for (k = startJ; k < startJ + lengthAbove; k++)
+								{
+									this.scene[k + (prevI - 0) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[k + (prevI - 1) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[k + (prevI - 2) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+								}
+							}
+						}
+					
+					if (this.scene[j + prevI * Game.MAP_WIDTH] == Game.SCENE_GROUND)
+						if (this.getSceneCell(j - 1, locI) == Game.SCENE_FALL &&
+							this.getSceneCell(j, locI) == Game.SCENE_FALL &&
+							this.getSceneCell(j + 1, locI) == Game.SCENE_FALL) 
+						{
+							if (this.getSceneCell(j - 1, prevI) == Game.SCENE_FALL ||
+								this.getSceneCell(j + 1, prevI) == Game.SCENE_FALL) //we have bad angle here
+							{
+								lengthAbove = 1;
+								startJ = j;
+								
+								for (k = 1; this.getSceneCell(j + k, locI) == Game.SCENE_FALL; k++)
+									lengthAbove++;
+									
+								for (k = 1; this.getSceneCell(j - k, locI) == Game.SCENE_FALL; k++)
+								{
+									lengthAbove++;
+									startJ--;
+								}
+								
+								for (k = startJ; k < startJ + lengthAbove; k++)
+								{
+									this.scene[k + (locI + 0) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[k + (locI + 1) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+									this.scene[k + (locI + 2) * Game.MAP_WIDTH] = Game.SCENE_GROUND;
+								}
+							}
+						}
 				}
 			}
 			
