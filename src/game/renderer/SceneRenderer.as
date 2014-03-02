@@ -212,8 +212,6 @@ package game.renderer
 					}
 						 //TODO: don't get i,j so often
 						 //TODO: what if we have our own cache? seems semilegit
-						 
-						 //TODO: add 1-, 2-, 3-
 				}
 				
 			}

@@ -47,7 +47,6 @@ package game
 			{
 				if (!this.status.isGameOn)
 					throw new Error("numberedFrame must happen in-game only");
-				//TODO: remove when sure it's all right
 				
 				if (this.frameCount < Game.FRAMES_PER_CYCLE)
 				{
