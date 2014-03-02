@@ -43,28 +43,36 @@ package game.scene
 						length = 3 + Math.random() * 3;
 						
 						if (j + length >= Game.MAP_WIDTH)
-							length = Game.MAP_WIDTH - j - 1;
+						{
+							length = Game.MAP_WIDTH - j;
+							
+							if (this.getSceneCell(0, i * 3) == Game.SCENE_GROUND)
+								if (this.getSceneCell(1, i * 3) == Game.SCENE_FALL)
+									length--;
+						}
 						
 						if (length < 3)
 							length = 0;
-						
-						for (k = 0; k < length; k++)
-						{
-							if (j < Game.MAP_WIDTH)
+						else
+							for (k = 0; k < length; k++)
 							{
+								if (j >= Game.MAP_WIDTH)
+								{
+									throw new Error();
+								}
+								
 								this.scene[j + (i * 3 + 0) * Game.MAP_WIDTH] = Game.SCENE_FALL;
 								this.scene[j + (i * 3 + 1) * Game.MAP_WIDTH] = Game.SCENE_FALL;
 								this.scene[j + (i * 3 + 2) * Game.MAP_WIDTH] = Game.SCENE_FALL;
+								
+								j++;
 							}
-							
-							j++;
-						}
 						
 						j++;
 					}
 					else
 					{
-						j += 1;
+						j++;
 					}
 				}
 			}
@@ -80,21 +88,27 @@ package game.scene
 					var prevI:int = normalize(locI - 1);
 					
 					if (this.scene[j + locI * Game.MAP_WIDTH] == Game.SCENE_GROUND)
-						if (this.getSceneCell(j - 1, prevI) == Game.SCENE_FALL &&
-							this.getSceneCell(j, prevI) == Game.SCENE_FALL &&
-							this.getSceneCell(j + 1, prevI) == Game.SCENE_FALL) //three falls above
+						if ((this.getSceneCell(j - 1, prevI) == Game.SCENE_FALL) &&
+							(this.getSceneCell(j, prevI) == Game.SCENE_FALL) &&
+							(this.getSceneCell(j + 1, prevI) == Game.SCENE_FALL)) //three falls above
 						{
-							if (this.getSceneCell(j - 1, locI) == Game.SCENE_FALL ||
-								this.getSceneCell(j + 1, locI) == Game.SCENE_FALL) //we have bad angle here
+							if ((this.getSceneCell(j - 1, locI) == Game.SCENE_FALL) ||
+								(this.getSceneCell(j + 1, locI) == Game.SCENE_FALL)) //we have bad angle here
 							{
 								lengthAbove = 3;
 								startJ = j - 1;
 								
-								for (k = 2; this.getSceneCell(j + k, prevI) == Game.SCENE_FALL; k++)
+								k = 2; 
+								while (this.getSceneCell(j + k, prevI) == Game.SCENE_FALL)
+								{   
+									k++;
 									lengthAbove++;
-									
-								for (k = 2; this.getSceneCell(j - k, prevI) == Game.SCENE_FALL; k++)
-								{
+								}
+								
+								k = 2; 
+								while (this.getSceneCell(j - k, prevI) == Game.SCENE_FALL)
+								{   
+									k++;
 									lengthAbove++;
 									startJ--;
 								}
@@ -109,21 +123,27 @@ package game.scene
 						}
 					
 					if (this.scene[j + prevI * Game.MAP_WIDTH] == Game.SCENE_GROUND)
-						if (this.getSceneCell(j - 1, locI) == Game.SCENE_FALL &&
-							this.getSceneCell(j, locI) == Game.SCENE_FALL &&
-							this.getSceneCell(j + 1, locI) == Game.SCENE_FALL) 
+						if ((this.getSceneCell(j - 1, locI) == Game.SCENE_FALL) &&
+							(this.getSceneCell(j, locI) == Game.SCENE_FALL) &&
+							(this.getSceneCell(j + 1, locI) == Game.SCENE_FALL)) 
 						{
-							if (this.getSceneCell(j - 1, prevI) == Game.SCENE_FALL ||
-								this.getSceneCell(j + 1, prevI) == Game.SCENE_FALL) //we have bad angle here
+							if ((this.getSceneCell(j - 1, prevI) == Game.SCENE_FALL) ||
+								(this.getSceneCell(j + 1, prevI) == Game.SCENE_FALL)) //we have bad angle here
 							{
-								lengthAbove = 1;
-								startJ = j;
+								lengthAbove = 3;
+								startJ = j - 1;
 								
-								for (k = 1; this.getSceneCell(j + k, locI) == Game.SCENE_FALL; k++)
+								k = 2; 
+								while (this.getSceneCell(j + k, locI) == Game.SCENE_FALL)
+								{   
+									k++;
 									lengthAbove++;
-									
-								for (k = 1; this.getSceneCell(j - k, locI) == Game.SCENE_FALL; k++)
-								{
+								}
+								
+								k = 2; 
+								while (this.getSceneCell(j - k, locI) == Game.SCENE_FALL)
+								{   
+									k++;
 									lengthAbove++;
 									startJ--;
 								}
@@ -149,10 +169,10 @@ package game.scene
 				{
 					if (this.scene[i + j * Game.MAP_WIDTH] == Game.SCENE_FALL)
 					{
-						up = this.getSceneCell(i, j - 1) == Game.SCENE_FALL;
-						down = this.getSceneCell(i, j + 1) == Game.SCENE_FALL;
-						left = this.getSceneCell(i - 1, j) == Game.SCENE_FALL;
-						right = this.getSceneCell(i + 1, j) == Game.SCENE_FALL;
+						up = (this.getSceneCell(i, j - 1) != Game.SCENE_GROUND);
+						down = (this.getSceneCell(i, j + 1) != Game.SCENE_GROUND);
+						left = (this.getSceneCell(i - 1, j) != Game.SCENE_GROUND);
+						right = (this.getSceneCell(i + 1, j) != Game.SCENE_GROUND);
 						
 						fallsNearby = int(up) + int(down) + int(left) + int(right);
 						
@@ -161,7 +181,22 @@ package game.scene
 							if (up)
 							{
 								if (down)
+								{
+									var str:String = "";
+									
+									for (var iI:int = -5; iI < 6; iI++)
+									{
+										for (var iJ:int = -5; iJ < 6; iJ++)
+										{
+											str += this.getSceneCell(i + iI, j + iJ);
+										}
+										
+										trace(str);
+										str = "";
+									}
+									
 									throw new Error();//TODO: don't throw
+								}
 								else if (left)
 									this.scene[i + j * Game.MAP_WIDTH] = Game.SCENE_TL_DISK;
 								else if (right)

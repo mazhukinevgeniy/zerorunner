@@ -47,6 +47,10 @@ package game.hud
 			
 			this.tiles = new Array();
 			this.tiles[Game.SCENE_FALL] = new Quad(2, 2, 0x000000);
+			this.tiles[Game.SCENE_TR_DISK] = new Quad(2, 2, 0x000000);
+			this.tiles[Game.SCENE_TL_DISK] = new Quad(2, 2, 0x000000);
+			this.tiles[Game.SCENE_BR_DISK] = new Quad(2, 2, 0x000000);
+			this.tiles[Game.SCENE_BL_DISK] = new Quad(2, 2, 0x000000);
 			this.tiles[Game.SCENE_GROUND] = new Quad(2, 2, 0x8B4513);
 			
 			elements.flow.workWithUpdateListener(this);
