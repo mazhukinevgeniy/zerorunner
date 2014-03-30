@@ -20,10 +20,10 @@ package game.items.the_goal
 			
 			do
 			{
-				//x = Game.MAP_WIDTH * Math.random();
+				x = Game.MAP_WIDTH * Math.random();
 				//TODO: debug debug
-				x = 32;
-				y = Game.MAP_WIDTH * Math.random();
+				//y = Game.MAP_WIDTH * Math.random();
+				y = 32;
 			}
 			while (this.elements.items.findAnyObjectByCell(x, y) || this.elements.scene.getSceneCell(x, y) != Game.SCENE_GROUND);
 			
