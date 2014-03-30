@@ -6,10 +6,13 @@ package game.items.the_goal
 	
 	public class TheGoalMaster extends CheckpointMasterBase
 	{
+		private var currentGoal:TheGoal;
+		
+		private var elements:GameElements;
 		
 		public function TheGoalMaster(elements:GameElements) 
 		{
-			
+			this.elements = elements;
 			
 			super(elements);
 		}
@@ -28,7 +31,9 @@ package game.items.the_goal
 		
 		override protected function activateCheckpoint(place:ICoordinated):void 
 		{
-			//TODO: end game
+			this.elements.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_WON);
+			
+			this.currentGoal = null;
 		}
 	}
 
