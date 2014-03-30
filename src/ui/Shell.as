@@ -43,7 +43,7 @@ package ui
 		{
 			new Theme(elements, ownRoot);
 			
-			this.background = new Background(this.flow);
+			this.background = new Background();
 			this.navigation = new Navigation(this.flow, elements.database, elements.assets);
 			this.windows = new Windows(this.flow, this.assets, elements.database, elements.displayRoot)
 			

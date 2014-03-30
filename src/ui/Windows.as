@@ -28,7 +28,7 @@ package ui
 			
 			windows[Windows.GAME] = gameRoot;
 			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(assets, database.achievements, flow);
-			windows[Windows.SETTINGS] = new SettingsWindow(database.preferences);
+			windows[Windows.SETTINGS] = new SettingsWindow(flow, database.preferences);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
 			
 			

@@ -1,9 +1,10 @@
-package ui.background 
+package ui.windows.settings 
 {
 	import feathers.controls.Button;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import ui.themes.ExtendedTheme;
+	import ui.windows.Window;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class ResetButton extends Sprite
@@ -13,7 +14,6 @@ package ui.background
 		private var button:Button;
 		
 		public function ResetButton(flow:IUpdateDispatcher)
-		//TODO отправить в настройки
 		{
 			this.button = new Button();
 			this.addChild(this.button);
@@ -36,7 +36,7 @@ package ui.background
 		private function locate(event:Event):void
 		{
 			this.x = 0
-			this.y = Main.HEIGHT - this.button.height;
+			this.y = Window.HEIGHT - this.button.height;
 		}
 	}
 }

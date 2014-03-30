@@ -1,10 +1,11 @@
-package ui 
+package ui.windows.settings 
 {
 	import data.viewers.PreferencesViewer;
 	import feathers.controls.Button;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import ui.themes.ExtendedTheme;
+	import ui.windows.Window;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -40,9 +41,8 @@ package ui
 		
 		private function locate(event:Event):void
 		{
-			
-			this.x = Main.WIDTH - this.button.width;
-			this.y = Main.HEIGHT - this.button.height;
+			this.x = Window.WIDTH - this.button.width;
+			this.y = Window.HEIGHT - this.button.height;
 		}
 		
 		private function handleTriggered(event:Event):void
