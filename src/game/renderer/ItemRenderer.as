@@ -72,7 +72,9 @@ package game.renderer
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_FREE, this.RIGHT, "standing_shard"),
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_DYING, this.RIGHT, "standing_shard"),
 						
-						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented")
+						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented"),
+						
+						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_FREE, this.RIGHT, "hero_stand")//TODO: lol
 					];
 			
 			this.initializeImages(spritelist, this.sprites, atlas);

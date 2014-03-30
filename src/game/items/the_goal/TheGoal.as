@@ -12,6 +12,10 @@ package game.items.the_goal
 			super(master, elements, cell);
 		}
 		
+		override public function get type():int 
+		{
+			return Game.ITEM_THE_GOAL;
+		}
 	}
 
 }
