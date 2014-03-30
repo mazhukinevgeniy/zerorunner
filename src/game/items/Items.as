@@ -6,6 +6,7 @@ package game.items
 	import game.items.character.CharacterMaster;
 	import game.items.generator.GeneratorMaster;
 	import game.items.shard.ShardMaster;
+	import game.items.the_goal.TheGoalMaster;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import utils.updates.update;
@@ -33,6 +34,7 @@ package game.items
 			new GeneratorMaster(elements);
 			new BeaconMaster(elements);
 			new ShardMaster(elements);
+			new TheGoalMaster(elements);
 			
 			this.moved = new Vector.<PuppetBase>();
 		}
