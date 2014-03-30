@@ -12,7 +12,6 @@ package ui.navigation
 		public static function create(title:String = "title", compactSize:Boolean = false):Button
 		{
 			var newButton:Button = new Button();
-			newButton.nameList.add(ExtendedTheme.BUTTON_MENU);
 			
 			if (!compactSize)
 			{

@@ -88,6 +88,7 @@ package ui.themes
 	
 
 	public class AeonDesktopTheme extends DisplayListWatcher
+	//TODO забрать всё полезное и удалить
 	{
 		protected static const FOCUS_INDICATOR_SCALE_9_GRID:Rectangle = new Rectangle(5, 4, 1, 14);
 		protected static const BUTTON_SCALE_9_GRID:Rectangle = new Rectangle(6, 6, 70, 10);

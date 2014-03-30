@@ -9,7 +9,6 @@ package ui.navigation
 	
 	public class Navigation extends Sprite
 	{
-		private var panel:Panel;
 		private var menu:Menu;
 		private var compactMenu:CompactMenu;
 		
@@ -20,10 +19,9 @@ package ui.navigation
 		public function Navigation(flow:IUpdateDispatcher, database:DatabaseManager) 
 		{
 			this.addChild(this.menu = new Menu(flow));
-			this.addChild(this.panel = new Panel(flow, database.status));
 			this.addChild(this.compactMenu = new CompactMenu(flow));
 			
-			this.menus = new <DisplayObject>[this.menu, this.compactMenu, this.panel];
+			this.menus = new <DisplayObject>[this.menu, this.compactMenu];
 			this.hideAllBut(this.menu);
 			
 			this.muteButton = new MuteButton(flow, database.preferences);
@@ -39,7 +37,7 @@ package ui.navigation
 		
 		update function newGame():void
 		{
-			this.hideAllBut(this.panel);
+			this.hideAllBut(null);
 		}
 		
 		update function quitGame():void
@@ -59,9 +57,10 @@ package ui.navigation
 		
 		private function hideAllBut(item:DisplayObject):void
 		{
-			item.visible = true;
+			if( item != null)
+				item.visible = true;
 			
-			for (var i:int = 0; i < 3; i++)
+			for (var i:int = 0; i < 2; i++)
 				if (menus[i] != item)
 					menus[i].visible = false;
 		}

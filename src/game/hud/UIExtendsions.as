@@ -10,6 +10,7 @@ package game.hud
 			new FuelView(elements);
 			new MapFeature(elements);
 			
+			new Panel(elements);
 			new EndGameView(elements);
 		}
 		

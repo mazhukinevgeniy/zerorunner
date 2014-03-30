@@ -41,7 +41,6 @@ package game.hud
 			button.label = "Quit";
 			button.x = 60;
 			button.y = 60;
-			button.nameList.add(ExtendedTheme.BUTTON_MENU);
 			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			this.addChild(button);
 			

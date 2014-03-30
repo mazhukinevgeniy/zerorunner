@@ -8,6 +8,7 @@ package ui.themes
 	import flash.text.TextFormat;
 	
 	public class ExtendedTheme extends AeonDesktopTheme
+	//TODO забрать всё полезное и удалить
 	{
 		public static const BUTTON_MENU:String = "button-menu";
 		public static const MUTE_BUTTON:String = "mute-button";
@@ -34,8 +35,7 @@ package ui.themes
 		public function ExtendedTheme(elements:GameElements, root:DisplayObjectContainer)
 		{
 			super(elements, root);
-		} //TODO: damn it, where am i? why are we overriding custom classes? to add stuff we need? do we need ALL the stuff?
-		//TODO: what if i told you it would fit into the one class if we remove everything we don't need?
+		}
 		
 		override protected function initialize(elements:GameElements):void
 		{
@@ -45,7 +45,6 @@ package ui.themes
 			this.disabledTextFormat = ExtendedTheme.DISABLE_TEXT_FORMAT;
 			
 			this.setNewInitializersForClasses();
-			//TODO: please notice the hell of initializations. burn it all!
 		}
 		
 		private function setNewInitializersForClasses():void
