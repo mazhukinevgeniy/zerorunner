@@ -8,7 +8,6 @@ package ui
 	import ui.themes.Theme;
 	import ui.windows.achievements.AchievementsWindow;
 	import ui.windows.credits.CreditsWindow;
-	import ui.windows.statistics.StatisticsWindow;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class Windows extends Sprite
@@ -16,18 +15,16 @@ package ui
 		public static const PLAY:String = "Play";
 		
 		public static const GAME:int = 0;
-		public static const STATISTICS:int = 1;
-		public static const ACHIEVEMENTS:int = 2;
-		public static const CREDITS:int = 3;
+		public static const ACHIEVEMENTS:int = 1;
+		public static const CREDITS:int = 2;
 		
-		private static const NUMBER_OF_WINDOWS:int = 4;
+		private static const NUMBER_OF_WINDOWS:int = 3;
 		
 		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, database:DatabaseManager, gameRoot:DisplayObjectContainer) 
 		{
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 			
 			windows[Windows.GAME] = gameRoot;
-			windows[Windows.STATISTICS] = new StatisticsWindow(database);
 			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(assets, database.achievements, flow);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
 			

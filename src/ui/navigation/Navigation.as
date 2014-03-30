@@ -28,7 +28,6 @@ package ui.navigation
 		protected var buttonFactory:ButtonFactory;
 		
 		protected var playButton:Button,
-					statisticsButton:Button,
 					achievementsButton:Button,
 					creditsButton:Button;
 		
@@ -72,9 +71,6 @@ package ui.navigation
 			this.playButton = this.buttonFactory.createButton("New game");
 			this.addChild(this.playButton);
 			
-			this.statisticsButton = this.buttonFactory.createButton("Statistics");
-			this.addChild(this.statisticsButton);
-			
 			this.achievementsButton = this.buttonFactory.createButton("Achievements");
 			this.addChild(this.achievementsButton);
 			
@@ -82,7 +78,6 @@ package ui.navigation
 			this.addChild(this.creditsButton);
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
-			this.statisticsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 		}
@@ -95,10 +90,6 @@ package ui.navigation
 				
 				this.flow.dispatchUpdate(Update.toggleWindow, Windows.GAME);
 				this.flow.dispatchUpdate(Update.newGame);
-			}
-			else if (event.target == this.statisticsButton)
-			{
-				this.flow.dispatchUpdate(Update.toggleWindow, Windows.STATISTICS);
 			}
 			else if (event.target == this.achievementsButton)
 			{
