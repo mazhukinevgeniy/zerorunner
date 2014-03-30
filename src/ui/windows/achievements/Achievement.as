@@ -25,7 +25,7 @@ package ui.windows.achievements
 		{
 			var radius:int = 15;
 			var unlocked:Boolean;
-			var enabledSkin:String = "ground";
+			var enabledSkin:String = "1--";
 			var disabledSkin:String = "unimplemented";
 			var description:String = "this is achievement about distance - " + String(data[1].y) + "\n\n"+ String(data[Achievement.BASE_DATA].x);
 			
