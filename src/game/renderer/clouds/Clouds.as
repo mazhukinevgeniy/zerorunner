@@ -16,6 +16,9 @@ package game.renderer.clouds
 		
 		private var character:PuppetBase;
 		
+		private var stableOffsetX:int;
+		private var stableOffsetY:int;
+		
 		public function Clouds(elements:GameElements) 
 		{
 			this.elements = elements;
@@ -25,6 +28,7 @@ package game.renderer.clouds
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.setCenter);
+			elements.flow.addUpdateListener(Update.moveCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
@@ -53,12 +57,29 @@ package game.renderer.clouds
 		update function setCenter(center:PuppetBase):void
 		{
 			this.character = center;
+			
+			this.stableOffsetX = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
+            this.stableOffsetY = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
+		}
+		
+		update function moveCenter(change:DCellXY):void
+		{
+			this.stableOffsetX -= change.x * Game.CELL_WIDTH;
+			this.stableOffsetY -= change.y * Game.CELL_HEIGHT;
+			
+			while (this.stableOffsetX < 0)
+				this.stableOffsetX += 1024;
+			while (this.stableOffsetY < 0)
+				this.stableOffsetY += 1024;
+			
+			this.stableOffsetX = this.stableOffsetX % 1024;
+			this.stableOffsetY = this.stableOffsetY % 1024;
 		}
 		
 		update function numberedFrame(frame:int):void 
 		{
-			this.tilesOffsetX = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
-            this.tilesOffsetY = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
+			this.tilesOffsetX = this.stableOffsetX;
+            this.tilesOffsetY = this.stableOffsetY;
 			
 			if (this.character.occupation == Game.OCCUPATION_MOVING ||
 				this.character.occupation == Game.OCCUPATION_FLYING)

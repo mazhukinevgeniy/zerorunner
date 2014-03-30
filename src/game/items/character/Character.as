@@ -38,7 +38,7 @@ package game.items.character
 		
 		override protected function onMoved(change:DCellXY):void 
 		{
-			this.flow.dispatchUpdate(Update.moveCenter, change, this.movespeed);
+			this.flow.dispatchUpdate(Update.moveCenter, change);
 		}
 		
 		override protected function onSpawned():void 

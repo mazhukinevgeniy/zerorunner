@@ -88,6 +88,7 @@ package game.renderer
 		
 		private function redraw():void
 		{
+			//TODO: something is wrong, failure detected; must investigate
 			this.reset();
 			
 			const tlcX:int = this.center.x - 10;

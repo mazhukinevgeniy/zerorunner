@@ -17,7 +17,7 @@ package data.updaters
 			flow.addUpdateListener(Update.moveCenter);
 		}
 		
-		update function moveCenter(change:DCellXY, delay:int):void
+		update function moveCenter(change:DCellXY):void
 		{
 			this.save["distance"] += change.length;
 		}
