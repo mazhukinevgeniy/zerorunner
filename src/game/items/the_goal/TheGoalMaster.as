@@ -4,14 +4,25 @@ package game.items.the_goal
 	import game.items._utils.CheckpointMasterBase;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
+	import utils.updates.update;
 	
 	public class TheGoalMaster extends CheckpointMasterBase
 	{
 		private var currentGoal:TheGoal;
 		
+		private var center:ICoordinated;
+		
 		public function TheGoalMaster(elements:GameElements) 
 		{
 			super(elements);
+			
+			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.setCenter);
+		}
+		
+		update function setCenter(center:ICoordinated):void
+		{
+			this.center = center;
 		}
 		
 		override protected function gameStarted():void 
@@ -34,9 +45,10 @@ package game.items.the_goal
 		
 		override protected function getReachedCheckpoint():ICoordinated 
 		{
-			//TODO: check if reached
-			
-			return CheckpointMasterBase.ILLEGAL_CELL;
+			if (Game.distance(this.center, this.currentGoal) < 3)
+				return this.currentGoal;
+			else
+				return CheckpointMasterBase.ILLEGAL_CELL;
 		}
 		
 		override protected function activateCheckpoint(place:ICoordinated):void 
