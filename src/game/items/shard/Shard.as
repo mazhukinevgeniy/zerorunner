@@ -1,14 +1,13 @@
 package game.items.shard 
 {
 	import game.GameElements;
-	import game.items.MasterBase;
 	import game.items.PuppetBase;
 	import game.metric.ICoordinated;
 	
 	internal class Shard extends PuppetBase
 	{
 		
-		public function Shard(master:MasterBase, elements:GameElements, cell:ICoordinated) 
+		public function Shard(master:ShardMaster, elements:GameElements, cell:ICoordinated) 
 		{
 			super(master, elements, cell);
 		}

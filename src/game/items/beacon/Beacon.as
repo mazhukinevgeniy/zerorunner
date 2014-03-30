@@ -1,14 +1,13 @@
 package game.items.beacon 
 {
 	import game.GameElements;
-	import game.items.MasterBase;
 	import game.items.PuppetBase;
 	import game.metric.ICoordinated;
 	
 	internal class Beacon extends PuppetBase
 	{
 		
-		public function Beacon(master:MasterBase, elements:GameElements, cell:ICoordinated) 
+		public function Beacon(master:BeaconMaster, elements:GameElements, cell:ICoordinated) 
 		{
 			super(master, elements, cell);
 		}

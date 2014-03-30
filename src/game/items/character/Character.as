@@ -3,7 +3,6 @@ package game.items.character
 	import game.fuel.IFuel;
 	import game.GameElements;
 	import game.items.Items;
-	import game.items.MasterBase;
 	import game.items.PuppetBase;
 	import game.metric.CellXY;
 	import game.metric.DCellXY;
@@ -18,7 +17,7 @@ package game.items.character
 		private var fuel:IFuel;
 		
 		
-		public function Character(master:MasterBase, elements:GameElements) 
+		public function Character(master:CharacterMaster, elements:GameElements) 
 		{
 			this.flow = elements.flow;
 			this.fuel = elements.fuel;

@@ -2,13 +2,13 @@ package game.items.generator
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
-	import game.items.MasterBase;
+	import game.items._utils.CheckpointMasterBase;
 	import game.items.PuppetBase;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
 	import utils.updates.update;
 	
-	public class GeneratorMaster extends MasterBase
+	public class GeneratorMaster extends CheckpointMasterBase
 	{
 		private var elements:GameElements;
 		
@@ -21,7 +21,8 @@ package game.items.generator
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.setCenter);
-			elements.flow.addUpdateListener(Update.numberedFrame);
+			
+			super(elements);
 		}
 		
 		update function restore(config:GameConfig):void
@@ -43,36 +44,40 @@ package game.items.generator
 			this.center = center;
 		}
 		
-		update function numberedFrame(frame:int):void
+		override protected function getReachedCheckpoint():ICoordinated 
 		{
-			if (frame == Game.FRAME_TO_ACT)
+			var x:int = this.center.x % 15;
+			var y:int = this.center.y % 15;
+			
+			var dX:int = x == 1 ? -1 : x == 14 ? 1 : x == 0 ? 0 : 10;
+			var dY:int = y == 1 ? -1 : y == 14 ? 1 : y == 0 ? 0 : 10;
+			
+			if ((dX != 10) && (dY != 10))
 			{
-				var x:int = this.center.x % 15;
-				var y:int = this.center.y % 15;
+				x = normalize(this.center.x + dX);
+				y = normalize(this.center.y + dY);
 				
-				var dX:int = x == 1 ? -1 : x == 14 ? 1 : x == 0 ? 0 : 10;
-				var dY:int = y == 1 ? -1 : y == 14 ? 1 : y == 0 ? 0 : 10;
+				this.tmpCell.setValue(x, y);
+				return this.tmpCell;
 				
-				if ((dX != 10) && (dY != 10))
-				{
-					x = normalize(this.center.x + dX);
-					y = normalize(this.center.y + dY);
-					
-					//TODO: show the progress
-					
-					var item:PuppetBase = this.elements.items.findAnyObjectByCell(x, y);
-					
-					if (item && item is Generator)//TODO: remove this superdirty code
-						if (!this.elements.forceFields.isCellCovered(x, y))
-							this.elements.flow.dispatchUpdate(Update.generatorPowered, x, y);
-				}
-				
+				//TODO: show the progress
+			}
+			else
+			{
+				return CheckpointMasterBase.ILLEGAL_CELL;
 			}
 		}
 		
-		override public function tryDestructionOn(puppet:PuppetBase):Boolean 
+		override protected function activateCheckpoint(place:ICoordinated):void 
 		{
-			return false;
+			var x:int = place.x;
+			var y:int = place.y;
+			
+			var item:PuppetBase = this.elements.items.findAnyObjectByCell(x, y);
+			
+			if (item && item is Generator)//TODO: remove this superdirty code
+				if (!this.elements.forceFields.isCellCovered(x, y))
+					this.elements.flow.dispatchUpdate(Update.generatorPowered, x, y);
 		}
 	}
 
