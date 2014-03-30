@@ -8,18 +8,20 @@ package ui.windows.achievements
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
+	import ui.navigation.Navigation;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import starling.utils.AssetManager;
 	
 	public class AchievementsWindow  extends ScrollContainer
 	{	
-		public static const WIDTH_ACHIEVMENTS_WINDOW:Number = Main.WIDTH;
-		public static const HEIGHT_ACHIEVMENTS_WINDOW:Number = Main.HEIGHT;
+		public static const WIDTH:Number = Main.WIDTH - (Navigation.WIDTH + 20);
+		public static const HEIGHT:Number = Main.HEIGHT - 20;
 		
 		private static const UNDETERMINED:int = -1;
 		
@@ -45,10 +47,12 @@ package ui.windows.achievements
 		{
 			//this.achData = this.achievementsSave
 			
-			this.width = AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW;
-			this.height = AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW;
+			this.width = AchievementsWindow.WIDTH;
+			this.height = AchievementsWindow.HEIGHT;
+			this.x = (Main.WIDTH + Navigation.WIDTH - AchievementsWindow.WIDTH) / 2;
+			this.y = (Main.HEIGHT - AchievementsWindow.HEIGHT) / 2;
 			
-			var tmp:Quad = new Quad(AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW, AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW, 0xFFFFFF);
+			var tmp:Quad = new Quad(AchievementsWindow.WIDTH, AchievementsWindow.HEIGHT, 0xFFFFFF);
 			tmp.alpha = 0.85;
 			this.backgroundSkin = tmp;
 			
@@ -57,7 +61,7 @@ package ui.windows.achievements
 			
 			this.assets = assets;
 			
-			this.substrate = new Quad(AchievementsWindow.WIDTH_ACHIEVMENTS_WINDOW, AchievementsWindow.HEIGHT_ACHIEVMENTS_WINDOW, 0xFFFFFF);
+			this.substrate = new Quad(AchievementsWindow.WIDTH, AchievementsWindow.HEIGHT, 0xFFFFFF);
 			this.substrate.alpha = Number.MIN_VALUE;
 			this.achievementsContainer = new Sprite();
 			this.edgesContainer = new Sprite();

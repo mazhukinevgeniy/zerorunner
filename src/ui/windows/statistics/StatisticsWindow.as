@@ -7,7 +7,6 @@ package ui.windows.statistics
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
 	import starling.display.Quad;
-	import ui.navigation.Menu;
 	import utils.updates.update;
 
 	

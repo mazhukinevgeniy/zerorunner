@@ -3,7 +3,7 @@ package ui.windows.credits
 	import feathers.controls.ScrollContainer;
 	import starling.display.Quad;
 	import starling.events.Event;
-	import ui.navigation.Menu;
+	import ui.navigation.Navigation;
 	import utils.updates.IUpdateDispatcher;
 	
 	public class CreditsWindow  extends ScrollContainer
@@ -29,7 +29,7 @@ package ui.windows.credits
 		
 		private function alignCenter():void
 		{
-			this.x = (Main.WIDTH + Menu.WIDTH_MENU - this.width) / 2;
+			this.x = (Main.WIDTH + Navigation.WIDTH - this.width) / 2;
 			this.y = (Main.HEIGHT - this.height) / 2;
 		}
 	}
