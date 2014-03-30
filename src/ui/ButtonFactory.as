@@ -8,6 +8,8 @@ package ui
 	
 	public class ButtonFactory 
 	{
+		private var assets:AssetManager;
+		
 		private var defaultWidth:Number,
 					defaultHeight:Number;
 					
@@ -15,9 +17,10 @@ package ui
 		
 		public function ButtonFactory(assets:AssetManager, defaultWidth:Number, defaultHeight:Number)
 		{
-					this.defaultHeight = defaultHeight;
-					this.defaultWidth = defaultWidth;
-					this.background = background;
+				this.assets = assets;
+				this.defaultHeight = defaultHeight;
+				this.defaultWidth = defaultWidth;
+				this.background = background;
 		}
 		
 		public function createButton(title:String, background:String = null):Button
@@ -26,7 +29,7 @@ package ui
 				
 				button.width = this.defaultWidth;
 				button.height = this.defaultHeight;
-				button.
+				button.label = title;
 				
 				if (background != null)
 				{
@@ -37,6 +40,8 @@ package ui
 					image = new Image(texture);
 					button.defaultSkin = image;
 				}
+				
+				return button;
 		}
 		
 	}
