@@ -1,4 +1,4 @@
-package ui.navigation 
+package ui 
 {
 	import data.viewers.PreferencesViewer;
 	import feathers.controls.Button;
