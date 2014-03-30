@@ -29,6 +29,7 @@ package ui.navigation
 		
 		protected var playButton:Button,
 					achievementsButton:Button,
+					settingsButton:Button,
 					creditsButton:Button;
 		
 		private var resetButton:Button;
@@ -74,11 +75,15 @@ package ui.navigation
 			this.achievementsButton = this.buttonFactory.createButton("Achievements");
 			this.addChild(this.achievementsButton);
 			
+			this.settingsButton = this.buttonFactory.createButton("Settings");
+			this.addChild(this.settingsButton);
+			
 			this.creditsButton = this.buttonFactory.createButton("Credits");
 			this.addChild(this.creditsButton);
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			this.settingsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 		}
 		
@@ -94,6 +99,10 @@ package ui.navigation
 			else if (event.target == this.achievementsButton)
 			{
 				this.flow.dispatchUpdate(Update.toggleWindow, Windows.ACHIEVEMENTS);
+			}
+			else if (event.target == this.settingsButton)
+			{
+				this.flow.dispatchUpdate(Update.toggleWindow, Windows.SETTINGS);
 			}
 			else if (event.target == this.creditsButton)
 			{
