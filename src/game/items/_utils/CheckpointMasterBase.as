@@ -22,11 +22,6 @@ package game.items._utils
 			super(elements);
 		}
 		
-		final override public function tryDestructionOn(puppet:PuppetBase):Boolean 
-		{
-			return false;
-		}//TODO: weeeeird, it shouldn't be done like that
-		
 		
 		
 		final update function numberedFrame(frame:int):void

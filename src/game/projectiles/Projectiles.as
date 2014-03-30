@@ -97,7 +97,7 @@ package game.projectiles
 				
 				if (target)
 				{
-					target.master.tryDestructionOn(target);
+					target.tryDestruction();
 				}
 				else if (this.scene.getSceneCell(x, y) == Game.SCENE_GROUND)
 				{

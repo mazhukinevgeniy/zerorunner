@@ -14,6 +14,7 @@ package game.items._utils
 		}
 		
 		final override protected function get isPassive():Boolean { return true; }
+		final override protected function get isDestructible():Boolean { return false; }
 	}
 
 }

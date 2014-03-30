@@ -36,15 +36,6 @@ package game.items
 		{
 			
 		}
-		
-		
-		public function tryDestructionOn(puppet:PuppetBase):Boolean
-		{
-			puppet.forceDestruction();
-			
-			return true;
-		}
-		//TODO: this class is weird, fix it
 	}
 
 }

@@ -85,16 +85,16 @@ package game.items
 		}
 		
 		
-		final public function get master():MasterBase { return this._master; }
-		//TODO: should it be items_internal? i have to think
-		
-		final items_internal function forceDestruction():void
+		final public function tryDestruction():void
 		{
-			this.items.activateItem(this);
-			
-			this._occupation = Game.OCCUPATION_DYING;
-			
-			this._moveInProgress.setValue(1, 0); /* to be right-directioned */
+			if (this.isDestructible)
+			{
+				this.items.activateItem(this);
+				
+				this._occupation = Game.OCCUPATION_DYING;
+				
+				this._moveInProgress.setValue(1, 0); /* to be right-directioned */
+			}
 			
 			//TODO: adress the issue: this thing can interrupt walking
 		}
@@ -169,6 +169,7 @@ package game.items
 		protected function get flyingSpeed():int { return 1; }
 		protected function get canFly():Boolean { return false; }
 		protected function get isPassive():Boolean { return false; }
+		protected function get isDestructible():Boolean { return true; }
 		
 		protected function onSpawned():void { }
 		protected function onMoved(change:DCellXY):void { }
