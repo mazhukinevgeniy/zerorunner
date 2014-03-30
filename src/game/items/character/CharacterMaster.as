@@ -13,9 +13,7 @@ package game.items.character
 	use namespace items_internal;
 	
 	public class CharacterMaster extends MasterBase
-	{
-		private var elements:GameElements;
-		
+	{		
 		private var input:IKnowInput;
 		private var scene:IScene;
 		private var items:Items;
@@ -23,8 +21,6 @@ package game.items.character
 		
 		public function CharacterMaster(elements:GameElements) 
 		{
-			this.elements = elements;
-			
 			super(elements);
 		}
 		

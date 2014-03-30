@@ -8,12 +8,8 @@ package game.items.the_goal
 	{
 		private var currentGoal:TheGoal;
 		
-		private var elements:GameElements;
-		
 		public function TheGoalMaster(elements:GameElements) 
 		{
-			this.elements = elements;
-			
 			super(elements);
 		}
 		

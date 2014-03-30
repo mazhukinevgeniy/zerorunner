@@ -8,12 +8,8 @@ package game.items.beacon
 	
 	public class BeaconMaster extends MasterBase
 	{
-		private var elements:GameElements;
-		
 		public function BeaconMaster(elements:GameElements) 
 		{
-			this.elements = elements;
-			
 			super(elements);
 		}
 		

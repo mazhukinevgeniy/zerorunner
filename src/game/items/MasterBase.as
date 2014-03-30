@@ -8,9 +8,12 @@ package game.items
 	
 	public class MasterBase 
 	{
+		protected var elements:GameElements;
 		
 		public function MasterBase(elements:GameElements) 
 		{
+			this.elements = elements;
+			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
 		}

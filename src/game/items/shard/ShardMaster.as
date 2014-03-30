@@ -7,12 +7,8 @@ package game.items.shard
 	
 	public class ShardMaster extends MasterBase
 	{
-		private var elements:GameElements;
-		
 		public function ShardMaster(elements:GameElements) 
 		{
-			this.elements = elements;
-			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.dropShard);
 			

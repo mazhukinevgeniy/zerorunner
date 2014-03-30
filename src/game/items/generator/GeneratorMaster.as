@@ -10,14 +10,10 @@ package game.items.generator
 	
 	public class GeneratorMaster extends CheckpointMasterBase
 	{
-		private var elements:GameElements;
-		
 		private var center:ICoordinated;
 		
 		public function GeneratorMaster(elements:GameElements) 
 		{
-			this.elements = elements;
-			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.setCenter);
 			
