@@ -16,7 +16,7 @@ package game.hud
 	
 	public class MapFeature 
 	{
-		private const C_WIDTH:int = 2;
+		private const C_WIDTH:int = 7;
 		private const BORDER_WIDTH:int = 45;
 		
 		private const NOT_VISITED:int = 0;
@@ -46,12 +46,12 @@ package game.hud
 			this.input = elements.input;
 			
 			this.tiles = new Array();
-			this.tiles[Game.SCENE_FALL] = new Quad(2, 2, 0x000000);
-			this.tiles[Game.SCENE_TR_DISK] = new Quad(2, 2, 0x000000);
-			this.tiles[Game.SCENE_TL_DISK] = new Quad(2, 2, 0x000000);
-			this.tiles[Game.SCENE_BR_DISK] = new Quad(2, 2, 0x000000);
-			this.tiles[Game.SCENE_BL_DISK] = new Quad(2, 2, 0x000000);
-			this.tiles[Game.SCENE_GROUND] = new Quad(2, 2, 0x8B4513);
+			this.tiles[Game.SCENE_FALL] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
+			this.tiles[Game.SCENE_TR_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
+			this.tiles[Game.SCENE_TL_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
+			this.tiles[Game.SCENE_BR_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
+			this.tiles[Game.SCENE_BL_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
+			this.tiles[Game.SCENE_GROUND] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x8B4513);
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
