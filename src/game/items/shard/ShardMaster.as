@@ -15,6 +15,13 @@ package game.items.shard
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.dropShard);
+			
+			super(elements);
+		}
+		
+		override protected function gameStarted():void 
+		{
+			return;
 		}
 		
 		update function dropShard(shard:Projectile):void

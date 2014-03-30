@@ -19,13 +19,12 @@ package game.items.generator
 			this.elements = elements;
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.setCenter);
 			
 			super(elements);
 		}
 		
-		update function restore(config:GameConfig):void
+		override protected function gameStarted():void 
 		{
 			var cell:CellXY = new CellXY(0, 0);
 			

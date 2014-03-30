@@ -1,12 +1,10 @@
 package game.items.beacon 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.MasterBase;
 	import game.metric.CellXY;
 	import game.scene.IScene;
-	import utils.updates.update;
 	
 	public class BeaconMaster extends MasterBase
 	{
@@ -16,11 +14,10 @@ package game.items.beacon
 		{
 			this.elements = elements;
 			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
+			super(elements);
 		}
 		
-		update function restore(config:GameConfig):void
+		override protected function gameStarted():void 
 		{
 			var cell:CellXY = new CellXY(0, 0);
 			var items:Items = this.elements.items;

@@ -18,12 +18,14 @@ package game.items._utils
 		{
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.numberedFrame);
+			
+			super(elements);
 		}
 		
 		final override public function tryDestructionOn(puppet:PuppetBase):Boolean 
 		{
 			return false;
-		}
+		}//TODO: weeeeird, it shouldn't be done like that
 		
 		
 		

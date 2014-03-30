@@ -1,6 +1,5 @@
 package game.items.character 
 {
-	import data.viewers.GameConfig;
 	import game.forceFields.IForceField;
 	import game.GameElements;
 	import game.input.IKnowInput;
@@ -10,7 +9,6 @@ package game.items.character
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
 	import game.scene.IScene;
-	import utils.updates.update;
 	
 	use namespace items_internal;
 	
@@ -27,11 +25,10 @@ package game.items.character
 		{
 			this.elements = elements;
 			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
+			super(elements);
 		}
 		
-		update function restore(config:GameConfig):void
+		override protected function gameStarted():void 
 		{
 			this.input = this.elements.input;
 			this.scene = this.elements.scene;
