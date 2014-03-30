@@ -1,8 +1,9 @@
-package ui.navigation 
+package game.hud 
 {
 	import data.StatusReporter;
 	import flash.display.Stage;
 	import flash.geom.Point;
+	import game.GameElements;
 	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Sprite;
@@ -14,21 +15,24 @@ package ui.navigation
 	import starling.textures.Texture;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class Panel extends Sprite
+	internal class Panel extends Sprite
 	{
 		private var flow:IUpdateDispatcher;
 		private var status:StatusReporter;
 		
 		private var menuButton:Button;
 		
-		public function Panel(flow:IUpdateDispatcher, status:StatusReporter) 
+		public function Panel(elements:GameElements) 
 		{
-			this.flow = flow;
-			this.status = status;
+			this.flow = elements.flow;
+			this.status = elements.database.status;
+			
+			super();
 			
 			this.addEventListener(Event.TRIGGERED, this.handleTrigger);
-			
 			this.addButtons();
+			
+			elements.displayRoot.addChild(this);
 		}
 		
 		private function addButtons():void
