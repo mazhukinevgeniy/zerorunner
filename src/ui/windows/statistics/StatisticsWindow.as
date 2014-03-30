@@ -7,13 +7,12 @@ package ui.windows.statistics
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
 	import starling.display.Quad;
+	import ui.windows.Window;
 	import utils.updates.update;
 
 	
-	public class StatisticsWindow  extends ScrollContainer
+	public class StatisticsWindow  extends Window
 	{
-		public static const WIDTH_STATISTICS_WINDOW:Number = 200;
-		public static const MAX_HEIGHT_STATISTICS_WINDOW:Number = 450;
 		
 		private static const PADDING:Number = 5;
 		
@@ -26,11 +25,6 @@ package ui.windows.statistics
 			
 			this.statistics = database.statistics;
 			
-			this.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW + 2 * StatisticsWindow.PADDING;
-			this.maxHeight = StatisticsWindow.MAX_HEIGHT_STATISTICS_WINDOW;
-			
-			
-			this.setBackground();
 			this.setLayout();
 			this.setScrollBar();
 		}
@@ -38,17 +32,6 @@ package ui.windows.statistics
 		override public function validate():void 
 		{
 			super.validate();
-			
-			this.x = (Main.WIDTH - this.width) / 2;
-			this.y = (Main.HEIGHT - this.height) / 2;
-		}
-		
-		private function setBackground():void
-		{
-			var tmp:Quad = new Quad(StatisticsWindow.WIDTH_STATISTICS_WINDOW, 1, 0xFFFFFF);
-			
-			tmp.alpha = 0.85;
-			this.backgroundSkin = tmp;
 		}
 		
 		private function setLayout():void

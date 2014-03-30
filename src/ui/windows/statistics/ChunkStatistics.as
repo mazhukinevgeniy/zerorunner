@@ -10,6 +10,7 @@ package ui.windows.statistics
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 	import ui.themes.ExtendedTheme;
+	import ui.windows.Window;
 	
 	internal class ChunkStatistics extends ScrollContainer
 	{
@@ -47,7 +48,7 @@ package ui.windows.statistics
 			
 			this.list.dataProvider = new ListCollection(data);
 			
-			this.list.width = StatisticsWindow.WIDTH_STATISTICS_WINDOW;
+			this.list.width = Window.WIDTH;
 			this.list.layoutData = createLayoutData(this.label, ChunkStatistics.GAP);
 			this.addChild(this.list);
 			

@@ -14,14 +14,15 @@ package ui.windows.achievements
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	import ui.navigation.Navigation;
+	import ui.windows.Window;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	import starling.utils.AssetManager;
 	
-	public class AchievementsWindow  extends ScrollContainer
+	public class AchievementsWindow  extends Window
 	{	
-		public static const WIDTH:Number = Main.WIDTH - (Navigation.WIDTH + 20);
-		public static const HEIGHT:Number = Main.HEIGHT - 20;
+		//public static const WIDTH:Number = Main.WIDTH - (Navigation.WIDTH + 20);
+		//public static const HEIGHT:Number = Main.HEIGHT - 20;
 		
 		private static const UNDETERMINED:int = -1;
 		
@@ -47,21 +48,14 @@ package ui.windows.achievements
 		{
 			//this.achData = this.achievementsSave
 			
-			this.width = AchievementsWindow.WIDTH;
-			this.height = AchievementsWindow.HEIGHT;
-			this.x = (Main.WIDTH + Navigation.WIDTH - AchievementsWindow.WIDTH) / 2;
-			this.y = (Main.HEIGHT - AchievementsWindow.HEIGHT) / 2;
-			
-			var tmp:Quad = new Quad(AchievementsWindow.WIDTH, AchievementsWindow.HEIGHT, 0xFFFFFF);
-			tmp.alpha = 0.85;
-			this.backgroundSkin = tmp;
+			super();
 			
 			this.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_ON;
 			this.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
 			
 			this.assets = assets;
 			
-			this.substrate = new Quad(AchievementsWindow.WIDTH, AchievementsWindow.HEIGHT, 0xFFFFFF);
+			this.substrate = new Quad(Window.WIDTH, Window.HEIGHT, 0xFFFFFF);
 			this.substrate.alpha = Number.MIN_VALUE;
 			this.achievementsContainer = new Sprite();
 			this.edgesContainer = new Sprite();
@@ -136,6 +130,8 @@ package ui.windows.achievements
 			}
 			
 			super.visible = newValue;
+			
+			trace(this.x, this.y);
 		}
 		
 		private function redrawGraph():void

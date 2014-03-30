@@ -5,6 +5,7 @@ package ui
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
+	import ui.themes.Theme;
 	import ui.windows.achievements.AchievementsWindow;
 	import ui.windows.credits.CreditsWindow;
 	import ui.windows.statistics.StatisticsWindow;
@@ -29,6 +30,7 @@ package ui
 			windows[Windows.STATISTICS] = new StatisticsWindow(database);
 			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(assets, database.achievements, flow);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
+			
 			
 			for (var i:int = 0; i < Windows.NUMBER_OF_WINDOWS; ++i)
 			{

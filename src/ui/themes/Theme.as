@@ -1,6 +1,9 @@
 package ui.themes 
 {
 	import feathers.controls.Button;
+	import feathers.controls.ScrollBar;
+	import feathers.controls.ScrollContainer;
+	import feathers.controls.Slider;
 	import feathers.controls.text.TextFieldTextRenderer;
 	import feathers.core.DisplayListWatcher;
 	import feathers.core.FeathersControl;
@@ -14,7 +17,11 @@ package ui.themes
 	import game.GameElements;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
+	import starling.display.Image;
+	import starling.display.Quad;
+	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+	import ui.navigation.Navigation;
 	
 	public class Theme extends DisplayListWatcher
 	{
@@ -24,6 +31,20 @@ package ui.themes
 		
 		protected static const PRIMARY_TEXT_COLOR:uint = 0x0B333C;
 		protected static const DISABLED_TEXT_COLOR:uint = 0xAAB3B3;
+		
+		protected static function verticalScrollBarFactory():ScrollBar
+		{
+			const scrollBar:ScrollBar = new ScrollBar();
+			scrollBar.direction = ScrollBar.DIRECTION_VERTICAL;
+			return scrollBar;
+		}
+
+		protected static function horizontalScrollBarFactory():ScrollBar
+		{
+			const scrollBar:ScrollBar = new ScrollBar();
+			scrollBar.direction = ScrollBar.DIRECTION_HORIZONTAL;
+			return scrollBar;
+		}
 		
 		public function Theme(elements:GameElements, container:DisplayObjectContainer) 
 		{
@@ -53,6 +74,7 @@ package ui.themes
 		protected var buttonSelectedDownSkinTextures:Scale9Textures;
 		protected var buttonSelectedDisabledSkinTextures:Scale9Textures;
 		
+		
 		protected function initialize(elements:GameElements):void
 		{
 			FocusManager.isEnabled = true;
@@ -74,7 +96,7 @@ package ui.themes
 			this.buttonSelectedHoverSkinTextures = new Scale9Textures(this.atlas.getTexture("button-selected-hover-skin"), SELECTED_BUTTON_SCALE_9_GRID);
 			this.buttonSelectedDownSkinTextures = new Scale9Textures(this.atlas.getTexture("button-selected-down-skin"), SELECTED_BUTTON_SCALE_9_GRID);
 			this.buttonSelectedDisabledSkinTextures = new Scale9Textures(this.atlas.getTexture("button-selected-disabled-skin"), SELECTED_BUTTON_SCALE_9_GRID);
-
+			
 			this.setInitializerForClass(Button, buttonInitializer);
 		}
 		
@@ -101,6 +123,7 @@ package ui.themes
 			button.gap = 2;
 			button.minWidth = button.minHeight = 12;
 		}
+		
 		
 	}
 
