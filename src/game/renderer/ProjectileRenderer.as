@@ -6,6 +6,7 @@ package game.renderer
 	import game.metric.ICoordinated;
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
+	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import utils.updates.IUpdateDispatcher;
@@ -17,8 +18,8 @@ package game.renderer
 		
 		private var projectiles:IProjectileManager;
 		
-		private var shard:Quad;
-		private var trajectory:Quad;
+		private var shard:Image;
+		private var trajectory:Image;
 		
 		/* Used by getTrajectoryCoordinates() */
 		private var tmpCell:CellXY;
@@ -36,8 +37,10 @@ package game.renderer
 			
 			this.tmpCell = new CellXY(0, 0);
 			
-			this.shard = new Quad(int(Game.CELL_WIDTH * 0.7), int(Game.CELL_HEIGHT * 0.7), 0xFFFFFF);
-			this.trajectory = new Quad(2, 2, 0xFF2222);
+			this.shard = new Image(elements.assets.getTextureAtlas("sprites").getTexture("stone_fly"));
+			this.trajectory = new Image(elements.assets.getTextureAtlas("sprites").getTexture("progress-bar-fill-skin"));
+			
+			
 		}
 		
 		update function setCenter(center:ICoordinated):void
@@ -53,7 +56,7 @@ package game.renderer
 			var y:int = this.center.y;
 			
 			var proj:Projectile;
-			var view:Quad;
+			var view:Image;
 			
 			for (var i:int = -10; i < 11; i++)
 				for (var j:int = -10; j < 11; j++)//TODO: replace hardcode with something good
@@ -74,7 +77,7 @@ package game.renderer
 							view.x += this.tmpCell.x;
 							view.y += this.tmpCell.y;
 							
-							var tr:Quad = this.trajectory;
+							var tr:Image = this.trajectory;
 							
 							for (var k:int = 0; k < proj.height; k++)
 							{
@@ -86,10 +89,10 @@ package game.renderer
 								tr.x += this.tmpCell.x;
 								tr.y += this.tmpCell.y;
 								
-								this.addQuad(tr);
+								this.addImage(tr);
 							}
 							
-							this.addQuad(view);
+							this.addImage(view);
 						}
 					}
 				}

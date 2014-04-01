@@ -48,14 +48,14 @@ package game.renderer
 			
 			var spritelist:Vector.<Array> = new < Array > 
 					[
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.RIGHT, "hero_stand"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.TOP, "hero_stand"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.LEFT, "hero_stand"),//TODO: add other textures
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.DOWN, "hero_stand"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "hero_side_0_0", "hero_side_0_1"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "hero_side_0_0", "hero_side_0_1"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.TOP, "hero_side_0_0", "hero_side_0_1"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.DOWN, "hero_side_0_0", "hero_side_0_1"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.RIGHT, "front_dude"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.TOP, "front_dude"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.LEFT, "front_dude"),//TODO: add other textures
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.DOWN, "front_dude"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "front_dude", "front_dude"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "front_dude", "front_dude"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.TOP, "front_dude", "front_dude"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.DOWN, "front_dude", "front_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.RIGHT, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.TOP, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.LEFT, "unimplemented"),
@@ -66,21 +66,21 @@ package game.renderer
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.DOWN, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_DYING, this.RIGHT, "unimplemented"),
 						
-						new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, this.RIGHT, "tow1"),
-						new Array(Game.ITEM_BEACON, Game.OCCUPATION_DYING, this.RIGHT, "tow1"),
+						new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, this.RIGHT, "radar"),
+						new Array(Game.ITEM_BEACON, Game.OCCUPATION_DYING, this.RIGHT, "radar"),
 						
-						new Array(Game.ITEM_SHARD, Game.OCCUPATION_FREE, this.RIGHT, "standing_shard"),
-						new Array(Game.ITEM_SHARD, Game.OCCUPATION_DYING, this.RIGHT, "standing_shard"),
+						new Array(Game.ITEM_SHARD, Game.OCCUPATION_FREE, this.RIGHT, "stone_down"),
+						new Array(Game.ITEM_SHARD, Game.OCCUPATION_DYING, this.RIGHT, "stone_down"),
 						
 						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented"),
 						
-						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_FREE, this.RIGHT, "hero_stand")//TODO: lol
+						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_FREE, this.RIGHT, "side_dude")//TODO: lol
 					];
 			
 			this.initializeImages(spritelist, this.sprites, atlas);
 			
 			var altspritelist:Vector.<Array> = new < Array > [
-					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "hero_side_1_0", "hero_side_1_1")];
+					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "front_dude", "front_dude")];
 			
 			this.initializeImages(altspritelist, this.altsprites, atlas);
 			
@@ -184,6 +184,7 @@ package game.renderer
 						}
 						
 						sprite.y += Game.CELL_HEIGHT - sprite.height;
+						sprite.x += (Game.CELL_WIDTH - sprite.width) / 2;
 						
 						this.addImage(sprite);
 					}
