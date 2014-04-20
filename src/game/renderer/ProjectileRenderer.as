@@ -105,11 +105,14 @@ package game.renderer
 		
 		private function getTrajectoryCoordinates(height:int):void
 		{
-			const X_STEP:int = 2;
-			const Y_STEP:int = 1;
+			const X_STEP:int = 3;
+			const Y_STEP:int = 15;
 			
-			this.tmpCell.setValue(height * X_STEP, 
-								  ((Game.MAX_PROJ_HEIGHT - height) * (Game.MAX_PROJ_HEIGHT - height) * Y_STEP / 10) - Game.MAX_PROJ_HEIGHT * Game.MAX_PROJ_HEIGHT * Y_STEP / 10);
+			//this.tmpCell.setValue(height * X_STEP, 
+			//					  ((Game.MAX_PROJ_HEIGHT - height) * (Game.MAX_PROJ_HEIGHT - height) * Y_STEP / 10) - Game.MAX_PROJ_HEIGHT * Game.MAX_PROJ_HEIGHT * Y_STEP / 10);
+			
+			this.tmpCell.setValue(height * X_STEP,
+								  -height * Y_STEP);
 		}
 	}
 
