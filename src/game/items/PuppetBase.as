@@ -194,7 +194,7 @@ package game.items
 		
 		
 		final public function isLastFrame(flashFrame:int):Boolean
-		{//TODO: check if it should be here
+		{//TODO: remove if altsprites are no more
 			return (this.ticksOccupated + 1 == this.ticksUntilOccupationEnds) && (flashFrame == Game.FRAMES_PER_CYCLE - 1);
 		}
 	}
