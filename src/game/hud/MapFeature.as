@@ -127,9 +127,6 @@ package game.hud
 		update function toggleMap():void
 		{
 			this.container.visible = !this.container.visible;
-			
-			this.input.getInputCopy();
-			//TODO: fix it when it breaks because of the inputman fix
 		}
 		
 		update function numberedFrame(key:int):void

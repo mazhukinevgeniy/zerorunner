@@ -31,6 +31,7 @@ package game.input
 			flow.addUpdateListener(Update.restore);
 			flow.addUpdateListener(Update.newInputPiece);
 			flow.addUpdateListener(Update.spacePressed);
+			flow.addUpdateListener(Update.toggleMap);
 			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
 			
@@ -100,10 +101,14 @@ package game.input
 				trace("used", this.maxI, "of", int.MAX_VALUE);
 			}
 			
-			for (i = 9; i < 17; i++)
-				this.order[i] = -1;
+			this.discardClicks();
 			
 			return arr;
+		}
+		
+		update function toggleMap():void
+		{
+			this.discardClicks();
 		}
 		
 		
@@ -139,6 +144,12 @@ package game.input
 			//      not as the part of them, method that refreshes all the flags
 			
 			return tmp;
+		}
+		
+		private function discardClicks():void
+		{
+			for (var i:int = 9; i < 17; i++)
+				this.order[i] = -1;
 		}
 		
 		
