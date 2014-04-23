@@ -65,8 +65,8 @@ package game.items
 					itemCodes[i + 1] = Game.ITEM_BEACON;
 			}
 			
-			const LENGTH:int = map.objectgroup.object.length();
-			var objects:XMLList = map.objectgroup.object;
+			var objects:XMLList = map.objectgroup[0].object;
+			const LENGTH:int = objects.length();
 			
 			for (var j:int = 0; j < LENGTH; j++)
 			{

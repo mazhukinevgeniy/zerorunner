@@ -6,6 +6,7 @@ package game.projectiles
 	import game.items.PuppetBase;
 	import game.metric.ICoordinated;
 	import game.scene.IScene;
+	import utils.MapXML;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -39,7 +40,25 @@ package game.projectiles
 			this.unusedProjectiles = new Vector.<Projectile>();
 			
 			this.clouds = new Vector.<CloudBase>();
-			this.clouds.push(new TemporaryCloud(elements, this));
+			
+			var map:XML = MapXML.getOne();
+			
+			var clouds:XMLList = map.objectgroup[1].object;
+			const LENGTH:int = clouds.length();
+			
+			for (var j:int = 0; j < LENGTH; j++)
+			{
+				if (clouds[j].@type == "shards")
+				{
+					var x:int = int(clouds[j].@x) / 70;
+					var y:int = int(clouds[j].@y) / 70;
+					
+					var width:int = 1 + int(clouds[j].@width) / 70;
+					var height:int = 1 + int(clouds[j].@height) / 70;
+					
+					this.clouds.push(new ShardCloud(this, x, y, width, height));
+				}
+			}
 		}
 		
 		

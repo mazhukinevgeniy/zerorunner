@@ -2056,7 +2056,7 @@
    <tile gid="9"/>
   </data>
  </layer>
- <objectgroup name="Objects" width="45" height="45">
+ <objectgroup name="Items" width="45" height="45">
   <object gid="7" x="1277" y="1103"/>
   <object gid="6" x="2117" y="1801"/>
   <object gid="8" x="1839" y="1243"/>
@@ -2080,5 +2080,9 @@
   <object gid="8" x="1283" y="891"/>
   <object gid="8" x="1349" y="903"/>
   <object gid="8" x="1977" y="2013"/>
+ </objectgroup>
+ <objectgroup name="ProjectileClouds" width="45" height="45">
+  <object name="shards1" type="shards" x="1356" y="1144" width="304" height="308"/>
+  <object name="shards2" type="shards" x="1836" y="1621" width="252" height="258"/>
  </objectgroup>
 </map>
