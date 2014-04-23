@@ -1,5 +1,6 @@
 package hotkeys 
 {
+	import flash.ui.Keyboard;
 	import game.GameElements;
 	import utils.updates.IUpdateDispatcher;
 	
@@ -16,17 +17,17 @@ package hotkeys
 		
 		override internal function processInput(keyUp:Boolean, keyCode:uint):void 
 		{
-			/*if (keyCode == Keyboard.P && !this.status.isGameOn)
+			if (keyUp)
 			{
-				this.flow.dispatchUpdate(Update.newGame);//startGame
-			}*/
-			/*
-			
-			if (keyCode == Keyboard.M)
-				this.update::toggleMute();//it's okay out of game
-			*/
-				
-			//TODO: repair these important things
+				if (keyCode == Keyboard.P)
+				{
+					this.flow.dispatchUpdate(Update.newGame);
+				}
+				else if (keyCode == Keyboard.M)
+				{
+					this.flow.dispatchUpdate(Update.toggleMute);
+				}
+			}
 		}
 	}
 
