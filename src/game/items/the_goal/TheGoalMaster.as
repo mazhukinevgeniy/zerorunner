@@ -27,14 +27,10 @@ package game.items.the_goal
 		
 		override protected function gameStarted():void 
 		{
-			var x:int, y:int;
+			var x:int = 30, y:int = 25;
 			
-			do
-			{
-				x = Game.MAP_WIDTH * Math.random();
-				y = Game.MAP_WIDTH * Math.random();
-			}
-			while (this.elements.items.findAnyObjectByCell(x, y) || this.elements.scene.getSceneCell(x, y) != Game.SCENE_GROUND);
+			if (this.elements.items.findAnyObjectByCell(x, y) || this.elements.scene.getSceneCell(x, y) != Game.SCENE_GROUND)
+				throw new Error("can't place the goal");
 			
 			var cell:CellXY = new CellXY(x, y);
 			

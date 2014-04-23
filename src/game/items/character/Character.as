@@ -22,7 +22,7 @@ package game.items.character
 			this.flow = elements.flow;
 			this.fuel = elements.fuel;
 			
-			var cell:CellXY = new CellXY(32, 32);
+			var cell:CellXY = new CellXY(20, 20);
 			
 			super(master, elements, cell);
 		}

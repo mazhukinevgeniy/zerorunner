@@ -31,10 +31,10 @@ package game.items
 			elements.flow.addUpdateListener(Update.quitGame);
 			
 			new CharacterMaster(elements);
+			new TheGoalMaster(elements);
 			new GeneratorMaster(elements);
 			new BeaconMaster(elements);
 			new ShardMaster(elements);
-			new TheGoalMaster(elements);
 			
 			this.moved = new Vector.<PuppetBase>();
 		}
