@@ -3,8 +3,6 @@ package
 	
 	internal class EmbeddedAssets 
 	{
-		//TODO: embed everything here
-		
 		/* Sprites */
 		
 		[Embed(source="../res/atlases/sprites0.png")]
