@@ -9,6 +9,7 @@ package game.items
 	import game.items.the_goal.TheGoalMaster;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
+	import utils.MapXML;
 	import utils.updates.update;
 	
 	use namespace items_internal;
@@ -22,6 +23,8 @@ package game.items
 		
 		private var center:ICoordinated;
 		
+		private var masters:Vector.<MasterBase>;
+		
 		public function Items(elements:GameElements) 
 		{			
 			elements.flow.workWithUpdateListener(this);
@@ -30,11 +33,13 @@ package game.items
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
-			new CharacterMaster(elements);
-			new TheGoalMaster(elements);
-			new GeneratorMaster(elements);
-			new BeaconMaster(elements);
-			new ShardMaster(elements);
+			this.masters = new Vector.<MasterBase>(Game.NUMBER_OF_ITEM_TYPES, true);
+			
+			this.masters[Game.ITEM_BEACON] = new BeaconMaster(elements);
+			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(elements);
+			this.masters[Game.ITEM_GENERATOR] = new GeneratorMaster(elements);
+			this.masters[Game.ITEM_SHARD] = new ShardMaster(elements);
+			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(elements);
 			
 			this.moved = new Vector.<PuppetBase>();
 		}
@@ -43,6 +48,34 @@ package game.items
 		{
 			this.activeItems = new Array();
 			this.passiveItems = new Array();
+			
+			var map:XML = MapXML.getOne();
+			
+			var itemCodes:Array = new Array();
+			
+			for (var i:int = 0; i < map.tileset.length(); i++)
+			{
+				var name:String = map.tileset[i].@name;
+				
+				if (name == "hero")
+					itemCodes[i + 1] = Game.ITEM_CHARACTER;
+				else if (name == "goal")
+					itemCodes[i + 1] = Game.ITEM_THE_GOAL;
+				else if (name == "radar")
+					itemCodes[i + 1] = Game.ITEM_BEACON;
+			}
+			
+			const LENGTH:int = map.objectgroup.object.length();
+			var objects:XMLList = map.objectgroup.object;
+			
+			for (var j:int = 0; j < LENGTH; j++)
+			{
+				var type:int = itemCodes[objects[j].@gid];
+				var x:int = int(objects[j].@x) / 70;
+				var y:int = int(objects[j].@y) / 70;
+				
+				this.masters[type].spawnPuppet(x, y);
+			}
 		}
 		
 		update function setCenter(center:ICoordinated):void

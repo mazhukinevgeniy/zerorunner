@@ -17,12 +17,10 @@ package game.items.character
 		private var fuel:IFuel;
 		
 		
-		public function Character(master:CharacterMaster, elements:GameElements) 
+		public function Character(master:CharacterMaster, elements:GameElements, cell:ICoordinated) 
 		{
 			this.flow = elements.flow;
 			this.fuel = elements.fuel;
-			
-			var cell:CellXY = new CellXY(20, 20);
 			
 			super(master, elements, cell);
 		}

@@ -2063,7 +2063,6 @@
   <object gid="8" x="1769" y="1311"/>
   <object gid="8" x="1699" y="1383"/>
   <object gid="8" x="1911" y="2011"/>
-  <object gid="8" x="1977" y="2009"/>
   <object gid="8" x="2045" y="1943"/>
   <object gid="8" x="2117" y="1937"/>
   <object gid="8" x="2185" y="1873"/>
@@ -2080,5 +2079,6 @@
   <object gid="8" x="1553" y="1805"/>
   <object gid="8" x="1283" y="891"/>
   <object gid="8" x="1349" y="903"/>
+  <object gid="8" x="1977" y="2013"/>
  </objectgroup>
 </map>

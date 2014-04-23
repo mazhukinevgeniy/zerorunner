@@ -7,6 +7,7 @@ package game.items.character
 	import game.items.items_internal;
 	import game.items.MasterBase;
 	import game.items.PuppetBase;
+	import game.metric.CellXY;
 	import game.metric.DCellXY;
 	import game.scene.isCellSolid;
 	import game.scene.IScene;
@@ -25,14 +26,14 @@ package game.items.character
 			super(elements);
 		}
 		
-		override protected function gameStarted():void 
+		override public function spawnPuppet(x:int, y:int):void 
 		{
 			this.input = this.elements.input;
 			this.scene = this.elements.scene;
 			this.items = this.elements.items;
 			this.force = this.elements.forceFields;
 			
-			new Character(this, this.elements);
+			new Character(this, this.elements, new CellXY(x, y));
 		}
 		
 		override protected function act(puppet:PuppetBase):void

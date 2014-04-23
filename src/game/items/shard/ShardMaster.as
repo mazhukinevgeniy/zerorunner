@@ -15,9 +15,9 @@ package game.items.shard
 			super(elements);
 		}
 		
-		override protected function gameStarted():void 
+		override public function spawnPuppet(x:int, y:int):void 
 		{
-			return;
+			//TODO: map some shards and implement this method
 		}
 		
 		update function dropShard(shard:Projectile):void

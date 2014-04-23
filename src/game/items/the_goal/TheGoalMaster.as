@@ -25,13 +25,8 @@ package game.items.the_goal
 			this.center = center;
 		}
 		
-		override protected function gameStarted():void 
+		override public function spawnPuppet(x:int, y:int):void 
 		{
-			var x:int = 30, y:int = 25;
-			
-			if (this.elements.items.findAnyObjectByCell(x, y) || this.elements.scene.getSceneCell(x, y) != Game.SCENE_GROUND)
-				throw new Error("can't place the goal");
-			
 			var cell:CellXY = new CellXY(x, y);
 			
 			this.currentGoal = new TheGoal(this, this.elements, cell);

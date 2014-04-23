@@ -20,8 +20,12 @@ package game.items.generator
 			super(elements);
 		}
 		
-		override protected function gameStarted():void 
+		override public function spawnPuppet(x:int, y:int):void 
 		{
+			//TODO: rethink the design of them generators, then add them to the map and implement that method
+			
+			/*
+			
 			var cell:CellXY = new CellXY(0, 0);
 			
 			for (var i:int = 0; i < Game.MAP_WIDTH / 15; i++)
@@ -32,6 +36,9 @@ package game.items.generator
 					if (this.elements.scene.getSceneCell(cell.x, cell.y) == Game.SCENE_GROUND)
 						new Generator(this, this.elements, cell);
 				}
+			
+			 */
+			
 		}
 		
 		update function setCenter(center:ICoordinated):void
@@ -40,7 +47,7 @@ package game.items.generator
 		}
 		
 		override protected function getReachedCheckpoint():ICoordinated 
-		{
+		{/*
 			var x:int = this.center.x % 15;
 			var y:int = this.center.y % 15;
 			
@@ -58,9 +65,9 @@ package game.items.generator
 				//TODO: show the progress
 			}
 			else
-			{
+			{*/
 				return CheckpointMasterBase.ILLEGAL_CELL;
-			}
+			/*}*/
 		}
 		
 		override protected function activateCheckpoint(place:ICoordinated):void 

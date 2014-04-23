@@ -8,25 +8,20 @@ package game.items.beacon
 	
 	public class BeaconMaster extends MasterBase
 	{
+		private var tmpCell:CellXY;
+		
 		public function BeaconMaster(elements:GameElements) 
 		{
 			super(elements);
+			
+			this.tmpCell = new CellXY(0, 0);
 		}
 		
-		override protected function gameStarted():void 
+		override public function spawnPuppet(x:int, y:int):void 
 		{
-			var cell:CellXY = new CellXY(0, 0);
-			var items:Items = this.elements.items;
-			var scene:IScene = this.elements.scene;
+			this.tmpCell.setValue(x, y);
 			
-			for (var i:int = 0; i < Game.MAP_WIDTH; i++)
-				for (var j:int = 0; j < Game.MAP_WIDTH; j++)
-					if (Math.random() < 0.1 && scene.getSceneCell(i, j) == Game.SCENE_GROUND && !items.findAnyObjectByCell(i, j))
-					{
-						cell.setValue(i, j);
-						
-						new Beacon(this, this.elements, cell);
-					}
+			new Beacon(this, this.elements, this.tmpCell);
 		}
 	}
 
