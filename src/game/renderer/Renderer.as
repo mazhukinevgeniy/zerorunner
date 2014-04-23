@@ -26,6 +26,7 @@ package game.renderer
 			this.addChild(new GroundLevelMarksRenderer(elements));
 			this.addChild(new ItemRenderer(elements));
 			this.addChild(new ProjectileRenderer(elements));
+			this.addChild(new EffectRenderer(elements));
 			
 			elements.displayRoot.addChild(new PauseView(elements.flow));
 		}
