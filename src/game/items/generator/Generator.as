@@ -14,7 +14,10 @@ package game.items.generator
 		
 		override public function get type():int { return Game.ITEM_GENERATOR; }
 		
-		
+		override protected function get isDestructible():Boolean 
+		{
+			return false;
+		}
 	}
 
 }
