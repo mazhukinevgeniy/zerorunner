@@ -45,8 +45,8 @@ package game.renderer
 					
 					this.getTrajectoryCoordinates(proj.height);
 					
-					view.x += this.tmpCell.x;
-					view.y += this.tmpCell.y;
+					view.x += this.tmpCell.x - view.width / 2;
+					view.y += this.tmpCell.y - view.height / 2;
 					
 					var tr:Image = this.trajectory;
 					
@@ -81,8 +81,8 @@ package game.renderer
 			//this.tmpCell.setValue(height * X_STEP, 
 			//					  ((Game.MAX_PROJ_HEIGHT - height) * (Game.MAX_PROJ_HEIGHT - height) * Y_STEP / 10) - Game.MAX_PROJ_HEIGHT * Game.MAX_PROJ_HEIGHT * Y_STEP / 10);
 			
-			this.tmpCell.setValue(height * X_STEP,
-								  -height * Y_STEP);
+			this.tmpCell.setValue(height * X_STEP + Game.CELL_WIDTH / 2,
+								  -height * Y_STEP + Game.CELL_HEIGHT / 2);
 		}
 	}
 
