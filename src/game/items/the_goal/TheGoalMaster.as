@@ -45,7 +45,7 @@ package game.items.the_goal
 		
 		override protected function getReachedCheckpoint():ICoordinated 
 		{
-			if (Game.distance(this.center, this.currentGoal) < 3)
+			if (Game.distance(this.center, this.currentGoal) < 2)
 				return this.currentGoal;
 			else
 				return CheckpointMasterBase.ILLEGAL_CELL;
