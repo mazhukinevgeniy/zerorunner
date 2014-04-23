@@ -1,118 +1,124 @@
-<atlas numImages="114">
+<atlas numImages="120">
   <texture file="sprites0.png" trans="true">
-    <image name="1" x="140" y="204" width="70" height="70" trans="false"/>
-    <image name="1-" x="140" y="274" width="70" height="70" trans="false"/>
-    <image name="1--" x="140" y="344" width="70" height="70" trans="false"/>
-    <image name="11" x="420" y="134" width="70" height="70" trans="false"/>
-    <image name="2" x="210" y="134" width="70" height="70" trans="false"/>
-    <image name="2-" x="280" y="134" width="70" height="70" trans="false"/>
-    <image name="2--" x="350" y="134" width="70" height="70" trans="false"/>
-    <image name="3" x="70" y="344" width="70" height="70" trans="false"/>
-    <image name="3-" x="70" y="414" width="70" height="70" trans="false"/>
-    <image name="3--" x="140" y="134" width="70" height="70" trans="false"/>
-    <image name="33" x="70" y="274" width="70" height="70" trans="false"/>
-    <image name="4" x="70" y="204" width="70" height="70" trans="false"/>
-    <image name="5" x="70" y="134" width="70" height="70" trans="false"/>
-    <image name="6" x="420" y="64" width="70" height="70" trans="false"/>
-    <image name="7" x="350" y="64" width="70" height="70" trans="false"/>
-    <image name="77" x="280" y="64" width="70" height="70" trans="false"/>
-    <image name="8" x="210" y="64" width="70" height="70" trans="false"/>
-    <image name="9" x="140" y="64" width="70" height="70" trans="false"/>
-    <image name="99" x="70" y="64" width="70" height="70" trans="false"/>
-    <image name="button-disabled-skin" x="292" y="204" width="82" height="22"/>
-    <image name="button-down-skin" x="210" y="204" width="82" height="22"/>
-    <image name="button-hover-skin" x="350" y="22" width="82" height="22"/>
-    <image name="button-selected-disabled-skin" x="140" y="436" width="64" height="22"/>
-    <image name="button-selected-down-skin" x="140" y="414" width="64" height="22"/>
-    <image name="button-selected-hover-skin" x="70" y="484" width="64" height="22"/>
-    <image name="button-selected-up-skin" x="0" y="485" width="64" height="22"/>
-    <image name="button-up-skin" x="350" y="0" width="82" height="22"/>
-    <image name="check-disabled-icon" x="223" y="416" width="14" height="14"/>
-    <image name="check-down-icon" x="223" y="402" width="14" height="14" trans="false"/>
-    <image name="check-hover-icon" x="223" y="388" width="14" height="14"/>
-    <image name="check-selected-disabled-icon" x="223" y="374" width="14" height="14"/>
-    <image name="check-selected-down-icon" x="223" y="360" width="14" height="14" trans="false"/>
-    <image name="check-selected-hover-icon" x="223" y="346" width="14" height="14"/>
-    <image name="check-selected-up-icon" x="223" y="332" width="14" height="14"/>
-    <image name="check-up-icon" x="223" y="318" width="14" height="14"/>
-    <image name="focus-indicator-skin" x="453" y="40" width="11" height="22"/>
-    <image name="front_dude" x="0" y="140" width="70" height="140"/>
-    <image name="grouped-list-header-background-skin" x="503" y="64" width="4" height="30" trans="false"/>
-    <image name="header-background-skin" x="507" y="64" width="4" height="29" transHeight="30"/>
-    <image name="hexagon" x="70" y="0" width="128" height="64"/>
-    <image name="horizontal-scroll-bar-decrement-button-icon" x="227" y="56" width="4" height="7" transWidth="6"/>
-    <image name="horizontal-scroll-bar-increment-button-icon" x="223" y="56" width="4" height="7" xOffset="2" transWidth="6"/>
-    <image name="horizontal-scroll-bar-step-button-disabled-skin" x="364" y="229" width="14" height="15"/>
-    <image name="horizontal-scroll-bar-step-button-down-skin" x="350" y="229" width="14" height="15" trans="false"/>
-    <image name="horizontal-scroll-bar-step-button-hover-skin" x="336" y="229" width="14" height="15" trans="false"/>
-    <image name="horizontal-scroll-bar-step-button-up-skin" x="490" y="186" width="14" height="15" trans="false"/>
-    <image name="horizontal-scroll-bar-thumb-down-skin" x="350" y="44" width="52" height="12" yOffset="1" transHeight="15"/>
-    <image name="horizontal-scroll-bar-thumb-hover-skin" x="250" y="44" width="52" height="12" yOffset="1" transHeight="15"/>
-    <image name="horizontal-scroll-bar-thumb-icon" x="15" y="507" width="7" height="5"/>
-    <image name="horizontal-scroll-bar-thumb-up-skin" x="198" y="44" width="52" height="12" yOffset="1" transHeight="15"/>
-    <image name="horizontal-scroll-bar-track-skin" x="64" y="485" width="4" height="15" trans="false"/>
-    <image name="hslider-thumb-disabled-skin" x="210" y="457" width="13" height="13"/>
-    <image name="hslider-thumb-down-skin" x="210" y="444" width="13" height="13"/>
-    <image name="hslider-thumb-hover-skin" x="210" y="431" width="13" height="13"/>
-    <image name="hslider-thumb-up-skin" x="210" y="418" width="13" height="13"/>
-    <image name="hslider-track-skin" x="336" y="226" width="79" height="3"/>
-    <image name="item-renderer-hover-skin" x="48" y="507" width="4" height="4" trans="false"/>
-    <image name="item-renderer-selected-up-skin" x="44" y="507" width="4" height="4" trans="false"/>
-    <image name="item-renderer-up-skin" x="40" y="507" width="4" height="4" trans="false"/>
-    <image name="list-accessory-drill-down-icon" x="219" y="56" width="4" height="8"/>
-    <image name="numeric-stepper-decrement-button-disabled-skin" x="490" y="116" width="21" height="12"/>
-    <image name="numeric-stepper-decrement-button-down-skin" x="472" y="47" width="21" height="12"/>
-    <image name="numeric-stepper-decrement-button-hover-skin" x="472" y="35" width="21" height="12"/>
-    <image name="numeric-stepper-decrement-button-up-skin" x="432" y="52" width="21" height="12"/>
-    <image name="numeric-stepper-increment-button-disabled-skin" x="432" y="40" width="21" height="12"/>
-    <image name="numeric-stepper-increment-button-down-skin" x="402" y="44" width="21" height="12"/>
-    <image name="numeric-stepper-increment-button-hover-skin" x="323" y="44" width="21" height="12"/>
-    <image name="numeric-stepper-increment-button-up-skin" x="302" y="44" width="21" height="12"/>
-    <image name="page-indicator-normal-skin" x="206" y="56" width="8" height="8"/>
-    <image name="page-indicator-selected-skin" x="198" y="56" width="8" height="8"/>
-    <image name="panel-background-skin" x="223" y="304" width="14" height="14"/>
-    <image name="picker-list-disabled-icon" x="223" y="290" width="14" height="14"/>
-    <image name="picker-list-down-icon" x="223" y="276" width="14" height="14"/>
-    <image name="picker-list-hover-icon" x="223" y="262" width="14" height="14"/>
-    <image name="picker-list-up-icon" x="223" y="248" width="14" height="14"/>
-    <image name="progress-bar-fill-skin" x="36" y="507" width="4" height="4" trans="false"/>
-    <image name="radar" x="0" y="280" width="70" height="135" yOffset="5" transHeight="140"/>
-    <image name="radio-disabled-icon" x="485" y="226" width="14" height="14"/>
-    <image name="radio-down-icon" x="471" y="226" width="14" height="14"/>
-    <image name="radio-hover-icon" x="457" y="226" width="14" height="14"/>
-    <image name="radio-selected-disabled-icon" x="443" y="226" width="14" height="14"/>
-    <image name="radio-selected-down-icon" x="429" y="226" width="14" height="14"/>
-    <image name="radio-selected-hover-icon" x="415" y="226" width="14" height="14"/>
-    <image name="radio-selected-up-icon" x="392" y="229" width="14" height="14"/>
-    <image name="radio-up-icon" x="378" y="229" width="14" height="14"/>
-    <image name="side_dude" x="0" y="0" width="70" height="140"/>
-    <image name="simple-border-background-skin" x="64" y="500" width="6" height="6" trans="false"/>
-    <image name="stone_down" x="0" y="415" width="70" height="70"/>
-    <image name="stone_fly" x="472" y="0" width="25" height="35"/>
-    <image name="tab-disabled-skin" x="273" y="226" width="63" height="22"/>
-    <image name="tab-down-skin" x="210" y="226" width="63" height="22"/>
-    <image name="tab-hover-skin" x="437" y="204" width="63" height="22"/>
-    <image name="tab-selected-disabled-skin" x="374" y="204" width="63" height="22"/>
-    <image name="tab-selected-up-skin" x="140" y="480" width="63" height="22"/>
-    <image name="tab-up-skin" x="140" y="458" width="63" height="22"/>
-    <image name="text-input-background-disabled-skin" x="198" y="22" width="152" height="22"/>
-    <image name="text-input-background-skin" x="198" y="0" width="152" height="22" trans="false"/>
-    <image name="unimplemented" x="432" y="0" width="40" height="40" trans="false"/>
-    <image name="vertical-scroll-bar-decrement-button-icon" x="29" y="507" width="7" height="4" transHeight="6"/>
-    <image name="vertical-scroll-bar-increment-button-icon" x="22" y="507" width="7" height="4" yOffset="2" transHeight="6"/>
-    <image name="vertical-scroll-bar-step-button-disabled-skin" x="493" y="49" width="15" height="14"/>
-    <image name="vertical-scroll-bar-step-button-down-skin" x="493" y="35" width="15" height="14" trans="false"/>
-    <image name="vertical-scroll-bar-step-button-hover-skin" x="497" y="14" width="15" height="14" trans="false"/>
-    <image name="vertical-scroll-bar-step-button-up-skin" x="497" y="0" width="15" height="14" trans="false"/>
-    <image name="vertical-scroll-bar-thumb-down-skin" x="210" y="248" width="13" height="52" xOffset="1" transWidth="15"/>
-    <image name="vertical-scroll-bar-thumb-hover-skin" x="490" y="134" width="13" height="52" xOffset="1" transWidth="15"/>
-    <image name="vertical-scroll-bar-thumb-icon" x="214" y="56" width="5" height="7"/>
-    <image name="vertical-scroll-bar-thumb-up-skin" x="490" y="64" width="13" height="52" xOffset="1" transWidth="15"/>
-    <image name="vertical-scroll-bar-track-skin" x="0" y="507" width="15" height="4" trans="false"/>
-    <image name="vslider-thumb-disabled-skin" x="210" y="405" width="13" height="13"/>
-    <image name="vslider-thumb-down-skin" x="210" y="392" width="13" height="13"/>
-    <image name="vslider-thumb-hover-skin" x="210" y="379" width="13" height="13"/>
-    <image name="vslider-thumb-up-skin" x="499" y="226" width="13" height="13"/>
-    <image name="vslider-track-skin" x="210" y="300" width="3" height="79"/>
+    <image name="1" x="420" y="360" width="70" height="70" trans="false"/>
+    <image name="1-" x="0" y="430" width="70" height="70" trans="false"/>
+    <image name="1--" x="70" y="430" width="70" height="70" trans="false"/>
+    <image name="11" x="440" y="0" width="70" height="70" trans="false"/>
+    <image name="2" x="210" y="220" width="70" height="70" trans="false"/>
+    <image name="2-" x="418" y="110" width="70" height="70" trans="false"/>
+    <image name="2--" x="348" y="110" width="70" height="70" trans="false"/>
+    <image name="3" x="280" y="290" width="70" height="70" trans="false"/>
+    <image name="3-" x="280" y="220" width="70" height="70" trans="false"/>
+    <image name="3--" x="210" y="290" width="70" height="70" trans="false"/>
+    <image name="33" x="350" y="220" width="70" height="70" trans="false"/>
+    <image name="4" x="350" y="290" width="70" height="70" trans="false"/>
+    <image name="5" x="420" y="220" width="70" height="70" trans="false"/>
+    <image name="6" x="420" y="290" width="70" height="70" trans="false"/>
+    <image name="7" x="0" y="360" width="70" height="70" trans="false"/>
+    <image name="77" x="70" y="360" width="70" height="70" trans="false"/>
+    <image name="8" x="140" y="360" width="70" height="70" trans="false"/>
+    <image name="9" x="210" y="360" width="70" height="70" trans="false"/>
+    <image name="99" x="280" y="360" width="70" height="70" trans="false"/>
+    <image name="button-disabled-skin" x="140" y="474" width="82" height="22"/>
+    <image name="button-down-skin" x="418" y="180" width="82" height="22"/>
+    <image name="button-hover-skin" x="220" y="196" width="82" height="22"/>
+    <image name="button-selected-disabled-skin" x="292" y="452" width="64" height="22"/>
+    <image name="button-selected-down-skin" x="292" y="430" width="64" height="22"/>
+    <image name="button-selected-hover-skin" x="222" y="474" width="64" height="22"/>
+    <image name="button-selected-up-skin" x="348" y="180" width="64" height="22"/>
+    <image name="button-up-skin" x="220" y="174" width="82" height="22"/>
+    <image name="check-disabled-icon" x="115" y="500" width="14" height="14"/>
+    <image name="check-down-icon" x="101" y="500" width="14" height="14" trans="false"/>
+    <image name="check-hover-icon" x="87" y="500" width="14" height="14"/>
+    <image name="check-selected-disabled-icon" x="73" y="500" width="14" height="14"/>
+    <image name="check-selected-down-icon" x="59" y="500" width="14" height="14" trans="false"/>
+    <image name="check-selected-hover-icon" x="45" y="500" width="14" height="14"/>
+    <image name="check-selected-up-icon" x="31" y="500" width="14" height="14"/>
+    <image name="check-up-icon" x="17" y="500" width="14" height="14"/>
+    <image name="focus-indicator-skin" x="501" y="110" width="11" height="22"/>
+    <image name="front_dude" x="0" y="220" width="70" height="140"/>
+    <image name="grouped-list-header-background-skin" x="505" y="70" width="4" height="30" trans="false"/>
+    <image name="header-background-skin" x="501" y="132" width="4" height="29" transHeight="30"/>
+    <image name="hexagon" x="220" y="110" width="128" height="64"/>
+    <image name="horizontal-scroll-bar-decrement-button-icon" x="344" y="198" width="4" height="7" transWidth="6"/>
+    <image name="horizontal-scroll-bar-increment-button-icon" x="344" y="186" width="4" height="7" xOffset="2" transWidth="6"/>
+    <image name="horizontal-scroll-bar-step-button-disabled-skin" x="490" y="405" width="14" height="15"/>
+    <image name="horizontal-scroll-bar-step-button-down-skin" x="490" y="390" width="14" height="15" trans="false"/>
+    <image name="horizontal-scroll-bar-step-button-hover-skin" x="490" y="375" width="14" height="15" trans="false"/>
+    <image name="horizontal-scroll-bar-step-button-up-skin" x="490" y="360" width="14" height="15" trans="false"/>
+    <image name="horizontal-scroll-bar-thumb-down-skin" x="419" y="474" width="52" height="12" yOffset="1" transHeight="15"/>
+    <image name="horizontal-scroll-bar-thumb-hover-skin" x="418" y="202" width="52" height="12" yOffset="1" transHeight="15"/>
+    <image name="horizontal-scroll-bar-thumb-icon" x="495" y="105" width="7" height="5"/>
+    <image name="horizontal-scroll-bar-thumb-up-skin" x="348" y="202" width="52" height="12" yOffset="1" transHeight="15"/>
+    <image name="horizontal-scroll-bar-track-skin" x="412" y="180" width="4" height="15" trans="false"/>
+    <image name="hslider-thumb-disabled-skin" x="220" y="500" width="13" height="13"/>
+    <image name="hslider-thumb-down-skin" x="207" y="500" width="13" height="13"/>
+    <image name="hslider-thumb-hover-skin" x="194" y="500" width="13" height="13"/>
+    <image name="hslider-thumb-up-skin" x="181" y="500" width="13" height="13"/>
+    <image name="hslider-track-skin" x="140" y="496" width="79" height="3"/>
+    <image name="item-renderer-hover-skin" x="323" y="214" width="4" height="4" trans="false"/>
+    <image name="item-renderer-selected-up-skin" x="344" y="205" width="4" height="4" trans="false"/>
+    <image name="item-renderer-up-skin" x="344" y="193" width="4" height="4" trans="false"/>
+    <image name="list-accessory-drill-down-icon" x="344" y="174" width="4" height="8"/>
+    <image name="numeric-stepper-decrement-button-disabled-skin" x="470" y="202" width="21" height="12"/>
+    <image name="numeric-stepper-decrement-button-down-skin" x="488" y="162" width="21" height="12"/>
+    <image name="numeric-stepper-decrement-button-hover-skin" x="323" y="198" width="21" height="12"/>
+    <image name="numeric-stepper-decrement-button-up-skin" x="323" y="186" width="21" height="12"/>
+    <image name="numeric-stepper-increment-button-disabled-skin" x="302" y="198" width="21" height="12"/>
+    <image name="numeric-stepper-increment-button-down-skin" x="302" y="186" width="21" height="12"/>
+    <image name="numeric-stepper-increment-button-hover-skin" x="323" y="174" width="21" height="12"/>
+    <image name="numeric-stepper-increment-button-up-skin" x="302" y="174" width="21" height="12"/>
+    <image name="page-indicator-normal-skin" x="310" y="210" width="8" height="8"/>
+    <image name="page-indicator-selected-skin" x="302" y="210" width="8" height="8"/>
+    <image name="panel-background-skin" x="3" y="500" width="14" height="14"/>
+    <image name="picker-list-disabled-icon" x="496" y="480" width="14" height="14"/>
+    <image name="picker-list-down-icon" x="482" y="480" width="14" height="14"/>
+    <image name="picker-list-hover-icon" x="496" y="466" width="14" height="14"/>
+    <image name="picker-list-up-icon" x="482" y="466" width="14" height="14"/>
+    <image name="progress-bar-fill-skin" x="344" y="182" width="4" height="4" trans="false"/>
+    <image name="radar" x="140" y="220" width="70" height="135" yOffset="5" transHeight="140"/>
+    <image name="radio-disabled-icon" x="496" y="452" width="14" height="14"/>
+    <image name="radio-down-icon" x="482" y="452" width="14" height="14"/>
+    <image name="radio-hover-icon" x="461" y="486" width="14" height="14"/>
+    <image name="radio-selected-disabled-icon" x="447" y="486" width="14" height="14"/>
+    <image name="radio-selected-down-icon" x="433" y="486" width="14" height="14"/>
+    <image name="radio-selected-hover-icon" x="419" y="486" width="14" height="14"/>
+    <image name="radio-selected-up-icon" x="496" y="430" width="14" height="14"/>
+    <image name="radio-up-icon" x="482" y="430" width="14" height="14"/>
+    <image name="side_dude" x="70" y="220" width="70" height="140"/>
+    <image name="simple-border-background-skin" x="505" y="100" width="6" height="6" trans="false"/>
+    <image name="stone_boom_1" x="0" y="0" width="110" height="110"/>
+    <image name="stone_boom_2" x="110" y="0" width="110" height="110"/>
+    <image name="stone_boom_3" x="220" y="0" width="110" height="110"/>
+    <image name="stone_boom_4" x="330" y="0" width="110" height="110"/>
+    <image name="stone_boom_5" x="0" y="110" width="110" height="110"/>
+    <image name="stone_boom_6" x="110" y="110" width="110" height="110"/>
+    <image name="stone_down" x="350" y="360" width="70" height="70"/>
+    <image name="stone_fly" x="480" y="70" width="25" height="35"/>
+    <image name="tab-disabled-skin" x="419" y="452" width="63" height="22"/>
+    <image name="tab-down-skin" x="419" y="430" width="63" height="22"/>
+    <image name="tab-hover-skin" x="356" y="474" width="63" height="22"/>
+    <image name="tab-selected-disabled-skin" x="356" y="452" width="63" height="22"/>
+    <image name="tab-selected-up-skin" x="356" y="430" width="63" height="22"/>
+    <image name="tab-up-skin" x="292" y="474" width="63" height="22"/>
+    <image name="text-input-background-disabled-skin" x="140" y="452" width="152" height="22"/>
+    <image name="text-input-background-skin" x="140" y="430" width="152" height="22" trans="false"/>
+    <image name="unimplemented" x="440" y="70" width="40" height="40" trans="false"/>
+    <image name="vertical-scroll-bar-decrement-button-icon" x="323" y="210" width="7" height="4" transHeight="6"/>
+    <image name="vertical-scroll-bar-increment-button-icon" x="505" y="106" width="7" height="4" yOffset="2" transHeight="6"/>
+    <image name="vertical-scroll-bar-step-button-disabled-skin" x="490" y="342" width="15" height="14"/>
+    <image name="vertical-scroll-bar-step-button-down-skin" x="490" y="272" width="15" height="14" trans="false"/>
+    <image name="vertical-scroll-bar-step-button-hover-skin" x="491" y="202" width="15" height="14" trans="false"/>
+    <image name="vertical-scroll-bar-step-button-up-skin" x="400" y="202" width="15" height="14" trans="false"/>
+    <image name="vertical-scroll-bar-thumb-down-skin" x="490" y="290" width="13" height="52" xOffset="1" transWidth="15"/>
+    <image name="vertical-scroll-bar-thumb-hover-skin" x="490" y="220" width="13" height="52" xOffset="1" transWidth="15"/>
+    <image name="vertical-scroll-bar-thumb-icon" x="318" y="210" width="5" height="7"/>
+    <image name="vertical-scroll-bar-thumb-up-skin" x="488" y="110" width="13" height="52" xOffset="1" transWidth="15"/>
+    <image name="vertical-scroll-bar-track-skin" x="480" y="105" width="15" height="4" trans="false"/>
+    <image name="vslider-thumb-disabled-skin" x="168" y="500" width="13" height="13"/>
+    <image name="vslider-thumb-down-skin" x="155" y="500" width="13" height="13"/>
+    <image name="vslider-thumb-hover-skin" x="142" y="500" width="13" height="13"/>
+    <image name="vslider-thumb-up-skin" x="129" y="500" width="13" height="13"/>
+    <image name="vslider-track-skin" x="0" y="500" width="3" height="79"/>
   </texture>
 </atlas>
