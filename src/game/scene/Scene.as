@@ -28,15 +28,15 @@ package game.scene
 			if (map.@width != map.@height || map.@width != Game.MAP_WIDTH)
 				throw new Error("map is not compatible");
 			
-			var tileCodes:Vector.<int> = new Vector.<int>(8, true);
-			
-			tileCodes[0] = Game.SCENE_FALL;
+			var tileCodes:Array = new Array();
 			
 			for (var i:int = 0; i < map.tileset.length(); i++)
 			{
 				var name:String = map.tileset[i].@name;
 				
-				if (name == "ground")
+				if (name == "fall")
+					tileCodes[i + 1] = Game.SCENE_FALL;
+				else if (name == "ground")
 					tileCodes[i + 1] = Game.SCENE_GROUND;
 				else if (name == "bot_left")
 					tileCodes[i + 1] = Game.SCENE_BL_DISK;
