@@ -8,6 +8,7 @@ package game.items.character
 	import game.items.MasterBase;
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
+	import game.scene.isCellSolid;
 	import game.scene.IScene;
 	
 	use namespace items_internal;
@@ -74,7 +75,7 @@ package game.items.character
 					{
 						next = this.scene.getSceneCell(x + action.x, y + action.y);
 						
-						if (this.force.isCellCovered(x + action.x, y + action.y) || (next == Game.SCENE_GROUND))
+						if (this.force.isCellCovered(x + action.x, y + action.y) || isCellSolid(next))
 						{
 							puppet.startMovingBy(action);
 							
