@@ -1,21 +1,13 @@
 package game.renderer 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.metric.CellXY;
-	import game.metric.ICoordinated;
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
 	import starling.display.Image;
-	import starling.display.Quad;
-	import starling.display.QuadBatch;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
-	internal class ProjectileRenderer extends QuadBatch
+	internal class ProjectileRenderer extends SubRendererBase
 	{
-		private var center:ICoordinated;
-		
 		private var projectiles:IProjectileManager;
 		
 		private var shard:Image;
@@ -28,79 +20,57 @@ package game.renderer
 		{
 			this.projectiles = elements.projectiles;
 			
-			var flow:IUpdateDispatcher = elements.flow;
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.setCenter);
-			flow.addUpdateListener(Update.numberedFrame);
-			flow.addUpdateListener(Update.quitGame);
-			
 			this.tmpCell = new CellXY(0, 0);
 			
 			this.shard = new Image(elements.assets.getTextureAtlas("sprites").getTexture("stone_fly"));
 			this.trajectory = new Image(elements.assets.getTextureAtlas("sprites").getTexture("progress-bar-fill-skin"));
 			
-			
+			super(elements);
 		}
 		
-		update function setCenter(center:ICoordinated):void
+		override protected function renderCell(x:int, y:int, frame:int):void 
 		{
-			this.center = center;
-		}
-		
-		update function numberedFrame(frame:int):void
-		{
-			this.reset();
+			var proj:Projectile = this.projectiles.getProjectile(x, y);
 			
-			var x:int = this.center.x;
-			var y:int = this.center.y;
-			
-			var proj:Projectile;
-			var view:Image;
-			
-			for (var i:int = -10; i < 11; i++)
-				for (var j:int = -10; j < 11; j++)//TODO: replace hardcode with something good
+			if (proj)
+			{
+				var view:Image;
+				
+				if (proj.type == Game.PROJECTILE_SHARD)
 				{
-					proj = this.projectiles.getProjectile(x + i, y + j);
+					view = this.shard;
 					
-					if (proj)
+					view.x = x * Game.CELL_WIDTH;
+					view.y = y * Game.CELL_HEIGHT;
+					
+					this.getTrajectoryCoordinates(proj.height);
+					
+					view.x += this.tmpCell.x;
+					view.y += this.tmpCell.y;
+					
+					var tr:Image = this.trajectory;
+					
+					for (var k:int = 0; k < proj.height; k++)
 					{
-						if (proj.type == Game.PROJECTILE_SHARD)
-						{
-							view = this.shard;
-							
-							view.x = (x + i) * Game.CELL_WIDTH;
-							view.y = (y + j) * Game.CELL_HEIGHT;
-							
-							this.getTrajectoryCoordinates(proj.height);
-							
-							view.x += this.tmpCell.x;
-							view.y += this.tmpCell.y;
-							
-							var tr:Image = this.trajectory;
-							
-							for (var k:int = 0; k < proj.height; k++)
-							{
-								tr.x = (x + i) * Game.CELL_WIDTH;
-								tr.y = (y + j) * Game.CELL_HEIGHT;
-								
-								this.getTrajectoryCoordinates(k);
-								
-								tr.x += this.tmpCell.x;
-								tr.y += this.tmpCell.y;
-								
-								this.addImage(tr);
-							}
-							
-							this.addImage(view);
-						}
+						tr.x = x * Game.CELL_WIDTH;
+						tr.y = y * Game.CELL_HEIGHT;
+						
+						this.getTrajectoryCoordinates(k);
+						
+						tr.x += this.tmpCell.x;
+						tr.y += this.tmpCell.y;
+						
+						this.addImage(tr);
 					}
+					
+					this.addImage(view);
 				}
+			}
 		}
 		
-		update function quitGame():void
+		override protected function get range():int 
 		{
-			this.reset();
+			return 10;
 		}
 		
 		private function getTrajectoryCoordinates(height:int):void

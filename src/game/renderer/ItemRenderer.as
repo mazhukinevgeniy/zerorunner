@@ -8,10 +8,8 @@ package game.renderer
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	import starling.textures.TextureAtlas;
-	import starling.utils.AssetManager;
-	import utils.updates.update;
 	
-	internal class ItemRenderer extends QuadBatch
+	internal class ItemRenderer extends SubRendererBase
 	{
 		private const TOP:int = 0;
 		private const DOWN:int = 1;
@@ -20,31 +18,22 @@ package game.renderer
 		
 		private var items:Items;
 		
-		private var center:ICoordinated;
-		
 		private var sprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
 		private var altsprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
 		
 		public function ItemRenderer(elements:GameElements) 
 		{
-			super();
-			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.setCenter);
-			elements.flow.addUpdateListener(Update.numberedFrame);
-			elements.flow.addUpdateListener(Update.quitGame);
+			super(elements);
 			
 			this.items = elements.items;
 			
-			this.initializeSprites(elements.assets);
+			this.initializeSprites(elements.assets.getTextureAtlas("sprites"));
 		}
 		
-		private function initializeSprites(assets:AssetManager):void
+		private function initializeSprites(atlas:TextureAtlas):void
 		{
 			this.initializeVectors("sprites");
 			this.initializeVectors("altsprites");
-			
-			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
 			
 			var spritelist:Vector.<Array> = new < Array > 
 					[
@@ -140,56 +129,38 @@ package game.renderer
 							vector[i][j][k] = null;
 		}
 		
-		update function setCenter(center:ICoordinated):void
+		override protected function get range():int 
 		{
-			this.center = center;
+			return 8;
 		}
 		
-		update function numberedFrame(frame:int):void
+		override protected function renderCell(x:int, y:int, frame:int):void 
 		{
-			this.reset();
+			var item:PuppetBase = this.items.findAnyObjectByCell(x, y);
 			
-			var center:ICoordinated = this.center;
-			
-			const tlcX:int = center.x - 13;//TODO: check if can reduce constants and/or hardcode
-			const brcX:int = center.x + 14;
-			
-			const tlcY:int = center.y - 11;
-			const brcY:int = center.y + 12;
-			
-			var sprite:Image;
-			
-			for (var j:int = tlcY; j < brcY; j++)
-				for (var i:int = tlcX; i < brcX; i++)
+			if (item)
+			{
+				var sprite:Image = this.getAnimationFrame(item, frame);
+				
+				sprite.x = x * Game.CELL_WIDTH;
+				sprite.y = y * Game.CELL_HEIGHT;
+				
+				if (item.occupation == Game.OCCUPATION_MOVING ||
+					item.occupation == Game.OCCUPATION_FLYING)
 				{
-					var item:PuppetBase = this.items.findAnyObjectByCell(i, j);
+					var dX:int = item.moveInProgress.x;
+					var dY:int = item.moveInProgress.y;
 					
-					if (item)
-					{
-						sprite = this.getAnimationFrame(item, frame);
-						
-						sprite.x = i * Game.CELL_WIDTH;
-						sprite.y = j * Game.CELL_HEIGHT;
-						
-						if (item.occupation == Game.OCCUPATION_MOVING ||
-							item.occupation == Game.OCCUPATION_FLYING)
-						{
-							var dX:int = item.moveInProgress.x;
-							var dY:int = item.moveInProgress.y;
-							
-							var progress:Number = 1 - item.getProgress(frame);
-							
-							sprite.x -= int(progress * Game.CELL_WIDTH * dX);
-							sprite.y -= int(progress * Game.CELL_HEIGHT * dY);
-						}
-						
-						sprite.y += Game.CELL_HEIGHT - sprite.height;
-						sprite.x += (Game.CELL_WIDTH - sprite.width) / 2;
-						
-						this.addImage(sprite);
-					}
+					var progress:Number = 1 - item.getProgress(frame);
 					
+					sprite.x -= int(progress * Game.CELL_WIDTH * dX);
+					sprite.y -= int(progress * Game.CELL_HEIGHT * dY);
 				}
+				
+				sprite.y += Game.CELL_HEIGHT - sprite.height;
+				
+				this.addImage(sprite);
+			}
 		}
 		
 		private function getAnimationFrame(item:PuppetBase, flashFrame:int):Image
@@ -215,6 +186,8 @@ package game.renderer
 			
 			this.altsprites[type][occupation][direction] = this.sprites[type][occupation][direction];
 			this.sprites[type][occupation][direction] = tmp;
+			
+			//TODO: make sure it's either used or removed
 		}
 		
 		private function getDirection(item:PuppetBase):int
@@ -229,13 +202,6 @@ package game.renderer
 				return this.TOP;
 			else 
 				return this.RIGHT;
-		}
-		
-		update function quitGame():void
-		{
-			this.reset();
-			
-			this.center = null;
 		}
 	}
 
