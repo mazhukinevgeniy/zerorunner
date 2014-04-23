@@ -26,6 +26,8 @@ package
 		public static const SCENE_BL_DISK:int = 3;
 		public static const SCENE_TR_DISK:int = 4;
 		public static const SCENE_BR_DISK:int = 5;
+		public static const SCENE_UNUSED_1:int = 6;
+		public static const SCENE_UNUSED_2:int = 7;
 		
 		/* Endings */
 		
@@ -59,7 +61,7 @@ package
 		
 		/* Constants */
 		
-		public static const MAP_WIDTH:int = 90;
+		public static const MAP_WIDTH:int = 45;
 		
 		/* Time-related */
 		
