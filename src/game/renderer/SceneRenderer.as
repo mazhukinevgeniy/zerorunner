@@ -104,7 +104,8 @@ package game.renderer
 		
 		override protected function get range():int 
 		{
-			return 6; 
+			return 7;
+			//please note 6 is not enough because of the vertical stuff
 			//TODO: use xrange and yrange
 		}
 		
