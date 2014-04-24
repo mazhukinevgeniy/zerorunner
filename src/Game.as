@@ -62,6 +62,9 @@ package
 		
 		public static const MAP_WIDTH:int = 90;
 		
+		public static const STAGE_COLOR:uint = 0x222222;
+		//TODO: get art director to get the best color for that
+		
 		/* Time-related */
 		
 		public static const FRAMES_PER_CYCLE:int = 5;

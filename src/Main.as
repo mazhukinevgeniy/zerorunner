@@ -99,7 +99,7 @@ package
 				this.shell = new Shell(this.starlingRoot, this.game);
 				this.hotkeys = new Hotkeys(this.game, Starling.current.nativeStage);
 				
-				Starling.current.stage.color = 0;
+				Starling.current.stage.color = Game.STAGE_COLOR;
 			}
 		}
 		
