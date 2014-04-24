@@ -1,6 +1,5 @@
 package game.items.character 
 {
-	import game.forceFields.IForceField;
 	import game.GameElements;
 	import game.input.IKnowInput;
 	import game.items.Items;
@@ -19,7 +18,6 @@ package game.items.character
 		private var input:IKnowInput;
 		private var scene:IScene;
 		private var items:Items;
-		private var force:IForceField;
 		
 		public function CharacterMaster(elements:GameElements) 
 		{
@@ -31,7 +29,6 @@ package game.items.character
 			this.input = this.elements.input;
 			this.scene = this.elements.scene;
 			this.items = this.elements.items;
-			this.force = this.elements.forceFields;
 			
 			new Character(this, this.elements, new CellXY(x, y));
 		}
@@ -76,7 +73,7 @@ package game.items.character
 					{
 						next = this.scene.getSceneCell(x + action.x, y + action.y);
 						
-						if (this.force.isCellCovered(x + action.x, y + action.y) || isCellSolid(next))
+						if (isCellSolid(next))
 						{
 							puppet.startMovingBy(action);
 							

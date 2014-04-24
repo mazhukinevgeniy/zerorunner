@@ -78,8 +78,7 @@ package game.items.generator
 			var item:PuppetBase = this.elements.items.findAnyObjectByCell(x, y);
 			
 			if (item && item is Generator)
-				if (!this.elements.forceFields.isCellCovered(x, y))
-					this.elements.flow.dispatchUpdate(Update.generatorPowered, x, y);
+				this.elements.flow.dispatchUpdate(Update.generatorPowered, x, y);
 		}
 	}
 
