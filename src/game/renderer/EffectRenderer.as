@@ -81,6 +81,7 @@ package game.renderer
 		override protected function handleGameStarted():void 
 		{
 			this.shards = new Array();
+			//TODO: store that knowledge somewhere else and remove this method from the parent
 		}
 	}
 
