@@ -1,12 +1,24 @@
 package game.renderer 
 {
+	import data.viewers.GameConfig;
+	import flash.geom.Rectangle;
 	import game.GameElements;
-	import game.scene.IScene;
 	import starling.display.Image;
+	import starling.quadtreeSprite.QuadtreeSprite;
 	import starling.textures.TextureAtlas;
+	import utils.MapXML;
+	import utils.updates.IUpdateDispatcher;
+	import utils.updates.update;
 	
-	internal class SceneRenderer extends SubRendererBase
+	internal class SceneRenderer extends QuadtreeSprite
 	{
+		private const FALL:int = 0;
+		private const TL_DISK:int = 1;
+		private const TR_DISK:int = 2;
+		private const BL_DISK:int = 3;
+		private const BR_DISK:int = 4;
+		private const GROUND:int = 5;
+		
 		private var _5:Image;
 		private var _6:Image, _8:Image, _4:Image, _2:Image;
 		private var _3:Image, _9:Image, _7:Image, _1:Image;
@@ -14,13 +26,27 @@ package game.renderer
 		
 		private var _1_:Image, _1__:Image, _2_:Image, _2__:Image, _3_:Image, _3__:Image;
 		
-		private var scene:IScene;
+		/* Helper variables */
+		private var tiles:Vector.<int>;
+		private var tileCodes:Array;
+		
+		private const extraRange:int = 7;
 		
 		public function SceneRenderer(elements:GameElements) 
 		{
-			super(elements);
+			var worldBounds:Rectangle = 
+				new Rectangle( -this.extraRange * Game.CELL_WIDTH,
+							   -this.extraRange * Game.CELL_HEIGHT,
+							   (2 * this.extraRange + Game.MAP_WIDTH) * Game.CELL_WIDTH,
+							   (2 * this.extraRange + Game.MAP_WIDTH) * Game.CELL_HEIGHT);
 			
-			this.scene = elements.scene;
+			super(worldBounds, false);
+			
+			var flow:IUpdateDispatcher = elements.flow;
+			
+			flow.workWithUpdateListener(this);
+			flow.addUpdateListener(Update.restore);
+			flow.addUpdateListener(Update.quitGame);
 			
 			var atlas:TextureAtlas = elements.assets.getTextureAtlas("sprites");
 			
@@ -40,78 +66,121 @@ package game.renderer
 			}
 		}
 		
-		override protected function renderCell(x:int, y:int, frame:int):void 
+		update function restore(config:GameConfig):void
 		{
-			if (this.scene.getSceneCell(x, y) != Game.SCENE_FALL)
+			var extraRange:int = 7; //TODO: find out how much less we need in each dimension
+			
+			var map:XML = MapXML.getOne();
+			this.tiles = new Vector.<int>(Game.MAP_WIDTH * Game.MAP_WIDTH, true);
+			
+			var xmlTiles:XMLList = map.layer.data.tile;
+			
+			this.tileCodes = new Array();
+			
+			for (var i:int = 0; i < map.tileset.length(); i++)
 			{
-				var sTitle:String;
+				var name:String = map.tileset[i].@name;
 				
-				var tileCode:int = this.scene.getSceneCell(x, y);
-				
-				if (tileCode == Game.SCENE_GROUND)
+				if (name == "fall")
+					this.tileCodes[i + 1] = this.FALL;
+				else if (name == "ground")
+					this.tileCodes[i + 1] = this.GROUND;
+				else if (name == "bot_left")
+					this.tileCodes[i + 1] = this.BL_DISK;
+				else if (name == "bot_right")
+					this.tileCodes[i + 1] = this.BR_DISK;
+				else if (name == "top_left")
+					this.tileCodes[i + 1] = this.TL_DISK;
+				else if (name == "top_right")
+					this.tileCodes[i + 1] = this.TR_DISK;
+			}
+			//TODO: get rid of nonfunctional tr_disk global scene types
+			
+			for (var k:int = 0; k < Game.MAP_WIDTH; k++)
+				for (var j:int = 0; j < Game.MAP_WIDTH; j++)
 				{
-					if (this.scene.getSceneCell(x, y - 1) == Game.SCENE_FALL)
-						sTitle = "_8";
-					else if (this.scene.getSceneCell(x, y + 1) == Game.SCENE_FALL)
-						sTitle = "_2";
-					else if (this.scene.getSceneCell(x - 1, y) == Game.SCENE_FALL)
-						sTitle = "_4";
-					else if (this.scene.getSceneCell(x + 1, y) == Game.SCENE_FALL)
-						sTitle = "_6";
-					else if (this.scene.getSceneCell(x - 1, y - 1) == Game.SCENE_FALL)
-						sTitle = "_77";
-					else if (this.scene.getSceneCell(x + 1, y - 1) == Game.SCENE_FALL)
-						sTitle = "_99";
-					else if (this.scene.getSceneCell(x - 1, y + 1) == Game.SCENE_FALL)
-						sTitle = "_11";
-					else if (this.scene.getSceneCell(x + 1, y + 1) == Game.SCENE_FALL)
-						sTitle = "_33";
-					else
-						sTitle = "_5";
+					this.tiles[k + j * Game.MAP_WIDTH] = xmlTiles[k + j * Game.MAP_WIDTH].@gid;
 				}
-				else if (tileCode == Game.SCENE_BL_DISK)
-					sTitle = "_1";
-				else if (tileCode == Game.SCENE_TL_DISK)
-					sTitle = "_7";
-				else if (tileCode == Game.SCENE_BR_DISK)
-					sTitle = "_3";
-				else if (tileCode == Game.SCENE_TR_DISK)
-					sTitle = "_9";
-				
-				var sprite:Image = this[sTitle];
-				
-				sprite.x = x * Game.CELL_WIDTH;
-				sprite.y = y * Game.CELL_HEIGHT;
-				
-				this.addImage(sprite);
-				
-				if (sprite == this._1 || sprite == this._2 || sprite == this._3)
+			
+			for (var y:int = 0 - extraRange; y < Game.MAP_WIDTH + extraRange; y++)
+				for (var x:int = 0 - extraRange; x < Game.MAP_WIDTH + extraRange; x++)
 				{
-					for (var iI:int = 1; iI < 4; iI++)
+					if (this.getMapCell(x, y) != this.FALL)
 					{
-						var isTitle:String = sTitle + "_" + (iI == 3 ? "_" : "");
+						var sTitle:String;
 						
-						sprite = this[isTitle];
+						var tileCode:int = this.getMapCell(x, y);
+						
+						if (tileCode == this.GROUND)
+						{
+							if (this.getMapCell(x, y - 1) == this.FALL)
+								sTitle = "_8";
+							else if (this.getMapCell(x, y + 1) == this.FALL)
+								sTitle = "_2";
+							else if (this.getMapCell(x - 1, y) == this.FALL)
+								sTitle = "_4";
+							else if (this.getMapCell(x + 1, y) == this.FALL)
+								sTitle = "_6";
+							else if (this.getMapCell(x - 1, y - 1) == this.FALL)
+								sTitle = "_77";
+							else if (this.getMapCell(x + 1, y - 1) == this.FALL)
+								sTitle = "_99";
+							else if (this.getMapCell(x - 1, y + 1) == this.FALL)
+								sTitle = "_11";
+							else if (this.getMapCell(x + 1, y + 1) == this.FALL)
+								sTitle = "_33";
+							else
+								sTitle = "_5";
+						}
+						else if (tileCode == this.BL_DISK)
+							sTitle = "_1";
+						else if (tileCode == this.TL_DISK)
+							sTitle = "_7";
+						else if (tileCode == this.BR_DISK)
+							sTitle = "_3";
+						else if (tileCode == this.TR_DISK)
+							sTitle = "_9";
+						
+						var sprite:Image = this[sTitle];
+						sprite = new Image(sprite.texture);
 						
 						sprite.x = x * Game.CELL_WIDTH;
-						sprite.y = (y + iI) * Game.CELL_HEIGHT;
+						sprite.y = y * Game.CELL_HEIGHT;
 						
-						this.addImage(sprite);
+						this.addChild(sprite);
+						
+						if (sprite == this._1 || sprite == this._2 || sprite == this._3)
+						{
+							for (var iI:int = 1; iI < 4; iI++)
+							{
+								var isTitle:String = sTitle + "_" + (iI == 3 ? "_" : "");
+								
+								sprite = this[isTitle];
+								sprite = new Image(sprite.texture);
+								
+								sprite.x = x * Game.CELL_WIDTH;
+								sprite.y = (y + iI) * Game.CELL_HEIGHT;
+								
+								this.addChild(sprite);
+							}
+						}
 					}
 				}
-			}
+			
+			this.tileCodes = null;
+			this.tiles = null;
 		}
 		
-		override protected function get range():int 
+		private function getMapCell(x:int, y:int):int
 		{
-			return 7;
-			//please note 6 is not enough because of the vertical stuff
-			//TODO: use xrange and yrange
+			var key:int = normalize(x) + normalize(y) * Game.MAP_WIDTH;
+			
+			return this.tileCodes[this.tiles[key]];
 		}
 		
-		override protected function checkIfShouldRender(frame:int):Boolean 
+		update function quitGame():void
 		{
-			return frame == Game.FRAME_TO_ACT;
+			this.removeChildren();
 		}
 	}
 
