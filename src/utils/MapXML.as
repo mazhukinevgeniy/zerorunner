@@ -5,7 +5,9 @@ package utils
 	public class MapXML 
 	{
 		[Embed(source = "../../res/map/map.tmx", mimeType = "application/octet-stream")]
-		private static const map:Class;
+		private static const MAP:Class;
+		
+		private static var map:XML;
 		
 		public function MapXML() 
 		{
@@ -14,8 +16,12 @@ package utils
 		
 		public static function getOne():XML
 		{
-			var code:ByteArray = new (MapXML.map)() as ByteArray;
-			return new XML(code.readUTFBytes(code.length));
+			if (!MapXML.map)
+			{
+				var code:ByteArray = new (MapXML.MAP)() as ByteArray;
+				MapXML.map = new XML(code.readUTFBytes(code.length));
+			}
+			return MapXML.map;
 		}
 	}
 
