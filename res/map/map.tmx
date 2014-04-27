@@ -27,6 +27,9 @@
  <tileset firstgid="9" name="fall" tilewidth="70" tileheight="70">
   <image source="fall.gif" width="70" height="70"/>
  </tileset>
+ <tileset firstgid="10" name="shard" tilewidth="35" tileheight="35">
+  <image source="shard.gif" width="35" height="35"/>
+ </tileset>
  <layer name="Tiles" width="90" height="90">
   <data>
    <tile gid="1"/>
@@ -8177,6 +8180,16 @@
   <object gid="8" x="3929" y="4329"/>
   <object gid="8" x="4081" y="3623"/>
   <object gid="8" x="3872" y="4190"/>
+  <object gid="10" x="996" y="1240"/>
+  <object gid="10" x="995" y="1310"/>
+  <object gid="10" x="1067" y="1313"/>
+  <object gid="10" x="999" y="1378"/>
+  <object gid="10" x="926" y="1385"/>
+  <object gid="10" x="1076" y="1382"/>
+  <object gid="10" x="1072" y="1452"/>
+  <object gid="10" x="1135" y="1449"/>
+  <object gid="10" x="1139" y="1520"/>
+  <object gid="10" x="1207" y="1520"/>
  </objectgroup>
  <objectgroup name="ProjectileClouds" width="90" height="90">
   <object name="shards1" type="shards" x="1356" y="1144" width="304" height="308"/>

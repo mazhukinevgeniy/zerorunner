@@ -63,6 +63,8 @@ package game.items
 					itemCodes[i + 1] = Game.ITEM_THE_GOAL;
 				else if (name == "radar")
 					itemCodes[i + 1] = Game.ITEM_BEACON;
+				else if (name == "shard")
+					itemCodes[i + 1] = Game.ITEM_SHARD;
 			}
 			
 			var objects:XMLList = map.objectgroup[0].object;
