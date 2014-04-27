@@ -57,8 +57,8 @@ package game.renderer
 						
 						this.getTrajectoryCoordinates(k);
 						
-						tr.x += this.tmpCell.x;
-						tr.y += this.tmpCell.y;
+						tr.x += this.tmpCell.x - tr.width / 2;
+						tr.y += this.tmpCell.y - tr.height / 2;
 						
 						this.addImage(tr);
 					}
