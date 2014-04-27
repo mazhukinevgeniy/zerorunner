@@ -85,8 +85,10 @@ package game.items
 			else if (this._occupation == Game.OCCUPATION_DYING)
 			{
 				this.items.removeItem(this);
-				
-				this.onDied();
+			}
+			else if (this._occupation == Game.OCCUPATION_UNSTABLE)
+			{
+				this.onUnstabilized();
 			}
 		}
 		
@@ -98,6 +100,12 @@ package game.items
 				this.items.activateItem(this);
 				
 				this._occupation = Game.OCCUPATION_DYING;
+				
+				this._moveInProgress.setValue(1, 0); /* to be right-directioned */
+			}
+			else
+			{
+				this._occupation = Game.OCCUPATION_UNSTABLE;
 				
 				this._moveInProgress.setValue(1, 0); /* to be right-directioned */
 			}
@@ -179,7 +187,7 @@ package game.items
 		
 		protected function onSpawned():void { }
 		protected function onMoved(change:DCellXY):void { }
-		protected function onDied():void { }
+		protected function onUnstabilized():void { }
 		
 		
 		/** Public getstate methods, used by renderer and others */

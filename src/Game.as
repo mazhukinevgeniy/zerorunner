@@ -49,8 +49,9 @@ package
 		public static const OCCUPATION_FLOATING:int = 2;
 		public static const OCCUPATION_FLYING:int = 3;
 		public static const OCCUPATION_DYING:int = 4;
+		public static const OCCUPATION_UNSTABLE:int = 5;
 		
-		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 5;
+		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 6;
 		
 		/* Projectiles */
 		

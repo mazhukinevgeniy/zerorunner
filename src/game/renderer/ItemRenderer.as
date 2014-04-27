@@ -53,7 +53,7 @@ package game.renderer
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.RIGHT, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.TOP, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.DOWN, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_DYING, this.RIGHT, "unimplemented"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_UNSTABLE, this.RIGHT, "unimplemented"),
 						
 						new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, this.RIGHT, "radar"),
 						new Array(Game.ITEM_BEACON, Game.OCCUPATION_DYING, this.RIGHT, "radar"),
@@ -62,8 +62,10 @@ package game.renderer
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_DYING, this.RIGHT, "stone_down"),
 						
 						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented"),
+						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_UNSTABLE, this.RIGHT, "unimplemented"),
 						
-						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_FREE, this.RIGHT, "side_dude")//TODO: lol
+						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_FREE, this.RIGHT, "side_dude"),
+						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_UNSTABLE, this.RIGHT, "side_dude")
 					];
 			
 			this.initializeImages(spritelist, this.sprites, atlas);

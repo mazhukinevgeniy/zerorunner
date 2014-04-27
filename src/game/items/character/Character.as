@@ -34,6 +34,11 @@ package game.items.character
 			return this.fuel.getAmountOfFuel() > 0;
 		}
 		
+		override protected function get isDestructible():Boolean 
+		{
+			return false;
+		}
+		
 		override protected function onMoved(change:DCellXY):void 
 		{
 			this.flow.dispatchUpdate(Update.moveCenter, change);
@@ -44,7 +49,7 @@ package game.items.character
 			this.flow.dispatchUpdate(Update.setCenter, this);
 		}
 		
-		override protected function onDied():void 
+		override protected function onUnstabilized():void 
 		{
 			this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_LOST);
 		}
