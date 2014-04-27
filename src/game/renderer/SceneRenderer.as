@@ -1,16 +1,12 @@
 package game.renderer 
 {
 	import data.viewers.GameConfig;
-	import flash.geom.Rectangle;
 	import game.GameElements;
 	import starling.display.Image;
-	import starling.quadtreeSprite.QuadtreeSprite;
 	import starling.textures.TextureAtlas;
 	import utils.MapXML;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
-	internal class SceneRenderer extends QuadtreeSprite
+	internal class SceneRenderer extends SubRendererBase
 	{
 		private const FALL:int = 0;
 		private const TL_DISK:int = 1;
@@ -27,26 +23,14 @@ package game.renderer
 		private var _1_:Image, _1__:Image, _2_:Image, _2__:Image, _3_:Image, _3__:Image;
 		
 		/* Helper variables */
-		private var tiles:Vector.<int>;
+		private var tiles:XMLList;
 		private var tileCodes:Array;
 		
 		private const extraRange:int = 7;
 		
 		public function SceneRenderer(elements:GameElements) 
 		{
-			var worldBounds:Rectangle = 
-				new Rectangle( -this.extraRange * Game.CELL_WIDTH,
-							   -this.extraRange * Game.CELL_HEIGHT,
-							   (2 * this.extraRange + Game.MAP_WIDTH) * Game.CELL_WIDTH,
-							   (2 * this.extraRange + Game.MAP_WIDTH) * Game.CELL_HEIGHT);
-			
-			super(worldBounds, false);
-			
-			var flow:IUpdateDispatcher = elements.flow;
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.restore);
-			flow.addUpdateListener(Update.quitGame);
+			super(elements);
 			
 			var atlas:TextureAtlas = elements.assets.getTextureAtlas("sprites");
 			
@@ -66,14 +50,10 @@ package game.renderer
 			}
 		}
 		
-		update function restore(config:GameConfig):void
+		override protected function handleGameStarted():void 
 		{
-			var extraRange:int = 7; //TODO: find out how much less we need in each dimension
-			
 			var map:XML = MapXML.getOne();
-			this.tiles = new Vector.<int>(Game.MAP_WIDTH * Game.MAP_WIDTH, true);
-			
-			var xmlTiles:XMLList = map.layer.data.tile;
+			this.tiles = map.layer.data.tile;
 			
 			this.tileCodes = new Array();
 			
@@ -95,92 +75,81 @@ package game.renderer
 					this.tileCodes[i + 1] = this.TR_DISK;
 			}
 			//TODO: get rid of nonfunctional tr_disk global scene types
-			
-			for (var k:int = 0; k < Game.MAP_WIDTH; k++)
-				for (var j:int = 0; j < Game.MAP_WIDTH; j++)
+		}
+		
+		override protected function get range():int 
+		{
+			return 7;
+			//TODO: determine range softer
+		}
+		
+		override protected function renderCell(x:int, y:int, frame:int):void 
+		{
+			if (this.getMapCell(x, y) != this.FALL)
+			{
+				var sTitle:String;
+				
+				var tileCode:int = this.getMapCell(x, y);
+				
+				if (tileCode == this.GROUND)
 				{
-					this.tiles[k + j * Game.MAP_WIDTH] = xmlTiles[k + j * Game.MAP_WIDTH].@gid;
+					if (this.getMapCell(x, y - 1) == this.FALL)
+						sTitle = "_8";
+					else if (this.getMapCell(x, y + 1) == this.FALL)
+						sTitle = "_2";
+					else if (this.getMapCell(x - 1, y) == this.FALL)
+						sTitle = "_4";
+					else if (this.getMapCell(x + 1, y) == this.FALL)
+						sTitle = "_6";
+					else if (this.getMapCell(x - 1, y - 1) == this.FALL)
+						sTitle = "_77";
+					else if (this.getMapCell(x + 1, y - 1) == this.FALL)
+						sTitle = "_99";
+					else if (this.getMapCell(x - 1, y + 1) == this.FALL)
+						sTitle = "_11";
+					else if (this.getMapCell(x + 1, y + 1) == this.FALL)
+						sTitle = "_33";
+					else
+						sTitle = "_5";
 				}
-			
-			for (var y:int = 0 - extraRange; y < Game.MAP_WIDTH + extraRange; y++)
-				for (var x:int = 0 - extraRange; x < Game.MAP_WIDTH + extraRange; x++)
+				else if (tileCode == this.BL_DISK)
+					sTitle = "_1";
+				else if (tileCode == this.TL_DISK)
+					sTitle = "_7";
+				else if (tileCode == this.BR_DISK)
+					sTitle = "_3";
+				else if (tileCode == this.TR_DISK)
+					sTitle = "_9";
+				
+				var sprite:Image = this[sTitle];
+				
+				sprite.x = x * Game.CELL_WIDTH;
+				sprite.y = y * Game.CELL_HEIGHT;
+				
+				this.addImage(sprite);
+				
+				if (sprite == this._1 || sprite == this._2 || sprite == this._3)
 				{
-					if (this.getMapCell(x, y) != this.FALL)
+					for (var iI:int = 1; iI < 4; iI++)
 					{
-						var sTitle:String;
+						var isTitle:String = sTitle + "_" + (iI == 3 ? "_" : "");
 						
-						var tileCode:int = this.getMapCell(x, y);
-						
-						if (tileCode == this.GROUND)
-						{
-							if (this.getMapCell(x, y - 1) == this.FALL)
-								sTitle = "_8";
-							else if (this.getMapCell(x, y + 1) == this.FALL)
-								sTitle = "_2";
-							else if (this.getMapCell(x - 1, y) == this.FALL)
-								sTitle = "_4";
-							else if (this.getMapCell(x + 1, y) == this.FALL)
-								sTitle = "_6";
-							else if (this.getMapCell(x - 1, y - 1) == this.FALL)
-								sTitle = "_77";
-							else if (this.getMapCell(x + 1, y - 1) == this.FALL)
-								sTitle = "_99";
-							else if (this.getMapCell(x - 1, y + 1) == this.FALL)
-								sTitle = "_11";
-							else if (this.getMapCell(x + 1, y + 1) == this.FALL)
-								sTitle = "_33";
-							else
-								sTitle = "_5";
-						}
-						else if (tileCode == this.BL_DISK)
-							sTitle = "_1";
-						else if (tileCode == this.TL_DISK)
-							sTitle = "_7";
-						else if (tileCode == this.BR_DISK)
-							sTitle = "_3";
-						else if (tileCode == this.TR_DISK)
-							sTitle = "_9";
-						
-						var sprite:Image = this[sTitle];
-						sprite = new Image(sprite.texture);
+						sprite = this[isTitle];
 						
 						sprite.x = x * Game.CELL_WIDTH;
-						sprite.y = y * Game.CELL_HEIGHT;
+						sprite.y = (y + iI) * Game.CELL_HEIGHT;
 						
-						this.addChild(sprite);
-						
-						if (sprite == this._1 || sprite == this._2 || sprite == this._3)
-						{
-							for (var iI:int = 1; iI < 4; iI++)
-							{
-								var isTitle:String = sTitle + "_" + (iI == 3 ? "_" : "");
-								
-								sprite = this[isTitle];
-								sprite = new Image(sprite.texture);
-								
-								sprite.x = x * Game.CELL_WIDTH;
-								sprite.y = (y + iI) * Game.CELL_HEIGHT;
-								
-								this.addChild(sprite);
-							}
-						}
+						this.addImage(sprite);
 					}
 				}
-			
-			this.tileCodes = null;
-			this.tiles = null;
+			}
 		}
 		
 		private function getMapCell(x:int, y:int):int
 		{
 			var key:int = normalize(x) + normalize(y) * Game.MAP_WIDTH;
 			
-			return this.tileCodes[this.tiles[key]];
-		}
-		
-		update function quitGame():void
-		{
-			this.removeChildren();
+			return this.tileCodes[this.tiles[key].@gid];
 		}
 	}
 
