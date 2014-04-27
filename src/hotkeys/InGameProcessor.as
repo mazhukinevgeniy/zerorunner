@@ -34,7 +34,7 @@ package hotkeys
 				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.LEFT);
 			else
 			{
-				if (status.isMapOn)
+				if (status.isMapOn())
 				{
 					/* map-specific controls */
 				}
