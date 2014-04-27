@@ -71,8 +71,8 @@ package game.items
 			for (var j:int = 0; j < LENGTH; j++)
 			{
 				var type:int = itemCodes[objects[j].@gid];
-				var x:int = int(objects[j].@x) / 70;
-				var y:int = int(objects[j].@y) / 70;
+				var x:int = int(objects[j].@x) / Game.CELL_WIDTH;
+				var y:int = int(objects[j].@y) / Game.CELL_HEIGHT;
 				
 				this.masters[type].spawnPuppet(x, y);
 			}
@@ -98,6 +98,7 @@ package game.items
 				const tlcX:int = center.x - 20;
 				const tlcY:int = center.y - 20;
 				
+				//TODO: get rid of the hardcode
 				const brcX:int = center.x + 20;
 				const brcY:int = center.y + 20;
 				
