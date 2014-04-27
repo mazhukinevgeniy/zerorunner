@@ -3,6 +3,7 @@ package game
 	import data.StatusReporter;
 	import data.viewers.GameConfig;
 	import game.GameElements;
+	import game.input.IKnowInput;
 	import starling.events.EnterFrameEvent;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -16,9 +17,12 @@ package game
 		private var updateFlow:IUpdateDispatcher;
 		private var status:StatusReporter;
 		
+		private var input:IKnowInput;
+		
 		public function Time(elements:GameElements) 
 		{
 			this.status = elements.database.status;
+			this.input = elements.input;
 			
 			elements.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
@@ -39,23 +43,26 @@ package game
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
 		{
-			if (this.status.isMapOn)
+			if (!this.status.isHeroFree() || this.input.isThereInput())
 			{
-				this.updateFlow.dispatchUpdate(Update.frameOfTheMapMode);
-			}
-			else if (!this.isFixed)
-			{
-				if (!this.status.isGameOn)
-					throw new Error("numberedFrame must happen in-game only");
-				
-				if (this.frameCount < Game.FRAMES_PER_CYCLE)
+				if (this.status.isMapOn)
 				{
-					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
-					this.frameCount++;
+					this.updateFlow.dispatchUpdate(Update.frameOfTheMapMode);
 				}
-				else
+				else if (!this.isFixed)
 				{
-					this.frameCount = 0;
+					if (!this.status.isGameOn)
+						throw new Error("numberedFrame must happen in-game only");
+					
+					if (this.frameCount < Game.FRAMES_PER_CYCLE)
+					{
+						this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
+						this.frameCount++;
+					}
+					else
+					{
+						this.frameCount = 0;
+					}
 				}
 			}
 		}

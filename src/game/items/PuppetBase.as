@@ -47,6 +47,12 @@ package game.items
 			this.onSpawned();
 		}
 		
+		public function isFree():Boolean
+		{
+			return this._occupation == Game.OCCUPATION_FREE || 
+				   this._occupation == Game.OCCUPATION_FLOATING;
+		}
+		
 		final internal function tickPassed():void
 		{
 			if (this._occupation == Game.OCCUPATION_FREE)
