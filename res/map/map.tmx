@@ -8194,5 +8194,6 @@
  <objectgroup name="ProjectileClouds" width="90" height="90">
   <object name="shards1" type="shards" x="1356" y="1144" width="304" height="308"/>
   <object name="shards2" type="shards" x="1836" y="1621" width="252" height="258"/>
+  <object name="shards3" type="shards" x="284" y="1276" width="612" height="600"/>
  </objectgroup>
 </map>
