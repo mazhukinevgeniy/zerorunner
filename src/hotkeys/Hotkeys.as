@@ -31,12 +31,12 @@ package hotkeys
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
-			this.processors[this.status.isGameOn].processInput(this.UP, event.keyCode);
+			this.processors[this.status.isGameOn()].processInput(this.UP, event.keyCode);
 		}
 		
 		private function handleKeyDown(event:KeyboardEvent):void
 		{
-			this.processors[this.status.isGameOn].processInput(!this.UP, event.keyCode);
+			this.processors[this.status.isGameOn()].processInput(!this.UP, event.keyCode);
 		}
 	}
 
