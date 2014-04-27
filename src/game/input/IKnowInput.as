@@ -6,7 +6,8 @@ package game.input
 	{
 		function getInputCopy():Vector.<DCellXY>;
 		
-		function isSpacePressed():Boolean;
+		function isFlightToggled():Boolean;
+		
 		function isThereInput():Boolean;
 	}
 	

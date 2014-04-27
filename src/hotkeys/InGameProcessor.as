@@ -42,8 +42,10 @@ package hotkeys
 				{
 					if (!keyUp)
 					{
-						if (keyCode == Keyboard.SPACE)
-							this.flow.dispatchUpdate(Update.spacePressed);
+						if (keyCode == Keyboard.W)
+							this.flow.dispatchUpdate(Update.toggleFlight);
+						else if (keyCode == Keyboard.Q)
+							this.flow.dispatchUpdate(Update.skipFrames);
 						else if (keyCode == Keyboard.P)
 							this.flow.dispatchUpdate(Update.togglePause);
 					}

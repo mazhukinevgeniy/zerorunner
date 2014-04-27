@@ -21,7 +21,8 @@ package game.input
 		private var order:Vector.<int>;
 		private var maxI:int;
 		
-		private var _isSpacePressed:Boolean;
+		private var _isFlyingToggled:Boolean;
+		private var _isSkipToggled:Boolean;
 		
 		public function InputManager(flow:IUpdateDispatcher)
 		{
@@ -30,7 +31,8 @@ package game.input
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.restore);
 			flow.addUpdateListener(Update.newInputPiece);
-			flow.addUpdateListener(Update.spacePressed);
+			flow.addUpdateListener(Update.toggleFlight);
+			flow.addUpdateListener(Update.skipFrames);
 			flow.addUpdateListener(Update.toggleMap);
 			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
@@ -54,7 +56,8 @@ package game.input
 			
 			this.maxI = 1;
 			
-			this._isSpacePressed = false;
+			this._isFlyingToggled = false;
+			this._isSkipToggled = false;
 		}
 		
 		update function restore(config:GameConfig):void
@@ -131,15 +134,20 @@ package game.input
 			}
 		}
 		
-		update function spacePressed():void
+		update function toggleFlight():void
 		{
-			this._isSpacePressed = true;
+			this._isFlyingToggled = true;
 		}
 		
-		public function isSpacePressed():Boolean
+		update function skipFrames():void
 		{
-			var tmp:Boolean = this._isSpacePressed;
-			this._isSpacePressed = false;
+			this._isSkipToggled = true;
+		}
+		
+		public function isFlightToggled():Boolean
+		{
+			var tmp:Boolean = this._isFlyingToggled;
+			this._isFlyingToggled = false;
 			//TODO: fix the logic: there must be clean /getting/ methods and, 
 			//      not as the part of them, method that refreshes all the flags
 			
@@ -148,11 +156,18 @@ package game.input
 		
 		public function isThereInput():Boolean
 		{
+			if (this._isSkipToggled)
+			{
+				this._isSkipToggled = false;
+				
+				return true;
+			}
+			
 			for (var i:int = 1; i < 17; i++)
 				if (this.order[i] > -1)
 					return true;
 			
-			return this._isSpacePressed;
+			return this._isFlyingToggled;
 		}
 		
 		private function discardClicks():void

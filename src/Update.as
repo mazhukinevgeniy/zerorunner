@@ -11,7 +11,8 @@ package
 		public static const resetProgress:String = "resetProgress";
 		
 		public static const newInputPiece:String = "newInputPiece";
-		public static const spacePressed:String = "spacePressed";
+		public static const toggleFlight:String = "toggleFlight";
+		public static const skipFrames:String = "skipFrames";
 		
 		public static const togglePause:String = "togglePause";
 		public static const toggleMap:String = "toggleMap";
