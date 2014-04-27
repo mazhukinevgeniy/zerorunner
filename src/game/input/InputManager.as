@@ -136,7 +136,7 @@ package game.input
 			this._isSpacePressed = true;
 		}
 		
-		public function get isSpacePressed():Boolean
+		public function isSpacePressed():Boolean
 		{
 			var tmp:Boolean = this._isSpacePressed;
 			this._isSpacePressed = false;
@@ -144,6 +144,15 @@ package game.input
 			//      not as the part of them, method that refreshes all the flags
 			
 			return tmp;
+		}
+		
+		public function isThereInput():Boolean
+		{
+			for (var i:int = 1; i < 17; i++)
+				if (this.order[i] > -1)
+					return true;
+			
+			return this._isSpacePressed;
 		}
 		
 		private function discardClicks():void

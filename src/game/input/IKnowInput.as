@@ -5,7 +5,9 @@ package game.input
 	public interface IKnowInput 
 	{
 		function getInputCopy():Vector.<DCellXY>;
-		function get isSpacePressed():Boolean;
+		
+		function isSpacePressed():Boolean;
+		function isThereInput():Boolean;
 	}
 	
 }

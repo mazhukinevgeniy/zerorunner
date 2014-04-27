@@ -38,7 +38,7 @@ package game.items.character
 			var isStanding:Boolean = (puppet.occupation == Game.OCCUPATION_FREE);
 			var isFlying:Boolean = (puppet.occupation == Game.OCCUPATION_FLOATING);
 			
-			if (this.input.isSpacePressed)
+			if (this.input.isSpacePressed())
 			{
 				if (isStanding)
 				{
