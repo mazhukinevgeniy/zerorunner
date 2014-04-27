@@ -23,6 +23,8 @@ package game
 		update function newGame():void
 		{
 			this.flow.dispatchUpdate(Update.restore, this.config);
+			
+			this.flow.dispatchUpdate(Update.numberedFrame, Game.FRAME_UNUSED_FRAME_2);
 		}
 		
 		
