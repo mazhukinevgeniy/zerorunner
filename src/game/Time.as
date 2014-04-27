@@ -43,7 +43,7 @@ package game
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
 		{
-			if (!this.status.isHeroFree() || this.input.isThereInput())
+			if ((this.frameCount != Game.FRAME_TO_ACT) || !this.status.isHeroFree() || this.input.isThereInput())
 			{
 				if (this.status.isMapOn())
 				{
