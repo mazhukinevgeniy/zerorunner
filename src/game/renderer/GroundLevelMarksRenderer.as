@@ -34,8 +34,12 @@ package game.renderer
 				{
 					view = this.shardIncView;
 					
+					var scalingFactor:Number = proj.height / Game.MAX_PROJ_HEIGHT;
+					
 					view.x = x * Game.CELL_WIDTH;
 					view.y = y * Game.CELL_HEIGHT;
+					
+					view.scaleX = view.scaleY = 1 - scalingFactor;
 					
 					view.x += (Game.CELL_WIDTH - view.width) / 2;
 					view.y += (Game.CELL_HEIGHT - view.height) / 2;
