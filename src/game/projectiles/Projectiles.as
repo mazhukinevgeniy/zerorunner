@@ -33,7 +33,7 @@ package game.projectiles
 			this.flow.addUpdateListener(Update.projectileLaunched);
 			this.flow.addUpdateListener(Update.projectileLanded);
 			this.flow.addUpdateListener(Update.numberedFrame);
-			this.flow.addUpdateListener(Update.generatorPowered);
+			this.flow.addUpdateListener(Update.denyProjectile);
 			this.flow.addUpdateListener(Update.quitGame);
 			
 			this.projectilesToStore = new Vector.<Projectile>();
@@ -125,26 +125,9 @@ package game.projectiles
 			}
 		}
 		
-		update function generatorPowered(x:int, y:int):void
+		update function denyProjectile(projectile:Projectile):void
 		{
-			//TODO: remove hardcode
-			var tx:int, ty:int;
-			
-			for (var i:int = -7; i < 8; i++)
-				for (var j:int = -7; j < 8; j++)
-				{
-					tx = normalize(x + i);
-					ty = normalize(y + j);
-					
-					var proj:Projectile = this.projectiles[tx + ty * Game.MAP_WIDTH];
-					
-					if (proj)
-					{
-						this.projectilesToStore.push(proj);
-						//TODO: check if that's enough
-						//TODO: check if immersion breaking
-					}
-				}
+			this.projectilesToStore.push(projectile);
 		}
 		
 		update function quitGame():void

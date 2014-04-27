@@ -61,8 +61,8 @@ package game.renderer
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_FREE, this.RIGHT, "stone_down"),
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_DYING, this.RIGHT, "stone_down"),
 						
-						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented"),
-						new Array(Game.ITEM_GENERATOR, Game.OCCUPATION_UNSTABLE, this.RIGHT, "unimplemented"),
+						new Array(Game.ITEM_CHECKPOINT, Game.OCCUPATION_FREE, this.RIGHT, "unimplemented"),
+						new Array(Game.ITEM_CHECKPOINT, Game.OCCUPATION_UNSTABLE, this.RIGHT, "unimplemented"),
 						
 						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_FREE, this.RIGHT, "side_dude"),
 						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_UNSTABLE, this.RIGHT, "side_dude")

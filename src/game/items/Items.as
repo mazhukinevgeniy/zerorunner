@@ -4,7 +4,7 @@ package game.items
 	import game.GameElements;
 	import game.items.beacon.BeaconMaster;
 	import game.items.character.CharacterMaster;
-	import game.items.generator.GeneratorMaster;
+	import game.items.checkpoint.CheckpointMaster;
 	import game.items.shard.ShardMaster;
 	import game.items.the_goal.TheGoalMaster;
 	import game.metric.DCellXY;
@@ -37,7 +37,7 @@ package game.items
 			
 			this.masters[Game.ITEM_BEACON] = new BeaconMaster(elements);
 			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(elements);
-			this.masters[Game.ITEM_GENERATOR] = new GeneratorMaster(elements);
+			this.masters[Game.ITEM_CHECKPOINT] = new CheckpointMaster(elements);
 			this.masters[Game.ITEM_SHARD] = new ShardMaster(elements);
 			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(elements);
 			
@@ -65,6 +65,8 @@ package game.items
 					itemCodes[i + 1] = Game.ITEM_BEACON;
 				else if (name == "shard")
 					itemCodes[i + 1] = Game.ITEM_SHARD;
+				else if (name == "checkpoint")
+					itemCodes[i + 1] = Game.ITEM_CHECKPOINT;
 			}
 			
 			var objects:XMLList = map.objectgroup[0].object;

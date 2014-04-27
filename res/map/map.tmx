@@ -30,6 +30,9 @@
  <tileset firstgid="10" name="shard" tilewidth="35" tileheight="35">
   <image source="shard.gif" width="35" height="35"/>
  </tileset>
+ <tileset firstgid="11" name="checkpoint" tilewidth="35" tileheight="35">
+  <image source="checkpoint.gif" width="35" height="35"/>
+ </tileset>
  <layer name="Tiles" width="90" height="90">
   <data>
    <tile gid="1"/>
@@ -8190,6 +8193,7 @@
   <object gid="10" x="1135" y="1449"/>
   <object gid="10" x="1139" y="1520"/>
   <object gid="10" x="1207" y="1520"/>
+  <object gid="11" x="568" y="1586"/>
  </objectgroup>
  <objectgroup name="ProjectileClouds" width="90" height="90">
   <object name="shards1" type="shards" x="1356" y="1144" width="304" height="308"/>

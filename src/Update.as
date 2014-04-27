@@ -39,9 +39,9 @@ package
 		public static const projectileLaunched:String = "projectileLaunched";
 		public static const projectileLanded:String = "projectileLanded";
 		
-		public static const dropShard:String = "dropShard";
+		public static const denyProjectile:String = "denyProjectile";
 		
-		public static const generatorPowered:String = "generatorPowered";
+		public static const dropShard:String = "dropShard";
 		
 		
 		/* Stat updates */
