@@ -6,13 +6,17 @@ package game.renderer
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class SubRendererBase extends QuadBatch implements IRenderer
+	internal class SubRendererBase implements IRenderer
 	{
 		private var center:ICoordinated;
 		
-		public function SubRendererBase(elements:GameElements) 
+		protected var layer:QuadBatch;
+		
+		public function SubRendererBase(elements:GameElements, layer:QuadBatch) 
 		{
 			var flow:IUpdateDispatcher = elements.flow;
+			
+			this.layer = layer;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.setCenter);
@@ -32,8 +36,6 @@ package game.renderer
 		{
 			if (this.checkIfShouldRender(frame))
 			{
-				this.reset();
-				
 				var x:int = this.center.x;
 				var y:int = this.center.y;
 				
@@ -50,8 +52,6 @@ package game.renderer
 		
 		update function quitGame():void
 		{
-			this.reset();
-			
 			this.center = null;
 		}
 		

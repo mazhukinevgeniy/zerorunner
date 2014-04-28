@@ -3,6 +3,7 @@ package game.renderer
 	import game.GameElements;
 	import game.projectiles.Projectile;
 	import starling.display.Image;
+	import starling.display.QuadBatch;
 	import starling.textures.TextureAtlas;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -16,7 +17,7 @@ package game.renderer
 		
 		private var shards:Array;
 		
-		public function EffectRenderer(elements:GameElements) 
+		public function EffectRenderer(elements:GameElements, layer:QuadBatch) 
 		{
 			var flow:IUpdateDispatcher = elements.flow;
 			
@@ -39,7 +40,7 @@ package game.renderer
 			this.shards = new Array();
 			
 			
-			super(elements);
+			super(elements, layer);
 		}
 		
 		private function getShardAnimationFrame(x:int, y:int):int
@@ -66,7 +67,7 @@ package game.renderer
 				sprite.x = x + (Game.CELL_WIDTH - sprite.width) / 2;
 				sprite.y = y + (Game.CELL_HEIGHT - sprite.height) / 2;
 				
-				this.addImage(sprite);
+				this.layer.addImage(sprite);
 				
 				this.shards[key]--;
 			}

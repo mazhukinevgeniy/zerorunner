@@ -13,9 +13,9 @@ package game.renderer
 		
 		private var shardIncView:Quad;
 		
-		public function GroundLevelMarksRenderer(elements:GameElements) 
+		public function GroundLevelMarksRenderer(elements:GameElements, layer:QuadBatch) 
 		{
-			super(elements);
+			super(elements, layer);
 			
 			this.projectiles = elements.projectiles;
 			
@@ -44,7 +44,7 @@ package game.renderer
 					view.x += (Game.CELL_WIDTH - view.width) / 2;
 					view.y += (Game.CELL_HEIGHT - view.height) / 2;
 					
-					this.addQuad(view);
+					this.layer.addQuad(view);
 				}
 			}
 		}

@@ -3,6 +3,7 @@ package game.renderer
 	import data.viewers.GameConfig;
 	import game.GameElements;
 	import starling.display.Image;
+	import starling.display.QuadBatch;
 	import starling.textures.TextureAtlas;
 	import utils.MapXML;
 	
@@ -28,9 +29,9 @@ package game.renderer
 		
 		private const extraRange:int = 7;
 		
-		public function SceneRenderer(elements:GameElements) 
+		public function SceneRenderer(elements:GameElements, layer:QuadBatch) 
 		{
-			super(elements);
+			super(elements, layer);
 			
 			var atlas:TextureAtlas = elements.assets.getTextureAtlas("scene");
 			
@@ -126,7 +127,7 @@ package game.renderer
 				sprite.x = x * Game.CELL_WIDTH;
 				sprite.y = y * Game.CELL_HEIGHT;
 				
-				this.addImage(sprite);
+				this.layer.addImage(sprite);
 				
 				if (sprite == this._1 || sprite == this._2 || sprite == this._3)
 				{
@@ -139,7 +140,7 @@ package game.renderer
 						sprite.x = x * Game.CELL_WIDTH;
 						sprite.y = (y + iI) * Game.CELL_HEIGHT;
 						
-						this.addImage(sprite);
+						this.layer.addImage(sprite);
 					}
 				}
 			}

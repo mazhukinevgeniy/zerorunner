@@ -21,9 +21,9 @@ package game.renderer
 		private var sprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
 		private var altsprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
 		
-		public function ItemRenderer(elements:GameElements) 
+		public function ItemRenderer(elements:GameElements, layer:QuadBatch) 
 		{
-			super(elements);
+			super(elements, layer);
 			
 			this.items = elements.items;
 			
@@ -161,7 +161,7 @@ package game.renderer
 				
 				sprite.y += Game.CELL_HEIGHT - sprite.height;
 				
-				this.addImage(sprite);
+				this.layer.addImage(sprite);
 			}
 		}
 		

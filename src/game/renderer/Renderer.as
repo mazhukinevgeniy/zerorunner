@@ -4,6 +4,7 @@ package game.renderer
 	import game.GameElements;
 	import game.items.PuppetBase;
 	import game.renderer.clouds.Clouds;
+	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import utils.updates.update;
 	
@@ -13,6 +14,9 @@ package game.renderer
 		
 		private var renderers:Vector.<IRenderer>;
 		
+		private var sceneLayer:QuadBatch;
+		private var activeLayer:QuadBatch;
+		
 		public function Renderer(elements:GameElements) 
 		{
 			super();
@@ -21,19 +25,25 @@ package game.renderer
 			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.numberedFrame);
+			elements.flow.addUpdateListener(Update.quitGame);
+			
 			
 			this.renderers = new Vector.<IRenderer>();
 			
 			this.renderers.push(elements.displayRoot.addChild(this));
-			this.renderers.push(elements.displayRoot.addChild(new Clouds(elements)));
 			
-			this.renderers.push(this.addChild(new SceneRenderer(elements)));
-			this.renderers.push(this.addChild(new GroundLevelMarksRenderer(elements)));
-			this.renderers.push(this.addChild(new ItemRenderer(elements)));
-			this.renderers.push(this.addChild(new ProjectileRenderer(elements)));
-			this.renderers.push(this.addChild(new EffectRenderer(elements)));
+			this.addChild(this.sceneLayer = new QuadBatch());
+			this.addChild(this.activeLayer = new QuadBatch());
 			
-			elements.displayRoot.addChild(new PauseView(elements.flow));
+			this.renderers.push(new SceneRenderer(elements, this.sceneLayer));
+			
+			this.renderers.push(new GroundLevelMarksRenderer(elements, this.activeLayer));
+			this.renderers.push(new ItemRenderer(elements, this.activeLayer));
+			this.renderers.push(new ProjectileRenderer(elements, this.activeLayer));
+			this.renderers.push(new EffectRenderer(elements, this.activeLayer));
+			
+			this.renderers.push(this.addChild(new Clouds(elements)));
+			this.addChild(new PauseView(elements.flow));
 		}
 		
 		update function setCenter(center:PuppetBase):void
@@ -50,6 +60,11 @@ package game.renderer
 		
 		update function numberedFrame(frame:int):void 
 		{
+			if (frame == Game.FRAME_TO_ACT)
+				this.sceneLayer.reset();
+			
+			this.activeLayer.reset();
+			
 			for each (var renderer:IRenderer in this.renderers)
 				renderer.redraw(frame);
 		}
@@ -70,6 +85,12 @@ package game.renderer
 				this.x += int(progress * Game.CELL_WIDTH * dX);
 				this.y += int(progress * Game.CELL_HEIGHT * dY);
 			}
+		}
+		
+		update function quitGame():void
+		{
+			this.sceneLayer.reset();
+			this.activeLayer.reset();
 		}
 	}
 

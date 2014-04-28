@@ -5,6 +5,7 @@ package game.renderer
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
 	import starling.display.Image;
+	import starling.display.QuadBatch;
 	
 	internal class ProjectileRenderer extends SubRendererBase
 	{
@@ -16,7 +17,7 @@ package game.renderer
 		/* Used by getTrajectoryCoordinates() */
 		private var tmpCell:CellXY;
 		
-		public function ProjectileRenderer(elements:GameElements) 
+		public function ProjectileRenderer(elements:GameElements, layer:QuadBatch) 
 		{
 			this.projectiles = elements.projectiles;
 			
@@ -25,7 +26,7 @@ package game.renderer
 			this.shard = new Image(elements.assets.getTextureAtlas("sprites").getTexture("stone_fly"));
 			this.trajectory = new Image(elements.assets.getTextureAtlas("sprites").getTexture("progress-bar-fill-skin"));
 			
-			super(elements);
+			super(elements, layer);
 		}
 		
 		override protected function renderCell(x:int, y:int, frame:int):void 
@@ -60,10 +61,10 @@ package game.renderer
 						tr.x += this.tmpCell.x - tr.width / 2;
 						tr.y += this.tmpCell.y - tr.height / 2;
 						
-						this.addImage(tr);
+						this.layer.addImage(tr);
 					}
 					
-					this.addImage(view);
+					this.layer.addImage(view);
 				}
 			}
 		}
