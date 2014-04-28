@@ -5,9 +5,9 @@ package game.ui.renderer
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
-	import starling.display.Image;
 	import starling.display.QuadBatch;
-	import starling.textures.TextureAtlas;
+	import starling.utils.AssetManager;
+	import utils.CenteredImage;
 	
 	internal class ItemRenderer extends SubRendererBase
 	{
@@ -18,8 +18,8 @@ package game.ui.renderer
 		
 		private var items:Items;
 		
-		private var sprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
-		private var altsprites:Vector.<Vector.<Vector.<Vector.<Image>>>>;
+		private var sprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
+		private var altsprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
 		
 		public function ItemRenderer(elements:GameElements, layer:QuadBatch) 
 		{
@@ -27,10 +27,10 @@ package game.ui.renderer
 			
 			this.items = elements.items;
 			
-			this.initializeSprites(elements.assets.getTextureAtlas("sprites"));
+			this.initializeSprites(elements.assets);
 		}
 		
-		private function initializeSprites(atlas:TextureAtlas):void
+		private function initializeSprites(assets:AssetManager):void
 		{
 			this.initializeVectors("sprites");
 			this.initializeVectors("altsprites");
@@ -68,39 +68,39 @@ package game.ui.renderer
 						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_UNSTABLE, this.RIGHT, "side_dude")
 					];
 			
-			this.initializeImages(spritelist, this.sprites, atlas);
+			this.initializeImages(spritelist, this.sprites, assets);
 			
 			var altspritelist:Vector.<Array> = new < Array > [
 					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "front_dude", "front_dude")];
 			
-			this.initializeImages(altspritelist, this.altsprites, atlas);
+			this.initializeImages(altspritelist, this.altsprites, assets);
 			
 			this.removeEmptyAnimations(this.altsprites);
 		}
 		
 		private function initializeVectors(title:String):void
 		{
-			this[title] = new Vector.<Vector.<Vector.<Vector.<Image>>>>(Game.NUMBER_OF_ITEM_TYPES, true);
+			this[title] = new Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>(Game.NUMBER_OF_ITEM_TYPES, true);
 			
 			var i:int, j:int, k:int;
 			
 			for (i = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
 			{
-				this[title][i] = new Vector.<Vector.<Vector.<Image>>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
+				this[title][i] = new Vector.<Vector.<Vector.<CenteredImage>>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
 				
 				for (j = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
 				{
-					this[title][i][j] = new Vector.<Vector.<Image>>(4, true);
+					this[title][i][j] = new Vector.<Vector.<CenteredImage>>(4, true);
 					
 					for (k = 0; k < 4; k++)
-						this[title][i][j][k] = new Vector.<Image>();
+						this[title][i][j][k] = new Vector.<CenteredImage>();
 				}
 			}
 		}
 		
 		private function initializeImages(list:Vector.<Array>, 
-										  images:Vector.<Vector.<Vector.<Vector.<Image>>>>, 
-										  atlas:TextureAtlas):void
+										  images:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>, 
+										  assets:AssetManager):void
 		{
 			var length:int = list.length;
 			var i:int, j:int;
@@ -117,12 +117,12 @@ package game.ui.renderer
 					var spritename:String = list[i][j];
 					
 					images[type][occupation][direction].push(
-						new Image(atlas.getTexture(spritename)));
+						new CenteredImage(spritename, assets));
 				}
 			}
 		}
 		
-		private function removeEmptyAnimations(vector:Vector.<Vector.<Vector.<Vector.<Image>>>>):void
+		private function removeEmptyAnimations(vector:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>):void
 		{
 			for (var i:int = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
 				for (var j:int = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
@@ -142,10 +142,10 @@ package game.ui.renderer
 			
 			if (item)
 			{
-				var sprite:Image = this.getAnimationFrame(item, frame);
+				var sprite:CenteredImage = this.getAnimationFrame(item, frame);
 				
-				sprite.x = item.x * Game.CELL_WIDTH;
-				sprite.y = item.y * Game.CELL_HEIGHT;
+				var sx:int = item.x * Game.CELL_WIDTH;
+				var sy:int = item.y * Game.CELL_HEIGHT;
 				
 				if (item.occupation == Game.OCCUPATION_MOVING ||
 					item.occupation == Game.OCCUPATION_FLYING)
@@ -155,17 +155,20 @@ package game.ui.renderer
 					
 					var progress:Number = 1 - item.getProgress(frame);
 					
-					sprite.x -= int(progress * Game.CELL_WIDTH * dX);
-					sprite.y -= int(progress * Game.CELL_HEIGHT * dY);
+					sx -= int(progress * Game.CELL_WIDTH * dX);
+					sy -= int(progress * Game.CELL_HEIGHT * dY);
 				}
 				
-				sprite.y += Game.CELL_HEIGHT - sprite.height;
+				sy += Game.CELL_HEIGHT - sprite.height;
+				
+				sprite.x = sx;
+				sprite.y = sy;
 				
 				this.layer.addImage(sprite);
 			}
 		}
 		
-		private function getAnimationFrame(item:PuppetBase, flashFrame:int):Image
+		private function getAnimationFrame(item:PuppetBase, flashFrame:int):CenteredImage
 		{
 			var type:int = item.type;
 			var occupation:int = item.occupation;
@@ -174,7 +177,7 @@ package game.ui.renderer
 			var animationLength:int = this.sprites[type][occupation][direction].length;
 			var frame:int = int(item.getProgress(flashFrame) * animationLength);
 			
-			var toReturn:Image = this.sprites[type][occupation][direction][frame];
+			var toReturn:CenteredImage = this.sprites[type][occupation][direction][frame];
 			
 			if (this.altsprites[type][occupation][direction] && item.isLastFrame(flashFrame))
 				this.swapAnimations(type, occupation, direction);
@@ -184,7 +187,7 @@ package game.ui.renderer
 		
 		private function swapAnimations(type:int, occupation:int, direction:int):void
 		{
-			var tmp:Vector.<Image> = this.altsprites[type][occupation][direction];
+			var tmp:Vector.<CenteredImage> = this.altsprites[type][occupation][direction];
 			
 			this.altsprites[type][occupation][direction] = this.sprites[type][occupation][direction];
 			this.sprites[type][occupation][direction] = tmp;

@@ -2,9 +2,8 @@ package game.ui.renderer
 {
 	import game.GameElements;
 	import game.projectiles.Projectile;
-	import starling.display.Image;
 	import starling.display.QuadBatch;
-	import starling.textures.TextureAtlas;
+	import utils.CenteredImage;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -30,11 +29,9 @@ package game.ui.renderer
 			for (var i:int = 1; i < 7; i++)
 				spriteNames.push("stone_boom_" + String(i));
 			
-			var atlas:TextureAtlas = elements.assets.getTextureAtlas("sprites");
-			
 			for each (var key:String in spriteNames)
 			{
-				this.sprites[key] = new Image(atlas.getTexture(key));
+				this.sprites[key] = new CenteredImage(key, elements.assets);
 			}
 			
 			this.shards = new Array();
@@ -62,7 +59,7 @@ package game.ui.renderer
 				x *= Game.CELL_WIDTH;
 				y *= Game.CELL_HEIGHT;
 				
-				var sprite:Image = this.sprites["stone_boom_" + String(this.STONE_BOOM_LENGTH + 1 - int(this.shards[key] / this.STONE_BOOM_SPEED_FACTOR))];
+				var sprite:CenteredImage = this.sprites["stone_boom_" + String(this.STONE_BOOM_LENGTH + 1 - int(this.shards[key] / this.STONE_BOOM_SPEED_FACTOR))];
 				
 				sprite.x = x + (Game.CELL_WIDTH - sprite.width) / 2;
 				sprite.y = y + (Game.CELL_HEIGHT - sprite.height) / 2;
