@@ -1,6 +1,5 @@
 package game.items 
 {
-	import feathers.controls.popups.VerticalCenteredPopUpContentManager;
 	import game.GameElements;
 	import game.items.Items;
 	import game.metric.CellXY;
@@ -31,6 +30,7 @@ package game.items
 		public function PuppetBase(master:MasterBase, elements:GameElements, cell:ICoordinated) 
 		{
 			this._master = master;
+			
 			this.items = elements.items;
 			
 			this.dcHelper = new DCellXY(0, 0);
