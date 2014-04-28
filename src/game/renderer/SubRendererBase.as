@@ -6,7 +6,7 @@ package game.renderer
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class SubRendererBase extends QuadBatch
+	internal class SubRendererBase extends QuadBatch implements IRenderer
 	{
 		private var center:ICoordinated;
 		
@@ -16,7 +16,6 @@ package game.renderer
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.setCenter);
-			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.quitGame);
 			
 			super();
@@ -29,7 +28,7 @@ package game.renderer
 			this.handleGameStarted();
 		}
 		
-		update function numberedFrame(frame:int):void
+		public function redraw(frame:int):void
 		{
 			if (this.checkIfShouldRender(frame))
 			{

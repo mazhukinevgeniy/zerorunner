@@ -4,11 +4,12 @@ package game.renderer.clouds
 	import game.GameElements;
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
+	import game.renderer.IRenderer;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;
 	import utils.updates.update;
 	
-	public class Clouds extends ScrollImage
+	public class Clouds extends ScrollImage implements IRenderer
 	{
 		internal static const SIZE_CLOUDINNESS_SCALE:int = 10;
 		
@@ -29,7 +30,6 @@ package game.renderer.clouds
 			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.moveCenter);
-			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
@@ -76,7 +76,7 @@ package game.renderer.clouds
 			this.stableOffsetY = this.stableOffsetY % 1024;
 		}
 		
-		update function numberedFrame(frame:int):void 
+		public function redraw(frame:int):void 
 		{
 			this.tilesOffsetX = this.stableOffsetX;
             this.tilesOffsetY = this.stableOffsetY;

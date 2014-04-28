@@ -7,10 +7,11 @@ package game.renderer
 	import starling.display.Sprite;
 	import utils.updates.update;
 	
-	public class Renderer extends Sprite
+	public class Renderer extends Sprite implements IRenderer
 	{
 		private var character:PuppetBase;
 		
+		private var renderers:Vector.<IRenderer>;
 		
 		public function Renderer(elements:GameElements) 
 		{
@@ -21,14 +22,16 @@ package game.renderer
 			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			
-			elements.displayRoot.addChild(this);
-			elements.displayRoot.addChild(new Clouds(elements));
+			this.renderers = new Vector.<IRenderer>();
 			
-			this.addChild(new SceneRenderer(elements));
-			this.addChild(new GroundLevelMarksRenderer(elements));
-			this.addChild(new ItemRenderer(elements));
-			this.addChild(new ProjectileRenderer(elements));
-			this.addChild(new EffectRenderer(elements));
+			this.renderers.push(elements.displayRoot.addChild(this));
+			this.renderers.push(elements.displayRoot.addChild(new Clouds(elements)));
+			
+			this.renderers.push(this.addChild(new SceneRenderer(elements)));
+			this.renderers.push(this.addChild(new GroundLevelMarksRenderer(elements)));
+			this.renderers.push(this.addChild(new ItemRenderer(elements)));
+			this.renderers.push(this.addChild(new ProjectileRenderer(elements)));
+			this.renderers.push(this.addChild(new EffectRenderer(elements)));
 			
 			elements.displayRoot.addChild(new PauseView(elements.flow));
 		}
@@ -47,6 +50,12 @@ package game.renderer
 		
 		update function numberedFrame(frame:int):void 
 		{
+			for each (var renderer:IRenderer in this.renderers)
+				renderer.redraw(frame);
+		}
+		
+		public function redraw(frame:int):void
+		{
 			this.x = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
             this.y = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
 			
@@ -61,7 +70,6 @@ package game.renderer
 				this.x += int(progress * Game.CELL_WIDTH * dX);
 				this.y += int(progress * Game.CELL_HEIGHT * dY);
 			}
-			
 		}
 	}
 
