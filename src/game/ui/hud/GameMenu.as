@@ -20,7 +20,7 @@ package game.ui.hud
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class Panel extends Sprite
+	internal class GameMenu extends Sprite
 	{
 		private var flow:IUpdateDispatcher;
 		private var status:StatusReporter;
@@ -32,7 +32,7 @@ package game.ui.hud
 		private var quitButton:Button;
 		private var mapButton:Button;
 		
-		public function Panel(elements:GameElements) 
+		public function GameMenu(elements:GameElements) 
 		{
 			this.flow = elements.flow;
 			this.status = elements.database.status;

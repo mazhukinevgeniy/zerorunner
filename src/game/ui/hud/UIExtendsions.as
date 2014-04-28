@@ -10,7 +10,7 @@ package game.ui.hud
 			new FuelView(elements);
 			new MapFeature(elements);
 			
-			new Panel(elements);
+			new GameMenu(elements);
 			new EndGameView(elements);
 		}
 		
