@@ -48,34 +48,35 @@ package utils
 				img.height = pic.@transHeight.length() ? pic.@transHeight : pic.@height;
 			}
 			
-			trace (tmp.toString());
-			
 			return tmp;
 		}
 		
 		function adaptTextureAtlasMakerXML(xml:XML):XML
 		{
-			var outString:String = "<TextureAtlas imagePath='";
-			outString += xml.@file + "'>";
-			
-			var total:int = xml.image.length();
+			var tmp:XML = new XML("<TextureAtlas></TextureAtlas>");
+			tmp.@imagePath = xml.@file;
 			
 			var pics:XMLList = xml.image;
+			var total:int = pics.length();
 			
 			for (var i:int = 0; i < total; i++)
 			{
-				outString += "<SubTexture ";
-				outString += "name='" + pics[i].@name + "' ";
-				outString += "x='" + pics[i].@x + "' ";
-				outString += "y='" + pics[i].@y + "' ";
-				outString += "width='" + pics[i].@width + "' ";
-				outString += "height='" + pics[i].@height + "' ";
-				outString += "/>";
+				tmp.appendChild(<SubTexture/>);
+				
+				var st:XML = tmp.children()[i];
+				var pic:XML = pics[i];
+				
+				st.@name = pic.@name;
+				st.@x = pic.@x;
+				st.@y = pic.@y;
+				
+				st.@width = pic.@width;
+				st.@height = pic.@height;
 			}
 			
-			outString += "</TextureAtlas>";
+			trace(tmp.toString());
 			
-			return new XML(outString);
+			return tmp;
 		}
 		
 		function removeExistingExtension(str:String):String
