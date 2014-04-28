@@ -97,7 +97,7 @@ package ui.themes
 			this.buttonSelectedDownSkinTextures = new Scale9Textures(this.atlas.getTexture("button-selected-down-skin"), SELECTED_BUTTON_SCALE_9_GRID);
 			this.buttonSelectedDisabledSkinTextures = new Scale9Textures(this.atlas.getTexture("button-selected-disabled-skin"), SELECTED_BUTTON_SCALE_9_GRID);
 			
-			this.setInitializerForClass(Button, buttonInitializer);
+			this.setInitializerForClass(Button, this.buttonInitializer);
 		}
 		
 		protected function buttonInitializer(button:Button):void
