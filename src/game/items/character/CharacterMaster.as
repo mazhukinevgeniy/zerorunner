@@ -64,6 +64,7 @@ package game.items.character
 			
 			var next:int;
 			
+			//TODO: it's currently possible to shift movemode and move at the same turn; fix that
 			
 			if (isStanding)
 			{
@@ -99,6 +100,15 @@ package game.items.character
 					
 					action = tmp.pop();
 				}
+			}
+			
+			/* Please note: the following code works if and only if hero always moves willingly */
+			
+			if (puppet.occupation != Game.OCCUPATION_FLYING
+			    && puppet.occupation != Game.OCCUPATION_FLOATING
+				&& !isCellSolid(this.scene.getSceneCell(puppet.x, puppet.y)))
+			{
+				puppet.tryDestruction();
 			}
 		}
 	}
