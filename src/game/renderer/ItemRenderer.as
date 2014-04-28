@@ -39,9 +39,9 @@ package game.renderer
 					[
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.RIGHT, "front_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.TOP, "front_dude"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.LEFT, "front_dude"),//TODO: add other textures
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.LEFT, "side_dude"),//TODO: add other textures
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.DOWN, "front_dude"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "front_dude", "front_dude"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "side_dude", "side_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "front_dude", "front_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.TOP, "front_dude", "front_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.DOWN, "front_dude", "front_dude"),
@@ -71,7 +71,7 @@ package game.renderer
 			this.initializeImages(spritelist, this.sprites, atlas);
 			
 			var altspritelist:Vector.<Array> = new < Array > [
-					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.LEFT, "front_dude", "front_dude")];
+					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "front_dude", "front_dude")];
 			
 			this.initializeImages(altspritelist, this.altsprites, atlas);
 			
