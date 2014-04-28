@@ -32,7 +32,7 @@ package game.renderer
 		{
 			super(elements);
 			
-			var atlas:TextureAtlas = elements.assets.getTextureAtlas("sprites");
+			var atlas:TextureAtlas = elements.assets.getTextureAtlas("scene");
 			
 			var key:String;
 			
