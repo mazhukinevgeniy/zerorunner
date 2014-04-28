@@ -20,11 +20,9 @@ package game.renderer.clouds
 				</atlas>;
 			
 			var container:Sprite = new Sprite();
-			var bd:BitmapData = new CloudBitmap(cloudiness);
 			
 			for (var i:int = 0; i < 4; ++i)
 			{
-				var cpBd:BitmapData = bd.clone();
 				var bitmap:Bitmap = new Bitmap(new CloudBitmap(cloudiness))
 				container.addChild(bitmap);
 				
