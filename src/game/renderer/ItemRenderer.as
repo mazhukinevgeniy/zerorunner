@@ -144,8 +144,8 @@ package game.renderer
 			{
 				var sprite:Image = this.getAnimationFrame(item, frame);
 				
-				sprite.x = x * Game.CELL_WIDTH;
-				sprite.y = y * Game.CELL_HEIGHT;
+				sprite.x = item.x * Game.CELL_WIDTH;
+				sprite.y = item.y * Game.CELL_HEIGHT;
 				
 				if (item.occupation == Game.OCCUPATION_MOVING ||
 					item.occupation == Game.OCCUPATION_FLYING)
