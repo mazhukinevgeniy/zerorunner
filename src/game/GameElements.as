@@ -51,6 +51,8 @@ package game
 			
 			new Time(this);
 			new UIExtendsions(this);
+			
+			new GameTheme(this._root);
 		}
 		
 		public function get fuel():IFuel { return this._fuel; }
