@@ -52,7 +52,7 @@ package game
 			new Time(this);
 			new UIExtendsions(this);
 			
-			new GameTheme(this._root);
+			new GameTheme(this._root, this._assets.getTextureAtlas("sprites"));
 		}
 		
 		public function get fuel():IFuel { return this._fuel; }
