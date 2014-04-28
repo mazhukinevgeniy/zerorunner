@@ -74,8 +74,6 @@ package utils
 				st.@height = pic.@height;
 			}
 			
-			trace(tmp.toString());
-			
 			return tmp;
 		}
 		
