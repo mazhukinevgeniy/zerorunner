@@ -65,6 +65,14 @@ package game.ui.hud
 			elements.displayRoot.addChild(this.container);
 		}
 		
+		update function setCenter(center:ICoordinated):void
+		{
+			this.center = center;
+			
+			this.container.reset();
+		}
+		
+		/* Note: restore here happens AFTER setCenter */
 		update function restore(config:GameConfig):void
 		{
 			var i:int;
@@ -115,13 +123,8 @@ package game.ui.hud
 			
 			this.minX = -(MAX_WIDTH - Main.WIDTH);
 			this.minY = -(MAX_WIDTH - Main.HEIGHT);
-		}
-		
-		update function setCenter(center:ICoordinated):void
-		{
-			this.center = center;
 			
-			this.container.reset();
+			this.update::numberedFrame(Game.FRAME_TO_UNLOCK_ACHIEVEMENTS);
 		}
 		
 		update function toggleMap():void
