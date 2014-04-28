@@ -1,5 +1,6 @@
 package game.renderer 
 {
+	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items.PuppetBase;
 	import game.renderer.clouds.Clouds;
@@ -17,6 +18,7 @@ package game.renderer
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.setCenter);
+			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			
 			elements.displayRoot.addChild(this);
@@ -34,6 +36,13 @@ package game.renderer
 		update function setCenter(center:PuppetBase):void
 		{
 			this.character = center;
+		}
+		
+		update function restore(config:GameConfig):void
+		{
+			/* Force rendering */
+			
+			this.update::numberedFrame(Game.FRAME_TO_ACT);
 		}
 		
 		update function numberedFrame(frame:int):void 

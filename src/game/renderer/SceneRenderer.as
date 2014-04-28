@@ -151,6 +151,11 @@ package game.renderer
 			
 			return this.tileCodes[this.tiles[key].@gid];
 		}
+		
+		override protected function checkIfShouldRender(frame:int):Boolean 
+		{
+			return frame == Game.FRAME_TO_ACT;
+		}
 	}
 
 }
