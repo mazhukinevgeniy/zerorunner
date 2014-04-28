@@ -28,7 +28,6 @@ package game
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
-			elements.flow.addUpdateListener(Update.togglePause);
 			elements.flow.addUpdateListener(Update.gameFinished);
 			
 			this.updateFlow = elements.flow;
@@ -43,13 +42,16 @@ package game
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
 		{
-			if ((this.frameCount != Game.FRAME_TO_ACT) || !this.status.isHeroFree() || this.input.isThereInput())
+			if (!this.isFixed && 
+				((this.frameCount != Game.FRAME_TO_ACT) || 
+				 !this.status.isHeroFree() || 
+				 this.input.isThereInput()))
 			{
 				if (this.status.isMapOn())
 				{
 					this.updateFlow.dispatchUpdate(Update.frameOfTheMapMode);
 				}
-				else if (!this.isFixed)
+				else
 				{
 					if (!this.status.isGameOn())
 						throw new Error("numberedFrame must happen in-game only");
@@ -65,14 +67,6 @@ package game
 					}
 				}
 			}
-		}
-		
-		
-		update function togglePause():void
-		{
-			this.isFixed = !this.isFixed;
-			
-			this.updateFlow.dispatchUpdate(Update.timeFixed, this.isFixed);
 		}
 		
 		update function gameFinished(key:int):void 

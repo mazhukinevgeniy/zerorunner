@@ -14,7 +14,6 @@ package
 		public static const toggleFlight:String = "toggleFlight";
 		public static const skipFrames:String = "skipFrames";
 		
-		public static const togglePause:String = "togglePause";
 		public static const toggleMap:String = "toggleMap";
 		
 		
@@ -23,8 +22,6 @@ package
 		public static const newGame:String = "newGame";
 		
 		public static const restore:String = "restore";
-		
-		public static const timeFixed:String = "timeFixed";
 		
 		public static const gameFinished:String = "gameFinished";
 		public static const quitGame:String = "quitGame";

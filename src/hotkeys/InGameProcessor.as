@@ -46,8 +46,6 @@ package hotkeys
 							this.flow.dispatchUpdate(Update.toggleFlight);
 						else if (keyCode == Keyboard.Q)
 							this.flow.dispatchUpdate(Update.skipFrames);
-						else if (keyCode == Keyboard.P)
-							this.flow.dispatchUpdate(Update.togglePause);
 					}
 				}
 				

@@ -43,7 +43,6 @@ package game.renderer
 			this.renderers.push(new EffectRenderer(elements, this.activeLayer));
 			
 			this.renderers.push(this.addChild(new Clouds(elements)));
-			this.addChild(new PauseView(elements.flow));
 		}
 		
 		update function setCenter(center:PuppetBase):void
