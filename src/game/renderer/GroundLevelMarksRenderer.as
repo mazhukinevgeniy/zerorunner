@@ -4,14 +4,15 @@ package game.renderer
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
 	import starling.display.Image;
-	import starling.display.Quad;
 	import starling.display.QuadBatch;
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	
 	internal class GroundLevelMarksRenderer extends SubRendererBase
 	{		
 		private var projectiles:IProjectileManager;
 		
-		private var shardIncView:Quad;
+		private var shardIncView:Image;
 		
 		public function GroundLevelMarksRenderer(elements:GameElements, layer:QuadBatch) 
 		{
@@ -19,14 +20,16 @@ package game.renderer
 			
 			this.projectiles = elements.projectiles;
 			
-			this.shardIncView = new Quad(16, 16, 0xFF0000);
+			var atlas:TextureAtlas = elements.assets.getTextureAtlas("sprites");
+			
+			this.shardIncView = new Image(atlas.getTexture("radio-hover-icon"));
 		}
 		
 		override protected function renderCell(x:int, y:int, frame:int):void 
 		{
 			var proj:Projectile = this.projectiles.getProjectile(x, y);
 			
-			var view:Quad;
+			var view:Image;
 			
 			if (proj)
 			{
@@ -34,7 +37,7 @@ package game.renderer
 				{
 					view = this.shardIncView;
 					
-					var scalingFactor:Number = 1 - proj.height / Game.MAX_PROJ_HEIGHT;
+					var scalingFactor:Number = 1.5 - proj.height / Game.MAX_PROJ_HEIGHT;
 					
 					view.x = x * Game.CELL_WIDTH;
 					view.y = y * Game.CELL_HEIGHT;
@@ -44,7 +47,7 @@ package game.renderer
 					view.x += (Game.CELL_WIDTH - view.width) / 2;
 					view.y += (Game.CELL_HEIGHT - view.height) / 2;
 					
-					this.layer.addQuad(view);
+					this.layer.addImage(view);
 				}
 			}
 		}
