@@ -25,8 +25,8 @@ package ui.windows.achievements
 		{
 			var radius:int = 15;
 			var unlocked:Boolean;
-			var enabledSkin:String = "1--";
-			var disabledSkin:String = "unimplemented";
+			var enabledSkin:String = "check-selected-down-icon";
+			var disabledSkin:String = "check-hover-icon";
 			var description:String = "this is achievement about distance - " + String(data[1].y) + "\n\n"+ String(data[Achievement.BASE_DATA].x);
 			
 			if (data[Achievement.BASE_DATA].y == 0) unlocked = false;
