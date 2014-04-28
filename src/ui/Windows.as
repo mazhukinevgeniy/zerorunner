@@ -31,8 +31,8 @@ package ui
 			windows[Windows.SETTINGS] = new SettingsWindow(flow, database.preferences);
 			windows[Windows.CREDITS] = new CreditsWindow(flow);
 			
-			
-			for (var i:int = 0; i < Windows.NUMBER_OF_WINDOWS; ++i)
+			windows[0].visible = false;
+			for (var i:int = 1; i < Windows.NUMBER_OF_WINDOWS; ++i)
 			{
 				this.addChild(windows[i]);
 				windows[i].visible = false;

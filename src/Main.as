@@ -96,6 +96,9 @@ package
 				initializeAtlasMakerAtlases(this.assets, AtlasXML.getOne());
 				
 				this.game = new GameElements(this.assets);
+				
+				this.starlingRoot.addChild((this.game).displayRoot);
+				
 				this.shell = new Shell(this.starlingRoot, this.game);
 				this.hotkeys = new Hotkeys(this.game, Starling.current.nativeStage);
 				

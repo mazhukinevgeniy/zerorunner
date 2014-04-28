@@ -5,6 +5,7 @@ package ui
 	import game.GameElements;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
+	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import ui.background.Background;
 	import ui.navigation.Navigation;
@@ -28,28 +29,33 @@ package ui
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function Shell(displayRoot:DisplayObjectContainer, elements:GameElements)
+		private var ownRoot:DisplayObjectContainer;
+		
+		public function Shell(globalDisplayRoot:DisplayObjectContainer, elements:GameElements)
 		{
 			this.status = elements.database.status;
 			
 			this.flow = elements.flow;
 			this.assets = elements.assets;
 			
-		    this.initializeFeatures(elements, displayRoot);
+			this.ownRoot = new Sprite();
+			globalDisplayRoot.addChild(ownRoot);
+			
+		    this.initializeFeatures(elements);
 			this.initializeUsingFlow();
 		}
 		
-		private function initializeFeatures(elements:GameElements, ownRoot:DisplayObjectContainer):void
+		private function initializeFeatures(elements:GameElements):void
 		{
-			new Theme(elements, ownRoot);
+			new Theme(elements, this.ownRoot);
 			
 			this.background = new Background();
 			this.navigation = new Navigation(this.flow, elements.database, elements.assets);
 			this.windows = new Windows(this.flow, this.assets, elements.database, elements.displayRoot)
 			
-			ownRoot.addChild(this.background);
-			ownRoot.addChild(this.windows);
-			ownRoot.addChild(this.navigation);
+			this.ownRoot.addChild(this.background);
+			this.ownRoot.addChild(this.windows);
+			this.ownRoot.addChild(this.navigation);
 			
 			new Sounds(this.flow, this.assets, elements.database.preferences);
 		}
@@ -63,12 +69,12 @@ package ui
 		
 		update function newGame():void 
 		{
-			this.background.visible = false;
+			this.ownRoot.visible = false;
 		}
 		
 		update function quitGame():void
 		{
-			this.background.visible = true;
+			this.ownRoot.visible = true;
 		}
 		
 		
