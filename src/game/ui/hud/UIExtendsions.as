@@ -1,4 +1,4 @@
-package game.hud 
+package game.ui.hud 
 {
 	import game.GameElements;
 	

@@ -1,4 +1,4 @@
-package game.renderer.clouds 
+package game.ui.renderer.clouds 
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;

@@ -3,15 +3,14 @@ package game
 	import data.DatabaseManager;
 	import game.fuel.FuelTracker;
 	import game.fuel.IFuel;
-	import game.hud.UIExtendsions;
 	import game.input.IKnowInput;
 	import game.input.InputManager;
 	import game.items.Items;
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectiles;
-	import game.renderer.Renderer;
 	import game.scene.IScene;
 	import game.scene.Scene;
+	import game.ui.GameUI;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -47,12 +46,9 @@ package game
 			this._fuel = new FuelTracker(this);
 			this._projectiles = new Projectiles(this);
 			
-			new Renderer(this);
-			
 			new Time(this);
-			new UIExtendsions(this);
 			
-			new GameTheme(this._root, this._assets.getTextureAtlas("sprites"));
+			new GameUI(this);
 		}
 		
 		public function get fuel():IFuel { return this._fuel; }

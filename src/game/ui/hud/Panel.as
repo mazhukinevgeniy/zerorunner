@@ -1,4 +1,4 @@
-package game.hud 
+package game.ui.hud 
 {
 	import data.StatusReporter;
 	import data.viewers.GameConfig;
@@ -6,7 +6,7 @@ package game.hud
 	import flash.display.Stage;
 	import flash.geom.Point;
 	import game.GameElements;
-	import game.GameTheme;
+	import game.ui.GameTheme;
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.Sprite;

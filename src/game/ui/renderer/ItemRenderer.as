@@ -1,4 +1,4 @@
-package game.renderer 
+package game.ui.renderer 
 {
 	import game.GameElements;
 	import game.items.Items;

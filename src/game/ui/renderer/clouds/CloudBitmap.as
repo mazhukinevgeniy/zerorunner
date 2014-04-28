@@ -1,4 +1,4 @@
-package game.renderer.clouds 
+package game.ui.renderer.clouds 
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -14,7 +14,7 @@ package game.renderer.clouds
 		private static const MIN_NUMBER_OF_ELEMENTS:int = 5;
 		private static const STEP:int = (CloudBitmap.MAX_NUMBER_OF_ELEMENTS - CloudBitmap.MIN_NUMBER_OF_ELEMENTS) / Clouds.SIZE_CLOUDINNESS_SCALE;
 		
-		[Embed(source="../../../../res/clouds/unimplemented.png")]
+		[Embed(source="../../../../../res/clouds/unimplemented.png")]
 		private static const BaseCloud:Class;
 		
 		public function CloudBitmap(cloudiness:int) 

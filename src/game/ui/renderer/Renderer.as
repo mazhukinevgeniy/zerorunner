@@ -1,9 +1,9 @@
-package game.renderer 
+package game.ui.renderer 
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items.PuppetBase;
-	import game.renderer.clouds.Clouds;
+	import game.ui.renderer.clouds.Clouds;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import utils.updates.update;

@@ -1,4 +1,4 @@
-package game.renderer 
+package game.ui.renderer 
 {
 	
 	public interface IRenderer 

@@ -1,4 +1,4 @@
-package game.renderer.clouds 
+package game.ui.renderer.clouds 
 {
 	import starling.extensions.krecha.ScrollTile;
 	import starling.textures.Texture;

@@ -1,4 +1,4 @@
-package game.hud 
+package game.ui.hud 
 {
 	import data.viewers.GameConfig;
 	import feathers.controls.Button;
@@ -76,7 +76,7 @@ package game.hud
 				}
 			}
 		}
-		
+		//TODO: use theme
 		
 		
 		private function handleQuitTriggered():void

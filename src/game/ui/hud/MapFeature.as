@@ -1,4 +1,4 @@
-package game.hud 
+package game.ui.hud 
 {
 	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;

@@ -1,10 +1,10 @@
-package game.renderer.clouds 
+package game.ui.renderer.clouds 
 {
 	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
-	import game.renderer.IRenderer;
+	import game.ui.renderer.IRenderer;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;
 	import utils.updates.update;

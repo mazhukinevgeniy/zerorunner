@@ -1,4 +1,4 @@
-package game 
+package game.ui 
 {
 	import feathers.controls.Button;
 	import feathers.core.DisplayListWatcher;
