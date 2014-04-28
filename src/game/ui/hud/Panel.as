@@ -27,7 +27,10 @@ package game.ui.hud
 		
 		private var hideToggleButton:Button;
 		
+		private var mainButtons:Sprite;
+		
 		private var quitButton:Button;
+		private var mapButton:Button;
 		
 		public function Panel(elements:GameElements) 
 		{
@@ -45,7 +48,7 @@ package game.ui.hud
 		}
 		
 		private function initializeButtons():void
-		{
+		{			
 			this.hideToggleButton = new Button();
 			this.hideToggleButton.name = GameTheme.TRIANGLE_TOGGLE;
 			
@@ -57,18 +60,32 @@ package game.ui.hud
 			this.hideToggleButton.addEventListener(Event.TRIGGERED, this.handleToggleTriggered);
 			
 			
+			this.mainButtons = new Sprite();
+			this.addChild(this.mainButtons);
+			
+			this.mapButton = new Button();
+			this.mapButton.name = GameTheme.MENU_BUTTON;
+			
+			this.mapButton.label = "Map";
+			
+			this.mainButtons.addChild(this.mapButton);
+			
+			this.mapButton.x = 20;
+			this.mapButton.y = this.hideToggleButton.y + 30;
+			
+			this.mapButton.addEventListener(Event.TRIGGERED, this.handleMapTriggered);
+			
+			
 			this.quitButton = new Button();
 			this.quitButton.name = GameTheme.MENU_BUTTON;
 			
 			this.quitButton.label = "Quit game";
-			//this.quitButton.fontName = "HiLo-Deco";
-			//this.quitButton.fontSize = 18;
-			//TODO: use or remove
 			
-			this.addChild(this.quitButton);
+			
+			this.mainButtons.addChild(this.quitButton);
 			
 			this.quitButton.x = 20;
-			this.quitButton.y = this.hideToggleButton.y + 30;
+			this.quitButton.y = this.mapButton.y + 30;
 			//TODO: hc again
 			
 			this.quitButton.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
@@ -78,7 +95,7 @@ package game.ui.hud
 		{
 			event.stopPropagation();
 			
-			this.quitButton.visible = !this.quitButton.visible;
+			this.mainButtons.visible = !this.mainButtons.visible;
 		}
 		
 		private function handleQuitTriggered(event:Event):void
@@ -91,11 +108,20 @@ package game.ui.hud
 			this.flow.dispatchUpdate(Update.quitGame);
 		}
 		
+		private function handleMapTriggered(event:Event):void
+		{
+			event.stopPropagation();
+			
+			this.flow.dispatchUpdate(Update.toggleMap);
+		}
+		
+		
+		
+		
+		
 		update function restore(config:GameConfig):void
 		{
-			this.quitButton.visible = false;
-			
-			//TODO: add more buttons and stuff
+			this.mainButtons.visible = false;
 		}
 	}
 
