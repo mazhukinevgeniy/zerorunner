@@ -11,7 +11,7 @@ package game.ui.hud
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class EndGameView extends Sprite
+	internal class EndGameView extends InGameWindowBase
 	{
 		private var flow:IUpdateDispatcher;
 		
@@ -21,14 +21,7 @@ package game.ui.hud
 		
 		public function EndGameView(elements:GameElements) 
 		{
-			super();
-			
-			
-			var tmpI:Quad = new Quad(400, 200, 0x222222);
-			tmpI.alpha = 0.7;
-			this.addChild(tmpI);
-			this.x = (Main.WIDTH - this.width) / 2;
-			this.y = (Main.HEIGHT - this.height) / 2;
+			super(200, 200, elements.assets.getTextureAtlas("sprites"));
 			
 			
 			this.text = new Label();
