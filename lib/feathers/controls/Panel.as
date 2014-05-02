@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,9 +8,12 @@ accordance with the terms of the accompanying license agreement.
 package feathers.controls
 {
 	import feathers.core.IFeathersControl;
+	import feathers.core.IFocusExtras;
 	import feathers.core.PropertyProxy;
+	import feathers.events.FeathersEventType;
 
 	import starling.display.DisplayObject;
+	import starling.events.Event;
 
 	/**
 	 * A container with layout, optional scrolling, a header, and an optional
@@ -38,18 +41,9 @@ package feathers.controls
 	 * noButton.label = "No";
 	 * panel.addChild( noButton );</listing>
 	 *
-	 * <p><strong>Beta Component:</strong> This is a new component, and its APIs
-	 * may need some changes between now and the next version of Feathers to
-	 * account for overlooked requirements or other issues. Upgrading to future
-	 * versions of Feathers may involve manual changes to your code that uses
-	 * this component. The
-	 * <a href="http://wiki.starling-framework.org/feathers/deprecation-policy">Feathers deprecation policy</a>
-	 * will not go into effect until this component's status is upgraded from
-	 * beta to stable.</p>
-	 *
 	 * @see http://wiki.starling-framework.org/feathers/panel
 	 */
-	public class Panel extends ScrollContainer
+	public class Panel extends ScrollContainer implements IFocusExtras
 	{
 		/**
 		 * The default value added to the <code>nameList</code> of the header.
@@ -111,6 +105,20 @@ package feathers.controls
 		public static const SCROLL_BAR_DISPLAY_MODE_NONE:String = "none";
 
 		/**
+		 * The vertical scroll bar will be positioned on the right.
+		 *
+		 * @see feathers.controls.Scroller#verticalScrollBarPosition
+		 */
+		public static const VERTICAL_SCROLL_BAR_POSITION_RIGHT:String = "right";
+
+		/**
+		 * The vertical scroll bar will be positioned on the left.
+		 *
+		 * @see feathers.controls.Scroller#verticalScrollBarPosition
+		 */
+		public static const VERTICAL_SCROLL_BAR_POSITION_LEFT:String = "left";
+
+		/**
 		 * @copy feathers.controls.Scroller#INTERACTION_MODE_TOUCH
 		 *
 		 * @see feathers.controls.Scroller#interactionMode
@@ -123,6 +131,13 @@ package feathers.controls
 		 * @see feathers.controls.Scroller#interactionMode
 		 */
 		public static const INTERACTION_MODE_MOUSE:String = "mouse";
+
+		/**
+		 * @copy feathers.controls.Scroller#INTERACTION_MODE_TOUCH_AND_SCROLL_BARS
+		 *
+		 * @see feathers.controls.Scroller#interactionMode
+		 */
+		public static const INTERACTION_MODE_TOUCH_AND_SCROLL_BARS:String = "touchAndScrollBars";
 
 		/**
 		 * @private
@@ -152,11 +167,21 @@ package feathers.controls
 
 		/**
 		 * The header sub-component.
+		 *
+		 * <p>For internal use in subclasses.</p>
+		 *
+		 * @see #headerFactory
+		 * @see #createHeader()
 		 */
 		protected var header:IFeathersControl;
 
 		/**
 		 * The footer sub-component.
+		 *
+		 * <p>For internal use in subclasses.</p>
+		 *
+		 * @see #footerFactory
+		 * @see #createFooter()
 		 */
 		protected var footer:IFeathersControl;
 
@@ -223,6 +248,8 @@ package feathers.controls
 		 *     return header;
 		 * };</listing>
 		 *
+		 * @default null
+		 *
 		 * @see feathers.core.IFeathersControl
 		 * @see feathers.controls.Header
 		 * @see #headerProperties
@@ -271,6 +298,8 @@ package feathers.controls
 		 * <listing version="3.0">
 		 * setInitializerForClass( Header, customHeaderInitializer, "my-custom-header");</listing>
 		 *
+		 * @default null
+		 *
 		 * @see #DEFAULT_CHILD_NAME_HEADER
 		 * @see feathers.core.FeathersControl#nameList
 		 * @see feathers.core.DisplayListWatcher
@@ -313,10 +342,9 @@ package feathers.controls
 		 *
 		 * <p>If the subcomponent has its own subcomponents, their properties
 		 * can be set too, using attribute <code>&#64;</code> notation. For example,
-		 * to set the skin on the thumb of a <code>SimpleScrollBar</code>
-		 * which is in a <code>Scroller</code> which is in a <code>List</code>,
-		 * you can use the following syntax:</p>
-		 * <pre>list.scrollerProperties.&#64;verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
+		 * to set the skin on the thumb which is in a <code>SimpleScrollBar</code>,
+		 * which is in a <code>List</code>, you can use the following syntax:</p>
+		 * <pre>list.verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
 		 *
 		 * <p>Setting properties in a <code>headerFactory</code> function
 		 * instead of using <code>headerProperties</code> will result in better
@@ -326,6 +354,8 @@ package feathers.controls
 		 *
 		 * <listing version="3.0">
 		 * panel.headerProperties.title = "Hello World";</listing>
+		 *
+		 * @default null
 		 *
 		 * @see #headerFactory
 		 * @see feathers.controls.Header
@@ -398,6 +428,8 @@ package feathers.controls
 		 *     return new ScrollContainer();
 		 * };</listing>
 		 *
+		 * @default null
+		 *
 		 * @see feathers.core.IFeathersControl
 		 * @see #footerProperties
 		 */
@@ -445,6 +477,8 @@ package feathers.controls
 		 * <listing version="3.0">
 		 * setInitializerForClass( ScrollContainer, customFooterInitializer, "my-custom-footer");</listing>
 		 *
+		 * @default null
+		 *
 		 * @see #DEFAULT_CHILD_NAME_FOOTER
 		 * @see feathers.core.FeathersControl#nameList
 		 * @see feathers.core.DisplayListWatcher
@@ -486,10 +520,9 @@ package feathers.controls
 		 *
 		 * <p>If the subcomponent has its own subcomponents, their properties
 		 * can be set too, using attribute <code>&#64;</code> notation. For example,
-		 * to set the skin on the thumb of a <code>SimpleScrollBar</code>
-		 * which is in a <code>Scroller</code> which is in a <code>List</code>,
-		 * you can use the following syntax:</p>
-		 * <pre>list.scrollerProperties.&#64;verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
+		 * to set the skin on the thumb which is in a <code>SimpleScrollBar</code>,
+		 * which is in a <code>List</code>, you can use the following syntax:</p>
+		 * <pre>list.verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
 		 *
 		 * <p>Setting properties in a <code>footerFactory</code> function
 		 * instead of using <code>footerProperties</code> will result in better
@@ -499,6 +532,8 @@ package feathers.controls
 		 *
 		 * <listing version="3.0">
 		 * panel.footerProperties.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;</listing>
+		 *
+		 * @default null
 		 *
 		 * @see #footerFactory
 		 */
@@ -548,6 +583,42 @@ package feathers.controls
 		/**
 		 * @private
 		 */
+		private var _focusExtrasBefore:Vector.<DisplayObject> = new <DisplayObject>[];
+
+		/**
+		 * @inheritDoc
+		 */
+		public function get focusExtrasBefore():Vector.<DisplayObject>
+		{
+			return this._focusExtrasBefore;
+		}
+
+		/**
+		 * @private
+		 */
+		private var _focusExtrasAfter:Vector.<DisplayObject> = new <DisplayObject>[];
+
+		/**
+		 * @inheritDoc
+		 */
+		public function get focusExtrasAfter():Vector.<DisplayObject>
+		{
+			return this._focusExtrasAfter;
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _ignoreHeaderResizing:Boolean = false;
+
+		/**
+		 * @private
+		 */
+		protected var _ignoreFooterResizing:Boolean = false;
+
+		/**
+		 * @private
+		 */
 		override protected function draw():void
 		{
 			const headerFactoryInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_HEADER_FACTORY);
@@ -578,7 +649,7 @@ package feathers.controls
 		}
 
 		/**
-		 * @private
+		 * @inheritDoc
 		 */
 		override protected function autoSizeIfNeeded():Boolean
 		{
@@ -588,6 +659,11 @@ package feathers.controls
 			{
 				return false;
 			}
+
+			var oldIgnoreHeaderResizing:Boolean = this._ignoreHeaderResizing;
+			this._ignoreHeaderResizing = true;
+			var oldIgnoreFooterResizing:Boolean = this._ignoreFooterResizing;
+			this._ignoreFooterResizing = true;
 
 			const oldHeaderWidth:Number = this.header.width;
 			const oldHeaderHeight:Number = this.header.height;
@@ -636,20 +712,30 @@ package feathers.controls
 				this.footer.width = oldFooterWidth;
 				this.footer.height = oldFooterHeight;
 			}
+			this._ignoreFooterResizing = oldIgnoreFooterResizing;
 
 			return this.setSizeInternal(newWidth, newHeight, false);
 		}
 
 		/**
-		 * @private
+		 * Creates and adds the <code>header</code> sub-component and
+		 * removes the old instance, if one exists.
+		 *
+		 * <p>Meant for internal use, and subclasses may override this function
+		 * with a custom implementation.</p>
+		 *
+		 * @see #header
+		 * @see #headerFactory
+		 * @see #customHeaderName
 		 */
 		protected function createHeader():void
 		{
-			const oldDisplayListBypassEnabled:Boolean = this.displayListBypassEnabled;
-			this.displayListBypassEnabled = false;
 			if(this.header)
 			{
-				this.removeChild(DisplayObject(this.header), true);
+				this.header.removeEventListener(FeathersEventType.RESIZE, header_resizeHandler);
+				var displayHeader:DisplayObject = DisplayObject(this.header);
+				this._focusExtrasBefore.splice(this._focusExtrasBefore.indexOf(displayHeader), 1);
+				this.removeRawChild(displayHeader, true);
 				this.header = null;
 			}
 
@@ -657,20 +743,31 @@ package feathers.controls
 			const headerName:String = this._customHeaderName != null ? this._customHeaderName : this.headerName;
 			this.header = IFeathersControl(factory());
 			this.header.nameList.add(headerName);
-			this.addChild(DisplayObject(this.header));
-			this.displayListBypassEnabled = oldDisplayListBypassEnabled;
+			this.header.addEventListener(FeathersEventType.RESIZE, header_resizeHandler);
+			displayHeader = DisplayObject(this.header);
+			this.addRawChild(displayHeader);
+			this._focusExtrasBefore.push(displayHeader);
 		}
 
 		/**
-		 * @private
+		 * Creates and adds the <code>footer</code> sub-component and
+		 * removes the old instance, if one exists.
+		 *
+		 * <p>Meant for internal use, and subclasses may override this function
+		 * with a custom implementation.</p>
+		 *
+		 * @see #footer
+		 * @see #footerFactory
+		 * @see #customFooterName
 		 */
 		protected function createFooter():void
 		{
-			const oldDisplayListBypassEnabled:Boolean = this.displayListBypassEnabled;
-			this.displayListBypassEnabled = false;
 			if(this.footer)
 			{
-				this.removeChild(DisplayObject(this.footer), true);
+				this.footer.removeEventListener(FeathersEventType.RESIZE, footer_resizeHandler);
+				var displayFooter:DisplayObject = DisplayObject(this.footer);
+				this._focusExtrasAfter.splice(this._focusExtrasAfter.indexOf(displayFooter), 1);
+				this.removeRawChild(displayFooter, true);
 				this.footer = null;
 			}
 
@@ -681,8 +778,10 @@ package feathers.controls
 			const footerName:String = this._customFooterName != null ? this._customFooterName : this.footerName;
 			this.footer = IFeathersControl(this._footerFactory());
 			this.footer.nameList.add(footerName);
-			this.addChild(DisplayObject(this.footer));
-			this.displayListBypassEnabled = oldDisplayListBypassEnabled;
+			this.footer.addEventListener(FeathersEventType.RESIZE, footer_resizeHandler);
+			displayFooter = DisplayObject(this.footer);
+			this.addRawChild(displayFooter);
+			this._focusExtrasAfter.push(displayFooter);
 		}
 
 		/**
@@ -724,6 +823,8 @@ package feathers.controls
 		{
 			super.calculateViewPortOffsets(forceScrollBars);
 
+			var oldIgnoreHeaderResizing:Boolean = this._ignoreHeaderResizing;
+			this._ignoreHeaderResizing = true;
 			const oldHeaderWidth:Number = this.header.width;
 			const oldHeaderHeight:Number = this.header.height;
 			this.header.width = useActualBounds ? this.actualWidth : this.explicitWidth;
@@ -733,9 +834,12 @@ package feathers.controls
 			this._topViewPortOffset += this.header.height;
 			this.header.width = oldHeaderWidth;
 			this.header.height = oldHeaderHeight;
+			this._ignoreHeaderResizing = oldIgnoreHeaderResizing;
 
 			if(this.footer)
 			{
+				var oldIgnoreFooterResizing:Boolean = this._ignoreFooterResizing;
+				this._ignoreFooterResizing = true;
 				const oldFooterWidth:Number = this.footer.width;
 				const oldFooterHeight:Number = this.footer.height;
 				this.footer.width = useActualBounds ? this.actualWidth : this.explicitWidth;
@@ -745,6 +849,7 @@ package feathers.controls
 				this._bottomViewPortOffset += this.footer.height;
 				this.footer.width = oldFooterWidth;
 				this.footer.height = oldFooterHeight;
+				this._ignoreFooterResizing = oldIgnoreFooterResizing;
 			}
 		}
 
@@ -755,17 +860,47 @@ package feathers.controls
 		{
 			super.layoutChildren();
 
+			var oldIgnoreHeaderResizing:Boolean = this._ignoreHeaderResizing;
+			this._ignoreHeaderResizing = true;
 			this.header.width = this.actualWidth;
 			this.header.height = NaN;
 			this.header.validate();
+			this._ignoreHeaderResizing = oldIgnoreHeaderResizing;
 
 			if(this.footer)
 			{
+				var oldIgnoreFooterResizing:Boolean = this._ignoreFooterResizing;
+				this._ignoreFooterResizing = true;
 				this.footer.width = this.actualWidth;
 				this.footer.height = NaN;
 				this.footer.validate();
 				this.footer.y = this.actualHeight - this.footer.height;
+				this._ignoreFooterResizing = oldIgnoreFooterResizing;
 			}
+		}
+
+		/**
+		 * @private
+		 */
+		protected function header_resizeHandler(event:Event):void
+		{
+			if(this._ignoreHeaderResizing)
+			{
+				return;
+			}
+			this.invalidate(INVALIDATION_FLAG_SIZE);
+		}
+
+		/**
+		 * @private
+		 */
+		protected function footer_resizeHandler(event:Event):void
+		{
+			if(this._ignoreFooterResizing)
+			{
+				return;
+			}
+			this.invalidate(INVALIDATION_FLAG_SIZE);
 		}
 	}
 }

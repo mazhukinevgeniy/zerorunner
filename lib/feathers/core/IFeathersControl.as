@@ -1,12 +1,14 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.core
 {
+	import flash.geom.Rectangle;
+
 	/**
 	 * Dispatched after the control has been initialized, but before it has
 	 * drawn for the first time. Typically, the component's children will have
@@ -15,6 +17,15 @@ package feathers.core
 	 * @eventType feathers.events.FeathersEventType.INITIALIZE
 	 */
 	[Event(name="initialize",type="starling.events.Event")]
+
+	/**
+	 * Dispatched after the component has validated for the first time. Both
+	 * <code>initialize()</code> and <code>draw()</code> will have been called,
+	 * and all children will have been created.
+	 *
+	 * @eventType feathers.events.FeathersEventType.CREATION_COMPLETE
+	 */
+	[Event(name="creationComplete",type="starling.events.Event")]
 
 	/**
 	 * Dispatched when the width or height of the control changes.
@@ -27,7 +38,7 @@ package feathers.core
 	 * Basic interface for Feathers UI controls. A Feathers control must also
 	 * be a Starling display object.
 	 */
-	public interface IFeathersControl extends IFeathersDisplayObject
+	public interface IFeathersControl extends IValidating
 	{
 		/**
 		 * @copy feathers.core.FeathersControl#minWidth
@@ -69,6 +80,15 @@ package feathers.core
 		 */
 		function set maxHeight(value:Number):void;
 
+		/**
+		 * @private
+		 */
+		function get clipRect():Rectangle;
+
+		/**
+		 * @private
+		 */
+		function set clipRect(value:Rectangle):void;
 
 		/**
 		 * @copy feathers.core.FeathersControl#isEnabled
@@ -86,6 +106,11 @@ package feathers.core
 		function get isInitialized():Boolean;
 
 		/**
+		 * @copy feathers.core.FeathersControl#isCreated
+		 */
+		function get isCreated():Boolean;
+
+		/**
 		 * @copy feathers.core.FeathersControl#nameList
 		 */
 		function get nameList():TokenList;
@@ -94,10 +119,5 @@ package feathers.core
 		 * @copy feathers.core.FeathersControl#setSize()
 		 */
 		function setSize(width:Number, height:Number):void;
-
-		/**
-		 * @copy feathers.core.FeathersControl#validate()
-		 */
-		function validate():void;
 	}
 }

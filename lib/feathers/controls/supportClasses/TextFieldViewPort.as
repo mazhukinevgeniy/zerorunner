@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,8 +8,12 @@ accordance with the terms of the accompanying license agreement.
 package feathers.controls.supportClasses
 {
 	import feathers.core.FeathersControl;
+	import feathers.utils.geom.matrixToRotation;
+	import feathers.utils.geom.matrixToScaleX;
+	import feathers.utils.geom.matrixToScaleY;
 
 	import flash.display.Sprite;
+	import flash.events.TextEvent;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -28,7 +32,7 @@ package feathers.controls.supportClasses
 	/**
 	 * @private
 	 */
-	public final class TextFieldViewPort extends FeathersControl implements IViewPort
+	public class TextFieldViewPort extends FeathersControl implements IViewPort
 	{
 		private static const HELPER_MATRIX:Matrix = new Matrix();
 		private static const HELPER_POINT:Point = new Point();
@@ -581,6 +585,16 @@ package feathers.controls.supportClasses
 			this.invalidate(INVALIDATION_FLAG_SIZE);
 		}
 
+		public function get contentX():Number
+		{
+			return 0;
+		}
+
+		public function get contentY():Number
+		{
+			return 0;
+		}
+
 		private var _scrollStep:Number;
 
 		public function get horizontalScrollStep():Number
@@ -732,10 +746,17 @@ package feathers.controls.supportClasses
 			HELPER_POINT.x = HELPER_POINT.y = 0;
 			this.parent.getTransformationMatrix(this.stage, HELPER_MATRIX);
 			MatrixUtil.transformCoords(HELPER_MATRIX, 0, 0, HELPER_POINT);
-			this._textFieldContainer.x = starlingViewPort.x + HELPER_POINT.x * Starling.contentScaleFactor;
-			this._textFieldContainer.y = starlingViewPort.y + HELPER_POINT.y * Starling.contentScaleFactor;
-			this._textFieldContainer.scaleX = HELPER_MATRIX.a * Starling.contentScaleFactor;
-			this._textFieldContainer.scaleY = HELPER_MATRIX.d * Starling.contentScaleFactor;
+			var nativeScaleFactor:Number = 1;
+			if(Starling.current.supportHighResolutions)
+			{
+				nativeScaleFactor = Starling.current.nativeStage.contentsScaleFactor;
+			}
+			var scaleFactor:Number = Starling.contentScaleFactor / nativeScaleFactor;
+			this._textFieldContainer.x = starlingViewPort.x + HELPER_POINT.x * scaleFactor;
+			this._textFieldContainer.y = starlingViewPort.y + HELPER_POINT.y * scaleFactor;
+			this._textFieldContainer.scaleX = matrixToScaleX(HELPER_MATRIX) * scaleFactor;
+			this._textFieldContainer.scaleY = matrixToScaleY(HELPER_MATRIX) * scaleFactor;
+			this._textFieldContainer.rotation = matrixToRotation(HELPER_MATRIX) * 180 / Math.PI;
 			this._textFieldContainer.visible = true;
 			this._textFieldContainer.alpha = parentAlpha * this.alpha;
 			this._textFieldContainer.visible = this.visible;
@@ -746,14 +767,14 @@ package feathers.controls.supportClasses
 		override protected function initialize():void
 		{
 			this._textFieldContainer = new Sprite();
-			this._textFieldContainer.mouseChildren = this._textFieldContainer.mouseEnabled = false;
 			this._textFieldContainer.visible = false;
 			this._textField = new TextField();
 			this._textField.autoSize = TextFieldAutoSize.LEFT;
-			this._textField.selectable = this._textFieldContainer.mouseEnabled =
-				this._textField.mouseWheelEnabled = false;
+			this._textField.selectable = false;
+			this._textField.mouseWheelEnabled = false;
 			this._textField.wordWrap = true;
 			this._textField.multiline = true;
+			this._textField.addEventListener(TextEvent.LINK, textField_linkHandler);
 			this._textFieldContainer.addChild(this._textField);
 		}
 
@@ -783,11 +804,18 @@ package feathers.controls.supportClasses
 
 			if(dataInvalid || stylesInvalid)
 			{
-				if(this._textFormat)
+				if(this._styleSheet)
 				{
-					this._textField.defaultTextFormat = this._textFormat;
+					this._textField.styleSheet = this._styleSheet;
 				}
-				this._textField.styleSheet = this._styleSheet;
+				else
+				{
+					this._textField.styleSheet = null;
+					if(this._textFormat)
+					{
+						this._textField.defaultTextFormat = this._textFormat;
+					}
+				}
 				if(this._isHTML)
 				{
 					this._textField.htmlText = this._text;
@@ -828,6 +856,11 @@ package feathers.controls.supportClasses
 		private function removedFromStageHandler(event:Event):void
 		{
 			Starling.current.nativeStage.removeChild(this._textFieldContainer);
+		}
+
+		protected function textField_linkHandler(event:TextEvent):void
+		{
+			this.dispatchEventWith(Event.TRIGGERED, false, event.text);
 		}
 	}
 }

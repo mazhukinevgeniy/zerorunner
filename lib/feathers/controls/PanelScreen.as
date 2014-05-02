@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,6 +8,7 @@ accordance with the terms of the accompanying license agreement.
 package feathers.controls
 {
 	import feathers.system.DeviceCapabilities;
+	import feathers.utils.display.getDisplayObjectDepthFromStage;
 
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
@@ -45,18 +46,10 @@ package feathers.controls
 	 *     }
 	 * }</listing>
 	 *
-	 * <p><strong>Beta Component:</strong> This is a new component, and its APIs
-	 * may need some changes between now and the next version of Feathers to
-	 * account for overlooked requirements or other issues. Upgrading to future
-	 * versions of Feathers may involve manual changes to your code that uses
-	 * this component. The
-	 * <a href="http://wiki.starling-framework.org/feathers/deprecation-policy">Feathers deprecation policy</a>
-	 * will not go into effect until this component's status is upgraded from
-	 * beta to stable.</p>
-	 *
 	 * @see ScreenNavigator
-	 * @see Panel
+	 * @see ScrollScreen
 	 * @see Screen
+	 * @see Panel
 	 * @see http://wiki.starling-framework.org/feathers/panel-screen
 	 */
 	public class PanelScreen extends Panel implements IScreen
@@ -114,6 +107,20 @@ package feathers.controls
 		public static const SCROLL_BAR_DISPLAY_MODE_NONE:String = "none";
 
 		/**
+		 * The vertical scroll bar will be positioned on the right.
+		 *
+		 * @see feathers.controls.Scroller#verticalScrollBarPosition
+		 */
+		public static const VERTICAL_SCROLL_BAR_POSITION_RIGHT:String = "right";
+
+		/**
+		 * The vertical scroll bar will be positioned on the left.
+		 *
+		 * @see feathers.controls.Scroller#verticalScrollBarPosition
+		 */
+		public static const VERTICAL_SCROLL_BAR_POSITION_LEFT:String = "left";
+
+		/**
 		 * @copy feathers.controls.Scroller#INTERACTION_MODE_TOUCH
 		 *
 		 * @see feathers.controls.Scroller#interactionMode
@@ -126,6 +133,13 @@ package feathers.controls
 		 * @see feathers.controls.Scroller#interactionMode
 		 */
 		public static const INTERACTION_MODE_MOUSE:String = "mouse";
+
+		/**
+		 * @copy feathers.controls.Scroller#INTERACTION_MODE_TOUCH_AND_SCROLL_BARS
+		 *
+		 * @see feathers.controls.Scroller#interactionMode
+		 */
+		public static const INTERACTION_MODE_TOUCH_AND_SCROLL_BARS:String = "touchAndScrollBars";
 
 		/**
 		 * Constructor.
@@ -314,12 +328,11 @@ package feathers.controls
 		 */
 		protected function panelScreen_addedToStageHandler(event:Event):void
 		{
-			if(event.target != this)
-			{
-				return;
-			}
 			this.addEventListener(Event.REMOVED_FROM_STAGE, panelScreen_removedFromStageHandler);
-			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_DOWN, panelScreen_stage_keyDownHandler, false, 0, true);
+			//using priority here is a hack so that objects higher up in the
+			//display list have a chance to cancel the event first.
+			var priority:int = -getDisplayObjectDepthFromStage(this);
+			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_DOWN, panelScreen_nativeStage_keyDownHandler, false, priority, true);
 		}
 
 		/**
@@ -327,41 +340,36 @@ package feathers.controls
 		 */
 		protected function panelScreen_removedFromStageHandler(event:Event):void
 		{
-			if(event.target != this)
-			{
-				return;
-			}
 			this.removeEventListener(Event.REMOVED_FROM_STAGE, panelScreen_removedFromStageHandler);
-			Starling.current.nativeStage.removeEventListener(KeyboardEvent.KEY_DOWN, panelScreen_stage_keyDownHandler);
+			Starling.current.nativeStage.removeEventListener(KeyboardEvent.KEY_DOWN, panelScreen_nativeStage_keyDownHandler);
 		}
 
 		/**
 		 * @private
 		 */
-		protected function panelScreen_stage_keyDownHandler(event:KeyboardEvent):void
+		protected function panelScreen_nativeStage_keyDownHandler(event:KeyboardEvent):void
 		{
-			//we're accessing Keyboard.BACK (and others) using a string because
-			//this code may be compiled for both Flash Player and AIR.
-			if(this.backButtonHandler != null &&
-				Object(Keyboard).hasOwnProperty("BACK") &&
-				event.keyCode == Keyboard["BACK"])
+			if(event.isDefaultPrevented())
 			{
-				event.stopImmediatePropagation();
+				//someone else already handled this one
+				return;
+			}
+			if(this.backButtonHandler != null &&
+				event.keyCode == Keyboard.BACK)
+			{
 				event.preventDefault();
 				this.backButtonHandler();
 			}
 
 			if(this.menuButtonHandler != null &&
-				Object(Keyboard).hasOwnProperty("MENU") &&
-				event.keyCode == Keyboard["MENU"])
+				event.keyCode == Keyboard.MENU)
 			{
 				event.preventDefault();
 				this.menuButtonHandler();
 			}
 
 			if(this.searchButtonHandler != null &&
-				Object(Keyboard).hasOwnProperty("SEARCH") &&
-				event.keyCode == Keyboard["SEARCH"])
+				event.keyCode == Keyboard.SEARCH)
 			{
 				event.preventDefault();
 				this.searchButtonHandler();

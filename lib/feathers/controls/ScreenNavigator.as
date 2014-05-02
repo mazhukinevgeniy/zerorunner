@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,7 +8,7 @@ accordance with the terms of the accompanying license agreement.
 package feathers.controls
 {
 	import feathers.core.FeathersControl;
-	import feathers.core.IFeathersControl;
+	import feathers.core.IValidating;
 	import feathers.events.FeathersEventType;
 
 	import flash.errors.IllegalOperationError;
@@ -113,8 +113,8 @@ package feathers.controls
 					//signals not being used
 				}
 			}
-			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-			this.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			this.addEventListener(Event.ADDED_TO_STAGE, screenNavigator_addedToStageHandler);
+			this.addEventListener(Event.REMOVED_FROM_STAGE, screenNavigator_removedFromStageHandler);
 		}
 
 		/**
@@ -281,6 +281,17 @@ package feathers.controls
 				return;
 			}
 			this._autoSizeMode = value;
+			if(this._activeScreen)
+			{
+				if(this._autoSizeMode == AUTO_SIZE_MODE_CONTENT)
+				{
+					this._activeScreen.addEventListener(FeathersEventType.RESIZE, activeScreen_resizeHandler);
+				}
+				else
+				{
+					this._activeScreen.removeEventListener(FeathersEventType.RESIZE, activeScreen_resizeHandler);
+				}
+			}
 			this.invalidate(INVALIDATION_FLAG_SIZE);
 		}
 
@@ -366,14 +377,18 @@ package feathers.controls
 
 			this._screenEvents[id] = savedScreenEvents;
 
+			if(this._autoSizeMode == AUTO_SIZE_MODE_CONTENT)
+			{
+				this._activeScreen.addEventListener(FeathersEventType.RESIZE, activeScreen_resizeHandler);
+			}
 			this.addChild(this._activeScreen);
 
 			this.invalidate(INVALIDATION_FLAG_SELECTED);
-			if(!VALIDATION_QUEUE.isValidating)
+			if(this._validationQueue && !this._validationQueue.isValidating)
 			{
 				//force a COMPLETE validation of everything
 				//but only if we're not already doing that...
-				VALIDATION_QUEUE.advanceTime(0);
+				this._validationQueue.advanceTime(0);
 			}
 
 			this.dispatchEventWith(FeathersEventType.TRANSITION_START);
@@ -481,6 +496,10 @@ package feathers.controls
 			{
 				throw new IllegalOperationError("Screen '" + id + "' cannot be removed because it has not been added.");
 			}
+			if(this._activeScreenID == id)
+			{
+				this.clearScreen();
+			}
 			delete this._screens[id];
 		}
 
@@ -558,8 +577,14 @@ package feathers.controls
 			{
 				if(this._activeScreen)
 				{
-					this._activeScreen.width = this.actualWidth;
-					this._activeScreen.height = this.actualHeight;
+					if(this._activeScreen.width != this.actualWidth)
+					{
+						this._activeScreen.width = this.actualWidth;
+					}
+					if(this._activeScreen.height != this.actualHeight)
+					{
+						this._activeScreen.height = this.actualHeight;
+					}
 				}
 			}
 
@@ -584,7 +609,20 @@ package feathers.controls
 		}
 
 		/**
-		 * @private
+		 * If the component's dimensions have not been set explicitly, it will
+		 * measure its content and determine an ideal size for itself. If the
+		 * <code>explicitWidth</code> or <code>explicitHeight</code> member
+		 * variables are set, those value will be used without additional
+		 * measurement. If one is set, but not the other, the dimension with the
+		 * explicit value will not be measured, but the other non-explicit
+		 * dimension will still need measurement.
+		 *
+		 * <p>Calls <code>setSizeInternal()</code> to set up the
+		 * <code>actualWidth</code> and <code>actualHeight</code> member
+		 * variables used for layout.</p>
+		 *
+		 * <p>Meant for internal use, and subclasses may override this function
+		 * with a custom implementation.</p>
 		 */
 		protected function autoSizeIfNeeded():Boolean
 		{
@@ -596,9 +634,9 @@ package feathers.controls
 			}
 
 			if(this._autoSizeMode == AUTO_SIZE_MODE_CONTENT &&
-				this._activeScreen is IFeathersControl)
+				this._activeScreen is IValidating)
 			{
-				IFeathersControl(this._activeScreen).validate();
+				IValidating(this._activeScreen).validate();
 			}
 
 			var newWidth:Number = this.explicitWidth;
@@ -646,6 +684,10 @@ package feathers.controls
 					const screen:IScreen = IScreen(this._previousScreenInTransition);
 					screen.screenID = null;
 					screen.owner = null;
+				}
+				if(this._autoSizeMode == AUTO_SIZE_MODE_CONTENT)
+				{
+					this._previousScreenInTransition.removeEventListener(FeathersEventType.RESIZE, activeScreen_resizeHandler);
 				}
 				this.removeChild(this._previousScreenInTransition, canBeDisposed);
 				this._previousScreenInTransition = null;
@@ -707,7 +749,7 @@ package feathers.controls
 		/**
 		 * @private
 		 */
-		protected function addedToStageHandler(event:Event):void
+		protected function screenNavigator_addedToStageHandler(event:Event):void
 		{
 			this.stage.addEventListener(ResizeEvent.RESIZE, stage_resizeHandler);
 		}
@@ -715,9 +757,21 @@ package feathers.controls
 		/**
 		 * @private
 		 */
-		protected function removedFromStageHandler(event:Event):void
+		protected function screenNavigator_removedFromStageHandler(event:Event):void
 		{
 			this.stage.removeEventListener(ResizeEvent.RESIZE, stage_resizeHandler);
+		}
+
+		/**
+		 * @private
+		 */
+		protected function activeScreen_resizeHandler(event:Event):void
+		{
+			if(this._isValidating || this._autoSizeMode != AUTO_SIZE_MODE_CONTENT)
+			{
+				return;
+			}
+			this.invalidate(INVALIDATION_FLAG_SIZE);
 		}
 
 		/**

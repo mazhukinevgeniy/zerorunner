@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -30,6 +30,11 @@ package feathers.core
 		/**
 		 * The object that currently has focus. May be <code>null</code> if no
 		 * object has focus.
+		 *
+		 * <p>In the following example, the focus is changed:</p>
+		 *
+		 * <listing version="3.0">
+		 * object.focus = someObject;</listing>
 		 */
 		function get focus():IFocusDisplayObject;
 

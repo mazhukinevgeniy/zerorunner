@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,6 +8,8 @@ accordance with the terms of the accompanying license agreement.
 package feathers.layout
 {
 	import flash.geom.Point;
+
+	import starling.display.DisplayObject;
 
 	/**
 	 * A layout algorithm that supports virtualization of items so that only
@@ -18,8 +20,9 @@ package feathers.layout
 	public interface IVirtualLayout extends ILayout
 	{
 		/**
-		 * Determines if virtual layout can be used. Some components don't
-		 * support virtual layouts. In those cases, the virtual layout options
+		 * Determines if virtual layout should be used. Some components don't
+		 * support virtual layouts, and they will always change this property to
+		 * <code>false</code>. In those cases, the virtual layout options
 		 * will be ignored.
 		 */
 		function get useVirtualLayout():Boolean;
@@ -30,49 +33,50 @@ package feathers.layout
 		function set useVirtualLayout(value:Boolean):void;
 
 		/**
-		 * The width, in pixels, of a "typical" item that is used to virtually
-		 * fill in blanks for the layout. This value is meant to be set by a
-		 * component that is using the layout, such as a <code>List</code>. For
-		 * instance, the <code>List</code> class provides a <code>typicalItem</code>
-		 * property that will be used to calculate this value. If you set
-		 * <code>typicalItemWidth</code> manually, your value will be completely
-		 * replaced by the value calculated by the <code>List</code>. In other
-		 * words, you should use that <code>typicalItem</code> property instead.
+		 * Used internally by a component that supports layout virtualization,
+		 * such as <code>List</code>, to provide a display object with
+		 * dimensions that represent a "typical" item in the layout. These
+		 * dimensions will be used to fill in blanks for the layout when an
+		 * item is virtual and isn't actually on the display list. If you are
+		 * simply passing a layout to a component, setting this property will
+		 * have no effect. It is meant to be used by the component, and the
+		 * component will replace any value you pass to this property.
 		 */
-		function get typicalItemWidth():Number;
+		function get typicalItem():DisplayObject;
 
 		/**
 		 * @private
 		 */
-		function set typicalItemWidth(value:Number):void;
+		function set typicalItem(value:DisplayObject):void;
 
 		/**
-		 * The height, in pixels, of a "typical" item that is used to virtually
-		 * fill in blanks for the layout. This value is usually set by a
-		 * component that is using the layout, such as a <code>List</code>. For
-		 * instance, the <code>List</code> class provides a <code>typicalItem</code>
-		 * property that will be used to calculate this value. If you set
-		 * <code>typicalItemHeight</code> manually, your value will be completely
-		 * replaced by the value calculated by the <code>List</code>. In other
-		 * words, you should use that <code>typicalItem</code> property instead.
-		 */
-		function get typicalItemHeight():Number;
-
-		/**
-		 * @private
-		 */
-		function set typicalItemHeight(value:Number):void;
-
-		/**
-		 * Using the typical item bounds and suggested bounds, returns a set of
-		 * calculated dimensions for the view port.
+		 * Used internally by a component, such as <code>List</code>, to measure
+		 * the view port based on the typical item dimensions or cached
+		 * dimensions, if available.
+		 *
+		 * <p>This function is meant to be called by the <code>List</code> or
+		 * other component that uses the virtual layout. If you're simply
+		 * creating a layout for a <code>List</code> or another component, do
+		 * not call this function. It is meant for developers creating custom
+		 * components only.</p>
+		 *
+		 * @see #typicalItemWidth
+		 * @see #typicalItemHeight
 		 */
 		function measureViewPort(itemCount:int, viewPortBounds:ViewPortBounds = null, result:Point = null):Point;
 
 		/**
-		 * Determines which indices are visible with the specified view port
+		 * Used internally by a component, such as <code>List</code>, to
+		 * determines which indices are visible with the specified view port
 		 * bounds and scroll position. Indices that aren't returned are
-		 * typically not displayed and can be replaced virtually.
+		 * typically not displayed and can be replaced virtually. Uses the
+		 * typical items dimensions, or cached dimensions, if available.
+		 *
+		 * <p>This function is meant to be called by the <code>List</code> or
+		 * other component that uses the virtual layout. If you're simply
+		 * creating a layout for a <code>List</code> or another component, do
+		 * not call this function. It is meant for developers creating custom
+		 * components only.</p>
 		 */
 		function getVisibleIndicesAtScrollPosition(scrollX:Number, scrollY:Number, width:Number, height:Number, itemCount:int, result:Vector.<int> = null):Vector.<int>;
 	}

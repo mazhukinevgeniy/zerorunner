@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -14,6 +14,7 @@ package feathers.controls.renderers
 	import feathers.core.FeathersControl;
 	import feathers.core.IFeathersControl;
 	import feathers.core.ITextRenderer;
+	import feathers.core.IValidating;
 	import feathers.core.PropertyProxy;
 	import feathers.events.FeathersEventType;
 
@@ -33,12 +34,113 @@ package feathers.controls.renderers
 	public class BaseDefaultItemRenderer extends Button
 	{
 		/**
+		 * The default value added to the <code>nameList</code> of the icon
+		 * label, if it exists.
+		 *
+		 * @see feathers.core.IFeathersControl#nameList
+		 */
+		public static const DEFAULT_CHILD_NAME_ICON_LABEL:String = "feathers-item-renderer-icon-label";
+
+		/**
 		 * The default value added to the <code>nameList</code> of the accessory
-		 * label.
+		 * label, if it exists.
 		 *
 		 * @see feathers.core.IFeathersControl#nameList
 		 */
 		public static const DEFAULT_CHILD_NAME_ACCESSORY_LABEL:String = "feathers-item-renderer-accessory-label";
+
+		/**
+		 * @copy feathers.controls.Button#ICON_POSITION_TOP
+		 *
+		 * @see feathers.controls.Button#iconPosition
+		 */
+		public static const ICON_POSITION_TOP:String = "top";
+
+		/**
+		 * @copy feathers.controls.Button#ICON_POSITION_RIGHT
+		 *
+		 * @see feathers.controls.Button#iconPosition
+		 */
+		public static const ICON_POSITION_RIGHT:String = "right";
+
+		/**
+		 * @copy feathers.controls.Button#ICON_POSITION_BOTTOM
+		 *
+		 * @see feathers.controls.Button#iconPosition
+		 */
+		public static const ICON_POSITION_BOTTOM:String = "bottom";
+
+		/**
+		 * @copy feathers.controls.Button#ICON_POSITION_LEFT
+		 *
+		 * @see feathers.controls.Button#iconPosition
+		 */
+		public static const ICON_POSITION_LEFT:String = "left";
+
+		/**
+		 * @copy feathers.controls.Button#ICON_POSITION_MANUAL
+		 *
+		 * @see feathers.controls.Button#iconPosition
+		 * @see feathers.controls.Button#iconOffsetX
+		 * @see feathers.controls.Button#iconOffsetY
+		 */
+		public static const ICON_POSITION_MANUAL:String = "manual";
+
+		/**
+		 * @copy feathers.controls.Button#ICON_POSITION_LEFT_BASELINE
+		 *
+		 * @see feathers.controls.Button#iconPosition
+		 */
+		public static const ICON_POSITION_LEFT_BASELINE:String = "leftBaseline";
+
+		/**
+		 * @copy feathers.controls.Button#ICON_POSITION_RIGHT_BASELINE
+		 *
+		 * @see feathers.controls.Button#iconPosition
+		 */
+		public static const ICON_POSITION_RIGHT_BASELINE:String = "rightBaseline";
+
+		/**
+		 * @copy feathers.controls.Button#HORIZONTAL_ALIGN_LEFT
+		 *
+		 * @see feathers.controls.Button#horizontalAlign
+		 */
+		public static const HORIZONTAL_ALIGN_LEFT:String = "left";
+
+		/**
+		 * @copy feathers.controls.Button#HORIZONTAL_ALIGN_CENTER
+		 *
+		 * @see feathers.controls.Button#horizontalAlign
+		 */
+		public static const HORIZONTAL_ALIGN_CENTER:String = "center";
+
+		/**
+		 * @copy feathers.controls.Button#HORIZONTAL_ALIGN_RIGHT
+		 *
+		 * @see feathers.controls.Button#horizontalAlign
+		 */
+		public static const HORIZONTAL_ALIGN_RIGHT:String = "right";
+
+		/**
+		 * @copy feathers.controls.Button#VERTICAL_ALIGN_TOP
+		 *
+		 * @see feathers.controls.Button#verticalAlign
+		 */
+		public static const VERTICAL_ALIGN_TOP:String = "top";
+
+		/**
+		 * @copy feathers.controls.Button#VERTICAL_ALIGN_MIDDLE
+		 *
+		 * @see feathers.controls.Button#verticalAlign
+		 */
+		public static const VERTICAL_ALIGN_MIDDLE:String = "middle";
+
+		/**
+		 * @copy feathers.controls.Button#VERTICAL_ALIGN_BOTTOM
+		 *
+		 * @see feathers.controls.Button#verticalAlign
+		 */
+		public static const VERTICAL_ALIGN_BOTTOM:String = "bottom";
 
 		/**
 		 * The accessory will be positioned above its origin.
@@ -113,11 +215,6 @@ package feathers.controls.renderers
 		/**
 		 * @private
 		 */
-		private static const HELPER_TOUCHES_VECTOR:Vector.<Touch> = new <Touch>[];
-
-		/**
-		 * @private
-		 */
 		protected static function defaultLoaderFactory():ImageLoader
 		{
 			return new ImageLoader();
@@ -135,7 +232,16 @@ package feathers.controls.renderers
 		}
 
 		/**
-		 * The value added to the <code>nameList</code> of the accessory label.
+		 * The value added to the <code>nameList</code> of the icon label, if it
+		 * exists.
+		 *
+		 * @see feathers.core.IFeathersControl#nameList
+		 */
+		protected var iconLabelName:String = DEFAULT_CHILD_NAME_ICON_LABEL;
+
+		/**
+		 * The value added to the <code>nameList</code> of the accessory label,
+		 * if it exists.
 		 *
 		 * @see feathers.core.IFeathersControl#nameList
 		 */
@@ -145,6 +251,11 @@ package feathers.controls.renderers
 		 * @private
 		 */
 		protected var iconImage:ImageLoader;
+
+		/**
+		 * @private
+		 */
+		protected var iconLabel:ITextRenderer;
 
 		/**
 		 * @private
@@ -160,6 +271,30 @@ package feathers.controls.renderers
 		 * @private
 		 */
 		protected var accessory:DisplayObject;
+
+		/**
+		 * @private
+		 */
+		protected var _iconIsFromItem:Boolean = false;
+
+		/**
+		 * @private
+		 */
+		protected var _accessoryIsFromItem:Boolean = false;
+
+		/**
+		 * @private
+		 */
+		override public function set defaultIcon(value:DisplayObject):void
+		{
+			if(this._iconSelector.defaultValue == value)
+			{
+				return;
+			}
+			this.replaceIcon(null);
+			this._iconIsFromItem = false;
+			super.defaultIcon = value;
+		}
 
 		/**
 		 * @private
@@ -191,7 +326,7 @@ package feathers.controls.renderers
 		/**
 		 * @private
 		 */
-		protected var _owner:IFeathersControl;
+		protected var _owner:Scroller;
 
 		/**
 		 * @private
@@ -341,6 +476,77 @@ package feathers.controls.renderers
 				return;
 			}
 			this._itemHasAccessory = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _itemHasSelectable:Boolean = false;
+
+		/**
+		 * If true, the ability to select the renderer will come from the
+		 * renderer's item using the appropriate field or function for
+		 * selectable. If false, the renderer will be selectable if its owner
+		 * is selectable.
+		 *
+		 * <p>In the following example, the item doesn't have an accessory:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.itemHasSelectable = true;</listing>
+		 *
+		 * @default false
+		 */
+		public function get itemHasSelectable():Boolean
+		{
+			return this._itemHasSelectable;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set itemHasSelectable(value:Boolean):void
+		{
+			if(this._itemHasSelectable == value)
+			{
+				return;
+			}
+			this._itemHasSelectable = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _itemHasEnabled:Boolean = false;
+
+		/**
+		 * If true, the renderer's enabled state will come from the renderer's
+		 * item using the appropriate field or function for enabled. If false,
+		 * the renderer will be enabled if its owner is enabled.
+		 *
+		 * <p>In the following example, the item doesn't have an accessory:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.itemHasEnabled = true;</listing>
+		 *
+		 * @default false
+		 */
+		public function get itemHasEnabled():Boolean
+		{
+			return this._itemHasEnabled;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set itemHasEnabled(value:Boolean):void
+		{
+			if(this._itemHasEnabled == value)
+			{
+				return;
+			}
+			this._itemHasEnabled = value;
 			this.invalidate(INVALIDATION_FLAG_DATA);
 		}
 
@@ -549,7 +755,7 @@ package feathers.controls.renderers
 		 */
 		override protected function set currentState(value:String):void
 		{
-			if(!this._isToggle && !this.isSelectableWithoutToggle)
+			if(this._isEnabled && !this._isToggle && (!this.isSelectableWithoutToggle || (this._itemHasSelectable && !this.itemToSelectable(this._data))))
 			{
 				value = STATE_UP;
 			}
@@ -587,7 +793,12 @@ package feathers.controls.renderers
 		/**
 		 * @private
 		 */
-		protected var _accessoryTouchPointID:int = -1;
+		protected var accessoryTouchPointID:int = -1;
+
+		/**
+		 * @private
+		 */
+		protected var _stopScrollingOnAccessoryTouch:Boolean = true;
 
 		/**
 		 * If enabled, calls owner.stopScrolling() when TouchEvents are
@@ -601,7 +812,52 @@ package feathers.controls.renderers
 		 *
 		 * @default true
 		 */
-		public var stopScrollingOnAccessoryTouch:Boolean = true;
+		public function get stopScrollingOnAccessoryTouch():Boolean
+		{
+			return this._stopScrollingOnAccessoryTouch;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set stopScrollingOnAccessoryTouch(value:Boolean):void
+		{
+			this._stopScrollingOnAccessoryTouch = value;
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _delayTextureCreationOnScroll:Boolean = false;
+
+		/**
+		 * If enabled, automatically manages the <code>delayTextureCreation</code>
+		 * property on accessory and icon <code>ImageLoader</code> instances
+		 * when the owner scrolls. This applies to the loaders created when the
+		 * following properties are set: <code>accessorySourceField</code>,
+		 * <code>accessorySourceFunction</code>, <code>iconSourceField</code>,
+		 * and <code>iconSourceFunction</code>.
+		 *
+		 * <p>In the following example, any loaded textures won't be uploaded to
+		 * the GPU until the owner stops scrolling:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.delayTextureCreationOnScroll = true;</listing>
+		 *
+		 * @default false
+		 */
+		public function get delayTextureCreationOnScroll():Boolean
+		{
+			return this._delayTextureCreationOnScroll;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set delayTextureCreationOnScroll(value:Boolean):void
+		{
+			this._delayTextureCreationOnScroll = value;
+		}
 
 		/**
 		 * @private
@@ -712,6 +968,8 @@ package feathers.controls.renderers
 		 * <ol>
 		 *     <li><code>iconSourceFunction</code></li>
 		 *     <li><code>iconSourceField</code></li>
+		 *     <li><code>iconLabelFunction</code></li>
+		 *     <li><code>iconLabelField</code></li>
 		 *     <li><code>iconFunction</code></li>
 		 *     <li><code>iconField</code></li>
 		 * </ol>
@@ -769,6 +1027,8 @@ package feathers.controls.renderers
 		 * <ol>
 		 *     <li><code>iconSourceFunction</code></li>
 		 *     <li><code>iconSourceField</code></li>
+		 *     <li><code>iconLabelFunction</code></li>
+		 *     <li><code>iconLabelField</code></li>
 		 *     <li><code>iconFunction</code></li>
 		 *     <li><code>iconField</code></li>
 		 * </ol>
@@ -833,6 +1093,8 @@ package feathers.controls.renderers
 		 * <ol>
 		 *     <li><code>iconSourceFunction</code></li>
 		 *     <li><code>iconSourceField</code></li>
+		 *     <li><code>iconLabelFunction</code></li>
+		 *     <li><code>iconLabelField</code></li>
 		 *     <li><code>iconFunction</code></li>
 		 *     <li><code>iconField</code></li>
 		 * </ol>
@@ -909,6 +1171,8 @@ package feathers.controls.renderers
 		 * <ol>
 		 *     <li><code>iconSourceFunction</code></li>
 		 *     <li><code>iconSourceField</code></li>
+		 *     <li><code>iconLabelFunction</code></li>
+		 *     <li><code>iconLabelField</code></li>
 		 *     <li><code>iconFunction</code></li>
 		 *     <li><code>iconField</code></li>
 		 * </ol>
@@ -944,6 +1208,132 @@ package feathers.controls.renderers
 				return;
 			}
 			this._iconSourceFunction = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _iconLabelField:String = "iconLabel";
+
+		/**
+		 * The field in the item that contains a string to be displayed in a
+		 * renderer-managed <code>ITextRenderer</code> in the icon position of
+		 * the renderer. The renderer will automatically reuse an internal
+		 * <code>ITextRenderer</code> and swap the text when the data changes.
+		 * This <code>ITextRenderer</code> may be skinned by changing the
+		 * <code>iconLabelFactory</code>.
+		 *
+		 * <p>Using an icon label will result in better performance than
+		 * passing in an <code>ITextRenderer</code> through a <code>iconField</code>
+		 * or <code>iconFunction</code> because the renderer can avoid
+		 * costly display list manipulation.</p>
+		 *
+		 * <p>All of the icon fields and functions, ordered by priority:</p>
+		 * <ol>
+		 *     <li><code>iconSourceFunction</code></li>
+		 *     <li><code>iconSourceField</code></li>
+		 *     <li><code>iconLabelFunction</code></li>
+		 *     <li><code>iconLabelField</code></li>
+		 *     <li><code>iconFunction</code></li>
+		 *     <li><code>iconField</code></li>
+		 * </ol>
+		 *
+		 * <p>In the following example, the icon label field is customized:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.iconLabelField = "text";</listing>
+		 *
+		 * @default "iconLabel"
+		 *
+		 * @see #iconLabelFactory
+		 * @see #iconLabelFunction
+		 * @see #iconField
+		 * @see #iconFunction
+		 * @see #iconySourceField
+		 * @see #iconSourceFunction
+		 */
+		public function get iconLabelField():String
+		{
+			return this._iconLabelField;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set iconLabelField(value:String):void
+		{
+			if(this._iconLabelField == value)
+			{
+				return;
+			}
+			this._iconLabelField = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _iconLabelFunction:Function;
+
+		/**
+		 * A function that returns a string to be displayed in a
+		 * renderer-managed <code>ITextRenderer</code> in the icon position of
+		 * the renderer. The renderer will automatically reuse an internal
+		 * <code>ITextRenderer</code> and swap the text when the data changes.
+		 * This <code>ITextRenderer</code> may be skinned by changing the
+		 * <code>iconLabelFactory</code>.
+		 *
+		 * <p>Using an icon label will result in better performance than
+		 * passing in an <code>ITextRenderer</code> through a <code>iconField</code>
+		 * or <code>iconFunction</code> because the renderer can avoid costly
+		 * display list manipulation.</p>
+		 *
+		 * <p>The function is expected to have the following signature:</p>
+		 * <pre>function( item:Object ):String</pre>
+		 *
+		 * <p>All of the icon fields and functions, ordered by priority:</p>
+		 * <ol>
+		 *     <li><code>iconSourceFunction</code></li>
+		 *     <li><code>iconSourceField</code></li>
+		 *     <li><code>iconLabelFunction</code></li>
+		 *     <li><code>iconLabelField</code></li>
+		 *     <li><code>iconFunction</code></li>
+		 *     <li><code>iconField</code></li>
+		 * </ol>
+		 *
+		 * <p>In the following example, the icon label function is customized:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.iconLabelFunction = function( item:Object ):String
+		 * {
+		 *    return item.firstName + " " + item.lastName;
+		 * };</listing>
+		 *
+		 * @default null
+		 *
+		 * @see #iconLabelFactory
+		 * @see #iconLabelField
+		 * @see #iconField
+		 * @see #iconFunction
+		 * @see #iconSourceField
+		 * @see #iconSourceFunction
+		 */
+		public function get iconLabelFunction():Function
+		{
+			return this._iconLabelFunction;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set iconLabelFunction(value:Function):void
+		{
+			if(this._iconLabelFunction == value)
+			{
+				return;
+			}
+			this._iconLabelFunction = value;
 			this.invalidate(INVALIDATION_FLAG_DATA);
 		}
 
@@ -1223,14 +1613,14 @@ package feathers.controls.renderers
 
 		/**
 		 * The field in the item that contains a string to be displayed in a
-		 * renderer-managed <code>Label</code> in the accessory position of the
-		 * renderer. The renderer will automatically reuse an internal
-		 * <code>Label</code> and swap the text when the data changes. This
-		 * <code>Label</code> may be skinned by changing the
+		 * renderer-managed <code>ITextRenderer</code> in the accessory position
+		 * of the renderer. The renderer will automatically reuse an internal
+		 * <code>ITextRenderer</code> and swap the text when the data changes.
+		 * This <code>ITextRenderer</code> may be skinned by changing the
 		 * <code>accessoryLabelFactory</code>.
 		 *
 		 * <p>Using an accessory label will result in better performance than
-		 * passing in a <code>Label</code> through a <code>accessoryField</code>
+		 * passing in a <code>ITextRenderer</code> through an <code>accessoryField</code>
 		 * or <code>accessoryFunction</code> because the renderer can avoid
 		 * costly display list manipulation.</p>
 		 *
@@ -1283,14 +1673,14 @@ package feathers.controls.renderers
 
 		/**
 		 * A function that returns a string to be displayed in a
-		 * renderer-managed <code>Label</code> in the accessory position of the
-		 * renderer. The renderer will automatically reuse an internal
-		 * <code>Label</code> and swap the text when the data changes. This
-		 * <code>Label</code> may be skinned by changing the
+		 * renderer-managed <code>ITextRenderer</code> in the accessory position
+		 * of the renderer. The renderer will automatically reuse an internal
+		 * <code>ITextRenderer</code> and swap the text when the data changes.
+		 * This <code>ITextRenderer</code> may be skinned by changing the
 		 * <code>accessoryLabelFactory</code>.
 		 *
 		 * <p>Using an accessory label will result in better performance than
-		 * passing in a <code>Label</code> through a <code>accessoryField</code>
+		 * passing in an <code>ITextRenderer</code> through an <code>accessoryField</code>
 		 * or <code>accessoryFunction</code> because the renderer can avoid
 		 * costly display list manipulation.</p>
 		 *
@@ -1345,6 +1735,231 @@ package feathers.controls.renderers
 		/**
 		 * @private
 		 */
+		protected var _selectableField:String = "selectable";
+
+		/**
+		 * The field in the item that determines if the item renderer can be
+		 * selected, if the list allows selection. If the item does not have
+		 * this field, and a <code>selectableFunction</code> is not defined,
+		 * then the renderer will default to being selectable.
+		 *
+		 * <p>All of the label fields and functions, ordered by priority:</p>
+		 * <ol>
+		 *     <li><code>selectableFunction</code></li>
+		 *     <li><code>selectableField</code></li>
+		 * </ol>
+		 *
+		 * <p>In the following example, the selectable field is customized:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.selectableField = "isSelectable";</listing>
+		 *
+		 * @default "selectable"
+		 *
+		 * @see #selectableFunction
+		 */
+		public function get selectableField():String
+		{
+			return this._selectableField;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set selectableField(value:String):void
+		{
+			if(this._selectableField == value)
+			{
+				return;
+			}
+			this._selectableField = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _selectableFunction:Function;
+
+		/**
+		 * A function used to determine if a specific item is selectable. If this
+		 * function is not null, then the <code>selectableField</code> will be
+		 * ignored.
+		 *
+		 * <p>The function is expected to have the following signature:</p>
+		 * <pre>function( item:Object ):Boolean</pre>
+		 *
+		 * <p>All of the selectable fields and functions, ordered by priority:</p>
+		 * <ol>
+		 *     <li><code>selectableFunction</code></li>
+		 *     <li><code>selectableField</code></li>
+		 * </ol>
+		 *
+		 * <p>In the following example, the selectable function is customized:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.selectableFunction = function( item:Object ):Boolean
+		 * {
+		 *    return item.isSelectable;
+		 * };</listing>
+		 *
+		 * @default null
+		 *
+		 * @see #selectableField
+		 */
+		public function get selectableFunction():Function
+		{
+			return this._selectableFunction;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set selectableFunction(value:Function):void
+		{
+			if(this._selectableFunction == value)
+			{
+				return;
+			}
+			this._selectableFunction = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _enabledField:String = "enabled";
+
+		/**
+		 * The field in the item that determines if the item renderer is
+		 * enabled, if the list is enabled. If the item does not have
+		 * this field, and a <code>enabledFunction</code> is not defined,
+		 * then the renderer will default to being enabled.
+		 *
+		 * <p>All of the label fields and functions, ordered by priority:</p>
+		 * <ol>
+		 *     <li><code>enabledFunction</code></li>
+		 *     <li><code>enabledField</code></li>
+		 * </ol>
+		 *
+		 * <p>In the following example, the enabled field is customized:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.enabledField = "isEnabled";</listing>
+		 *
+		 * @default "enabled"
+		 *
+		 * @see #enabledFunction
+		 */
+		public function get enabledField():String
+		{
+			return this._enabledField;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set enabledField(value:String):void
+		{
+			if(this._enabledField == value)
+			{
+				return;
+			}
+			this._enabledField = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _enabledFunction:Function;
+
+		/**
+		 * A function used to determine if a specific item is enabled. If this
+		 * function is not null, then the <code>enabledField</code> will be
+		 * ignored.
+		 *
+		 * <p>The function is expected to have the following signature:</p>
+		 * <pre>function( item:Object ):Boolean</pre>
+		 *
+		 * <p>All of the enabled fields and functions, ordered by priority:</p>
+		 * <ol>
+		 *     <li><code>enabledFunction</code></li>
+		 *     <li><code>enabledField</code></li>
+		 * </ol>
+		 *
+		 * <p>In the following example, the enabled function is customized:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.enabledFunction = function( item:Object ):Boolean
+		 * {
+		 *    return item.isEnabled;
+		 * };</listing>
+		 *
+		 * @default null
+		 *
+		 * @see #enabledField
+		 */
+		public function get enabledFunction():Function
+		{
+			return this._enabledFunction;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set enabledFunction(value:Function):void
+		{
+			if(this._enabledFunction == value)
+			{
+				return;
+			}
+			this._enabledFunction = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _explicitIsToggle:Boolean = false;
+
+		/**
+		 * @private
+		 */
+		override public function set isToggle(value:Boolean):void
+		{
+			if(this._explicitIsToggle == value)
+			{
+				return;
+			}
+			super.isToggle = value;
+			this._explicitIsToggle = value;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _explicitIsEnabled:Boolean = false;
+
+		/**
+		 * @private
+		 */
+		override public function set isEnabled(value:Boolean):void
+		{
+			if(this._explicitIsEnabled == value)
+			{
+				return;
+			}
+			this._explicitIsEnabled = value;
+			super.isEnabled = value;;
+			this.invalidate(INVALIDATION_FLAG_DATA);
+			this.invalidate(INVALIDATION_FLAG_STATE);
+		}
+
+		/**
+		 * @private
+		 */
 		protected var _iconLoaderFactory:Function = defaultLoaderFactory;
 
 		/**
@@ -1367,6 +1982,8 @@ package feathers.controls.renderers
 		 *    return loader;
 		 * };</listing>
 		 *
+		 * @default function():ImageLoader { return new ImageLoader(); }
+		 *
 		 * @see feathers.controls.ImageLoader
 		 * @see #iconSourceField
 		 * @see #iconSourceFunction
@@ -1386,6 +2003,136 @@ package feathers.controls.renderers
 				return;
 			}
 			this._iconLoaderFactory = value;
+			this._iconIsFromItem = false;
+			this.replaceIcon(null);
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _iconLabelFactory:Function;
+
+		/**
+		 * A function that generates <code>ITextRenderer</code> that uses the result
+		 * of <code>iconLabelField</code> or <code>iconLabelFunction</code>.
+		 * CAn be used to set properties on the <code>ITextRenderer</code>.
+		 *
+		 * <p>The function is expected to have the following signature:</p>
+		 * <pre>function():ITextRenderer</pre>
+		 *
+		 * <p>In the following example, the icon label factory is customized:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.iconLabelFactory = function():ITextRenderer
+		 * {
+		 *    var renderer:TextFieldTextRenderer = new TextFieldTextRenderer();
+		 *    renderer.textFormat = new TextFormat( "Source Sans Pro", 16, 0x333333 );
+		 *    renderer.embedFonts = true;
+		 *    return renderer;
+		 * };</listing>
+		 *
+		 * @default null
+		 *
+		 * @see feathers.core.ITextRenderer
+		 * @see feathers.core.FeathersControl#defaultTextRendererFactory
+		 * @see #iconLabelField
+		 * @see #iconLabelFunction
+		 */
+		public function get iconLabelFactory():Function
+		{
+			return this._iconLabelFactory;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set iconLabelFactory(value:Function):void
+		{
+			if(this._iconLabelFactory == value)
+			{
+				return;
+			}
+			this._iconLabelFactory = value;
+			this._iconIsFromItem = false;
+			this.replaceIcon(null);
+			this.invalidate(INVALIDATION_FLAG_DATA);
+		}
+
+		/**
+		 * @private
+		 */
+		protected var _iconLabelProperties:PropertyProxy;
+
+		/**
+		 * A set of key/value pairs to be passed down to a label icon, if one
+		 * exists. The title is an <code>ITextRenderer</code> instance. The
+		 * available properties depend on which <code>ITextRenderer</code>
+		 * implementation is used.
+		 *
+		 * <p>If the subcomponent has its own subcomponents, their properties
+		 * can be set too, using attribute <code>&#64;</code> notation. For example,
+		 * to set the skin on the thumb which is in a <code>SimpleScrollBar</code>,
+		 * which is in a <code>List</code>, you can use the following syntax:</p>
+		 * <pre>list.verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
+		 *
+		 * <p>Setting properties in a <code>iconLabelFactory</code>
+		 * function instead of using <code>iconLabelProperties</code> will
+		 * result in better performance.</p>
+		 *
+		 * <p>In the following example, the icon label properties are customized:</p>
+		 *
+		 * <listing version="3.0">
+		 * renderer.&#64;iconLabelProperties.textFormat = new TextFormat( "Source Sans Pro", 16, 0x333333 );
+		 * renderer.&#64;iconLabelProperties.embedFonts = true;</listing>
+		 *
+		 * @default null
+		 *
+		 * @see feathers.core.ITextRenderer
+		 * @see #iconLabelFactory
+		 * @see #iconLabelField
+		 * @see #iconLabelFunction
+		 */
+		public function get iconLabelProperties():Object
+		{
+			if(!this._iconLabelProperties)
+			{
+				this._iconLabelProperties = new PropertyProxy(childProperties_onChange);
+			}
+			return this._iconLabelProperties;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set iconLabelProperties(value:Object):void
+		{
+			if(this._iconLabelProperties == value)
+			{
+				return;
+			}
+			if(!value)
+			{
+				value = new PropertyProxy();
+			}
+			if(!(value is PropertyProxy))
+			{
+				const newValue:PropertyProxy = new PropertyProxy();
+				for(var propertyName:String in value)
+				{
+					newValue[propertyName] = value[propertyName];
+				}
+				value = newValue;
+			}
+			if(this._iconLabelProperties)
+			{
+				this._iconLabelProperties.removeOnChangeCallback(childProperties_onChange);
+			}
+			this._iconLabelProperties = PropertyProxy(value);
+			if(this._iconLabelProperties)
+			{
+				this._iconLabelProperties.addOnChangeCallback(childProperties_onChange);
+			}
 			this.invalidate(INVALIDATION_FLAG_STYLES);
 		}
 
@@ -1414,6 +2161,8 @@ package feathers.controls.renderers
 		 *    return loader;
 		 * };</listing>
 		 *
+		 * @default function():ImageLoader { return new ImageLoader(); }
+		 *
 		 * @see feathers.controls.ImageLoader
 		 * @see #accessorySourceField;
 		 * @see #accessorySourceFunction;
@@ -1433,7 +2182,9 @@ package feathers.controls.renderers
 				return;
 			}
 			this._accessoryLoaderFactory = value;
-			this.invalidate(INVALIDATION_FLAG_STYLES);
+			this._accessoryIsFromItem = false;
+			this.replaceAccessory(null);
+			this.invalidate(INVALIDATION_FLAG_DATA);
 		}
 
 		/**
@@ -1460,6 +2211,8 @@ package feathers.controls.renderers
 		 *    return renderer;
 		 * };</listing>
 		 *
+		 * @default null
+		 *
 		 * @see feathers.core.ITextRenderer
 		 * @see feathers.core.FeathersControl#defaultTextRendererFactory
 		 * @see #accessoryLabelField
@@ -1480,7 +2233,9 @@ package feathers.controls.renderers
 				return;
 			}
 			this._accessoryLabelFactory = value;
-			this.invalidate(INVALIDATION_FLAG_STYLES);
+			this._accessoryIsFromItem = false;
+			this.replaceAccessory(null);
+			this.invalidate(INVALIDATION_FLAG_DATA);
 		}
 
 		/**
@@ -1496,10 +2251,9 @@ package feathers.controls.renderers
 		 *
 		 * <p>If the subcomponent has its own subcomponents, their properties
 		 * can be set too, using attribute <code>&#64;</code> notation. For example,
-		 * to set the skin on the thumb of a <code>SimpleScrollBar</code>
-		 * which is in a <code>Scroller</code> which is in a <code>List</code>,
-		 * you can use the following syntax:</p>
-		 * <pre>list.scrollerProperties.&#64;verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
+		 * to set the skin on the thumb which is in a <code>SimpleScrollBar</code>,
+		 * which is in a <code>List</code>, you can use the following syntax:</p>
+		 * <pre>list.verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
 		 *
 		 * <p>Setting properties in a <code>accessoryLabelFactory</code>
 		 * function instead of using <code>accessoryLabelProperties</code> will
@@ -1511,6 +2265,8 @@ package feathers.controls.renderers
 		 * renderer.&#64;accessoryLabelProperties.textFormat = new TextFormat( "Source Sans Pro", 16, 0x333333 );
 		 * renderer.&#64;accessoryLabelProperties.embedFonts = true;</listing>
 		 *
+		 * @default null
+		 *
 		 * @see feathers.core.ITextRenderer
 		 * @see #accessoryLabelFactory
 		 * @see #accessoryLabelField
@@ -1520,7 +2276,7 @@ package feathers.controls.renderers
 		{
 			if(!this._accessoryLabelProperties)
 			{
-				this._accessoryLabelProperties = new PropertyProxy(accessoryLabelProperties_onChange);
+				this._accessoryLabelProperties = new PropertyProxy(childProperties_onChange);
 			}
 			return this._accessoryLabelProperties;
 		}
@@ -1549,12 +2305,12 @@ package feathers.controls.renderers
 			}
 			if(this._accessoryLabelProperties)
 			{
-				this._accessoryLabelProperties.removeOnChangeCallback(accessoryLabelProperties_onChange);
+				this._accessoryLabelProperties.removeOnChangeCallback(childProperties_onChange);
 			}
 			this._accessoryLabelProperties = PropertyProxy(value);
 			if(this._accessoryLabelProperties)
 			{
-				this._accessoryLabelProperties.addOnChangeCallback(accessoryLabelProperties_onChange);
+				this._accessoryLabelProperties.addOnChangeCallback(childProperties_onChange);
 			}
 			this.invalidate(INVALIDATION_FLAG_STYLES);
 		}
@@ -1569,8 +2325,14 @@ package feathers.controls.renderers
 		 */
 		override public function dispose():void
 		{
-			this.replaceIcon(null);
-			this.replaceAccessory(null);
+			if(this._iconIsFromItem)
+			{
+				this.replaceIcon(null);
+			}
+			if(this._accessoryIsFromItem)
+			{
+				this.replaceAccessory(null);
+			}
 			if(this._stateDelayTimer)
 			{
 				if(this._stateDelayTimer.running)
@@ -1597,13 +2359,27 @@ package feathers.controls.renderers
 		{
 			if(this._labelFunction != null)
 			{
-				return this._labelFunction(item).toString();
+				var labelResult:Object = this._labelFunction(item);
+				if(labelResult is String)
+				{
+					return labelResult as String;
+				}
+				return labelResult.toString();
 			}
 			else if(this._labelField != null && item && item.hasOwnProperty(this._labelField))
 			{
-				return item[this._labelField].toString();
+				labelResult = item[this._labelField];
+				if(labelResult is String)
+				{
+					return labelResult as String;
+				}
+				return labelResult.toString();
 			}
-			else if(item is Object)
+			else if(item is String)
+			{
+				return item as String;
+			}
+			else if(item)
 			{
 				return item.toString();
 			}
@@ -1618,6 +2394,8 @@ package feathers.controls.renderers
 		 * <ol>
 		 *     <li><code>iconSourceFunction</code></li>
 		 *     <li><code>iconSourceField</code></li>
+		 *     <li><code>iconLabelFunction</code></li>
+		 *     <li><code>iconLabelField</code></li>
 		 *     <li><code>iconFunction</code></li>
 		 *     <li><code>iconField</code></li>
 		 * </ol>
@@ -1635,6 +2413,32 @@ package feathers.controls.renderers
 				source = item[this._iconSourceField];
 				this.refreshIconSource(source);
 				return this.iconImage;
+			}
+			else if(this._iconLabelFunction != null)
+			{
+				var labelResult:Object = this._iconLabelFunction(item);
+				if(labelResult is String)
+				{
+					this.refreshIconLabel(labelResult as String);
+				}
+				else
+				{
+					this.refreshIconLabel(labelResult.toString());
+				}
+				return DisplayObject(this.iconLabel);
+			}
+			else if(this._iconLabelField != null && item && item.hasOwnProperty(this._iconLabelField))
+			{
+				labelResult = item[this._iconLabelField];
+				if(labelResult is String)
+				{
+					this.refreshIconLabel(labelResult as String);
+				}
+				else
+				{
+					this.refreshIconLabel(labelResult.toString());
+				}
+				return DisplayObject(this.iconLabel);
 			}
 			else if(this._iconFunction != null)
 			{
@@ -1678,14 +2482,28 @@ package feathers.controls.renderers
 			}
 			else if(this._accessoryLabelFunction != null)
 			{
-				var label:String = this._accessoryLabelFunction(item).toString();
-				this.refreshAccessoryLabel(label);
+				var labelResult:Object = this._accessoryLabelFunction(item);
+				if(labelResult is String)
+				{
+					this.refreshAccessoryLabel(labelResult as String);
+				}
+				else
+				{
+					this.refreshAccessoryLabel(labelResult.toString());
+				}
 				return DisplayObject(this.accessoryLabel);
 			}
 			else if(this._accessoryLabelField != null && item && item.hasOwnProperty(this._accessoryLabelField))
 			{
-				label = item[this._accessoryLabelField].toString();
-				this.refreshAccessoryLabel(label);
+				labelResult = item[this._accessoryLabelField];
+				if(labelResult is String)
+				{
+					this.refreshAccessoryLabel(labelResult as String);
+				}
+				else
+				{
+					this.refreshAccessoryLabel(labelResult.toString());
+				}
 				return DisplayObject(this.accessoryLabel);
 			}
 			else if(this._accessoryFunction != null)
@@ -1701,25 +2519,74 @@ package feathers.controls.renderers
 		}
 
 		/**
+		 * Uses the selectable fields and functions to generate a selectable
+		 * value for a specific item.
+		 *
+		 * <p>All of the selectable fields and functions, ordered by priority:</p>
+		 * <ol>
+		 *     <li><code>selectableFunction</code></li>
+		 *     <li><code>selectableField</code></li>
+		 * </ol>
+		 */
+		protected function itemToSelectable(item:Object):Boolean
+		{
+			if(this._selectableFunction != null)
+			{
+				return this._selectableFunction(item) as Boolean;
+			}
+			else if(this._selectableField != null && item && item.hasOwnProperty(this._selectableField))
+			{
+				return item[this._selectableField] as Boolean;
+			}
+
+			return true;
+		}
+
+		/**
+		 * Uses the enabled fields and functions to generate a enabled value for
+		 * a specific item.
+		 *
+		 * <p>All of the enabled fields and functions, ordered by priority:</p>
+		 * <ol>
+		 *     <li><code>enabledFunction</code></li>
+		 *     <li><code>enabledField</code></li>
+		 * </ol>
+		 */
+		protected function itemToEnabled(item:Object):Boolean
+		{
+			if(this._enabledFunction != null)
+			{
+				return this._enabledFunction(item) as Boolean;
+			}
+			else if(this._enabledField != null && item && item.hasOwnProperty(this._enabledField))
+			{
+				return item[this._enabledField] as Boolean;
+			}
+
+			return true;
+		}
+
+		/**
 		 * @private
 		 */
 		override protected function draw():void
 		{
+			const stateInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_STATE);
 			const dataInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_DATA);
 			const stylesInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_STYLES);
 			if(dataInvalid)
 			{
 				this.commitData();
 			}
-			if(dataInvalid || stylesInvalid)
+			if(stateInvalid || dataInvalid || stylesInvalid)
 			{
-				this.refreshAccessoryLabelStyles();
+				this.refreshAccessory();
 			}
 			super.draw();
 		}
 
 		/**
-		 * @private
+		 * @inheritDoc
 		 */
 		override protected function autoSizeIfNeeded():Boolean
 		{
@@ -1733,14 +2600,6 @@ package feathers.controls.renderers
 			this._ignoreAccessoryResizes = true;
 			this.refreshMaxLabelWidth(true);
 			this.labelTextRenderer.measureText(HELPER_POINT);
-			if(this.accessory is IFeathersControl)
-			{
-				IFeathersControl(this.accessory).validate();
-			}
-			if(this.currentIcon is IFeathersControl)
-			{
-				IFeathersControl(this.currentIcon).validate();
-			}
 			var newWidth:Number = this.explicitWidth;
 			if(needsWidth)
 			{
@@ -1748,7 +2607,18 @@ package feathers.controls.renderers
 				{
 					newWidth = HELPER_POINT.x;
 				}
-				var adjustedGap:Number = this._gap == Number.POSITIVE_INFINITY ? Math.min(this._paddingLeft, this._paddingRight) : this._gap;
+				var adjustedGap:Number = this._gap;
+				if(this._gap == Number.POSITIVE_INFINITY)
+				{
+					if(this._paddingLeft < this._paddingRight)
+					{
+						adjustedGap = this._paddingLeft;
+					}
+					else
+					{
+						adjustedGap = this._paddingRight;
+					}
+				}
 				if(this._layoutOrder == LAYOUT_ORDER_LABEL_ACCESSORY_ICON)
 				{
 					newWidth = this.addAccessoryWidth(newWidth, adjustedGap);
@@ -1781,7 +2651,18 @@ package feathers.controls.renderers
 				{
 					newHeight = HELPER_POINT.y;
 				}
-				adjustedGap = this._gap == Number.POSITIVE_INFINITY ? Math.min(this._paddingTop, this._paddingBottom) : this._gap;
+				adjustedGap = this._gap;
+				if(this._gap == Number.POSITIVE_INFINITY)
+				{
+					if(this._paddingTop < this._paddingBottom)
+					{
+						adjustedGap = this._paddingTop;
+					}
+					else
+					{
+						adjustedGap = this._paddingBottom;
+					}
+				}
 				if(this._layoutOrder == LAYOUT_ORDER_LABEL_ACCESSORY_ICON)
 				{
 					newHeight = this.addAccessoryHeight(newHeight, adjustedGap);
@@ -1799,7 +2680,10 @@ package feathers.controls.renderers
 				}
 				else if(!isNaN(this._originalSkinHeight))
 				{
-					newHeight = Math.max(newHeight, this._originalSkinHeight);
+					if(this._originalSkinHeight > newHeight)
+					{
+						newHeight = this._originalSkinHeight;
+					}
 				}
 				if(isNaN(newHeight))
 				{
@@ -1821,14 +2705,19 @@ package feathers.controls.renderers
 				return width;
 			}
 
-			if(isNaN(width))
+			var hasPreviousItem:Boolean = !isNaN(width);
+			if(!hasPreviousItem)
 			{
 				width = 0;
 			}
 
 			if(this._iconPosition == ICON_POSITION_LEFT || this._iconPosition == ICON_POSITION_LEFT_BASELINE || this._iconPosition == ICON_POSITION_RIGHT || this._iconPosition == ICON_POSITION_RIGHT_BASELINE)
 			{
-				width += this.currentIcon.width + gap;
+				if(hasPreviousItem)
+				{
+					width += gap;
+				}
+				width += this.currentIcon.width;
 			}
 			else
 			{
@@ -1847,19 +2736,24 @@ package feathers.controls.renderers
 				return width;
 			}
 
-			if(isNaN(width))
+			var hasPreviousItem:Boolean = !isNaN(width);
+			if(!hasPreviousItem)
 			{
 				width = 0;
 			}
 
 			if(this._accessoryPosition == ACCESSORY_POSITION_LEFT || this._accessoryPosition == ACCESSORY_POSITION_RIGHT)
 			{
-				var adjustedAccessoryGap:Number = isNaN(this._accessoryGap) ? gap : this._accessoryGap;
-				if(adjustedAccessoryGap == Number.POSITIVE_INFINITY)
+				if(hasPreviousItem)
 				{
-					adjustedAccessoryGap = Math.min(this._paddingLeft, this._paddingRight, this._gap);
+					var adjustedAccessoryGap:Number = isNaN(this._accessoryGap) ? gap : this._accessoryGap;
+					if(adjustedAccessoryGap == Number.POSITIVE_INFINITY)
+					{
+						adjustedAccessoryGap = Math.min(this._paddingLeft, this._paddingRight, this._gap);
+					}
+					width += adjustedAccessoryGap;
 				}
-				width += this.accessory.width + adjustedAccessoryGap;
+				width += this.accessory.width;
 			}
 			else
 			{
@@ -1879,14 +2773,19 @@ package feathers.controls.renderers
 				return height;
 			}
 
-			if(isNaN(height))
+			var hasPreviousItem:Boolean = !isNaN(height);
+			if(!hasPreviousItem)
 			{
 				height = 0;
 			}
 
 			if(this._iconPosition == ICON_POSITION_TOP || this._iconPosition == ICON_POSITION_BOTTOM)
 			{
-				height += this.currentIcon.height + gap;
+				if(hasPreviousItem)
+				{
+					height += gap;
+				}
+				height += this.currentIcon.height;
 			}
 			else
 			{
@@ -1905,19 +2804,24 @@ package feathers.controls.renderers
 				return height;
 			}
 
-			if(isNaN(height))
+			var hasPreviousItem:Boolean = !isNaN(height);
+			if(!hasPreviousItem)
 			{
 				height = 0;
 			}
 
 			if(this._accessoryPosition == ACCESSORY_POSITION_TOP || this._accessoryPosition == ACCESSORY_POSITION_BOTTOM)
 			{
-				var adjustedAccessoryGap:Number = isNaN(this._accessoryGap) ? gap : this._accessoryGap;
-				if(adjustedAccessoryGap == Number.POSITIVE_INFINITY)
+				if(hasPreviousItem)
 				{
-					adjustedAccessoryGap = Math.min(this._paddingTop, this._paddingBottom, this._gap);
+					var adjustedAccessoryGap:Number = isNaN(this._accessoryGap) ? gap : this._accessoryGap;
+					if(adjustedAccessoryGap == Number.POSITIVE_INFINITY)
+					{
+						adjustedAccessoryGap = Math.min(this._paddingTop, this._paddingBottom, this._gap);
+					}
+					height += adjustedAccessoryGap;
 				}
-				height += this.accessory.height + adjustedAccessoryGap;
+				height += this.accessory.height;
 			}
 			else
 			{
@@ -1927,7 +2831,10 @@ package feathers.controls.renderers
 		}
 
 		/**
-		 * @private
+		 * Updates the renderer to display the item's data. Override this
+		 * function to pass data to sub-components and react to data changes.
+		 *
+		 * <p>Don't forget to handle the case where the data is <code>null</code>.</p>
 		 */
 		protected function commitData():void
 		{
@@ -1936,16 +2843,47 @@ package feathers.controls.renderers
 				if(this._itemHasLabel)
 				{
 					this._label = this.itemToLabel(this._data);
+					//we don't need to invalidate because the label setter
+					//uses the same data invalidation flag that triggered this
+					//call to commitData(), so we're already properly invalid.
 				}
 				if(this._itemHasIcon)
 				{
-					const newIcon:DisplayObject = this.itemToIcon(this._data);
+					var newIcon:DisplayObject = this.itemToIcon(this._data);
+					this._iconIsFromItem = newIcon != null;
 					this.replaceIcon(newIcon);
+				}
+				else if(this._iconIsFromItem)
+				{
+					this._iconIsFromItem = false;
+					this.replaceIcon(null);
 				}
 				if(this._itemHasAccessory)
 				{
-					const newAccessory:DisplayObject = this.itemToAccessory(this._data);
+					var newAccessory:DisplayObject = this.itemToAccessory(this._data);
+					this._accessoryIsFromItem = newAccessory != null;
 					this.replaceAccessory(newAccessory);
+				}
+				else if(this._accessoryIsFromItem)
+				{
+					this._accessoryIsFromItem = false;
+					this.replaceAccessory(null);
+				}
+				if(this._itemHasSelectable)
+				{
+					this._isToggle = this._explicitIsToggle && this.itemToSelectable(this._data);
+				}
+				else
+				{
+					this._isToggle = this._explicitIsToggle;
+				}
+				if(this._itemHasEnabled)
+				{
+					this.refreshIsEnabled(this._explicitIsEnabled && this.itemToEnabled(this._data));
+				}
+				else
+				{
+					this.refreshIsEnabled(this._explicitIsEnabled);
 				}
 			}
 			else
@@ -1954,15 +2892,54 @@ package feathers.controls.renderers
 				{
 					this._label = "";
 				}
-				if(this._itemHasIcon)
+				if(this._itemHasIcon || this._iconIsFromItem)
 				{
+					this._iconIsFromItem = false;
 					this.replaceIcon(null);
 				}
-				if(this._itemHasAccessory)
+				if(this._itemHasAccessory || this._accessoryIsFromItem)
 				{
+					this._accessoryIsFromItem = false;
 					this.replaceAccessory(null);
 				}
+				if(this._itemHasSelectable)
+				{
+					this._isToggle = this._explicitIsToggle;
+				}
+				if(this._itemHasEnabled)
+				{
+					this.refreshIsEnabled(this._explicitIsEnabled);
+				}
 			}
+		}
+
+		/**
+		 * @private
+		 */
+		protected function refreshIsEnabled(value:Boolean):void
+		{
+			if(this._isEnabled == value)
+			{
+				return;
+			}
+			this._isEnabled = value;
+			if(!this._isEnabled)
+			{
+				this.touchable = false;
+				this._currentState = STATE_DISABLED;
+				this.touchPointID = -1;
+			}
+			else
+			{
+				//might be in another state for some reason
+				//let's only change to up if needed
+				if(this._currentState == STATE_DISABLED)
+				{
+					this._currentState = STATE_UP;
+				}
+				this.touchable = true;
+			}
+			this.setInvalidationFlag(INVALIDATION_FLAG_STATE);
 		}
 
 		/**
@@ -1978,6 +2955,13 @@ package feathers.controls.renderers
 				this.iconImage = null;
 			}
 
+			if(this.iconLabel && this.iconLabel != newIcon)
+			{
+				//we can dispose this one, though, since we created it
+				this.iconLabel.dispose();
+				this.iconLabel = null;
+			}
+
 			if(this._itemHasIcon && this.currentIcon && this.currentIcon != newIcon && this.currentIcon.parent == this)
 			{
 				//the icon is created using the data provider, and it is not
@@ -1986,10 +2970,26 @@ package feathers.controls.renderers
 				this.currentIcon.removeFromParent(false);
 				this.currentIcon = null;
 			}
-			//we're using currentIcon above, but defaultIcon here. if you're
-			//wondering, that's intentional. the currentIcon will set to the
-			//defaultIcon elsewhere.
-			this.defaultIcon = newIcon;
+			//we're using currentIcon above, but we're emulating calling the
+			//defaultIcon setter here. the Button class sets the currentIcon
+			//elsewhere, so we want to take advantage of that exisiting code.
+
+			//we're not calling the defaultIcon setter directly because we're in
+			//the middle of validating, and it will just invalidate, which will
+			//require another validation later. we want the Button class to
+			//process the new icon immediately when we call super.draw().
+			if(this._iconSelector.defaultValue != newIcon)
+			{
+				this._iconSelector.defaultValue = newIcon;
+				//we don't need to do a full invalidation. the superclass will
+				//correctly see this flag when we call super.draw().
+				this.setInvalidationFlag(INVALIDATION_FLAG_STYLES);
+			}
+
+			if(this.iconImage)
+			{
+				this.iconImage.delayTextureCreation = this._delayTextureCreationOnScroll && this._owner.isScrolling;
+			}
 		}
 
 		/**
@@ -2048,24 +3048,52 @@ package feathers.controls.renderers
 				}
 				this.addChild(this.accessory);
 			}
+			
+			if(this.accessoryImage)
+			{
+				this.accessoryImage.delayTextureCreation = this._delayTextureCreationOnScroll && this._owner.isScrolling;
+			}
 		}
 
 		/**
 		 * @private
 		 */
-		protected function refreshAccessoryLabelStyles():void
+		override protected function refreshIcon():void
 		{
-			if(!this.accessoryLabel)
+			super.refreshIcon();
+			if(this.iconLabel)
 			{
-				return;
-			}
-			const displayAccessoryLabel:DisplayObject = DisplayObject(this.accessoryLabel);
-			for(var propertyName:String in this._accessoryLabelProperties)
-			{
-				if(displayAccessoryLabel.hasOwnProperty(propertyName))
+				var displayIconLabel:DisplayObject = DisplayObject(this.iconLabel);
+				for(var propertyName:String in this._iconLabelProperties)
 				{
-					var propertyValue:Object = this._accessoryLabelProperties[propertyName];
-					displayAccessoryLabel[propertyName] = propertyValue;
+					if(displayIconLabel.hasOwnProperty(propertyName))
+					{
+						var propertyValue:Object = this._iconLabelProperties[propertyName];
+						displayIconLabel[propertyName] = propertyValue;
+					}
+				}
+			}
+		}
+
+		/**
+		 * @private
+		 */
+		protected function refreshAccessory():void
+		{
+			if(this.accessory is IFeathersControl)
+			{
+				IFeathersControl(this.accessory).isEnabled = this._isEnabled;
+			}
+			if(this.accessoryLabel)
+			{
+				var displayAccessoryLabel:DisplayObject = DisplayObject(this.accessoryLabel);
+				for(var propertyName:String in this._accessoryLabelProperties)
+				{
+					if(displayAccessoryLabel.hasOwnProperty(propertyName))
+					{
+						var propertyValue:Object = this._accessoryLabelProperties[propertyName];
+						displayAccessoryLabel[propertyName] = propertyValue;
+					}
 				}
 			}
 		}
@@ -2082,6 +3110,20 @@ package feathers.controls.renderers
 				this.iconImage.addEventListener(FeathersEventType.ERROR, loader_completeOrErrorHandler);
 			}
 			this.iconImage.source = source;
+		}
+
+		/**
+		 * @private
+		 */
+		protected function refreshIconLabel(label:String):void
+		{
+			if(!this.iconLabel)
+			{
+				var factory:Function = this._iconLabelFactory != null ? this._iconLabelFactory : FeathersControl.defaultTextRendererFactory;
+				this.iconLabel = ITextRenderer(factory());
+				this.iconLabel.nameList.add(this.iconLabelName);
+			}
+			this.iconLabel.text = label;
 		}
 
 		/**
@@ -2105,7 +3147,7 @@ package feathers.controls.renderers
 		{
 			if(!this.accessoryLabel)
 			{
-				const factory:Function = this._accessoryLabelFactory != null ? this._accessoryLabelFactory : FeathersControl.defaultTextRendererFactory;
+				var factory:Function = this._accessoryLabelFactory != null ? this._accessoryLabelFactory : FeathersControl.defaultTextRendererFactory;
 				this.accessoryLabel = ITextRenderer(factory());
 				this.accessoryLabel.nameList.add(this.accessoryLabelName);
 			}
@@ -2125,15 +3167,6 @@ package feathers.controls.renderers
 				this.labelTextRenderer.validate();
 				const labelRenderer:DisplayObject = DisplayObject(this.labelTextRenderer);
 			}
-			if(this.accessory is IFeathersControl)
-			{
-				IFeathersControl(this.accessory).validate();
-			}
-			if(this.currentIcon is IFeathersControl)
-			{
-				IFeathersControl(this.currentIcon).validate();
-			}
-
 			const iconIsInLayout:Boolean = this.currentIcon && this._iconPosition != ICON_POSITION_MANUAL;
 			const accessoryIsInLayout:Boolean = this.accessory && this._accessoryPosition != ACCESSORY_POSITION_MANUAL;
 			const accessoryGap:Number = isNaN(this._accessoryGap) ? this._gap : this._accessoryGap;
@@ -2220,33 +3253,118 @@ package feathers.controls.renderers
 		 */
 		override protected function refreshMaxLabelWidth(forMeasurement:Boolean):void
 		{
-			if(!this._label)
-			{
-				return;
-			}
 			var calculatedWidth:Number = this.actualWidth;
 			if(forMeasurement)
 			{
 				calculatedWidth = isNaN(this.explicitWidth) ? this._maxWidth : this.explicitWidth;
 			}
-			if(this.accessory is IFeathersControl)
-			{
-				IFeathersControl(this.accessory).validate();
-			}
-			const adjustedGap:Number = this._gap == Number.POSITIVE_INFINITY ? Math.min(this._paddingLeft, this._paddingRight) : this._gap;
-			if(this.currentIcon && (this._iconPosition == ICON_POSITION_LEFT || this._iconPosition == ICON_POSITION_LEFT_BASELINE ||
-				this._iconPosition == ICON_POSITION_RIGHT || this._iconPosition == ICON_POSITION_RIGHT_BASELINE))
-			{
-				calculatedWidth -= (adjustedGap + this.currentIcon.width);
-			}
+			calculatedWidth -= (this._paddingLeft + this._paddingRight);
 
-			if(this.accessory && (this._accessoryPosition == ACCESSORY_POSITION_LEFT || this._accessoryPosition == ACCESSORY_POSITION_RIGHT))
-			{
-				const accessoryGap:Number = (isNaN(this._accessoryGap) || this._accessoryGap == Number.POSITIVE_INFINITY) ? adjustedGap : this._accessoryGap;
-				calculatedWidth -= (accessoryGap + this.accessory.width);
-			}
+			var adjustedGap:Number = this._gap == Number.POSITIVE_INFINITY ? Math.min(this._paddingLeft, this._paddingRight) : this._gap;
+			var accessoryGap:Number = (isNaN(this._accessoryGap) || this._accessoryGap == Number.POSITIVE_INFINITY) ? adjustedGap : this._accessoryGap;
 
-			this.labelTextRenderer.maxWidth = calculatedWidth - this._paddingLeft - this._paddingRight;
+			var hasIconToLeftOrRight:Boolean = this.currentIcon && (this._iconPosition == ICON_POSITION_LEFT || this._iconPosition == ICON_POSITION_LEFT_BASELINE ||
+				this._iconPosition == ICON_POSITION_RIGHT || this._iconPosition == ICON_POSITION_RIGHT_BASELINE);
+			var hasAccessoryToLeftOrRight:Boolean = this.accessory && (this._accessoryPosition == ACCESSORY_POSITION_LEFT || this._accessoryPosition == ACCESSORY_POSITION_RIGHT);
+
+			if(this.accessoryLabel)
+			{
+				var iconAffectsAccessoryLabelMaxWidth:Boolean = hasIconToLeftOrRight && (hasAccessoryToLeftOrRight || this._layoutOrder == LAYOUT_ORDER_LABEL_ACCESSORY_ICON);
+				if(this.iconLabel)
+				{
+					this.iconLabel.maxWidth = calculatedWidth - adjustedGap;
+					if(this.iconLabel.maxWidth < 0)
+					{
+						this.iconLabel.maxWidth = 0;
+					}
+				}
+				if(this.currentIcon is IValidating)
+				{
+					IValidating(this.currentIcon).validate();
+				}
+				if(iconAffectsAccessoryLabelMaxWidth)
+				{
+					calculatedWidth -= (this.currentIcon.width + adjustedGap);
+				}
+				if(hasAccessoryToLeftOrRight)
+				{
+					calculatedWidth -= accessoryGap;
+				}
+				if(calculatedWidth < 0)
+				{
+					calculatedWidth = 0;
+				}
+				this.accessoryLabel.maxWidth = calculatedWidth;
+				if(this.currentIcon && !iconAffectsAccessoryLabelMaxWidth)
+				{
+					calculatedWidth -= (this.currentIcon.width + adjustedGap);
+				}
+				if(this.accessory is IValidating)
+				{
+					IValidating(this.accessory).validate();
+				}
+				if(hasAccessoryToLeftOrRight)
+				{
+					calculatedWidth -= this.accessory.width;
+				}
+			}
+			else if(this.iconLabel)
+			{
+				var accessoryAffectsIconLabelMaxWidth:Boolean = hasAccessoryToLeftOrRight && (hasIconToLeftOrRight || this._layoutOrder == LAYOUT_ORDER_LABEL_ICON_ACCESSORY);
+				if(this.accessory is IValidating)
+				{
+					IValidating(this.accessory).validate();
+				}
+				if(accessoryAffectsIconLabelMaxWidth)
+				{
+					calculatedWidth -= (accessoryGap + this.accessory.width);
+				}
+				if(hasIconToLeftOrRight)
+				{
+					calculatedWidth -= adjustedGap;
+				}
+				if(calculatedWidth < 0)
+				{
+					calculatedWidth = 0;
+				}
+				this.iconLabel.maxWidth = calculatedWidth;
+				if(this.accessory && !accessoryAffectsIconLabelMaxWidth)
+				{
+					calculatedWidth -= (accessoryGap + this.accessory.width);
+				}
+				if(this.currentIcon is IValidating)
+				{
+					IValidating(this.currentIcon).validate();
+				}
+				if(hasIconToLeftOrRight)
+				{
+					calculatedWidth -= this.currentIcon.width;
+				}
+			}
+			else
+			{
+				if(this.currentIcon is IValidating)
+				{
+					IValidating(this.currentIcon).validate();
+				}
+				if(hasIconToLeftOrRight)
+				{
+					calculatedWidth -= (adjustedGap + this.currentIcon.width);
+				}
+				if(this.accessory is IValidating)
+				{
+					IValidating(this.accessory).validate();
+				}
+				if(hasAccessoryToLeftOrRight)
+				{
+					calculatedWidth -= (accessoryGap + this.accessory.width);
+				}
+			}
+			if(calculatedWidth < 0)
+			{
+				calculatedWidth = 0;
+			}
+			this.labelTextRenderer.maxWidth = calculatedWidth;
 		}
 
 		/**
@@ -2453,22 +3571,52 @@ package feathers.controls.renderers
 		/**
 		 * @private
 		 */
-		protected function handleOwnerScroll():void
+		protected function owner_scrollStartHandler(event:Event):void
 		{
-			this._touchPointID = -1;
+			if(this._delayTextureCreationOnScroll)
+			{
+				if(this.accessoryImage)
+				{
+					this.accessoryImage.delayTextureCreation = true;
+				}
+				if(this.iconImage)
+				{
+					this.iconImage.delayTextureCreation = true;
+				}
+			}
+
+			if(this.touchPointID < 0 && this.accessoryTouchPointID < 0)
+			{
+				return;
+			}
+			this.resetTouchState();
 			if(this._stateDelayTimer && this._stateDelayTimer.running)
 			{
 				this._stateDelayTimer.stop();
 			}
 			this._delayedCurrentState = null;
-			if(this._currentState != Button.STATE_UP)
-			{
-				super.currentState = Button.STATE_UP;
-			}
 
-			if(this._accessoryTouchPointID >= 0)
+			if(this.accessoryTouchPointID >= 0)
 			{
-				Scroller(this._owner).stopScrolling();
+				this._owner.stopScrolling();
+			}
+		}
+
+		/**
+		 * @private
+		 */
+		protected function owner_scrollCompleteHandler(event:Event):void
+		{
+			if(this._delayTextureCreationOnScroll)
+			{
+				if(this.accessoryImage)
+				{
+					this.accessoryImage.delayTextureCreation = false;
+				}
+				if(this.iconImage)
+				{
+					this.iconImage.delayTextureCreation = false;
+				}
 			}
 		}
 
@@ -2478,7 +3626,7 @@ package feathers.controls.renderers
 		override protected function button_removedFromStageHandler(event:Event):void
 		{
 			super.button_removedFromStageHandler(event);
-			this._accessoryTouchPointID = -1;
+			this.accessoryTouchPointID = -1;
 		}
 
 		/**
@@ -2486,19 +3634,11 @@ package feathers.controls.renderers
 		 */
 		protected function itemRenderer_triggeredHandler(event:Event):void
 		{
-			if(this._isToggle || !this.isSelectableWithoutToggle)
+			if(this._isToggle || !this.isSelectableWithoutToggle || (this._itemHasSelectable && !this.itemToSelectable(this._data)))
 			{
 				return;
 			}
 			this.isSelected = true;
-		}
-
-		/**
-		 * @private
-		 */
-		protected function accessoryLabelProperties_onChange(proxy:PropertyProxy, name:String):void
-		{
-			this.invalidate(INVALIDATION_FLAG_STYLES);
 		}
 
 		/**
@@ -2513,10 +3653,33 @@ package feathers.controls.renderers
 		/**
 		 * @private
 		 */
+		override protected function button_touchHandler(event:TouchEvent):void
+		{
+			if(this.accessory && this.accessory != this.accessoryLabel && this.accessory != this.accessoryImage && this.touchPointID < 0)
+			{
+				//ignore all touches on accessories that are not labels or
+				//loaders. return to up state.
+				var touch:Touch = event.getTouch(this.accessory);
+				if(touch)
+				{
+					this.currentState = Button.STATE_UP;
+					return;
+				}
+			}
+			super.button_touchHandler(event);
+		}
+
+		/**
+		 * @private
+		 */
 		protected function accessory_touchHandler(event:TouchEvent):void
 		{
-			if(!this._isEnabled ||
-				!this.stopScrollingOnAccessoryTouch ||
+			if(!this._isEnabled)
+			{
+				this.accessoryTouchPointID = -1;
+				return;
+			}
+			if(!this.stopScrollingOnAccessoryTouch ||
 				this.accessory == this.accessoryLabel ||
 				this.accessory == this.accessoryImage)
 			{
@@ -2524,46 +3687,24 @@ package feathers.controls.renderers
 				return;
 			}
 
-			const touches:Vector.<Touch> = event.getTouches(this.accessory, null, HELPER_TOUCHES_VECTOR);
-			if(touches.length == 0)
+			if(this.accessoryTouchPointID >= 0)
 			{
-				return;
-			}
-			if(this._accessoryTouchPointID >= 0)
-			{
-				var touch:Touch;
-				for each(var currentTouch:Touch in touches)
-				{
-					if(currentTouch.id == this._accessoryTouchPointID)
-					{
-						touch = currentTouch;
-						break;
-					}
-				}
-
+				var touch:Touch = event.getTouch(this.accessory, TouchPhase.ENDED, this.accessoryTouchPointID);
 				if(!touch)
 				{
-					HELPER_TOUCHES_VECTOR.length = 0;
 					return;
 				}
-
-				if(touch.phase == TouchPhase.ENDED)
-				{
-					this._accessoryTouchPointID = -1;
-				}
+				this.accessoryTouchPointID = -1;
 			}
 			else //if we get here, we don't have a saved touch ID yet
 			{
-				for each(touch in touches)
+				touch = event.getTouch(this.accessory, TouchPhase.BEGAN);
+				if(!touch)
 				{
-					if(touch.phase == TouchPhase.BEGAN)
-					{
-						this._accessoryTouchPointID = touch.id;
-						break;
-					}
+					return;
 				}
+				this.accessoryTouchPointID = touch.id;
 			}
-			HELPER_TOUCHES_VECTOR.length = 0;
 		}
 
 		/**

@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -53,16 +53,7 @@ package feathers.controls
 	 * with a <code>StageTextTextEditor</code> that has its <code>multiline</code>
 	 * property set to <code>true</code>. In that situation, the
 	 * <code>StageText</code> instance will automatically provide its own
-	 * scroll bars.</p>
-	 *
-	 * <p><strong>Beta Component:</strong> This is a new component, and its APIs
-	 * may need some changes between now and the next version of Feathers to
-	 * account for overlooked requirements or other issues. Upgrading to future
-	 * versions of Feathers may involve manual changes to your code that uses
-	 * this component. The
-	 * <a href="http://wiki.starling-framework.org/feathers/deprecation-policy">Feathers deprecation policy</a>
-	 * will not go into effect until this component's status is upgraded from
-	 * beta to stable.</p>
+	 * scroll bars. <code>TextArea</code> is intended for use on desktop.</p>
 	 *
 	 * <p>The following example sets the text in a text area, selects the text,
 	 * and listens for when the text value changes:</p>
@@ -84,11 +75,6 @@ package feathers.controls
 		 * @private
 		 */
 		private static const HELPER_POINT:Point = new Point();
-
-		/**
-		 * @private
-		 */
-		private static const HELPER_TOUCHES_VECTOR:Vector.<Touch> = new <Touch>[];
 
 		/**
 		 * @copy feathers.controls.Scroller#SCROLL_POLICY_AUTO
@@ -136,6 +122,20 @@ package feathers.controls
 		public static const SCROLL_BAR_DISPLAY_MODE_NONE:String = "none";
 
 		/**
+		 * The vertical scroll bar will be positioned on the right.
+		 *
+		 * @see feathers.controls.Scroller#verticalScrollBarPosition
+		 */
+		public static const VERTICAL_SCROLL_BAR_POSITION_RIGHT:String = "right";
+
+		/**
+		 * The vertical scroll bar will be positioned on the left.
+		 *
+		 * @see feathers.controls.Scroller#verticalScrollBarPosition
+		 */
+		public static const VERTICAL_SCROLL_BAR_POSITION_LEFT:String = "left";
+
+		/**
 		 * @copy feathers.controls.Scroller#INTERACTION_MODE_TOUCH
 		 *
 		 * @see feathers.controls.Scroller#interactionMode
@@ -148,6 +148,13 @@ package feathers.controls
 		 * @see feathers.controls.Scroller#interactionMode
 		 */
 		public static const INTERACTION_MODE_MOUSE:String = "mouse";
+
+		/**
+		 * @copy feathers.controls.Scroller#INTERACTION_MODE_TOUCH_AND_SCROLL_BARS
+		 *
+		 * @see feathers.controls.Scroller#interactionMode
+		 */
+		public static const INTERACTION_MODE_TOUCH_AND_SCROLL_BARS:String = "touchAndScrollBars";
 
 		/**
 		 * Constructor.
@@ -298,6 +305,8 @@ package feathers.controls
 		 *
 		 * <listing version="3.0">
 		 * textArea.restrict = "0-9;</listing>
+		 *
+		 * @default null
 		 */
 		public function get restrict():String
 		{
@@ -365,6 +374,8 @@ package feathers.controls
 		 *
 		 * <listing version="3.0">
 		 * textArea.backgroundFocusedSkin = new Image( texture );</listing>
+		 *
+		 * @default null
 		 */
 		public function get backgroundFocusedSkin():DisplayObject
 		{
@@ -423,6 +434,8 @@ package feathers.controls
 		 *     return new TextFieldTextEditorViewPort();
 		 * };</listing>
 		 *
+		 * @default null
+		 *
 		 * @see feathers.controls.text.ITextEditorViewPort
 		 * @see feathers.controls.text.TextFieldTextEditorViewPort
 		 */
@@ -456,10 +469,9 @@ package feathers.controls
 		 *
 		 * <p>If the subcomponent has its own subcomponents, their properties
 		 * can be set too, using attribute <code>&#64;</code> notation. For example,
-		 * to set the skin on the thumb of a <code>SimpleScrollBar</code>
-		 * which is in a <code>Scroller</code> which is in a <code>List</code>,
-		 * you can use the following syntax:</p>
-		 * <pre>list.scrollerProperties.&#64;verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
+		 * to set the skin on the thumb which is in a <code>SimpleScrollBar</code>,
+		 * which is in a <code>List</code>, you can use the following syntax:</p>
+		 * <pre>list.verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
 		 *
 		 * <p>Setting properties in a <code>textEditorFactory</code> function
 		 * instead of using <code>textEditorProperties</code> will result in
@@ -472,6 +484,8 @@ package feathers.controls
 		 * <listing version="3.0">
 		 * input.textEditorProperties.textFormat = new TextFormat( "Source Sans Pro", 16, 0x333333);
 		 * input.textEditorProperties.embedFonts = true;</listing>
+		 *
+		 * @default null
 		 *
 		 * @see #textEditorFactory
 		 * @see feathers.controls.text.ITextEditorViewPort
@@ -567,11 +581,11 @@ package feathers.controls
 			}
 			if(startIndex < 0)
 			{
-				throw new RangeError("Expected start index >= 0. Received " + startIndex + ".");
+				throw new RangeError("Expected start index greater than or equal to 0. Received " + startIndex + ".");
 			}
 			if(endIndex > this._text.length)
 			{
-				throw new RangeError("Expected start index > " + this._text.length + ". Received " + endIndex + ".");
+				throw new RangeError("Expected start index less than " + this._text.length + ". Received " + endIndex + ".");
 			}
 
 			if(this.textEditorViewPort)
@@ -634,7 +648,7 @@ package feathers.controls
 		}
 
 		/**
-		 * @private
+		 * @inheritDoc
 		 */
 		override protected function autoSizeIfNeeded():Boolean
 		{
@@ -673,7 +687,14 @@ package feathers.controls
 		}
 
 		/**
-		 * @private
+		 * Creates and adds the <code>textEditorViewPort</code> sub-component and
+		 * removes the old instance, if one exists.
+		 *
+		 * <p>Meant for internal use, and subclasses may override this function
+		 * with a custom implementation.</p>
+		 *
+		 * @see #textEditorViewPort
+		 * @see #textEditorFactory
 		 */
 		protected function createTextEditor():void
 		{
@@ -804,80 +825,60 @@ package feathers.controls
 				return;
 			}
 
-			const touches:Vector.<Touch> = event.getTouches(this, null, HELPER_TOUCHES_VECTOR);
-			if(touches.length == 0)
+			const horizontalScrollBar:DisplayObject = DisplayObject(this.horizontalScrollBar);
+			const verticalScrollBar:DisplayObject = DisplayObject(this.verticalScrollBar);
+			if(this._textAreaTouchPointID >= 0)
 			{
+				var touch:Touch = event.getTouch(this, TouchPhase.ENDED, this._textAreaTouchPointID);
+				if(!touch || touch.isTouching(verticalScrollBar) || touch.isTouching(horizontalScrollBar))
+				{
+					return;
+				}
+				this.removeEventListener(Event.SCROLL, textArea_scrollHandler);
+				this._textAreaTouchPointID = -1;
+				if(this.textEditorViewPort.setTouchFocusOnEndedPhase)
+				{
+					this.setFocusOnTextEditorWithTouch(touch);
+				}
+			}
+			else
+			{
+				touch = event.getTouch(this, TouchPhase.BEGAN);
+				if(touch)
+				{
+					if(touch.isTouching(verticalScrollBar) || touch.isTouching(horizontalScrollBar))
+					{
+						return;
+					}
+					this._textAreaTouchPointID = touch.id;
+					if(!this.textEditorViewPort.setTouchFocusOnEndedPhase)
+					{
+						this.setFocusOnTextEditorWithTouch(touch);
+					}
+					this.addEventListener(Event.SCROLL, textArea_scrollHandler);
+					return;
+				}
+				touch = event.getTouch(this, TouchPhase.HOVER);
+				if(touch)
+				{
+					if(touch.isTouching(verticalScrollBar) || touch.isTouching(horizontalScrollBar))
+					{
+						return;
+					}
+					if(Mouse.supportsNativeCursor && !this._oldMouseCursor)
+					{
+						this._oldMouseCursor = Mouse.cursor;
+						Mouse.cursor = MouseCursor.IBEAM;
+					}
+					return;
+				}
 				//end hover
 				if(Mouse.supportsNativeCursor && this._oldMouseCursor)
 				{
 					Mouse.cursor = this._oldMouseCursor;
 					this._oldMouseCursor = null;
 				}
-				return;
 			}
-
-			const horizontalScrollBar:DisplayObject = DisplayObject(this.horizontalScrollBar);
-			const verticalScrollBar:DisplayObject = DisplayObject(this.verticalScrollBar);
-			if(this._textAreaTouchPointID >= 0)
-			{
-				var touch:Touch;
-				for each(var currentTouch:Touch in touches)
-				{
-					if(currentTouch.id == this._textAreaTouchPointID)
-					{
-						touch = currentTouch;
-						break;
-					}
-				}
-				if(!touch)
-				{
-					HELPER_TOUCHES_VECTOR.length = 0;
-					return;
-				}
-				if(touch.isTouching(verticalScrollBar) || touch.isTouching(horizontalScrollBar))
-				{
-					return;
-				}
-				if(touch.phase == TouchPhase.ENDED)
-				{
-					this.removeEventListener(Event.SCROLL, textArea_scrollHandler);
-					this._textAreaTouchPointID = -1;
-					if(this.textEditorViewPort.setTouchFocusOnEndedPhase)
-					{
-						this.setFocusOnTextEditorWithTouch(touch);
-					}
-				}
-			}
-			else
-			{
-				for each(touch in touches)
-				{
-					if(touch.isTouching(verticalScrollBar) || touch.isTouching(horizontalScrollBar))
-					{
-						continue;
-					}
-					if(touch.phase == TouchPhase.BEGAN)
-					{
-						this._textAreaTouchPointID = touch.id;
-						if(!this.textEditorViewPort.setTouchFocusOnEndedPhase)
-						{
-							this.setFocusOnTextEditorWithTouch(touch);
-						}
-						this.addEventListener(Event.SCROLL, textArea_scrollHandler);
-						break;
-					}
-					else if(touch.phase == TouchPhase.HOVER)
-					{
-						if(Mouse.supportsNativeCursor && !this._oldMouseCursor)
-						{
-							this._oldMouseCursor = Mouse.cursor;
-							Mouse.cursor = MouseCursor.IBEAM;
-						}
-						break;
-					}
-				}
-			}
-			HELPER_TOUCHES_VECTOR.length = 0;
 		}
 
 		/**

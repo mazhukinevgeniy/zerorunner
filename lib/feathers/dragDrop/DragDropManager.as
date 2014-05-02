@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -35,11 +35,6 @@ package feathers.dragDrop
 		 * @private
 		 */
 		private static const HELPER_POINT:Point = new Point();
-
-		/**
-		 * @private
-		 */
-		private static const HELPER_TOUCHES_VECTOR:Vector.<Touch> = new <Touch>[];
 
 		/**
 		 * @private
@@ -300,24 +295,9 @@ package feathers.dragDrop
 		protected static function stage_touchHandler(event:TouchEvent):void
 		{
 			const stage:Stage = Starling.current.stage;
-			const touches:Vector.<Touch> = event.getTouches(stage, null, HELPER_TOUCHES_VECTOR);
-			if(touches.length == 0 || _touchPointID < 0)
-			{
-				HELPER_TOUCHES_VECTOR.length = 0;
-				return;
-			}
-			var touch:Touch;
-			for each(var currentTouch:Touch in touches)
-			{
-				if(currentTouch.id == _touchPointID)
-				{
-					touch = currentTouch;
-					break;
-				}
-			}
+			var touch:Touch = event.getTouch(stage, null, _touchPointID);
 			if(!touch)
 			{
-				HELPER_TOUCHES_VECTOR.length = 0;
 				return;
 			}
 			if(touch.phase == TouchPhase.MOVED)
@@ -342,7 +322,6 @@ package feathers.dragDrop
 				dropTarget = null;
 				completeDrag(isDropped);
 			}
-			HELPER_TOUCHES_VECTOR.length = 0;
 		}
 	}
 }

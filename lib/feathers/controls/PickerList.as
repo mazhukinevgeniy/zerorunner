@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -18,11 +18,7 @@ package feathers.controls
 	import feathers.system.DeviceCapabilities;
 
 	import starling.core.Starling;
-	import starling.display.DisplayObject;
 	import starling.events.Event;
-	import starling.events.Touch;
-	import starling.events.TouchEvent;
-	import starling.events.TouchPhase;
 
 	/**
 	 * Dispatched when the selected item changes.
@@ -84,11 +80,6 @@ package feathers.controls
 		/**
 		 * @private
 		 */
-		private static const HELPER_TOUCHES_VECTOR:Vector.<Touch> = new <Touch>[];
-
-		/**
-		 * @private
-		 */
 		protected static const INVALIDATION_FLAG_BUTTON_FACTORY:String = "buttonFactory";
 
 		/**
@@ -118,7 +109,6 @@ package feathers.controls
 		public function PickerList()
 		{
 			super();
-			this.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 		}
 
 		/**
@@ -151,18 +141,23 @@ package feathers.controls
 
 		/**
 		 * The button sub-component.
+		 *
+		 * <p>For internal use in subclasses.</p>
+		 *
+		 * @see #buttonFactory
+		 * @see #createButton()
 		 */
 		protected var button:Button;
 
 		/**
 		 * The list sub-component.
+		 *
+		 * <p>For internal use in subclasses.</p>
+		 *
+		 * @see #listFactory
+		 * @see #createList()
 		 */
 		protected var list:List;
-
-		/**
-		 * @private
-		 */
-		protected var _buttonTouchPointID:int = -1;
 		
 		/**
 		 * @private
@@ -208,17 +203,30 @@ package feathers.controls
 			{
 				return;
 			}
+			var oldSelectedIndex:int = this.selectedIndex;
+			var oldSelectedItem:Object = this.selectedItem;
 			this._dataProvider = value;
 			if(!this._dataProvider || this._dataProvider.length == 0)
 			{
 				this.selectedIndex = -1;
 			}
-			else if(this._selectedIndex < 0)
+			else
 			{
 				this.selectedIndex = 0;
 			}
+			//this ensures that Event.CHANGE will dispatch for selectedItem
+			//changing, even if selectedIndex has not changed.
+			if(this.selectedIndex == oldSelectedIndex && this.selectedItem != oldSelectedItem)
+			{
+				this.dispatchEventWith(Event.CHANGE);
+			}
 			this.invalidate(INVALIDATION_FLAG_DATA);
 		}
+
+		/**
+		 * @private
+		 */
+		protected var _ignoreSelectionChanges:Boolean = false;
 		
 		/**
 		 * @private
@@ -252,8 +260,6 @@ package feathers.controls
 		 * list.addEventListener( Event.CHANGE, list_changeHandler );</listing>
 		 *
 		 * @default -1
-		 *
-		 * @see #selectedItem
 		 *
 		 * @see #selectedItem
 		 */
@@ -305,12 +311,10 @@ package feathers.controls
 		 * @default null
 		 *
 		 * @see #selectedIndex
-		 *
-		 * @see #selectedIndex
 		 */
 		public function get selectedItem():Object
 		{
-			if(!this._dataProvider)
+			if(!this._dataProvider || this._selectedIndex < 0 || this._selectedIndex >= this._dataProvider.length)
 			{
 				return null;
 			}
@@ -327,7 +331,6 @@ package feathers.controls
 				this.selectedIndex = -1;
 				return;
 			}
-			
 			this.selectedIndex = this._dataProvider.getItemIndex(value);
 		}
 
@@ -570,6 +573,8 @@ package feathers.controls
 		 *     return button;
 		 * };</listing>
 		 *
+		 * @default null
+		 *
 		 * @see feathers.controls.Button
 		 * @see #buttonProperties
 		 */
@@ -612,6 +617,8 @@ package feathers.controls
 		 * <listing version="3.0">
 		 * setInitializerForClass( Button, customButtonInitializer, "my-custom-button");</listing>
 		 *
+		 * @default null
+		 *
 		 * @see #DEFAULT_CHILD_NAME_BUTTON
 		 * @see feathers.core.FeathersControl#nameList
 		 * @see feathers.core.DisplayListWatcher
@@ -648,10 +655,9 @@ package feathers.controls
 		 *
 		 * <p>If the subcomponent has its own subcomponents, their properties
 		 * can be set too, using attribute <code>&#64;</code> notation. For example,
-		 * to set the skin on the thumb of a <code>SimpleScrollBar</code>
-		 * which is in a <code>Scroller</code> which is in a <code>List</code>,
-		 * you can use the following syntax:</p>
-		 * <pre>list.scrollerProperties.&#64;verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
+		 * to set the skin on the thumb which is in a <code>SimpleScrollBar</code>,
+		 * which is in a <code>List</code>, you can use the following syntax:</p>
+		 * <pre>list.verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
 		 *
 		 * <p>Setting properties in a <code>buttonFactory</code> function
 		 * instead of using <code>buttonProperties</code> will result in better
@@ -663,6 +669,8 @@ package feathers.controls
 		 * <listing version="3.0">
 		 * list.buttonProperties.defaultSkin = new Image( upTexture );
 		 * list.buttonProperties.downSkin = new Image( downTexture );</listing>
+		 *
+		 * @default null
 		 *
 		 * @see #buttonFactory
 		 * @see feathers.controls.Button
@@ -737,6 +745,8 @@ package feathers.controls
 		 *     return popUpList;
 		 * };</listing>
 		 *
+		 * @default null
+		 *
 		 * @see feathers.controls.List
 		 * @see #listProperties
 		 */
@@ -779,6 +789,8 @@ package feathers.controls
 		 * <listing version="3.0">
 		 * setInitializerForClass( List, customListInitializer, "my-custom-list");</listing>
 		 *
+		 * @default null
+		 *
 		 * @see #DEFAULT_CHILD_NAME_LIST
 		 * @see feathers.core.FeathersControl#nameList
 		 * @see feathers.core.DisplayListWatcher
@@ -816,10 +828,9 @@ package feathers.controls
 		 *
 		 * <p>If the subcomponent has its own subcomponents, their properties
 		 * can be set too, using attribute <code>&#64;</code> notation. For example,
-		 * to set the skin on the thumb of a <code>SimpleScrollBar</code>
-		 * which is in a <code>Scroller</code> which is in a <code>List</code>,
-		 * you can use the following syntax:</p>
-		 * <pre>list.scrollerProperties.&#64;verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
+		 * to set the skin on the thumb which is in a <code>SimpleScrollBar</code>,
+		 * which is in a <code>List</code>, you can use the following syntax:</p>
+		 * <pre>list.verticalScrollBarProperties.&#64;thumbProperties.defaultSkin = new Image(texture);</pre>
 		 *
 		 * <p>Setting properties in a <code>listFactory</code> function
 		 * instead of using <code>listProperties</code> will result in better
@@ -830,6 +841,8 @@ package feathers.controls
 		 *
 		 * <listing version="3.0">
 		 * list.listProperties.backgroundSkin = new Image( texture );</listing>
+		 *
+		 * @default null
 		 *
 		 * @see #listFactory
 		 * @see feathers.controls.List
@@ -876,6 +889,16 @@ package feathers.controls
 			}
 			this.invalidate(INVALIDATION_FLAG_STYLES);
 		}
+
+		/**
+		 * @private
+		 */
+		protected var _isOpenListPending:Boolean = false;
+
+		/**
+		 * @private
+		 */
+		protected var _isCloseListPending:Boolean = false;
 		
 		/**
 		 * Using <code>labelField</code> and <code>labelFunction</code>,
@@ -890,17 +913,72 @@ package feathers.controls
 		{
 			if(this._labelFunction != null)
 			{
-				return this._labelFunction(item) as String;
+				var labelResult:Object = this._labelFunction(item);
+				if(labelResult is String)
+				{
+					return labelResult as String;
+				}
+				return labelResult.toString();
 			}
 			else if(this._labelField != null && item && item.hasOwnProperty(this._labelField))
 			{
-				return item[this._labelField] as String;
+				labelResult = item[this._labelField];
+				if(labelResult is String)
+				{
+					return labelResult as String;
+				}
+				return labelResult.toString();
 			}
-			else if(item is Object)
+			else if(item is String)
+			{
+				return item as String;
+			}
+			else if(item)
 			{
 				return item.toString();
 			}
 			return "";
+		}
+
+		/**
+		 * Opens the pop-up list, if it isn't already open.
+		 */
+		public function openList():void
+		{
+			this._isCloseListPending = false;
+			if(this._popUpContentManager.isOpen)
+			{
+				return;
+			}
+			if(!this._isValidating && this.isInvalid())
+			{
+				this._isOpenListPending = true;
+				return;
+			}
+			this._isOpenListPending = false;
+			this._popUpContentManager.open(this.list, this);
+			this.list.scrollToDisplayIndex(this._selectedIndex);
+			this.list.validate();
+		}
+
+		/**
+		 * Closes the pop-up list, if it is open.
+		 */
+		public function closeList():void
+		{
+			this._isOpenListPending = false;
+			if(!this._popUpContentManager.isOpen)
+			{
+				return;
+			}
+			if(!this._isValidating && this.isInvalid())
+			{
+				this._isCloseListPending = true;
+				return;
+			}
+			this._isCloseListPending = false;
+			this.list.validate();
+			this._popUpContentManager.close();
 		}
 		
 		/**
@@ -910,7 +988,7 @@ package feathers.controls
 		{
 			if(this.list)
 			{
-				this.closePopUpList();
+				this.closeList();
 				this.list.dispose();
 				this.list = null;
 			}
@@ -994,7 +1072,10 @@ package feathers.controls
 			
 			if(listFactoryInvalid || dataInvalid)
 			{
+				var oldIgnoreSelectionChanges:Boolean = this._ignoreSelectionChanges;
+				this._ignoreSelectionChanges = true;
 				this.list.dataProvider = this._dataProvider;
+				this._ignoreSelectionChanges = oldIgnoreSelectionChanges;
 			}
 			
 			if(buttonFactoryInvalid || listFactoryInvalid || stateInvalid)
@@ -1003,13 +1084,16 @@ package feathers.controls
 				this.list.isEnabled = this._isEnabled;
 			}
 
-			if(buttonFactoryInvalid || selectionInvalid)
+			if(buttonFactoryInvalid || dataInvalid || selectionInvalid)
 			{
 				this.refreshButtonLabel();
 			}
-			if(listFactoryInvalid || selectionInvalid)
+			if(listFactoryInvalid || dataInvalid || selectionInvalid)
 			{
+				oldIgnoreSelectionChanges = this._ignoreSelectionChanges;
+				this._ignoreSelectionChanges = true;
 				this.list.selectedIndex = this._selectedIndex;
+				this._ignoreSelectionChanges = oldIgnoreSelectionChanges;
 			}
 
 			sizeInvalid = this.autoSizeIfNeeded() || sizeInvalid;
@@ -1018,10 +1102,25 @@ package feathers.controls
 			{
 				this.layout();
 			}
+
+			this.handlePendingActions();
 		}
 
 		/**
-		 * @private
+		 * If the component's dimensions have not been set explicitly, it will
+		 * measure its content and determine an ideal size for itself. If the
+		 * <code>explicitWidth</code> or <code>explicitHeight</code> member
+		 * variables are set, those value will be used without additional
+		 * measurement. If one is set, but not the other, the dimension with the
+		 * explicit value will not be measured, but the other non-explicit
+		 * dimension will still need measurement.
+		 *
+		 * <p>Calls <code>setSizeInternal()</code> to set up the
+		 * <code>actualWidth</code> and <code>actualHeight</code> member
+		 * variables used for layout.</p>
+		 *
+		 * <p>Meant for internal use, and subclasses may override this function
+		 * with a custom implementation.</p>
 		 */
 		protected function autoSizeIfNeeded():Boolean
 		{
@@ -1066,7 +1165,15 @@ package feathers.controls
 		}
 
 		/**
-		 * @private
+		 * Creates and adds the <code>button</code> sub-component and
+		 * removes the old instance, if one exists.
+		 *
+		 * <p>Meant for internal use, and subclasses may override this function
+		 * with a custom implementation.</p>
+		 *
+		 * @see #button
+		 * @see #buttonFactory
+		 * @see #customButtonName
 		 */
 		protected function createButton():void
 		{
@@ -1081,12 +1188,19 @@ package feathers.controls
 			this.button = Button(factory());
 			this.button.nameList.add(buttonName);
 			this.button.addEventListener(Event.TRIGGERED, button_triggeredHandler);
-			this.button.addEventListener(TouchEvent.TOUCH, button_touchHandler);
 			this.addChild(this.button);
 		}
 
 		/**
-		 * @private
+		 * Creates and adds the <code>list</code> sub-component and
+		 * removes the old instance, if one exists.
+		 *
+		 * <p>Meant for internal use, and subclasses may override this function
+		 * with a custom implementation.</p>
+		 *
+		 * @see #list
+		 * @see #listFactory
+		 * @see #customListName
 		 */
 		protected function createList():void
 		{
@@ -1159,15 +1273,24 @@ package feathers.controls
 		{
 			this.button.width = this.actualWidth;
 			this.button.height = this.actualHeight;
+
+			//final validation to avoid juggler next frame issues
+			this.button.validate();
 		}
-		
+
 		/**
 		 * @private
 		 */
-		protected function closePopUpList():void
+		protected function handlePendingActions():void
 		{
-			this.list.validate();
-			this._popUpContentManager.close();
+			if(this._isOpenListPending)
+			{
+				this.openList();
+			}
+			if(this._isCloseListPending)
+			{
+				this.closeList();
+			}
 		}
 
 		/**
@@ -1183,14 +1306,12 @@ package feathers.controls
 		 */
 		protected function button_triggeredHandler(event:Event):void
 		{
-			if(this.list.stage)
+			if(this._popUpContentManager.isOpen)
 			{
-				this.closePopUpList();
+				this.closeList();
 				return;
 			}
-			this._popUpContentManager.open(this.list, this);
-			this.list.scrollToDisplayIndex(this._selectedIndex);
-			this.list.validate();
+			this.openList();
 		}
 		
 		/**
@@ -1198,65 +1319,11 @@ package feathers.controls
 		 */
 		protected function list_changeHandler(event:Event):void
 		{
+			if(this._ignoreSelectionChanges)
+			{
+				return;
+			}
 			this.selectedIndex = this.list.selectedIndex;
-		}
-
-		/**
-		 * @private
-		 */
-		protected function removedFromStageHandler(event:Event):void
-		{
-			this._buttonTouchPointID = -1;
-		}
-
-		/**
-		 * @private
-		 */
-		protected function button_touchHandler(event:TouchEvent):void
-		{
-			if(!this._isEnabled)
-			{
-				this._buttonTouchPointID = -1;
-				return;
-			}
-			const touches:Vector.<Touch> = event.getTouches(this.button, null, HELPER_TOUCHES_VECTOR);
-			if(touches.length == 0)
-			{
-				return;
-			}
-			if(this._buttonTouchPointID >= 0)
-			{
-				var touch:Touch;
-				for each(var currentTouch:Touch in touches)
-				{
-					if(currentTouch.id == this._buttonTouchPointID)
-					{
-						touch = currentTouch;
-						break;
-					}
-				}
-				if(!touch)
-				{
-					HELPER_TOUCHES_VECTOR.length = 0;
-					return;
-				}
-				if(touch.phase == TouchPhase.ENDED)
-				{
-					this._buttonTouchPointID = -1;
-				}
-			}
-			else
-			{
-				for each(touch in touches)
-				{
-					if(touch.phase == TouchPhase.BEGAN)
-					{
-						this._buttonTouchPointID = touch.id;
-						break;
-					}
-				}
-			}
-			HELPER_TOUCHES_VECTOR.length = 0;
 		}
 
 		/**
@@ -1284,7 +1351,7 @@ package feathers.controls
 			{
 				return;
 			}
-			this.closePopUpList();
+			this.closeList();
 		}
 	}
 }

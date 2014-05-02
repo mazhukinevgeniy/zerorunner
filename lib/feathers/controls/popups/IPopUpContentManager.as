@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -21,6 +21,11 @@ package feathers.controls.popups
 	 */
 	public interface IPopUpContentManager
 	{
+		/**
+		 * Indicates if the pop-up content is open or not.
+		 */
+		function get isOpen():Boolean;
+
 		/**
 		 * Displays the pop-up content.
 		 *

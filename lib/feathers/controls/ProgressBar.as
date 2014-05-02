@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -104,6 +104,9 @@ package feathers.controls
 		 * progress.value = 12;</listing>
 		 *
 		 * @default 0
+		 *
+		 * @see #minimum
+		 * @see #maximum
 		 */
 		public function get value():Number
 		{
@@ -140,6 +143,9 @@ package feathers.controls
 		 * progress.value = 12;</listing>
 		 *
 		 * @default 0
+		 *
+		 * @see #value
+		 * @see #maximum
 		 */
 		public function get minimum():Number
 		{
@@ -175,6 +181,9 @@ package feathers.controls
 		 * progress.value = 12;</listing>
 		 *
 		 * @default 1
+		 *
+		 * @see #value
+		 * @see #minimum
 		 */
 		public function get maximum():Number
 		{
@@ -248,7 +257,6 @@ package feathers.controls
 			if(this._backgroundSkin && this._backgroundSkin.parent != this)
 			{
 				this._backgroundSkin.visible = false;
-				this._backgroundSkin.touchable = false;
 				this.addChildAt(this._backgroundSkin, 0);
 			}
 			this.invalidate(INVALIDATION_FLAG_STYLES);
@@ -293,7 +301,6 @@ package feathers.controls
 			if(this._backgroundDisabledSkin && this._backgroundDisabledSkin.parent != this)
 			{
 				this._backgroundDisabledSkin.visible = false;
-				this._backgroundDisabledSkin.touchable = false;
 				this.addChildAt(this._backgroundDisabledSkin, 0);
 			}
 			this.invalidate(INVALIDATION_FLAG_STYLES);
@@ -366,7 +373,6 @@ package feathers.controls
 			if(this._fillSkin && this._fillSkin.parent != this)
 			{
 				this._fillSkin.visible = false;
-				this._fillSkin.touchable = false;
 				this.addChild(this._fillSkin);
 			}
 			this.invalidate(INVALIDATION_FLAG_STYLES);
@@ -411,7 +417,6 @@ package feathers.controls
 			if(this._fillDisabledSkin && this._fillDisabledSkin.parent != this)
 			{
 				this._fillDisabledSkin.visible = false;
-				this._fillDisabledSkin.touchable = false;
 				this.addChild(this._fillDisabledSkin);
 			}
 			this.invalidate(INVALIDATION_FLAG_STYLES);
@@ -429,6 +434,11 @@ package feathers.controls
 		 * progress.padding = 20;</listing>
 		 *
 		 * @default 0
+		 *
+		 * @see #paddingTop
+		 * @see #paddingRight
+		 * @see #paddingBottom
+		 * @see #paddingLeft
 		 */
 		public function get padding():Number
 		{
@@ -629,7 +639,20 @@ package feathers.controls
 		}
 
 		/**
-		 * @private
+		 * If the component's dimensions have not been set explicitly, it will
+		 * measure its content and determine an ideal size for itself. If the
+		 * <code>explicitWidth</code> or <code>explicitHeight</code> member
+		 * variables are set, those value will be used without additional
+		 * measurement. If one is set, but not the other, the dimension with the
+		 * explicit value will not be measured, but the other non-explicit
+		 * dimension will still need measurement.
+		 *
+		 * <p>Calls <code>setSizeInternal()</code> to set up the
+		 * <code>actualWidth</code> and <code>actualHeight</code> member
+		 * variables used for layout.</p>
+		 *
+		 * <p>Meant for internal use, and subclasses may override this function
+		 * with a custom implementation.</p>
 		 */
 		protected function autoSizeIfNeeded():Boolean
 		{

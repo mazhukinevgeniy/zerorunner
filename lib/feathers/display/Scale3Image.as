@@ -1,25 +1,29 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.display
 {
+	import feathers.core.IValidating;
+	import feathers.core.ValidationQueue;
 	import feathers.textures.Scale3Textures;
+	import feathers.utils.display.getDisplayObjectDepthFromStage;
 
 	import flash.errors.IllegalOperationError;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
-	import starling.core.RenderSupport;
+	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.textures.Texture;
 	import starling.textures.TextureSmoothing;
 	import starling.utils.MatrixUtil;
 
@@ -29,7 +33,7 @@ package feathers.display
 	 * aspect ratio, and the middle region stretches to fill the remaining
 	 * space.
 	 */
-	public class Scale3Image extends Sprite
+	public class Scale3Image extends Sprite implements IValidating
 	{
 		/**
 		 * @private
@@ -57,7 +61,12 @@ package feathers.display
 			this._hitArea = new Rectangle();
 			this.readjustSize();
 
+			this._batch = new QuadBatch();
+			this._batch.touchable = false;
+			this.addChild(this._batch);
+
 			this.addEventListener(Event.FLATTEN, flattenHandler);
+			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
 
 		/**
@@ -87,6 +96,11 @@ package feathers.display
 
 		/**
 		 * The textures displayed by this image.
+		 *
+		 * <p>In the following example, the textures are changed:</p>
+		 *
+		 * <listing version="3.0">
+		 * image.textures = new Scale3Textures( texture, firstRegionWidth, secondRegionWidth, Scale3Textures.DIRECTION_HORIZONTAL );</listing>
 		 */
 		public function get textures():Scale3Textures
 		{
@@ -107,9 +121,15 @@ package feathers.display
 				return;
 			}
 			this._textures = value;
-			this._frame = this._textures.texture.frame;
+			var texture:Texture = this._textures.texture;
+			this._frame = texture.frame;
+			if(!this._frame)
+			{
+				this._frame = new Rectangle(0, 0, texture.width, texture.height);
+			}
 			this._layoutChanged = true;
 			this._renderingChanged = true;
+			this.invalidate();
 		}
 
 		/**
@@ -136,6 +156,7 @@ package feathers.display
 			}
 			this._width = this._hitArea.width = value;
 			this._layoutChanged = true;
+			this.invalidate();
 		}
 
 		/**
@@ -162,6 +183,7 @@ package feathers.display
 			}
 			this._height = this._hitArea.height = value;
 			this._layoutChanged = true;
+			this.invalidate();
 		}
 
 		/**
@@ -171,6 +193,13 @@ package feathers.display
 
 		/**
 		 * The amount to scale the texture. Useful for DPI changes.
+		 *
+		 * <p>In the following example, the texture scale is changed:</p>
+		 *
+		 * <listing version="3.0">
+		 * image.textureScale = 2;</listing>
+		 *
+		 * @default 1
 		 */
 		public function get textureScale():Number
 		{
@@ -188,6 +217,7 @@ package feathers.display
 			}
 			this._textureScale = value;
 			this._layoutChanged = true;
+			this.invalidate();
 		}
 
 		/**
@@ -197,6 +227,13 @@ package feathers.display
 
 		/**
 		 * The smoothing value to pass to the images.
+		 *
+		 * <p>In the following example, the smoothing is changed:</p>
+		 *
+		 * <listing version="3.0">
+		 * image.smoothing = TextureSmoothing.NONE;</listing>
+		 *
+		 * @default starling.textures.TextureSmoothing.BILINEAR
 		 *
 		 * @see starling.textures.TextureSmoothing
 		 */
@@ -216,6 +253,7 @@ package feathers.display
 			}
 			this._smoothing = value;
 			this._propertiesChanged = true;
+			this.invalidate();
 		}
 
 		/**
@@ -225,6 +263,13 @@ package feathers.display
 
 		/**
 		 * The color value to pass to the images.
+		 *
+		 * <p>In the following example, the color is changed:</p>
+		 *
+		 * <listing version="3.0">
+		 * image.color = 0xff00ff;</listing>
+		 *
+		 * @default 0xffffff
 		 */
 		public function get color():uint
 		{
@@ -242,6 +287,7 @@ package feathers.display
 			}
 			this._color = value;
 			this._propertiesChanged = true;
+			this.invalidate();
 		}
 
 		/**
@@ -252,6 +298,13 @@ package feathers.display
 		/**
 		 * Determines if the regions are batched normally by Starling or if
 		 * they're batched separately.
+		 *
+		 * <p>In the following example, separate batching is disabled:</p>
+		 *
+		 * <listing version="3.0">
+		 * image.useSeparateBatch = false;</listing>
+		 *
+		 * @default true
 		 */
 		public function get useSeparateBatch():Boolean
 		{
@@ -269,6 +322,7 @@ package feathers.display
 			}
 			this._useSeparateBatch = value;
 			this._renderingChanged = true;
+			this.invalidate();
 		}
 
 		/**
@@ -284,17 +338,30 @@ package feathers.display
 		/**
 		 * @private
 		 */
-		private var _firstRegionImage:Image;
+		private var _isValidating:Boolean = false;
 
 		/**
 		 * @private
 		 */
-		private var _secondRegionImage:Image;
+		private var _isInvalid:Boolean = false;
 
 		/**
 		 * @private
 		 */
-		private var _thirdRegionImage:Image;
+		private var _validationQueue:ValidationQueue;
+
+		/**
+		 * @private
+		 */
+		private var _depth:int = -1;
+
+		/**
+		 * @copy feathers.core.IValidating#depth
+		 */
+		public function get depth():int
+		{
+			return this._depth;
+		}
 
 		/**
 		 * @private
@@ -375,12 +442,144 @@ package feathers.display
 		}
 
 		/**
-		 * @private
+		 * @copy feathers.core.IValidating#validate()
 		 */
-		override public function render(support:RenderSupport, parentAlpha:Number):void
+		public function validate():void
 		{
-			this.validate();
-			super.render(support, parentAlpha);
+			if(!this._validationQueue || !this.stage || !this._isInvalid)
+			{
+				return;
+			}
+			if(this._isValidating)
+			{
+				//we were already validating, and something else told us to
+				//validate. that's bad.
+				this._validationQueue.addControl(this, true);
+				return;
+			}
+			this._isValidating = true;
+			if(this._propertiesChanged || this._layoutChanged || this._renderingChanged)
+			{
+				this._batch.batchable = !this._useSeparateBatch;
+				this._batch.reset();
+
+				if(!helperImage)
+				{
+					//because Scale3Textures enforces it, we know for sure that
+					//this texture will have a size greater than zero, so there
+					//won't be an error from Quad.
+					helperImage = new Image(this._textures.second);
+				}
+				helperImage.smoothing = this._smoothing;
+				helperImage.color = this._color;
+
+				var image:Image;
+				if(this._textures.direction == Scale3Textures.DIRECTION_VERTICAL)
+				{
+					var scaledOppositeEdgeSize:Number = this._width;
+					var oppositeEdgeScale:Number = scaledOppositeEdgeSize / this._frame.width;
+					var scaledFirstRegionSize:Number = this._textures.firstRegionSize * oppositeEdgeScale;
+					var scaledThirdRegionSize:Number = (this._frame.height - this._textures.firstRegionSize - this._textures.secondRegionSize) * oppositeEdgeScale;
+					var scaledSecondRegionSize:Number = this._height - scaledFirstRegionSize - scaledThirdRegionSize;
+					if(scaledSecondRegionSize < 0)
+					{
+						var firstAndThirdOffset:Number = scaledSecondRegionSize / 2;
+						scaledFirstRegionSize += firstAndThirdOffset;
+						scaledThirdRegionSize += firstAndThirdOffset;
+					}
+
+					if(scaledOppositeEdgeSize > 0)
+					{
+						if(scaledFirstRegionSize > 0)
+						{
+							helperImage.texture = this._textures.first;
+							helperImage.readjustSize();
+							helperImage.x = 0;
+							helperImage.y = 0;
+							helperImage.width = scaledOppositeEdgeSize;
+							helperImage.height = scaledFirstRegionSize;
+							this._batch.addImage(helperImage);
+						}
+
+						if(scaledSecondRegionSize > 0)
+						{
+							helperImage.texture = this._textures.second;
+							helperImage.readjustSize();
+							helperImage.x = 0;
+							helperImage.y = scaledFirstRegionSize;
+							helperImage.width = scaledOppositeEdgeSize;
+							helperImage.height = scaledSecondRegionSize;
+							this._batch.addImage(helperImage);
+						}
+
+						if(scaledThirdRegionSize > 0)
+						{
+							helperImage.texture = this._textures.third;
+							helperImage.readjustSize();
+							helperImage.x = 0;
+							helperImage.y = this._height - scaledThirdRegionSize;
+							helperImage.width = scaledOppositeEdgeSize;
+							helperImage.height = scaledThirdRegionSize;
+							this._batch.addImage(helperImage);
+						}
+					}
+				}
+				else //horizontal
+				{
+					scaledOppositeEdgeSize = this._height;
+					oppositeEdgeScale = scaledOppositeEdgeSize / this._frame.height;
+					scaledFirstRegionSize = this._textures.firstRegionSize * oppositeEdgeScale;
+					scaledThirdRegionSize = (this._frame.width - this._textures.firstRegionSize - this._textures.secondRegionSize) * oppositeEdgeScale;
+					scaledSecondRegionSize = this._width - scaledFirstRegionSize - scaledThirdRegionSize;
+					if(scaledSecondRegionSize < 0)
+					{
+						firstAndThirdOffset = scaledSecondRegionSize / 2;
+						scaledFirstRegionSize += firstAndThirdOffset;
+						scaledThirdRegionSize += firstAndThirdOffset;
+					}
+
+					if(scaledOppositeEdgeSize > 0)
+					{
+						if(scaledFirstRegionSize > 0)
+						{
+							helperImage.texture = this._textures.first;
+							helperImage.readjustSize();
+							helperImage.x = 0;
+							helperImage.y = 0;
+							helperImage.width = scaledFirstRegionSize;
+							helperImage.height = scaledOppositeEdgeSize;
+							this._batch.addImage(helperImage);
+						}
+
+						if(scaledSecondRegionSize > 0)
+						{
+							helperImage.texture = this._textures.second;
+							helperImage.readjustSize();
+							helperImage.x = scaledFirstRegionSize;
+							helperImage.y = 0;
+							helperImage.width = scaledSecondRegionSize;
+							helperImage.height = scaledOppositeEdgeSize;
+							this._batch.addImage(helperImage);
+						}
+
+						if(scaledThirdRegionSize > 0)
+						{
+							helperImage.texture = this._textures.third;
+							helperImage.readjustSize();
+							helperImage.x = this._width - scaledThirdRegionSize;
+							helperImage.y = 0;
+							helperImage.width = scaledThirdRegionSize;
+							helperImage.height = scaledOppositeEdgeSize;
+							this._batch.addImage(helperImage);
+						}
+					}
+				}
+			}
+			this._propertiesChanged = false;
+			this._layoutChanged = false;
+			this._renderingChanged = false;
+			this._isInvalid = false;
+			this._isValidating = false;
 		}
 
 		/**
@@ -397,251 +596,18 @@ package feathers.display
 		/**
 		 * @private
 		 */
-		private function validate():void
+		protected function invalidate():void
 		{
-			this.refreshImages();
-			if(this._propertiesChanged || this._layoutChanged || this._renderingChanged)
-			{
-				this.refreshBatch();
-
-				var image:Image;
-				if(this._textures.direction == Scale3Textures.DIRECTION_VERTICAL)
-				{
-					var scaledOppositeEdgeSize:Number = this._width;
-					var oppositeEdgeScale:Number = scaledOppositeEdgeSize / this._frame.width;
-					var scaledFirstRegionSize:Number = this._textures.firstRegionSize * oppositeEdgeScale;
-					var scaledThirdRegionSize:Number = (this._frame.height - this._textures.firstRegionSize - this._textures.secondRegionSize) * oppositeEdgeScale;
-					var scaledSecondRegionSize:Number = this._height - scaledFirstRegionSize - scaledThirdRegionSize;
-
-					if(scaledOppositeEdgeSize > 0)
-					{
-						if(this._useSeparateBatch)
-						{
-							image = helperImage;
-							helperImage.texture = this._textures.first;
-							helperImage.readjustSize();
-						}
-						else
-						{
-							image = this._firstRegionImage;
-							image.smoothing = this._smoothing;
-							image.color = this._color;
-						}
-						image.x = 0;
-						image.y = 0;
-						image.width = scaledOppositeEdgeSize;
-						image.height = scaledFirstRegionSize;
-						if(this._useSeparateBatch && scaledFirstRegionSize > 0)
-						{
-							this._batch.addImage(helperImage);
-						}
-
-						if(this._useSeparateBatch)
-						{
-							image = helperImage;
-							helperImage.texture = this._textures.second;
-							helperImage.readjustSize();
-						}
-						else
-						{
-							image = this._secondRegionImage;
-							image.smoothing = this._smoothing;
-							image.color = this._color;
-						}
-						image.x = 0;
-						image.y = scaledFirstRegionSize;
-						image.width = scaledOppositeEdgeSize;
-						image.height = scaledSecondRegionSize;
-						if(this._useSeparateBatch && scaledSecondRegionSize > 0)
-						{
-							this._batch.addImage(helperImage);
-						}
-
-						if(this._useSeparateBatch)
-						{
-							image = helperImage;
-							helperImage.texture = this._textures.third;
-							helperImage.readjustSize();
-						}
-						else
-						{
-							image = this._thirdRegionImage;
-							image.smoothing = this._smoothing;
-							image.color = this._color;
-						}
-						image.x = 0;
-						image.y = this._height - scaledThirdRegionSize;
-						image.width = scaledOppositeEdgeSize;
-						image.height = scaledThirdRegionSize;
-						if(this._useSeparateBatch && scaledThirdRegionSize > 0)
-						{
-							this._batch.addImage(helperImage);
-						}
-					}
-				}
-				else //horizontal
-				{
-					scaledOppositeEdgeSize = this._height;
-					oppositeEdgeScale = scaledOppositeEdgeSize / this._frame.height;
-					scaledFirstRegionSize = this._textures.firstRegionSize * oppositeEdgeScale;
-					scaledThirdRegionSize = (this._frame.width - this._textures.firstRegionSize - this._textures.secondRegionSize) * oppositeEdgeScale;
-					scaledSecondRegionSize = this._width - scaledFirstRegionSize - scaledThirdRegionSize;
-
-					if(scaledOppositeEdgeSize > 0)
-					{
-						if(this._useSeparateBatch)
-						{
-							image = helperImage;
-							helperImage.texture = this._textures.first;
-							helperImage.readjustSize();
-						}
-						else
-						{
-							image = this._firstRegionImage;
-							image.smoothing = this._smoothing;
-							image.color = this._color;
-						}
-						image.x = 0;
-						image.y = 0;
-						image.width = scaledFirstRegionSize;
-						image.height = scaledOppositeEdgeSize;
-						if(this._useSeparateBatch && scaledFirstRegionSize > 0)
-						{
-							this._batch.addImage(helperImage);
-						}
-
-						if(this._useSeparateBatch)
-						{
-							image = helperImage;
-							helperImage.texture = this._textures.second;
-							helperImage.readjustSize();
-						}
-						else
-						{
-							image = this._secondRegionImage
-							image.smoothing = this._smoothing;
-							image.color = this._color;
-						}
-						image.x = scaledFirstRegionSize;
-						image.y = 0;
-						image.width = scaledSecondRegionSize;
-						image.height = scaledOppositeEdgeSize;
-						if(this._useSeparateBatch && scaledSecondRegionSize > 0)
-						{
-							this._batch.addImage(helperImage);
-						}
-
-						if(this._useSeparateBatch)
-						{
-							image = helperImage;
-							helperImage.texture = this._textures.third;
-							helperImage.readjustSize();
-						}
-						else
-						{
-							image = this._thirdRegionImage;
-							image.smoothing = this._smoothing;
-							image.color = this._color;
-						}
-						image.x = this._width - scaledThirdRegionSize;
-						image.y = 0;
-						image.width = scaledThirdRegionSize;
-						image.height = scaledOppositeEdgeSize;
-						if(this._useSeparateBatch && scaledThirdRegionSize > 0)
-						{
-							this._batch.addImage(helperImage);
-						}
-					}
-				}
-			}
-			this._propertiesChanged = false;
-			this._layoutChanged = false;
-			this._renderingChanged = false;
-		}
-
-		/**
-		 * @private
-		 */
-		private function refreshImages():void
-		{
-			if(!this._renderingChanged || this._useSeparateBatch)
+			if(this._isInvalid)
 			{
 				return;
 			}
-			if(this._firstRegionImage)
+			this._isInvalid = true;
+			if(!this._validationQueue)
 			{
-				this._firstRegionImage.texture = this._textures.first;
-				this._firstRegionImage.readjustSize();
+				return;
 			}
-			else
-			{
-				this._firstRegionImage = new Image(this._textures.first);
-				this.addChild(this._firstRegionImage);
-			}
-			if(this._secondRegionImage)
-			{
-				this._secondRegionImage.texture = this._textures.second;
-				this._secondRegionImage.readjustSize();
-			}
-			else
-			{
-				this._secondRegionImage = new Image(this._textures.second);
-				this.addChild(this._secondRegionImage);
-			}
-			if(this._thirdRegionImage)
-			{
-				this._thirdRegionImage.texture = this._textures.third;
-				this._thirdRegionImage.readjustSize();
-			}
-			else
-			{
-				this._thirdRegionImage = new Image(this._textures.third);
-				this.addChild(this._thirdRegionImage);
-			}
-		}
-
-		/**
-		 * @private
-		 */
-		private function refreshBatch():void
-		{
-			if(this._useSeparateBatch)
-			{
-				if(!this._batch)
-				{
-					this._batch = new QuadBatch();
-					this._batch.touchable = false;
-					this.addChild(this._batch);
-				}
-				if(this._firstRegionImage)
-				{
-					this._firstRegionImage.removeFromParent(true);
-					this._firstRegionImage = null;
-				}
-				if(this._secondRegionImage)
-				{
-					this._secondRegionImage.removeFromParent(true);
-					this._secondRegionImage = null;
-				}
-				if(this._thirdRegionImage)
-				{
-					this._thirdRegionImage.removeFromParent(true);
-					this._thirdRegionImage = null;
-				}
-				this._batch.reset();
-
-				if(!helperImage)
-				{
-					helperImage = new Image(this._textures.first);
-				}
-				helperImage.smoothing = this._smoothing;
-				helperImage.color = this._color;
-			}
-			else if(this._batch)
-			{
-				this._batch.removeFromParent(true);
-				this._batch = null;
-			}
+			this._validationQueue.addControl(this, false);
 		}
 
 		/**
@@ -650,6 +616,19 @@ package feathers.display
 		private function flattenHandler(event:Event):void
 		{
 			this.validate();
+		}
+
+		/**
+		 * @private
+		 */
+		private function addedToStageHandler(event:Event):void
+		{
+			this._depth = getDisplayObjectDepthFromStage(this);
+			this._validationQueue = ValidationQueue.forStarling(Starling.current);
+			if(this._isInvalid)
+			{
+				this._validationQueue.addControl(this, false);
+			}
 		}
 	}
 }

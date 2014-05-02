@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -268,6 +268,10 @@ package feathers.data
 		 */
 		public function removeAll():void
 		{
+			if(this.length == 0)
+			{
+				return;
+			}
 			this._dataDescriptor.removeAll(this._data);
 			this.dispatchEventWith(Event.CHANGE);
 			this.dispatchEventWith(CollectionEventType.RESET, false);

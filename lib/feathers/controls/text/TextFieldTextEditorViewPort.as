@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,6 +8,9 @@ accordance with the terms of the accompanying license agreement.
 package feathers.controls.text
 {
 	import feathers.controls.Scroller;
+	import feathers.utils.geom.matrixToRotation;
+	import feathers.utils.geom.matrixToScaleX;
+	import feathers.utils.geom.matrixToScaleY;
 	import feathers.utils.math.roundToNearest;
 
 	import flash.events.Event;
@@ -226,6 +229,16 @@ package feathers.controls.text
 			this.invalidate(INVALIDATION_FLAG_SIZE);
 		}
 
+		public function get contentX():Number
+		{
+			return 0;
+		}
+
+		public function get contentY():Number
+		{
+			return 0;
+		}
+
 		/**
 		 * @private
 		 */
@@ -360,8 +373,10 @@ package feathers.controls.text
 			this._textFieldOffsetY = 0;
 			this._textFieldClipRect.x = 0;
 			this._textFieldClipRect.y = 0;
-			this._textFieldClipRect.width = textFieldWidth;
-			this._textFieldClipRect.height = textFieldHeight;
+
+			this.getTransformationMatrix(this.stage, HELPER_MATRIX);
+			this._textFieldClipRect.width = textFieldWidth * Starling.contentScaleFactor * matrixToScaleX(HELPER_MATRIX);
+			this._textFieldClipRect.height = textFieldHeight * Starling.contentScaleFactor * matrixToScaleY(HELPER_MATRIX);
 		}
 
 		/**
@@ -396,27 +411,29 @@ package feathers.controls.text
 		/**
 		 * @private
 		 */
-		override protected function positionTextField():void
+		override protected function transformTextField():void
 		{
+			if(!this.textField.visible)
+			{
+				return;
+			}
 			HELPER_POINT.x = HELPER_POINT.y = 0;
 			this.getTransformationMatrix(this.stage, HELPER_MATRIX);
 			MatrixUtil.transformCoords(HELPER_MATRIX, 0, 0, HELPER_POINT);
 			const offsetX:Number = Math.round(this._horizontalScrollPosition);
 			const offsetY:Number = Math.round(this._verticalScrollPosition);
-			if(HELPER_POINT.x != this._oldGlobalX || HELPER_POINT.y != this._oldGlobalY)
+			var starlingViewPort:Rectangle = Starling.current.viewPort;
+			var nativeScaleFactor:Number = 1;
+			if(Starling.current.supportHighResolutions)
 			{
-				this._oldGlobalX = HELPER_POINT.x;
-				this._oldGlobalY = HELPER_POINT.y;
-				const starlingViewPort:Rectangle = Starling.current.viewPort;
-				this.textField.x = offsetX + Math.round(starlingViewPort.x + (HELPER_POINT.x * Starling.contentScaleFactor));
-				this.textField.y = offsetY + Math.round(starlingViewPort.y + (HELPER_POINT.y * Starling.contentScaleFactor));
+				nativeScaleFactor = Starling.current.nativeStage.contentsScaleFactor;
 			}
-
-			if(this.textSnapshot)
-			{
-				this.textSnapshot.x = offsetX + Math.round(HELPER_MATRIX.tx) - HELPER_MATRIX.tx;
-				this.textSnapshot.y = offsetY + Math.round(HELPER_MATRIX.ty) - HELPER_MATRIX.ty;
-			}
+			var scaleFactor:Number = Starling.contentScaleFactor / nativeScaleFactor;
+			this.textField.x = offsetX + Math.round(starlingViewPort.x + (HELPER_POINT.x * scaleFactor));
+			this.textField.y = offsetY + Math.round(starlingViewPort.y + (HELPER_POINT.y * scaleFactor));
+			this.textField.rotation = matrixToRotation(HELPER_MATRIX) * 180 / Math.PI;
+			this.textField.scaleX = matrixToScaleX(HELPER_MATRIX);
+			this.textField.scaleY = matrixToScaleY(HELPER_MATRIX);
 		}
 
 		/**

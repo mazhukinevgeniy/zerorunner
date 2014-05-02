@@ -1,17 +1,16 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.controls
 {
-	import feathers.core.FeathersControl;
-	import feathers.core.IFeathersControl;
 	import feathers.events.FeathersEventType;
 	import feathers.system.DeviceCapabilities;
 	import feathers.utils.display.calculateScaleRatioToFit;
+	import feathers.utils.display.getDisplayObjectDepthFromStage;
 
 	import flash.display.DisplayObjectContainer;
 	import flash.display.LoaderInfo;
@@ -19,12 +18,11 @@ package feathers.controls
 	import flash.ui.Keyboard;
 
 	import starling.core.Starling;
-	import starling.display.DisplayObject;
 	import starling.events.Event;
 
 	/**
-	 * Provides useful capabilities for a menu screen displayed by
-	 * <code>ScreenNavigator</code>.
+	 * A basic screen to be displayed by <code>ScreenNavigator</code>. Provides
+	 * layout capabilities, but no scrolling.
 	 *
 	 * <p>The following example provides a basic framework for a new screen:</p>
 	 *
@@ -42,13 +40,12 @@ package feathers.controls
 	 *         override protected function initialize():void
 	 *         {
 	 *             //runs once when screen is first added to the stage.
-	 *             //a good place to add children and things.
+	 *             //a good place to add children and set a layout.
 	 *         }
 	 *
 	 *         override protected function draw():void
 	 *         {
-	 *             //runs every time invalidate() is called
-	 *             //a good place for measurement and layout
+	 *             //override only if you want to do manual measurement and layout.
 	 *         }
 	 *     }
 	 * }</listing>
@@ -56,7 +53,7 @@ package feathers.controls
 	 * @see http://wiki.starling-framework.org/feathers/screen
 	 * @see ScreenNavigator
 	 */
-	public class Screen extends FeathersControl implements IScreen
+	public class Screen extends LayoutGroup implements IScreen
 	{
 		/**
 		 * Constructor.
@@ -335,47 +332,6 @@ package feathers.controls
 		 * @default null
 		 */
 		protected var searchButtonHandler:Function;
-
-		/**
-		 * @private
-		 */
-		override protected function draw():void
-		{
-			const needsWidth:Boolean = isNaN(this.explicitWidth);
-			const needsHeight:Boolean = isNaN(this.explicitHeight);
-			if(!needsWidth && !needsHeight)
-			{
-				return;
-			}
-
-			var newWidth:Number = this.explicitWidth;
-			var newHeight:Number = this.explicitHeight;
-			if(needsWidth || needsHeight)
-			{
-				var maxX:Number = isNaN(newWidth) ? 0 : newWidth;
-				var maxY:Number = isNaN(newHeight) ? 0 : newHeight;
-				const childCount:int = this.numChildren;
-				for(var i:int = 0; i < childCount; i++)
-				{
-					var child:DisplayObject = this.getChildAt(i);
-					if(child is IFeathersControl)
-					{
-						IFeathersControl(child).validate();
-					}
-					maxX = Math.max(maxX, child.x + child.width);
-					maxY = Math.max(maxY, child.y + child.height);
-				}
-				if(needsWidth)
-				{
-					newWidth = maxX;
-				}
-				if(needsHeight)
-				{
-					newHeight = maxY;
-				}
-			}
-			this.setSizeInternal(newWidth, newHeight, false);
-		}
 		
 		/**
 		 * @private
@@ -425,7 +381,10 @@ package feathers.controls
 			}
 			this.refreshPixelScale();
 			this.addEventListener(Event.REMOVED_FROM_STAGE, screen_removedFromStageHandler);
-			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_DOWN, screen_stage_keyDownHandler, false, 0, true);
+			//using priority here is a hack so that objects higher up in the
+			//display list have a chance to cancel the event first.
+			var priority:int = -getDisplayObjectDepthFromStage(this);
+			Starling.current.nativeStage.addEventListener(KeyboardEvent.KEY_DOWN, screen_nativeStage_keyDownHandler, false, priority, true);
 		}
 
 		/**
@@ -438,7 +397,7 @@ package feathers.controls
 				return;
 			}
 			this.removeEventListener(Event.REMOVED_FROM_STAGE, screen_removedFromStageHandler);
-			Starling.current.nativeStage.removeEventListener(KeyboardEvent.KEY_DOWN, screen_stage_keyDownHandler);
+			Starling.current.nativeStage.removeEventListener(KeyboardEvent.KEY_DOWN, screen_nativeStage_keyDownHandler);
 		}
 		
 		/**
@@ -452,30 +411,29 @@ package feathers.controls
 		/**
 		 * @private
 		 */
-		protected function screen_stage_keyDownHandler(event:KeyboardEvent):void
+		protected function screen_nativeStage_keyDownHandler(event:KeyboardEvent):void
 		{
-			//we're accessing Keyboard.BACK (and others) using a string because
-			//this code may be compiled for both Flash Player and AIR.
-			if(this.backButtonHandler != null &&
-				Object(Keyboard).hasOwnProperty("BACK") &&
-				event.keyCode == Keyboard["BACK"])
+			if(event.isDefaultPrevented())
 			{
-				event.stopImmediatePropagation();
+				//someone else already handled this one
+				return;
+			}
+			if(this.backButtonHandler != null &&
+				event.keyCode == Keyboard.BACK)
+			{
 				event.preventDefault();
 				this.backButtonHandler();
 			}
 			
 			if(this.menuButtonHandler != null &&
-				Object(Keyboard).hasOwnProperty("MENU") &&
-				event.keyCode == Keyboard["MENU"])
+				event.keyCode == Keyboard.MENU)
 			{
 				event.preventDefault();
 				this.menuButtonHandler();
 			}
 			
 			if(this.searchButtonHandler != null &&
-				Object(Keyboard).hasOwnProperty("SEARCH") &&
-				event.keyCode == Keyboard["SEARCH"])
+				event.keyCode == Keyboard.SEARCH)
 			{
 				event.preventDefault();
 				this.searchButtonHandler();

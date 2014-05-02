@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -98,6 +98,8 @@ package feathers.motion.transitions
 
 		/**
 		 * The duration of the transition, measured in seconds.
+		 *
+		 * @default 0.25
 		 */
 		public var duration:Number = 0.25;
 
@@ -105,17 +107,23 @@ package feathers.motion.transitions
 		 * A delay before the transition starts, measured in seconds. This may
 		 * be required on low-end systems that will slow down for a short time
 		 * after heavy texture uploads.
+		 *
+		 * @default 0.1
 		 */
 		public var delay:Number = 0.1;
 
 		/**
 		 * The easing function to use.
+		 *
+		 * @default starling.animation.Transitions.EASE_OUT
 		 */
 		public var ease:Object = Transitions.EASE_OUT;
 
 		/**
 		 * Determines if the next transition should be skipped. After the
 		 * transition, this value returns to <code>false</code>.
+		 *
+		 * @default false
 		 */
 		public var skipNextTransition:Boolean = false;
 

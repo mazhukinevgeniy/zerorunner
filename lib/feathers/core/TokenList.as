@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2013 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2014 Joshua Tynjala. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,7 +8,8 @@ accordance with the terms of the accompanying license agreement.
 package feathers.core
 {
 	/**
-	 * A list of space-delimited tokens.
+	 * A list of space-delimited tokens. Obviously, since they are delimited by
+	 * spaces, tokens cannot contain spaces.
 	 */
 	public class TokenList
 	{
@@ -26,7 +27,9 @@ package feathers.core
 		protected var names:Vector.<String> = new <String>[];
 
 		/**
-		 * The tokens formated with space delimiters.
+		 * The tokens formatted with space delimiters.
+		 *
+		 * @default ""
 		 */
 		public function get value():String
 		{
@@ -69,12 +72,12 @@ package feathers.core
 		 */
 		public function add(name:String):void
 		{
-			const index:int = this.names.indexOf(name);
+			var index:int = this.names.indexOf(name);
 			if(index >= 0)
 			{
 				return;
 			}
-			this.names.push(name);
+			this.names[this.names.length] = name;
 		}
 
 		/**
@@ -83,12 +86,8 @@ package feathers.core
 		 */
 		public function remove(name:String):void
 		{
-			const index:int = this.names.indexOf(name);
-			if(index < 0)
-			{
-				return;
-			}
-			this.names.splice(index,  1);
+			var index:int = this.names.indexOf(name);
+			this.removeAt(index);
 		}
 
 		/**
@@ -97,14 +96,14 @@ package feathers.core
 		 */
 		public function toggle(name:String):void
 		{
-			const index:int = this.names.indexOf(name);
+			var index:int = this.names.indexOf(name);
 			if(index < 0)
 			{
-				this.names.push(name);
+				this.names[this.names.length] = name;
 			}
 			else
 			{
-				this.names.splice(index,  1);
+				this.removeAt(index);
 			}
 		}
 
@@ -114,6 +113,29 @@ package feathers.core
 		public function contains(name:String):Boolean
 		{
 			return this.names.indexOf(name) >= 0;
+		}
+
+		/**
+		 * @private
+		 */
+		protected function removeAt(index:int):void
+		{
+			if(index < 0)
+			{
+				return;
+			}
+			if(index == 0)
+			{
+				this.names.shift();
+				return;
+			}
+			var lastIndex:int = this.names.length - 1;
+			if(index == lastIndex)
+			{
+				this.names.pop();
+				return;
+			}
+			this.names.splice(index,  1);
 		}
 
 	}
