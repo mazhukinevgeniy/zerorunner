@@ -19,10 +19,7 @@ package game.fuel
 		private var character:PuppetBase;
 		
 		public function FuelTracker(elements:GameElements) 
-		{
-			if (Game.FRAME_TO_ACT + 1 == Game.FRAMES_PER_CYCLE)
-				throw new Error("change constants please");
-			
+		{			
 			var flow:IUpdateDispatcher = elements.flow;
 			
 			flow.workWithUpdateListener(this);
@@ -39,7 +36,7 @@ package game.fuel
 		
 		update function numberedFrame(frame:int):void
 		{
-			if (frame == Game.FRAME_TO_ACT + 1)
+			if (frame == Game.FRAME_TO_ACT)
 			{
 				var occ:int = this.character.occupation;
 				

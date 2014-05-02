@@ -1,5 +1,6 @@
 package game.ui.hud 
 {
+	import data.viewers.GameConfig;
 	import game.fuel.IFuel;
 	import game.GameElements;
 	import starling.display.Quad;
@@ -19,6 +20,7 @@ package game.ui.hud
 			elements.displayRoot.addChild(this.drawBody());
 			
 			elements.flow.workWithUpdateListener(this);
+			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 		}
 		
@@ -45,9 +47,14 @@ package game.ui.hud
 			return body;
 		}
 		
+		update function restore(config:GameConfig):void
+		{
+			this.indicator.scaleX = this.fuel.getAmountOfFuel();
+		}
+		
 		update function numberedFrame(frame:int):void
 		{
-			if (frame == Game.FRAME_TO_ACT + 1)
+			if (frame == Game.FRAME_TO_ACT)
 			{
 				this.indicator.scaleX = this.fuel.getAmountOfFuel();
 			}
