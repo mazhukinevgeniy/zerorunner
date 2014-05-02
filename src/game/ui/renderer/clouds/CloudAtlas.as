@@ -19,6 +19,11 @@ package game.ui.renderer.clouds
 					<SubTexture name="texture4" x="0" y="1024" width="1024" height="1024"/>
 				</atlas>;
 			
+			super(this.createTexture(cloudiness), aXML);
+		}
+		
+		private function createTexture(cloudiness:int):Texture
+		{
 			var container:Sprite = new Sprite();
 			
 			for (var i:int = 0; i < 4; ++i)
@@ -33,7 +38,27 @@ package game.ui.renderer.clouds
 			var full:BitmapData = new BitmapData(2048, 2048, true, 0);
 			full.draw(container);
 			
-			super(Texture.fromBitmapData(full), aXML);
+			var texture:Texture = Texture.fromBitmapData(full);
+			
+			
+			for (var j:int = 0; j < 4; j++)
+			{
+				var bm:Bitmap = container.getChildAt(j) as Bitmap;
+				
+				bm.bitmapData.dispose();
+			}
+			
+			container.removeChildren();
+			
+			full.dispose();
+			
+			
+			return texture;
+		}
+		
+		override public function dispose():void
+		{
+			this.texture.base.dispose();
 		}
 	}
 
