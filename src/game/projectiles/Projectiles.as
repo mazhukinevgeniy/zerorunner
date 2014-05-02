@@ -13,7 +13,6 @@ package game.projectiles
 	public class Projectiles implements IProjectileManager
 	{
 		private var projectiles:Array;
-		private var projectilesToStore:Vector.<Projectile>;
 		private var unusedProjectiles:Vector.<Projectile>;
 		
 		private var clouds:Vector.<CloudBase>;
@@ -36,7 +35,6 @@ package game.projectiles
 			this.flow.addUpdateListener(Update.denyProjectile);
 			this.flow.addUpdateListener(Update.quitGame);
 			
-			this.projectilesToStore = new Vector.<Projectile>();
 			this.unusedProjectiles = new Vector.<Projectile>();
 			
 			this.clouds = new Vector.<CloudBase>();
@@ -75,17 +73,6 @@ package game.projectiles
 			}
 			
 			
-			var proj:Projectile;
-			
-			while (proj = this.projectilesToStore.pop())
-			{
-				var cell:ICoordinated = proj.cell;
-			
-				delete this.projectiles[cell.x + cell.y * Game.MAP_WIDTH];
-				
-				this.unusedProjectiles.push(proj);
-			}
-			
 			if (frame == Game.FRAME_TO_RUN_CATACLYSM)
 			{
 				for (var i:int = 0; i < this.clouds.length; i++)
@@ -104,7 +91,7 @@ package game.projectiles
 		
 		update function projectileLanded(projectile:Projectile):void
 		{
-			this.projectilesToStore.push(projectile);
+			this.deleteProjectile(projectile);
 			
 			
 			if (projectile.type == Game.PROJECTILE_SHARD)
@@ -127,7 +114,7 @@ package game.projectiles
 		
 		update function denyProjectile(projectile:Projectile):void
 		{
-			this.projectilesToStore.push(projectile);
+			this.deleteProjectile(projectile);
 		}
 		
 		update function quitGame():void
@@ -153,6 +140,15 @@ package game.projectiles
 			y = normalize(y);
 			
 			return this.projectiles[x + y * Game.MAP_WIDTH];
+		}
+		
+		private function deleteProjectile(projectile:Projectile):void
+		{
+			var cell:ICoordinated = projectile.cell;
+			
+			delete this.projectiles[cell.x + cell.y * Game.MAP_WIDTH];
+			
+			this.unusedProjectiles.push(projectile);
 		}
 	}
 
