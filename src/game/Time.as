@@ -56,15 +56,11 @@ package game
 					if (!this.status.isGameOn())
 						throw new Error("numberedFrame must happen in-game only");
 					
-					if (this.frameCount < Game.FRAMES_PER_CYCLE)
-					{
-						this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
-						this.frameCount++;
-					}
-					else
-					{
+					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
+					this.frameCount++;
+					
+					if (this.frameCount >= Game.FRAMES_PER_CYCLE)
 						this.frameCount = 0;
-					}
 				}
 			}
 		}

@@ -34,13 +34,16 @@ package
 		public static const ENDING_WON:int = 1;
 		public static const ENDING_ABANDONED:int = 2;
 		
-		/* Frame types */
+		/* Frames */
 		
 		public static const FRAME_TO_ACT:int = 0;
 		public static const FRAME_TO_UNLOCK_ACHIEVEMENTS:int = 1;
 		public static const FRAME_TO_RUN_CATACLYSM:int = 2;
 		public static const FRAME_UNUSED_FRAME_1:int = 3;
 		public static const FRAME_UNUSED_FRAME_2:int = 4;
+		
+		public static const FRAMES_PER_CYCLE:int = 5;
+		public static const TIME_BETWEEN_TICKS:Number = Game.FRAMES_PER_CYCLE / Main.FPS;
 		
 		/* Occupations */
 		
@@ -65,11 +68,6 @@ package
 		
 		public static const STAGE_COLOR:uint = 0x222222;
 		//TODO: get art director to get the best color for that
-		
-		/* Time-related */
-		
-		public static const FRAMES_PER_CYCLE:int = 5;
-		public static const TIME_BETWEEN_TICKS:Number = Game.FRAMES_PER_CYCLE / Main.FPS;
 		
 		/* Metric */
 		
