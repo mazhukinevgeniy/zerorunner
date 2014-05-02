@@ -20,6 +20,8 @@ package game.ui.renderer.clouds
 		private var stableOffsetX:int;
 		private var stableOffsetY:int;
 		
+		private var usedAtlas:CloudAtlas;
+		
 		public function Clouds(elements:GameElements) 
 		{
 			this.elements = elements;
@@ -38,7 +40,14 @@ package game.ui.renderer.clouds
 			const numberOfClouds:int = 4;
 			var cloudiness:int = config.cloudiness % Clouds.SIZE_CLOUDINNESS_SCALE;
 			
-			var cloudAtlas:CloudAtlas = new CloudAtlas(cloudiness);
+			
+			
+			if (this.usedAtlas)
+			{
+				throw new Error("something is broken, please check Clouds.as");
+			}
+			
+			var cloudAtlas:CloudAtlas = this.usedAtlas = new CloudAtlas(cloudiness);
 			var tile:ScrollTile;
 			
 			for (var i:int = 0; i < numberOfClouds; i++)
@@ -107,6 +116,9 @@ package game.ui.renderer.clouds
 		update function quitGame():void
 		{
 			const dispose:Boolean = true;
+			
+			this.usedAtlas.dispose();
+			this.usedAtlas = null;
 			
 			this.removeAll(dispose);
 		}
