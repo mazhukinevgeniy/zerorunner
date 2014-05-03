@@ -16,6 +16,8 @@ package
 		
 		public static const toggleMap:String = "toggleMap";
 		
+		public static const changeVolume:String = "changeVolume";
+		
 		
 		/* Metagame updates */
 		

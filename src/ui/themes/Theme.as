@@ -202,7 +202,6 @@ package ui.themes
 			
 			slider.minimum = 0;
 			slider.maximum = 100;
-			slider.value = 50;
 			
 			slider.step = 1;
 			slider.page = 10;

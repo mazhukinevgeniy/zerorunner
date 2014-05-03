@@ -6,6 +6,7 @@ package ui.windows.settings
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import ui.themes.Theme;
+	import utils.updates.IUpdateDispatcher;
 
 	public class VolumeController extends Sprite
 	{
@@ -15,12 +16,14 @@ package ui.windows.settings
 		private var button:Button;
 		private var label:Label;
 		
-		public function VolumeController(name:String) 
+		private var flow:IUpdateDispatcher;
+		
+		public function VolumeController(name:String, flow:IUpdateDispatcher) 
 		{		
 			this.button = new Button();
 			this.button.nameList.add(Theme.SOUND_SETTING);
 			
-			this.slider = new Slider(); 
+			this.slider = new Slider();
 			
 			this.label = new Label();
 			if(name == Theme.SOUND_SETTING)
@@ -33,7 +36,10 @@ package ui.windows.settings
 			this.addChild(this.label);
 
 			this.addEventListener(Event.ADDED_TO_STAGE, this.locate);
+			this.slider.addEventListener(Event.ADDED_TO_STAGE, this.initializeValue);
 			this.slider.addEventListener(Event.CHANGE, this.changeHandler);
+			
+			this.flow = flow;
 		}
 		
 		private function locate(event:Event):void
@@ -43,10 +49,15 @@ package ui.windows.settings
 			this.label.x = this.slider.x + this.slider.width + VolumeController.GAP;
 		}
 		
+		private function initializeValue(event:Event):void
+		{
+			this.slider.value = this.slider.maximum; //TODO: take out from save
+		}
+		
 		private function changeHandler(event:Event):void
 		{
 			var slider:Slider = Slider(event.currentTarget);
-			trace( "slider.value changed:", slider.value);
+			this.flow.dispatchUpdate(Update.changeVolume, name, slider.value / 100);
 		}
 		
 	}

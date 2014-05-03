@@ -53,11 +53,11 @@ package ui
 			this.navigation = new Navigation(this.flow, elements.database, elements.assets);
 			this.windows = new Windows(this.flow, this.assets, elements.database, elements.displayRoot)
 			
+			new Sounds(this.flow, this.assets, elements.database.preferences);
+			
 			this.ownRoot.addChild(this.background);
 			this.ownRoot.addChild(this.windows);
 			this.ownRoot.addChild(this.navigation);
-			
-			new Sounds(this.flow, this.assets, elements.database.preferences);
 		}
 		
 		private function initializeUsingFlow():void 

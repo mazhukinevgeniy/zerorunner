@@ -14,7 +14,7 @@ package ui.windows.settings
 		{
 			this.addChild(new MuteButton(flow, preferences));
 			this.addChild(new ResetButton(flow));
-			this.addChild(new VolumeController(Theme.SOUND_SETTING));
+			this.addChild(new VolumeController(Theme.SOUND_SETTING, flow));
 		}
 		
 	}
