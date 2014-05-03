@@ -29,7 +29,7 @@ package game.ui.renderer
 			super(elements, layer);
 		}
 		
-		override protected function renderCell(x:int, y:int, frame:int):void 
+		override protected function renderCell(x:int, y:int):void 
 		{
 			var proj:Projectile = this.projectiles.getProjectile(x, y);
 			

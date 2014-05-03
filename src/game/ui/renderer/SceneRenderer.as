@@ -83,7 +83,7 @@ package game.ui.renderer
 			//TODO: determine range softer
 		}
 		
-		override protected function renderCell(x:int, y:int, frame:int):void 
+		override protected function renderCell(x:int, y:int):void 
 		{
 			if (this.getMapCell(x, y) != this.FALL)
 			{
@@ -150,11 +150,6 @@ package game.ui.renderer
 			var key:int = normalize(x) + normalize(y) * Game.MAP_WIDTH;
 			
 			return this.tileCodes[this.tiles[key].@gid];
-		}
-		
-		override protected function checkIfShouldRender(frame:int):Boolean 
-		{
-			return frame == Game.FRAME_TO_ACT;
 		}
 	}
 

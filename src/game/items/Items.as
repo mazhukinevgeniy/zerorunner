@@ -93,11 +93,11 @@ package game.items
 			var i:int, j:int;
 			var item:PuppetBase;
 			
+			for each (var pup:PuppetBase in this.activeItems)
+				pup.tickPassed();
+			
 			if (key == Game.FRAME_TO_ACT)
 			{
-				for each (var pup:PuppetBase in this.activeItems)
-					pup.tickPassed();
-				
 				var center:ICoordinated = this.center;
 				
 				const tlcX:int = center.x - 20;

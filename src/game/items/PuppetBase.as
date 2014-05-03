@@ -17,8 +17,8 @@ package game.items
 		
 		private var _occupation:int;
 		
-		private var ticksOccupated:int;
-		private var ticksUntilOccupationEnds:int;
+		private var framesOccupated:int;
+		private var framesUntilOccupationEnds:int;
 		
 		private var _moveInProgress:DCellXY;
 		
@@ -66,20 +66,20 @@ package game.items
 			}
 			else if (this._occupation == Game.OCCUPATION_MOVING)
 			{
-				this.ticksOccupated++;
-				if (this.ticksOccupated == this.ticksUntilOccupationEnds)
+				this.framesOccupated++;
+				if (this.framesOccupated == this.framesUntilOccupationEnds)
 				{
 					this._occupation = Game.OCCUPATION_FREE;
-					this.ticksOccupated = this.ticksUntilOccupationEnds = 0;
+					this.framesOccupated = this.framesUntilOccupationEnds = 0;
 				}
 			}
 			else if (this._occupation == Game.OCCUPATION_FLYING)
 			{
-				this.ticksOccupated++;
-				if (this.ticksOccupated == this.ticksUntilOccupationEnds)
+				this.framesOccupated++;
+				if (this.framesOccupated == this.framesUntilOccupationEnds)
 				{
 					this._occupation = Game.OCCUPATION_FLOATING;
-					this.ticksOccupated = this.ticksUntilOccupationEnds = 0;
+					this.framesOccupated = this.framesUntilOccupationEnds = 0;
 				}
 			}
 			else if (this._occupation == Game.OCCUPATION_DYING)
@@ -129,8 +129,8 @@ package game.items
 			
 			
 			this._occupation = Game.OCCUPATION_MOVING;
-			this.ticksUntilOccupationEnds = this.movespeed;
-			this.ticksOccupated = 0;
+			this.framesUntilOccupationEnds = this.movespeed * Game.FRAMES_PER_CYCLE;
+			this.framesOccupated = 0;
 		}
 		
 		final items_internal function startFlyingBy(change:DCellXY):void
@@ -147,8 +147,8 @@ package game.items
 				
 				
 				this._occupation = Game.OCCUPATION_FLYING;
-				this.ticksUntilOccupationEnds = this.flyingSpeed;
-				this.ticksOccupated = 0;
+				this.framesUntilOccupationEnds = this.flyingSpeed * Game.FRAMES_PER_CYCLE;
+				this.framesOccupated = 0;
 			}
 		}
 		
@@ -194,17 +194,17 @@ package game.items
 		
 		public function get type():int { throw new Error(); }
 		
-		final public function getProgress(frame:int):Number 
+		final public function getProgress():Number 
 		{
-			return Number(Number(this.ticksOccupated + Number(frame / Game.FRAMES_PER_CYCLE)) / this.ticksUntilOccupationEnds);
+			return Number(this.framesOccupated) / this.framesUntilOccupationEnds;
 		}
 		final public function get moveInProgress():DCellXY { return this._moveInProgress; }
 		
 		
 		
-		final public function isLastFrame(flashFrame:int):Boolean
+		final public function isLastFrame():Boolean
 		{//TODO: remove if altsprites are no more
-			return (this.ticksOccupated + 1 == this.ticksUntilOccupationEnds) && (flashFrame == Game.FRAMES_PER_CYCLE - 1);
+			return this.framesOccupated + 1 == this.framesUntilOccupationEnds;
 		}
 	}
 

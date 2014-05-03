@@ -50,7 +50,7 @@ package game.ui.renderer
 			this.shards[shard.cell.x + Game.MAP_WIDTH * shard.cell.y] = this.STONE_BOOM_LENGTH * this.STONE_BOOM_SPEED_FACTOR;
 		}
 		
-		override protected function renderCell(x:int, y:int, frame:int):void 
+		override protected function renderCell(x:int, y:int):void 
 		{
 			var key:int = normalize(x) + normalize(y) * Game.MAP_WIDTH;
 			

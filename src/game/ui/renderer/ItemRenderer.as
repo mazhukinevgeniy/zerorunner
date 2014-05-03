@@ -136,13 +136,13 @@ package game.ui.renderer
 			return 8;
 		}
 		
-		override protected function renderCell(x:int, y:int, frame:int):void 
+		override protected function renderCell(x:int, y:int):void 
 		{
 			var item:PuppetBase = this.items.findAnyObjectByCell(x, y);
 			
 			if (item)
 			{
-				var sprite:CenteredImage = this.getAnimationFrame(item, frame);
+				var sprite:CenteredImage = this.getAnimationFrame(item);
 				
 				var sx:int = item.x * Game.CELL_WIDTH;
 				var sy:int = item.y * Game.CELL_HEIGHT;
@@ -153,7 +153,7 @@ package game.ui.renderer
 					var dX:int = item.moveInProgress.x;
 					var dY:int = item.moveInProgress.y;
 					
-					var progress:Number = 1 - item.getProgress(frame);
+					var progress:Number = 1 - item.getProgress();
 					
 					sx -= int(progress * Game.CELL_WIDTH * dX);
 					sy -= int(progress * Game.CELL_HEIGHT * dY);
@@ -168,18 +168,18 @@ package game.ui.renderer
 			}
 		}
 		
-		private function getAnimationFrame(item:PuppetBase, flashFrame:int):CenteredImage
+		private function getAnimationFrame(item:PuppetBase):CenteredImage
 		{
 			var type:int = item.type;
 			var occupation:int = item.occupation;
 			var direction:int = this.getDirection(item);
 			
 			var animationLength:int = this.sprites[type][occupation][direction].length;
-			var frame:int = int(item.getProgress(flashFrame) * animationLength);
+			var frame:int = int(item.getProgress() * animationLength);
 			
 			var toReturn:CenteredImage = this.sprites[type][occupation][direction][frame];
 			
-			if (this.altsprites[type][occupation][direction] && item.isLastFrame(flashFrame))
+			if (this.altsprites[type][occupation][direction] && item.isLastFrame())
 				this.swapAnimations(type, occupation, direction);
 			
 			return toReturn;

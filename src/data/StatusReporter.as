@@ -46,6 +46,7 @@ package data
 		
 		public function isGameOn():Boolean { return this._isGameOn; }
 		public function isMapOn():Boolean { return this._isMapOn; }
+		
 		public function isHeroFree():Boolean { return this.hero && this.hero.isFree(); }
 	}
 

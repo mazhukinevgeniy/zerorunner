@@ -25,7 +25,7 @@ package game.ui.renderer
 			this.shardIncView = new Image(atlas.getTexture("radio-hover-icon"));
 		}
 		
-		override protected function renderCell(x:int, y:int, frame:int):void 
+		override protected function renderCell(x:int, y:int):void 
 		{
 			var proj:Projectile = this.projectiles.getProjectile(x, y);
 			

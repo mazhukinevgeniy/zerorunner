@@ -32,22 +32,19 @@ package game.ui.renderer
 			this.handleGameStarted();
 		}
 		
-		public function redraw(frame:int):void
+		public function redraw():void
 		{
-			if (this.checkIfShouldRender(frame))
-			{
-				var x:int = this.center.x;
-				var y:int = this.center.y;
-				
-				const RANGE:int = Math.abs(this.range);
-				
-				for (var i:int = -RANGE; i < RANGE + 1; i++)
-					for (var j:int = -RANGE; j < RANGE + 1; j++)
-					{
-						/* Render the square row by row */
-						this.renderCell(x + j, y + i, frame);
-					}
-			}
+			var x:int = this.center.x;
+			var y:int = this.center.y;
+			
+			const RANGE:int = Math.abs(this.range);
+			
+			for (var i:int = -RANGE; i < RANGE + 1; i++)
+				for (var j:int = -RANGE; j < RANGE + 1; j++)
+				{
+					/* Render the square row by row */
+					this.renderCell(x + j, y + i);
+				}
 		}
 		
 		update function quitGame():void
@@ -56,7 +53,7 @@ package game.ui.renderer
 		}
 		
 		
-		protected function renderCell(x:int, y:int, frame:int):void
+		protected function renderCell(x:int, y:int):void
 		{
 			throw new Error("must implement");
 		}
@@ -66,11 +63,6 @@ package game.ui.renderer
 			throw new Error("must implement");
 		}
 		
-		
-		protected function checkIfShouldRender(frame:int):Boolean
-		{
-			return true;
-		}
 		
 		protected function handleGameStarted():void
 		{

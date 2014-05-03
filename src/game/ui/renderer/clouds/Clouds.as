@@ -58,7 +58,7 @@ package game.ui.renderer.clouds
 			this.x = this.y = 0;
 		}
 		
-		public function redraw(frame:int):void 
+		public function redraw():void 
 		{
 			this.tilesOffsetX = this.leader.x;
             this.tilesOffsetY = this.leader.y;
