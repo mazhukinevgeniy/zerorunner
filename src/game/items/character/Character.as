@@ -39,11 +39,6 @@ package game.items.character
 			return false;
 		}
 		
-		override protected function onSpawned():void 
-		{
-			this.flow.dispatchUpdate(Update.setCenter, this);
-		}
-		
 		override protected function onUnstabilized():void 
 		{
 			this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_LOST);

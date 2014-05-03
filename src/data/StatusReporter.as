@@ -19,7 +19,6 @@ package data
 		{
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
-			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.toggleMap);
 			flow.addUpdateListener(Update.quitGame);
 			
@@ -30,11 +29,6 @@ package data
 		{
 			this._isGameOn = true;
 			this._isMapOn = false;
-		}
-		
-		update function setCenter(hero:PuppetBase):void
-		{
-			this.hero = hero;
 		}
 		
 		update function toggleMap():void
@@ -49,6 +43,14 @@ package data
 			
 			this.hero = null;
 		}
+		
+		
+		public function newHero(hero:PuppetBase):void
+		{
+			this.hero = hero;
+		}
+		
+		/**///As IStatus
 		
 		public function isGameOn():Boolean { return this._isGameOn; }
 		public function isMapOn():Boolean { return this._isMapOn; }
@@ -82,6 +84,8 @@ package data
 			
 			return occ == Game.OCCUPATION_FLYING || occ == Game.OCCUPATION_FLOATING;
 		}
+		
+		/**/
 	}
 
 }

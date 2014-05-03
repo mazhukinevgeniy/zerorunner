@@ -43,8 +43,6 @@ package game.items
 				this.items.addPassiveItem(this);
 			else
 				this.items.addActiveItem(this);
-			
-			this.onSpawned();
 		}
 		
 		public function isFree():Boolean
@@ -181,7 +179,6 @@ package game.items
 		protected function get isPassive():Boolean { return false; }
 		protected function get isDestructible():Boolean { return true; }
 		
-		protected function onSpawned():void { }
 		protected function onUnstabilized():void { }
 		
 		

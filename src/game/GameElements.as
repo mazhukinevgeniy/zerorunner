@@ -58,7 +58,7 @@ package game
 			this._inputT = new InputTeller(this._inputC);
 			
 			this._scene = new Scene(this);
-			this._items = new Items(this);
+			this._items = new Items(this, this._status);
 			this._fuel = new FuelTracker(this);
 			this._projectiles = new Projectiles(this);
 			

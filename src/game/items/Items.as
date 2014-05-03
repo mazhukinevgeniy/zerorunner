@@ -1,6 +1,7 @@
 package game.items 
 {
 	import data.IStatus;
+	import data.StatusReporter;
 	import game.GameElements;
 	import game.interfaces.IRestorable;
 	import game.items.beacon.BeaconMaster;
@@ -26,7 +27,7 @@ package game.items
 		
 		private var status:IStatus;
 		
-		public function Items(elements:GameElements) 
+		public function Items(elements:GameElements, status:StatusReporter) 
 		{
 			this.status = elements.status;
 			
@@ -39,7 +40,7 @@ package game.items
 			this.masters = new Vector.<MasterBase>(Game.NUMBER_OF_ITEM_TYPES, true);
 			
 			this.masters[Game.ITEM_BEACON] = new BeaconMaster(elements);
-			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(elements);
+			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(elements, status);
 			this.masters[Game.ITEM_CHECKPOINT] = new CheckpointMaster(elements);
 			this.masters[Game.ITEM_SHARD] = new ShardMaster(elements);
 			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(elements);

@@ -28,8 +28,6 @@ package
 		
 		/* In-game updates */
 		
-		public static const setCenter:String = "setCenter";
-		
 		public static const projectileLaunched:String = "projectileLaunched";
 		public static const projectileLanded:String = "projectileLanded";
 		

@@ -1,5 +1,6 @@
 package game.items.character 
 {
+	import data.StatusReporter;
 	import game.GameElements;
 	import game.input.InputTeller;
 	import game.items.Items;
@@ -19,9 +20,13 @@ package game.items.character
 		private var scene:IScene;
 		private var items:Items;
 		
-		public function CharacterMaster(elements:GameElements) 
+		private var status:StatusReporter;
+		
+		public function CharacterMaster(elements:GameElements, status:StatusReporter) 
 		{
 			super(elements);
+			
+			this.status = status;
 		}
 		
 		override public function spawnPuppet(x:int, y:int):void 
@@ -30,7 +35,8 @@ package game.items.character
 			this.scene = this.elements.scene;
 			this.items = this.elements.items;
 			
-			new Character(this, this.elements, new CellXY(x, y));
+			this.status.newHero(
+				new Character(this, this.elements, new CellXY(x, y)));
 		}
 		
 		override protected function act(puppet:PuppetBase):void
