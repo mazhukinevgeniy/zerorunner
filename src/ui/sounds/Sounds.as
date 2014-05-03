@@ -3,6 +3,7 @@ package ui.sounds
 	import data.Preferences;
 	import game.GameElements;
 	import starling.utils.AssetManager;
+	import ui.themes.Theme;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -41,12 +42,21 @@ package ui.sounds
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.toggleMute);
+			this.flow.addUpdateListener(Update.changeVolume);
 		}
 		
 		update function toggleMute():void
 		{
 			this.music.toggleSound();
 			this.sound.toggleSound();
+		}
+		
+		update function changeVolume(target:String, newValue:Number):void
+		{
+			if(target == Theme.MUSIC_SETTING)
+				this.music.setGlobalVolume(newValue);
+			else if (target == Theme.SOUND_SETTING)
+				this.sound.setGlobalVolume(newValue);
 		}
 	}
 
