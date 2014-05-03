@@ -4,32 +4,27 @@ package game.ui.renderer.clouds
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
 	import game.ui.renderer.IRenderer;
+	import starling.display.DisplayObject;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;
 	import utils.updates.update;
 	
 	public class Clouds extends ScrollImage implements IRenderer
 	{
-		internal static const CLOUDINESS:int = 4;
-		
-		private var elements:GameElements;
-		
-		private var character:PuppetBase;
-		
-		private var stableOffsetX:int;
-		private var stableOffsetY:int;
+		internal static const CLOUDINESS:int = 2;
 		
 		private var usedAtlas:CloudAtlas;
 		
-		public function Clouds(elements:GameElements) 
+		private var leader:DisplayObject;
+		
+		public function Clouds(elements:GameElements, leader:DisplayObject) 
 		{
-			this.elements = elements;
+			this.leader = leader;
 			
 			super(Main.WIDTH, Main.HEIGHT, false);
 			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
-			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
@@ -61,39 +56,10 @@ package game.ui.renderer.clouds
 			this.x = this.y = 0;
 		}
 		
-		update function setCenter(center:PuppetBase):void
-		{
-			this.character = center;
-		}
-		
 		public function redraw(frame:int):void 
 		{
-			this.stableOffsetX = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
-            this.stableOffsetY = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
-			
-			while (this.stableOffsetX < 0)
-				this.stableOffsetX += 1024;
-			while (this.stableOffsetY < 0)
-				this.stableOffsetY += 1024;
-			
-			this.stableOffsetX = this.stableOffsetX % 1024;
-			this.stableOffsetY = this.stableOffsetY % 1024;
-			
-			
-			this.tilesOffsetX = this.stableOffsetX;
-            this.tilesOffsetY = this.stableOffsetY;
-			
-			if (this.character.occupation == Game.OCCUPATION_MOVING ||
-				this.character.occupation == Game.OCCUPATION_FLYING)
-			{
-				var dX:int = this.character.moveInProgress.x;
-				var dY:int = this.character.moveInProgress.y;
-				
-				var progress:Number = 1 - this.character.getProgress(frame);
-				
-				this.tilesOffsetX += int(progress * Game.CELL_WIDTH * dX);
-				this.tilesOffsetY += int(progress * Game.CELL_HEIGHT * dY);
-			}
+			this.tilesOffsetX = this.leader.x;
+            this.tilesOffsetY = this.leader.y;
 			
 			
 			for (var i:int = 0; i < this.numLayers; i++)

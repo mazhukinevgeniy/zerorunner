@@ -41,7 +41,7 @@ package game.ui.renderer
 			this.renderers.push(new ProjectileRenderer(elements, this.activeLayer));
 			this.renderers.push(new EffectRenderer(elements, this.activeLayer));
 			
-			this.renderers.push(elements.displayRoot.addChild(new Clouds(elements)));
+			this.renderers.push(elements.displayRoot.addChild(new Clouds(elements, this)));
 		}
 		
 		update function setCenter(center:PuppetBase):void

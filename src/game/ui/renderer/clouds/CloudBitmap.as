@@ -7,10 +7,10 @@ package game.ui.renderer.clouds
 	internal class CloudBitmap extends BitmapData
 	{
 		
-		internal static const WIDTH:Number = 1024;
-		internal static const HEIGHT:Number = 1024;
+		internal static const WIDTH:Number = Game.CLOUD_WIDTH;
+		internal static const HEIGHT:Number = Game.CLOUD_WIDTH;
 		
-		private static const MIN_NUMBER_OF_ELEMENTS:int = 5;
+		private static const MIN_NUMBER_OF_ELEMENTS:int = 2;
 		
 		[Embed(source="../../../../../res/clouds/unimplemented.png")]
 		private static const BaseCloud:Class;
