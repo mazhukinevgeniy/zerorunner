@@ -1,6 +1,8 @@
 package data
 {
 	import game.items.PuppetBase;
+	import game.metric.DCellXY;
+	import game.metric.ICoordinated;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
@@ -11,6 +13,8 @@ package data
 		private var _isGameOn:Boolean = false;
 		private var _isMapOn:Boolean = false;
 		
+		private var dxyHelper:NumericalDxyHelper;
+		
 		public function StatusReporter(flow:IUpdateDispatcher) 
 		{
 			flow.workWithUpdateListener(this);
@@ -18,6 +22,8 @@ package data
 			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.toggleMap);
 			flow.addUpdateListener(Update.quitGame);
+			
+			this.dxyHelper = new NumericalDxyHelper();
 		}
 		
 		update function newGame():void
@@ -48,6 +54,27 @@ package data
 		public function isMapOn():Boolean { return this._isMapOn; }
 		
 		public function isHeroFree():Boolean { return this.hero && this.hero.isFree(); }
+		public function getLocationOfHero():ICoordinated { return this.hero; }
+		
+		public function getDisplacementOfHero():NumericalDxyHelper
+		{
+			var occ:int = this.hero.occupation;
+			
+			if (occ == Game.OCCUPATION_MOVING || occ == Game.OCCUPATION_FLYING)
+			{
+				var direction:DCellXY = this.hero.moveInProgress;
+				
+				var progress:Number = this.hero.getProgress() - 1;
+				
+				this.dxyHelper.setValue(progress * direction.x, progress * direction.y);
+			}
+			else
+			{
+				this.dxyHelper.setValue(0, 0);
+			}
+			
+			return this.dxyHelper;
+		}
 	}
 
 }

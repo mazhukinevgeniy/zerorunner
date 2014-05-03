@@ -1,8 +1,10 @@
 package game.ui.renderer 
 {
+	import data.NumericalDxyHelper;
+	import data.StatusReporter;
 	import game.GameElements;
 	import game.interfaces.IRestorable;
-	import game.items.PuppetBase;
+	import game.metric.ICoordinated;
 	import game.ui.renderer.clouds.Clouds;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
@@ -10,7 +12,7 @@ package game.ui.renderer
 	
 	public class Renderer extends Sprite implements IRenderer, IRestorable
 	{
-		private var character:PuppetBase;
+		private var status:StatusReporter;
 		
 		private var sceneRenderer:SceneRenderer;
 		private var activeRenderers:Vector.<IRenderer>;
@@ -22,10 +24,11 @@ package game.ui.renderer
 		{
 			super();
 			
+			this.status = elements.status;
+			
 			elements.restorer.addSubscriber(this);
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
@@ -55,11 +58,6 @@ package game.ui.renderer
 			this.update::numberedFrame(Game.FRAME_TO_ACT);
 		}
 		
-		update function setCenter(center:PuppetBase):void
-		{
-			this.character = center;
-		}
-		
 		update function numberedFrame(frame:int):void 
 		{
 			if (frame == Game.FRAME_TO_ACT)
@@ -70,26 +68,21 @@ package game.ui.renderer
 			
 			this.activeLayer.reset();
 			
-			for each (var renderer:IRenderer in this.activeRenderers)
-				renderer.redraw();
+			for (var i:int = 0; i < this.activeRenderers.length; i++)
+				this.activeRenderers[i].redraw();
 		}
 		
 		public function redraw():void
 		{
-			this.x = -this.character.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
-            this.y = -this.character.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
+			var cell:ICoordinated = this.status.getLocationOfHero();
 			
-			if (this.character.occupation == Game.OCCUPATION_MOVING ||
-				this.character.occupation == Game.OCCUPATION_FLYING)
-			{
-				var dX:int = this.character.moveInProgress.x;
-				var dY:int = this.character.moveInProgress.y;
-				
-				var progress:Number = 1 - this.character.getProgress();
-				
-				this.x += int(progress * Game.CELL_WIDTH * dX);
-				this.y += int(progress * Game.CELL_HEIGHT * dY);
-			}
+			this.x = -cell.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
+            this.y = -cell.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
+			
+			var displacement:NumericalDxyHelper = this.status.getDisplacementOfHero();
+			
+			this.x -= int(Game.CELL_WIDTH * displacement.dx);
+			this.y -= int(Game.CELL_HEIGHT * displacement.dy);
 		}
 		
 		update function quitGame():void
