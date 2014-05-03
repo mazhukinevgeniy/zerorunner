@@ -6,17 +6,13 @@ package data
 	
 	public class StatusReporter 
 	{
-		private var save:SharedObjectManager;
-		
 		private var hero:PuppetBase;
 		
 		private var _isGameOn:Boolean = false;
 		private var _isMapOn:Boolean = false;
 		
-		public function StatusReporter(flow:IUpdateDispatcher, save:SharedObjectManager) 
+		public function StatusReporter(flow:IUpdateDispatcher) 
 		{
-			this.save = save;
-			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.setCenter);

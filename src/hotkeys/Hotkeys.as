@@ -16,7 +16,7 @@ package hotkeys
 		
 		public function Hotkeys(elements:GameElements, root:IEventDispatcher) 
 		{
-			this.status = elements.database.status;
+			this.status = elements.status;
 			
 			root.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 			root.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);

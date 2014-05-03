@@ -1,6 +1,5 @@
 package ui 
 {
-	import data.DatabaseManager;
 	import data.StatusReporter;
 	import game.GameElements;
 	import starling.core.Starling;
@@ -33,7 +32,7 @@ package ui
 		
 		public function Shell(globalDisplayRoot:DisplayObjectContainer, elements:GameElements)
 		{
-			this.status = elements.database.status;
+			this.status = elements.status;
 			
 			this.flow = elements.flow;
 			this.assets = elements.assets;
@@ -50,14 +49,14 @@ package ui
 			new Theme(elements, this.ownRoot);
 			
 			this.background = new Background();
-			this.navigation = new Navigation(this.flow, elements.database, elements.assets);
-			this.windows = new Windows(this.flow, this.assets, elements.database, elements.displayRoot)
+			this.navigation = new Navigation(elements);
+			this.windows = new Windows(elements)
 			
 			this.ownRoot.addChild(this.background);
 			this.ownRoot.addChild(this.windows);
 			this.ownRoot.addChild(this.navigation);
 			
-			new Sounds(this.flow, this.assets, elements.database.preferences);
+			new Sounds(elements);
 		}
 		
 		private function initializeUsingFlow():void 

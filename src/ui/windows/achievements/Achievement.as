@@ -1,6 +1,5 @@
 package ui.windows.achievements 
 {
-	import data.viewers.AchievementViewer;
 	
 	public class Achievement
 	{

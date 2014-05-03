@@ -1,6 +1,5 @@
 package game 
 {
-	import data.StatusReporter;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	

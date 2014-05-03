@@ -1,6 +1,7 @@
 package ui.sounds 
 {
-	import data.viewers.PreferencesViewer;
+	import data.Preferences;
+	import game.GameElements;
 	import starling.utils.AssetManager;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -13,14 +14,14 @@ package ui.sounds
 		private var flow:IUpdateDispatcher
 		
 		
-		public function Sounds(flow:IUpdateDispatcher, assets:AssetManager, config:PreferencesViewer) 
+		public function Sounds(elements:GameElements) 
 		{
-			this.initializeSoundsManagers(assets);
-			this.initializeUsingFlow(flow);
+			this.initializeSoundsManagers(elements.assets);
+			this.initializeUsingFlow(elements.flow);
 			
 			super();
 			
-			if (config.mute)
+			if (elements.preferences.mute)
 			{
 				this.update::toggleMute();
 			}

@@ -1,6 +1,6 @@
 package ui.windows.settings 
 {
-	import data.viewers.PreferencesViewer;
+	import data.Preferences;
 	import feathers.controls.Button;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -18,7 +18,7 @@ package ui.windows.settings
 		
 		private var button:Button;
 		
-		public function MuteButton(flow:IUpdateDispatcher, preferences:PreferencesViewer) 
+		public function MuteButton(flow:IUpdateDispatcher, preferences:Preferences) 
 		{
 			super();
 			

@@ -22,7 +22,7 @@ package hotkeys
 		public function InGameProcessor(elements:GameElements) 
 		{
 			this.flow = elements.flow;
-			this.status = elements.database.status;
+			this.status = elements.status;
 			
 			this.gameMenu = elements.gameMenu;
 		}

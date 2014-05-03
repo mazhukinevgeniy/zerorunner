@@ -35,7 +35,7 @@ package game.ui
 		public function GameMenu(elements:GameElements) 
 		{
 			this.flow = elements.flow;
-			this.status = elements.database.status;
+			this.status = elements.status;
 			
 			super();
 			

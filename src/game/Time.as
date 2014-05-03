@@ -22,7 +22,7 @@ package game
 		
 		public function Time(elements:GameElements) 
 		{
-			this.status = elements.database.status;
+			this.status = elements.status;
 			this.input = elements.input;
 			
 			elements.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);

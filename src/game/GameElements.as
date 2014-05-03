@@ -1,6 +1,7 @@
 package game 
 {
-	import data.DatabaseManager;
+	import data.Preferences;
+	import data.StatusReporter;
 	import game.fuel.FuelTracker;
 	import game.fuel.IFuel;
 	import game.input.IKnowInput;
@@ -22,8 +23,9 @@ package game
 	public class GameElements 
 	{
 		private var _assets:AssetManager;
+		private var _status:StatusReporter;
+		private var _preferences:Preferences;
 		private var _flow:IUpdateDispatcher;
-		private var _database:DatabaseManager;
 		private var _root:DisplayObjectContainer;
 		
 		private var _fuel:IFuel;
@@ -41,7 +43,8 @@ package game
 			this._assets = assets;
 			this._root = new Sprite();
 			this._flow = new UpdateManager();
-			this._database = new DatabaseManager(this._flow);
+			this._status = new StatusReporter(this._flow);
+			this._preferences = new Preferences(this._flow);
 			
 			new GameUpdateConverter(this._flow);
 			
@@ -64,7 +67,8 @@ package game
 		public function get assets():AssetManager { return this._assets; }
 		public function get gameMenu():IGameMenu { return this._gameMenu; }
 		public function get flow():IUpdateDispatcher { return this._flow; }
-		public function get database():DatabaseManager { return this._database; }
+		public function get status():StatusReporter { return this._status; }
+		public function get preferences():Preferences { return this._preferences; }
 		public function get displayRoot():DisplayObjectContainer { return this._root; }
 		public function get projectiles():IProjectileManager { return this._projectiles; }
 	}

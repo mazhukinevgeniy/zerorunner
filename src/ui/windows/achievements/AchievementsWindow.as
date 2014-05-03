@@ -1,9 +1,9 @@
 package ui.windows.achievements 
 {
-	import data.viewers.AchievementViewer;
 	import feathers.controls.Label;
 	import feathers.controls.ScrollContainer;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -44,9 +44,12 @@ package ui.windows.achievements
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function AchievementsWindow(assets:AssetManager, achievementsSave:AchievementViewer, flow:IUpdateDispatcher) 
+		public function AchievementsWindow(assets:AssetManager, flow:IUpdateDispatcher) 
 		{
-			//this.achData = this.achievementsSave
+			var achData:Dictionary = new Dictionary();
+			
+			new AchievementsUpdater(flow, achData);
+			this.achievementsSave = new AchievementViewer(achData);
 			
 			super();
 			

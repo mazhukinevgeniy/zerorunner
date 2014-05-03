@@ -8,8 +8,6 @@ package
 		public static const toggleMute:String = "toggleMute";
 		public static const toggleWindow:String = "toggleWindow";
 		
-		public static const resetProgress:String = "resetProgress";
-		
 		public static const newInputPiece:String = "newInputPiece";
 		public static const toggleFlight:String = "toggleFlight";
 		public static const skipFrames:String = "skipFrames";

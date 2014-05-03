@@ -1,9 +1,9 @@
 package ui.navigation 
 {
-	import data.DatabaseManager;
 	import feathers.controls.Button;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
+	import game.GameElements;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
@@ -34,20 +34,19 @@ package ui.navigation
 		
 		private var resetButton:Button;
 		
-		public function Navigation(flow:IUpdateDispatcher, database:DatabaseManager, assets:AssetManager) 
+		public function Navigation(elements:GameElements) 
 		{
 			this.initializeSize();
 			this.initializeLayout();
 			
-			this.buttonFactory = new ButtonFactory(assets, Navigation.WIDTH_BUTTON, Navigation.HEIGHT_BUTTON);
+			this.flow = elements.flow;
+			
+			this.buttonFactory = new ButtonFactory(elements.assets, Navigation.WIDTH_BUTTON, Navigation.HEIGHT_BUTTON);
 			this.initializeButtons();
 			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.newGame);
-			flow.addUpdateListener(Update.quitGame);
-			
-			this.flow = flow;
-			
+			this.flow.workWithUpdateListener(this);
+			this.flow.addUpdateListener(Update.newGame);
+			this.flow.addUpdateListener(Update.quitGame);
 		}
 		
 		protected function initializeSize():void

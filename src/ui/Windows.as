@@ -1,6 +1,6 @@
 package ui 
 {
-	import data.DatabaseManager;
+	import game.GameElements;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -22,14 +22,14 @@ package ui
 		
 		private static const NUMBER_OF_WINDOWS:int = 4;
 		
-		public function Windows(flow:IUpdateDispatcher, assets:AssetManager, database:DatabaseManager, gameRoot:DisplayObjectContainer) 
+		public function Windows(elements:GameElements) 
 		{
 			var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 			
-			windows[Windows.GAME] = gameRoot;
-			windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(assets, database.achievements, flow);
-			windows[Windows.SETTINGS] = new SettingsWindow(flow, database.preferences);
-			windows[Windows.CREDITS] = new CreditsWindow(flow);
+			windows[Windows.GAME] = elements.displayRoot;
+			windows[Windows.ACHIEVEMENTS] = new Sprite();//new AchievementsWindow(elements.assets, elements.flow);
+			windows[Windows.SETTINGS] = new SettingsWindow(elements.flow, elements.preferences);
+			windows[Windows.CREDITS] = new CreditsWindow(elements.flow);
 			
 			windows[0].visible = false;
 			for (var i:int = 1; i < Windows.NUMBER_OF_WINDOWS; ++i)
@@ -38,7 +38,7 @@ package ui
 				windows[i].visible = false;
 			}
 			
-			new WindowsController(flow, windows);
+			new WindowsController(elements.flow, windows);
 		}
 		
 	}

@@ -1,11 +1,11 @@
-package data.updaters 
+package ui.windows.achievements 
 {
-	import data.Defaults;
 	import flash.geom.Point;
-	import flash.utils.Proxy;
+	import flash.utils.Dictionary;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
+	//TODO: find out what is this and implement it well
 	public class AchievementsUpdater 
 	{
 		private static const TEST_TYPE:int = 0;
@@ -15,23 +15,22 @@ package data.updaters
 		
 		private static const ADDRESSES:Vector.<String> = new < String > ["distance"];
 		
-		private var save:Proxy;
+		private var save:Dictionary;
 		
 		private var openAchievements:Vector.<Vector.<Object>>;
 		
-		public function AchievementsUpdater(flow:IUpdateDispatcher, save:Proxy) 
+		public function AchievementsUpdater(flow:IUpdateDispatcher, save:Dictionary) 
 		{
 			this.save = save;
 			
 			this.openAchievements = new Vector.<Vector.<Object>>;
 			
-			this.initializeOpenAchievements();
-			if (this.save["achievements"].length == 0)
+			if (!this.save["achievements"]) || this.save["achievements"].length == 0)
 				this.openAchievement(AchievementsUpdater.UNDEFINED);
+			this.initializeOpenAchievements();
 				
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.numberedFrame);
-			flow.addUpdateListener(Update.resetProgress);
 		}
 		
 		private function initializeOpenAchievements():void
@@ -178,12 +177,6 @@ package data.updaters
 		private function addEdge(edge:Point):void
 		{
 			this.save["achievementsEdge"].push(edge);
-		}
-		
-		update function resetProgress():void
-		{
-			for (var value:String in Defaults.achievementsDefaults)
-				this.save[value] = Defaults.achievementsDefaults[value];
 		}
 	}
 
