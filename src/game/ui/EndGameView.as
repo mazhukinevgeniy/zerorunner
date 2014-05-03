@@ -1,6 +1,5 @@
 package game.ui 
 {
-	import data.viewers.GameConfig;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import game.GameElements;
@@ -51,7 +50,7 @@ package game.ui
 			elements.displayRoot.addChild(this);
 		}
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			this.visible = false;
 		}

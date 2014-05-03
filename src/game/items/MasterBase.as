@@ -1,6 +1,5 @@
 package game.items 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import utils.updates.update;
 	
@@ -19,7 +18,7 @@ package game.items
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function restore(config:GameConfig):void { this.onGameStarted(); }
+		update function restore():void { this.onGameStarted(); }
 		update function quitGame():void { this.onGameFinished(); }
 		
 		

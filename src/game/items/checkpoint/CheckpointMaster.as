@@ -1,6 +1,5 @@
 package game.items.checkpoint 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items._utils.CheckpointMasterBase;
 	import game.items.PuppetBase;

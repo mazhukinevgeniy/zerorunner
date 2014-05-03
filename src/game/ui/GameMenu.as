@@ -1,7 +1,6 @@
 package game.ui 
 {
 	import data.StatusReporter;
-	import data.viewers.GameConfig;
 	import feathers.controls.Button;
 	import flash.display.Stage;
 	import flash.geom.Point;
@@ -135,7 +134,7 @@ package game.ui
 		
 		
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			this.mainButtons.visible = false;
 		}

@@ -1,6 +1,5 @@
 package game.scene 
 {
-	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;
 	import utils.MapXML;
 	import utils.updates.IUpdateDispatcher;
@@ -18,7 +17,7 @@ package game.scene
 			flow.addUpdateListener(Update.restore);
 		}
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			this.scene.clear();
 			this.scene.length = Game.MAP_WIDTH * Game.MAP_WIDTH;

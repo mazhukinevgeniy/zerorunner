@@ -1,6 +1,5 @@
 package game.ui.renderer 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import starling.display.Image;
 	import starling.display.QuadBatch;

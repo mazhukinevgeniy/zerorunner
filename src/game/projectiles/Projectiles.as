@@ -1,6 +1,5 @@
 package game.projectiles 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items.Items;
 	import game.items.PuppetBase;
@@ -60,7 +59,7 @@ package game.projectiles
 		}
 		
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			this.projectiles = new Array();
 		}

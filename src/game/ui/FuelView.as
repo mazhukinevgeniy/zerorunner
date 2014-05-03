@@ -1,6 +1,5 @@
 package game.ui 
 {
-	import data.viewers.GameConfig;
 	import game.fuel.IFuel;
 	import game.GameElements;
 	import starling.display.Quad;
@@ -47,7 +46,7 @@ package game.ui
 			return body;
 		}
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			this.indicator.scaleX = this.fuel.getAmountOfFuel();
 		}

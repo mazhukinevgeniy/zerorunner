@@ -43,7 +43,7 @@ package game
 			this._flow = new UpdateManager();
 			this._database = new DatabaseManager(this._flow);
 			
-			new GameUpdateConverter(this._flow, this._database.config);
+			new GameUpdateConverter(this._flow);
 			
 			this._input = new InputManager(this._flow);
 			

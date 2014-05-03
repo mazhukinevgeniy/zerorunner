@@ -10,9 +10,7 @@ package game.ui.renderer.clouds
 		internal static const WIDTH:Number = 1024;
 		internal static const HEIGHT:Number = 1024;
 		
-		private static const MAX_NUMBER_OF_ELEMENTS:int = 165;
 		private static const MIN_NUMBER_OF_ELEMENTS:int = 5;
-		private static const STEP:int = (CloudBitmap.MAX_NUMBER_OF_ELEMENTS - CloudBitmap.MIN_NUMBER_OF_ELEMENTS) / Clouds.SIZE_CLOUDINNESS_SCALE;
 		
 		[Embed(source="../../../../../res/clouds/unimplemented.png")]
 		private static const BaseCloud:Class;
@@ -22,8 +20,7 @@ package game.ui.renderer.clouds
 			super(CloudBitmap.WIDTH, CloudBitmap.HEIGHT, true, 0x00FFFFFF);
 			
 			var baseCloud:Bitmap = new BaseCloud();
-			var numberOfElements:int = cloudiness * CloudBitmap.STEP + CloudBitmap.MIN_NUMBER_OF_ELEMENTS + 
-									   (Math.random() * 100) % CloudBitmap.STEP ;
+			var numberOfElements:int = CloudBitmap.MIN_NUMBER_OF_ELEMENTS + Math.random() * 10 * cloudiness;
 			
 			var dataBaseCloud:BitmapData = baseCloud.bitmapData; 
 			var container:Sprite = new Sprite();

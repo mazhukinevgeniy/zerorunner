@@ -1,6 +1,5 @@
 package game.ui 
 {
-	import data.viewers.GameConfig;
 	import flash.utils.ByteArray;
 	import game.GameElements;
 	import game.input.IKnowInput;
@@ -73,7 +72,7 @@ package game.ui
 		}
 		
 		/* Note: restore here happens AFTER setCenter */
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			var i:int;
 			

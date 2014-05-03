@@ -1,6 +1,5 @@
 package game.ui.renderer 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items.PuppetBase;
 	import game.ui.renderer.clouds.Clouds;
@@ -50,7 +49,7 @@ package game.ui.renderer
 			this.character = center;
 		}
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			/* Force rendering */
 			

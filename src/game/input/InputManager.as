@@ -1,6 +1,5 @@
 package game.input
 {
-	import data.viewers.GameConfig;
 	import flash.events.Event;
 	import game.metric.DCellXY;
 	import game.metric.ProtectedDCellXY;
@@ -50,7 +49,7 @@ package game.input
 			this.order[InputManager.NO_DIRECTION] = 0;
 		}
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			this.handleDeactivation();
 		}

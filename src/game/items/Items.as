@@ -1,6 +1,5 @@
 package game.items 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items.beacon.BeaconMaster;
 	import game.items.character.CharacterMaster;
@@ -44,7 +43,7 @@ package game.items
 			this.moved = new Vector.<PuppetBase>();
 		}
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			this.activeItems = new Array();
 			this.passiveItems = new Array();

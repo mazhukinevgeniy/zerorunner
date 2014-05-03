@@ -1,6 +1,5 @@
 package game.ui.renderer.clouds 
 {
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
@@ -11,7 +10,7 @@ package game.ui.renderer.clouds
 	
 	public class Clouds extends ScrollImage implements IRenderer
 	{
-		internal static const SIZE_CLOUDINNESS_SCALE:int = 10;
+		internal static const CLOUDINESS:int = 4;
 		
 		private var elements:GameElements;
 		
@@ -34,10 +33,10 @@ package game.ui.renderer.clouds
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			const numberOfClouds:int = 4;
-			var cloudiness:int = config.cloudiness % Clouds.SIZE_CLOUDINNESS_SCALE;
+			var cloudiness:int = Clouds.CLOUDINESS;
 			
 			
 			

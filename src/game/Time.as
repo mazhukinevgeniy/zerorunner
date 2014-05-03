@@ -1,7 +1,6 @@
 package game 
 {
 	import data.StatusReporter;
-	import data.viewers.GameConfig;
 	import game.GameElements;
 	import game.input.IKnowInput;
 	import starling.events.EnterFrameEvent;
@@ -36,7 +35,7 @@ package game
 			this.updateFlow = elements.flow;
 		}
 		
-		update function restore(config:GameConfig):void
+		update function restore():void
 		{
 			this.isFixed = false;
 			this.isMenuOpened = false;
