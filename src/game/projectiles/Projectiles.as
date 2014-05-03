@@ -32,7 +32,6 @@ package game.projectiles
 			elements.restorer.addSubscriber(this);
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.projectileLanded);
 			this.flow.addUpdateListener(Update.numberedFrame);
 			this.flow.addUpdateListener(Update.quitGame);
 			
@@ -97,6 +96,30 @@ package game.projectiles
 			this.projectiles[cell.x + Game.MAP_WIDTH * cell.y] = projectile;
 		}
 		
+		internal function landProjectile(projectile:Projectile):void
+		{
+			this.deleteProjectile(projectile);
+			
+			
+			if (projectile.type == Game.PROJECTILE_SHARD)
+			{
+				var x:int = projectile.cell.x;
+				var y:int = projectile.cell.y;
+				
+				var target:PuppetBase = this.items.findAnyObjectByCell(x, y);
+				
+				if (target)
+				{
+					target.tryDestruction();
+				}
+				else if (this.scene.getSceneCell(x, y) == Game.SCENE_GROUND)
+				{
+					this.flow.dispatchUpdate(Update.dropShard, projectile);
+					//TODO: remove this, and the whole "this.flow" thing falls!
+				}
+			}
+		}
+		
 		internal function getNewProjectile(type:int, x:int, y:int):void
 		{
 			var projectile:Projectile = this.unusedProjectiles.pop();
@@ -104,7 +127,7 @@ package game.projectiles
 			if (projectile)
 				projectile.reassign(type, x, y);
 			else
-				new Projectile(this.flow, type, x, y, this.controller);
+				new Projectile(this.controller, type, x, y);
 		}
 		
 		/**/
@@ -124,29 +147,6 @@ package game.projectiles
 				for (var i:int = 0; i < this.clouds.length; i++)
 				{
 					this.clouds[i].spawnProjectiles();
-				}
-			}
-		}
-		
-		update function projectileLanded(projectile:Projectile):void
-		{
-			this.deleteProjectile(projectile);
-			
-			
-			if (projectile.type == Game.PROJECTILE_SHARD)
-			{
-				var x:int = projectile.cell.x;
-				var y:int = projectile.cell.y;
-				
-				var target:PuppetBase = this.items.findAnyObjectByCell(x, y);
-				
-				if (target)
-				{
-					target.tryDestruction();
-				}
-				else if (this.scene.getSceneCell(x, y) == Game.SCENE_GROUND)
-				{
-					this.flow.dispatchUpdate(Update.dropShard, projectile);
 				}
 			}
 		}

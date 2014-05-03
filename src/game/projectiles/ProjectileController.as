@@ -30,6 +30,11 @@ package game.projectiles
 			this.projs.launchProjectile(projectile);
 		}
 		
+		public function landProjectile(projectile:Projectile):void
+		{
+			this.projs.landProjectile(projectile);
+		}
+		
 	}
 
 }

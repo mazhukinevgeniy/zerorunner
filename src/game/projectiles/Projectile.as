@@ -2,7 +2,6 @@ package game.projectiles
 {
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
-	import utils.updates.IUpdateDispatcher;
 	
 	public class Projectile 
 	{
@@ -12,14 +11,10 @@ package game.projectiles
 		private var _height:int;
 		private var _speed:int;
 		
-		private var flow:IUpdateDispatcher;
-		
 		private var controller:ProjectileController;
 		
-		public function Projectile(flow:IUpdateDispatcher, type:int, x:int, y:int,
-		                           controller:ProjectileController) 
+		public function Projectile(controller:ProjectileController, type:int, x:int, y:int) 
 		{
-			this.flow = flow;//TODO: check if can remove
 			this.controller = controller;
 			
 			this._cell = new CellXY(0, 0);
@@ -45,7 +40,7 @@ package game.projectiles
 			
 			if (this._height <= 0)
 			{
-				this.flow.dispatchUpdate(Update.projectileLanded, this);
+				this.controller.landProjectile(this);
 			}
 		}
 		

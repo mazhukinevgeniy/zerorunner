@@ -28,8 +28,6 @@ package
 		
 		/* In-game updates */
 		
-		public static const projectileLanded:String = "projectileLanded";
-		
 		public static const dropShard:String = "dropShard";
 		
 		/* Time updates */
