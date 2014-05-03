@@ -52,11 +52,11 @@ package ui
 			this.navigation = new Navigation(elements);
 			this.windows = new Windows(elements)
 			
+			new Sounds(elements);
+			
 			this.ownRoot.addChild(this.background);
 			this.ownRoot.addChild(this.windows);
 			this.ownRoot.addChild(this.navigation);
-			
-			new Sounds(elements);
 		}
 		
 		private function initializeUsingFlow():void 
