@@ -5,22 +5,25 @@ package game.items.checkpoint
 	import game.items.PuppetBase;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
+	import game.projectiles.IProjectiles;
 	import game.projectiles.Projectile;
-	import game.projectiles.Projectiles;
+	import game.projectiles.ProjectileController;
 	
 	public class CheckpointMaster extends CheckpointMasterBase
 	{
-		private var projectiles:Projectiles;
+		private var projectiles:IProjectiles;
+		private var projectileController:ProjectileController;
 		
 		private var checkpoints:Vector.<Checkpoint>;
 		
-		public function CheckpointMaster(elements:GameElements, projectiles:Projectiles) 
+		public function CheckpointMaster(elements:GameElements) 
 		{			
 			super(elements);
 			
 			this.checkpoints = new Vector.<Checkpoint>();
 			
-			this.projectiles = projectiles;
+			this.projectiles = elements.projectiles;
+			this.projectileController = elements.projectileController;
 			
 		}
 		
@@ -31,6 +34,9 @@ package game.items.checkpoint
 		
 		override public function spawnPuppet(x:int, y:int):void 
 		{
+			if (!this.projectiles)
+				this.projectiles = elements.projectiles;
+			
 			this.checkpoints.push(
 				new Checkpoint(this, this.elements, new CellXY(x, y)));
 		}
@@ -48,7 +54,7 @@ package game.items.checkpoint
 						var proj:Projectile = this.projectiles.getProjectile(x + i, y + j);
 						
 						if (proj)
-							this.projectiles.denyProjectile(proj);
+							this.projectileController.denyProjectile(proj);
 					}
 			}
 			

@@ -11,7 +11,6 @@ package game.items
 	import game.items.the_goal.TheGoalMaster;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
-	import game.projectiles.Projectiles;
 	import utils.MapXML;
 	import utils.updates.update;
 	
@@ -28,8 +27,7 @@ package game.items
 		
 		private var status:IStatus;
 		
-		public function Items(elements:GameElements, status:StatusReporter,
-		                                             projectiles:Projectiles) 
+		public function Items(elements:GameElements, status:StatusReporter) 
 		{
 			this.status = elements.status;
 			
@@ -43,7 +41,7 @@ package game.items
 			
 			this.masters[Game.ITEM_BEACON] = new BeaconMaster(elements);
 			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(elements, status);
-			this.masters[Game.ITEM_CHECKPOINT] = new CheckpointMaster(elements, projectiles);
+			this.masters[Game.ITEM_CHECKPOINT] = new CheckpointMaster(elements);
 			this.masters[Game.ITEM_SHARD] = new ShardMaster(elements);
 			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(elements);
 			

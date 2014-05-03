@@ -8,7 +8,8 @@ package game
 	import game.input.InputCollector;
 	import game.input.InputTeller;
 	import game.items.Items;
-	import game.projectiles.IProjectileManager;
+	import game.projectiles.IProjectiles;
+	import game.projectiles.ProjectileController;
 	import game.projectiles.Projectiles;
 	import game.scene.IScene;
 	import game.scene.Scene;
@@ -41,12 +42,13 @@ package game
 		private var _gameMenu:IGameMenu;
 		
 		private var _restorer:Restorer;
+		private var _projController:ProjectileController;
 		
 		
 		public function GameElements(assets:AssetManager) 
 		{
 			this._restorer = new Restorer();
-			
+			this._projController = new ProjectileController();
 			
 			this._assets = assets;
 			this._root = new Sprite();
@@ -58,20 +60,23 @@ package game
 			this._inputT = new InputTeller(this._inputC);
 			
 			this._scene = new Scene(this);
-			this._projectiles = new Projectiles(this);
-			this._items = new Items(this, this._status, this._projectiles);
+			this._items = new Items(this, this._status);
 			this._fuel = new FuelTracker(this);
+			this._projectiles = new Projectiles(this);
 			
 			var time:Time = new Time(this);
 			
 			var gameUI:GameUI = new GameUI(this);
 			this._gameMenu = gameUI.gameMenu;
 			
-			
 			new GameUpdateConverter(this);
+			
+			
+			this._projController.addSubscriber(this._projectiles);
 		}
 		
 		public function get restorer():Restorer { return this._restorer; }
+		public function get projectileController():ProjectileController { return this._projController; }
 		
 		public function get fuel():IFuel { return this._fuel; }
 		public function get items():Items { return this._items; }
@@ -82,9 +87,9 @@ package game
 		public function get flow():IUpdateDispatcher { return this._flow; }
 		public function get inputTeller():InputTeller { return this._inputT; }
 		public function get preferences():Preferences { return this._preferences; }
+		public function get projectiles():IProjectiles { return this._projectiles; }
 		public function get inputCollector():InputCollector { return this._inputC; }
 		public function get displayRoot():DisplayObjectContainer { return this._root; }
-		public function get projectiles():IProjectileManager { return this._projectiles; }
 	}
 
 }

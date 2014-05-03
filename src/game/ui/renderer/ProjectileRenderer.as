@@ -2,14 +2,14 @@ package game.ui.renderer
 {
 	import game.GameElements;
 	import game.metric.CellXY;
-	import game.projectiles.IProjectileManager;
+	import game.projectiles.IProjectiles;
 	import game.projectiles.Projectile;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	
 	internal class ProjectileRenderer extends SubRendererBase
 	{
-		private var projectiles:IProjectileManager;
+		private var projectiles:IProjectiles;
 		
 		private var shard:Image;
 		private var trajectory:Image;

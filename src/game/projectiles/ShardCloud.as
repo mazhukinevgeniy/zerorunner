@@ -1,7 +1,7 @@
 package game.projectiles 
 {
 	
-	internal class ShardCloud extends CloudBase
+	public class ShardCloud extends CloudBase
 	{
 		private var projectiles:Projectiles;
 		

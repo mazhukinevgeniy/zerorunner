@@ -1,9 +1,8 @@
 package game.projectiles 
 {
 	
-	public interface IProjectileManager 
+	public interface IProjectiles 
 	{
-		
 		function getProjectile(x:int, y:int):Projectile;
 	}
 	

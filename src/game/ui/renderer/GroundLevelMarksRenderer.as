@@ -1,7 +1,7 @@
 package game.ui.renderer 
 {
 	import game.GameElements;
-	import game.projectiles.IProjectileManager;
+	import game.projectiles.IProjectiles;
 	import game.projectiles.Projectile;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
@@ -10,7 +10,7 @@ package game.ui.renderer
 	
 	internal class GroundLevelMarksRenderer extends SubRendererBase
 	{		
-		private var projectiles:IProjectileManager;
+		private var projectiles:IProjectiles;
 		
 		private var shardIncView:Image;
 		

@@ -10,14 +10,12 @@ package game.projectiles
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class Projectiles implements IProjectileManager, IRestorable
+	public class Projectiles implements IProjectiles, IRestorable
 	{
 		private var projectiles:Array;
 		private var unusedProjectiles:Vector.<Projectile>;
 		
 		private var clouds:Vector.<CloudBase>;
-		
-		private var elements:GameElements;
 		
 		private var flow:IUpdateDispatcher;
 		private var items:Items;
@@ -27,8 +25,7 @@ package game.projectiles
 		{
 			this.flow = elements.flow;
 			this.scene = elements.scene;
-			
-			this.elements = elements;
+			this.items = elements.items;
 			
 			elements.restorer.addSubscriber(this);
 			
@@ -62,25 +59,7 @@ package game.projectiles
 			}
 		}
 		
-		public function denyProjectile(projectile:Projectile):void
-		{
-			this.deleteProjectile(projectile);
-		}
-		
-		
-		
-		/**///As IRestorable
-		
-		public function restore():void
-		{
-			this.projectiles = new Array();
-			
-			this.items = elements.items;
-		}
-		
-		/**/
-		
-		/**///As IProjectileManager
+		/**///As IProjectiles
 		
 		public function getProjectile(x:int, y:int):Projectile
 		{
@@ -91,6 +70,38 @@ package game.projectiles
 		}
 		
 		/**/
+		
+		
+		/**///As IRestorable
+		
+		public function restore():void
+		{
+			this.projectiles = new Array();
+		}
+		
+		/**/
+		
+		
+		/**///Internal goods
+		
+		internal function denyProjectile(projectile:Projectile):void
+		{
+			this.deleteProjectile(projectile);
+		}
+		
+		internal function getNewProjectile(type:int, x:int, y:int):void
+		{
+			var projectile:Projectile = this.unusedProjectiles.pop();
+			
+			if (projectile)
+				projectile.reassign(type, x, y);
+			else
+				new Projectile(this.flow, type, x, y);
+		}
+		
+		/**/
+		
+		/**///Update methods
 		
 		update function numberedFrame(frame:int):void
 		{
@@ -144,17 +155,10 @@ package game.projectiles
 			this.projectiles = null;
 		}
 		
+		/**/
 		
-		internal function getNewProjectile(type:int, x:int, y:int):void
-		{
-			var projectile:Projectile = this.unusedProjectiles.pop();
-			
-			if (projectile)
-				projectile.reassign(type, x, y);
-			else
-				new Projectile(this.flow, type, x, y);
-		}
 		
+		/**///Private methods
 		
 		private function deleteProjectile(projectile:Projectile):void
 		{
@@ -164,6 +168,8 @@ package game.projectiles
 			
 			this.unusedProjectiles.push(projectile);
 		}
+		
+		/**/
 	}
 
 }
