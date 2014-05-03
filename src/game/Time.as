@@ -14,6 +14,8 @@ package game
 		
 		private var isFixed:Boolean = true;
 		
+		private var isMenuOpened:Boolean = false;
+		
 		private var updateFlow:IUpdateDispatcher;
 		private var status:StatusReporter;
 		
@@ -37,18 +39,19 @@ package game
 		update function restore(config:GameConfig):void
 		{
 			this.isFixed = false;
+			this.isMenuOpened = false;
 			
 			this.frameCount = 0;
 		}
 		
 		update function setVisibilityOfGameMenu(visible:Boolean):void
 		{
-			this.isFixed = visible;
+			this.isMenuOpened = visible;
 		}
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
 		{
-			if (!this.isFixed && 
+			if (!this.isFixed && !this.isMenuOpened &&
 				((this.frameCount != Game.FRAME_TO_ACT) || 
 				 !this.status.isHeroFree() || 
 				 this.input.isThereInput()))
