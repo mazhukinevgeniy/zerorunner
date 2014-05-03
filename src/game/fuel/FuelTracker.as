@@ -1,6 +1,6 @@
 package game.fuel 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import game.GameElements;
 	import game.interfaces.IRestorable;
 	import utils.updates.IUpdateDispatcher;
@@ -15,7 +15,7 @@ package game.fuel
 		
 		private var amountOfFuel:int;
 		
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		public function FuelTracker(elements:GameElements) 
 		{

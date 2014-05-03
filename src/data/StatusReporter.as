@@ -6,7 +6,7 @@ package data
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class StatusReporter 
+	public class StatusReporter implements IStatus
 	{
 		private var hero:PuppetBase;
 		

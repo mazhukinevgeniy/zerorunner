@@ -1,6 +1,6 @@
 package game.items 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import game.GameElements;
 	import game.interfaces.IRestorable;
 	import game.items.beacon.BeaconMaster;
@@ -24,7 +24,7 @@ package game.items
 		
 		private var masters:Vector.<MasterBase>;
 		
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		public function Items(elements:GameElements) 
 		{

@@ -1,6 +1,6 @@
 package game.items.the_goal 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import game.GameElements;
 	import game.items._utils.CheckpointMasterBase;
 	import game.metric.CellXY;
@@ -10,7 +10,7 @@ package game.items.the_goal
 	{
 		private var currentGoal:TheGoal;
 		
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		public function TheGoalMaster(elements:GameElements) 
 		{

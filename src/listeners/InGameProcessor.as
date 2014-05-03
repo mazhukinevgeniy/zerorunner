@@ -1,6 +1,6 @@
 package listeners 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import flash.ui.Keyboard;
 	import game.GameElements;
 	import game.input.InputCollector;
@@ -16,7 +16,7 @@ package listeners
 		private const LEFT:ProtectedDCellXY = new ProtectedDCellXY(-1, 0);
 		
 		private var flow:IUpdateDispatcher;
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		private var gameMenu:IGameMenu;
 		private var input:InputCollector;

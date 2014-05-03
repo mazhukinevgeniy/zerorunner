@@ -1,13 +1,13 @@
 package game.ui.renderer 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import game.GameElements;
 	import game.metric.ICoordinated;
 	import starling.display.QuadBatch;
 	
 	internal class SubRendererBase implements IRenderer
 	{
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		protected var layer:QuadBatch;
 		

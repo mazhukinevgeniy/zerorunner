@@ -1,6 +1,6 @@
 package ui 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import game.GameElements;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
@@ -18,7 +18,7 @@ package ui
 	
 	public class Shell
 	{
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		private var assets:AssetManager;
 		

@@ -1,6 +1,6 @@
 package listeners
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.events.KeyboardEvent;
@@ -9,7 +9,7 @@ package listeners
 	
 	public class EventListener
 	{		
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		
 		private var flow:IUpdateDispatcher;

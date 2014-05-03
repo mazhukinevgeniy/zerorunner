@@ -1,6 +1,6 @@
 package game.ui 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import feathers.controls.Button;
 	import flash.display.Stage;
 	import flash.geom.Point;
@@ -23,7 +23,7 @@ package game.ui
 	internal class GameMenu extends Sprite implements IGameMenu, IRestorable
 	{
 		private var flow:IUpdateDispatcher;
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		private var hideToggleButton:Button;
 		

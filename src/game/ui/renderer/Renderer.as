@@ -1,7 +1,7 @@
 package game.ui.renderer 
 {
+	import data.IStatus;
 	import data.NumericalDxyHelper;
-	import data.StatusReporter;
 	import game.GameElements;
 	import game.interfaces.IRestorable;
 	import game.metric.ICoordinated;
@@ -12,7 +12,7 @@ package game.ui.renderer
 	
 	public class Renderer extends Sprite implements IRenderer, IRestorable
 	{
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		private var sceneRenderer:SceneRenderer;
 		private var activeRenderers:Vector.<IRenderer>;

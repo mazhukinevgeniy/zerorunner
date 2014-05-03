@@ -1,5 +1,6 @@
 package game 
 {
+	import data.IStatus;
 	import data.Preferences;
 	import data.StatusReporter;
 	import game.fuel.FuelTracker;
@@ -75,10 +76,10 @@ package game
 		public function get fuel():IFuel { return this._fuel; }
 		public function get items():Items { return this._items; }
 		public function get scene():IScene { return this._scene; }
+		public function get status():IStatus { return this._status; }
 		public function get assets():AssetManager { return this._assets; }
 		public function get gameMenu():IGameMenu { return this._gameMenu; }
 		public function get flow():IUpdateDispatcher { return this._flow; }
-		public function get status():StatusReporter { return this._status; }
 		public function get inputTeller():InputTeller { return this._inputT; }
 		public function get preferences():Preferences { return this._preferences; }
 		public function get inputCollector():InputCollector { return this._inputC; }

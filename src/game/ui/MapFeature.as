@@ -1,6 +1,6 @@
 package game.ui 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import flash.utils.ByteArray;
 	import game.GameElements;
 	import game.input.InputTeller;
@@ -26,7 +26,7 @@ package game.ui
 		private var visited:ByteArray;
 		
 		private var scene:IScene;
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		private var input:InputTeller;
 		

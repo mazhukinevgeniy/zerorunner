@@ -1,6 +1,6 @@
 package game 
 {
-	import data.StatusReporter;
+	import data.IStatus;
 	import game.GameElements;
 	import game.input.InputTeller;
 	import game.interfaces.IRestorable;
@@ -17,7 +17,7 @@ package game
 		private var isMenuOpened:Boolean = false;
 		
 		private var updateFlow:IUpdateDispatcher;
-		private var status:StatusReporter;
+		private var status:IStatus;
 		
 		private var input:InputTeller;
 		
