@@ -4,6 +4,7 @@ package game.ui.hud
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import game.GameElements;
+	import game.ui.GameTheme;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -31,12 +32,14 @@ package game.ui.hud
 			
 			
 			var button:Button = new Button();
-			button.label = "Quit";
+			button.nameList.add(GameTheme.MENU_BUTTON);
+			button.nameList.add(GameTheme.QUIT_GAME);
+			
 			button.x = 60;
 			button.y = 60;
-			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			this.addChild(button);
 			
+			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
 			
 			this.flow = elements.flow;
@@ -61,16 +64,14 @@ package game.ui.hud
 				
 				if (key == Game.ENDING_WON)
 				{
-					this.text.text = "You win";
+					this.text.text = "You win!";
 				}
 				else if (key == Game.ENDING_LOST)
 				{
-					this.text.text = "You lose";
+					this.text.text = "You lose!";
 				}
 			}
 		}
-		//TODO: use theme
-		
 		
 		private function handleQuitTriggered():void
 		{
