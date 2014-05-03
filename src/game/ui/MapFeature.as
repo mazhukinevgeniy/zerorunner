@@ -1,5 +1,6 @@
 package game.ui 
 {
+	import data.StatusReporter;
 	import flash.utils.ByteArray;
 	import game.GameElements;
 	import game.input.InputTeller;
@@ -25,7 +26,7 @@ package game.ui
 		private var visited:ByteArray;
 		
 		private var scene:IScene;
-		private var center:ICoordinated;
+		private var status:StatusReporter;
 		
 		private var input:InputTeller;
 		
@@ -45,6 +46,8 @@ package game.ui
 			this.scene = elements.scene;
 			this.input = elements.inputTeller;
 			
+			this.status = elements.status;
+			
 			this.tiles = new Array();
 			this.tiles[Game.SCENE_FALL] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
 			this.tiles[Game.SCENE_TR_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
@@ -56,7 +59,6 @@ package game.ui
 			elements.restorer.addSubscriber(this);
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.toggleMap);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.frameOfTheMapMode);
@@ -66,16 +68,11 @@ package game.ui
 			elements.displayRoot.addChild(this.container);
 		}
 		
-		update function setCenter(center:ICoordinated):void
-		{
-			this.center = center;
-			
-			this.container.reset();
-		}
-		
 		/* Note: restore here happens AFTER setCenter */
 		public function restore():void
 		{
+			this.container.reset();
+			
 			var i:int;
 			
 			var length:int = this.visited.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
@@ -137,11 +134,13 @@ package game.ui
 		{
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{
-				var iGoal:int = this.center.x + 8;
-				var jGoal:int = this.center.y + 6;
+				var center:ICoordinated = this.status.getLocationOfHero();
 				
-				for (var i:int = this.center.x - 7; i < iGoal; i++)
-					for (var j:int = this.center.y - 5; j < jGoal; j++)
+				var iGoal:int = center.x + 8;
+				var jGoal:int = center.y + 6;
+				
+				for (var i:int = center.x - 7; i < iGoal; i++)
+					for (var j:int = center.y - 5; j < jGoal; j++)
 					{
 						var nI:int = normalize(i);
 						var nJ:int = normalize(j);

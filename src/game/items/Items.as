@@ -1,5 +1,6 @@
 package game.items 
 {
+	import data.StatusReporter;
 	import game.GameElements;
 	import game.interfaces.IRestorable;
 	import game.items.beacon.BeaconMaster;
@@ -21,16 +22,17 @@ package game.items
 		
 		private var moved:Vector.<PuppetBase>;
 		
-		private var center:ICoordinated;
-		
 		private var masters:Vector.<MasterBase>;
 		
+		private var status:StatusReporter;
+		
 		public function Items(elements:GameElements) 
-		{			
+		{
+			this.status = elements.status;
+			
 			elements.restorer.addSubscriber(this);
 			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
@@ -83,11 +85,6 @@ package game.items
 			}
 		}
 		
-		update function setCenter(center:ICoordinated):void
-		{
-			this.center = center;
-		}
-		
 		update function numberedFrame(key:int):void
 		{
 			var i:int, j:int;
@@ -98,7 +95,7 @@ package game.items
 			
 			if (key == Game.FRAME_TO_ACT)
 			{
-				var center:ICoordinated = this.center;
+				var center:ICoordinated = this.status.getLocationOfHero();
 				
 				const tlcX:int = center.x - 20;
 				const tlcY:int = center.y - 20;

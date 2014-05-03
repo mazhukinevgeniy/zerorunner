@@ -1,41 +1,31 @@
 package game.ui.renderer 
 {
+	import data.StatusReporter;
 	import game.GameElements;
 	import game.metric.ICoordinated;
 	import starling.display.QuadBatch;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
 	internal class SubRendererBase implements IRenderer
 	{
-		private var center:ICoordinated;
+		private var status:StatusReporter;
 		
 		protected var layer:QuadBatch;
 		
 		public function SubRendererBase(elements:GameElements, layer:QuadBatch) 
 		{
-			var flow:IUpdateDispatcher = elements.flow;
+			this.status = elements.status;
 			
 			this.layer = layer;
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.setCenter);
-			flow.addUpdateListener(Update.quitGame);
 			
 			super();
 		}
 		
-		update function setCenter(center:ICoordinated):void
-		{
-			this.center = center;
-			
-			this.handleGameStarted();
-		}
-		
 		public function redraw():void
 		{
-			var x:int = this.center.x;
-			var y:int = this.center.y;
+			var center:ICoordinated = this.status.getLocationOfHero();
+			
+			var x:int = center.x;
+			var y:int = center.y;
 			
 			const RANGE:int = Math.abs(this.range);
 			
@@ -45,11 +35,6 @@ package game.ui.renderer
 					/* Render the square row by row */
 					this.renderCell(x + j, y + i);
 				}
-		}
-		
-		update function quitGame():void
-		{
-			this.center = null;
 		}
 		
 		
@@ -63,11 +48,6 @@ package game.ui.renderer
 			throw new Error("must implement");
 		}
 		
-		
-		protected function handleGameStarted():void
-		{
-			
-		}
 	}
 
 }

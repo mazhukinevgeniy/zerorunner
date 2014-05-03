@@ -1,13 +1,14 @@
 package game.ui.renderer 
 {
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import game.projectiles.Projectile;
 	import starling.display.QuadBatch;
 	import utils.CenteredImage;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class EffectRenderer extends SubRendererBase
+	internal class EffectRenderer extends SubRendererBase implements IRestorable
 	{
 		private const STONE_BOOM_LENGTH:int = 6;
 		private const STONE_BOOM_SPEED_FACTOR:int = 5;
@@ -18,6 +19,8 @@ package game.ui.renderer
 		
 		public function EffectRenderer(elements:GameElements, layer:QuadBatch) 
 		{
+			elements.restorer.addSubscriber(this);
+			
 			var flow:IUpdateDispatcher = elements.flow;
 			
 			flow.workWithUpdateListener(this);
@@ -38,6 +41,11 @@ package game.ui.renderer
 			
 			
 			super(elements, layer);
+		}
+		
+		public function restore():void
+		{
+			this.shards = new Array();
 		}
 		
 		private function getShardAnimationFrame(x:int, y:int):int
@@ -74,12 +82,6 @@ package game.ui.renderer
 		{
 			return 9;
 			/* A little extra, so we can avoid reasonable care for paused explosions */
-		}
-		
-		override protected function handleGameStarted():void 
-		{
-			this.shards = new Array();
-			//TODO: store that knowledge somewhere else and remove this method from the parent
 		}
 	}
 

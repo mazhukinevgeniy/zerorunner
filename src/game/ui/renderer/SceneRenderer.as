@@ -48,9 +48,11 @@ package game.ui.renderer
 				this["_" + key + "_"] = new Image(atlas.getTexture(key + "-"));
 				this["_" + key + "__"] = new Image(atlas.getTexture(key + "--"));
 			}
+			
+			this.prepareTileCodes();
 		}
 		
-		override protected function handleGameStarted():void 
+		private function prepareTileCodes():void 
 		{
 			var map:XML = MapXML.getOne();
 			this.tiles = map.layer.data.tile;

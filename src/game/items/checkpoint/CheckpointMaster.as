@@ -8,23 +8,16 @@ package game.items.checkpoint
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
 	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
 	public class CheckpointMaster extends CheckpointMasterBase
 	{
 		private var flow:IUpdateDispatcher;
 		private var projectiles:IProjectileManager;
 		
-		private var center:ICoordinated; 
-		//not used now but might help if checkpoints grow in importance
-		
 		private var checkpoints:Vector.<Checkpoint>;
 		
 		public function CheckpointMaster(elements:GameElements) 
-		{
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.setCenter);
-			
+		{			
 			super(elements);
 			
 			this.checkpoints = new Vector.<Checkpoint>();
@@ -45,11 +38,6 @@ package game.items.checkpoint
 		{
 			this.checkpoints.push(
 				new Checkpoint(this, this.elements, new CellXY(x, y)));
-		}
-		
-		update function setCenter(center:ICoordinated):void
-		{
-			this.center = center;
 		}
 		
 		override protected function getReachedCheckpoint():ICoordinated 
