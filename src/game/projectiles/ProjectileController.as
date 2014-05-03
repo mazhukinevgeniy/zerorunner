@@ -25,7 +25,10 @@ package game.projectiles
 			this.projs.denyProjectile(projectile);
 		}
 		
-		
+		public function launchProjectile(projectile:Projectile):void
+		{
+			this.projs.launchProjectile(projectile);
+		}
 		
 	}
 

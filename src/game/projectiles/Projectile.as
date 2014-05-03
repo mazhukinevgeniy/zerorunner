@@ -14,9 +14,13 @@ package game.projectiles
 		
 		private var flow:IUpdateDispatcher;
 		
-		public function Projectile(flow:IUpdateDispatcher, type:int, x:int, y:int) 
+		private var controller:ProjectileController;
+		
+		public function Projectile(flow:IUpdateDispatcher, type:int, x:int, y:int,
+		                           controller:ProjectileController) 
 		{
-			this.flow = flow;
+			this.flow = flow;//TODO: check if can remove
+			this.controller = controller;
 			
 			this._cell = new CellXY(0, 0);
 			
@@ -32,7 +36,7 @@ package game.projectiles
 			this._height = Game.MAX_PROJ_HEIGHT;
 			this._speed = 1;
 			
-			this.flow.dispatchUpdate(Update.projectileLaunched, this);
+			this.controller.launchProjectile(this);
 		}
 		
 		internal function advance():void

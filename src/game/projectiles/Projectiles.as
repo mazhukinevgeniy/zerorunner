@@ -20,17 +20,18 @@ package game.projectiles
 		private var flow:IUpdateDispatcher;
 		private var items:Items;
 		private var scene:IScene;
+		private var controller:ProjectileController;
 		
 		public function Projectiles(elements:GameElements) 
 		{
 			this.flow = elements.flow;
 			this.scene = elements.scene;
 			this.items = elements.items;
+			this.controller = elements.projectileController;
 			
 			elements.restorer.addSubscriber(this);
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.projectileLaunched);
 			this.flow.addUpdateListener(Update.projectileLanded);
 			this.flow.addUpdateListener(Update.numberedFrame);
 			this.flow.addUpdateListener(Update.quitGame);
@@ -89,6 +90,13 @@ package game.projectiles
 			this.deleteProjectile(projectile);
 		}
 		
+		internal function launchProjectile(projectile:Projectile):void
+		{
+			var cell:ICoordinated = projectile.cell;
+			
+			this.projectiles[cell.x + Game.MAP_WIDTH * cell.y] = projectile;
+		}
+		
 		internal function getNewProjectile(type:int, x:int, y:int):void
 		{
 			var projectile:Projectile = this.unusedProjectiles.pop();
@@ -96,7 +104,7 @@ package game.projectiles
 			if (projectile)
 				projectile.reassign(type, x, y);
 			else
-				new Projectile(this.flow, type, x, y);
+				new Projectile(this.flow, type, x, y, this.controller);
 		}
 		
 		/**/
@@ -118,13 +126,6 @@ package game.projectiles
 					this.clouds[i].spawnProjectiles();
 				}
 			}
-		}
-		
-		update function projectileLaunched(projectile:Projectile):void
-		{
-			var cell:ICoordinated = projectile.cell;
-			
-			this.projectiles[cell.x + Game.MAP_WIDTH * cell.y] = projectile;
 		}
 		
 		update function projectileLanded(projectile:Projectile):void
