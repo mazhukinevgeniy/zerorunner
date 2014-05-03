@@ -17,6 +17,8 @@ package game.projectiles
 		
 		private var clouds:Vector.<CloudBase>;
 		
+		private var elements:GameElements;
+		
 		private var flow:IUpdateDispatcher;
 		private var items:Items;
 		private var scene:IScene;
@@ -24,8 +26,9 @@ package game.projectiles
 		public function Projectiles(elements:GameElements) 
 		{
 			this.flow = elements.flow;
-			this.items = elements.items;
 			this.scene = elements.scene;
+			
+			this.elements = elements;
 			
 			elements.restorer.addSubscriber(this);
 			
@@ -33,7 +36,6 @@ package game.projectiles
 			this.flow.addUpdateListener(Update.projectileLaunched);
 			this.flow.addUpdateListener(Update.projectileLanded);
 			this.flow.addUpdateListener(Update.numberedFrame);
-			this.flow.addUpdateListener(Update.denyProjectile);
 			this.flow.addUpdateListener(Update.quitGame);
 			
 			this.unusedProjectiles = new Vector.<Projectile>();
@@ -60,11 +62,32 @@ package game.projectiles
 			}
 		}
 		
+		public function denyProjectile(projectile:Projectile):void
+		{
+			this.deleteProjectile(projectile);
+		}
+		
+		
+		
 		/**///As IRestorable
 		
 		public function restore():void
 		{
 			this.projectiles = new Array();
+			
+			this.items = elements.items;
+		}
+		
+		/**/
+		
+		/**///As IProjectileManager
+		
+		public function getProjectile(x:int, y:int):Projectile
+		{
+			x = normalize(x);
+			y = normalize(y);
+			
+			return this.projectiles[x + y * Game.MAP_WIDTH];
 		}
 		
 		/**/
@@ -116,11 +139,6 @@ package game.projectiles
 			}
 		}
 		
-		update function denyProjectile(projectile:Projectile):void
-		{
-			this.deleteProjectile(projectile);
-		}
-		
 		update function quitGame():void
 		{
 			this.projectiles = null;
@@ -137,14 +155,6 @@ package game.projectiles
 				new Projectile(this.flow, type, x, y);
 		}
 		
-		
-		public function getProjectile(x:int, y:int):Projectile
-		{
-			x = normalize(x);
-			y = normalize(y);
-			
-			return this.projectiles[x + y * Game.MAP_WIDTH];
-		}
 		
 		private function deleteProjectile(projectile:Projectile):void
 		{

@@ -5,28 +5,23 @@ package game.items.checkpoint
 	import game.items.PuppetBase;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
-	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectile;
-	import utils.updates.IUpdateDispatcher;
+	import game.projectiles.Projectiles;
 	
 	public class CheckpointMaster extends CheckpointMasterBase
 	{
-		private var flow:IUpdateDispatcher;
-		private var projectiles:IProjectileManager;
+		private var projectiles:Projectiles;
 		
 		private var checkpoints:Vector.<Checkpoint>;
 		
-		public function CheckpointMaster(elements:GameElements) 
+		public function CheckpointMaster(elements:GameElements, projectiles:Projectiles) 
 		{			
 			super(elements);
 			
 			this.checkpoints = new Vector.<Checkpoint>();
-		}
-		
-		override protected function onGameStarted():void 
-		{
-			this.flow = this.elements.flow;
-			this.projectiles = this.elements.projectiles;
+			
+			this.projectiles = projectiles;
+			
 		}
 		
 		override protected function onGameFinished():void 
@@ -53,7 +48,7 @@ package game.items.checkpoint
 						var proj:Projectile = this.projectiles.getProjectile(x + i, y + j);
 						
 						if (proj)
-							this.flow.dispatchUpdate(Update.denyProjectile, proj);
+							this.projectiles.denyProjectile(proj);
 					}
 			}
 			

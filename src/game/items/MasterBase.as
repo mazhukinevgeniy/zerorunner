@@ -1,12 +1,11 @@
 package game.items 
 {
 	import game.GameElements;
-	import game.interfaces.IRestorable;
 	import utils.updates.update;
 	
 	use namespace items_internal;
 	
-	public class MasterBase implements IRestorable
+	public class MasterBase
 	{
 		protected var elements:GameElements;
 		
@@ -14,13 +13,9 @@ package game.items
 		{
 			this.elements = elements;
 			
-			elements.restorer.addSubscriber(this);
-			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
-		
-		final public function restore():void { this.onGameStarted(); }
 		
 		update function quitGame():void { this.onGameFinished(); }
 		
@@ -33,7 +28,6 @@ package game.items
 		
 		
 		protected function act(puppet:PuppetBase):void { }
-		protected function onGameStarted():void { }
 		protected function onGameFinished():void { }
 		
 		
