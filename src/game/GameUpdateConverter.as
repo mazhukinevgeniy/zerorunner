@@ -17,6 +17,7 @@ package game
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.toggleMap);
+			flow.addUpdateListener(Update.handleDeactivation);
 			flow.addUpdateListener(Update.setVisibilityOfGameMenu);
 		}
 		
@@ -29,6 +30,11 @@ package game
 		}
 		
 		update function toggleMap():void
+		{
+			this.inputCollector.clearInput();
+		}
+		
+		update function handleDeactivation():void
 		{
 			this.inputCollector.clearInput();
 		}
