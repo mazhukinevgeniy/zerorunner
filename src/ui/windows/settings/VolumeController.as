@@ -36,7 +36,10 @@ package ui.windows.settings
 			this.addChild(this.label);
 
 			this.addEventListener(Event.ADDED_TO_STAGE, this.locate);
-			this.slider.addEventListener(Event.ADDED_TO_STAGE, this.initializeValue);
+			
+			this.slider.value = this.slider.maximum = 100;
+			//TODO: get from save
+			
 			this.slider.addEventListener(Event.CHANGE, this.changeHandler);
 			
 			this.name = name;
@@ -48,11 +51,6 @@ package ui.windows.settings
 			this.slider.x = this.button.width + VolumeController.GAP;
 			this.slider.y = (this.height - slider.height) / 2;
 			this.label.x = this.slider.x + this.slider.width + VolumeController.GAP;
-		}
-		
-		private function initializeValue(event:Event):void
-		{
-			this.slider.value = this.slider.maximum; //TODO: take out from save
 		}
 		
 		private function changeHandler(event:Event):void
