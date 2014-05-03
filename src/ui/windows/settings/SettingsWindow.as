@@ -1,6 +1,9 @@
 package ui.windows.settings 
 {
 	import data.viewers.PreferencesViewer;
+	import feathers.controls.Slider;
+	import starling.events.Event;
+	import ui.themes.Theme;
 	import ui.windows.Window;
 	import utils.updates.IUpdateDispatcher;
 
@@ -11,6 +14,7 @@ package ui.windows.settings
 		{
 			this.addChild(new MuteButton(flow, preferences));
 			this.addChild(new ResetButton(flow));
+			this.addChild(new VolumeController(Theme.SOUND_SETTING));
 		}
 		
 	}

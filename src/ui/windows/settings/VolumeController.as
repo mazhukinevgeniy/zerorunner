@@ -9,6 +9,8 @@ package ui.windows.settings
 
 	public class VolumeController extends Sprite
 	{
+		private static const GAP:int = 30;
+		
 		private var slider:Slider;
 		private var button:Button;
 		private var label:Label;
@@ -30,8 +32,15 @@ package ui.windows.settings
 			this.addChild(this.slider);
 			this.addChild(this.label);
 
-		
+			this.addEventListener(Event.ADDED_TO_STAGE, this.locate);
 			this.slider.addEventListener(Event.CHANGE, this.changeHandler);
+		}
+		
+		private function locate(event:Event):void
+		{
+			this.slider.x = this.button.width + VolumeController.GAP;
+			this.slider.y = (this.height - slider.height) / 2;
+			this.label.x = this.slider.x + this.slider.width + VolumeController.GAP;
 		}
 		
 		private function changeHandler(event:Event):void
