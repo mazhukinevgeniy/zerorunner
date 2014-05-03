@@ -2,7 +2,7 @@ package game
 {
 	import data.StatusReporter;
 	import game.GameElements;
-	import game.input.IKnowInput;
+	import game.input.InputTeller;
 	import starling.events.EnterFrameEvent;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
@@ -18,12 +18,12 @@ package game
 		private var updateFlow:IUpdateDispatcher;
 		private var status:StatusReporter;
 		
-		private var input:IKnowInput;
+		private var input:InputTeller;
 		
 		public function Time(elements:GameElements) 
 		{
 			this.status = elements.status;
-			this.input = elements.input;
+			this.input = elements.inputTeller;
 			
 			elements.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			

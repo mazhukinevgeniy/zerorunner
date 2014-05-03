@@ -17,6 +17,13 @@ package
 		
 		public static const NUMBER_OF_ITEM_TYPES:int = 5;
 		
+		/* Action types */
+		
+		public static const ACTION_FLIGHT:int = 0;
+		public static const ACTION_SKIP_FRAME:int = 1;
+		
+		public static const NUMBER_OF_ACTIONS:int = 2;
+		
 		/* Landscape types */
 		
 		public static const SCENE_FALL:int = 0;

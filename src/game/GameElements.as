@@ -4,8 +4,8 @@ package game
 	import data.StatusReporter;
 	import game.fuel.FuelTracker;
 	import game.fuel.IFuel;
-	import game.input.IKnowInput;
-	import game.input.InputManager;
+	import game.input.InputCollector;
+	import game.input.InputTeller;
 	import game.items.Items;
 	import game.projectiles.IProjectileManager;
 	import game.projectiles.Projectiles;
@@ -34,7 +34,8 @@ package game
 		private var _scene:IScene;
 		private var _projectiles:IProjectileManager;
 		
-		private var _input:IKnowInput;
+		private var _inputT:InputTeller;
+		private var _inputC:InputCollector;
 		
 		private var _gameMenu:IGameMenu;
 		
@@ -46,9 +47,8 @@ package game
 			this._status = new StatusReporter(this._flow);
 			this._preferences = new Preferences(this._flow);
 			
-			new GameUpdateConverter(this._flow);
-			
-			this._input = new InputManager(this._flow);
+			this._inputC = new InputCollector();
+			this._inputT = new InputTeller(this._inputC);
 			
 			this._scene = new Scene(this._flow);
 			this._items = new Items(this);
@@ -58,17 +58,20 @@ package game
 			new Time(this);
 			
 			this._gameMenu = new GameUI(this).gameMenu;
+			
+			new GameUpdateConverter(this);
 		}
 		
 		public function get fuel():IFuel { return this._fuel; }
 		public function get items():Items { return this._items; }
 		public function get scene():IScene { return this._scene; }
-		public function get input():IKnowInput { return this._input; }
 		public function get assets():AssetManager { return this._assets; }
 		public function get gameMenu():IGameMenu { return this._gameMenu; }
 		public function get flow():IUpdateDispatcher { return this._flow; }
 		public function get status():StatusReporter { return this._status; }
+		public function get inputTeller():InputTeller { return this._inputT; }
 		public function get preferences():Preferences { return this._preferences; }
+		public function get inputCollector():InputCollector { return this._inputC; }
 		public function get displayRoot():DisplayObjectContainer { return this._root; }
 		public function get projectiles():IProjectileManager { return this._projectiles; }
 	}

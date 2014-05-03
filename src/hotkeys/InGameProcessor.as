@@ -3,6 +3,7 @@ package hotkeys
 	import data.StatusReporter;
 	import flash.ui.Keyboard;
 	import game.GameElements;
+	import game.input.InputCollector;
 	import game.metric.ProtectedDCellXY;
 	import game.ui.IGameMenu;
 	import utils.updates.IUpdateDispatcher;
@@ -18,6 +19,7 @@ package hotkeys
 		private var status:StatusReporter;
 		
 		private var gameMenu:IGameMenu;
+		private var input:InputCollector;
 		
 		public function InGameProcessor(elements:GameElements) 
 		{
@@ -25,18 +27,19 @@ package hotkeys
 			this.status = elements.status;
 			
 			this.gameMenu = elements.gameMenu;
+			this.input = elements.inputCollector;
 		}
 		
 		override internal function processInput(keyUp:Boolean, keyCode:uint):void 
 		{
 			if (keyCode == Keyboard.UP)
-				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.UP);
+				this.input.newInputPiece(!keyUp, this.UP);
 			else if (keyCode == Keyboard.DOWN)
-				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.DOWN);
+				this.input.newInputPiece(!keyUp, this.DOWN);
 			else if (keyCode == Keyboard.RIGHT)
-				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.RIGHT);
+				this.input.newInputPiece(!keyUp, this.RIGHT);
 			else if (keyCode == Keyboard.LEFT)
-				this.flow.dispatchUpdate(Update.newInputPiece, !keyUp, this.LEFT);
+				this.input.newInputPiece(!keyUp, this.LEFT);
 			else
 			{
 				if (status.isMapOn())
@@ -48,12 +51,12 @@ package hotkeys
 					if (!keyUp)
 					{
 						if (keyCode == Keyboard.Q)
-							this.flow.dispatchUpdate(Update.skipFrames);
+							this.input.actionRequested(Game.ACTION_SKIP_FRAME);
 					}
 					else
 					{
 						if (keyCode == Keyboard.W)
-							this.flow.dispatchUpdate(Update.toggleFlight);
+							this.input.actionRequested(Game.ACTION_FLIGHT);
 						else if (keyCode == Keyboard.ESCAPE)
 							this.gameMenu.toggleVisibility();
 					}

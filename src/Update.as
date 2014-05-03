@@ -8,13 +8,11 @@ package
 		public static const toggleMute:String = "toggleMute";
 		public static const toggleWindow:String = "toggleWindow";
 		
-		public static const newInputPiece:String = "newInputPiece";
-		public static const toggleFlight:String = "toggleFlight";
-		public static const skipFrames:String = "skipFrames";
-		
 		public static const toggleMap:String = "toggleMap";
 		
 		public static const setVisibilityOfGameMenu:String = "setVisibilityOfGameMenu";
+		
+		public static const handleDeactivation:String = "handleDeactivation";
 		
 		//TODO: remove unneeded updates
 		
@@ -31,8 +29,6 @@ package
 		/* In-game updates */
 		
 		public static const setCenter:String = "setCenter";
-		
-		public static const puppetDies:String = "puppetDies"; //It was used for the categorising purposes
 		
 		public static const projectileLaunched:String = "projectileLaunched";
 		public static const projectileLanded:String = "projectileLanded";

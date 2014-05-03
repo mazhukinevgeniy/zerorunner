@@ -1,7 +1,7 @@
 package game.items.character 
 {
 	import game.GameElements;
-	import game.input.IKnowInput;
+	import game.input.InputTeller;
 	import game.items.Items;
 	import game.items.items_internal;
 	import game.items.MasterBase;
@@ -15,7 +15,7 @@ package game.items.character
 	
 	public class CharacterMaster extends MasterBase
 	{		
-		private var input:IKnowInput;
+		private var input:InputTeller;
 		private var scene:IScene;
 		private var items:Items;
 		
@@ -26,7 +26,7 @@ package game.items.character
 		
 		override public function spawnPuppet(x:int, y:int):void 
 		{
-			this.input = this.elements.input;
+			this.input = this.elements.inputTeller;
 			this.scene = this.elements.scene;
 			this.items = this.elements.items;
 			
@@ -38,7 +38,7 @@ package game.items.character
 			var isStanding:Boolean = (puppet.occupation == Game.OCCUPATION_FREE);
 			var isFlying:Boolean = (puppet.occupation == Game.OCCUPATION_FLOATING);
 			
-			if (this.input.isFlightToggled())
+			if (this.input.isActionRequested(Game.ACTION_FLIGHT))
 			{
 				if (isStanding)
 				{

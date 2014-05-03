@@ -2,7 +2,7 @@ package game.ui
 {
 	import flash.utils.ByteArray;
 	import game.GameElements;
-	import game.input.IKnowInput;
+	import game.input.InputTeller;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.scene.IScene;
@@ -26,7 +26,7 @@ package game.ui
 		private var scene:IScene;
 		private var center:ICoordinated;
 		
-		private var input:IKnowInput;
+		private var input:InputTeller;
 		
 		private var container:QuadBatch;
 		
@@ -42,7 +42,7 @@ package game.ui
 			this.visited = new ByteArray();
 			
 			this.scene = elements.scene;
-			this.input = elements.input;
+			this.input = elements.inputTeller;
 			
 			this.tiles = new Array();
 			this.tiles[Game.SCENE_FALL] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
