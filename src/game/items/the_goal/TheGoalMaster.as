@@ -1,28 +1,22 @@
 package game.items.the_goal 
 {
+	import data.StatusReporter;
 	import game.GameElements;
 	import game.items._utils.CheckpointMasterBase;
 	import game.metric.CellXY;
 	import game.metric.ICoordinated;
-	import utils.updates.update;
 	
 	public class TheGoalMaster extends CheckpointMasterBase
 	{
 		private var currentGoal:TheGoal;
 		
-		private var center:ICoordinated;
+		private var status:StatusReporter;
 		
 		public function TheGoalMaster(elements:GameElements) 
 		{
 			super(elements);
 			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.setCenter);
-		}
-		
-		update function setCenter(center:ICoordinated):void
-		{
-			this.center = center;
+			this.status = elements.status;
 		}
 		
 		override public function spawnPuppet(x:int, y:int):void 
@@ -34,7 +28,9 @@ package game.items.the_goal
 		
 		override protected function getReachedCheckpoint():ICoordinated 
 		{
-			if (Game.distance(this.center, this.currentGoal) < 2)
+			var center:ICoordinated = this.status.getLocationOfHero();
+			
+			if (Game.distance(center, this.currentGoal) < 2)
 				return this.currentGoal;
 			else
 				return CheckpointMasterBase.ILLEGAL_CELL;

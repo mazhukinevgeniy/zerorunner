@@ -75,6 +75,13 @@ package data
 			
 			return this.dxyHelper;
 		}
+		
+		public function isHeroAirborne():Boolean
+		{
+			var occ:int = this.hero.occupation;
+			
+			return occ == Game.OCCUPATION_FLYING || occ == Game.OCCUPATION_FLOATING;
+		}
 	}
 
 }

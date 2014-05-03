@@ -1,46 +1,44 @@
 package game.fuel 
 {
+	import data.StatusReporter;
 	import game.GameElements;
-	import game.items.PuppetBase;
-	import game.metric.ICoordinated;
+	import game.interfaces.IRestorable;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class FuelTracker implements IFuel
+	public class FuelTracker implements IFuel, IRestorable
 	{
 		private const MAX_CAPACITY:int = 80;
 		
 		private const BASE_REGENERATION:int = 1;
 		private const BASE_WASTE:int = 4;
 		
-		
 		private var amountOfFuel:int;
 		
-		private var character:PuppetBase;
+		private var status:StatusReporter;
 		
 		public function FuelTracker(elements:GameElements) 
-		{			
+		{
+			elements.restorer.addSubscriber(this);
+			
 			var flow:IUpdateDispatcher = elements.flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.setCenter);
 			flow.addUpdateListener(Update.numberedFrame);
+			
+			this.status = elements.status;
 		}
 		
-		update function setCenter(center:ICoordinated):void
+		public function restore():void
 		{
 			this.amountOfFuel = this.MAX_CAPACITY;
-			
-			this.character = center as PuppetBase;
 		}
 		
 		update function numberedFrame(frame:int):void
 		{
 			if (frame == Game.FRAME_TO_ACT)
 			{
-				var occ:int = this.character.occupation;
-				
-				if (occ == Game.OCCUPATION_FLOATING || occ == Game.OCCUPATION_FLYING)
+				if (this.status.isHeroAirborne())
 				{
 					this.amountOfFuel -= this.BASE_WASTE;
 					
