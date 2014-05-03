@@ -1,4 +1,4 @@
-package game.ui.hud 
+package game.ui 
 {
 	import data.StatusReporter;
 	import data.viewers.GameConfig;
@@ -21,7 +21,7 @@ package game.ui.hud
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class GameMenu extends Sprite
+	internal class GameMenu extends Sprite implements IGameMenu
 	{
 		private var flow:IUpdateDispatcher;
 		private var status:StatusReporter;
@@ -47,6 +47,13 @@ package game.ui.hud
 			
 			this.flow.workWithUpdateListener(this);
 			this.flow.addUpdateListener(Update.restore);
+		}
+		
+		public function toggleVisibility():void
+		{
+			this.mainButtons.visible = !this.mainButtons.visible;
+			
+			this.flow.dispatchUpdate(Update.setVisibilityOfGameMenu, this.mainButtons.visible);
 		}
 		
 		private function initializeToggle():void
@@ -101,9 +108,7 @@ package game.ui.hud
 		{
 			event.stopPropagation();
 			
-			this.mainButtons.visible = !this.mainButtons.visible;
-			
-			this.flow.dispatchUpdate(Update.setVisibilityOfGameMenu, this.mainButtons.visible);
+			this.toggleVisibility();
 		}
 		
 		private function handleQuitTriggered(event:Event):void

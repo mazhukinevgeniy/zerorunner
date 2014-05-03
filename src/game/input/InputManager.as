@@ -34,6 +34,7 @@ package game.input
 			flow.addUpdateListener(Update.toggleFlight);
 			flow.addUpdateListener(Update.skipFrames);
 			flow.addUpdateListener(Update.toggleMap);
+			flow.addUpdateListener(Update.setVisibilityOfGameMenu);
 			
 			Starling.current.nativeStage.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
 			
@@ -58,6 +59,11 @@ package game.input
 		{
 			this.handleDeactivation();
 		}
+		
+		update function setVisibilityOfGameMenu(visible:Boolean):void
+		{
+			this.handleDeactivation();
+		}//TODO: similar updates here, find the interpretation
 		
 		private function handleDeactivation(event:Event = null):void
 		{

@@ -1,4 +1,4 @@
-package game.ui.hud 
+package game.ui 
 {
 	import starling.display.Image;
 	import starling.display.QuadBatch;

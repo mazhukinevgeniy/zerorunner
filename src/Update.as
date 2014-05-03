@@ -18,6 +18,8 @@ package
 		
 		public static const setVisibilityOfGameMenu:String = "setVisibilityOfGameMenu";
 		
+		//TODO: remove unneeded updates
+		
 		/* Metagame updates */
 		
 		public static const newGame:String = "newGame";

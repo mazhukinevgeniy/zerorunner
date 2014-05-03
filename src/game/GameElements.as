@@ -11,6 +11,7 @@ package game
 	import game.scene.IScene;
 	import game.scene.Scene;
 	import game.ui.GameUI;
+	import game.ui.IGameMenu;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -20,15 +21,20 @@ package game
 	
 	public class GameElements 
 	{
-		private var _fuel:IFuel;
-		private var _items:Items;
-		private var _scene:IScene;
-		private var _input:IKnowInput;
 		private var _assets:AssetManager;
 		private var _flow:IUpdateDispatcher;
 		private var _database:DatabaseManager;
 		private var _root:DisplayObjectContainer;
+		
+		private var _fuel:IFuel;
+		
+		private var _items:Items;
+		private var _scene:IScene;
 		private var _projectiles:IProjectileManager;
+		
+		private var _input:IKnowInput;
+		
+		private var _gameMenu:IGameMenu;
 		
 		public function GameElements(assets:AssetManager) 
 		{
@@ -48,7 +54,7 @@ package game
 			
 			new Time(this);
 			
-			new GameUI(this);
+			this._gameMenu = new GameUI(this).gameMenu;
 		}
 		
 		public function get fuel():IFuel { return this._fuel; }
@@ -56,6 +62,7 @@ package game
 		public function get scene():IScene { return this._scene; }
 		public function get input():IKnowInput { return this._input; }
 		public function get assets():AssetManager { return this._assets; }
+		public function get gameMenu():IGameMenu { return this._gameMenu; }
 		public function get flow():IUpdateDispatcher { return this._flow; }
 		public function get database():DatabaseManager { return this._database; }
 		public function get displayRoot():DisplayObjectContainer { return this._root; }

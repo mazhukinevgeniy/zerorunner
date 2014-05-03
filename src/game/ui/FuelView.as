@@ -1,4 +1,4 @@
-package game.ui.hud 
+package game.ui 
 {
 	import data.viewers.GameConfig;
 	import game.fuel.IFuel;

@@ -4,6 +4,7 @@ package hotkeys
 	import flash.ui.Keyboard;
 	import game.GameElements;
 	import game.metric.ProtectedDCellXY;
+	import game.ui.IGameMenu;
 	import utils.updates.IUpdateDispatcher;
 	
 	internal class InGameProcessor extends ProcessorBase
@@ -16,10 +17,14 @@ package hotkeys
 		private var flow:IUpdateDispatcher;
 		private var status:StatusReporter;
 		
+		private var gameMenu:IGameMenu;
+		
 		public function InGameProcessor(elements:GameElements) 
 		{
 			this.flow = elements.flow;
 			this.status = elements.database.status;
+			
+			this.gameMenu = elements.gameMenu;
 		}
 		
 		override internal function processInput(keyUp:Boolean, keyCode:uint):void 
@@ -42,10 +47,15 @@ package hotkeys
 				{
 					if (!keyUp)
 					{
+						if (keyCode == Keyboard.Q)
+							this.flow.dispatchUpdate(Update.skipFrames);
+					}
+					else
+					{
 						if (keyCode == Keyboard.W)
 							this.flow.dispatchUpdate(Update.toggleFlight);
-						else if (keyCode == Keyboard.Q)
-							this.flow.dispatchUpdate(Update.skipFrames);
+						else if (keyCode == Keyboard.ESCAPE)
+							this.gameMenu.toggleVisibility();
 					}
 				}
 				
