@@ -131,8 +131,6 @@ package game.items
 			this._occupation = Game.OCCUPATION_MOVING;
 			this.ticksUntilOccupationEnds = this.movespeed;
 			this.ticksOccupated = 0;
-			
-			this.onMoved(change);
 		}
 		
 		final items_internal function startFlyingBy(change:DCellXY):void
@@ -151,8 +149,6 @@ package game.items
 				this._occupation = Game.OCCUPATION_FLYING;
 				this.ticksUntilOccupationEnds = this.flyingSpeed;
 				this.ticksOccupated = 0;
-				
-				this.onMoved(change);
 			}
 		}
 		
@@ -186,7 +182,6 @@ package game.items
 		protected function get isDestructible():Boolean { return true; }
 		
 		protected function onSpawned():void { }
-		protected function onMoved(change:DCellXY):void { }
 		protected function onUnstabilized():void { }
 		
 		

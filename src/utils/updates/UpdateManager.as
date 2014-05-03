@@ -24,6 +24,7 @@ package utils.updates
 		{
 			this.currentListener = listener;
 		}
+		
 		final public function addUpdateListener(method:String):void
 		{
 			if (Update[method] == null)

@@ -18,7 +18,6 @@ package data.updaters
 			this.flow = flow;
 			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.droidUnlocked);
 			flow.addUpdateListener(Update.numberedFrame);
 			flow.addUpdateListener(Update.resetProgress);
 		}
@@ -27,11 +26,6 @@ package data.updaters
 		{
 			for (var value:String in Defaults.progressDefaults)
 				this.save[value] = Defaults.progressDefaults[value];
-		}
-		
-		update function droidUnlocked(place:ICoordinated):void
-		{
-			this.save["activeDroids"]++;
 		}
 		
 		update function numberedFrame(key:int):void

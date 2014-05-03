@@ -40,7 +40,6 @@ package data
 			new AchievementsUpdater(flow, this.save);
 			new PreferencesUpdater(flow, this.save);
 			new ProgressUpdater(flow, this.save);
-			new StatisticsUpdater(flow, this.save);
 		}
 		
 		

@@ -39,11 +39,6 @@ package game.items.character
 			return false;
 		}
 		
-		override protected function onMoved(change:DCellXY):void 
-		{
-			this.flow.dispatchUpdate(Update.moveCenter, change);
-		}
-		
 		override protected function onSpawned():void 
 		{
 			this.flow.dispatchUpdate(Update.setCenter, this);

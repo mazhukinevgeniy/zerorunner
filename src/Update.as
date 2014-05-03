@@ -43,14 +43,6 @@ package
 		
 		public static const dropShard:String = "dropShard";
 		
-		
-		/* Stat updates */
-		
-		public static const moveCenter:String = "moveCenter";//Used just for statistics, consider something else
-		
-		public static const droidUnlocked:String = "droidUnlocked"; //It's not used, consider deleting
-		
-		
 		/* Time updates */
 		
 		public static const numberedFrame:String = "numberedFrame";
