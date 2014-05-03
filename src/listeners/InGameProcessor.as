@@ -1,4 +1,4 @@
-package hotkeys 
+package listeners 
 {
 	import data.StatusReporter;
 	import flash.ui.Keyboard;

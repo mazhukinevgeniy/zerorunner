@@ -1,4 +1,4 @@
-package hotkeys 
+package listeners 
 {
 	import flash.ui.Keyboard;
 	import game.GameElements;

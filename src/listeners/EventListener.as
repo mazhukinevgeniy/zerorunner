@@ -1,4 +1,4 @@
-package hotkeys
+package listeners
 {
 	import data.StatusReporter;
 	import flash.events.Event;
@@ -7,7 +7,7 @@ package hotkeys
 	import game.GameElements;
 	import utils.updates.IUpdateDispatcher;
 	
-	public class Hotkeys
+	public class EventListener
 	{		
 		private var status:StatusReporter;
 		
@@ -18,7 +18,7 @@ package hotkeys
 		
 		private const UP:Boolean = true;
 		
-		public function Hotkeys(elements:GameElements, root:IEventDispatcher) 
+		public function EventListener(elements:GameElements, root:IEventDispatcher) 
 		{
 			this.status = elements.status;
 			this.flow = elements.flow;
@@ -34,7 +34,6 @@ package hotkeys
 			
 			root.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
 		}
-		//TODO: rename class
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
