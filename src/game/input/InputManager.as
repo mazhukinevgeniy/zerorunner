@@ -49,6 +49,16 @@ package game.input
 			this.order[InputManager.NO_DIRECTION] = 0;
 		}
 		
+		update function restore(config:GameConfig):void
+		{
+			this.handleDeactivation();
+		}
+		
+		update function toggleMap():void
+		{
+			this.handleDeactivation();
+		}
+		
 		private function handleDeactivation(event:Event = null):void
 		{
 			for (var i:int = 1; i < 17; i++)
@@ -60,9 +70,10 @@ package game.input
 			this._isSkipToggled = false;
 		}
 		
-		update function restore(config:GameConfig):void
+		private function discardClicks():void
 		{
-			this.handleDeactivation();
+			for (var i:int = 9; i < 17; i++)
+				this.order[i] = -1;
 		}
 		
 		public function getInputCopy():Vector.<DCellXY>
@@ -107,11 +118,6 @@ package game.input
 			this.discardClicks();
 			
 			return arr;
-		}
-		
-		update function toggleMap():void
-		{
-			this.discardClicks();
 		}
 		
 		
@@ -168,12 +174,6 @@ package game.input
 					return true;
 			
 			return this._isFlyingToggled;
-		}
-		
-		private function discardClicks():void
-		{
-			for (var i:int = 9; i < 17; i++)
-				this.order[i] = -1;
 		}
 		
 		
