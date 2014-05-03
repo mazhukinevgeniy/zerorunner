@@ -3,6 +3,7 @@ package game.ui
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import game.ui.GameTheme;
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -11,7 +12,7 @@ package game.ui
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class EndGameView extends InGameWindowBase
+	internal class EndGameView extends InGameWindowBase implements IRestorable
 	{
 		private var flow:IUpdateDispatcher;
 		
@@ -40,17 +41,17 @@ package game.ui
 			
 			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
+			elements.restorer.addSubscriber(this);
 			
 			this.flow = elements.flow;
 			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.restore);
 			this.flow.addUpdateListener(Update.gameFinished);
 			
 			elements.displayRoot.addChild(this);
 		}
 		
-		update function restore():void
+		public function restore():void
 		{
 			this.visible = false;
 		}

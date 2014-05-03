@@ -1,6 +1,7 @@
 package game.projectiles 
 {
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import game.items.Items;
 	import game.items.PuppetBase;
 	import game.metric.ICoordinated;
@@ -9,7 +10,7 @@ package game.projectiles
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	public class Projectiles implements IProjectileManager
+	public class Projectiles implements IProjectileManager, IRestorable
 	{
 		private var projectiles:Array;
 		private var unusedProjectiles:Vector.<Projectile>;
@@ -26,8 +27,9 @@ package game.projectiles
 			this.items = elements.items;
 			this.scene = elements.scene;
 			
+			elements.restorer.addSubscriber(this);
+			
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.restore);
 			this.flow.addUpdateListener(Update.projectileLaunched);
 			this.flow.addUpdateListener(Update.projectileLanded);
 			this.flow.addUpdateListener(Update.numberedFrame);
@@ -58,11 +60,14 @@ package game.projectiles
 			}
 		}
 		
+		/**///As IRestorable
 		
-		update function restore():void
+		public function restore():void
 		{
 			this.projectiles = new Array();
 		}
+		
+		/**/
 		
 		update function numberedFrame(frame:int):void
 		{

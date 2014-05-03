@@ -5,6 +5,7 @@ package game.ui
 	import flash.display.Stage;
 	import flash.geom.Point;
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import game.ui.GameTheme;
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -18,9 +19,8 @@ package game.ui
 	import starling.textures.TextureAtlas;
 	import starling.utils.Color;
 	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
-	internal class GameMenu extends Sprite implements IGameMenu
+	internal class GameMenu extends Sprite implements IGameMenu, IRestorable
 	{
 		private var flow:IUpdateDispatcher;
 		private var status:StatusReporter;
@@ -39,13 +39,12 @@ package game.ui
 			
 			super();
 			
+			elements.restorer.addSubscriber(this);
+			
 			this.initializeBody(elements.assets.getTextureAtlas("sprites"));
 			this.initializeToggle();
 			
 			elements.displayRoot.addChild(this);
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.restore);
 		}
 		
 		public function toggleVisibility():void
@@ -134,7 +133,7 @@ package game.ui
 		
 		
 		
-		update function restore():void
+		public function restore():void
 		{
 			this.mainButtons.visible = false;
 		}

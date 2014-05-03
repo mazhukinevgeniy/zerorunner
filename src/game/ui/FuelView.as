@@ -2,11 +2,12 @@ package game.ui
 {
 	import game.fuel.IFuel;
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import utils.updates.update;
 	
-	internal class FuelView 
+	internal class FuelView implements IRestorable
 	{
 		private var fuel:IFuel;
 		
@@ -18,8 +19,9 @@ package game.ui
 			
 			elements.displayRoot.addChild(this.drawBody());
 			
+			elements.restorer.addSubscriber(this);
+			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 		}
 		
@@ -46,7 +48,7 @@ package game.ui
 			return body;
 		}
 		
-		update function restore():void
+		public function restore():void
 		{
 			this.indicator.scaleX = this.fuel.getAmountOfFuel();
 		}

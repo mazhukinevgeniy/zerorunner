@@ -3,11 +3,12 @@ package game
 	import data.StatusReporter;
 	import game.GameElements;
 	import game.input.InputTeller;
+	import game.interfaces.IRestorable;
 	import starling.events.EnterFrameEvent;
 	import utils.updates.IUpdateDispatcher;
 	import utils.updates.update;
 	
-	internal class Time
+	internal class Time implements IRestorable
 	{
 		private var frameCount:int = 0;
 		
@@ -27,21 +28,26 @@ package game
 			
 			elements.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
+			elements.restorer.addSubscriber(this);
+			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.gameFinished);
 			elements.flow.addUpdateListener(Update.setVisibilityOfGameMenu);
 			
 			this.updateFlow = elements.flow;
 		}
 		
-		update function restore():void
+		/**///As IRestorable
+		
+		public function restore():void
 		{
 			this.isFixed = false;
 			this.isMenuOpened = false;
 			
 			this.frameCount = 0;
 		}
+		
+		/**/
 		
 		update function setVisibilityOfGameMenu(visible:Boolean):void
 		{

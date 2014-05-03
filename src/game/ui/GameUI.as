@@ -1,6 +1,7 @@
 package game.ui 
 {
 	import game.GameElements;
+	import game.Restorer;
 	import game.ui.renderer.Renderer;
 	
 	public class GameUI 

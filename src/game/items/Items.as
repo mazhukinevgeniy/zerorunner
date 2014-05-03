@@ -1,6 +1,7 @@
 package game.items 
 {
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import game.items.beacon.BeaconMaster;
 	import game.items.character.CharacterMaster;
 	import game.items.checkpoint.CheckpointMaster;
@@ -13,7 +14,7 @@ package game.items
 	
 	use namespace items_internal;
 	
-	public class Items
+	public class Items implements IRestorable
 	{
 		private var activeItems:Array;
 		private var passiveItems:Array;
@@ -26,8 +27,9 @@ package game.items
 		
 		public function Items(elements:GameElements) 
 		{			
+			elements.restorer.addSubscriber(this);
+			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
@@ -43,7 +45,7 @@ package game.items
 			this.moved = new Vector.<PuppetBase>();
 		}
 		
-		update function restore():void
+		public function restore():void
 		{
 			this.activeItems = new Array();
 			this.passiveItems = new Array();

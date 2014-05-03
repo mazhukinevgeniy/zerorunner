@@ -1,13 +1,14 @@
 package game.ui.renderer 
 {
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import game.items.PuppetBase;
 	import game.ui.renderer.clouds.Clouds;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import utils.updates.update;
 	
-	public class Renderer extends Sprite implements IRenderer
+	public class Renderer extends Sprite implements IRenderer, IRestorable
 	{
 		private var character:PuppetBase;
 		
@@ -20,9 +21,10 @@ package game.ui.renderer
 		{
 			super();
 			
+			elements.restorer.addSubscriber(this);
+			
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.setCenter);
-			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.numberedFrame);
 			elements.flow.addUpdateListener(Update.quitGame);
 			
@@ -41,19 +43,20 @@ package game.ui.renderer
 			this.renderers.push(new ProjectileRenderer(elements, this.activeLayer));
 			this.renderers.push(new EffectRenderer(elements, this.activeLayer));
 			
-			this.renderers.push(elements.displayRoot.addChild(new Clouds(elements, this)));
+			this.renderers.push(
+				elements.displayRoot.addChild(new Clouds(elements, this)));
+		}
+		
+		public function restore():void
+		{
+			/* Force rendering */
+			
+			this.update::numberedFrame(Game.FRAME_TO_ACT);
 		}
 		
 		update function setCenter(center:PuppetBase):void
 		{
 			this.character = center;
-		}
-		
-		update function restore():void
-		{
-			/* Force rendering */
-			
-			this.update::numberedFrame(Game.FRAME_TO_ACT);
 		}
 		
 		update function numberedFrame(frame:int):void 

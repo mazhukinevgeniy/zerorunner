@@ -1,23 +1,22 @@
 package game.scene 
 {
 	import flash.utils.ByteArray;
+	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import utils.MapXML;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
-	public class Scene implements IScene
+	public class Scene implements IScene, IRestorable
 	{
 		private var scene:ByteArray;
 		
-		public function Scene(flow:IUpdateDispatcher) 
+		public function Scene(elements:GameElements) 
 		{
 			this.scene = new ByteArray();
 			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.restore);
+			elements.restorer.addSubscriber(this);
 		}
 		
-		update function restore():void
+		public function restore():void
 		{
 			this.scene.clear();
 			this.scene.length = Game.MAP_WIDTH * Game.MAP_WIDTH;

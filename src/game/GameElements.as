@@ -32,15 +32,21 @@ package game
 		
 		private var _items:Items;
 		private var _scene:IScene;
-		private var _projectiles:IProjectileManager;
+		private var _projectiles:Projectiles;
 		
 		private var _inputT:InputTeller;
 		private var _inputC:InputCollector;
 		
 		private var _gameMenu:IGameMenu;
 		
+		private var _restorer:Restorer;
+		
+		
 		public function GameElements(assets:AssetManager) 
 		{
+			this._restorer = new Restorer();
+			
+			
 			this._assets = assets;
 			this._root = new Sprite();
 			this._flow = new UpdateManager();
@@ -50,17 +56,21 @@ package game
 			this._inputC = new InputCollector();
 			this._inputT = new InputTeller(this._inputC);
 			
-			this._scene = new Scene(this._flow);
+			this._scene = new Scene(this);
 			this._items = new Items(this);
 			this._fuel = new FuelTracker(this);
 			this._projectiles = new Projectiles(this);
 			
-			new Time(this);
+			var time:Time = new Time(this);
 			
-			this._gameMenu = new GameUI(this).gameMenu;
+			var gameUI:GameUI = new GameUI(this);
+			this._gameMenu = gameUI.gameMenu;
+			
 			
 			new GameUpdateConverter(this);
 		}
+		
+		public function get restorer():Restorer { return this._restorer; }
 		
 		public function get fuel():IFuel { return this._fuel; }
 		public function get items():Items { return this._items; }

@@ -22,8 +22,6 @@ package
 		
 		public static const newGame:String = "newGame";
 		
-		public static const restore:String = "restore";
-		
 		public static const gameFinished:String = "gameFinished";
 		public static const quitGame:String = "quitGame";
 		

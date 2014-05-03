@@ -3,6 +3,7 @@ package game.ui
 	import flash.utils.ByteArray;
 	import game.GameElements;
 	import game.input.InputTeller;
+	import game.interfaces.IRestorable;
 	import game.metric.DCellXY;
 	import game.metric.ICoordinated;
 	import game.scene.IScene;
@@ -13,7 +14,7 @@ package game.ui
 	
 	use namespace update;
 	
-	public class MapFeature 
+	public class MapFeature implements IRestorable
 	{
 		private const C_WIDTH:int = 7;
 		private const BORDER_WIDTH:int = 45;
@@ -52,8 +53,9 @@ package game.ui
 			this.tiles[Game.SCENE_BL_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
 			this.tiles[Game.SCENE_GROUND] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x8B4513);
 			
+			elements.restorer.addSubscriber(this);
+			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.setCenter);
 			elements.flow.addUpdateListener(Update.toggleMap);
 			elements.flow.addUpdateListener(Update.numberedFrame);
@@ -72,7 +74,7 @@ package game.ui
 		}
 		
 		/* Note: restore here happens AFTER setCenter */
-		update function restore():void
+		public function restore():void
 		{
 			var i:int;
 			

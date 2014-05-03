@@ -6,13 +6,15 @@ package game
 	
 	final internal class GameUpdateConverter
 	{
-		private var flow:IUpdateDispatcher;
 		private var inputCollector:InputCollector;
+		private var restorer:Restorer;
 		
 		public function GameUpdateConverter(elements:GameElements) 
 		{
-			this.flow = elements.flow;
+			var flow:IUpdateDispatcher = elements.flow;
+			
 			this.inputCollector = elements.inputCollector;
+			this.restorer = elements.restorer;
 			
 			flow.workWithUpdateListener(this);
 			flow.addUpdateListener(Update.newGame);
@@ -24,7 +26,7 @@ package game
 		
 		update function newGame():void
 		{
-			this.flow.dispatchUpdate(Update.restore);
+			this.restorer.triggerRestore();
 			
 			this.inputCollector.clearInput();
 		}

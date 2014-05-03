@@ -1,6 +1,7 @@
 package game.ui.renderer.clouds 
 {
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import game.items.PuppetBase;
 	import game.metric.DCellXY;
 	import game.ui.renderer.IRenderer;
@@ -9,7 +10,7 @@ package game.ui.renderer.clouds
 	import starling.extensions.krecha.ScrollTile;
 	import utils.updates.update;
 	
-	public class Clouds extends ScrollImage implements IRenderer
+	public class Clouds extends ScrollImage implements IRenderer, IRestorable
 	{
 		internal static const CLOUDINESS:int = 2;
 		
@@ -23,12 +24,13 @@ package game.ui.renderer.clouds
 			
 			super(Main.WIDTH, Main.HEIGHT, false);
 			
+			elements.restorer.addSubscriber(this);
+			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function restore():void
+		public function restore():void
 		{
 			const numberOfClouds:int = 4;
 			var cloudiness:int = Clouds.CLOUDINESS;

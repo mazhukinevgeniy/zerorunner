@@ -1,11 +1,12 @@
 package game.items 
 {
 	import game.GameElements;
+	import game.interfaces.IRestorable;
 	import utils.updates.update;
 	
 	use namespace items_internal;
 	
-	public class MasterBase 
+	public class MasterBase implements IRestorable
 	{
 		protected var elements:GameElements;
 		
@@ -13,12 +14,14 @@ package game.items
 		{
 			this.elements = elements;
 			
+			elements.restorer.addSubscriber(this);
+			
 			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function restore():void { this.onGameStarted(); }
+		final public function restore():void { this.onGameStarted(); }
+		
 		update function quitGame():void { this.onGameFinished(); }
 		
 		
