@@ -39,6 +39,7 @@ package ui.windows.settings
 			this.slider.addEventListener(Event.ADDED_TO_STAGE, this.initializeValue);
 			this.slider.addEventListener(Event.CHANGE, this.changeHandler);
 			
+			this.name = name;
 			this.flow = flow;
 		}
 		
@@ -57,7 +58,7 @@ package ui.windows.settings
 		private function changeHandler(event:Event):void
 		{
 			var slider:Slider = Slider(event.currentTarget);
-			this.flow.dispatchUpdate(Update.changeVolume, name, slider.value / 100);
+			this.flow.dispatchUpdate(Update.changeVolume, this.name, slider.value / 100);
 		}
 		
 	}

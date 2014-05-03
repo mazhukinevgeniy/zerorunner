@@ -9,12 +9,36 @@ package ui.windows.settings
 
 	public class SettingsWindow extends Window
 	{
+		private static const GAP:int = 30;
+		
+		private var muteButton:MuteButton;
+		private var soundController:VolumeController;
+		private var musicController:VolumeController;
 		
 		public function SettingsWindow(flow:IUpdateDispatcher, preferences:PreferencesViewer)
 		{
-			this.addChild(new MuteButton(flow, preferences));
+			
+			this.muteButton = new MuteButton(flow, preferences);
 			this.addChild(new ResetButton(flow));
-			this.addChild(new VolumeController(Theme.SOUND_SETTING, flow));
+			
+			this.soundController = new VolumeController(Theme.SOUND_SETTING, flow);
+			this.musicController = new VolumeController(Theme.MUSIC_SETTING, flow);
+			
+			this.addChild(this.muteButton);
+			this.addChild(this.soundController);
+			this.addChild(this.musicController);
+			
+			this.addEventListener(Event.ADDED_TO_STAGE, this.locate)
+		}
+		
+		public function locate(event:Event):void
+		{	
+			this.soundController.x = SettingsWindow.GAP;
+			this.musicController.x = SettingsWindow.GAP;
+			
+			this.soundController.y = SettingsWindow.GAP;
+			this.musicController.y = this.soundController.y + this.soundController.height + SettingsWindow.GAP;
+
 		}
 		
 	}
