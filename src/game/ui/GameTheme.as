@@ -13,6 +13,8 @@ package game.ui
 	{
 		public static const TRIANGLE_TOGGLE:String = "Triangle-toggle-button";
 		public static const MENU_BUTTON:String = "Menu-button";
+		public static const QUIT_GAME:String = "Quit-game";
+		public static const TOGGLE_MAP:String = "Toggle-map";
 		
 		private var atlas:TextureAtlas;
 		
@@ -40,15 +42,24 @@ package game.ui
 			button.selectedDownSkin = new Image(this.atlas.getTexture("button-selected-down-skin"));
 			
 			button.defaultLabelProperties = this.defaultTextFormat;
+			
+			if (button.nameList.contains(GameTheme.TOGGLE_MAP))
+			{
+				button.label = "Toggle map";
+			}
+			else if (button.nameList.contains(GameTheme.QUIT_GAME))
+			{
+				button.label = "Quit game";
+			}
 		}
 		
 		private function initializeTTButton(button:Button):void
 		{
-			button.scaleX = -2;//TODO: that's wrong, must just have the right sprite
+			button.scaleX = 2;
 			button.scaleY = 2;
-			button.upSkin = new Image(this.atlas.getTexture("vslider-thumb-up-skin"));
-			button.hoverSkin = new Image(this.atlas.getTexture("vslider-thumb-hover-skin"));
-			button.downSkin = new Image(this.atlas.getTexture("vslider-thumb-down-skin"));
+			button.upSkin = new Image(this.atlas.getTexture("hslider-thumb-up-skin"));
+			button.hoverSkin = new Image(this.atlas.getTexture("hslider-thumb-hover-skin"));
+			button.downSkin = new Image(this.atlas.getTexture("hslider-thumb-down-skin"));
 			button.defaultSelectedSkin = button.upSkin;
 			button.selectedHoverSkin = button.hoverSkin;
 			button.selectedDownSkin = button.downSkin;

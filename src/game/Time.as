@@ -29,6 +29,7 @@ package game
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.restore);
 			elements.flow.addUpdateListener(Update.gameFinished);
+			elements.flow.addUpdateListener(Update.setVisibilityOfGameMenu);
 			
 			this.updateFlow = elements.flow;
 		}
@@ -38,6 +39,11 @@ package game
 			this.isFixed = false;
 			
 			this.frameCount = 0;
+		}
+		
+		update function setVisibilityOfGameMenu(visible:Boolean):void
+		{
+			this.isFixed = visible;
 		}
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
