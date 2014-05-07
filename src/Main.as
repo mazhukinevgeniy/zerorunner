@@ -84,7 +84,7 @@ package
 			
 			this.modelElements = new ModelElements(this.binder);
 			this.controllerElements = new ControllerElements(this.binder);
-			this.viewElements = new ViewElements(this.binder);
+			this.viewElements = new ViewElements(this.binder, this.starlingRoot);
 			
 			
 			//this.game = new GameElements(this.assets);
