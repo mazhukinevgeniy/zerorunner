@@ -13,6 +13,7 @@ package
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	import view.utils.SoftStarling;
+	import view.ViewElements;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
@@ -31,6 +32,7 @@ package
 		private var binder:Binder;
 		private var modelElements:ModelElements;
 		private var controllerElements:ControllerElements;
+		private var viewElements:ViewElements;
 		//private var game:GameElements;
 		//private var shell:Shell;
 		//private var listener:EventListener;
@@ -82,6 +84,7 @@ package
 			
 			this.modelElements = new ModelElements(this.binder);
 			this.controllerElements = new ControllerElements(this.binder);
+			this.viewElements = new ViewElements(this.binder);
 			
 			
 			//this.game = new GameElements(this.assets);
