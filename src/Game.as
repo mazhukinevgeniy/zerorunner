@@ -1,6 +1,6 @@
 package  
 {
-	import game.metric.ICoordinated;
+	import model.metric.ICoordinated;
 	import starling.utils.Color;
 	
 	/**

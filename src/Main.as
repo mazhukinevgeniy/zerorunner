@@ -1,20 +1,16 @@
 package 
 {
+	import assets.AssetLoader;
+	import binding.Binder;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Capabilities;
 	import flash.ui.ContextMenu;
-	import game.GameElements;
-	import listeners.EventListener;
-	import preloader.ProgressBar;
 	import starling.core.Starling;
 	import starling.events.Event;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
-	import ui.Shell;
-	import utils.AtlasXML;
-	import utils.initializeAtlasMakerAtlases;
-	import utils.SoftStarling;
+	import view.utils.SoftStarling;
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
@@ -24,17 +20,18 @@ package
 		public static const HEIGHT:int = 480;
 		
 		public static const FPS:int = 60;
-		
+		//TODO: why is it here?
 		
 		private var mStarling:SoftStarling;
 		
 		private var starlingRoot:starling.display.Sprite;
 		
-		private var game:GameElements;
-		private var shell:Shell;
-		private var listener:EventListener;
+		private var binder:Binder;
+		//private var game:GameElements;
+		//private var shell:Shell;
+		//private var listener:EventListener;
+		//TODO: check if we need anything here
 		
-		private var progressBar:ProgressBar;
 		private var assets:AssetManager;
 		
 		public function Main()
@@ -68,44 +65,28 @@ package
 			
 			this.starlingRoot = event.data as starling.display.Sprite;
 			
-			this.loadAssets();
+			
+			new AssetLoader(this);
 		}
 		
-		private function loadAssets():void
+		public function initializeEverything(assets:AssetManager):void
 		{
-			this.progressBar = new ProgressBar();
-			this.addChild(this.progressBar);
+			this.assets = assets;
 			
-			this.assets = new AssetManager();
+			this.binder = new Binder();
 			
-			this.assets.verbose = true;
-			this.assets.enqueue(EmbeddedAssets);
 			
-			this.assets.loadQueue(this.assetsProgress);
+			//this.game = new GameElements(this.assets);
+			
+			//this.starlingRoot.addChild((this.game).displayRoot);
+			
+			//this.shell = new Shell(this.starlingRoot, this.game);
+			//this.listener = new EventListener(this.game, Starling.current.nativeStage);
+			
+			Starling.current.stage.color = Game.STAGE_COLOR;
+			
+			//TODO: finish the rework
 		}
-		
-		private function assetsProgress(ratio:Number):void
-		{
-			this.progressBar.redraw(ratio);
-			
-			if (ratio == 1.0)
-			{
-				this.removeChild(this.progressBar);
-				this.progressBar = null;
-				
-				initializeAtlasMakerAtlases(this.assets, AtlasXML.getOne());
-				
-				this.game = new GameElements(this.assets);
-				
-				this.starlingRoot.addChild((this.game).displayRoot);
-				
-				this.shell = new Shell(this.starlingRoot, this.game);
-				this.listener = new EventListener(this.game, Starling.current.nativeStage);
-				
-				Starling.current.stage.color = Game.STAGE_COLOR;
-			}
-		}
-		
 	}
 
 }
