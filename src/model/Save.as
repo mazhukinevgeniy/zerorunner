@@ -21,8 +21,19 @@ package model
 		
 		private function initializeProperties():void
 		{
-			if (!this.so.data.hasOwnProperty("mute"))
-				this.so.data.mute = false;
+			const properties:Array = 
+				[
+					["soundMute", false], 
+					["musicMute", false]
+				];
+			
+			var length:int = properties.length;
+			
+			for (var i:int = 0; i < length; i++)
+			{
+				if (!this.so.data.hasOwnProperty(properties[i][0]))
+					this.so.data[properties[i][0]] = properties[i][1];
+			}
 		}
 		
 		public function get soundMute():Boolean { return this.so.data.soundMute; }
