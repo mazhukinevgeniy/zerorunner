@@ -1,14 +1,13 @@
 package view.shell 
 {
+	import controller.observers.IGameStatusObserver;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
-	internal class WindowsController 
+	internal class Windows implements IGameStatusObserver
 	{
 		public static const GAME:int = 0;
 		public static const ACHIEVEMENTS:int = 1;
@@ -25,7 +24,7 @@ package view.shell
 		
 		private var idLastOpenedWindow:int;
 		
-		public function WindowsController(windows:Vector.<DisplayObject>) 
+		public function Windows(windows:Vector.<DisplayObject>) 
 		{
 			this.windows = windows;
 			
