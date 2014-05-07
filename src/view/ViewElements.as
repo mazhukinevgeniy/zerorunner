@@ -7,6 +7,7 @@ package view
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import view.game.initializeGameView;
 	import view.shell.initializeShell;
 	import view.themes.GameTheme;
 	import view.themes.ShellTheme;
@@ -20,7 +21,15 @@ package view
 		{
 			binder.requestBindingFor(this);
 			
+			this.createRoots(root);
+			this.bindAssets(binder);
 			
+			initializeShell(this.shellRoot);
+			initializeGameView(this.gameRoot);
+		}
+		
+		private function createRoots(root:DisplayObjectContainer):void
+		{
 			var shellRoot:Sprite = new Sprite();
 			var gameRoot:Sprite = new Sprite();
 			
@@ -29,24 +38,21 @@ package view
 			
 			gameRoot.visible = false;
 			
-			
-			initializeShell(shellRoot);
-			
-			
-			
 			this.shellRoot = shellRoot;
 			this.gameRoot = gameRoot;
 		}
 		
-		public function bindObjects(binder:IBinder):void
+		private function bindAssets(binder:IBinder):void
 		{
 			var assetManager:AssetManager = binder.assetManager;
 			var sprites:TextureAtlas = assetManager.getTextureAtlas("sprites");
 			
 			new GameTheme(this.gameRoot, sprites);
-			new ShellTheme(this.shellRoot, sprites)
-			
-			
+			new ShellTheme(this.shellRoot, sprites);
+		}
+		
+		public function bindObjects(binder:IBinder):void
+		{
 			var notifier:INotifier = binder.notifier;
 			
 			//TODO: observe newGame/quitGame
