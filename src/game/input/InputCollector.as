@@ -52,7 +52,7 @@ package game.input
 			for (var i:int = 1; i < 17; i++)
 				this.order[i] = -1;
 			
-			this.maxI = 1;
+			this.maxI = int.MAX_VALUE - 10;
 			
 			for (var j:int = 0; j < Game.NUMBER_OF_ACTIONS; j++)
 				this.actions[j] = false;
@@ -66,6 +66,9 @@ package game.input
 		{
 			this.order[value] = this.maxI;
 			this.maxI++;
+			
+			if (this.maxI == int.MAX_VALUE)
+				this.resetMaxI();
 		}
 		private function pop(value:int):void
 		{
@@ -78,6 +81,33 @@ package game.input
 		}
 		
 		
+		private function resetMaxI():void
+		{
+			
+			trace(this.order.toString());
+			var values:Array = new Array();
+			var positions:Array = new Array();
+			
+			for (var i:int = 1; i < 17; i++)
+				if (this.order[i] > 0)
+				{
+					values.push(this.order[i]);
+					positions[this.order[i]] = i;
+				}
+			
+			values.sort(Array.NUMERIC);
+			
+			this.maxI = 1;
+			
+			for (var j:int = 0; j < values.length; j++)
+			{
+				this.order[positions[values[j]]] = maxI;
+				
+				maxI++;
+			}
+			
+			trace(this.order.toString());
+		}
 	}
 
 }
