@@ -1,30 +1,22 @@
 package controller 
 {
+	import binding.IBinder;
+	import controller.interfaces.IInputController;
+	import controller.interfaces.INotifier;
+	import controller.interfaces.ISoundController;
 	
 	public class ControllerElements 
 	{
-		private var controller:Controller;
 		
-		public function ControllerElements() 
+		public function ControllerElements(binder:IBinder) 
 		{
+			var notifier:Notifier = new Notifier();
 			
-			this.controller = new Controller();
+			binder.addBindable(notifier, INotifier);
+			binder.addBindable(new Keys(notifier, binder), IInputController);
+			binder.addBindable(new SoundController(notifier), ISoundController);
 		}
 		
-		public function get notifier():INotifier
-		{
-			return this.controller;
-		}
-		
-		public function get soundController():ISoundController
-		{
-			return this.controller;
-		}
-		
-		public function get inputController():IInputController
-		{
-			return this.controller;
-		}
 	}
 
 }

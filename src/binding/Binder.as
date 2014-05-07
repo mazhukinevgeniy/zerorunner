@@ -1,6 +1,9 @@
 package binding
 {
 	import binding.IDependent;
+	import controller.interfaces.IInputController;
+	import controller.interfaces.INotifier;
+	import controller.interfaces.ISoundController;
 	import flash.utils.Dictionary;
 	import model.interfaces.IScene;
 	import starling.utils.AssetManager;
@@ -43,7 +46,10 @@ package binding
 		
 		
 		public function get scene():IScene { return this.objects[IScene]; }
+		public function get notifier():INotifier { return this.objects[INotifier]; }
 		public function get assetManager():AssetManager { return this.objects[AssetManager]; }
+		public function get inputController():IInputController { return this.objects[IInputController]; }
+		public function get soundController():ISoundController { return this.objects[ISoundController]; }
 	}
 
 }

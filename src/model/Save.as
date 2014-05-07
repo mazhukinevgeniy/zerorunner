@@ -1,22 +1,27 @@
 package model 
 {
+	import binding.IBinder;
+	import binding.IDependent;
+	import controller.interfaces.INotifier;
 	import controller.observers.ISoundObserver;
 	import flash.net.SharedObject;
 	
 	import model.interfaces.ISave;
 	
 	public class Save implements ISave,
-								 ISoundObserver
+								 ISoundObserver,
+								 IDependent
 	{
 		private var so:SharedObject;
 		
-		public function Save() 
+		public function Save(binder:IBinder) 
 		{
 			const PROJECT_NAME:String = "zeroRunner";
 			this.so = SharedObject.getLocal(PROJECT_NAME);
 			
 			this.initializeProperties();
 			
+			binder.requestBindingFor(this);
 		}
 		
 		private function initializeProperties():void
@@ -34,6 +39,13 @@ package model
 				if (!this.so.data.hasOwnProperty(properties[i][0]))
 					this.so.data[properties[i][0]] = properties[i][1];
 			}
+		}
+		
+		public function bindObjects(binder:IBinder):void
+		{
+			var notifier:INotifier = binder.notifier;
+			
+			notifier.addSoundObserver(this);
 		}
 		
 		public function get soundMute():Boolean { return this.so.data.soundMute; }

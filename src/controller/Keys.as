@@ -1,43 +1,51 @@
 package controller 
 {
+	import binding.IBinder;
+	import binding.IDependent;
 	import controller.interfaces.IInputController;
 	import flash.ui.Keyboard;
+	import model.metric.ProtectedDCellXY;
 	
-	internal class Keys implements IInputController
+	internal class Keys implements IInputController,
+								   IDependent
 	{
 		private const UP:ProtectedDCellXY = new ProtectedDCellXY(0, -1);
 		private const DOWN:ProtectedDCellXY = new ProtectedDCellXY(0, 1);
 		private const RIGHT:ProtectedDCellXY = new ProtectedDCellXY(1, 0);
 		private const LEFT:ProtectedDCellXY = new ProtectedDCellXY(-1, 0);
 		
-		private var flow:IUpdateDispatcher;
-		private var status:IStatus;
+		//private var status:IStatus;
+		//
+		//private var gameMenu:IGameMenu;
+		//private var input:InputCollector;
+		//TODO: activate
 		
-		private var gameMenu:IGameMenu;
-		private var input:InputCollector;
+		private var notifier:Notifier;
 		
-		
-		public function Keys(elements:GameElements) 
+		public function Keys(notifier:Notifier, binder:IBinder) 
 		{
-			this.flow = elements.flow;
-			this.status = elements.status;
+			binder.requestBindingFor(this);
 			
-			this.gameMenu = elements.gameMenu;
-			this.input = elements.inputCollector;
+			this.notifier = notifier;
+		}
+		
+		public function bindObjects(binder:IBinder):void
+		{
+			//TODO: get status prolly
 		}
 		
 		public function processInput(keyUp:Boolean, keyCode:uint):void
 		{
-			if (this.status.isGameOn())
+			/*if (this.status.isGameOn())
 				this.processInGameInput(keyUp, keyCode);
 			else
-				this.processInShellInput(keyUp, keyCode);
+				this.processInShellInput(keyUp, keyCode);*/
 		}
 		
 		
 		private function processInGameInput(keyUp:Boolean, keyCode:uint):void 
 		{
-			if (keyCode == Keyboard.UP)
+			/*if (keyCode == Keyboard.UP)
 				this.input.newInputPiece(!keyUp, this.UP);
 			else if (keyCode == Keyboard.DOWN)
 				this.input.newInputPiece(!keyUp, this.DOWN);
@@ -48,9 +56,9 @@ package controller
 			else
 			{
 				if (status.isMapOn())
-				{
+				{*/
 					/* map-specific controls */
-				}
+				/*}
 				else
 				{
 					if (!keyUp)
@@ -69,13 +77,13 @@ package controller
 				
 				if (!keyUp && keyCode == Keyboard.M)
 					this.flow.dispatchUpdate(Update.toggleMap);
-			}
+			}*/
 		}
 		
 		
 		private function processInShellInput(keyUp:Boolean, keyCode:uint):void
 		{
-			if (keyUp)
+			/*if (keyUp)
 			{
 				if (keyCode == Keyboard.P)
 				{
@@ -85,7 +93,7 @@ package controller
 				{
 					this.flow.dispatchUpdate(Update.toggleMute);
 				}
-			}
+			}*/
 		}
 	}
 

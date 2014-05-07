@@ -2,6 +2,7 @@ package
 {
 	import assets.AssetLoader;
 	import binding.Binder;
+	import controller.ControllerElements;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Capabilities;
@@ -29,6 +30,7 @@ package
 		
 		private var binder:Binder;
 		private var modelElements:ModelElements;
+		private var controllerElements:ControllerElements;
 		//private var game:GameElements;
 		//private var shell:Shell;
 		//private var listener:EventListener;
@@ -79,6 +81,7 @@ package
 			
 			
 			this.modelElements = new ModelElements(this.binder);
+			this.controllerElements = new ControllerElements(this.binder);
 			
 			
 			//this.game = new GameElements(this.assets);

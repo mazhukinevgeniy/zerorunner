@@ -4,11 +4,10 @@ package model
 	
 	public class ModelElements 
 	{
-		public var save:Save;
 		
 		public function ModelElements(binder:IBinder) 
 		{
-			this.save = new Save();
+			new Save(binder);
 			
 			
 		}
