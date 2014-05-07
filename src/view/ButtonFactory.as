@@ -33,7 +33,7 @@ package view
 				
 				if (background != null)
 				{
-					var texture:Texture = new Texture();
+					var texture:Texture;
 					var image:Image;
 					
 					texture = this.assets.getTextureAtlas("sprites").getTexture(background);
