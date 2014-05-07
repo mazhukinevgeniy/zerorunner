@@ -52,7 +52,7 @@ package game.input
 			for (var i:int = 1; i < 17; i++)
 				this.order[i] = -1;
 			
-			this.maxI = int.MAX_VALUE - 10;
+			this.maxI = 1;
 			
 			for (var j:int = 0; j < Game.NUMBER_OF_ACTIONS; j++)
 				this.actions[j] = false;
@@ -83,8 +83,6 @@ package game.input
 		
 		private function resetMaxI():void
 		{
-			
-			trace(this.order.toString());
 			var values:Array = new Array();
 			var positions:Array = new Array();
 			
@@ -101,12 +99,10 @@ package game.input
 			
 			for (var j:int = 0; j < values.length; j++)
 			{
-				this.order[positions[values[j]]] = maxI;
+				this.order[positions[values[j]]] = this.maxI;
 				
-				maxI++;
+				this.maxI++;
 			}
-			
-			trace(this.order.toString());
 		}
 	}
 

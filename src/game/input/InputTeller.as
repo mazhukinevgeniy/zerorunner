@@ -54,11 +54,6 @@ package game.input
 						arr[j] = tmpd;
 					}
 			
-			/*CONFIG::debug
-			{
-				trace("used", this.maxI, "of", int.MAX_VALUE);
-			}*///TODO: just make it unbreakable
-			
 			for (i = 9; i < 17; i++)
 				order[i] = -1;
 			
@@ -67,16 +62,25 @@ package game.input
 		
 		public function isThereInput():Boolean
 		{
+			var toReturn:Boolean;
+			
 			if (this.isActionRequested(Game.ACTION_SKIP_FRAME))
 			{
-				return true;
+				toReturn = true;
 			}
 			
-			for (var i:int = 1; i < 17; i++)
-				if (this.collector.order[i] > -1)
-					return true;
+			if (!toReturn)
+				for (var i:int = 1; i < 17; i++)
+					if (this.collector.order[i] > -1)
+					{
+						toReturn = true;
+						break;
+					}
 			
-			return this.collector.actions[Game.ACTION_FLIGHT];
+			if (!toReturn)
+				toReturn = this.collector.actions[Game.ACTION_FLIGHT];
+			
+			return toReturn;
 		}
 		
 		public function isActionRequested(action:int):Boolean
