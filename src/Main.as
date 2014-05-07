@@ -6,6 +6,7 @@ package
 	import flash.events.Event;
 	import flash.system.Capabilities;
 	import flash.ui.ContextMenu;
+	import model.ModelElements;
 	import starling.core.Starling;
 	import starling.events.Event;
 	import starling.display.Sprite;
@@ -27,6 +28,7 @@ package
 		private var starlingRoot:starling.display.Sprite;
 		
 		private var binder:Binder;
+		private var modelElements:ModelElements;
 		//private var game:GameElements;
 		//private var shell:Shell;
 		//private var listener:EventListener;
@@ -71,9 +73,12 @@ package
 		
 		public function initializeEverything(assets:AssetManager):void
 		{
-			this.assets = assets;
-			
 			this.binder = new Binder();
+			
+			this.binder.addBindable(this.assets = assets, AssetManager);
+			
+			
+			this.modelElements = new ModelElements(this.binder);
 			
 			
 			//this.game = new GameElements(this.assets);
@@ -82,6 +87,8 @@ package
 			
 			//this.shell = new Shell(this.starlingRoot, this.game);
 			//this.listener = new EventListener(this.game, Starling.current.nativeStage);
+			
+			this.binder.triggerBinding();
 			
 			Starling.current.stage.color = Game.STAGE_COLOR;
 			
