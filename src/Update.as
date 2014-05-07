@@ -16,8 +16,6 @@ package
 		
 		public static const handleDeactivation:String = "handleDeactivation";
 		
-		//TODO: remove unneeded updates
-		
 		/* Metagame updates */
 		
 		public static const newGame:String = "newGame";

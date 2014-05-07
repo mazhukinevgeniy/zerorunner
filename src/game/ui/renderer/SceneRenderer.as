@@ -82,7 +82,7 @@ package game.ui.renderer
 		override protected function get range():int 
 		{
 			return 7;
-			//TODO: determine range softer
+			//TODO: determine range more softly
 		}
 		
 		override protected function renderCell(x:int, y:int):void 

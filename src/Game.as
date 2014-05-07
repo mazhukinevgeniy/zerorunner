@@ -1,6 +1,7 @@
 package  
 {
 	import game.metric.ICoordinated;
+	import starling.utils.Color;
 	
 	/**
 	 * Collection of global game-related constants, codes etc
@@ -75,8 +76,7 @@ package
 		
 		public static const CLOUD_WIDTH:int = 700;
 		
-		public static const STAGE_COLOR:uint = 0x222222;
-		//TODO: get art director to get the best color for that
+		public static const STAGE_COLOR:uint = Color.WHITE;
 		
 		/* Metric */
 		

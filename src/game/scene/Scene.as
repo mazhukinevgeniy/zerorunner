@@ -182,8 +182,6 @@ package game.scene
 						else throw validationError;
 					}
 				}
-			
-			//TODO: remove as soon as the game is done
 		}
 	}
 

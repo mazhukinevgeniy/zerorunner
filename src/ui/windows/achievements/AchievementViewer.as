@@ -51,7 +51,6 @@ package ui.windows.achievements
 				
 			return achievement;
 		}
-		//TODO: impelement the way to give suitable save-based amount of information
 	}
 
 }
