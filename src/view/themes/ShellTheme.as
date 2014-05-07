@@ -17,14 +17,12 @@ package view.themes
 	import flash.geom.Rectangle;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
-	import game.GameElements;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
-	import ui.navigation.Navigation;
 	
 	public class ShellTheme extends DisplayListWatcher
 	{
@@ -55,11 +53,14 @@ package view.themes
 			return scrollBar;
 		}
 		
-		public function ShellTheme(elements:GameElements, container:DisplayObjectContainer) 
+		public function ShellTheme(container:DisplayObjectContainer, atlas:TextureAtlas) 
 		{
 			super(container);
 			
-			this.initialize(elements);
+			this.atlas = atlas;
+			
+			this.initialize();
+			//TODO: lol, that call. such improvement.
 		}
 		
 		protected static function textRendererFactory():ITextRenderer
@@ -95,16 +96,14 @@ package view.themes
 		protected var vSliderThumbDisabledSkinTexture:Texture;
 		protected var vSliderTrackSkinTextures:Scale3Textures;
 		
-		protected function initialize(elements:GameElements):void
+		protected function initialize():void
 		{
 			FocusManager.isEnabled = true;
 			
 			FeathersControl.defaultTextRendererFactory = textRendererFactory;
 
-			this.atlas = elements.assets.getTextureAtlas("sprites");
-
-			this.defaultTextFormat = new TextFormat("HiLo-Deco", 18, Theme.PRIMARY_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
-			this.disabledTextFormat = new TextFormat("HiLo-Deco", 18, Theme.DISABLED_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
+			this.defaultTextFormat = new TextFormat("HiLo-Deco", 18, ShellTheme.PRIMARY_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
+			this.disabledTextFormat = new TextFormat("HiLo-Deco", 18, ShellTheme.DISABLED_TEXT_COLOR, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
 
 			this.focusIndicatorSkinTextures = new Scale9Textures(this.atlas.getTexture("focus-indicator-skin"), FOCUS_INDICATOR_SCALE_9_GRID);
 
@@ -132,7 +131,7 @@ package view.themes
 			this.setInitializerForClass(Button, this.buttonInitializer);
 			this.setInitializerForClass(Label, this.labelInitializer);
 			this.setInitializerForClass(Slider, this.sliderInitializer);
-			this.setInitializerForClass(Button, this.soundButtonInitializer, Theme.SOUND_SETTING);
+			this.setInitializerForClass(Button, this.soundButtonInitializer, ShellTheme.SOUND_SETTING);
 		}
 		
 		protected function soundButtonInitializer(button:Button):void

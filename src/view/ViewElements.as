@@ -5,9 +5,11 @@ package view
 	import controller.interfaces.INotifier;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
+	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import view.shell.initializeShell;
 	import view.themes.GameTheme;
+	import view.themes.ShellTheme;
 	
 	public class ViewElements implements IDependent
 	{
@@ -39,9 +41,10 @@ package view
 		public function bindObjects(binder:IBinder):void
 		{
 			var assetManager:AssetManager = binder.assetManager;
+			var sprites:TextureAtlas = assetManager.getTextureAtlas("sprites");
 			
-			new GameTheme(this.gameRoot, assetManager.getTextureAtlas("sprites"));
-			
+			new GameTheme(this.gameRoot, sprites);
+			new ShellTheme(this.shellRoot, sprites)
 			
 			
 			var notifier:INotifier = binder.notifier;
