@@ -1,4 +1,4 @@
-package view.shell.windows 
+package view.shell 
 {
 	import feathers.controls.ScrollContainer;
 	import starling.display.Quad;
@@ -12,12 +12,12 @@ package view.shell.windows
 		
 		public function WindowBase() 
 		{
-			this.width = Window.WIDTH;
-			this.height = Window.HEIGHT;
-			this.x =(Main.WIDTH + Navigation.WIDTH - Window.WIDTH) / 2;
-			this.y = (Main.HEIGHT - Window.HEIGHT) / 2;
+			this.width = WindowBase.WIDTH;
+			this.height = WindowBase.HEIGHT;
+			this.x =(Main.WIDTH + Navigation.WIDTH - WindowBase.WIDTH) / 2;
+			this.y = (Main.HEIGHT - WindowBase.HEIGHT) / 2;
 			
-			var background:Quad = new Quad(Window.WIDTH, Window.HEIGHT, 0xFFFFFF);
+			var background:Quad = new Quad(WindowBase.WIDTH, WindowBase.HEIGHT, 0xFFFFFF);
 			background.alpha = 0.85;
 			this.backgroundSkin = background;
 		}

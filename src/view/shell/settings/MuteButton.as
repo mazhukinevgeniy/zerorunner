@@ -1,4 +1,4 @@
-package view.shell.windows.settings 
+package view.shell.settings 
 {
 	import data.Preferences;
 	import feathers.controls.Button;

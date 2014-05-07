@@ -10,6 +10,14 @@ package view.shell
 	
 	internal class WindowsController 
 	{
+		public static const GAME:int = 0;
+		public static const ACHIEVEMENTS:int = 1;
+		public static const SETTINGS:int = 2;
+		public static const CREDITS:int = 3;
+		
+		private static const NUMBER_OF_WINDOWS:int = 4;
+		
+		
 		private static const UNDETERMINED:int = -1;
 		
 		private var windows:Vector.<DisplayObject>;
@@ -17,7 +25,7 @@ package view.shell
 		
 		private var idLastOpenedWindow:int;
 		
-		public function WindowsController(flow:IUpdateDispatcher, windows:Vector.<DisplayObject>) 
+		public function WindowsController(windows:Vector.<DisplayObject>) 
 		{
 			this.windows = windows;
 			
@@ -30,11 +38,10 @@ package view.shell
 		{
 			this.flow = flow;
 			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.toggleWindow);
 			this.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		update function toggleWindow(idTarget:int):void
+		internal function toggleWindow(idTarget:int):void
 		{
 			this.closelastOpenedWindow();
 			

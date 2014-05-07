@@ -1,4 +1,4 @@
-package view.shell.windows.credits 
+package view.shell.credits 
 {
 	import starling.display.Quad;
 	import starling.events.Event;

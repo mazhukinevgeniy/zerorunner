@@ -6,7 +6,6 @@ package
 		/* Input updates */
 		
 		public static const toggleMute:String = "toggleMute";
-		public static const toggleWindow:String = "toggleWindow";
 		
 		public static const toggleMap:String = "toggleMap";
 		

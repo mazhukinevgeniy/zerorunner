@@ -1,4 +1,4 @@
-package view.shell.windows.achievements 
+package view.shell.achievements 
 {
 	import feathers.controls.Label;
 	import starling.display.DisplayObject;

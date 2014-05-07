@@ -3,14 +3,8 @@ package view.shell
 	import feathers.controls.Button;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
-	import game.GameElements;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.utils.AssetManager;
-	import ui.ButtonFactory;
-	import ui.Windows;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
 	public class Navigation extends ScrollContainer
 	{
@@ -34,8 +28,14 @@ package view.shell
 		
 		private var resetButton:Button;
 		
-		public function Navigation(elements:GameElements) 
+		private var windowsController:WindowsController;
+		
+		public function Navigation(windowsController:WindowsController) 
 		{
+			this.windowsController = windowsController;
+			
+			super();
+			
 			this.initializeSize();
 			this.initializeLayout();
 			
