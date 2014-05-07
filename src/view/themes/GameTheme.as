@@ -1,4 +1,4 @@
-package view.game 
+package view.themes 
 {
 	import feathers.controls.Button;
 	import feathers.core.DisplayListWatcher;

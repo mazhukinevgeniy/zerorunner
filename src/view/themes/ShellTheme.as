@@ -26,7 +26,7 @@ package view.themes
 	import starling.textures.TextureAtlas;
 	import ui.navigation.Navigation;
 	
-	public class Theme extends DisplayListWatcher
+	public class ShellTheme extends DisplayListWatcher
 	{
 		public static const SOUND_SETTING:String = "SOUND_SETTING";
 		public static const MUSIC_SETTING:String = "MUSIC_SETTING";
@@ -55,7 +55,7 @@ package view.themes
 			return scrollBar;
 		}
 		
-		public function Theme(elements:GameElements, container:DisplayObjectContainer) 
+		public function ShellTheme(elements:GameElements, container:DisplayObjectContainer) 
 		{
 			super(container);
 			
