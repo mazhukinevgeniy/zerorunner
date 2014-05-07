@@ -3,6 +3,7 @@ package binding
 	import binding.IDependent;
 	import flash.utils.Dictionary;
 	import model.interfaces.IScene;
+	import starling.utils.AssetManager;
 	
 	public class Binder implements IBinder
 	{
@@ -42,6 +43,7 @@ package binding
 		
 		
 		public function get scene():IScene { return this.objects[IScene]; }
+		public function get assetManager():AssetManager { return this.objects[AssetManager]; }
 	}
 
 }
