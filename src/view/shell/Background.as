@@ -11,7 +11,7 @@ package view.shell
 		{
 			super();
 			
-			this.addChild(new Quad(Main.WIDTH, Main.HEIGHT, Color.NAVY));
+			this.addChild(new Quad(Main.WIDTH, Main.HEIGHT, Color.SILVER));
 		}
 	}
 
