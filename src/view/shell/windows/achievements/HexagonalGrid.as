@@ -1,4 +1,4 @@
-package view.windows.achievements 
+package view.shell.windows.achievements 
 {
 	import flash.geom.Point;
 	import starling.display.Image;

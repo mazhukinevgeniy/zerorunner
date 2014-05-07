@@ -1,4 +1,4 @@
-package view 
+package view.shell 
 {
 	import game.GameElements;
 	import starling.display.DisplayObject;

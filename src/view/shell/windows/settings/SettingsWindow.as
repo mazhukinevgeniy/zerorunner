@@ -1,4 +1,4 @@
-package view.windows.settings 
+package view.shell.windows.settings 
 {
 	import data.Preferences;
 	import feathers.controls.Slider;

@@ -1,4 +1,4 @@
-package view 
+package view.shell 
 {
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.AnchorLayout;

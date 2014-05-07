@@ -1,4 +1,4 @@
-package view.windows.achievements 
+package view.shell.windows.achievements 
 {
 	import feathers.controls.Label;
 	import feathers.controls.ScrollContainer;

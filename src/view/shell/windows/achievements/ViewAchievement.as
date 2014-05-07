@@ -1,4 +1,4 @@
-package view.windows.achievements 
+package view.shell.windows.achievements 
 {
 	import starling.display.Image;
 	import starling.display.Sprite;

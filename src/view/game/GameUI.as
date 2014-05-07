@@ -6,7 +6,6 @@ package view.game
 	
 	public class GameUI 
 	{
-		public var gameMenu:IGameMenu;
 		
 		public function GameUI(elements:GameElements) 
 		{

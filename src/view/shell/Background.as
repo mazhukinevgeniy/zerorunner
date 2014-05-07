@@ -1,7 +1,8 @@
-package view.background 
+package view.shell 
 {
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import starling.utils.Color;
 	
 	public class Background extends Sprite
 	{
@@ -9,7 +10,8 @@ package view.background
 		public function Background() 
 		{
 			super();
-			this.addChild(new Quad(Main.WIDTH, Main.HEIGHT, 0x344322));
+			
+			this.addChild(new Quad(Main.WIDTH, Main.HEIGHT, Color.NAVY));
 		}
 	}
 

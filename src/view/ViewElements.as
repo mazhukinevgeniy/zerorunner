@@ -1,10 +1,12 @@
 package view 
 {
 	import binding.IBinder;
+	import binding.IDependent;
+	import controller.interfaces.INotifier;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	
-	public class ViewElements 
+	public class ViewElements implements IDependent
 	{
 		
 		public function ViewElements(binder:IBinder, root:DisplayObjectContainer) 
@@ -17,10 +19,15 @@ package view
 			
 			gameRoot.visible = false;
 			
-			
-			
+			binder.requestBindingFor(this);
 		}
 		
+		public function bindObjects(binder:IBinder):void
+		{
+			var notifier:INotifier = binder.notifier;
+			
+			//TODO: observe newGame/quitGame
+		}
 	}
 
 }

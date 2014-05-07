@@ -1,4 +1,4 @@
-package view 
+package view.themes 
 {
 	import feathers.controls.Button;
 	import starling.display.DisplayObjectContainer;

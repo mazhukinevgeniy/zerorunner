@@ -1,6 +1,5 @@
 package view 
 {
-	import data.IStatus;
 	import game.GameElements;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
@@ -18,8 +17,6 @@ package view
 	
 	public class Shell
 	{
-		private var status:IStatus;
-		
 		private var assets:AssetManager;
 		
 		private var background:Background,
@@ -32,8 +29,6 @@ package view
 		
 		public function Shell(globalDisplayRoot:DisplayObjectContainer, elements:GameElements)
 		{
-			this.status = elements.status;
-			
 			this.flow = elements.flow;
 			this.assets = elements.assets;
 			

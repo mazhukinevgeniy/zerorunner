@@ -1,4 +1,4 @@
-package view.navigation 
+package view.shell 
 {
 	import feathers.controls.Button;
 	import feathers.controls.ScrollContainer;

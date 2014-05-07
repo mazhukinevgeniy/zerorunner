@@ -1,16 +1,16 @@
-package view.windows 
+package view.shell.windows 
 {
 	import feathers.controls.ScrollContainer;
 	import starling.display.Quad;
 	import ui.navigation.Navigation;
 	
-	public class Window extends ScrollContainer
+	public class WindowBase extends ScrollContainer
 	{
 		
 		public static const WIDTH:Number = Main.WIDTH - (Navigation.WIDTH + 20);
 		public static const HEIGHT:Number = Main.HEIGHT - 20;
 		
-		public function Window() 
+		public function WindowBase() 
 		{
 			this.width = Window.WIDTH;
 			this.height = Window.HEIGHT;
