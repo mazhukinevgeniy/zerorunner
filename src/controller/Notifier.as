@@ -4,12 +4,15 @@ package controller
 	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.IGameMenuRelated;
 	import controller.observers.game.IGameStopHandler;
+	import controller.observers.game.IInputObserver;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
 	import controller.observers.ISoundObserver;
 	import controller.observers.map.IMapFrameHandler;
 	import controller.observers.map.IMapStatusObserver;
+	import controller.observers.projectiles.IDenyProjectiles;
 	import controller.observers.projectiles.IShardObserver;
+	import model.projectiles.Projectile;
 	
 	internal class Notifier implements INotifier
 	{
@@ -21,11 +24,13 @@ package controller
 		private var _stopGame:Vector.<IGameStopHandler>;
 		private var _gameFrame:Vector.<IGameFrameHandler>;
 		private var _gameMenu:Vector.<IGameMenuRelated>;
+		private var _input:Vector.<IInputObserver>;
 		
 		private var _mapFrame:Vector.<IMapFrameHandler>;
 		private var _mapVisibility:Vector.<IMapStatusObserver>;
 		
 		private var _shardIncoming:Vector.<IShardObserver>;
+		private var _deny:Vector.<IDenyProjectiles>;
 		
 		public function Notifier() 
 		{
@@ -36,11 +41,13 @@ package controller
 			this._stopGame = new Vector.<IGameStopHandler>();
 			this._gameFrame = new Vector.<IGameFrameHandler>();
 			this._gameMenu = new Vector.<IGameMenuRelated>();
+			this._input = new Vector.<IInputObserver>();
 			
 			this._mapFrame = new Vector.<IMapFrameHandler>();
 			this._mapVisibility = new Vector.<IMapStatusObserver>();
 			
 			this._shardIncoming = new Vector.<IShardObserver>();
+			this._deny = new Vector.<IDenyProjectiles>();
 		}
 		
 		
@@ -65,6 +72,9 @@ package controller
 			
 			if (observer is IGameMenuRelated)
 				this._gameMenu.push(observer as IGameMenuRelated);
+			
+			if (observer is IInputObserver)
+				this._input.push(observer as IInputObserver);
 		}
 		
 		public function addMapStatusObserver(observer:*):void
@@ -80,6 +90,9 @@ package controller
 		{
 			if (observer is IShardObserver)
 				this._shardIncoming.push(observer as IShardObserver);
+			
+			if (observer is IDenyProjectiles)
+				this._deny.push(observer as IDenyProjectiles);
 		}
 		
 		
@@ -128,6 +141,15 @@ package controller
 			}
 		}
 		
+		internal function mapFrame():void
+		{
+			var length:int = this._mapFrame.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._mapFrame[i].mapFrame();
+			}
+		}
+		
 		internal function gameStopped(reason:int):void
 		{
 			var length:int = this._stopGame.length;
@@ -143,6 +165,24 @@ package controller
 			for (var i:int = 0; i < length; i++)
 			{
 				this._gameMenu[i].setVisibilityOfMenu(visible);
+			}
+		}
+		
+		internal function shardFell(shard:Projectile):void
+		{
+			var length:int = this._shardIncoming.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._shardIncoming[i].shardFellDown(shard);
+			}
+		}
+		
+		internal function denyProjectile(projectile:Projectile):void
+		{
+			var length:int = this._deny.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._deny[i].denyProjectile(projectile);
 			}
 		}
 	}

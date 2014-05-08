@@ -27,6 +27,11 @@ package controller
 			this.notifier.gameFrame(frame);
 		}
 		
+		public function mapFrame():void
+		{
+			this.notifier.mapFrame();
+		}
+		
 		public function gameStopped(reason:int):void
 		{
 			this.notifier.gameStopped(reason);

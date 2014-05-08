@@ -4,6 +4,7 @@ package controller
 	import controller.interfaces.IGameController;
 	import controller.interfaces.IInputController;
 	import controller.interfaces.INotifier;
+	import controller.interfaces.IProjectileController;
 	import controller.interfaces.ISoundController;
 	
 	public class ControllerElements 
@@ -17,6 +18,7 @@ package controller
 			binder.addBindable(new Keys(notifier, binder), IInputController);
 			binder.addBindable(new SoundController(notifier), ISoundController);
 			binder.addBindable(new GameController(notifier), IGameController);
+			binder.addBindable(new ProjectileController(notifier), IProjectileController);
 		}
 		
 	}

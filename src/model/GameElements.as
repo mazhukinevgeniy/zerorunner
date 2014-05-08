@@ -1,33 +1,7 @@
-		private var _status:StatusReporter;
-		private var _preferences:Preferences;
-		
-		private var _fuel:IFuel;
-		
-		private var _items:Items;
-		private var _scene:IScene;
-		private var _projectiles:Projectiles;
-		
-		private var _inputT:InputTeller;
-		private var _inputC:InputCollector;
-		
-		private var _gameMenu:IGameMenu;
-		
-		private var _projController:ProjectileController;
-		
-		
-		public function GameElements(assets:AssetManager) 
-		{
-			this._projController = new ProjectileController();
-			this._status = new StatusReporter(this._flow);
-			this._preferences = new Preferences(this._flow);
+
 			
 			this._inputC = new InputCollector();
 			this._inputT = new InputTeller(this._inputC);
-			
-			this._scene = new Scene(this);
-			this._items = new Items(this, this._status);
-			this._fuel = new FuelTracker(this);
-			this._projectiles = new Projectiles(this);
 			
 			var time:Time = new Time(this);
 			

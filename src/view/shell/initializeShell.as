@@ -18,7 +18,7 @@ package view.shell
 		var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 		
 		windows[Windows.GAME] = gameRoot;
-		windows[Windows.ACHIEVEMENTS] = new Sprite();//new AchievementsWindow();
+		windows[Windows.ACHIEVEMENTS] = new Sprite();//new AchievementsWindow();//TODO: do
 		windows[Windows.SETTINGS] = new SettingsWindow();
 		windows[Windows.CREDITS] = new CreditsWindow();
 		

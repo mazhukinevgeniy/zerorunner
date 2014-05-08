@@ -7,6 +7,7 @@ package controller.interfaces
 		function quitGame():void;
 		
 		function gameFrame(frame:int):void;
+		function mapFrame():void;
 		
 		function gameStopped(reason:int):void;
 		

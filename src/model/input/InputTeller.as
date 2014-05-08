@@ -1,17 +1,19 @@
 package model.input 
 {
-	import game.metric.DCellXY;
+	import binding.IBinder;
+	import model.interfaces.IInput;
+	import model.metric.DCellXY;
 	
-	public class InputTeller
+	public class InputTeller implements IInput
 	{
 		private var changes:Vector.<DCellXY>;
 		
 		private var collector:InputCollector;
 		
 		
-		public function InputTeller(collector:InputCollector) 
+		public function InputTeller(binder:IBinder) 
 		{
-			this.collector = collector;
+			this.collector = new InputCollector(binder);
 			
 			this.changes = new Vector.<DCellXY>(5, true);
 			

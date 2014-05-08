@@ -1,8 +1,10 @@
 package model.input 
 {
-	import game.metric.DCellXY;
+	import binding.IBinder;
+	import controller.observers.game.IInputObserver;
+	import model.metric.DCellXY;
 	
-	public class InputCollector
+	internal class InputCollector implements IInputObserver
 	{
 		private const NO_DIRECTION:int = 0;
 		
@@ -11,8 +13,10 @@ package model.input
 		internal var order:Vector.<int>;
 		internal var actions:Vector.<Boolean>;
 		
-		public function InputCollector() 
+		public function InputCollector(binder:IBinder) 
 		{
+			
+			
 			this.actions = new Vector.<Boolean>(Game.NUMBER_OF_ACTIONS, true);
 			for (var i:int = 0; i < Game.NUMBER_OF_ACTIONS; i++)
 				this.actions[i] = false;

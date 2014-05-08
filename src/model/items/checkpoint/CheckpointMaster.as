@@ -1,6 +1,7 @@
 package model.items.checkpoint 
 {
 	import binding.IBinder;
+	import binding.IDependent;
 	import controller.interfaces.IProjectileController;
 	import model.interfaces.IProjectiles;
 	import model.items._utils.CheckpointMasterBase;
@@ -9,7 +10,7 @@ package model.items.checkpoint
 	import model.metric.ICoordinated;
 	import model.projectiles.Projectile;
 	
-	public class CheckpointMaster extends CheckpointMasterBase
+	public class CheckpointMaster extends CheckpointMasterBase implements IDependent
 	{
 		private var projectiles:IProjectiles;
 		private var projectileController:IProjectileController;
@@ -22,9 +23,13 @@ package model.items.checkpoint
 			
 			this.checkpoints = new Vector.<Checkpoint>();
 			
-			this.projectiles = binder.projectiles;
 			this.projectileController = binder.projectileController;
-			
+			binder.requestBindingFor(this);
+		}
+		
+		public function bindObjects(binder:IBinder):void
+		{
+			this.projectiles = binder.projectiles;
 		}
 		
 		override protected function onGameFinished():void 

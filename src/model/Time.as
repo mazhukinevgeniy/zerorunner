@@ -1,45 +1,42 @@
 package model 
 {
-	import data.IStatus;
-	import game.GameElements;
-	import game.input.InputTeller;
-	import game.interfaces.IRestorable;
+	import binding.IBinder;
+	import controller.interfaces.IGameController;
+	import controller.observers.game.IGameMenuRelated;
+	import controller.observers.game.IGameStopHandler;
+	import controller.observers.game.INewGameHandler;
+	import model.interfaces.IInput;
+	import model.interfaces.IStatus;
+	import starling.core.Starling;
 	import starling.events.EnterFrameEvent;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
-	internal class Time implements IRestorable
+	internal class Time implements INewGameHandler,
+	                               IGameStopHandler,
+	                               IGameMenuRelated
 	{
 		private var frameCount:int = 0;
 		
 		private var isFixed:Boolean = true;
-		
 		private var isMenuOpened:Boolean = false;
 		
-		private var updateFlow:IUpdateDispatcher;
 		private var status:IStatus;
+		private var input:IInput;
 		
-		private var input:InputTeller;
+		private var controller:IGameController;
 		
-		public function Time(elements:GameElements) 
+		public function Time(binder:IBinder) 
 		{
-			this.status = elements.status;
-			this.input = elements.inputTeller;
+			binder.notifier.addGameStatusObserver(this);
 			
-			elements.displayRoot.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
+			this.status = binder.gameStatus;
+			this.input = binder.input;
 			
-			elements.restorer.addSubscriber(this);
+			Starling.current.root.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.gameFinished);
-			elements.flow.addUpdateListener(Update.setVisibilityOfGameMenu);
-			
-			this.updateFlow = elements.flow;
+			this.controller = binder.gameController;
 		}
 		
-		/**///As IRestorable
-		
-		public function restore():void
+		public function newGame():void
 		{
 			this.isFixed = false;
 			this.isMenuOpened = false;
@@ -47,9 +44,7 @@ package model
 			this.frameCount = 0;
 		}
 		
-		/**/
-		
-		update function setVisibilityOfGameMenu(visible:Boolean):void
+		public function setVisibilityOfMenu(visible:Boolean):void
 		{
 			this.isMenuOpened = visible;
 		}
@@ -63,14 +58,14 @@ package model
 			{
 				if (this.status.isMapOn())
 				{
-					this.updateFlow.dispatchUpdate(Update.frameOfTheMapMode);
+					this.controller.mapFrame();
 				}
 				else
 				{
 					if (!this.status.isGameOn())
 						throw new Error("numberedFrame must happen in-game only");
 					
-					this.updateFlow.dispatchUpdate(Update.numberedFrame, this.frameCount);
+					this.controller.gameFrame(this.frameCount);
 					this.frameCount++;
 					
 					if (this.frameCount >= Game.FRAMES_PER_CYCLE)
@@ -79,7 +74,7 @@ package model
 			}
 		}
 		
-		update function gameFinished(key:int):void 
+		public function gameStopped(reason:int):void 
 		{ 
 			this.isFixed = true;
 			
