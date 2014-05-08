@@ -1,13 +1,11 @@
 package model.items.checkpoint 
 {
-	import game.GameElements;
-	import game.items._utils.CheckpointMasterBase;
-	import game.items.PuppetBase;
-	import game.metric.CellXY;
-	import game.metric.ICoordinated;
-	import game.projectiles.IProjectiles;
-	import game.projectiles.Projectile;
-	import game.projectiles.ProjectileController;
+	import binding.IBinder;
+	import model.interfaces.IProjectiles;
+	import model.items._utils.CheckpointMasterBase;
+	import model.items.Items;
+	import model.metric.CellXY;
+	import model.metric.ICoordinated;
 	
 	public class CheckpointMaster extends CheckpointMasterBase
 	{
@@ -16,7 +14,7 @@ package model.items.checkpoint
 		
 		private var checkpoints:Vector.<Checkpoint>;
 		
-		public function CheckpointMaster(elements:GameElements) 
+		public function CheckpointMaster(binder:IBinder, items:Items) 
 		{			
 			super(elements);
 			

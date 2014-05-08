@@ -4,6 +4,7 @@ package binding
 	import controller.interfaces.IInputController;
 	import controller.interfaces.INotifier;
 	import controller.interfaces.ISoundController;
+	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
 	import starling.utils.AssetManager;
@@ -14,6 +15,7 @@ package binding
 		function requestBindingFor(object:IDependent):void;
 		
 		function get scene():IScene;
+		function get puppets():IPuppets;
 		function get notifier():INotifier;
 		function get gameStatus():IStatus;
 		function get assetManager():AssetManager;

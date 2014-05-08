@@ -1,16 +1,15 @@
 package model.items.shard 
 {
-	import game.GameElements;
-	import game.items.MasterBase;
-	import game.metric.CellXY;
-	import game.projectiles.Projectile;
-	import utils.updates.update;
+	import binding.IBinder;
+	import model.items.Items;
+	import model.items.MasterBase;
+	import model.metric.CellXY;
 	
 	public class ShardMaster extends MasterBase
 	{
 		private var tmpCell:CellXY;
 		
-		public function ShardMaster(elements:GameElements) 
+		public function ShardMaster(binder:IBinder, items:Items) 
 		{
 			elements.flow.workWithUpdateListener(this);
 			elements.flow.addUpdateListener(Update.dropShard);

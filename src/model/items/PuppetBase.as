@@ -1,7 +1,9 @@
 package model.items 
 {
+	import model.interfaces.IPuppets;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
+	import model.utils.normalize;
 	
 	use namespace items_internal;
 	
@@ -27,7 +29,7 @@ package model.items
 		{
 			this._master = master;
 			
-			this.items = elements.items;
+			this.items = master.items;
 			
 			this.dcHelper = new DCellXY(0, 0);
 			this._moveInProgress = new DCellXY(0, 0);

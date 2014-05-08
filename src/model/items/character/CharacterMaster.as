@@ -1,18 +1,10 @@
 package model.items.character 
 {
-	import data.StatusReporter;
-	import game.GameElements;
-	import game.input.InputTeller;
-	import game.items.Items;
-	import game.items.items_internal;
-	import game.items.MasterBase;
-	import game.items.PuppetBase;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.scene.isCellSolid;
-	import game.scene.IScene;
-	
-	use namespace items_internal;
+	import binding.IBinder;
+	import model.interfaces.IScene;
+	import model.items.Items;
+	import model.items.MasterBase;
+	import model.status.StatusReporter;
 	
 	public class CharacterMaster extends MasterBase
 	{		
@@ -22,7 +14,7 @@ package model.items.character
 		
 		private var status:StatusReporter;
 		
-		public function CharacterMaster(elements:GameElements, status:StatusReporter) 
+		public function CharacterMaster(binder:IBinder, items:Items, status:StatusReporter) 
 		{
 			super(elements);
 			

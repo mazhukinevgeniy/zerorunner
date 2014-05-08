@@ -1,15 +1,14 @@
 package model.items.the_goal 
 {
-	import game.GameElements;
-	import game.items._utils.CheckpointPuppetBase;
-	import game.metric.ICoordinated;
+	import model.items._utils.CheckpointPuppetBase;
+	import model.metric.ICoordinated;
 	
 	internal class TheGoal extends CheckpointPuppetBase
 	{
 		
-		public function TheGoal(master:TheGoalMaster, elements:GameElements, cell:ICoordinated) 
+		public function TheGoal(master:TheGoalMaster, cell:ICoordinated) 
 		{
-			super(master, elements, cell);
+			super(master, cell);
 		}
 		
 		override public function get type():int 

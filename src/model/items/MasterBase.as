@@ -7,11 +7,14 @@ package model.items
 	
 	public class MasterBase implements IQuitGameHandler
 	{
-		protected var binder:IBinder;
+		protected var _binder:IBinder;
 		
-		public function MasterBase(binder:IBinder) 
+		private var _items:Items;
+		
+		public function MasterBase(binder:IBinder, items:Items) 
 		{
-			this.binder = binder;
+			this._binder = binder;
+			this._items = items;
 			
 			binder.notifier.addGameStatusObserver(this);//TODO: make sure it can't be doubleadded
 		}
@@ -34,6 +37,10 @@ package model.items
 		{
 			throw new Error("must implement");
 		}
+		
+		/* For the puppet */
+		internal function get binder():IBinder { return this.binder; }
+		internal function get items():Items { return this.items; }
 	}
 
 }

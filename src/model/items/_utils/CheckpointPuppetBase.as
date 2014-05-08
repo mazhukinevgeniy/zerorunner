@@ -1,16 +1,15 @@
 package model.items._utils 
 {
-	import game.GameElements;
-	import game.items.PuppetBase;
-	import game.metric.ICoordinated;
+	import model.items.PuppetBase;
+	import model.metric.ICoordinated;
 	
 	public class CheckpointPuppetBase extends PuppetBase
 	{
 		
 		public function CheckpointPuppetBase(master:CheckpointMasterBase, 
-		                                     elements:GameElements, cell:ICoordinated) 
+		                                     cell:ICoordinated) 
 		{
-			super(master, elements, cell);
+			super(master, cell);
 		}
 		
 		final override protected function get isPassive():Boolean { return true; }

@@ -1,30 +1,27 @@
 package model.items._utils 
 {
-	import game.GameElements;
-	import game.items.MasterBase;
-	import game.items.PuppetBase;
-	import game.metric.CellXY;
-	import game.metric.ICoordinated;
-	import game.metric.ProtectedCellXY;
-	import utils.updates.update;
+	import binding.IBinder;
+	import controller.observers.game.IGameFrameHandler;
+	import model.items.Items;
+	import model.items.MasterBase;
+	import model.metric.CellXY;
+	import model.metric.ICoordinated;
+	import model.metric.ProtectedCellXY;
 	
-	public class CheckpointMasterBase extends MasterBase
+	public class CheckpointMasterBase extends MasterBase implements IGameFrameHandler
 	{
 		public static const ILLEGAL_CELL:ProtectedCellXY = new ProtectedCellXY( -1, -1);
 		
 		protected var tmpCell:CellXY = new CellXY( -1, -1);
 		
-		public function CheckpointMasterBase(elements:GameElements) 
+		public function CheckpointMasterBase(binder:IBinder, items:Items) 
 		{
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.numberedFrame);
-			
-			super(elements);
+			super(binder, items);
 		}
 		
 		
 		
-		final update function numberedFrame(frame:int):void
+		public function gameFrame(frame:int):void
 		{
 			if (frame == Game.FRAME_TO_ACT)
 			{

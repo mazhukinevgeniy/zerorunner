@@ -1,16 +1,9 @@
 package model.projectiles 
 {
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import game.items.Items;
-	import game.items.PuppetBase;
-	import game.metric.ICoordinated;
-	import game.scene.IScene;
-	import utils.MapXML;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
+	import controller.observers.game.INewGameHandler;
+	import model.interfaces.IProjectiles;
 	
-	public class Projectiles implements IProjectiles, IRestorable
+	public class Projectiles implements IProjectiles, INewGameHandler
 	{
 		private var projectiles:Array;
 		private var unusedProjectiles:Vector.<Projectile>;

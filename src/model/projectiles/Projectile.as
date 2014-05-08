@@ -1,7 +1,7 @@
 package model.projectiles 
 {
-	import game.metric.CellXY;
-	import game.metric.ICoordinated;
+	import model.metric.CellXY;
+	import model.metric.ICoordinated;
 	
 	public class Projectile 
 	{

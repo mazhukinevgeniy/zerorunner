@@ -1,12 +1,22 @@
 package model.items 
 {
 	import binding.IBinder;
+	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
+	import model.interfaces.IStatus;
+	import model.items.beacon.BeaconMaster;
+	import model.items.character.CharacterMaster;
+	import model.items.checkpoint.CheckpointMaster;
+	import model.items.shard.ShardMaster;
+	import model.items.the_goal.TheGoalMaster;
 	import model.status.StatusReporter;
 	
 	use namespace items_internal;
 	
-	public class Items implements INewGameHandler
+	public class Items implements INewGameHandler, 
+	                              IGameFrameHandler, 
+								  IQuitGameHandler
 	{
 		private var activeItems:Array;
 		private var passiveItems:Array;
@@ -19,15 +29,9 @@ package model.items
 		
 		public function Items(binder:IBinder, status:StatusReporter) 
 		{
-			this.status = elements.status;
+			this.status = status;
 			
 			binder.notifier.addGameStatusObserver(this);
-			
-			elements.restorer.addSubscriber(this);
-			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.numberedFrame);
-			elements.flow.addUpdateListener(Update.quitGame);
 			
 			this.masters = new Vector.<MasterBase>(Game.NUMBER_OF_ITEM_TYPES, true);
 			
@@ -78,7 +82,7 @@ package model.items
 			}
 		}
 		
-		update function numberedFrame(key:int):void
+		public function gameFrame(frame:int):void
 		{
 			var i:int, j:int;
 			var item:PuppetBase;
@@ -86,7 +90,7 @@ package model.items
 			for each (var pup:PuppetBase in this.activeItems)
 				pup.tickPassed();
 			
-			if (key == Game.FRAME_TO_ACT)
+			if (frame == Game.FRAME_TO_ACT)
 			{
 				var center:ICoordinated = this.status.getLocationOfHero();
 				
@@ -116,7 +120,7 @@ package model.items
 			}
 		}
 		
-		update function quitGame():void
+		public function quitGame():void
 		{
 			this.activeItems = null;
 			this.passiveItems = null;

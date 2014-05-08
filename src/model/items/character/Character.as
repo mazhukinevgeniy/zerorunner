@@ -1,14 +1,7 @@
 package model.items.character 
 {
-	import game.fuel.IFuel;
-	import game.GameElements;
-	import game.items.Items;
-	import game.items.PuppetBase;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import game.scene.IScene;
-	import utils.updates.IUpdateDispatcher;
+	import model.items.PuppetBase;
+	import model.metric.ICoordinated;
 	
 	
 	internal class Character extends PuppetBase
@@ -17,12 +10,12 @@ package model.items.character
 		private var fuel:IFuel;
 		
 		
-		public function Character(master:CharacterMaster, elements:GameElements, cell:ICoordinated) 
+		public function Character(master:CharacterMaster, cell:ICoordinated) 
 		{
-			this.flow = elements.flow;
-			this.fuel = elements.fuel;
+			//this.fuel = fuel;
+			//TODO: pass something
 			
-			super(master, elements, cell);
+			super(master, cell);
 		}
 		
 		override protected function get movespeed():int { return 2; }

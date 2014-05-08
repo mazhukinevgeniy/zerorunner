@@ -1,18 +1,17 @@
 package model.items.beacon 
 {
-	import game.GameElements;
-	import game.items.Items;
-	import game.items.MasterBase;
-	import game.metric.CellXY;
-	import game.scene.IScene;
+	import binding.IBinder;
+	import model.items.Items;
+	import model.items.MasterBase;
+	import model.metric.CellXY;
 	
 	public class BeaconMaster extends MasterBase
 	{
 		private var tmpCell:CellXY;
 		
-		public function BeaconMaster(elements:GameElements) 
+		public function BeaconMaster(binder:IBinder, items:Items) 
 		{
-			super(elements);
+			super(binder, items);
 			
 			this.tmpCell = new CellXY(0, 0);
 		}
@@ -21,7 +20,7 @@ package model.items.beacon
 		{
 			this.tmpCell.setValue(x, y);
 			
-			new Beacon(this, this.elements, this.tmpCell);
+			new Beacon(this, this.tmpCell);
 		}
 	}
 

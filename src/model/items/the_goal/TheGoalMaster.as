@@ -1,10 +1,11 @@
 package model.items.the_goal 
 {
-	import data.IStatus;
-	import game.GameElements;
-	import game.items._utils.CheckpointMasterBase;
-	import game.metric.CellXY;
-	import game.metric.ICoordinated;
+	import binding.IBinder;
+	import model.interfaces.IStatus;
+	import model.items._utils.CheckpointMasterBase;
+	import model.items.Items;
+	import model.metric.CellXY;
+	import model.metric.ICoordinated;
 	
 	public class TheGoalMaster extends CheckpointMasterBase
 	{
@@ -12,18 +13,18 @@ package model.items.the_goal
 		
 		private var status:IStatus;
 		
-		public function TheGoalMaster(elements:GameElements) 
+		public function TheGoalMaster(binder:IBinder, items:Items) 
 		{
-			super(elements);
+			super(binder, items);
 			
-			this.status = elements.status;
+			this.status = binder.gameStatus;
 		}
 		
 		override public function spawnPuppet(x:int, y:int):void 
 		{
 			var cell:CellXY = new CellXY(x, y);
 			
-			this.currentGoal = new TheGoal(this, this.elements, cell);
+			this.currentGoal = new TheGoal(this, cell);
 		}
 		
 		override protected function getReachedCheckpoint():ICoordinated 

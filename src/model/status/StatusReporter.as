@@ -3,13 +3,16 @@ package model.status
 	import binding.IBinder;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
+	import controller.observers.map.IMapStatusObserver;
 	import model.interfaces.IStatus;
 	import model.items.PuppetBase;
+	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	
 	public class StatusReporter implements IStatus, 
 	                                       INewGameHandler, 
-										   IQuitGameHandler
+										   IQuitGameHandler,
+										   IMapStatusObserver
 	{
 		private var hero:PuppetBase;
 		
@@ -21,9 +24,7 @@ package model.status
 		public function StatusReporter(binder:IBinder) 
 		{
 			binder.notifier.addGameStatusObserver(this);
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.toggleMap);
+			binder.notifier.addMapStatusObserver(this);
 			
 			this.dxyHelper = new NumericalDxyHelper();
 		}
@@ -34,9 +35,9 @@ package model.status
 			this._isMapOn = false;
 		}
 		
-		update function toggleMap():void
+		public function setMapVisibility(visible:Boolean):void
 		{
-			this._isMapOn = !this._isMapOn;
+			this._isMapOn = visible;
 		}
 		
 		public function quitGame():void
