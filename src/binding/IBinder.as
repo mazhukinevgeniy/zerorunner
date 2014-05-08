@@ -3,9 +3,11 @@ package binding
 	import controller.interfaces.IGameController;
 	import controller.interfaces.IInputController;
 	import controller.interfaces.INotifier;
+	import controller.interfaces.IProjectileController;
 	import controller.interfaces.ISoundController;
 	import model.interfaces.IFuel;
 	import model.interfaces.IInput;
+	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
@@ -22,10 +24,12 @@ package binding
 		function get puppets():IPuppets;
 		function get notifier():INotifier;
 		function get gameStatus():IStatus;
+		function get projectiles():IProjectiles;
 		function get assetManager():AssetManager;
 		function get gameController():IGameController;
 		function get inputController():IInputController;
 		function get soundController():ISoundController;
+		function get projectileController():IProjectileController;
 	}
 	
 }

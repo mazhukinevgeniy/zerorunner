@@ -11,11 +11,11 @@ package model.projectiles
 		private var _height:int;
 		private var _speed:int;
 		
-		private var controller:ProjectileController;
+		private var projectiles:Projectiles;
 		
-		public function Projectile(controller:ProjectileController, type:int, x:int, y:int) 
+		public function Projectile(projectiles:Projectiles, type:int, x:int, y:int) 
 		{
-			this.controller = controller;
+			this.projectiles = projectiles;
 			
 			this._cell = new CellXY(0, 0);
 			
@@ -31,7 +31,7 @@ package model.projectiles
 			this._height = Game.MAX_PROJ_HEIGHT;
 			this._speed = 1;
 			
-			this.controller.launchProjectile(this);
+			this.projectiles.projectileLaunched(this);
 		}
 		
 		internal function advance():void
@@ -40,7 +40,7 @@ package model.projectiles
 			
 			if (this._height <= 0)
 			{
-				this.controller.landProjectile(this);
+				this.projectiles.projectileLanded(this);
 			}
 		}
 		

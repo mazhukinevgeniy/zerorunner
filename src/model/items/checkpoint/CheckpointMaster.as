@@ -1,6 +1,7 @@
 package model.items.checkpoint 
 {
 	import binding.IBinder;
+	import controller.interfaces.IProjectileController;
 	import model.interfaces.IProjectiles;
 	import model.items._utils.CheckpointMasterBase;
 	import model.items.Items;
@@ -11,7 +12,7 @@ package model.items.checkpoint
 	public class CheckpointMaster extends CheckpointMasterBase
 	{
 		private var projectiles:IProjectiles;
-		private var projectileController:ProjectileController;
+		private var projectileController:IProjectileController;
 		
 		private var checkpoints:Vector.<Checkpoint>;
 		
@@ -21,8 +22,8 @@ package model.items.checkpoint
 			
 			this.checkpoints = new Vector.<Checkpoint>();
 			
-			this.projectiles = elements.projectiles;
-			this.projectileController = elements.projectileController;
+			this.projectiles = binder.projectiles;
+			this.projectileController = binder.projectileController;
 			
 		}
 		
@@ -33,11 +34,8 @@ package model.items.checkpoint
 		
 		override public function spawnPuppet(x:int, y:int):void 
 		{
-			if (!this.projectiles)
-				this.projectiles = elements.projectiles;
-			
 			this.checkpoints.push(
-				new Checkpoint(this, this.elements, new CellXY(x, y)));
+				new Checkpoint(this, new CellXY(x, y)));
 		}
 		
 		override protected function getReachedCheckpoint():ICoordinated 

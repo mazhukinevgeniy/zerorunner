@@ -2,6 +2,7 @@ package model.projectiles
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
+	import controller.interfaces.IProjectileController;
 	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
@@ -10,6 +11,7 @@ package model.projectiles
 	import model.interfaces.IScene;
 	import model.items.PuppetBase;
 	import model.metric.ICoordinated;
+	import model.utils.normalize;
 	
 	public class Projectiles implements IProjectiles, 
 	                                    INewGameHandler, 
@@ -23,7 +25,7 @@ package model.projectiles
 		
 		private var puppets:IPuppets;
 		private var scene:IScene;
-		private var controller:ProjectileController;
+		private var projectileController:IProjectileController;
 		
 		public function Projectiles(binder:IBinder) 
 		{
@@ -31,7 +33,7 @@ package model.projectiles
 			
 			this.scene = binder.scene;
 			this.puppets = binder.puppets;
-			this.controller = elements.projectileController;
+			this.projectileController = binder.projectileController;
 			
 			this.unusedProjectiles = new Vector.<Projectile>();
 			
@@ -97,22 +99,23 @@ package model.projectiles
 		}
 		
 		/**/
-				
-		/**///Internal goods
 		
-		internal function denyProjectile(projectile:Projectile):void
+		public function denyProjectile(projectile:Projectile):void
 		{
 			this.deleteProjectile(projectile);
+			//TODO: there must be notify about it
 		}
 		
-		internal function launchProjectile(projectile:Projectile):void
+		/**///Internal goods
+		
+		internal function projectileLaunched(projectile:Projectile):void
 		{
 			var cell:ICoordinated = projectile.cell;
 			
 			this.projectiles[cell.x + Game.MAP_WIDTH * cell.y] = projectile;
 		}
 		
-		internal function landProjectile(projectile:Projectile):void
+		internal function projectileLanded(projectile:Projectile):void
 		{
 			this.deleteProjectile(projectile);
 			
@@ -130,8 +133,7 @@ package model.projectiles
 				}
 				else if (this.scene.getSceneCell(x, y) == Game.SCENE_GROUND)
 				{
-					this.flow.dispatchUpdate(Update.dropShard, projectile);
-					//TODO: remove this, and the whole "this.flow" thing falls!
+					this.projectileController.shardFell(projectile);
 				}
 			}
 		}
@@ -143,7 +145,7 @@ package model.projectiles
 			if (projectile)
 				projectile.reassign(type, x, y);
 			else
-				new Projectile(this.controller, type, x, y);
+				new Projectile(this, type, x, y);
 		}
 		
 		/**/
