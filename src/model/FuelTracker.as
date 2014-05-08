@@ -1,4 +1,4 @@
-package model.fuel 
+package model 
 {
 	import data.IStatus;
 	import game.GameElements;
