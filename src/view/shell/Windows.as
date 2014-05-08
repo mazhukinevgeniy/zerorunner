@@ -1,14 +1,15 @@
 package view.shell 
 {
 	import binding.IBinder;
-	import controller.observers.IGameStatusObserver;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	
-	internal class Windows implements IGameStatusObserver
+	internal class Windows implements INewGameHandler, IQuitGameHandler
 	{
 		public static const GAME:int = 0;
 		public static const ACHIEVEMENTS:int = 1;

@@ -1,65 +1,82 @@
 package controller 
 {
 	import controller.interfaces.INotifier;
-	import controller.observers.IGameStatusObserver;
+	import controller.observers.IGameFrameHandler;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import controller.observers.ISoundObserver;
 	
 	internal class Notifier implements INotifier
 	{
-		private var soundObservers:Vector.<ISoundObserver>;
-		private var gameStatusObservers:Vector.<IGameStatusObserver>;
+		private var _soundObservers:Vector.<ISoundObserver>;
+		
+		
+		private var _newGame:Vector.<INewGameHandler>;
+		private var _quitGame:Vector.<IQuitGameHandler>;
+		private var _gameFrame:Vector.<IGameFrameHandler>
 		
 		public function Notifier() 
 		{
 			
-			this.soundObservers = new Vector.<ISoundObserver>();
-			this.gameStatusObservers = new Vector.<IGameStatusObserver>();
+			this._soundObservers = new Vector.<ISoundObserver>();
+			
+			
+			this._newGame = new Vector.<INewGameHandler>();
+			this._quitGame = new Vector.<IQuitGameHandler>();
 		}
 		
 		
 		public function addSoundObserver(observer:ISoundObserver):void
 		{
-			this.soundObservers.push(observer);
+			this._soundObservers.push(observer);
 		}
-		public function addGameStatusObserver(observer:IGameStatusObserver):void
+		
+		public function addGameStatusObserver(observer:*):void
 		{
-			this.gameStatusObservers.push(observer);
+			if (observer is INewGameHandler)
+				this._newGame.push(observer as INewGameHandler);
+			
+			if (observer is IQuitGameHandler)
+				this._quitGame.push(observer as IQuitGameHandler);
+			
+			if (observer is IGameFrameHandler)
+				this._gameFrame.push(observer as IGameFrameHandler);
 		}
 		
 		
 		internal function setSoundMute(value:Boolean):void
 		{
-			var length:int = this.soundObservers.length;
+			var length:int = this._soundObservers.length;
 			for (var i:int = 0; i < length; i++)
 			{
-				this.soundObservers[i].setSoundMute(value);
+				this._soundObservers[i].setSoundMute(value);
 			}
 		}
 		
 		internal function setMusicMute(value:Boolean):void
 		{
-			var length:int = this.soundObservers.length;
+			var length:int = this._soundObservers.length;
 			for (var i:int = 0; i < length; i++)
 			{
-				this.soundObservers[i].setMusicMute(value);
+				this._soundObservers[i].setMusicMute(value);
 			}
 		}
 		
 		internal function newGame():void
 		{
-			var length:int = this.gameStatusObservers.length;
+			var length:int = this._newGame.length;
 			for (var i:int = 0; i < length; i++)
 			{
-				this.gameStatusObservers[i].newGame();
+				this._newGame[i].newGame();
 			}
 		}
 		
 		internal function quitGame():void
 		{
-			var length:int = this.gameStatusObservers.length;
+			var length:int = this._quitGame.length;
 			for (var i:int = 0; i < length; i++)
 			{
-				this.gameStatusObservers[i].quitGame();
+				this._quitGame[i].quitGame();
 			}
 		}
 	}

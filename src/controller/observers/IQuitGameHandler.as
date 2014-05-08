@@ -1,9 +1,8 @@
 package controller.observers 
 {
 	
-	public interface IGameStatusObserver 
+	public interface IQuitGameHandler 
 	{
-		function newGame():void;
 		function quitGame():void;
 	}
 	
