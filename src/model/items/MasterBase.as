@@ -44,8 +44,8 @@ package model.items
 		}
 		
 		/* For the puppet */
-		internal function get binder():IBinder { return this.binder; }
-		internal function get items():Items { return this.items; }
+		internal function get binder():IBinder { return this._binder; }
+		internal function get items():Items { return this._items; }
 	}
 
 }
