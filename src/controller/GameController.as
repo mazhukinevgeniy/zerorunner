@@ -31,6 +31,11 @@ package controller
 		{
 			this.notifier.gameStopped(reason);
 		}
+		
+		public function setVisibilityOfMenu(visible:Boolean):void
+		{
+			this.notifier.setVisibilityOfMenu(visible);
+		}
 	}
 
 }

@@ -2,6 +2,7 @@ package controller
 {
 	import controller.interfaces.INotifier;
 	import controller.observers.game.IGameFrameHandler;
+	import controller.observers.game.IGameMenuRelated;
 	import controller.observers.game.IGameStopHandler;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
@@ -19,6 +20,7 @@ package controller
 		private var _quitGame:Vector.<IQuitGameHandler>;
 		private var _stopGame:Vector.<IGameStopHandler>;
 		private var _gameFrame:Vector.<IGameFrameHandler>;
+		private var _gameMenu:Vector.<IGameMenuRelated>;
 		
 		private var _mapFrame:Vector.<IMapFrameHandler>;
 		private var _mapVisibility:Vector.<IMapStatusObserver>;
@@ -33,6 +35,7 @@ package controller
 			this._quitGame = new Vector.<IQuitGameHandler>();
 			this._stopGame = new Vector.<IGameStopHandler>();
 			this._gameFrame = new Vector.<IGameFrameHandler>();
+			this._gameMenu = new Vector.<IGameMenuRelated>();
 			
 			this._mapFrame = new Vector.<IMapFrameHandler>();
 			this._mapVisibility = new Vector.<IMapStatusObserver>();
@@ -59,6 +62,9 @@ package controller
 			
 			if (observer is IGameStopHandler)
 				this._stopGame.push(observer as IGameStopHandler);
+			
+			if (observer is IGameMenuRelated)
+				this._gameMenu.push(observer as IGameMenuRelated);
 		}
 		
 		public function addMapStatusObserver(observer:*):void
@@ -128,6 +134,15 @@ package controller
 			for (var i:int = 0; i < length; i++)
 			{
 				this._stopGame[i].gameStopped(reason);
+			}
+		}
+		
+		internal function setVisibilityOfMenu(visible:Boolean):void
+		{
+			var length:int = this._gameMenu.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._gameMenu[i].setVisibilityOfMenu(visible);
 			}
 		}
 	}

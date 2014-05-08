@@ -1,13 +1,15 @@
 package view.game 
 {
-	import data.IStatus;
+	import binding.IBinder;
+	import controller.interfaces.IGameController;
+	import controller.observers.game.IGameMenuRelated;
+	import controller.observers.game.INewGameHandler;
 	import feathers.controls.Button;
 	import flash.display.Stage;
 	import flash.geom.Point;
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import game.ui.GameTheme;
+	import model.interfaces.IStatus;
 	import starling.core.Starling;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.display.Quad;
@@ -18,11 +20,11 @@ package view.game
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	import starling.utils.Color;
-	import utils.updates.IUpdateDispatcher;
+	import view.themes.GameTheme;
 	
-	internal class GameMenu extends Sprite implements IGameMenu, IRestorable
+	internal class GameMenu extends Sprite implements IGameMenuRelated, 
+	                                                  INewGameHandler
 	{
-		private var flow:IUpdateDispatcher;
 		private var status:IStatus;
 		
 		private var hideToggleButton:Button;
@@ -32,26 +34,26 @@ package view.game
 		private var quitButton:Button;
 		private var mapButton:Button;
 		
-		public function GameMenu(elements:GameElements) 
+		private var controller:IGameController;
+		
+		public function GameMenu(binder:IBinder, root:DisplayObjectContainer) 
 		{
-			this.flow = elements.flow;
-			this.status = elements.status;
+			this.status = binder.gameStatus;
+			this.controller = binder.gameController;
 			
 			super();
 			
-			elements.restorer.addSubscriber(this);
+			binder.notifier.addGameStatusObserver(this);
 			
-			this.initializeBody(elements.assets.getTextureAtlas("sprites"));
+			this.initializeBody(binder.assetManager.getTextureAtlas("sprites"));
 			this.initializeToggle();
 			
-			elements.displayRoot.addChild(this);
+			root.addChild(this);
 		}
 		
-		public function toggleVisibility():void
+		public function setVisibilityOfMenu(visible:Boolean):void
 		{
-			this.mainButtons.visible = !this.mainButtons.visible;
-			
-			this.flow.dispatchUpdate(Update.setVisibilityOfGameMenu, this.mainButtons.visible);
+			this.mainButtons.visible = visible;
 		}
 		
 		private function initializeToggle():void
@@ -106,7 +108,7 @@ package view.game
 		{
 			event.stopPropagation();
 			
-			this.toggleVisibility();
+			this.controller.setVisibilityOfMenu(!this.mainButtons.visible);
 		}
 		
 		private function handleQuitTriggered(event:Event):void
@@ -114,9 +116,9 @@ package view.game
 			event.stopPropagation();
 			
 			if (this.status.isGameOn())
-				this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_ABANDONED);
+				this.controller.gameStopped(Game.ENDING_ABANDONED);
 			
-			this.flow.dispatchUpdate(Update.quitGame);
+			this.controller.quitGame();
 		}
 		
 		private function handleMapTriggered(event:Event):void
@@ -124,16 +126,17 @@ package view.game
 			event.stopPropagation();
 			
 			this.mainButtons.visible = false;
-			this.flow.dispatchUpdate(Update.setVisibilityOfGameMenu, false);
+			this.controller.setVisibilityOfMenu(false);
 			
-			this.flow.dispatchUpdate(Update.toggleMap);
+			//this.flow.dispatchUpdate(Update.toggleMap);
+			//TODO: do we have mapcontroller? must have
 		}
 		
 		
 		
 		
 		
-		public function restore():void
+		public function newGame():void
 		{
 			this.mainButtons.visible = false;
 		}

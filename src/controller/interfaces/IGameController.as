@@ -9,6 +9,8 @@ package controller.interfaces
 		function gameFrame(frame:int):void;
 		
 		function gameStopped(reason:int):void;
+		
+		function setVisibilityOfMenu(visible:Boolean):void;
 	}
 	
 }

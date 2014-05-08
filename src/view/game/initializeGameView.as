@@ -7,11 +7,12 @@ package view.game
 	public function initializeGameView(binder:IBinder, root:DisplayObjectContainer):void
 	{
 		new Renderer(binder, root);
-		
 		new MapFeature(binder, root);
 		
+		new GameMenu(binder, root);
+		
+		
 		/*
-		this.gameMenu = new GameMenu(elements);
 		new EndGameView(elements);*/
 		//TODO: do
 	}
