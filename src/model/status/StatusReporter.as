@@ -35,7 +35,7 @@ package model.status
 			this._isMapOn = false;
 		}
 		
-		public function setMapVisibility(visible:Boolean):void
+		public function setVisibilityOfMap(visible:Boolean):void
 		{
 			this._isMapOn = visible;
 		}

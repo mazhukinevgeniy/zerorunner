@@ -1,12 +1,16 @@
 package model.input 
 {
 	import binding.IBinder;
+	import controller.observers.game.IGameMenuRelated;
 	import controller.observers.game.IInputObserver;
 	import controller.observers.game.INewGameHandler;
+	import controller.observers.map.IMapStatusObserver;
 	import model.metric.DCellXY;
 	
 	internal class InputCollector implements IInputObserver,
-	                                         INewGameHandler
+	                                         INewGameHandler,
+											 IMapStatusObserver,
+											 IGameMenuRelated
 	{
 		private const NO_DIRECTION:int = 0;
 		
@@ -18,6 +22,7 @@ package model.input
 		public function InputCollector(binder:IBinder) 
 		{
 			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addMapStatusObserver(this);
 			
 			this.actions = new Vector.<Boolean>(Game.NUMBER_OF_ACTIONS, true);
 			for (var i:int = 0; i < Game.NUMBER_OF_ACTIONS; i++)
@@ -53,7 +58,22 @@ package model.input
 			this.actions[action] = true;
 		}
 		
-		public function clearInput():void
+		
+		public function newGame():void
+		{
+			this.clearInput();
+		}
+		public function setVisibilityOfMap(visible:Boolean):void
+		{
+			this.clearInput();
+		}
+		public function setVisibilityOfMenu(visible:Boolean):void
+		{
+			this.clearInput();
+		}
+		
+		
+		private function clearInput():void
 		{
 			for (var i:int = 1; i < 17; i++)
 				this.order[i] = -1;
@@ -62,11 +82,6 @@ package model.input
 			
 			for (var j:int = 0; j < Game.NUMBER_OF_ACTIONS; j++)
 				this.actions[j] = false;
-		}
-		
-		public function newGame():void
-		{
-			this.clearInput();
 		}
 		
 		

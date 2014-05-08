@@ -126,7 +126,7 @@ package view.game
 			this.gameFrame(Game.FRAME_TO_UNLOCK_ACHIEVEMENTS);
 		}
 		
-		public function setMapVisibility(visible:Boolean):void
+		public function setVisibilityOfMap(visible:Boolean):void
 		{
 			this.container.visible = visible;
 		}
