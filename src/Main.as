@@ -30,10 +30,6 @@ package
 		private var modelElements:ModelElements;
 		private var controllerElements:ControllerElements;
 		private var viewElements:ViewElements;
-		//private var game:GameElements;
-		//private var shell:Shell;
-		//private var listener:EventListener;
-		//TODO: check if we need anything here
 		
 		private var assets:AssetManager;
 		
@@ -84,18 +80,9 @@ package
 			this.viewElements = new ViewElements(this.binder, this.starlingRoot);
 			
 			
-			//this.game = new GameElements(this.assets);
-			
-			//this.starlingRoot.addChild((this.game).displayRoot);
-			
-			//this.shell = new Shell(this.starlingRoot, this.game);
-			//this.listener = new EventListener(this.game, Starling.current.nativeStage);
-			
 			this.binder.triggerBinding();
 			
 			Starling.current.stage.color = Game.STAGE_COLOR;
-			
-			//TODO: finish the rework
 		}
 	}
 
