@@ -23,6 +23,7 @@ package controller
 			
 			this._newGame = new Vector.<INewGameHandler>();
 			this._quitGame = new Vector.<IQuitGameHandler>();
+			this._gameFrame = new Vector.<IGameFrameHandler>();
 		}
 		
 		
@@ -77,6 +78,15 @@ package controller
 			for (var i:int = 0; i < length; i++)
 			{
 				this._quitGame[i].quitGame();
+			}
+		}
+		
+		internal function gameFrame(frame:int):void
+		{
+			var length:int = this._gameFrame.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._gameFrame[i].gameFrame(frame);
 			}
 		}
 	}

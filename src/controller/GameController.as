@@ -22,6 +22,10 @@ package controller
 			this.notifier.quitGame();
 		}
 		
+		public function gameFrame(frame:int):void
+		{
+			this.notifier.gameFrame(frame);
+		}
 	}
 
 }

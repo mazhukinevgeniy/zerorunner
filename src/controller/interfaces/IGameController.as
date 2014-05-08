@@ -5,6 +5,8 @@ package controller.interfaces
 	{
 		function newGame():void;
 		function quitGame():void;
+		
+		function gameFrame(frame:int):void;
 	}
 	
 }
