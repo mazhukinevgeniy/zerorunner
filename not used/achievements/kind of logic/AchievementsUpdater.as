@@ -1,4 +1,4 @@
-package view.shell.achievements 
+package view.shell.achievements.kind of logic 
 {
 	import binding.IBinder;
 	import controller.observers.game.IGameFrameHandler;

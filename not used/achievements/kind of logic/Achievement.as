@@ -19,7 +19,7 @@ package view.shell.achievements
 			
 			this.initialize(data);
 		}
-		
+		//TODO: delete; imo it's, like, just bad.
 		private function initialize(data:Vector.<Object>):void
 		{
 			var radius:int = 15;

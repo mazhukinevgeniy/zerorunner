@@ -1,4 +1,4 @@
-package view.shell.achievements 
+package view.shell.achievements.kind of logic of logic of logic 
 {
 	import flash.geom.Point;
 	import flash.utils.Dictionary;

@@ -4,6 +4,7 @@ package view.shell
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
+	import view.shell.achievements.AchievementsWindow;
 	import view.shell.credits.CreditsWindow;
 	import view.shell.settings.SettingsWindow;
 	
@@ -18,7 +19,7 @@ package view.shell
 		var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 		
 		windows[Windows.GAME] = gameRoot;
-		windows[Windows.ACHIEVEMENTS] = new Sprite();//new AchievementsWindow();//TODO: do
+		windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(binder);
 		windows[Windows.SETTINGS] = new SettingsWindow();
 		windows[Windows.CREDITS] = new CreditsWindow();
 		
