@@ -8,7 +8,7 @@ package model.items.shard
 		
 		public function Shard(master:ShardMaster, cell:ICoordinated) 
 		{
-			super(master, elements, cell);
+			super(master, cell);
 		}
 		
 		override public function get type():int { return Game.ITEM_SHARD; }

@@ -1,19 +1,22 @@
 package model.items.character 
 {
+	import binding.IBinder;
+	import controller.interfaces.IGameController;
+	import model.interfaces.IFuel;
 	import model.items.PuppetBase;
 	import model.metric.ICoordinated;
 	
 	
 	internal class Character extends PuppetBase
 	{
-		private var flow:IUpdateDispatcher;
+		private var gameController:IGameController;
+		
 		private var fuel:IFuel;
 		
-		
-		public function Character(master:CharacterMaster, cell:ICoordinated) 
+		public function Character(master:CharacterMaster, cell:ICoordinated, binder:IBinder) 
 		{
-			//this.fuel = fuel;
-			//TODO: pass something
+			this.gameController = binder.gameController;
+			this.fuel = binder.fuel;
 			
 			super(master, cell);
 		}
@@ -34,7 +37,7 @@ package model.items.character
 		
 		override protected function onUnstabilized():void 
 		{
-			this.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_LOST);
+			this.gameController.gameStopped(Game.ENDING_LOST);
 		}
 	}
 

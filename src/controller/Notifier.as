@@ -8,6 +8,7 @@ package controller
 	import controller.observers.ISoundObserver;
 	import controller.observers.map.IMapFrameHandler;
 	import controller.observers.map.IMapStatusObserver;
+	import controller.observers.projectiles.IShardObserver;
 	
 	internal class Notifier implements INotifier
 	{
@@ -22,6 +23,8 @@ package controller
 		private var _mapFrame:Vector.<IMapFrameHandler>;
 		private var _mapVisibility:Vector.<IMapStatusObserver>;
 		
+		private var _shardIncoming:Vector.<IShardObserver>;
+		
 		public function Notifier() 
 		{
 			this._soundObservers = new Vector.<ISoundObserver>();
@@ -33,6 +36,8 @@ package controller
 			
 			this._mapFrame = new Vector.<IMapFrameHandler>();
 			this._mapVisibility = new Vector.<IMapStatusObserver>();
+			
+			this._shardIncoming = new Vector.<IShardObserver>();
 		}
 		
 		
@@ -63,6 +68,12 @@ package controller
 			
 			if (observer is IMapStatusObserver)
 				this._mapVisibility.push(observer as IMapStatusObserver);
+		}
+		
+		public function addProjectileObserver(observer:*):void
+		{
+			if (observer is IShardObserver)
+				this._shardIncoming.push(observer as IShardObserver);
 		}
 		
 		

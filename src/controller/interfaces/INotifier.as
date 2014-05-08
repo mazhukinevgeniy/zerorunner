@@ -7,6 +7,7 @@ package controller.interfaces
 		function addSoundObserver(observer:ISoundObserver):void;
 		function addGameStatusObserver(observer:*):void;
 		function addMapStatusObserver(observer:*):void;
+		function addProjectileObserver(observer:*):void;
 	}
 	
 }

@@ -4,6 +4,7 @@ package model.items.character
 	import model.interfaces.IScene;
 	import model.items.Items;
 	import model.items.MasterBase;
+	import model.items.PuppetBase;
 	import model.status.StatusReporter;
 	
 	public class CharacterMaster extends MasterBase

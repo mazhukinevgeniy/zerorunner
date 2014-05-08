@@ -1,20 +1,21 @@
 package model.items.shard 
 {
 	import binding.IBinder;
+	import controller.observers.projectiles.IShardObserver;
 	import model.items.Items;
 	import model.items.MasterBase;
 	import model.metric.CellXY;
+	import model.projectiles.Projectile;
 	
-	public class ShardMaster extends MasterBase
+	public class ShardMaster extends MasterBase implements IShardObserver
 	{
 		private var tmpCell:CellXY;
 		
 		public function ShardMaster(binder:IBinder, items:Items) 
 		{
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.dropShard);
+			binder.notifier.addProjectileObserver(this);
 			
-			super(elements);
+			super(binder, items);
 			
 			this.tmpCell = new CellXY(0, 0);
 		}
@@ -23,12 +24,12 @@ package model.items.shard
 		{
 			this.tmpCell.setValue(x, y);
 			
-			new Shard(this, this.elements, this.tmpCell);
+			new Shard(this, this.tmpCell);
 		}
 		
-		update function dropShard(shard:Projectile):void
+		public function shardIncoming(shard:Projectile):void
 		{
-			new Shard(this, this.elements, shard.cell);
+			new Shard(this, shard.cell);
 		}
 	}
 
