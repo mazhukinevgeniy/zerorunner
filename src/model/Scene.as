@@ -2,12 +2,11 @@ package model
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
-	import controller.observers.game.INewGameHandler;
 	import flash.utils.ByteArray;
 	import model.interfaces.IScene;
 	import model.utils.normalize;
 	
-	public class Scene implements IScene, INewGameHandler
+	public class Scene implements IScene
 	{
 		private var scene:ByteArray;
 		
@@ -15,12 +14,6 @@ package model
 		{
 			this.scene = new ByteArray();
 			
-			binder.notifier.addGameStatusObserver(this);
-		}
-		
-		public function newGame():void
-		{
-			this.scene.clear();
 			this.scene.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
 			
 			var map:XML = MapXML.getOne();
@@ -28,6 +21,22 @@ package model
 			if (map.@width != map.@height || map.@width != Game.MAP_WIDTH)
 				throw new Error("map is not compatible");
 			
+			var tileCodes:Array = this.getTileCodes(map);
+			
+			
+			const LENGTH:int = this.scene.length;
+			var tiles:XMLList = map.layer.data.tile;
+			
+			for (var j:int = 0; j < LENGTH; j++)
+			{
+				this.scene[j] = tileCodes[tiles[j].@gid];
+			}
+			
+			this.validateTheMap();
+		}
+		
+		private function getTileCodes(map:XML):Array
+		{
 			var tileCodes:Array = new Array();
 			
 			for (var i:int = 0; i < map.tileset.length(); i++)
@@ -48,17 +57,7 @@ package model
 					tileCodes[i + 1] = Game.SCENE_TR_DISK;
 			}
 			
-			const LENGTH:int = this.scene.length;
-			var tiles:XMLList = map.layer.data.tile;
-			
-			for (var j:int = 0; j < LENGTH; j++)
-			{
-				this.scene[j] = tileCodes[tiles[j].@gid];
-			}
-			
-			this.validateTheMap();
-			
-			//TODO: check if we ever need to rerestore the map
+			return tileCodes;
 		}
 		
 		public function getSceneCell(x:int, y:int):int
