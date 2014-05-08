@@ -71,7 +71,7 @@ package model.input
 		{
 			this.clearInput();
 		}
-		
+		//TODO: /*	clearinput on handleDeactivation
 		
 		private function clearInput():void
 		{
