@@ -46,25 +46,30 @@ package model.projectiles
 			
 			if (map.objectgroup[1].@name != "ShardClouds")
 				throw new Error("wrong map");
-			
-			var shardClouds:XMLList = map.objectgroup[1].object;
-			const LENGTH:int = shardClouds.length();
-			
-			for (var j:int = 0; j < LENGTH; j++)
-			{
-				var x:int = int(shardClouds[j].@x) / 70;
-				var y:int = int(shardClouds[j].@y) / 70;
-				
-				var width:int = 1 + int(shardClouds[j].@width) / 70;
-				var height:int = 1 + int(shardClouds[j].@height) / 70;
-				
-				this.clouds.push(new ShardCloud(this, x, y, width, height));
-			}
-			
 			if (map.objectgroup[2].@name != "ProjectileAbsorbers")
 				throw new Error("wrong map");
 			
+			var shardClouds:XMLList = map.objectgroup[1].object;
+			this.spawnClouds(shardClouds, ShardCloud);
+			
 			var absorbers:XMLList = map.objectgroup[2].object;
+			this.spawnClouds(absorbers, AbsorbingCloud);
+		}
+		
+		private function spawnClouds(list:XMLList, cloud:Class):void
+		{
+			const LENGTH:int = list.length();
+			
+			for (var j:int = 0; j < LENGTH; j++)
+			{
+				var x:int = int(list[j].@x) / 70;
+				var y:int = int(list[j].@y) / 70;
+				
+				var width:int = 1 + int(list[j].@width) / 70;
+				var height:int = 1 + int(list[j].@height) / 70;
+				
+				this.clouds.push(new cloud(this, x, y, width, height));
+			}
 		}
 		
 		public function newGame():void

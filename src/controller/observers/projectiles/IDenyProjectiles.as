@@ -5,6 +5,7 @@ package controller.observers.projectiles
 	public interface IDenyProjectiles 
 	{
 		function denyProjectile(projectile:Projectile):void;
+		//TODO: consider deleting because absorbers don't need it
 	}
 	
 }
