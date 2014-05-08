@@ -11,6 +11,7 @@ package binding
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
+	import model.interfaces.ISave;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
 	import starling.utils.AssetManager;
@@ -51,6 +52,7 @@ package binding
 			this.subscribers.push(object);
 		}
 		
+		public function get save():ISave { return this.objects[ISave]; }
 		public function get fuel():IFuel { return this.objects[IFuel]; }
 		public function get input():IInput { return this.objects[IInput]; }
 		public function get scene():IScene { return this.objects[IScene]; }

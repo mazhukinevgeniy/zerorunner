@@ -6,6 +6,7 @@ package model
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
+	import model.interfaces.ISave;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
 	import model.items.Items;
@@ -17,7 +18,7 @@ package model
 		
 		public function ModelElements(binder:IBinder) 
 		{
-			new Save(binder);
+			binder.addBindable(new Save(binder), ISave);
 			
 			var status:StatusReporter = new StatusReporter(binder);
 			

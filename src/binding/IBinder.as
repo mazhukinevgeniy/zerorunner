@@ -9,6 +9,7 @@ package binding
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
+	import model.interfaces.ISave;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
 	import starling.utils.AssetManager;
@@ -18,6 +19,7 @@ package binding
 		function addBindable(object:*, type:Class):void;
 		function requestBindingFor(object:IDependent):void;
 		
+		function get save():ISave;
 		function get fuel():IFuel;
 		function get scene():IScene;
 		function get input():IInput;
