@@ -8195,9 +8195,14 @@
   <object gid="10" x="1207" y="1520"/>
   <object gid="11" x="568" y="1586"/>
  </objectgroup>
- <objectgroup name="ProjectileClouds" width="90" height="90">
-  <object name="shards1" type="shards" x="1356" y="1144" width="304" height="308"/>
-  <object name="shards2" type="shards" x="1836" y="1621" width="252" height="258"/>
-  <object name="shards3" type="shards" x="284" y="1276" width="612" height="600"/>
+ <objectgroup name="ShardClouds" width="90" height="90">
+  <object x="1356" y="1144" width="304" height="308"/>
+  <object x="1836" y="1621" width="252" height="258"/>
+  <object x="284" y="1276" width="612" height="600"/>
+  <object x="24" y="24" width="6248" height="6256"/>
+ </objectgroup>
+ <objectgroup name="ProjectileAbsorbers" width="90" height="90">
+  <object x="3374" y="294" width="1092" height="1024"/>
+  <object x="508" y="1480" width="176" height="184"/>
  </objectgroup>
 </map>
