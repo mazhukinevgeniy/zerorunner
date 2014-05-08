@@ -22,9 +22,6 @@ package
 		public static const WIDTH:int = 640;
 		public static const HEIGHT:int = 480;
 		
-		public static const FPS:int = 60;
-		//TODO: why is it here?
-		
 		private var mStarling:SoftStarling;
 		
 		private var starlingRoot:starling.display.Sprite;

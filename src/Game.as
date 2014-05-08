@@ -51,7 +51,6 @@ package
 		public static const FRAME_UNUSED_FRAME_2:int = 4;
 		
 		public static const FRAMES_PER_CYCLE:int = 5;
-		public static const TIME_BETWEEN_TICKS:Number = Game.FRAMES_PER_CYCLE / Main.FPS;
 		
 		/* Occupations */
 		
