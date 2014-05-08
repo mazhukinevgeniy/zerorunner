@@ -1,22 +1,12 @@
 package model.items 
 {
-	import data.IStatus;
-	import data.StatusReporter;
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import game.items.beacon.BeaconMaster;
-	import game.items.character.CharacterMaster;
-	import game.items.checkpoint.CheckpointMaster;
-	import game.items.shard.ShardMaster;
-	import game.items.the_goal.TheGoalMaster;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import utils.MapXML;
-	import utils.updates.update;
+	import binding.IBinder;
+	import controller.observers.game.INewGameHandler;
+	import model.status.StatusReporter;
 	
 	use namespace items_internal;
 	
-	public class Items implements IRestorable
+	public class Items implements INewGameHandler
 	{
 		private var activeItems:Array;
 		private var passiveItems:Array;
@@ -27,9 +17,11 @@ package model.items
 		
 		private var status:IStatus;
 		
-		public function Items(elements:GameElements, status:StatusReporter) 
+		public function Items(binder:IBinder, status:StatusReporter) 
 		{
 			this.status = elements.status;
+			
+			binder.notifier.addGameStatusObserver(this);
 			
 			elements.restorer.addSubscriber(this);
 			

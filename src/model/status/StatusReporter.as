@@ -1,12 +1,15 @@
 package model.status
 {
-	import game.items.PuppetBase;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
+	import binding.IBinder;
+	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
+	import model.interfaces.IStatus;
+	import model.items.PuppetBase;
+	import model.metric.ICoordinated;
 	
-	public class StatusReporter implements IStatus
+	public class StatusReporter implements IStatus, 
+	                                       INewGameHandler, 
+										   IQuitGameHandler
 	{
 		private var hero:PuppetBase;
 		
@@ -15,17 +18,17 @@ package model.status
 		
 		private var dxyHelper:NumericalDxyHelper;
 		
-		public function StatusReporter(flow:IUpdateDispatcher) 
+		public function StatusReporter(binder:IBinder) 
 		{
+			binder.notifier.addGameStatusObserver(this);
+			
 			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.newGame);
 			flow.addUpdateListener(Update.toggleMap);
-			flow.addUpdateListener(Update.quitGame);
 			
 			this.dxyHelper = new NumericalDxyHelper();
 		}
 		
-		update function newGame():void
+		public function newGame():void
 		{
 			this._isGameOn = true;
 			this._isMapOn = false;
@@ -36,7 +39,7 @@ package model.status
 			this._isMapOn = !this._isMapOn;
 		}
 		
-		update function quitGame():void
+		public function quitGame():void
 		{
 			this._isGameOn = false;
 			this._isMapOn = false;

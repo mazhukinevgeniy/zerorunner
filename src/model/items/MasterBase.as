@@ -1,23 +1,22 @@
 package model.items 
 {
-	import game.GameElements;
-	import utils.updates.update;
+	import binding.IBinder;
+	import controller.observers.game.IQuitGameHandler;
 	
 	use namespace items_internal;
 	
-	public class MasterBase
+	public class MasterBase implements IQuitGameHandler
 	{
-		protected var elements:GameElements;
+		protected var binder:IBinder;
 		
-		public function MasterBase(elements:GameElements) 
+		public function MasterBase(binder:IBinder) 
 		{
-			this.elements = elements;
+			this.binder = binder;
 			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.quitGame);
+			binder.notifier.addGameStatusObserver(this);//TODO: make sure it can't be doubleadded
 		}
 		
-		update function quitGame():void { this.onGameFinished(); }
+		public function quitGame():void { this.onGameFinished(); }
 		
 		
 		internal function actOn(puppet:PuppetBase):void

@@ -1,11 +1,7 @@
 package model.items 
 {
-	import game.GameElements;
-	import game.items.Items;
-	import game.metric.CellXY;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import starling.display.DisplayObject;
+	import model.metric.DCellXY;
+	import model.metric.ICoordinated;
 	
 	use namespace items_internal;
 	
@@ -27,7 +23,7 @@ package model.items
 		/* Used to avoid repeatable object creation. */
 		private var dcHelper:DCellXY;
 		
-		public function PuppetBase(master:MasterBase, elements:GameElements, cell:ICoordinated) 
+		public function PuppetBase(master:MasterBase, cell:ICoordinated) 
 		{
 			this._master = master;
 			

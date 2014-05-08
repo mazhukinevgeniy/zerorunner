@@ -1,8 +1,8 @@
 package view.shell 
 {
 	import binding.IBinder;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;

@@ -1,6 +1,7 @@
 package model.interfaces 
 {
-	import game.metric.ICoordinated;
+	import model.metric.ICoordinated;
+	import model.status.NumericalDxyHelper;
 	
 	public interface IStatus 
 	{

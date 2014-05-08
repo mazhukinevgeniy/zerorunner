@@ -1,10 +1,12 @@
 package controller 
 {
 	import controller.interfaces.INotifier;
-	import controller.observers.IGameFrameHandler;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import controller.observers.game.IGameFrameHandler;
+	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
 	import controller.observers.ISoundObserver;
+	import controller.observers.map.IMapFrameHandler;
+	import controller.observers.map.IMapStatusObserver;
 	
 	internal class Notifier implements INotifier
 	{
@@ -13,17 +15,21 @@ package controller
 		
 		private var _newGame:Vector.<INewGameHandler>;
 		private var _quitGame:Vector.<IQuitGameHandler>;
-		private var _gameFrame:Vector.<IGameFrameHandler>
+		private var _gameFrame:Vector.<IGameFrameHandler>;
+		
+		private var _mapFrame:Vector.<IMapFrameHandler>;
+		private var _mapVisibility:Vector.<IMapStatusObserver>;
 		
 		public function Notifier() 
 		{
-			
 			this._soundObservers = new Vector.<ISoundObserver>();
-			
 			
 			this._newGame = new Vector.<INewGameHandler>();
 			this._quitGame = new Vector.<IQuitGameHandler>();
 			this._gameFrame = new Vector.<IGameFrameHandler>();
+			
+			this._mapFrame = new Vector.<IMapFrameHandler>();
+			this._mapVisibility = new Vector.<IMapStatusObserver>();
 		}
 		
 		
@@ -42,6 +48,15 @@ package controller
 			
 			if (observer is IGameFrameHandler)
 				this._gameFrame.push(observer as IGameFrameHandler);
+		}
+		
+		public function addMapStatusObserver(observer:*):void
+		{
+			if (observer is IMapFrameHandler)
+				this._mapFrame.push(observer as IMapFrameHandler);
+			
+			if (observer is IMapStatusObserver)
+				this._mapVisibility.push(observer as IMapStatusObserver);
 		}
 		
 		

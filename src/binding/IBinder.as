@@ -5,6 +5,7 @@ package binding
 	import controller.interfaces.INotifier;
 	import controller.interfaces.ISoundController;
 	import model.interfaces.IScene;
+	import model.interfaces.IStatus;
 	import starling.utils.AssetManager;
 	
 	public interface IBinder 
@@ -14,6 +15,7 @@ package binding
 		
 		function get scene():IScene;
 		function get notifier():INotifier;
+		function get gameStatus():IStatus;
 		function get assetManager():AssetManager;
 		function get gameController():IGameController;
 		function get inputController():IInputController;

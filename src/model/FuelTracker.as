@@ -1,12 +1,11 @@
 package model 
 {
-	import data.IStatus;
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
+	import binding.IBinder;
+	import controller.observers.game.IGameFrameHandler;
+	import controller.observers.game.INewGameHandler;
+	import model.interfaces.IStatus;
 	
-	public class FuelTracker implements IFuel, IRestorable
+	public class FuelTracker implements INewGameHandler, IGameFrameHandler
 	{
 		private const MAX_CAPACITY:int = 80;
 		
@@ -17,24 +16,19 @@ package model
 		
 		private var status:IStatus;
 		
-		public function FuelTracker(elements:GameElements) 
+		public function FuelTracker(binder:IBinder) 
 		{
-			elements.restorer.addSubscriber(this);
+			binder.notifier.addGameStatusObserver(this);
 			
-			var flow:IUpdateDispatcher = elements.flow;
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.numberedFrame);
-			
-			this.status = elements.status;
+			this.status = binder.gameStatus;
 		}
 		
-		public function restore():void
+		public function newGame():void
 		{
 			this.amountOfFuel = this.MAX_CAPACITY;
 		}
 		
-		update function numberedFrame(frame:int):void
+		public function gameFrame(frame:int):void
 		{
 			if (frame == Game.FRAME_TO_ACT)
 			{

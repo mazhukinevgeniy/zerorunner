@@ -1,4 +1,4 @@
-package controller.observers 
+package controller.observers.game 
 {
 	
 	public interface IQuitGameHandler 

@@ -7,6 +7,7 @@ package binding
 	import controller.interfaces.ISoundController;
 	import flash.utils.Dictionary;
 	import model.interfaces.IScene;
+	import model.interfaces.IStatus;
 	import starling.utils.AssetManager;
 	
 	public class Binder implements IBinder
@@ -47,6 +48,7 @@ package binding
 		
 		
 		public function get scene():IScene { return this.objects[IScene]; }
+		public function get gameStatus():IStatus { return this.objects[IStatus]; }
 		public function get notifier():INotifier { return this.objects[INotifier]; }
 		public function get assetManager():AssetManager { return this.objects[AssetManager]; }
 		public function get gameController():IGameController { return this.objects[IGameController]; }
