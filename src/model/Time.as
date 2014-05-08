@@ -2,7 +2,6 @@ package model
 {
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
-	import controller.observers.game.IGameMenuRelated;
 	import controller.observers.game.IGameStopHandler;
 	import controller.observers.game.INewGameHandler;
 	import model.interfaces.IInput;
@@ -11,13 +10,11 @@ package model
 	import starling.events.EnterFrameEvent;
 	
 	internal class Time implements INewGameHandler,
-	                               IGameStopHandler,
-	                               IGameMenuRelated
+	                               IGameStopHandler
 	{
 		private var frameCount:int = 0;
 		
 		private var isFixed:Boolean = true;
-		private var isMenuOpened:Boolean = false;
 		
 		private var status:IStatus;
 		private var input:IInput;
@@ -39,19 +36,13 @@ package model
 		public function newGame():void
 		{
 			this.isFixed = false;
-			this.isMenuOpened = false;
 			
 			this.frameCount = 0;
 		}
 		
-		public function setVisibilityOfMenu(visible:Boolean):void
-		{
-			this.isMenuOpened = visible;
-		}
-		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
 		{
-			if (!this.isFixed && !this.isMenuOpened &&
+			if (!this.isFixed && !this.status.isMenuOn() &&
 				((this.frameCount != Game.FRAME_TO_ACT) || 
 				 !this.status.isHeroFree() || 
 				 this.input.isThereInput()))

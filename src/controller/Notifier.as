@@ -12,6 +12,7 @@ package controller
 	import controller.observers.map.IMapStatusObserver;
 	import controller.observers.projectiles.IDenyProjectiles;
 	import controller.observers.projectiles.IShardObserver;
+	import model.metric.DCellXY;
 	import model.projectiles.Projectile;
 	
 	internal class Notifier implements INotifier
@@ -183,6 +184,24 @@ package controller
 			for (var i:int = 0; i < length; i++)
 			{
 				this._deny[i].denyProjectile(projectile);
+			}
+		}
+		
+		internal function newInputPiece(isOn:Boolean, change:DCellXY):void
+		{
+			var length:int = this._input.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._input[i].newInputPiece(isOn, change);
+			}
+		}
+		
+		internal function actionRequested(action:int):void
+		{
+			var length:int = this._input.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._input[i].actionRequested(action);
 			}
 		}
 	}

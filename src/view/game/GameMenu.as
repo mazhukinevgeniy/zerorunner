@@ -133,12 +133,9 @@ package view.game
 		}
 		
 		
-		
-		
-		
 		public function newGame():void
 		{
-			this.mainButtons.visible = false;
+			this.controller.setVisibilityOfMenu(false);
 		}
 	}
 

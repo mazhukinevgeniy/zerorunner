@@ -7,6 +7,7 @@ package model.interfaces
 	{
 		function isGameOn():Boolean;
 		function isMapOn():Boolean;
+		function isMenuOn():Boolean;
 		
 		function isHeroFree():Boolean;
 		function getLocationOfHero():ICoordinated;

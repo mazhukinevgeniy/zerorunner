@@ -1,6 +1,7 @@
 package model.status
 {
 	import binding.IBinder;
+	import controller.observers.game.IGameMenuRelated;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
 	import controller.observers.map.IMapStatusObserver;
@@ -12,12 +13,14 @@ package model.status
 	public class StatusReporter implements IStatus, 
 	                                       INewGameHandler, 
 										   IQuitGameHandler,
-										   IMapStatusObserver
+										   IMapStatusObserver,
+										   IGameMenuRelated
 	{
 		private var hero:PuppetBase;
 		
 		private var _isGameOn:Boolean = false;
 		private var _isMapOn:Boolean = false;
+		private var _isMenuOn:Boolean = false;
 		
 		private var dxyHelper:NumericalDxyHelper;
 		
@@ -40,6 +43,11 @@ package model.status
 			this._isMapOn = visible;
 		}
 		
+		public function setVisibilityOfMenu(visible:Boolean):void
+		{
+			this._isMenuOn = visible;
+		}
+		
 		public function quitGame():void
 		{
 			this._isGameOn = false;
@@ -58,6 +66,7 @@ package model.status
 		
 		public function isGameOn():Boolean { return this._isGameOn; }
 		public function isMapOn():Boolean { return this._isMapOn; }
+		public function isMenuOn():Boolean { return this._isMenuOn; }
 		
 		public function isHeroFree():Boolean { return this.hero && this.hero.isFree(); }
 		public function getLocationOfHero():ICoordinated { return this.hero; }
