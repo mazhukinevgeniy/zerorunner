@@ -2,9 +2,11 @@ package model.input
 {
 	import binding.IBinder;
 	import controller.observers.game.IInputObserver;
+	import controller.observers.game.INewGameHandler;
 	import model.metric.DCellXY;
 	
-	internal class InputCollector implements IInputObserver
+	internal class InputCollector implements IInputObserver,
+	                                         INewGameHandler
 	{
 		private const NO_DIRECTION:int = 0;
 		
@@ -15,7 +17,7 @@ package model.input
 		
 		public function InputCollector(binder:IBinder) 
 		{
-			
+			binder.notifier.addGameStatusObserver(this);
 			
 			this.actions = new Vector.<Boolean>(Game.NUMBER_OF_ACTIONS, true);
 			for (var i:int = 0; i < Game.NUMBER_OF_ACTIONS; i++)
@@ -62,7 +64,10 @@ package model.input
 				this.actions[j] = false;
 		}
 		
-		
+		public function newGame():void
+		{
+			this.clearInput();
+		}
 		
 		
 		

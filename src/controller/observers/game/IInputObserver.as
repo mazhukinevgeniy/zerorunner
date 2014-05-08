@@ -5,6 +5,8 @@ package controller.observers.game
 	public interface IInputObserver 
 	{
 		function newInputPiece(isOn:Boolean, change:DCellXY):void;
+		
+		function actionRequested(action:int):void;
 	}
 	
 }
