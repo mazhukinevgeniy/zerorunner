@@ -10,11 +10,7 @@ package view.game
 		new MapFeature(binder, root);
 		
 		new GameMenu(binder, root);
-		
-		
-		/*
-		new EndGameView(elements);*/
-		//TODO: do
+		new EndGameView(binder, root);
 	}
 	
 }

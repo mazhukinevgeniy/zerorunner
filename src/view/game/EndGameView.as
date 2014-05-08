@@ -1,28 +1,29 @@
 package view.game 
 {
+	import binding.IBinder;
+	import controller.interfaces.IGameController;
+	import controller.observers.game.IGameStopHandler;
+	import controller.observers.game.INewGameHandler;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import game.ui.GameTheme;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import ui.themes.ExtendedTheme;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
+	import view.themes.GameTheme;
 	
-	internal class EndGameView extends InGameWindowBase implements IRestorable
+	internal class EndGameView extends InGameWindowBase implements INewGameHandler,
+	                                                               IGameStopHandler
 	{
-		private var flow:IUpdateDispatcher;
-		
-		
 		private var text:Label;
 		
+		private var controller:IGameController;
 		
-		public function EndGameView(elements:GameElements) 
+		public function EndGameView(binder:IBinder, root:DisplayObjectContainer) 
 		{
-			super(200, 200, elements.assets.getTextureAtlas("sprites"));
+			this.controller = binder.gameController;
+			
+			super(200, 200, binder.assetManager.getTextureAtlas("sprites"));
 			
 			
 			this.text = new Label();
@@ -41,32 +42,27 @@ package view.game
 			
 			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
-			elements.restorer.addSubscriber(this);
+			binder.notifier.addGameStatusObserver(this);
 			
-			this.flow = elements.flow;
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.gameFinished);
-			
-			elements.displayRoot.addChild(this);
+			root.addChild(this);
 		}
 		
-		public function restore():void
+		public function newGame():void
 		{
 			this.visible = false;
 		}
 		
-		update function gameFinished(key:int):void
+		public function gameStopped(reason:int):void
 		{
-			if (key != Game.ENDING_ABANDONED)
+			if (reason != Game.ENDING_ABANDONED)
 			{
 				this.visible = true;
 				
-				if (key == Game.ENDING_WON)
+				if (reason == Game.ENDING_WON)
 				{
 					this.text.text = "You win!";
 				}
-				else if (key == Game.ENDING_LOST)
+				else if (reason == Game.ENDING_LOST)
 				{
 					this.text.text = "You lose!";
 				}
@@ -75,7 +71,7 @@ package view.game
 		
 		private function handleQuitTriggered():void
 		{
-			this.flow.dispatchUpdate(Update.quitGame);
+			this.controller.quitGame();
 		}
 	}
 
