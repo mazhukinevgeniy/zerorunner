@@ -1,6 +1,7 @@
 package view.sounds 
 {
 	import flash.events.Event;
+	import model.interfaces.ISave;
 	import starling.utils.AssetManager;
 	
 	internal class MusicManager extends SoundManagerBase
@@ -10,15 +11,21 @@ package view.sounds
 		
 		private var countTrack:int = 0;
 		
-		function MusicManager(assets:AssetManager, newVolume:Number = 1.0) 
+		function MusicManager(assets:AssetManager, save:ISave) 
 		{
 			super();
 			
-			this.volume = newVolume;
+			this.volume = save.musicValue;
 			
 			this.initializeTracks(assets);
 			
 			this.currentTrack = this.nextTrack((int)(Math.random() * 100));
+			
+			
+			if (save.musicMute)
+			{
+				this.muteAll(true);
+			}
 		}
 		
 		private function initializeTracks(assets:AssetManager):void

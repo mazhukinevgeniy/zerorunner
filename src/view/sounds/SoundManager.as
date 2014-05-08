@@ -1,18 +1,24 @@
 package view.sounds
 {
+	import model.interfaces.ISave;
 	import starling.utils.AssetManager;
 	
 	internal class SoundManager extends SoundManagerBase
 	{
 		private var volume:Number;
 		
-		public function SoundManager(assets:AssetManager, newVolume:Number = 1.0) 
+		public function SoundManager(assets:AssetManager, save:ISave) 
 		{
 			super();
 			
-			this.volume = newVolume;
+			this.volume = save.soundValue;
 			
 			this.initializeTracks(assets);
+			
+			if (save.soundMute)
+			{
+				this.muteAll(true);
+			}
 		}
 		
 		private function initializeTracks(assets:AssetManager):void

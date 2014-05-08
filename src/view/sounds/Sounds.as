@@ -3,6 +3,7 @@ package view.sounds
 	import binding.IBinder;
 	import binding.IDependent;
 	import controller.observers.ISoundObserver;
+	import model.interfaces.ISave;
 	import starling.utils.AssetManager;
 	
 	public class Sounds implements ISoundObserver, IDependent
@@ -22,9 +23,10 @@ package view.sounds
 		public function bindObjects(binder:IBinder):void
 		{
 			var assets:AssetManager = binder.assetManager;
+			var save:ISave = binder.save;
 			
-			this.music = new MusicManager(assets);//TODO: pass mute settings here
-			this.sound = new SoundManager(assets);
+			this.music = new MusicManager(assets, save);
+			this.sound = new SoundManager(assets, save);
 			
 			this.music.playMusic();
 		}
