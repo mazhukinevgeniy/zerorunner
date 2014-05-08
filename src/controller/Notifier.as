@@ -2,6 +2,7 @@ package controller
 {
 	import controller.interfaces.INotifier;
 	import controller.observers.game.IGameFrameHandler;
+	import controller.observers.game.IGameStopHandler;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
 	import controller.observers.ISoundObserver;
@@ -15,6 +16,7 @@ package controller
 		
 		private var _newGame:Vector.<INewGameHandler>;
 		private var _quitGame:Vector.<IQuitGameHandler>;
+		private var _stopGame:Vector.<IGameStopHandler>;
 		private var _gameFrame:Vector.<IGameFrameHandler>;
 		
 		private var _mapFrame:Vector.<IMapFrameHandler>;
@@ -26,6 +28,7 @@ package controller
 			
 			this._newGame = new Vector.<INewGameHandler>();
 			this._quitGame = new Vector.<IQuitGameHandler>();
+			this._stopGame = new Vector.<IGameStopHandler>();
 			this._gameFrame = new Vector.<IGameFrameHandler>();
 			
 			this._mapFrame = new Vector.<IMapFrameHandler>();
@@ -48,6 +51,9 @@ package controller
 			
 			if (observer is IGameFrameHandler)
 				this._gameFrame.push(observer as IGameFrameHandler);
+			
+			if (observer is IGameStopHandler)
+				this._stopGame.push(observer as IGameStopHandler);
 		}
 		
 		public function addMapStatusObserver(observer:*):void
@@ -102,6 +108,15 @@ package controller
 			for (var i:int = 0; i < length; i++)
 			{
 				this._gameFrame[i].gameFrame(frame);
+			}
+		}
+		
+		internal function gameStopped(reason:int):void
+		{
+			var length:int = this._stopGame.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._stopGame[i].gameStopped(reason);
 			}
 		}
 	}

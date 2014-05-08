@@ -15,19 +15,10 @@ package
 		
 		public static const handleDeactivation:String = "handleDeactivation";
 		
-		/* Metagame updates */
-		
-		public static const gameFinished:String = "gameFinished";
-		
 		
 		/* In-game updates */
 		
 		public static const dropShard:String = "dropShard";
-		
-		/* Time updates */
-		
-		public static const numberedFrame:String = "numberedFrame";
-		public static const frameOfTheMapMode:String = "frameOfTheMapMode";
 		
 		
 		/* End of updates */

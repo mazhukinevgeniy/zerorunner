@@ -1,6 +1,7 @@
 package model.items.the_goal 
 {
 	import binding.IBinder;
+	import controller.interfaces.IGameController;
 	import model.interfaces.IStatus;
 	import model.items._utils.CheckpointMasterBase;
 	import model.items.Items;
@@ -12,12 +13,14 @@ package model.items.the_goal
 		private var currentGoal:TheGoal;
 		
 		private var status:IStatus;
+		private var gameController:IGameController;
 		
 		public function TheGoalMaster(binder:IBinder, items:Items) 
 		{
 			super(binder, items);
 			
 			this.status = binder.gameStatus;
+			this.gameController = binder.gameController;
 		}
 		
 		override public function spawnPuppet(x:int, y:int):void 
@@ -39,7 +42,7 @@ package model.items.the_goal
 		
 		override protected function activateCheckpoint(place:ICoordinated):void 
 		{
-			this.elements.flow.dispatchUpdate(Update.gameFinished, Game.ENDING_WON);
+			this.gameController.gameStopped(Game.ENDING_WON);
 			
 			this.currentGoal = null;
 		}
