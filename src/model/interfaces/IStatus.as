@@ -9,7 +9,6 @@ package model.interfaces
 		function isMapOn():Boolean;
 		
 		function isHeroFree():Boolean;
-		function isHeroAirborne():Boolean;
 		function getLocationOfHero():ICoordinated;
 		function getDisplacementOfHero():NumericalDxyHelper;
 		

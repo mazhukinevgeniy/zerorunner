@@ -20,7 +20,7 @@ package
 		
 		/* Action types */
 		
-		public static const ACTION_FLIGHT:int = 0;
+		public static const ACTION_FLIGHT:int = 0;//TODO: rename
 		public static const ACTION_SKIP_FRAME:int = 1;
 		
 		public static const NUMBER_OF_ACTIONS:int = 2;
@@ -56,12 +56,10 @@ package
 		
 		public static const OCCUPATION_FREE:int = 0;
 		public static const OCCUPATION_MOVING:int = 1;
-		public static const OCCUPATION_FLOATING:int = 2;
-		public static const OCCUPATION_FLYING:int = 3;
-		public static const OCCUPATION_DYING:int = 4;
-		public static const OCCUPATION_UNSTABLE:int = 5;
+		public static const OCCUPATION_DYING:int = 2;
+		public static const OCCUPATION_UNSTABLE:int = 3;
 		
-		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 6;
+		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 4;
 		
 		/* Projectiles */
 		

@@ -5,6 +5,7 @@ package binding
 	import controller.interfaces.INotifier;
 	import controller.interfaces.ISoundController;
 	import model.interfaces.IFuel;
+	import model.interfaces.IInput;
 	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
@@ -17,6 +18,7 @@ package binding
 		
 		function get fuel():IFuel;
 		function get scene():IScene;
+		function get input():IInput;
 		function get puppets():IPuppets;
 		function get notifier():INotifier;
 		function get gameStatus():IStatus;

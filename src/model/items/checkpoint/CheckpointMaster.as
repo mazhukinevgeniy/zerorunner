@@ -16,7 +16,7 @@ package model.items.checkpoint
 		
 		public function CheckpointMaster(binder:IBinder, items:Items) 
 		{			
-			super(elements);
+			super(binder, items);
 			
 			this.checkpoints = new Vector.<Checkpoint>();
 			

@@ -45,8 +45,7 @@ package model.items
 		
 		public function isFree():Boolean
 		{
-			return this._occupation == Game.OCCUPATION_FREE || 
-				   this._occupation == Game.OCCUPATION_FLOATING;
+			return this._occupation == Game.OCCUPATION_FREE;
 		}
 		
 		final internal function tickPassed():void
@@ -55,26 +54,12 @@ package model.items
 			{
 				
 			}
-			else if (this._occupation == Game.OCCUPATION_FLOATING)
-			{
-				if (!this.canFly)
-					this._occupation = Game.OCCUPATION_FREE;
-			}
 			else if (this._occupation == Game.OCCUPATION_MOVING)
 			{
 				this.framesOccupated++;
 				if (this.framesOccupated == this.framesUntilOccupationEnds)
 				{
 					this._occupation = Game.OCCUPATION_FREE;
-					this.framesOccupated = this.framesUntilOccupationEnds = 0;
-				}
-			}
-			else if (this._occupation == Game.OCCUPATION_FLYING)
-			{
-				this.framesOccupated++;
-				if (this.framesOccupated == this.framesUntilOccupationEnds)
-				{
-					this._occupation = Game.OCCUPATION_FLOATING;
 					this.framesOccupated = this.framesUntilOccupationEnds = 0;
 				}
 			}
@@ -129,42 +114,6 @@ package model.items
 			this.framesOccupated = 0;
 		}
 		
-		final items_internal function startFlyingBy(change:DCellXY):void
-		{
-			if (this.canFly)
-			{
-				this.items.removeItem(this);
-				this._moveInProgress.setValue(change.x, change.y);
-				
-				this._x = normalize(change.x + this._x);
-				this._y = normalize(change.y + this._y);
-				
-				this.items.addActiveItem(this);
-				
-				
-				this._occupation = Game.OCCUPATION_FLYING;
-				this.framesUntilOccupationEnds = this.flyingSpeed * Game.FRAMES_PER_CYCLE;
-				this.framesOccupated = 0;
-			}
-		}
-		
-		
-		
-		final items_internal function forceAirborne():void
-		{
-			if (this._occupation != Game.OCCUPATION_FREE)
-				throw new Error("conflict here, try to avoid the case (forceAirborne failed)");
-			
-			this._occupation = Game.OCCUPATION_FLOATING;
-		}
-		
-		final items_internal function forceStanding():void
-		{
-			if (this._occupation != Game.OCCUPATION_FLOATING)
-				throw new Error("conflict here, try to avoid the case (forceStanding failed)");
-			
-			this._occupation = Game.OCCUPATION_FREE;
-		}
 		
 		/** END OF Position and movements */
 		
@@ -172,8 +121,6 @@ package model.items
 		/** Things to override */
 		
 		protected function get movespeed():int { return 2; }
-		protected function get flyingSpeed():int { return 1; }
-		protected function get canFly():Boolean { return false; }
 		protected function get isPassive():Boolean { return false; }
 		protected function get isDestructible():Boolean { return true; }
 		

@@ -1,15 +1,18 @@
 package model.items.character 
 {
 	import binding.IBinder;
+	import model.interfaces.IInput;
 	import model.interfaces.IScene;
 	import model.items.Items;
 	import model.items.MasterBase;
 	import model.items.PuppetBase;
+	import model.metric.CellXY;
+	import model.metric.DCellXY;
 	import model.status.StatusReporter;
 	
 	public class CharacterMaster extends MasterBase
 	{		
-		private var input:InputTeller;
+		private var input:IInput;
 		private var scene:IScene;
 		private var items:Items;
 		
@@ -17,19 +20,18 @@ package model.items.character
 		
 		public function CharacterMaster(binder:IBinder, items:Items, status:StatusReporter) 
 		{
-			super(elements);
+			super(binder, items);
 			
 			this.status = status;
+			this.input = binder.input;
+			this.scene = binder.scene;
+			this.items = items;
 		}
 		
 		override public function spawnPuppet(x:int, y:int):void 
 		{
-			this.input = this.elements.inputTeller;
-			this.scene = this.elements.scene;
-			this.items = this.elements.items;
-			
 			this.status.newHero(
-				new Character(this, this.elements, new CellXY(x, y)));
+				new Character(this, new CellXY(x, y), this._binder));
 		}
 		
 		override protected function act(puppet:PuppetBase):void

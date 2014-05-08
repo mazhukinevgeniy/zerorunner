@@ -32,7 +32,7 @@ package model
 		{
 			if (frame == Game.FRAME_TO_ACT)
 			{
-				if (this.status.isHeroAirborne())
+				if (false)//TODO: create any other resource
 				{
 					this.amountOfFuel -= this.BASE_WASTE;
 					

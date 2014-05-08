@@ -66,7 +66,7 @@ package model.status
 		{
 			var occ:int = this.hero.occupation;
 			
-			if (occ == Game.OCCUPATION_MOVING || occ == Game.OCCUPATION_FLYING)
+			if (occ == Game.OCCUPATION_MOVING)
 			{
 				var direction:DCellXY = this.hero.moveInProgress;
 				
@@ -80,13 +80,6 @@ package model.status
 			}
 			
 			return this.dxyHelper;
-		}
-		
-		public function isHeroAirborne():Boolean
-		{
-			var occ:int = this.hero.occupation;
-			
-			return occ == Game.OCCUPATION_FLYING || occ == Game.OCCUPATION_FLOATING;
 		}
 		
 		/**/
