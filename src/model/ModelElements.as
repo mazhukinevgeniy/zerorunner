@@ -2,9 +2,11 @@ package model
 {
 	import binding.IBinder;
 	import model.interfaces.IFuel;
+	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
 	import model.interfaces.IStatus;
 	import model.items.Items;
+	import model.projectiles.Projectiles;
 	import model.status.StatusReporter;
 	
 	public class ModelElements 
@@ -19,6 +21,7 @@ package model
 			binder.addBindable(status, IStatus);
 			binder.addBindable(new FuelTracker(binder), IFuel);
 			binder.addBindable(new Items(binder, status), IPuppets);
+			binder.addBindable(new Projectiles(binder), IProjectiles);
 		}
 		
 	}
