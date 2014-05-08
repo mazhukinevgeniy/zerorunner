@@ -75,9 +75,8 @@ package controller
 					}
 				}
 				
-				//if (!keyUp && keyCode == Keyboard.M)
-				//	this.notifier.flow.dispatchUpdate(Update.toggleMap);
-				//TODO: add map controller
+				if (!keyUp && keyCode == Keyboard.M)
+					this.notifier.setVisibilityOfMap(!this.status.isMapOn());
 			}
 		}
 		

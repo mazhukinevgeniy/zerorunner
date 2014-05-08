@@ -204,6 +204,17 @@ package controller
 				this._input[i].actionRequested(action);
 			}
 		}
+		
+		internal function setVisibilityOfMap(visible:Boolean):void
+		{
+			var length:int = this._mapVisibility.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				this._mapVisibility[i].setVisibilityOfMap(visible);
+			}
+		}
+		
+		
 	}
 
 }

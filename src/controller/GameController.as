@@ -41,6 +41,11 @@ package controller
 		{
 			this.notifier.setVisibilityOfMenu(visible);
 		}
+		
+		public function setVisibilityOfMap(visible:Boolean):void
+		{
+			this.notifier.setVisibilityOfMap(visible);
+		}
 	}
 
 }

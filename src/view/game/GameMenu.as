@@ -128,8 +128,7 @@ package view.game
 			this.mainButtons.visible = false;
 			this.controller.setVisibilityOfMenu(false);
 			
-			//this.flow.dispatchUpdate(Update.toggleMap);
-			//TODO: do we have mapcontroller? must have
+			this.controller.setVisibilityOfMap(!this.status.isMapOn());
 		}
 		
 		

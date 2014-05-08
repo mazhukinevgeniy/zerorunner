@@ -12,6 +12,7 @@ package controller.interfaces
 		function gameStopped(reason:int):void;
 		
 		function setVisibilityOfMenu(visible:Boolean):void;
+		function setVisibilityOfMap(visible:Boolean):void;
 	}
 	
 }
