@@ -3,9 +3,10 @@ package model
 	import binding.IBinder;
 	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.INewGameHandler;
+	import model.interfaces.IFuel;
 	import model.interfaces.IStatus;
 	
-	public class FuelTracker implements INewGameHandler, IGameFrameHandler
+	public class FuelTracker implements IFuel, INewGameHandler, IGameFrameHandler
 	{
 		private const MAX_CAPACITY:int = 80;
 		

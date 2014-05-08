@@ -75,8 +75,8 @@ package
 			this.binder.addBindable(this.assets = assets, AssetManager);
 			
 			
-			this.modelElements = new ModelElements(this.binder);
 			this.controllerElements = new ControllerElements(this.binder);
+			this.modelElements = new ModelElements(this.binder);
 			this.viewElements = new ViewElements(this.binder, this.starlingRoot);
 			
 			
