@@ -13,13 +13,10 @@ package view.shell.achievements
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
-	import ui.navigation.Navigation;
-	import ui.windows.Window;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	import starling.utils.AssetManager;
+	import view.shell.WindowBase;
 	
-	public class AchievementsWindow  extends Window
+	public class AchievementsWindow  extends WindowBase
 	{	
 		//public static const WIDTH:Number = Main.WIDTH - (Navigation.WIDTH + 20);
 		//public static const HEIGHT:Number = Main.HEIGHT - 20;

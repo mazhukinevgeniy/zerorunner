@@ -1,5 +1,6 @@
 package view.shell 
 {
+	import binding.IBinder;
 	import feathers.controls.Button;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
@@ -17,8 +18,6 @@ package view.shell
 		private static const WIDTH_BUTTON:Number = 120;
 		private static const HEIGHT_BUTTON:Number = 30;
 		
-		protected var flow:IUpdateDispatcher;
-		
 		protected var buttonFactory:ButtonFactory;
 		
 		protected var playButton:Button,
@@ -28,25 +27,22 @@ package view.shell
 		
 		private var resetButton:Button;
 		
-		private var windowsController:WindowsController;
+		private var windows:Windows;
 		
-		public function Navigation(windowsController:WindowsController) 
+		public function Navigation(windows:Windows, binder:IBinder) 
 		{
-			this.windowsController = windowsController;
+			this.windows = windows;
 			
 			super();
 			
 			this.initializeSize();
 			this.initializeLayout();
 			
-			this.flow = elements.flow;
-			
-			this.buttonFactory = new ButtonFactory(elements.assets, Navigation.WIDTH_BUTTON, Navigation.HEIGHT_BUTTON);
-			this.initializeButtons();
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.newGame);
-			this.flow.addUpdateListener(Update.quitGame);
+			this.buttonFactory = 
+				new ButtonFactory(binder.assetManager, 
+								  Navigation.WIDTH_BUTTON, 
+								  Navigation.HEIGHT_BUTTON);
+			this.initializeButtons(); //TODO: something is weird here
 		}
 		
 		protected function initializeSize():void
@@ -90,34 +86,21 @@ package view.shell
 		{
 			if (event.target == this.playButton)
 			{
-				this.flow.dispatchUpdate(Update.newGame);
+				//this.flow.dispatchUpdate(Update.newGame);
+				//TODO: improve gameController
 			}
 			else if (event.target == this.achievementsButton)
 			{
-				this.flow.dispatchUpdate(Update.toggleWindow, Windows.ACHIEVEMENTS);
+				this.windows.toggleWindow(Windows.ACHIEVEMENTS);
 			}
 			else if (event.target == this.settingsButton)
 			{
-				this.flow.dispatchUpdate(Update.toggleWindow, Windows.SETTINGS);
+				this.windows.toggleWindow(Windows.SETTINGS);
 			}
 			else if (event.target == this.creditsButton)
 			{
-				this.flow.dispatchUpdate(Update.toggleWindow, Windows.CREDITS);
+				this.windows.toggleWindow(Windows.CREDITS);
 			}
-		}
-		
-		update function newGame():void
-		{
-			this.visible = false;
-			
-			this.playButton.focusManager.focus = null;
-			
-			this.flow.dispatchUpdate(Update.toggleWindow, Windows.GAME);
-		}
-		
-		update function quitGame():void
-		{
-			this.visible = true;
 		}
 		
 	}

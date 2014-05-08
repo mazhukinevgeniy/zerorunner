@@ -5,7 +5,6 @@ package view.shell.achievements
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
-	import ui.themes.ExtendedTheme;
 	
 	public class MessageBubble extends Sprite
 	{
@@ -20,7 +19,7 @@ package view.shell.achievements
 		{
 			this.message = new Label();
 			this.message.maxWidth = MessageBubble.WIDTH;
-			this.message.nameList.add(ExtendedTheme.MESSAGE);
+			//this.message.nameList.add(ExtendedTheme.MESSAGE);
 			
 			this.background = new Image(Texture.fromColor(10, 10, 0x50FFFFFF));
 			this.background.width = MessageBubble.WIDTH;

@@ -164,6 +164,8 @@ package view.themes
 			button.paddingLeft = button.paddingRight = 10;
 			button.gap = 2;
 			button.minWidth = button.minHeight = 12;
+			
+			button.isFocusEnabled = false;
 		}
 		
 		protected function labelInitializer(label:Label):void

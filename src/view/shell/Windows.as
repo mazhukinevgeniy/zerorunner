@@ -14,13 +14,12 @@ package view.shell
 		public static const SETTINGS:int = 2;
 		public static const CREDITS:int = 3;
 		
-		private static const NUMBER_OF_WINDOWS:int = 4;
+		public static const NUMBER_OF_WINDOWS:int = 4;
 		
 		
 		private static const UNDETERMINED:int = -1;
 		
 		private var windows:Vector.<DisplayObject>;
-		private var flow:IUpdateDispatcher;
 		
 		private var idLastOpenedWindow:int;
 		
@@ -28,16 +27,19 @@ package view.shell
 		{
 			this.windows = windows;
 			
-			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
-			
-			this.initializeUsingFlow(flow);
+			this.idLastOpenedWindow = Windows.UNDETERMINED;
 		}
 		
-		private function initializeUsingFlow(flow:IUpdateDispatcher):void
+		public function newGame():void
 		{
-			this.flow = flow;
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.quitGame);
+			this.toggleWindow(Windows.GAME);
+		}
+		
+		public function quitGame():void
+		{
+			this.windows[Windows.GAME].visible = false;
+			
+			this.idLastOpenedWindow = Windows.UNDETERMINED;
 		}
 		
 		internal function toggleWindow(idTarget:int):void
@@ -51,20 +53,13 @@ package view.shell
 			}
 			else
 			{
-				this.idLastOpenedWindow = WindowsController.UNDETERMINED;
+				this.idLastOpenedWindow = Windows.UNDETERMINED;
 			}
-		}
-		
-		update function quitGame():void
-		{
-			this.windows[Windows.GAME].visible = false;
-			
-			this.idLastOpenedWindow = WindowsController.UNDETERMINED;
 		}
 		
 		private function closelastOpenedWindow():void
 		{
-			if (this.idLastOpenedWindow != WindowsController.UNDETERMINED)
+			if (this.idLastOpenedWindow != Windows.UNDETERMINED)
 				this.windows[this.idLastOpenedWindow].visible = false;
 		}		
 	}

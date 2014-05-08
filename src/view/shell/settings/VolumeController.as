@@ -5,8 +5,7 @@ package view.shell.settings
 	import feathers.controls.Slider;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import ui.themes.Theme;
-	import utils.updates.IUpdateDispatcher;
+	import view.themes.ShellTheme;
 
 	public class VolumeController extends Sprite
 	{
@@ -16,19 +15,17 @@ package view.shell.settings
 		private var button:Button;
 		private var label:Label;
 		
-		private var flow:IUpdateDispatcher;
-		
-		public function VolumeController(name:String, flow:IUpdateDispatcher) 
+		public function VolumeController(name:String) 
 		{		
 			this.button = new Button();
-			this.button.nameList.add(Theme.SOUND_SETTING);
+			this.button.nameList.add(ShellTheme.SOUND_SETTING);
 			
 			this.slider = new Slider();
 			
 			this.label = new Label();
-			if(name == Theme.SOUND_SETTING)
+			if(name == ShellTheme.SOUND_SETTING)
 				this.label.text = "Sound";
-			else if (name == Theme.MUSIC_SETTING)
+			else if (name == ShellTheme.MUSIC_SETTING)
 				this.label.text = "Music";
 				
 			this.addChild(this.button);
@@ -43,7 +40,6 @@ package view.shell.settings
 			this.slider.addEventListener(Event.CHANGE, this.changeHandler);
 			
 			this.name = name;
-			this.flow = flow;
 		}
 		
 		private function locate(event:Event):void
@@ -56,7 +52,8 @@ package view.shell.settings
 		private function changeHandler(event:Event):void
 		{
 			var slider:Slider = Slider(event.currentTarget);
-			this.flow.dispatchUpdate(Update.changeVolume, this.name, slider.value / 100);
+			//this.flow.dispatchUpdate(Update.changeVolume, this.name, slider.value / 100);
+			//TODO: improve soundController
 		}
 		
 	}

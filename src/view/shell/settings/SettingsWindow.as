@@ -1,28 +1,22 @@
 package view.shell.settings 
 {
-	import data.Preferences;
 	import feathers.controls.Slider;
 	import starling.events.Event;
-	import ui.themes.Theme;
-	import ui.windows.Window;
-	import utils.updates.IUpdateDispatcher;
+	import view.shell.WindowBase;
+	import view.themes.ShellTheme;
 
-	public class SettingsWindow extends Window
+	public class SettingsWindow extends WindowBase
 	{
 		private static const GAP:int = 30;
 		
-		private var muteButton:MuteButton;
 		private var soundController:VolumeController;
 		private var musicController:VolumeController;
 		
-		public function SettingsWindow(flow:IUpdateDispatcher, preferences:Preferences)
+		public function SettingsWindow()
 		{		
-			this.muteButton = new MuteButton(flow, preferences);
+			this.soundController = new VolumeController(ShellTheme.SOUND_SETTING);
+			this.musicController = new VolumeController(ShellTheme.MUSIC_SETTING);
 			
-			this.soundController = new VolumeController(Theme.SOUND_SETTING, flow);
-			this.musicController = new VolumeController(Theme.MUSIC_SETTING, flow);
-			
-			this.addChild(this.muteButton);
 			this.addChild(this.soundController);
 			this.addChild(this.musicController);
 			

@@ -2,7 +2,6 @@ package view.shell
 {
 	import feathers.controls.ScrollContainer;
 	import starling.display.Quad;
-	import ui.navigation.Navigation;
 	
 	public class WindowBase extends ScrollContainer
 	{

@@ -3,7 +3,6 @@ package view.shell.achievements
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
-	import ui.windows.achievements.Achievement;
 	
 	//TODO: find out what is this and implement it well
 	public class AchievementViewer

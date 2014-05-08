@@ -2,17 +2,14 @@ package view.shell.credits
 {
 	import starling.display.Quad;
 	import starling.events.Event;
-	import ui.navigation.Navigation;
-	import ui.windows.Window;
-	import utils.updates.IUpdateDispatcher;
+	import view.shell.WindowBase;
 	
-	public class CreditsWindow  extends Window
+	public class CreditsWindow  extends WindowBase
 	{	
-		private var flow:IUpdateDispatcher;
 		
-		public function CreditsWindow(flow:IUpdateDispatcher) 
+		public function CreditsWindow() 
 		{
-			this.flow = flow;
+			
 		}
 
 	}

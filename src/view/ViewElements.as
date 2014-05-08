@@ -24,7 +24,7 @@ package view
 			this.createRoots(root);
 			this.bindAssets(binder);
 			
-			initializeShell(this.shellRoot);
+			initializeShell(this.shellRoot, this.gameRoot, binder);
 			initializeGameView(this.gameRoot);
 		}
 		

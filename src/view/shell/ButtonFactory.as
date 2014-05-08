@@ -1,4 +1,4 @@
-package view.themes 
+package view.shell 
 {
 	import feathers.controls.Button;
 	import starling.display.DisplayObjectContainer;
@@ -6,7 +6,7 @@ package view.themes
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 	
-	public class ButtonFactory 
+	internal class ButtonFactory 
 	{
 		private var assets:AssetManager;
 		
@@ -37,7 +37,7 @@ package view.themes
 					var image:Image;
 					
 					texture = this.assets.getTextureAtlas("sprites").getTexture(background);
-					image = new Image(texture);
+					image = new Image(texture);//TODO: not optimal, must fix
 					button.defaultSkin = image;
 				}
 				

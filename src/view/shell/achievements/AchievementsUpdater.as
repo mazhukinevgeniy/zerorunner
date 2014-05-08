@@ -25,7 +25,7 @@ package view.shell.achievements
 			
 			this.openAchievements = new Vector.<Vector.<Object>>;
 			
-			if (!this.save["achievements"]) || this.save["achievements"].length == 0)
+			if (!this.save["achievements"] || this.save["achievements"].length == 0)
 				this.openAchievement(AchievementsUpdater.UNDEFINED);
 			this.initializeOpenAchievements();
 				
