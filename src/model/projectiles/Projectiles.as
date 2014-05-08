@@ -103,7 +103,6 @@ package model.projectiles
 		public function denyProjectile(projectile:Projectile):void
 		{
 			this.deleteProjectile(projectile);
-			//TODO: there must be notify about it
 		}
 		
 		/**///Internal goods

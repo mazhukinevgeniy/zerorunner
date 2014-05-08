@@ -77,8 +77,6 @@
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
-    <hidden path="platform-android" />
-    <hidden path="res\assets\particles\pause\particle.zip" />
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
