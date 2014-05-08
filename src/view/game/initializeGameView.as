@@ -8,9 +8,9 @@ package view.game
 	{
 		new Renderer(binder, root);
 		
-		/*new FuelView(elements);
-		new MapFeature(elements);
+		new MapFeature(binder, root);
 		
+		/*
 		this.gameMenu = new GameMenu(elements);
 		new EndGameView(elements);*/
 		//TODO: do

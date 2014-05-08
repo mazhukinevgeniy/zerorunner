@@ -1,22 +1,24 @@
 package model 
 {
+	import assets.xml.MapXML;
+	import binding.IBinder;
+	import controller.observers.game.INewGameHandler;
 	import flash.utils.ByteArray;
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import utils.MapXML;
+	import model.interfaces.IScene;
+	import model.utils.normalize;
 	
-	public class Scene implements IScene, IRestorable
+	public class Scene implements IScene, INewGameHandler
 	{
 		private var scene:ByteArray;
 		
-		public function Scene(elements:GameElements) 
+		public function Scene(binder:IBinder) 
 		{
 			this.scene = new ByteArray();
 			
-			elements.restorer.addSubscriber(this);
+			binder.notifier.addGameStatusObserver(this);
 		}
 		
-		public function restore():void
+		public function newGame():void
 		{
 			this.scene.clear();
 			this.scene.length = Game.MAP_WIDTH * Game.MAP_WIDTH;

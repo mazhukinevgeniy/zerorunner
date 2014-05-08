@@ -4,6 +4,7 @@ package model
 	import model.interfaces.IFuel;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
+	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
 	import model.items.Items;
 	import model.projectiles.Projectiles;
@@ -20,6 +21,7 @@ package model
 			
 			binder.addBindable(status, IStatus);
 			binder.addBindable(new FuelTracker(binder), IFuel);
+			binder.addBindable(new Scene(binder), IScene);
 			binder.addBindable(new Items(binder, status), IPuppets);
 			binder.addBindable(new Projectiles(binder), IProjectiles);
 		}

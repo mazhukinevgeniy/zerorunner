@@ -1,21 +1,28 @@
 package view.game 
 {
-	import data.IStatus;
+	import binding.IBinder;
+	import controller.observers.game.IGameFrameHandler;
+	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
+	import controller.observers.map.IMapFrameHandler;
+	import controller.observers.map.IMapStatusObserver;
 	import flash.utils.ByteArray;
-	import game.GameElements;
-	import game.input.InputTeller;
-	import game.interfaces.IRestorable;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
-	import game.scene.IScene;
+	import model.interfaces.IInput;
+	import model.interfaces.IScene;
+	import model.interfaces.IStatus;
+	import model.metric.DCellXY;
+	import model.metric.ICoordinated;
+	import model.utils.normalize;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import starling.utils.Color;
-	import utils.updates.update;
 	
-	use namespace update;
-	
-	public class MapFeature implements IRestorable
+	public class MapFeature implements INewGameHandler,
+	                                   IQuitGameHandler,
+	                                   IGameFrameHandler, 
+									   IMapFrameHandler, 
+									   IMapStatusObserver
 	{
 		private const C_WIDTH:int = 7;
 		private const BORDER_WIDTH:int = 45;
@@ -28,7 +35,7 @@ package view.game
 		private var scene:IScene;
 		private var status:IStatus;
 		
-		private var input:InputTeller;
+		private var input:IInput;
 		
 		private var container:QuadBatch;
 		
@@ -39,14 +46,17 @@ package view.game
 		private var minY:int;
 		private var maxY:int = 0;
 		
-		public function MapFeature(elements:GameElements) 
+		public function MapFeature(binder:IBinder, root:DisplayObjectContainer) 
 		{
+			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addMapStatusObserver(this);
+			
 			this.visited = new ByteArray();
 			
-			this.scene = elements.scene;
-			this.input = elements.inputTeller;
+			this.scene = binder.scene;
+			this.input = binder.input;
 			
-			this.status = elements.status;
+			this.status = binder.gameStatus;
 			
 			this.tiles = new Array();
 			this.tiles[Game.SCENE_FALL] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
@@ -56,20 +66,11 @@ package view.game
 			this.tiles[Game.SCENE_BL_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
 			this.tiles[Game.SCENE_GROUND] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x8B4513);
 			
-			elements.restorer.addSubscriber(this);
-			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.toggleMap);
-			elements.flow.addUpdateListener(Update.numberedFrame);
-			elements.flow.addUpdateListener(Update.frameOfTheMapMode);
-			elements.flow.addUpdateListener(Update.quitGame);
-			
 			this.container = new QuadBatch();
-			elements.displayRoot.addChild(this.container);
+			root.addChild(this.container);
 		}
 		
-		/* Note: restore here happens AFTER setCenter */
-		public function restore():void
+		public function newGame():void
 		{
 			this.container.reset();
 			
@@ -122,15 +123,15 @@ package view.game
 			this.minX = -(MAX_WIDTH - Main.WIDTH);
 			this.minY = -(MAX_WIDTH - Main.HEIGHT);
 			
-			this.update::numberedFrame(Game.FRAME_TO_UNLOCK_ACHIEVEMENTS);
+			this.gameFrame(Game.FRAME_TO_UNLOCK_ACHIEVEMENTS);
 		}
 		
-		update function toggleMap():void
+		public function setMapVisibility(visible:Boolean):void
 		{
-			this.container.visible = !this.container.visible;
+			this.container.visible = visible;
 		}
 		
-		update function numberedFrame(key:int):void
+		public function gameFrame(key:int):void
 		{
 			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{
@@ -160,7 +161,7 @@ package view.game
 			}
 		}
 		
-		update function frameOfTheMapMode():void
+		public function mapFrame():void
 		{
 			var input:Vector.<DCellXY> = this.input.getInputCopy();
 			var action:DCellXY = input.pop();
@@ -186,7 +187,7 @@ package view.game
 				this.container.y = this.maxY;
 		}
 		
-		update function quitGame():void
+		public function quitGame():void
 		{
 			this.container.reset();
 			
