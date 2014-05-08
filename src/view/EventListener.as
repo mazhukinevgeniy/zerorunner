@@ -1,55 +1,48 @@
 package view
 {
-	import data.IStatus;
+	import binding.IBinder;
+	import controller.interfaces.IInputController;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.events.KeyboardEvent;
-	import game.GameElements;
-	import utils.updates.IUpdateDispatcher;
 	
 	public class EventListener
-	{		
-		private var status:IStatus;
-		
-		
-		private var flow:IUpdateDispatcher;
-		private var processors:Object;
-		
+	{
+		private var inputController:IInputController;
 		
 		private const UP:Boolean = true;
 		
-		public function EventListener(elements:GameElements, root:IEventDispatcher) 
+		public function EventListener(binder:IBinder, root:IEventDispatcher) 
 		{
-			this.status = elements.status;
-			this.flow = elements.flow;
+			this.inputController = binder.inputController;
 			
 			root.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 			root.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);
 			
-			this.processors = new Object();
-			const GAME_IS_ON:Boolean = true;
-			
-			this.processors[GAME_IS_ON] = new InGameProcessor(elements);
-			this.processors[!GAME_IS_ON] = new InShellProcessor(elements);
-			
+			root.addEventListener(Event.ACTIVATE, this.handleActivation);
 			root.addEventListener(Event.DEACTIVATE, this.handleDeactivation);
 		}
 		
-		//TODO: addProcessor(...
 		
 		private function handleKeyUp(event:KeyboardEvent):void
 		{
-			this.processors[this.status.isGameOn()].processInput(this.UP, event.keyCode);
+			this.inputController.processInput(this.UP, event.keyCode);
 		}
 		
 		private function handleKeyDown(event:KeyboardEvent):void
 		{
-			this.processors[this.status.isGameOn()].processInput(!this.UP, event.keyCode);
+			this.inputController.processInput(!this.UP, event.keyCode);
+		}
+		
+		
+		private function handleActivation(event:Event):void
+		{
+			this.inputController.processActivation();
 		}
 		
 		private function handleDeactivation(event:Event):void
 		{
-			this.flow.dispatchUpdate(Update.handleDeactivation);
+			this.inputController.processDeactivation();
 		}
 	}
 

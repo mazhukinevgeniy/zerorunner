@@ -3,6 +3,7 @@ package view
 	import binding.IBinder;
 	import binding.IDependent;
 	import controller.interfaces.INotifier;
+	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.textures.TextureAtlas;
@@ -29,6 +30,7 @@ package view
 			initializeGameView(this.gameRoot);
 			
 			new Sounds(binder);
+			new EventListener(binder, Starling.current.nativeStage);
 		}
 		
 		private function createRoots(root:DisplayObjectContainer):void

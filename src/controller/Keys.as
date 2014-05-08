@@ -95,6 +95,17 @@ package controller
 				}
 			}*/
 		}
+		
+		
+		public function processActivation():void
+		{
+			//TODO: do stuff
+		}
+		
+		public function processDeactivation():void
+		{
+			//TODO: do stuff
+		}
 	}
 
 }
