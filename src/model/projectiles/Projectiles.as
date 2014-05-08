@@ -6,6 +6,7 @@ package model.projectiles
 	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
+	import controller.observers.projectiles.IDenyProjectiles;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;
@@ -16,7 +17,8 @@ package model.projectiles
 	public class Projectiles implements IProjectiles, 
 	                                    INewGameHandler, 
 										IQuitGameHandler,
-										IGameFrameHandler
+										IGameFrameHandler,
+										IDenyProjectiles
 	{
 		private var projectiles:Array;
 		private var unusedProjectiles:Vector.<Projectile>;
@@ -30,6 +32,7 @@ package model.projectiles
 		public function Projectiles(binder:IBinder) 
 		{
 			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addProjectileObserver(this);
 			
 			this.scene = binder.scene;
 			this.puppets = binder.puppets;
@@ -57,6 +60,8 @@ package model.projectiles
 					this.clouds.push(new ShardCloud(this, x, y, width, height));
 				}
 			}
+			
+			this.clouds.push(new ShardCloud(this, 0, 0, Game.MAP_WIDTH, Game.MAP_WIDTH));
 		}
 		
 		public function newGame():void
