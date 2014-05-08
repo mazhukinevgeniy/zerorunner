@@ -40,6 +40,7 @@ package view.themes
 			button.defaultSelectedSkin = new Image(this.atlas.getTexture("button-selected-up-skin"));
 			button.selectedHoverSkin = new Image(this.atlas.getTexture("button-selected-hover-skin"));
 			button.selectedDownSkin = new Image(this.atlas.getTexture("button-selected-down-skin"));
+			//TODO: optimize, must not create textures every time
 			
 			button.defaultLabelProperties = this.defaultTextFormat;
 			

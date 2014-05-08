@@ -1,13 +1,12 @@
 package view.game.renderer 
 {
-	import game.GameElements;
-	import game.items.Items;
-	import game.items.PuppetBase;
-	import game.metric.DCellXY;
-	import game.metric.ICoordinated;
+	import binding.IBinder;
+	import model.interfaces.IPuppets;
+	import model.items.PuppetBase;
+	import model.metric.DCellXY;
 	import starling.display.QuadBatch;
 	import starling.utils.AssetManager;
-	import utils.CenteredImage;
+	import view.utils.CenteredImage;
 	
 	internal class ItemRenderer extends SubRendererBase
 	{
@@ -16,18 +15,18 @@ package view.game.renderer
 		private const LEFT:int = 2;
 		private const RIGHT:int = 3; /* Please note: this is the default direction */
 		
-		private var items:Items;
+		private var puppets:IPuppets;
 		
 		private var sprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
 		private var altsprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
 		
-		public function ItemRenderer(elements:GameElements, layer:QuadBatch) 
+		public function ItemRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			super(elements, layer);
+			super(binder, layer);
 			
-			this.items = elements.items;
+			this.puppets = binder.puppets;
 			
-			this.initializeSprites(elements.assets);
+			this.initializeSprites(binder.assetManager);
 		}
 		
 		private function initializeSprites(assets:AssetManager):void
@@ -45,14 +44,6 @@ package view.game.renderer
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "front_dude", "front_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.TOP, "front_dude", "front_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.DOWN, "front_dude", "front_dude"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.RIGHT, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.TOP, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.LEFT, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLOATING, this.DOWN, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.LEFT, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.RIGHT, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.TOP, "unimplemented"),
-						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FLYING, this.DOWN, "unimplemented"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_UNSTABLE, this.RIGHT, "unimplemented"),
 						
 						new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, this.RIGHT, "radar"),
@@ -138,7 +129,7 @@ package view.game.renderer
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var item:PuppetBase = this.items.findAnyObjectByCell(x, y);
+			var item:PuppetBase = this.puppets.findAnyObjectByCell(x, y);
 			
 			if (item)
 			{
@@ -147,8 +138,7 @@ package view.game.renderer
 				var sx:int = item.x * Game.CELL_WIDTH;
 				var sy:int = item.y * Game.CELL_HEIGHT;
 				
-				if (item.occupation == Game.OCCUPATION_MOVING ||
-					item.occupation == Game.OCCUPATION_FLYING)
+				if (item.occupation == Game.OCCUPATION_MOVING)
 				{
 					var dX:int = item.moveInProgress.x;
 					var dY:int = item.moveInProgress.y;

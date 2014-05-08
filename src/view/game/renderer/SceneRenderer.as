@@ -1,10 +1,11 @@
 package view.game.renderer 
 {
-	import game.GameElements;
+	import assets.xml.MapXML;
+	import binding.IBinder;
+	import model.utils.normalize;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	import starling.textures.TextureAtlas;
-	import utils.MapXML;
 	
 	internal class SceneRenderer extends SubRendererBase
 	{
@@ -28,11 +29,11 @@ package view.game.renderer
 		
 		private const extraRange:int = 7;
 		
-		public function SceneRenderer(elements:GameElements, layer:QuadBatch) 
+		public function SceneRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			super(elements, layer);
+			super(binder, layer);
 			
-			var atlas:TextureAtlas = elements.assets.getTextureAtlas("scene");
+			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas("scene");
 			
 			var key:String;
 			

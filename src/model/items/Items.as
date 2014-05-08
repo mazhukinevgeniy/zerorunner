@@ -5,6 +5,7 @@ package model.items
 	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
+	import model.interfaces.IPuppets;
 	import model.interfaces.IStatus;
 	import model.items.beacon.BeaconMaster;
 	import model.items.character.CharacterMaster;
@@ -15,7 +16,8 @@ package model.items
 	import model.status.StatusReporter;
 	import model.utils.normalize;
 	
-	public class Items implements INewGameHandler, 
+	public class Items implements IPuppets,
+	                              INewGameHandler, 
 	                              IGameFrameHandler, 
 								  IQuitGameHandler
 	{

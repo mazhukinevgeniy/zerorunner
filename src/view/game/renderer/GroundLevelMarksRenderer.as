@@ -1,8 +1,8 @@
 package view.game.renderer 
 {
-	import game.GameElements;
-	import game.projectiles.IProjectiles;
-	import game.projectiles.Projectile;
+	import binding.IBinder;
+	import model.interfaces.IProjectiles;
+	import model.projectiles.Projectile;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	import starling.textures.Texture;
@@ -14,13 +14,13 @@ package view.game.renderer
 		
 		private var shardIncView:Image;
 		
-		public function GroundLevelMarksRenderer(elements:GameElements, layer:QuadBatch) 
+		public function GroundLevelMarksRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			super(elements, layer);
+			super(binder, layer);
 			
-			this.projectiles = elements.projectiles;
+			this.projectiles = binder.projectiles;
 			
-			var atlas:TextureAtlas = elements.assets.getTextureAtlas("sprites");
+			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas("sprites");
 			
 			this.shardIncView = new Image(atlas.getTexture("radio-hover-icon"));
 		}

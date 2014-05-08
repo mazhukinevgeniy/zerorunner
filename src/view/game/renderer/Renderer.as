@@ -1,16 +1,21 @@
 package view.game.renderer 
 {
-	import data.IStatus;
-	import data.NumericalDxyHelper;
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import game.metric.ICoordinated;
-	import game.ui.renderer.clouds.Clouds;
+	import binding.IBinder;
+	import controller.observers.game.IGameFrameHandler;
+	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
+	import model.interfaces.IStatus;
+	import model.metric.ICoordinated;
+	import model.status.NumericalDxyHelper;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
-	import utils.updates.update;
+	import view.game.renderer.clouds.Clouds;
 	
-	public class Renderer extends Sprite implements IRenderer, IRestorable
+	public class Renderer extends Sprite implements IRenderer, 
+	                                                INewGameHandler,
+													IGameFrameHandler,
+													IQuitGameHandler
 	{
 		private var status:IStatus;
 		
@@ -20,45 +25,40 @@ package view.game.renderer
 		private var sceneLayer:QuadBatch;
 		private var activeLayer:QuadBatch;
 		
-		public function Renderer(elements:GameElements) 
+		public function Renderer(binder:IBinder, root:DisplayObjectContainer) 
 		{
 			super();
 			
-			this.status = elements.status;
+			this.status = binder.gameStatus;
 			
-			elements.restorer.addSubscriber(this);
-			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.numberedFrame);
-			elements.flow.addUpdateListener(Update.quitGame);
+			binder.notifier.addGameStatusObserver(this);
 			
 			
 			this.activeRenderers = new Vector.<IRenderer>();
 			
-			this.activeRenderers.push(elements.displayRoot.addChild(this));
+			this.activeRenderers.push(root.addChild(this));
 			
 			this.addChild(this.sceneLayer = new QuadBatch());
 			this.addChild(this.activeLayer = new QuadBatch());
 			
-			this.sceneRenderer = new SceneRenderer(elements, this.sceneLayer);
+			this.sceneRenderer = new SceneRenderer(binder, this.sceneLayer);
 			
-			this.activeRenderers.push(new GroundLevelMarksRenderer(elements, this.activeLayer));
-			this.activeRenderers.push(new ItemRenderer(elements, this.activeLayer));
-			this.activeRenderers.push(new ProjectileRenderer(elements, this.activeLayer));
-			this.activeRenderers.push(new EffectRenderer(elements, this.activeLayer));
+			this.activeRenderers.push(new GroundLevelMarksRenderer(binder, this.activeLayer));
+			this.activeRenderers.push(new ItemRenderer(binder, this.activeLayer));
+			this.activeRenderers.push(new ProjectileRenderer(binder, this.activeLayer));
+			this.activeRenderers.push(new EffectRenderer(binder, this.activeLayer));
 			
-			this.activeRenderers.push(
-				elements.displayRoot.addChild(new Clouds(elements, this)));
+			this.activeRenderers.push(root.addChild(new Clouds(binder, this)));
 		}
 		
-		public function restore():void
+		public function newGame():void
 		{
 			/* Force rendering */
 			
-			this.update::numberedFrame(Game.FRAME_TO_ACT);
+			this.gameFrame(Game.FRAME_TO_ACT);
 		}
 		
-		update function numberedFrame(frame:int):void 
+		public function gameFrame(frame:int):void 
 		{
 			if (frame == Game.FRAME_TO_ACT)
 			{
@@ -85,7 +85,7 @@ package view.game.renderer
 			this.y -= int(Game.CELL_HEIGHT * displacement.dy);
 		}
 		
-		update function quitGame():void
+		public function quitGame():void
 		{
 			this.sceneLayer.reset();
 			this.activeLayer.reset();

@@ -1,16 +1,14 @@
 package view.game.renderer.clouds 
 {
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import game.items.PuppetBase;
-	import game.metric.DCellXY;
-	import game.ui.renderer.IRenderer;
+	import binding.IBinder;
+	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
 	import starling.display.DisplayObject;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;
-	import utils.updates.update;
+	import view.game.renderer.IRenderer;
 	
-	public class Clouds extends ScrollImage implements IRenderer, IRestorable
+	public class Clouds extends ScrollImage implements IRenderer, INewGameHandler, IQuitGameHandler
 	{
 		internal static const CLOUDINESS:int = 2;
 		
@@ -18,19 +16,16 @@ package view.game.renderer.clouds
 		
 		private var leader:DisplayObject;
 		
-		public function Clouds(elements:GameElements, leader:DisplayObject) 
+		public function Clouds(binder:IBinder, leader:DisplayObject) 
 		{
 			this.leader = leader;
 			
+			binder.notifier.addGameStatusObserver(this);
+			
 			super(Main.WIDTH, Main.HEIGHT, false);
-			
-			elements.restorer.addSubscriber(this);
-			
-			elements.flow.workWithUpdateListener(this);
-			elements.flow.addUpdateListener(Update.quitGame);
 		}
 		
-		public function restore():void
+		public function newGame():void
 		{
 			const numberOfClouds:int = 4;
 			var cloudiness:int = Clouds.CLOUDINESS;
@@ -74,7 +69,7 @@ package view.game.renderer.clouds
 			}
 		}
 		
-		update function quitGame():void
+		public function quitGame():void
 		{
 			const dispose:Boolean = true;
 			

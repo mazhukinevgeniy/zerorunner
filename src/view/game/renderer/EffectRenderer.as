@@ -1,14 +1,15 @@
 package view.game.renderer 
 {
-	import game.GameElements;
-	import game.interfaces.IRestorable;
-	import game.projectiles.Projectile;
+	import binding.IBinder;
+	import controller.observers.game.INewGameHandler;
+	import controller.observers.projectiles.IShardObserver;
+	import model.projectiles.Projectile;
+	import model.utils.normalize;
 	import starling.display.QuadBatch;
-	import utils.CenteredImage;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
+	import view.utils.CenteredImage;
 	
-	internal class EffectRenderer extends SubRendererBase implements IRestorable
+	internal class EffectRenderer extends SubRendererBase implements INewGameHandler,
+	                                                                 IShardObserver
 	{
 		private const STONE_BOOM_LENGTH:int = 6;
 		private const STONE_BOOM_SPEED_FACTOR:int = 5;
@@ -17,14 +18,10 @@ package view.game.renderer
 		
 		private var shards:Array;
 		
-		public function EffectRenderer(elements:GameElements, layer:QuadBatch) 
+		public function EffectRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			elements.restorer.addSubscriber(this);
-			
-			var flow:IUpdateDispatcher = elements.flow;
-			
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.dropShard);
+			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addProjectileObserver(this);
 			
 			var spriteNames:Array = new Array();
 			this.sprites = new Object();
@@ -34,16 +31,16 @@ package view.game.renderer
 			
 			for each (var key:String in spriteNames)
 			{
-				this.sprites[key] = new CenteredImage(key, elements.assets);
+				this.sprites[key] = new CenteredImage(key, binder.assetManager);
 			}
 			
 			this.shards = new Array();
 			
 			
-			super(elements, layer);
+			super(binder, layer);
 		}
 		
-		public function restore():void
+		public function newGame():void
 		{
 			this.shards = new Array();
 		}
@@ -53,9 +50,10 @@ package view.game.renderer
 			return this.shards[normalize(x) + normalize(y) * Game.MAP_WIDTH];
 		}
 		
-		update function dropShard(shard:Projectile):void
+		public function shardFellDown(shard:Projectile):void
 		{
-			this.shards[shard.cell.x + Game.MAP_WIDTH * shard.cell.y] = this.STONE_BOOM_LENGTH * this.STONE_BOOM_SPEED_FACTOR;
+			this.shards[shard.cell.x + Game.MAP_WIDTH * shard.cell.y] = 
+				this.STONE_BOOM_LENGTH * this.STONE_BOOM_SPEED_FACTOR;
 		}
 		
 		override protected function renderCell(x:int, y:int):void 

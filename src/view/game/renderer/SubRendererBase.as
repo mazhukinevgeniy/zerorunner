@@ -1,8 +1,8 @@
 package view.game.renderer 
 {
-	import data.IStatus;
-	import game.GameElements;
-	import game.metric.ICoordinated;
+	import binding.IBinder;
+	import model.interfaces.IStatus;
+	import model.metric.ICoordinated;
 	import starling.display.QuadBatch;
 	
 	internal class SubRendererBase implements IRenderer
@@ -11,9 +11,9 @@ package view.game.renderer
 		
 		protected var layer:QuadBatch;
 		
-		public function SubRendererBase(elements:GameElements, layer:QuadBatch) 
+		public function SubRendererBase(binder:IBinder, layer:QuadBatch) 
 		{
-			this.status = elements.status;
+			this.status = binder.gameStatus;
 			
 			this.layer = layer;
 			

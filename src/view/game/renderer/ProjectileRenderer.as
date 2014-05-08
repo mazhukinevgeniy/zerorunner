@@ -1,11 +1,12 @@
 package view.game.renderer 
 {
-	import game.GameElements;
-	import game.metric.CellXY;
-	import game.projectiles.IProjectiles;
-	import game.projectiles.Projectile;
+	import binding.IBinder;
+	import model.interfaces.IProjectiles;
+	import model.metric.CellXY;
+	import model.projectiles.Projectile;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
+	import starling.textures.TextureAtlas;
 	
 	internal class ProjectileRenderer extends SubRendererBase
 	{
@@ -17,16 +18,18 @@ package view.game.renderer
 		/* Used by getTrajectoryCoordinates() */
 		private var tmpCell:CellXY;
 		
-		public function ProjectileRenderer(elements:GameElements, layer:QuadBatch) 
+		public function ProjectileRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			this.projectiles = elements.projectiles;
+			this.projectiles = binder.projectiles;
 			
 			this.tmpCell = new CellXY(0, 0);
 			
-			this.shard = new Image(elements.assets.getTextureAtlas("sprites").getTexture("stone_fly"));
-			this.trajectory = new Image(elements.assets.getTextureAtlas("sprites").getTexture("progress-bar-fill-skin"));
+			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas("sprites");
 			
-			super(elements, layer);
+			this.shard = new Image(atlas.getTexture("stone_fly"));
+			this.trajectory = new Image(atlas.getTexture("progress-bar-fill-skin"));
+			
+			super(binder, layer);
 		}
 		
 		override protected function renderCell(x:int, y:int):void 
