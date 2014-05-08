@@ -63,7 +63,7 @@ package view.shell
 		
 		protected function initializeButtons():void 
 		{
-			
+			//TODO: you tell me why do we use buttonfactory anyway
 			this.playButton = this.buttonFactory.createButton("New game");
 			this.addChild(this.playButton);
 			

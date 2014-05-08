@@ -180,7 +180,7 @@ package view.sounds
 		/** Mute all sounds currently playing.
 		*  @param mute a Boolean dictating whether all the sounds in the sound manager should be silenced or restored to their original volume. 
 		*/ 
-		private function muteAll(mute:Boolean = true):void {
+		public function muteAll(mute:Boolean = true):void {
 			var s:SoundTransform;
 			for (var currID:String in currPlayingSounds) 
 			{
@@ -188,18 +188,6 @@ package view.sounds
 				SoundChannel(currPlayingSounds[currID].channel).soundTransform = s;
 			}
 			_isMuted = mute;			
-		}
-		
-		public function toggleSound():void
-		{
-			if (this._isMuted == true)
-			{
-				this.muteAll(false);
-			}
-			else
-			{
-				this.muteAll(true);
-			}
 		}
 		
 		protected function getSoundChannel(id:String):SoundChannel {			

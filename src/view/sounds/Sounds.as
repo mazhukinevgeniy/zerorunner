@@ -1,63 +1,50 @@
 package view.sounds 
 {
-	import data.Preferences;
-	import game.GameElements;
+	import binding.IBinder;
+	import binding.IDependent;
+	import controller.observers.ISoundObserver;
 	import starling.utils.AssetManager;
-	import ui.themes.Theme;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
-	public class Sounds
+	public class Sounds implements ISoundObserver, IDependent
 	{
 		private var music:MusicManager;
 		private var sound:SoundManager;
 		
-		private var flow:IUpdateDispatcher
 		
-		
-		public function Sounds(elements:GameElements) 
+		public function Sounds(binder:IBinder) 
 		{
-			this.initializeSoundsManagers(elements.assets);
-			this.initializeUsingFlow(elements.flow);
+			binder.requestBindingFor(this);
 			
 			super();
-			
-			if (elements.preferences.mute)
-			{
-				this.update::toggleMute();
-			}
 		}
 		
-		private function initializeSoundsManagers(assets:AssetManager):void
+		public function bindObjects(binder:IBinder):void
 		{
-			this.music = new MusicManager(assets);
+			var assets:AssetManager = binder.assetManager;
+			
+			this.music = new MusicManager(assets);//TODO: pass mute settings here
 			this.sound = new SoundManager(assets);
 			
 			this.music.playMusic();
 		}
 		
-		private function initializeUsingFlow(flow:IUpdateDispatcher):void
+		public function setSoundMute(value:Boolean):void
 		{
-			this.flow = flow;
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.toggleMute);
-			this.flow.addUpdateListener(Update.changeVolume);
+			this.sound.muteAll(value);
 		}
 		
-		update function toggleMute():void
+		public function setMusicMute(value:Boolean):void
 		{
-			this.music.toggleSound();
-			this.sound.toggleSound();
+			this.music.muteAll(value);
 		}
 		
-		update function changeVolume(target:String, newValue:Number):void
+		/*update function changeVolume(target:String, newValue:Number):void
 		{
 			if(target == Theme.MUSIC_SETTING)
 				this.music.setGlobalVolume(newValue);
 			else if (target == Theme.SOUND_SETTING)
 				this.sound.setGlobalVolume(newValue);
-		}
+		}*///TODO: must reimplement anyway
 	}
 
 }

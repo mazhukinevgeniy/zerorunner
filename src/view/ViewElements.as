@@ -9,6 +9,7 @@ package view
 	import starling.utils.AssetManager;
 	import view.game.initializeGameView;
 	import view.shell.initializeShell;
+	import view.sounds.Sounds;
 	import view.themes.GameTheme;
 	import view.themes.ShellTheme;
 	
@@ -26,6 +27,8 @@ package view
 			
 			initializeShell(this.shellRoot, this.gameRoot, binder);
 			initializeGameView(this.gameRoot);
+			
+			new Sounds(binder);
 		}
 		
 		private function createRoots(root:DisplayObjectContainer):void
