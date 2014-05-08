@@ -135,8 +135,8 @@ package view.game.renderer
 			{
 				var sprite:CenteredImage = this.getAnimationFrame(item);
 				
-				var sx:int = item.x * Game.CELL_WIDTH;
-				var sy:int = item.y * Game.CELL_HEIGHT;
+				var sx:int = x * Game.CELL_WIDTH;
+				var sy:int = y * Game.CELL_HEIGHT;
 				
 				if (item.occupation == Game.OCCUPATION_MOVING)
 				{
