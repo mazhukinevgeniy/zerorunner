@@ -15,9 +15,8 @@ package
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	
-	import preloader.Background;
-	import preloader.EndButton;
-	import preloader.ProgressBar;
+	import native_controls.EndButton;
+	import native_controls.ProgressBar;
 	
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
@@ -26,7 +25,6 @@ package
 		private static const TIME_WORK_TIMER:Number = 3000;
 		private static const COUNT_REPEATS_TIMER:int = 100;
 		
-		private var background:Background;
 		private var button:EndButton;
 		private var progressBar:ProgressBar;
 		
@@ -69,9 +67,6 @@ package
 			
 			this.progressBar = new ProgressBar();
 			this.addChild(this.progressBar);
-			
-			this.background = new Background();
-			this.addChild(this.background);
 			
 			this.button = new EndButton();
 			this.addChild(this.button);
@@ -142,7 +137,6 @@ package
 			//=====================
 			
 			// hide loader
-			this.removeChild(this.background);
 			this.removeChild(this.button);
 			this.timer.removeEventListener(TimerEvent.TIMER, this.loading);
 			this.removeEventListener(MouseEvent.CLICK, this.mouseClickHandler);
