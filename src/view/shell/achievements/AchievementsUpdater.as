@@ -1,12 +1,12 @@
 package view.shell.achievements 
 {
+	import binding.IBinder;
+	import controller.observers.game.IGameFrameHandler;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
-	import utils.updates.IUpdateDispatcher;
-	import utils.updates.update;
 	
 	//TODO: find out what is this and implement it well
-	public class AchievementsUpdater 
+	public class AchievementsUpdater implements IGameFrameHandler
 	{
 		private static const TEST_TYPE:int = 0;
 		private static const OPEN:int = 0;
@@ -19,8 +19,10 @@ package view.shell.achievements
 		
 		private var openAchievements:Vector.<Vector.<Object>>;
 		
-		public function AchievementsUpdater(flow:IUpdateDispatcher, save:Dictionary) 
+		public function AchievementsUpdater(binder:IBinder) 
 		{
+			binder.notifier.addGameStatusObserver(this);
+			
 			this.save = save;
 			
 			this.openAchievements = new Vector.<Vector.<Object>>;
@@ -28,9 +30,6 @@ package view.shell.achievements
 			if (!this.save["achievements"] || this.save["achievements"].length == 0)
 				this.openAchievement(AchievementsUpdater.UNDEFINED);
 			this.initializeOpenAchievements();
-				
-			flow.workWithUpdateListener(this);
-			flow.addUpdateListener(Update.numberedFrame);
 		}
 		
 		private function initializeOpenAchievements():void
@@ -57,7 +56,7 @@ package view.shell.achievements
 		}
 		
 		
-		update function numberedFrame(frame:int):void
+		public function gameFrame(frame:int):void
 		{
 			if (frame == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
 			{
