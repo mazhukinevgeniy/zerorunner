@@ -1,8 +1,9 @@
 package view 
 {
 	import binding.IBinder;
-	import binding.IDependent;
 	import controller.interfaces.INotifier;
+	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -14,14 +15,14 @@ package view
 	import view.themes.GameTheme;
 	import view.themes.ShellTheme;
 	
-	public class ViewElements implements IDependent
+	public class ViewElements implements INewGameHandler, IQuitGameHandler
 	{
 		private var shellRoot:Sprite;
 		private var gameRoot:Sprite;
 		
 		public function ViewElements(binder:IBinder, root:DisplayObjectContainer) 
 		{
-			binder.requestBindingFor(this);
+			binder.notifier.addGameStatusObserver(this);
 			
 			this.createRoots(root);
 			this.bindAssets(binder);
@@ -56,11 +57,14 @@ package view
 			new ShellTheme(this.shellRoot, sprites);
 		}
 		
-		public function bindObjects(binder:IBinder):void
+		public function newGame():void
 		{
-			var notifier:INotifier = binder.notifier;
-			
-			//TODO: observe newGame/quitGame
+			this.shellRoot.visible = false;
+		}
+		
+		public function quitGame():void
+		{
+			this.shellRoot.visible = true;
 		}
 		
 	}
