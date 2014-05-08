@@ -4,7 +4,7 @@ package controller.observers.projectiles
 	
 	public interface IShardObserver 
 	{
-		function shardIncoming(shard:Projectile):void;
+		function shardFellDown(shard:Projectile):void;
 	}
 	
 }

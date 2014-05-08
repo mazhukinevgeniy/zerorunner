@@ -6,6 +6,7 @@ package model.items.checkpoint
 	import model.items.Items;
 	import model.metric.CellXY;
 	import model.metric.ICoordinated;
+	import model.projectiles.Projectile;
 	
 	public class CheckpointMaster extends CheckpointMasterBase
 	{

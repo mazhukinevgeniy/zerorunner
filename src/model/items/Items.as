@@ -1,5 +1,6 @@
 package model.items 
 {
+	import assets.xml.MapXML;
 	import binding.IBinder;
 	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.INewGameHandler;
@@ -10,9 +11,9 @@ package model.items
 	import model.items.checkpoint.CheckpointMaster;
 	import model.items.shard.ShardMaster;
 	import model.items.the_goal.TheGoalMaster;
+	import model.metric.ICoordinated;
 	import model.status.StatusReporter;
-	
-	use namespace items_internal;
+	import model.utils.normalize;
 	
 	public class Items implements INewGameHandler, 
 	                              IGameFrameHandler, 
@@ -35,16 +36,16 @@ package model.items
 			
 			this.masters = new Vector.<MasterBase>(Game.NUMBER_OF_ITEM_TYPES, true);
 			
-			this.masters[Game.ITEM_BEACON] = new BeaconMaster(elements);
-			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(elements, status);
-			this.masters[Game.ITEM_CHECKPOINT] = new CheckpointMaster(elements);
-			this.masters[Game.ITEM_SHARD] = new ShardMaster(elements);
-			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(elements);
+			this.masters[Game.ITEM_BEACON] = new BeaconMaster(binder, this);
+			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(binder, this, status);
+			this.masters[Game.ITEM_CHECKPOINT] = new CheckpointMaster(binder, this);
+			this.masters[Game.ITEM_SHARD] = new ShardMaster(binder, this);
+			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(binder, this);
 			
 			this.moved = new Vector.<PuppetBase>();
 		}
 		
-		public function restore():void
+		public function newGame():void
 		{
 			this.activeItems = new Array();
 			this.passiveItems = new Array();

@@ -1,5 +1,6 @@
 package model.projectiles 
 {
+	import model.utils.normalize;
 	
 	public class ShardCloud extends CloudBase
 	{

@@ -7,6 +7,7 @@ package binding
 	import controller.interfaces.ISoundController;
 	import flash.utils.Dictionary;
 	import model.interfaces.IFuel;
+	import model.interfaces.IInput;
 	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
@@ -49,6 +50,7 @@ package binding
 		}
 		
 		public function get fuel():IFuel { return this.objects[IFuel]; }
+		public function get input():IInput { return this.objects[IInput]; }
 		public function get scene():IScene { return this.objects[IScene]; }
 		public function get puppets():IPuppets { return this.objects[IPuppets]; }
 		public function get gameStatus():IStatus { return this.objects[IStatus]; }

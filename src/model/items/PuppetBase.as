@@ -5,8 +5,6 @@ package model.items
 	import model.metric.ICoordinated;
 	import model.utils.normalize;
 	
-	use namespace items_internal;
-	
 	public class PuppetBase implements ICoordinated
 	{
 		internal var _master:MasterBase;
@@ -98,7 +96,7 @@ package model.items
 		
 		/** Position and movements */
 		
-		final items_internal function startMovingBy(change:DCellXY):void
+		final internal function startMovingBy(change:DCellXY):void
 		{
 			this.items.removeItem(this);
 			this._moveInProgress.setValue(change.x, change.y);

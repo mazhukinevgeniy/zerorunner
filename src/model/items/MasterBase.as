@@ -2,8 +2,7 @@ package model.items
 {
 	import binding.IBinder;
 	import controller.observers.game.IQuitGameHandler;
-	
-	use namespace items_internal;
+	import model.metric.DCellXY;
 	
 	public class MasterBase implements IQuitGameHandler
 	{
@@ -36,6 +35,12 @@ package model.items
 		public function spawnPuppet(x:int, y:int):void
 		{
 			throw new Error("must implement");
+		}
+		
+		
+		final protected function movePuppet(puppet:PuppetBase, change:DCellXY):void
+		{
+			puppet.startMovingBy(change);
 		}
 		
 		/* For the puppet */

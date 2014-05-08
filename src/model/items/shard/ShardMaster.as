@@ -27,7 +27,7 @@ package model.items.shard
 			new Shard(this, this.tmpCell);
 		}
 		
-		public function shardIncoming(shard:Projectile):void
+		public function shardFellDown(shard:Projectile):void
 		{
 			new Shard(this, shard.cell);
 		}

@@ -1,32 +1,37 @@
 package model.projectiles 
 {
+	import assets.xml.MapXML;
+	import binding.IBinder;
+	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.INewGameHandler;
+	import controller.observers.game.IQuitGameHandler;
 	import model.interfaces.IProjectiles;
+	import model.interfaces.IPuppets;
+	import model.interfaces.IScene;
+	import model.items.PuppetBase;
+	import model.metric.ICoordinated;
 	
-	public class Projectiles implements IProjectiles, INewGameHandler
+	public class Projectiles implements IProjectiles, 
+	                                    INewGameHandler, 
+										IQuitGameHandler,
+										IGameFrameHandler
 	{
 		private var projectiles:Array;
 		private var unusedProjectiles:Vector.<Projectile>;
 		
 		private var clouds:Vector.<CloudBase>;
 		
-		private var flow:IUpdateDispatcher;
-		private var items:Items;
+		private var puppets:IPuppets;
 		private var scene:IScene;
 		private var controller:ProjectileController;
 		
-		public function Projectiles(elements:GameElements) 
+		public function Projectiles(binder:IBinder) 
 		{
-			this.flow = elements.flow;
-			this.scene = elements.scene;
-			this.items = elements.items;
+			binder.notifier.addGameStatusObserver(this);
+			
+			this.scene = binder.scene;
+			this.puppets = binder.puppets;
 			this.controller = elements.projectileController;
-			
-			elements.restorer.addSubscriber(this);
-			
-			this.flow.workWithUpdateListener(this);
-			this.flow.addUpdateListener(Update.numberedFrame);
-			this.flow.addUpdateListener(Update.quitGame);
 			
 			this.unusedProjectiles = new Vector.<Projectile>();
 			
@@ -52,6 +57,35 @@ package model.projectiles
 			}
 		}
 		
+		public function newGame():void
+		{
+			this.projectiles = new Array();
+		}
+		
+		public function quitGame():void
+		{
+			this.projectiles = null;
+		}
+		
+		public function gameFrame(frame:int):void
+		{
+			for each (var projectile:Projectile in this.projectiles)
+			{
+				projectile.advance();
+			}
+			
+			
+			if (frame == Game.FRAME_TO_RUN_CATACLYSM)
+			{
+				for (var i:int = 0; i < this.clouds.length; i++)
+				{
+					this.clouds[i].spawnProjectiles();
+				}
+			}
+		}
+		
+		
+		
 		/**///As IProjectiles
 		
 		public function getProjectile(x:int, y:int):Projectile
@@ -63,18 +97,7 @@ package model.projectiles
 		}
 		
 		/**/
-		
-		
-		/**///As IRestorable
-		
-		public function restore():void
-		{
-			this.projectiles = new Array();
-		}
-		
-		/**/
-		
-		
+				
 		/**///Internal goods
 		
 		internal function denyProjectile(projectile:Projectile):void
@@ -99,7 +122,7 @@ package model.projectiles
 				var x:int = projectile.cell.x;
 				var y:int = projectile.cell.y;
 				
-				var target:PuppetBase = this.items.findAnyObjectByCell(x, y);
+				var target:PuppetBase = this.puppets.findAnyObjectByCell(x, y);
 				
 				if (target)
 				{
@@ -121,32 +144,6 @@ package model.projectiles
 				projectile.reassign(type, x, y);
 			else
 				new Projectile(this.controller, type, x, y);
-		}
-		
-		/**/
-		
-		/**///Update methods
-		
-		update function numberedFrame(frame:int):void
-		{
-			for each (var projectile:Projectile in this.projectiles)
-			{
-				projectile.advance();
-			}
-			
-			
-			if (frame == Game.FRAME_TO_RUN_CATACLYSM)
-			{
-				for (var i:int = 0; i < this.clouds.length; i++)
-				{
-					this.clouds[i].spawnProjectiles();
-				}
-			}
-		}
-		
-		update function quitGame():void
-		{
-			this.projectiles = null;
 		}
 		
 		/**/

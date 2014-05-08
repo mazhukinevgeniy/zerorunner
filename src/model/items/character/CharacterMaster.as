@@ -9,6 +9,7 @@ package model.items.character
 	import model.metric.CellXY;
 	import model.metric.DCellXY;
 	import model.status.StatusReporter;
+	import model.utils.isCellSolid;
 	
 	public class CharacterMaster extends MasterBase
 	{		
@@ -37,25 +38,6 @@ package model.items.character
 		override protected function act(puppet:PuppetBase):void
 		{
 			var isStanding:Boolean = (puppet.occupation == Game.OCCUPATION_FREE);
-			var isFlying:Boolean = (puppet.occupation == Game.OCCUPATION_FLOATING);
-			
-			if (this.input.isActionRequested(Game.ACTION_FLIGHT))
-			{
-				if (isStanding)
-				{
-					puppet.forceAirborne();
-					
-					isStanding = false; 
-					isFlying = true;
-				}
-				else if (isFlying)
-				{
-					puppet.forceStanding();
-					
-					isStanding = true; 
-					isFlying = false;
-				}
-			}
 			
 			var tmp:Vector.<DCellXY> = this.input.getInputCopy();
 			var action:DCellXY = tmp.pop();
@@ -77,7 +59,7 @@ package model.items.character
 						
 						if (isCellSolid(next))
 						{
-							puppet.startMovingBy(action);
+							this.movePuppet(puppet, action);
 							
 							break;
 						}
@@ -86,28 +68,8 @@ package model.items.character
 					action = tmp.pop();
 				}
 			}
-			else if (isFlying)
-			{
-				while (action.x != 0 || action.y != 0)
-				{
-					if (!this.items.findAnyObjectByCell(x + action.x, y + action.y))
-					{
-						next = this.scene.getSceneCell(x + action.x, y + action.y);
-						
-						puppet.startFlyingBy(action);
-						
-						break;
-					}
-					
-					action = tmp.pop();
-				}
-			}
 			
-			/* Please note: the following code works if and only if hero always moves willingly */
-			
-			if (puppet.occupation != Game.OCCUPATION_FLYING
-			    && puppet.occupation != Game.OCCUPATION_FLOATING
-				&& !isCellSolid(this.scene.getSceneCell(puppet.x, puppet.y)))
+			if (!isCellSolid(this.scene.getSceneCell(puppet.x, puppet.y)))
 			{
 				puppet.tryDestruction();
 			}
