@@ -38,13 +38,15 @@ package view.sounds
 			this.music.muteAll(value);
 		}
 		
-		/*update function changeVolume(target:String, newValue:Number):void
+		public function setSoundValue(value:Number):void
 		{
-			if(target == Theme.MUSIC_SETTING)
-				this.music.setGlobalVolume(newValue);
-			else if (target == Theme.SOUND_SETTING)
-				this.sound.setGlobalVolume(newValue);
-		}*///TODO: must reimplement anyway
+			this.sound.setGlobalVolume(value);
+		}//TODO: make it called
+		
+		public function setMusicValue(value:Number):void
+		{
+			this.music.setGlobalVolume(value);
+		}
 	}
 
 }

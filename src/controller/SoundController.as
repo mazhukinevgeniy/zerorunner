@@ -22,6 +22,16 @@ package controller
 		{
 			this.notifier.setMusicMute(value);
 		}
+		
+		public function setSoundValue(value:Number):void
+		{
+			//TODO: implement
+		}
+		
+		public function setMusicValue(value:Number):void
+		{
+			//TODO:implement
+		}
 	}
 
 }
