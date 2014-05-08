@@ -17,10 +17,7 @@ package
 		
 		/* Metagame updates */
 		
-		public static const newGame:String = "newGame"; //TODO: remove soon
-		
 		public static const gameFinished:String = "gameFinished";
-		public static const quitGame:String = "quitGame"; //TODO: remove soon
 		
 		
 		/* In-game updates */
