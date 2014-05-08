@@ -1,5 +1,6 @@
 package binding 
 {
+	import controller.interfaces.IGameController;
 	import controller.interfaces.IInputController;
 	import controller.interfaces.INotifier;
 	import controller.interfaces.ISoundController;
@@ -14,6 +15,7 @@ package binding
 		function get scene():IScene;
 		function get notifier():INotifier;
 		function get assetManager():AssetManager;
+		function get gameController():IGameController;
 		function get inputController():IInputController;
 		function get soundController():ISoundController;
 	}

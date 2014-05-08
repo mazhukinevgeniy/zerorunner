@@ -1,5 +1,6 @@
 package view.shell 
 {
+	import binding.IBinder;
 	import controller.observers.IGameStatusObserver;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.AnchorLayout;
@@ -23,11 +24,14 @@ package view.shell
 		
 		private var idLastOpenedWindow:int;
 		
-		public function Windows(windows:Vector.<DisplayObject>) 
+		public function Windows(windows:Vector.<DisplayObject>, binder:IBinder) 
 		{
 			this.windows = windows;
 			
 			this.idLastOpenedWindow = Windows.UNDETERMINED;
+			
+			
+			binder.notifier.addGameStatusObserver(this);
 		}
 		
 		public function newGame():void

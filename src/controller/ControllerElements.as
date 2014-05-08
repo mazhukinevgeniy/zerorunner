@@ -1,6 +1,7 @@
 package controller 
 {
 	import binding.IBinder;
+	import controller.interfaces.IGameController;
 	import controller.interfaces.IInputController;
 	import controller.interfaces.INotifier;
 	import controller.interfaces.ISoundController;
@@ -15,6 +16,7 @@ package controller
 			binder.addBindable(notifier, INotifier);
 			binder.addBindable(new Keys(notifier, binder), IInputController);
 			binder.addBindable(new SoundController(notifier), ISoundController);
+			binder.addBindable(new GameController(notifier), IGameController);
 		}
 		
 	}

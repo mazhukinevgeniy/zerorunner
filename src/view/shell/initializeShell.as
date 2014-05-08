@@ -28,7 +28,7 @@ package view.shell
 			windows[i].visible = false;
 		}
 		
-		var windowsController:Windows = new Windows(windows);
+		var windowsController:Windows = new Windows(windows, binder);
 		
 		var navigation:Navigation = new Navigation(windowsController, binder);
 		

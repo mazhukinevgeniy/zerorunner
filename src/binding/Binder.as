@@ -1,6 +1,7 @@
 package binding
 {
 	import binding.IDependent;
+	import controller.interfaces.IGameController;
 	import controller.interfaces.IInputController;
 	import controller.interfaces.INotifier;
 	import controller.interfaces.ISoundController;
@@ -48,6 +49,7 @@ package binding
 		public function get scene():IScene { return this.objects[IScene]; }
 		public function get notifier():INotifier { return this.objects[INotifier]; }
 		public function get assetManager():AssetManager { return this.objects[AssetManager]; }
+		public function get gameController():IGameController { return this.objects[IGameController]; }
 		public function get inputController():IInputController { return this.objects[IInputController]; }
 		public function get soundController():ISoundController { return this.objects[ISoundController]; }
 	}

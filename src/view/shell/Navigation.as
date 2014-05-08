@@ -1,6 +1,7 @@
 package view.shell 
 {
 	import binding.IBinder;
+	import controller.interfaces.IGameController;
 	import feathers.controls.Button;
 	import feathers.controls.ScrollContainer;
 	import feathers.layout.VerticalLayout;
@@ -21,13 +22,15 @@ package view.shell
 		protected var buttonFactory:ButtonFactory;
 		
 		protected var playButton:Button,
-					achievementsButton:Button,
-					settingsButton:Button,
-					creditsButton:Button;
+					  achievementsButton:Button,
+					  settingsButton:Button,
+					  creditsButton:Button;
 		
 		private var resetButton:Button;
 		
 		private var windows:Windows;
+		
+		private var gameController:IGameController;
 		
 		public function Navigation(windows:Windows, binder:IBinder) 
 		{
@@ -43,6 +46,8 @@ package view.shell
 								  Navigation.WIDTH_BUTTON, 
 								  Navigation.HEIGHT_BUTTON);
 			this.initializeButtons(); //TODO: something is weird here
+			
+			this.gameController = binder.gameController;
 		}
 		
 		protected function initializeSize():void
@@ -86,8 +91,7 @@ package view.shell
 		{
 			if (event.target == this.playButton)
 			{
-				//this.flow.dispatchUpdate(Update.newGame);
-				//TODO: improve gameController
+				this.gameController.newGame();
 			}
 			else if (event.target == this.achievementsButton)
 			{
