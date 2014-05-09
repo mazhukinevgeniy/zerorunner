@@ -5,6 +5,7 @@ package view.shell
 	import starling.display.Image;
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
+	import view.themes.ShellTheme;
 	
 	internal class ButtonFactory 
 	{
@@ -30,6 +31,8 @@ package view.shell
 				button.width = this.defaultWidth;
 				button.height = this.defaultHeight;
 				button.label = title;
+				
+				button.nameList.add(ShellTheme.NAVIGATION_BUTTON);
 				
 				if (background != null)
 				{
