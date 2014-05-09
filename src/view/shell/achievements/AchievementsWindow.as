@@ -6,6 +6,9 @@ package view.shell.achievements
 	
 	public class AchievementsWindow extends WindowBase
 	{	
+		//TODO: the plan is to have, like, a road of achievements.
+		// a road which is forked in many places.
+		// like, a tree.
 		
 		public function AchievementsWindow(binder:IBinder) 
 		{
