@@ -34,10 +34,10 @@ package view.themes
 			
 			button.defaultLabelProperties.textFormat = this.bananaBrickTextFormat;
 			
-			button.labelOffsetY = 5;
+			button.labelOffsetY = 8;
 			
 			button.height = 60;
-			button.width = 400;
+			button.width = 320;
 		}
 		
 		
