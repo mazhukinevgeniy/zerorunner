@@ -3,7 +3,9 @@ package
 	import assets.AssetLoader;
 	import binding.Binder;
 	import controller.ControllerElements;
+	import feathers.core.FeathersControl;
 	import feathers.core.FocusManager;
+	import feathers.core.ITextRenderer;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Capabilities;
@@ -13,6 +15,7 @@ package
 	import starling.events.Event;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
+	import view.utils.PreciseBitmapFontTextRenderer;
 	import view.utils.SoftStarling;
 	import view.ViewElements;
 	
@@ -92,6 +95,14 @@ package
 			 */
 			
 			//TODO: hack into textureatlas and learn which textures are never requested
+			
+			FeathersControl.defaultTextRendererFactory = this.getTextRenderer;
+		}
+		//TODO: must move starling initialization somewhere
+		
+		private function getTextRenderer():PreciseBitmapFontTextRenderer
+		{
+			return new PreciseBitmapFontTextRenderer();
 		}
 	}
 
