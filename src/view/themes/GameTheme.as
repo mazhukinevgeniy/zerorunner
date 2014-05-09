@@ -25,8 +25,7 @@ package view.themes
 			
 			this.atlas = atlas;
 			
-			this.defaultTextFormat = new BitmapFontTextFormat("hiloDeco", 20);
-			//TODO: avoid that downscaling
+			this.defaultTextFormat = new BitmapFontTextFormat("FantasqueSansMono", 32);
 			
 			this.setInitializerForClass(Button, this.initializeMenuButton, GameTheme.MENU_BUTTON);
 			this.setInitializerForClass(Button, this.initializeTTButton, GameTheme.TRIANGLE_TOGGLE);

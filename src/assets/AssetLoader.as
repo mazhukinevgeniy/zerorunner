@@ -5,6 +5,7 @@ package assets
 	import native_controls.ProgressBar;
 	import starling.text.BitmapFont;
 	import starling.text.TextField;
+	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
 	public class AssetLoader 
@@ -41,15 +42,17 @@ package assets
 				
 				initializeAtlasMakerAtlases(this.assetManager, AtlasXML.getOne());
 				
-				TextField.registerBitmapFont(new BitmapFont(
-					this.assetManager.getTexture("hiloDeco"), 
-					FontXML.getHiloDecoXML()),
-					"hiloDeco");
+				var atlas:TextureAtlas = this.assetManager.getTextureAtlas("sprites");
 				
 				TextField.registerBitmapFont(new BitmapFont(
-					this.assetManager.getTexture("bananaBrick"), 
+					atlas.getTexture("FantasqueSansMono"), 
+					FontXML.getFantasqueSansMonoXML()),
+					"FantasqueSansMono");
+				
+				TextField.registerBitmapFont(new BitmapFont(
+					atlas.getTexture("BananaBrick"), 
 					FontXML.getBananaBrickXML()),
-					"bananaBrick");
+					"BananaBrick");
 				
 				this.boss.initializeEverything(this.assetManager);
 			}

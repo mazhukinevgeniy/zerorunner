@@ -10,6 +10,7 @@ package view.themes
 	import feathers.textures.Scale3Textures;
 	import feathers.textures.Scale9Textures;
 	import flash.geom.Rectangle;
+	import flash.text.TextFormatAlign;
 	import flash.utils.Dictionary;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
@@ -68,7 +69,9 @@ package view.themes
 		private function initializeTextFormat():void
 		{
 			this.defaultTextFormat = 
-				new BitmapFontTextFormat("hiloDeco", 20);//TODO: avoid that downscaling
+				new BitmapFontTextFormat("FantasqueSansMono", 32);
+			
+			this.defaultTextFormat.align = TextFormatAlign.CENTER;
 		}
 		
 		private function initializeButtonTextures():void
@@ -159,6 +162,9 @@ package view.themes
 			button.paddingLeft = button.paddingRight = 10;
 			button.gap = 2;
 			button.minWidth = button.minHeight = 12;
+			
+			button.height = 60;
+			button.width = 240;
 		}
 		
 		protected function labelInitializer(label:Label):void

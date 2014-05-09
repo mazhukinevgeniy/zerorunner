@@ -69,16 +69,16 @@ package view.shell
 		protected function initializeButtons():void 
 		{
 			//TODO: you tell me why do we use buttonfactory anyway
-			this.playButton = this.buttonFactory.createButton("New game");
+			this.playButton = this.buttonFactory.createButton("NEW GAME");
 			this.addChild(this.playButton);
 			
-			this.achievementsButton = this.buttonFactory.createButton("Achievements");
+			this.achievementsButton = this.buttonFactory.createButton("ACHIEVEMENTS");
 			this.addChild(this.achievementsButton);
 			
-			this.settingsButton = this.buttonFactory.createButton("Settings");
+			this.settingsButton = this.buttonFactory.createButton("SETTINGS");
 			this.addChild(this.settingsButton);
 			
-			this.creditsButton = this.buttonFactory.createButton("Credits");
+			this.creditsButton = this.buttonFactory.createButton("CREDITS");
 			this.addChild(this.creditsButton);
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);

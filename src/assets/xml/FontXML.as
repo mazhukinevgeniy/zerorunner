@@ -5,10 +5,10 @@ package assets.xml
 	public class FontXML
 	{
 		[Embed(source="../../../res/fonts/bananaBrick.fnt", mimeType="application/octet-stream")]
-		private static const bananaBrick:Class;
+		private static const BananaBrick:Class;
 		
-		[Embed(source = "../../../res/fonts/hiloDeco.fnt", mimeType = "application/octet-stream")]
-		private static const hiloDeco:Class;
+		[Embed(source="../../../res/fonts/FantasqueSansMono.fnt", mimeType="application/octet-stream")]
+		private static const FantasqueSansMono:Class;
 		
 		
 		public function FontXML() 
@@ -22,14 +22,14 @@ package assets.xml
 			return new XML(code.readUTFBytes(code.length));
 		}
 		
-		public static function getHiloDecoXML():XML
+		public static function getFantasqueSansMonoXML():XML
 		{
-			return FontXML.getOne("hiloDeco");
+			return FontXML.getOne("FantasqueSansMono");
 		}
 		
 		public static function getBananaBrickXML():XML
 		{
-			return FontXML.getOne("bananaBrick");
+			return FontXML.getOne("BananaBrick");
 		}
 	}
 
