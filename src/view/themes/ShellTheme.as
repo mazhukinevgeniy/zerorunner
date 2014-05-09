@@ -32,12 +32,12 @@ package view.themes
 		{
 			this.defaultButtonInitializer(button);
 			
+			button.defaultLabelProperties.textFormat = this.bananaBrickTextFormat;
+			
 			button.labelOffsetY = 5;
 			
 			button.height = 60;
-			button.width = 240;
-			
-			//TODO: use bananaBrick for the navigation, it's cool anyway
+			button.width = 400;
 		}
 		
 		

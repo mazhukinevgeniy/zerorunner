@@ -70,7 +70,7 @@ package view.themes
 			
 			
 			this.bananaBrickTextFormat =
-				new BitmapFontTextFormat("BananaBrick", 92);
+				new BitmapFontTextFormat("BananaBrick", 46);
 			
 			this.bananaBrickTextFormat.align = TextFormatAlign.CENTER;
 		}
