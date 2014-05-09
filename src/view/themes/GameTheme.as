@@ -2,8 +2,7 @@ package view.themes
 {
 	import feathers.controls.Button;
 	import feathers.core.DisplayListWatcher;
-	import flash.text.TextFormat;
-	import flash.text.TextFormatAlign;
+	import feathers.text.BitmapFontTextFormat;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.textures.TextureAtlas;
@@ -18,7 +17,7 @@ package view.themes
 		
 		private var atlas:TextureAtlas;
 		
-		private var defaultTextFormat:TextFormat;
+		private var defaultTextFormat:BitmapFontTextFormat;
 		
 		public function GameTheme(gameContainer:DisplayObjectContainer, atlas:TextureAtlas) 
 		{
@@ -26,7 +25,8 @@ package view.themes
 			
 			this.atlas = atlas;
 			
-			this.defaultTextFormat = new TextFormat("HiLo-Deco", 18, Color.BLACK, false, false, false, null, null, TextFormatAlign.LEFT, 0, 0, 0, 0);
+			this.defaultTextFormat = new BitmapFontTextFormat("hiloDeco", 20);
+			//TODO: avoid that downscaling
 			
 			this.setInitializerForClass(Button, this.initializeMenuButton, GameTheme.MENU_BUTTON);
 			this.setInitializerForClass(Button, this.initializeTTButton, GameTheme.TRIANGLE_TOGGLE);
@@ -42,7 +42,7 @@ package view.themes
 			button.selectedDownSkin = new Image(this.atlas.getTexture("button-selected-down-skin"));
 			//TODO: optimize, must not create textures every time
 			
-			button.defaultLabelProperties = this.defaultTextFormat;
+			button.defaultLabelProperties.textFormat = this.defaultTextFormat;
 			
 			if (button.nameList.contains(GameTheme.TOGGLE_MAP))
 			{

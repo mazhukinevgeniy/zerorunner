@@ -42,8 +42,13 @@ package assets
 				initializeAtlasMakerAtlases(this.assetManager, AtlasXML.getOne());
 				
 				TextField.registerBitmapFont(new BitmapFont(
+					this.assetManager.getTexture("hiloDeco"), 
+					FontXML.getHiloDecoXML()),
+					"hiloDeco");
+				
+				TextField.registerBitmapFont(new BitmapFont(
 					this.assetManager.getTexture("bananaBrick"), 
-					FontXML.getOne()),
+					FontXML.getBananaBrickXML()),
 					"bananaBrick");
 				
 				this.boss.initializeEverything(this.assetManager);

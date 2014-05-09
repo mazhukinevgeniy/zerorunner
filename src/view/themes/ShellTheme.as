@@ -68,7 +68,7 @@ package view.themes
 		private function initializeTextFormat():void
 		{
 			this.defaultTextFormat = 
-				new BitmapFontTextFormat("bananaBrick", 72);
+				new BitmapFontTextFormat("hiloDeco", 20);//TODO: avoid that downscaling
 		}
 		
 		private function initializeButtonTextures():void
@@ -136,6 +136,7 @@ package view.themes
 			this.setInitializerForClass(Slider, this.sliderInitializer);
 			
 			//TODO: improve it, we have names after all
+			//TODO: use bananaBrick for the navigation, it's cool anyway
 		}
 		
 		protected function soundButtonInitializer(button:Button):void
@@ -152,15 +153,12 @@ package view.themes
 			button.hoverSkin = new Scale9Image(this.buttonTextures["button-hover-skin"]);
 			button.downSkin = new Scale9Image(this.buttonTextures["button-down-skin"]);
 			
-			button.defaultLabelProperties.embedFonts = true;
 			button.defaultLabelProperties.textFormat = this.defaultTextFormat;
 
 			button.paddingTop = button.paddingBottom = 2;
 			button.paddingLeft = button.paddingRight = 10;
 			button.gap = 2;
-			button.minWidth = button.minHeight = 80;
-			button.height = 80;
-			button.width = Main.WIDTH;
+			button.minWidth = button.minHeight = 12;
 		}
 		
 		protected function labelInitializer(label:Label):void
