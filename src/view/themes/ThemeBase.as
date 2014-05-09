@@ -73,6 +73,8 @@ package view.themes
 				new BitmapFontTextFormat("BananaBrick", 46);
 			
 			this.bananaBrickTextFormat.align = TextFormatAlign.CENTER;
+			this.bananaBrickTextFormat.isKerningEnabled = false;
+			this.bananaBrickTextFormat.letterSpacing = 1;
 		}
 		
 		protected function initializeButtonTextures():void

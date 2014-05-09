@@ -2,6 +2,7 @@ package assets
 {
 	import assets.xml.AtlasXML;
 	import assets.xml.FontXML;
+	import flash.ui.Keyboard;
 	import native_controls.ProgressBar;
 	import starling.text.BitmapFont;
 	import starling.text.TextField;
@@ -45,15 +46,7 @@ package assets
 				var atlas:TextureAtlas = this.assetManager.getTextureAtlas("sprites");
 				//TODO: hack into textureatlas and learn which textures are never requested
 				
-				TextField.registerBitmapFont(new BitmapFont(
-					atlas.getTexture("FantasqueSansMono"), 
-					FontXML.getFantasqueSansMonoXML()),
-					"FantasqueSansMono");
-				
-				TextField.registerBitmapFont(new BitmapFont(
-					atlas.getTexture("BananaBrick"), 
-					FontXML.getBananaBrickXML()),
-					"BananaBrick");
+				this.addFonts(atlas);
 				
 				this.boss.initializeEverything(this.assetManager);
 			}
@@ -63,6 +56,26 @@ package assets
 		{
 			this.boss.removeChild(this.progressBar);
 			this.progressBar = null;
+		}
+		
+		
+		private function addFonts(atlas:TextureAtlas):void
+		{
+			TextField.registerBitmapFont(new BitmapFont(
+					atlas.getTexture("FantasqueSansMono"), 
+					FontXML.getFantasqueSansMonoXML()),
+					"FantasqueSansMono");
+			
+			var bbxml:XML = FontXML.getBananaBrickXML();
+			
+			for each (var char:XML in bbxml.chars.char)
+			{
+				if (parseInt(char.@id) != Keyboard.SPACE)
+					char.@xadvance = (parseInt(char.@xoffset) + parseInt(char.@width));
+			}
+			
+			TextField.registerBitmapFont(new BitmapFont(atlas.getTexture("BananaBrick"), bbxml),
+				                         "BananaBrick");
 		}
 	}
 
