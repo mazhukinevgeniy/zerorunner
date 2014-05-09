@@ -163,6 +163,8 @@ package view.themes
 			button.gap = 2;
 			button.minWidth = button.minHeight = 12;
 			
+			button.labelOffsetY = 5;
+			
 			button.height = 60;
 			button.width = 240;
 		}
