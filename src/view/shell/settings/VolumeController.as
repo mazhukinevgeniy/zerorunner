@@ -12,23 +12,29 @@ package view.shell.settings
 		private static const GAP:int = 30;
 		
 		private var slider:Slider;
-		private var button:Button;
-		private var label:Label;
+		private var toggleButton:Button;
+		
+		public var label:Label;
+		//TODO: replace with icon asap
 		
 		public function VolumeController(name:String) 
 		{		
-			this.button = new Button();
-			this.button.nameList.add(ShellTheme.SOUND_SETTING);
+			this.toggleButton = new Button();
+			this.toggleButton.nameList.add(name);
+			this.toggleButton.nameList.add(ShellTheme.TOGGLE_MUTE);
 			
 			this.slider = new Slider();
 			
 			this.label = new Label();
-			if(name == ShellTheme.SOUND_SETTING)
+			
+			if(name == ShellTheme.SOUND)
 				this.label.text = "Sound";
-			else if (name == ShellTheme.MUSIC_SETTING)
+			else if (name == ShellTheme.MUSIC)
 				this.label.text = "Music";
+			else
+				throw new Error("wrong assumptions were made");
 				
-			this.addChild(this.button);
+			this.addChild(this.toggleButton);
 			this.addChild(this.slider);
 			this.addChild(this.label);
 
@@ -44,7 +50,8 @@ package view.shell.settings
 		
 		private function locate(event:Event):void
 		{
-			this.slider.x = this.button.width + VolumeController.GAP;
+			this.slider.x = this.toggleButton.width + VolumeController.GAP;
+			//TODO: use layout instead
 			this.slider.y = (this.height - slider.height) / 2;
 			this.label.x = this.slider.x + this.slider.width + VolumeController.GAP;
 		}

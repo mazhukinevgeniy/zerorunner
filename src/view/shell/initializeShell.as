@@ -25,7 +25,7 @@ package view.shell
 		
 		windows[Windows.GAME] = gameRoot;
 		windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(binder);
-		windows[Windows.SETTINGS] = new SettingsWindow();
+		windows[Windows.SETTINGS] = new SettingsWindow(binder);
 		windows[Windows.CREDITS] = new CreditsWindow();
 		
 		for (var i:int = 1; i < Windows.NUMBER_OF_WINDOWS; ++i)

@@ -1,5 +1,6 @@
 package view.shell.settings 
 {
+	import binding.IBinder;
 	import feathers.controls.Slider;
 	import starling.events.Event;
 	import view.shell.WindowBase;
@@ -12,10 +13,10 @@ package view.shell.settings
 		private var soundController:VolumeController;
 		private var musicController:VolumeController;
 		
-		public function SettingsWindow()
+		public function SettingsWindow(binder:IBinder)
 		{		
-			this.soundController = new VolumeController(ShellTheme.SOUND_SETTING);
-			this.musicController = new VolumeController(ShellTheme.MUSIC_SETTING);
+			this.soundController = new VolumeController(ShellTheme.SOUND);
+			this.musicController = new VolumeController(ShellTheme.MUSIC);
 			
 			this.addChild(this.soundController);
 			this.addChild(this.musicController);
