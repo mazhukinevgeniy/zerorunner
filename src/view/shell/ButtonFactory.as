@@ -2,8 +2,6 @@ package view.shell
 {
 	import feathers.controls.Button;
 	import starling.display.DisplayObjectContainer;
-	import starling.display.Image;
-	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 	import view.themes.ShellTheme;
 	
@@ -24,7 +22,7 @@ package view.shell
 				this.background = background;
 		}
 		
-		public function createButton(title:String, background:String = null):Button
+		public function createButton(title:String):Button
 		{
 				var button:Button = new Button();
 				
@@ -33,16 +31,6 @@ package view.shell
 				button.label = title;
 				
 				button.nameList.add(ShellTheme.NAVIGATION_BUTTON);
-				
-				if (background != null)
-				{
-					var texture:Texture;
-					var image:Image;
-					
-					texture = this.assets.getTextureAtlas("sprites").getTexture(background);
-					image = new Image(texture);//TODO: not optimal, must fix
-					button.defaultSkin = image;
-				}
 				
 				return button;
 		}
