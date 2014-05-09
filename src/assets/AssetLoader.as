@@ -1,7 +1,10 @@
 package assets 
 {
 	import assets.xml.AtlasXML;
+	import assets.xml.FontXML;
 	import native_controls.ProgressBar;
+	import starling.text.BitmapFont;
+	import starling.text.TextField;
 	import starling.utils.AssetManager;
 	
 	public class AssetLoader 
@@ -37,6 +40,11 @@ package assets
 				this.removeAll();
 				
 				initializeAtlasMakerAtlases(this.assetManager, AtlasXML.getOne());
+				
+				TextField.registerBitmapFont(new BitmapFont(
+					this.assetManager.getTexture("bananaBrick"), 
+					FontXML.getOne()),
+					"bananaBrick");
 				
 				this.boss.initializeEverything(this.assetManager);
 			}

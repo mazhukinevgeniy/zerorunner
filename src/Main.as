@@ -3,6 +3,7 @@ package
 	import assets.AssetLoader;
 	import binding.Binder;
 	import controller.ControllerElements;
+	import feathers.core.FocusManager;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Capabilities;
@@ -83,6 +84,14 @@ package
 			this.binder.triggerBinding();
 			
 			Starling.current.stage.color = Game.STAGE_COLOR;
+			
+			FocusManager.isEnabled = false; 
+			/**
+			 * IF we have keyboard user, we give him hotkeys.
+			 * It's, like, caring about keyboard user or NOT caring about extra sprites.
+			 */
+			
+			//TODO: hack into textureatlas and learn which textures are never requested
 		}
 	}
 

@@ -18,6 +18,11 @@ package view.shell
 		
 		var windows:Vector.<DisplayObject> = new Vector.<DisplayObject>(Windows.NUMBER_OF_WINDOWS, true);
 		
+		var windowsController:Windows = new Windows(windows, binder);
+		
+		var navigation:Navigation = new Navigation(windowsController, binder);
+		shellRoot.addChild(navigation);
+		
 		windows[Windows.GAME] = gameRoot;
 		windows[Windows.ACHIEVEMENTS] = new AchievementsWindow(binder);
 		windows[Windows.SETTINGS] = new SettingsWindow();
@@ -28,13 +33,6 @@ package view.shell
 			shellRoot.addChild(windows[i]);
 			windows[i].visible = false;
 		}
-		
-		var windowsController:Windows = new Windows(windows, binder);
-		
-		var navigation:Navigation = new Navigation(windowsController, binder);
-		
-		shellRoot.addChild(navigation);
-		
 	}
 	
 }

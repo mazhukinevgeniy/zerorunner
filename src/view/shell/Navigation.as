@@ -52,8 +52,8 @@ package view.shell
 		
 		protected function initializeSize():void
 		{
-			this.width = Navigation.WIDTH;
-			this.height = Navigation.HEIGHT;
+			//this.width = Navigation.WIDTH;
+			//this.height = Navigation.HEIGHT;
 		}
 		
 		protected function initializeLayout():void
