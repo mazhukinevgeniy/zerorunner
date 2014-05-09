@@ -72,10 +72,10 @@ package view.shell
 			this.playButton = this.buttonFactory.createButton("NEW GAME");
 			this.addChild(this.playButton);
 			
-			this.achievementsButton = this.buttonFactory.createButton("ACHIEVEMENTS");
+			this.achievementsButton = this.buttonFactory.createButton("TROPHIES");
 			this.addChild(this.achievementsButton);
 			
-			this.settingsButton = this.buttonFactory.createButton("SETTINGS");
+			this.settingsButton = this.buttonFactory.createButton("OPTIONS");
 			this.addChild(this.settingsButton);
 			
 			this.creditsButton = this.buttonFactory.createButton("CREDITS");
