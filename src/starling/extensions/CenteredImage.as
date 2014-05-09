@@ -1,4 +1,4 @@
-package view.utils 
+package starling.extensions 
 {
 	import starling.display.Image;
 	import starling.textures.Texture;

@@ -1,4 +1,4 @@
-package view.utils 
+package starling 
 {
 	import flash.display.Stage;
 	import flash.display.Stage3D;
@@ -6,7 +6,7 @@ package view.utils
 	import starling.core.Starling;
 	import starling.events.Event;
 	
-	public class SoftStarling extends Starling
+	internal class SoftStarling extends Starling
 	{
 		private var isSoft:Boolean;
 		

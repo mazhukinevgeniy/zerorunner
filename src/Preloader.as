@@ -18,6 +18,7 @@ package
 	import native_controls.EndButton;
 	import native_controls.ProgressBar;
 	
+	//TODO: clean that class, make it, like, readable
 	
 	[SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	public class Preloader extends MovieClip

@@ -1,4 +1,4 @@
-package view.utils 
+package starling 
 {
 	import starling.display.QuadBatch;
 	

@@ -6,7 +6,7 @@ package view.game.renderer
 	import model.projectiles.Projectile;
 	import model.utils.normalize;
 	import starling.display.QuadBatch;
-	import view.utils.CenteredImage;
+	import starling.extensions.CenteredImage;
 	
 	internal class EffectRenderer extends SubRendererBase implements INewGameHandler,
 	                                                                 IShardObserver
