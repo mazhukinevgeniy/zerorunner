@@ -33,6 +33,9 @@ package view.shell
 			shellRoot.addChild(windows[i]);
 			windows[i].visible = false;
 		}
+		
+		//TODO: use screennavigator
+		//TODO: turn 'navigation' into another screen to be shown
 	}
 	
 }
