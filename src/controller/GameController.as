@@ -1,25 +1,43 @@
 package controller 
 {
+	import binding.IBinder;
+	import binding.IDependent;
 	import controller.interfaces.IGameController;
+	import model.interfaces.IStatus;
 	
-	internal class GameController implements IGameController
+	internal class GameController implements IGameController, IDependent
 	{
 		private var notifier:Notifier;
 		
-		public function GameController(notifier:Notifier) 
+		private var gameStatus:IStatus;
+		
+		public function GameController(notifier:Notifier, binder:IBinder) 
 		{
 			this.notifier = notifier;
+			
+			binder.requestBindingFor(this);
 		}
+		
+		public function bindObjects(binder:IBinder):void
+		{
+			this.gameStatus = binder.gameStatus;
+		}
+		
 		
 		public function newGame():void
 		{
-			//TODO: might add check for isGameGoing() so we're safer
-			this.notifier.newGame();
+			if (!this.gameStatus.isGameOn())
+				this.notifier.newGame();
+			else
+				throw new Error("can't start game twice, something is very wrong");
 		}
 		
 		public function quitGame():void
 		{
-			this.notifier.quitGame();
+			if (this.gameStatus.isGameOn())
+				this.notifier.quitGame();
+			else
+				throw new Error("can't quit game twice, something is very wrong");
 		}
 		
 		public function gameFrame(frame:int):void
