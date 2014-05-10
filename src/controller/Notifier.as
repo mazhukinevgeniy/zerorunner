@@ -41,12 +41,7 @@ package controller
 		
 		public function addObserver(observer:Object):void
 		{
-			this.addUnknownObserver(observer, this.supportedInterfaces);
-		}
-		
-		private function addUnknownObserver(observer:Object, interfaces:Vector.<Class>):void
-		{
-			for each (var observerClass:Class in interfaces)
+			for each (var observerClass:Class in this.supportedInterfaces)
 			{
 				if (observer is observerClass &&
 					this.observers[observerClass].indexOf(observer) == -1)
