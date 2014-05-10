@@ -44,7 +44,7 @@ package view.sounds
 		public function setSoundValue(value:Number):void
 		{
 			this.sound.setGlobalVolume(value);
-		}//TODO: make it called
+		}
 		
 		public function setMusicValue(value:Number):void
 		{

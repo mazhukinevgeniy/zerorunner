@@ -45,13 +45,21 @@ package view.themes
 		{
 			this.defaultButtonInitializer(button);
 			
+			//temporary
+			if (button.nameList.contains(ShellTheme.MUSIC))
+			{
+				button.label = "M";
+			}
+			else if (button.nameList.contains(ShellTheme.SOUND))
+			{
+				button.label = "S";
+			}
+			
 			button.width = 30;
 			button.height = 30;
 			
 			//TODO: fix view; it'd have different skin etc
 		}
-		
-		
 		
 		
 	}

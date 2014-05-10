@@ -25,12 +25,12 @@ package controller
 		
 		public function setSoundValue(value:Number):void
 		{
-			//TODO: implement
+			this.notifier.setSoundValue(value);
 		}
 		
 		public function setMusicValue(value:Number):void
 		{
-			//TODO:implement
+			this.notifier.setMusicValue(value);
 		}
 	}
 

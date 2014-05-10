@@ -60,6 +60,14 @@ package controller
 		{
 			this.call(ISoundObserver, "setMusicMute", value);
 		}
+		internal function setSoundValue(value:Number):void
+		{
+			this.call(ISoundObserver, "setSoundValue", value);
+		}
+		internal function setMusicValue(value:Number):void
+		{
+			this.call(ISoundObserver, "setMusicValue", value);
+		}
 		internal function newGame():void
 		{
 			this.call(INewGameHandler, "newGame");

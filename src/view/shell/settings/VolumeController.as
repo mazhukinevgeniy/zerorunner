@@ -11,14 +11,15 @@ package view.shell.settings
 	{
 		private static const GAP:int = 30;
 		
-		private var slider:Slider;
-		private var toggleButton:Button;
+		public var slider:Slider;
 		
 		public var label:Label;
 		//TODO: replace with icon asap
 		
+		private var toggleButton:Button;
+		
 		public function VolumeController(name:String) 
-		{		
+		{
 			this.toggleButton = new Button();
 			this.toggleButton.nameList.add(name);
 			this.toggleButton.nameList.add(ShellTheme.TOGGLE_MUTE);
@@ -27,13 +28,7 @@ package view.shell.settings
 			
 			this.label = new Label();
 			
-			if(name == ShellTheme.SOUND)
-				this.label.text = "Sound";
-			else if (name == ShellTheme.MUSIC)
-				this.label.text = "Music";
-			else
-				throw new Error("wrong assumptions were made");
-				
+			
 			this.addChild(this.toggleButton);
 			this.addChild(this.slider);
 			this.addChild(this.label);
@@ -42,10 +37,6 @@ package view.shell.settings
 			
 			this.slider.value = this.slider.maximum = 100;
 			//TODO: get from save
-			
-			this.slider.addEventListener(Event.CHANGE, this.changeHandler);
-			
-			this.name = name;
 		}
 		
 		private function locate(event:Event):void
@@ -54,13 +45,6 @@ package view.shell.settings
 			//TODO: use layout instead
 			this.slider.y = (this.height - slider.height) / 2;
 			this.label.x = this.slider.x + this.slider.width + VolumeController.GAP;
-		}
-		
-		private function changeHandler(event:Event):void
-		{
-			var slider:Slider = Slider(event.currentTarget);
-			//this.flow.dispatchUpdate(Update.changeVolume, this.name, slider.value / 100);
-			//TODO: improve soundController
 		}
 		
 	}
