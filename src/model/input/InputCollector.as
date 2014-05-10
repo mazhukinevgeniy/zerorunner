@@ -1,6 +1,7 @@
 package model.input 
 {
 	import binding.IBinder;
+	import controller.observers.activity.IDeactivationObserver;
 	import controller.observers.game.IGameMenuRelated;
 	import controller.observers.game.IInputObserver;
 	import controller.observers.game.INewGameHandler;
@@ -10,7 +11,8 @@ package model.input
 	internal class InputCollector implements IInputObserver,
 	                                         INewGameHandler,
 											 IMapStatusObserver,
-											 IGameMenuRelated
+											 IGameMenuRelated,
+											 IDeactivationObserver
 	{
 		private const NO_DIRECTION:int = 0;
 		
@@ -70,7 +72,11 @@ package model.input
 		{
 			this.clearInput();
 		}
-		//TODO: /*	clearinput on handleDeactivation
+		public function processDeactivation():void
+		{
+			this.clearInput();
+		}
+		
 		
 		private function clearInput():void
 		{
