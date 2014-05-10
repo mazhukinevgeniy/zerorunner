@@ -44,7 +44,6 @@ package assets
 				initializeAtlasMakerAtlases(this.assetManager, AtlasXML.getOne());
 				
 				var atlas:TextureAtlas = this.assetManager.getTextureAtlas("sprites");
-				//TODO: hack into textureatlas and learn which textures are never requested
 				
 				this.addFonts(atlas);
 				

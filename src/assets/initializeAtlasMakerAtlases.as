@@ -1,6 +1,6 @@
 package assets 
 {
-	import starling.textures.TextureAtlas;
+	import starling.extensions.TextureAtlasLogger;
 	import starling.utils.AssetManager;
 	
 	internal function initializeAtlasMakerAtlases(assetManager:AssetManager, xml:XML):void
@@ -11,7 +11,7 @@ package assets
 			var aXML:XML = adaptTextureAtlasMakerXML(xml.texture[i]);
 			var name:String = removeExistingExtension(aXML.@imagePath);
 			
-			var atlas:TextureAtlas = new TextureAtlas(assetManager.getTexture(name), aXML);
+			var atlas:TextureAtlasLogger = new TextureAtlasLogger(assetManager.getTexture(name), aXML);
 			
 			assetManager.addTextureAtlas(removeExistingZero(name), atlas);
 		}

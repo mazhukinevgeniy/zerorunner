@@ -6,6 +6,7 @@ package
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
 	import model.ModelElements;
+	import starling.extensions.TextureAtlasLogger;
 	import starling.StarlingStarter;
 	import starling.utils.AssetManager;
 	import view.ViewElements;
@@ -50,6 +51,8 @@ package
 			this.viewElements = new ViewElements(this.binder, this.starlingStarter.starlingRoot);
 			
 			this.binder.triggerBinding();
+			
+			(assets.getTextureAtlas("sprites") as TextureAtlasLogger).tellWhatIsNeverRequested();
 		}
 	}
 
