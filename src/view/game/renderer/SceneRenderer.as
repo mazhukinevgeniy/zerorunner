@@ -77,7 +77,6 @@ package view.game.renderer
 				else if (name == "top_right")
 					this.tileCodes[i + 1] = this.TR_DISK;
 			}
-			//TODO: get rid of nonfunctional tr_disk global scene types
 		}
 		
 		override protected function get range():int 

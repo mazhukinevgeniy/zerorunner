@@ -60,10 +60,7 @@ package view.game
 			
 			this.tiles = new Array();
 			this.tiles[Game.SCENE_FALL] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
-			this.tiles[Game.SCENE_TR_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
-			this.tiles[Game.SCENE_TL_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
-			this.tiles[Game.SCENE_BR_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
-			this.tiles[Game.SCENE_BL_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
+			this.tiles[Game.SCENE_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
 			this.tiles[Game.SCENE_GROUND] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x8B4513);
 			
 			this.container = new QuadBatch();
