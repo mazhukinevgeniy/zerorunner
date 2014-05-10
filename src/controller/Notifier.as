@@ -1,6 +1,8 @@
 package controller 
 {
 	import controller.interfaces.INotifier;
+	import controller.observers.activity.IActivationObserver;
+	import controller.observers.activity.IDeactivationObserver;
 	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.IGameMenuRelated;
 	import controller.observers.game.IGameStopHandler;
@@ -27,6 +29,7 @@ package controller
 			
 			this.supportedInterfaces = new <Class>[
 				ISoundObserver,
+				IActivationObserver, IDeactivationObserver,
 				INewGameHandler, IQuitGameHandler,
 				IGameFrameHandler, IGameStopHandler,
 				IGameMenuRelated, IInputObserver,
@@ -52,6 +55,14 @@ package controller
 		}
 		
 		
+		internal function processActivation():void
+		{
+			this.call(IActivationObserver, "processActivation");
+		}
+		internal function processDeactivation():void
+		{
+			this.call(IDeactivationObserver, "processDeactivation");
+		}
 		internal function setSoundMute(value:Boolean):void
 		{
 			this.call(ISoundObserver, "setSoundMute", value);

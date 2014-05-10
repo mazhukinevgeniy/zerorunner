@@ -98,12 +98,12 @@ package controller
 		
 		public function processActivation():void
 		{
-			//TODO: do stuff
+			this.notifier.processActivation();
 		}
 		
 		public function processDeactivation():void
 		{
-			//TODO: do stuff
+			this.notifier.processDeactivation();
 		}
 	}
 
