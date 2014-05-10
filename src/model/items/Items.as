@@ -97,12 +97,11 @@ package model.items
 			{
 				var center:ICoordinated = this.status.getLocationOfHero();
 				
-				const tlcX:int = center.x - 20;
-				const tlcY:int = center.y - 20;
+				const tlcX:int = center.x - Game.ACTION_RADIUS;
+				const tlcY:int = center.y - Game.ACTION_RADIUS;
 				
-				//TODO: get rid of the hardcode
-				const brcX:int = center.x + 20;
-				const brcY:int = center.y + 20;
+				const brcX:int = center.x + Game.ACTION_RADIUS + 1;
+				const brcY:int = center.y + Game.ACTION_RADIUS + 1;
 				
 				this.moved.length = 0;
 				
