@@ -39,8 +39,6 @@ package model.items.checkpoint
 		override protected function activateCheckpoint(place:ICoordinated):void 
 		{
 			throw new Error("design undefined");
-			
-			//TODO: empower checkpoints, make them more meaningful
 		}
 	}
 
