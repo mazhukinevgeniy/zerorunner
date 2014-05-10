@@ -3,7 +3,7 @@ package controller.observers.activity
 	
 	public interface IActivationObserver 
 	{
-		handleActivated();
+		function processActivation():void;
 	}
 	
 }
