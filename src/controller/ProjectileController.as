@@ -18,10 +18,6 @@ package controller
 			this.notifier.shardFell(shard);
 		}
 		
-		public function denyProjectile(projectile:Projectile):void
-		{
-			this.notifier.denyProjectile(projectile);
-		}
 	}
 
 }

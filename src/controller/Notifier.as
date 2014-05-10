@@ -10,7 +10,6 @@ package controller
 	import controller.observers.ISoundObserver;
 	import controller.observers.map.IMapFrameHandler;
 	import controller.observers.map.IMapStatusObserver;
-	import controller.observers.projectiles.IDenyProjectiles;
 	import controller.observers.projectiles.IShardObserver;
 	import model.metric.DCellXY;
 	import model.projectiles.Projectile;
@@ -31,7 +30,6 @@ package controller
 		private var _mapVisibility:Vector.<IMapStatusObserver>;
 		
 		private var _shardIncoming:Vector.<IShardObserver>;
-		private var _deny:Vector.<IDenyProjectiles>;
 		
 		public function Notifier() 
 		{
@@ -48,7 +46,6 @@ package controller
 			this._mapVisibility = new Vector.<IMapStatusObserver>();
 			
 			this._shardIncoming = new Vector.<IShardObserver>();
-			this._deny = new Vector.<IDenyProjectiles>();
 		}
 		
 		
@@ -91,9 +88,6 @@ package controller
 		{
 			if (observer is IShardObserver)
 				this._shardIncoming.push(observer as IShardObserver);
-			
-			if (observer is IDenyProjectiles)
-				this._deny.push(observer as IDenyProjectiles);
 		}
 		
 		
@@ -175,15 +169,6 @@ package controller
 			for (var i:int = 0; i < length; i++)
 			{
 				this._shardIncoming[i].shardFellDown(shard);
-			}
-		}
-		
-		internal function denyProjectile(projectile:Projectile):void
-		{
-			var length:int = this._deny.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._deny[i].denyProjectile(projectile);
 			}
 		}
 		

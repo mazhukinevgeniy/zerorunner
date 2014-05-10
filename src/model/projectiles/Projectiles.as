@@ -6,7 +6,6 @@ package model.projectiles
 	import controller.observers.game.IGameFrameHandler;
 	import controller.observers.game.INewGameHandler;
 	import controller.observers.game.IQuitGameHandler;
-	import controller.observers.projectiles.IDenyProjectiles;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;
@@ -17,8 +16,7 @@ package model.projectiles
 	public class Projectiles implements IProjectiles, 
 	                                    INewGameHandler, 
 										IQuitGameHandler,
-										IGameFrameHandler,
-										IDenyProjectiles
+										IGameFrameHandler
 	{
 		private var projectiles:Array;
 		private var unusedProjectiles:Vector.<Projectile>;
@@ -113,7 +111,7 @@ package model.projectiles
 		
 		/**/
 		
-		public function denyProjectile(projectile:Projectile):void
+		internal function denyProjectile(projectile:Projectile):void
 		{
 			this.deleteProjectile(projectile);
 		}
