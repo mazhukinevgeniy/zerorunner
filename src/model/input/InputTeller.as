@@ -79,8 +79,9 @@ package model.input
 						break;
 					}
 			
-			if (!toReturn)
-				toReturn = this.collector.actions[Game.ACTION_FLIGHT];
+			//if (!toReturn)
+			//	toReturn = this.collector.actions[Game.ACTION_FLIGHT];
+			// Example of how another action should be treated
 			
 			return toReturn;
 		}

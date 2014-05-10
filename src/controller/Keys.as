@@ -68,9 +68,7 @@ package controller
 					}
 					else
 					{
-						if (keyCode == Keyboard.W)
-							this.notifier.actionRequested(Game.ACTION_FLIGHT);
-						else if (keyCode == Keyboard.ESCAPE)
+						if (keyCode == Keyboard.ESCAPE)
 							this.notifier.setVisibilityOfMenu(this.status.isMenuOn());
 					}
 				}

@@ -20,10 +20,9 @@ package
 		
 		/* Action types */
 		
-		public static const ACTION_FLIGHT:int = 0;//TODO: rename
-		public static const ACTION_SKIP_FRAME:int = 1;
+		public static const ACTION_SKIP_FRAME:int = 0;
 		
-		public static const NUMBER_OF_ACTIONS:int = 2;
+		public static const NUMBER_OF_ACTIONS:int = 1;
 		
 		/* Landscape types */
 		
