@@ -31,7 +31,7 @@ package view.game.renderer
 			
 			this.status = binder.gameStatus;
 			
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			
 			this.activeRenderers = new Vector.<IRenderer>();

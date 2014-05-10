@@ -42,7 +42,7 @@ package view.game
 			
 			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			root.addChild(this);
 		}

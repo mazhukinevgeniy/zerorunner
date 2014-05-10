@@ -13,7 +13,7 @@ package model.items.shard
 		
 		public function ShardMaster(binder:IBinder, items:Items) 
 		{
-			binder.notifier.addProjectileObserver(this);
+			binder.notifier.addObserver(this);
 			
 			super(binder, items);
 			

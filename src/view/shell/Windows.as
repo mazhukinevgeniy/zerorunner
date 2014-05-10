@@ -32,7 +32,7 @@ package view.shell
 			this.idLastOpenedWindow = Windows.UNDETERMINED;
 			
 			
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 		}
 		
 		public function newGame():void

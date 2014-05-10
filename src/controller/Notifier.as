@@ -11,138 +11,106 @@ package controller
 	import controller.observers.map.IMapFrameHandler;
 	import controller.observers.map.IMapStatusObserver;
 	import controller.observers.projectiles.IShardObserver;
+	import flash.utils.Dictionary;
 	import model.metric.DCellXY;
 	import model.projectiles.Projectile;
 	
 	internal class Notifier implements INotifier
 	{
-		private var _soundObservers:Vector.<ISoundObserver>;
+		private var observers:Dictionary;
 		
-		
-		private var _newGame:Vector.<INewGameHandler>;
-		private var _quitGame:Vector.<IQuitGameHandler>;
-		private var _stopGame:Vector.<IGameStopHandler>;
-		private var _gameFrame:Vector.<IGameFrameHandler>;
-		private var _gameMenu:Vector.<IGameMenuRelated>;
-		private var _input:Vector.<IInputObserver>;
-		
-		private var _mapFrame:Vector.<IMapFrameHandler>;
-		private var _mapVisibility:Vector.<IMapStatusObserver>;
-		
-		private var _shardIncoming:Vector.<IShardObserver>;
+		private var supportedInterfaces:Vector.<Class>;
 		
 		public function Notifier() 
 		{
-			this._soundObservers = new Vector.<ISoundObserver>();
+			this.observers = new Dictionary();
 			
-			this._newGame = new Vector.<INewGameHandler>();
-			this._quitGame = new Vector.<IQuitGameHandler>();
-			this._stopGame = new Vector.<IGameStopHandler>();
-			this._gameFrame = new Vector.<IGameFrameHandler>();
-			this._gameMenu = new Vector.<IGameMenuRelated>();
-			this._input = new Vector.<IInputObserver>();
+			this.supportedInterfaces = new <Class>[
+				ISoundObserver,
+				INewGameHandler, IQuitGameHandler,
+				IGameFrameHandler, IGameStopHandler,
+				IGameMenuRelated, IInputObserver,
+				IMapFrameHandler, IMapStatusObserver,
+				IShardObserver];
 			
-			this._mapFrame = new Vector.<IMapFrameHandler>();
-			this._mapVisibility = new Vector.<IMapStatusObserver>();
-			
-			this._shardIncoming = new Vector.<IShardObserver>();
+			for each (var observerClass:Class in this.supportedInterfaces)
+			{
+				this.observers[observerClass] = new Array();
+			}
 		}
 		
-		
-		public function addSoundObserver(observer:ISoundObserver):void
+		public function addObserver(observer:Object):void
 		{
-			this._soundObservers.push(observer);
+			this.addUnknownObserver(observer, this.supportedInterfaces);
 		}
 		
-		public function addGameStatusObserver(observer:*):void
+		private function addUnknownObserver(observer:Object, interfaces:Vector.<Class>):void
 		{
-			if (observer is INewGameHandler)
-				this._newGame.push(observer as INewGameHandler);
-			
-			if (observer is IQuitGameHandler)
-				this._quitGame.push(observer as IQuitGameHandler);
-			
-			if (observer is IGameFrameHandler)
-				this._gameFrame.push(observer as IGameFrameHandler);
-			
-			if (observer is IGameStopHandler)
-				this._stopGame.push(observer as IGameStopHandler);
-			
-			if (observer is IGameMenuRelated)
-				this._gameMenu.push(observer as IGameMenuRelated);
-			
-			if (observer is IInputObserver)
-				this._input.push(observer as IInputObserver);
-		}
-		
-		public function addMapStatusObserver(observer:*):void
-		{
-			if (observer is IMapFrameHandler)
-				this._mapFrame.push(observer as IMapFrameHandler);
-			
-			if (observer is IMapStatusObserver)
-				this._mapVisibility.push(observer as IMapStatusObserver);
-		}
-		
-		public function addProjectileObserver(observer:*):void
-		{
-			if (observer is IShardObserver)
-				this._shardIncoming.push(observer as IShardObserver);
+			for each (var observerClass:Class in interfaces)
+			{
+				if (observer is observerClass &&
+					this.observers[observerClass].indexOf(observer) == -1)
+				{
+					this.observers[observerClass].push(observer);
+				}
+			}
 		}
 		
 		
 		internal function setSoundMute(value:Boolean):void
 		{
-			this.call(this._soundObservers, "setSoundMute", value);
+			this.call(ISoundObserver, "setSoundMute", value);
 		}
 		internal function setMusicMute(value:Boolean):void
 		{
-			this.call(this._soundObservers, "setMusicMute", value);
+			this.call(ISoundObserver, "setMusicMute", value);
 		}
 		internal function newGame():void
 		{
-			this.call(this._newGame, "newGame");
+			this.call(INewGameHandler, "newGame");
 		}
 		internal function quitGame():void
 		{
-			this.call(this._quitGame, "quitGame");
+			this.call(IQuitGameHandler, "quitGame");
 		}
 		internal function gameFrame(frame:int):void
 		{
-			this.call(this._gameFrame, "gameFrame", frame);
+			this.call(IGameFrameHandler, "gameFrame", frame);
 		}
 		internal function mapFrame():void
 		{
-			this.call(this._mapFrame, "mapFrame");
+			this.call(IMapFrameHandler, "mapFrame");
 		}
 		internal function gameStopped(reason:int):void
 		{
-			this.call(this._stopGame, "gameStopped", reason);
+			this.call(IGameStopHandler, "gameStopped", reason);
 		}
 		internal function setVisibilityOfMenu(visible:Boolean):void
 		{
-			this.call(this._gameMenu, "setVisibilityOfMenu", visible);
+			this.call(IGameMenuRelated, "setVisibilityOfMenu", visible);
 		}
 		internal function shardFell(shard:Projectile):void
 		{
-			this.call(this._shardIncoming, "shardFellDown", shard);
+			this.call(IShardObserver, "shardFellDown", shard);
 		}
 		internal function newInputPiece(isOn:Boolean, change:DCellXY):void
 		{
-			this.call(this._input, "newInputPiece", isOn, change);
+			this.call(IInputObserver, "newInputPiece", isOn, change);
 		}
 		internal function actionRequested(action:int):void
 		{
-			this.call(this._input, "actionRequested", action);
+			this.call(IInputObserver, "actionRequested", action);
 		}
 		internal function setVisibilityOfMap(visible:Boolean):void
 		{
-			this.call(this._mapVisibility, "setVisibilityOfMap", visible);
+			this.call(IMapStatusObserver, "setVisibilityOfMap", visible);
 		}
 		
 		
-		private function call(list:Object, method:String, ... args):void
+		private function call(observerType:Class, method:String, ... args):void
 		{
+			var list:Array = this.observers[observerType];
+			
 			var length:int = list.length;
 			for (var i:int = 0; i < length; i++)
 			{

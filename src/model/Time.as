@@ -23,7 +23,7 @@ package model
 		
 		public function Time(binder:IBinder) 
 		{
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.status = binder.gameStatus;
 			this.input = binder.input;

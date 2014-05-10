@@ -43,7 +43,7 @@ package view.game
 			
 			super();
 			
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.initializeBody(binder.assetManager.getTextureAtlas("sprites"));
 			this.initializeToggle();

@@ -19,7 +19,7 @@ package model
 			
 			this.initializeProperties();
 			
-			binder.notifier.addSoundObserver(this);
+			binder.notifier.addObserver(this);
 		}
 		
 		private function initializeProperties():void

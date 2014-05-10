@@ -19,7 +19,7 @@ package model
 		
 		public function FuelTracker(binder:IBinder) 
 		{
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.status = binder.gameStatus;
 		}

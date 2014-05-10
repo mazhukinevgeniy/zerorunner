@@ -21,8 +21,7 @@ package model.input
 		
 		public function InputCollector(binder:IBinder) 
 		{
-			binder.notifier.addGameStatusObserver(this);
-			binder.notifier.addMapStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.actions = new Vector.<Boolean>(Game.NUMBER_OF_ACTIONS, true);
 			for (var i:int = 0; i < Game.NUMBER_OF_ACTIONS; i++)

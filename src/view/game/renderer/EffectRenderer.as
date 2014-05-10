@@ -20,8 +20,7 @@ package view.game.renderer
 		
 		public function EffectRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			binder.notifier.addGameStatusObserver(this);
-			binder.notifier.addProjectileObserver(this);
+			binder.notifier.addObserver(this);
 			
 			var spriteNames:Array = new Array();
 			this.sprites = new Object();

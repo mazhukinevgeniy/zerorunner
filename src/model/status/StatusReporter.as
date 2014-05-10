@@ -26,8 +26,7 @@ package model.status
 		
 		public function StatusReporter(binder:IBinder) 
 		{
-			binder.notifier.addGameStatusObserver(this);
-			binder.notifier.addMapStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.dxyHelper = new NumericalDxyHelper();
 		}

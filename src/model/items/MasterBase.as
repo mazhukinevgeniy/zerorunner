@@ -15,7 +15,7 @@ package model.items
 			this._binder = binder;
 			this._items = items;
 			
-			binder.notifier.addGameStatusObserver(this);//TODO: make sure it can't be doubleadded
+			binder.notifier.addObserver(this);
 		}
 		
 		public function quitGame():void { this.onGameFinished(); }

@@ -15,7 +15,7 @@ package view.sounds
 		public function Sounds(binder:IBinder) 
 		{
 			binder.requestBindingFor(this);
-			binder.notifier.addSoundObserver(this);
+			binder.notifier.addObserver(this);
 			
 			super();
 		}

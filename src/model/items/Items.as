@@ -34,7 +34,7 @@ package model.items
 		{
 			this.status = status;
 			
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.masters = new Vector.<MasterBase>(Game.NUMBER_OF_ITEM_TYPES, true);
 			

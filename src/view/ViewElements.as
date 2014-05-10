@@ -22,7 +22,7 @@ package view
 		
 		public function ViewElements(binder:IBinder, root:DisplayObjectContainer) 
 		{
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.createRoots(root);
 			this.bindAssets(binder);

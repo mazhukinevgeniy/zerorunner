@@ -20,7 +20,7 @@ package view.game.renderer.clouds
 		{
 			this.leader = leader;
 			
-			binder.notifier.addGameStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			super(Main.WIDTH, Main.HEIGHT, false);
 		}

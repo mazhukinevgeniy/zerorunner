@@ -48,8 +48,7 @@ package view.game
 		
 		public function MapFeature(binder:IBinder, root:DisplayObjectContainer) 
 		{
-			binder.notifier.addGameStatusObserver(this);
-			binder.notifier.addMapStatusObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.visited = new ByteArray();
 			//TODO: move to the model

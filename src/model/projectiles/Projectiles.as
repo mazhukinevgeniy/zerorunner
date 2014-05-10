@@ -29,8 +29,7 @@ package model.projectiles
 		
 		public function Projectiles(binder:IBinder) 
 		{
-			binder.notifier.addGameStatusObserver(this);
-			binder.notifier.addProjectileObserver(this);
+			binder.notifier.addObserver(this);
 			
 			this.scene = binder.scene;
 			this.puppets = binder.puppets;
