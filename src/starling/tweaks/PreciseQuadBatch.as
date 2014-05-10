@@ -1,4 +1,4 @@
-package starling 
+package starling.tweaks 
 {
 	import starling.display.QuadBatch;
 	

@@ -1,4 +1,4 @@
-package starling 
+package starling.tweaks 
 {
 	import flash.display.Stage;
 	import flash.display.Stage3D;

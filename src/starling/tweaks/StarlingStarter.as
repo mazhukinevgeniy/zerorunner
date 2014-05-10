@@ -1,4 +1,4 @@
-package starling 
+package starling.tweaks 
 {
 	import assets.AssetLoader;
 	import feathers.core.FeathersControl;

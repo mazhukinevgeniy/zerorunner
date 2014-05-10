@@ -7,7 +7,7 @@ package
 	import flash.ui.ContextMenu;
 	import model.ModelElements;
 	import starling.extensions.TextureAtlasLogger;
-	import starling.StarlingStarter;
+	import starling.tweaks.StarlingStarter;
 	import starling.utils.AssetManager;
 	import view.ViewElements;
 	

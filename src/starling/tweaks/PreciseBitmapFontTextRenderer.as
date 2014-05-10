@@ -1,4 +1,4 @@
-package starling 
+package starling.tweaks 
 {
 	import feathers.controls.text.BitmapFontTextRenderer;
 	import starling.core.RenderSupport;
