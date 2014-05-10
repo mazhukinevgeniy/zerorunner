@@ -8,7 +8,7 @@ package controller
 	import model.interfaces.IStatus;
 	import model.metric.ProtectedDCellXY;
 	
-	internal class Keys implements IInputController,
+	internal class InputController implements IInputController,
 								   IDependent
 	{
 		private const UP:ProtectedDCellXY = new ProtectedDCellXY(0, -1);
@@ -21,7 +21,7 @@ package controller
 		
 		private var notifier:Notifier;
 		
-		public function Keys(notifier:Notifier, binder:IBinder) 
+		public function InputController(notifier:Notifier, binder:IBinder) 
 		{
 			binder.requestBindingFor(this);
 			

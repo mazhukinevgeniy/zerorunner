@@ -15,7 +15,7 @@ package controller
 			var notifier:Notifier = new Notifier();
 			
 			binder.addBindable(notifier, INotifier);
-			binder.addBindable(new Keys(notifier, binder), IInputController);
+			binder.addBindable(new InputController(notifier, binder), IInputController);
 			binder.addBindable(new SoundController(notifier), ISoundController);
 			binder.addBindable(new GameController(notifier, binder), IGameController);
 			binder.addBindable(new ProjectileController(notifier), IProjectileController);
