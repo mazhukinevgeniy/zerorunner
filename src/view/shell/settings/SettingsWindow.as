@@ -31,9 +31,10 @@ package view.shell.settings
 			
 			this.soundController.y = SettingsWindow.GAP;
 			this.musicController.y = this.soundController.y + this.soundController.height + SettingsWindow.GAP;
-
+			
 		}
 		
 	}
+	//TODO: rename class
 
 }

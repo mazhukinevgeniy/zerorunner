@@ -32,5 +32,6 @@ package view.shell.achievements
 			super.visible = newValue;
 		}
 	}
+	//TODO: rename class
 
 }

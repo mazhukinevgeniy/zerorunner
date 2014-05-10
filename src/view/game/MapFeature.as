@@ -52,6 +52,7 @@ package view.game
 			binder.notifier.addMapStatusObserver(this);
 			
 			this.visited = new ByteArray();
+			//TODO: move to the model
 			
 			this.scene = binder.scene;
 			this.input = binder.input;
