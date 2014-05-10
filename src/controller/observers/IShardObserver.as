@@ -1,4 +1,4 @@
-package controller.observers.projectiles 
+package controller.observers 
 {
 	import model.projectiles.Projectile;
 	

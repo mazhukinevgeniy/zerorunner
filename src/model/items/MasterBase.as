@@ -1,7 +1,7 @@
 package model.items 
 {
 	import binding.IBinder;
-	import controller.observers.game.IQuitGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import model.metric.DCellXY;
 	
 	public class MasterBase implements IQuitGameHandler

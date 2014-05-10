@@ -1,10 +1,10 @@
 package model.status
 {
 	import binding.IBinder;
-	import controller.observers.game.IGameMenuRelated;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.game.IQuitGameHandler;
-	import controller.observers.map.IMapStatusObserver;
+	import controller.observers.IGameMenuRelated;
+	import controller.observers.IMapStatusObserver;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import model.interfaces.IStatus;
 	import model.items.PuppetBase;
 	import model.metric.DCellXY;

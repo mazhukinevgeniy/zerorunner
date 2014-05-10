@@ -1,8 +1,8 @@
 package model 
 {
 	import binding.IBinder;
-	import controller.observers.game.IGameFrameHandler;
-	import controller.observers.game.INewGameHandler;
+	import controller.observers.IGameFrameHandler;
+	import controller.observers.INewGameHandler;
 	import model.interfaces.IFuel;
 	import model.interfaces.IStatus;
 	

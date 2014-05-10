@@ -1,4 +1,4 @@
-package controller.observers.activity 
+package controller.observers 
 {
 	
 	public interface IActivationObserver 

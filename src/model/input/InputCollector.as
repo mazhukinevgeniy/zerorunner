@@ -1,11 +1,11 @@
 package model.input 
 {
 	import binding.IBinder;
-	import controller.observers.activity.IDeactivationObserver;
-	import controller.observers.game.IGameMenuRelated;
-	import controller.observers.game.IInputObserver;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.map.IMapStatusObserver;
+	import controller.observers.IDeactivationObserver;
+	import controller.observers.IGameMenuRelated;
+	import controller.observers.IInputObserver;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IMapStatusObserver;
 	import model.metric.DCellXY;
 	
 	internal class InputCollector implements IInputObserver,

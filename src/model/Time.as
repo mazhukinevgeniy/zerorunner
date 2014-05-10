@@ -2,8 +2,8 @@ package model
 {
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
-	import controller.observers.game.IGameStopHandler;
-	import controller.observers.game.INewGameHandler;
+	import controller.observers.IGameStopHandler;
+	import controller.observers.INewGameHandler;
 	import model.interfaces.IInput;
 	import model.interfaces.IStatus;
 	import starling.core.Starling;

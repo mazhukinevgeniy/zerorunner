@@ -2,8 +2,8 @@ package view
 {
 	import binding.IBinder;
 	import controller.interfaces.INotifier;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.game.IQuitGameHandler;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;

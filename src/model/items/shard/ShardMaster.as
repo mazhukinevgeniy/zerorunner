@@ -1,7 +1,7 @@
 package model.items.shard 
 {
 	import binding.IBinder;
-	import controller.observers.projectiles.IShardObserver;
+	import controller.observers.IShardObserver;
 	import model.items.Items;
 	import model.items.MasterBase;
 	import model.metric.CellXY;

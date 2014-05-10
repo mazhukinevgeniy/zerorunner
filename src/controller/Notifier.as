@@ -1,18 +1,7 @@
 package controller 
 {
 	import controller.interfaces.INotifier;
-	import controller.observers.activity.IActivationObserver;
-	import controller.observers.activity.IDeactivationObserver;
-	import controller.observers.game.IGameFrameHandler;
-	import controller.observers.game.IGameMenuRelated;
-	import controller.observers.game.IGameStopHandler;
-	import controller.observers.game.IInputObserver;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.game.IQuitGameHandler;
-	import controller.observers.ISoundObserver;
-	import controller.observers.map.IMapFrameHandler;
-	import controller.observers.map.IMapStatusObserver;
-	import controller.observers.projectiles.IShardObserver;
+	import controller.observers.*;
 	import flash.utils.Dictionary;
 	import model.metric.DCellXY;
 	import model.projectiles.Projectile;

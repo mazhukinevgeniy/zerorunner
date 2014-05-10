@@ -1,11 +1,11 @@
 package view.game 
 {
 	import binding.IBinder;
-	import controller.observers.game.IGameFrameHandler;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.game.IQuitGameHandler;
-	import controller.observers.map.IMapFrameHandler;
-	import controller.observers.map.IMapStatusObserver;
+	import controller.observers.IGameFrameHandler;
+	import controller.observers.IMapFrameHandler;
+	import controller.observers.IMapStatusObserver;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import flash.utils.ByteArray;
 	import model.interfaces.IInput;
 	import model.interfaces.IScene;

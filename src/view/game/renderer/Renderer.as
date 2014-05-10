@@ -1,9 +1,9 @@
 package view.game.renderer 
 {
 	import binding.IBinder;
-	import controller.observers.game.IGameFrameHandler;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.game.IQuitGameHandler;
+	import controller.observers.IGameFrameHandler;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
 	import model.status.NumericalDxyHelper;

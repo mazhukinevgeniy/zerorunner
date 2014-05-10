@@ -2,8 +2,8 @@ package view.game
 {
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
-	import controller.observers.game.IGameStopHandler;
-	import controller.observers.game.INewGameHandler;
+	import controller.observers.IGameStopHandler;
+	import controller.observers.INewGameHandler;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import starling.display.DisplayObjectContainer;

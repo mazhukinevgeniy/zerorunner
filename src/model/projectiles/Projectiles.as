@@ -3,9 +3,9 @@ package model.projectiles
 	import assets.xml.MapXML;
 	import binding.IBinder;
 	import controller.interfaces.IProjectileController;
-	import controller.observers.game.IGameFrameHandler;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.game.IQuitGameHandler;
+	import controller.observers.IGameFrameHandler;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;

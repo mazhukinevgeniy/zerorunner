@@ -1,4 +1,4 @@
-package controller.observers.game 
+package controller.observers 
 {
 	
 	public interface IGameStopHandler 

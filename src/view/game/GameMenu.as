@@ -2,8 +2,8 @@ package view.game
 {
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
-	import controller.observers.game.IGameMenuRelated;
-	import controller.observers.game.INewGameHandler;
+	import controller.observers.IGameMenuRelated;
+	import controller.observers.INewGameHandler;
 	import feathers.controls.Button;
 	import flash.display.Stage;
 	import flash.geom.Point;

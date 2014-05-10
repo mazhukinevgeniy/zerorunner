@@ -1,4 +1,4 @@
-package controller.observers.map 
+package controller.observers 
 {
 	
 	public interface IMapStatusObserver 

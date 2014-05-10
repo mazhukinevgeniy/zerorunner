@@ -1,8 +1,8 @@
 package view.game.renderer.clouds 
 {
 	import binding.IBinder;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.game.IQuitGameHandler;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import starling.display.DisplayObject;
 	import starling.extensions.krecha.ScrollImage;
 	import starling.extensions.krecha.ScrollTile;

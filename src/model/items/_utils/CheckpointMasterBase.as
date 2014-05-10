@@ -1,7 +1,7 @@
 package model.items._utils 
 {
 	import binding.IBinder;
-	import controller.observers.game.IGameFrameHandler;
+	import controller.observers.IGameFrameHandler;
 	import model.items.Items;
 	import model.items.MasterBase;
 	import model.metric.CellXY;

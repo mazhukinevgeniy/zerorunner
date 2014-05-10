@@ -1,8 +1,8 @@
 package view.game.renderer 
 {
 	import binding.IBinder;
-	import controller.observers.game.INewGameHandler;
-	import controller.observers.projectiles.IShardObserver;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IShardObserver;
 	import model.projectiles.Projectile;
 	import model.utils.normalize;
 	import starling.display.QuadBatch;
