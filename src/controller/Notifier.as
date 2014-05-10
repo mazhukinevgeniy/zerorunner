@@ -93,113 +93,64 @@ package controller
 		
 		internal function setSoundMute(value:Boolean):void
 		{
-			var length:int = this._soundObservers.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._soundObservers[i].setSoundMute(value);
-			}
+			this.call(this._soundObservers, "setSoundMute", value);
 		}
-		
 		internal function setMusicMute(value:Boolean):void
 		{
-			var length:int = this._soundObservers.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._soundObservers[i].setMusicMute(value);
-			}
+			this.call(this._soundObservers, "setMusicMute", value);
 		}
-		
 		internal function newGame():void
 		{
-			var length:int = this._newGame.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._newGame[i].newGame();
-			}
+			this.call(this._newGame, "newGame");
 		}
-		
 		internal function quitGame():void
 		{
-			var length:int = this._quitGame.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._quitGame[i].quitGame();
-			}
+			this.call(this._quitGame, "quitGame");
 		}
-		
 		internal function gameFrame(frame:int):void
 		{
-			var length:int = this._gameFrame.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._gameFrame[i].gameFrame(frame);
-			}
+			this.call(this._gameFrame, "gameFrame", frame);
 		}
-		
 		internal function mapFrame():void
 		{
-			var length:int = this._mapFrame.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._mapFrame[i].mapFrame();
-			}
+			this.call(this._mapFrame, "mapFrame");
 		}
-		
 		internal function gameStopped(reason:int):void
 		{
-			var length:int = this._stopGame.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._stopGame[i].gameStopped(reason);
-			}
+			this.call(this._stopGame, "gameStopped", reason);
 		}
-		
 		internal function setVisibilityOfMenu(visible:Boolean):void
 		{
-			var length:int = this._gameMenu.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._gameMenu[i].setVisibilityOfMenu(visible);
-			}
+			this.call(this._gameMenu, "setVisibilityOfMenu", visible);
 		}
-		
 		internal function shardFell(shard:Projectile):void
 		{
-			var length:int = this._shardIncoming.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._shardIncoming[i].shardFellDown(shard);
-			}
+			this.call(this._shardIncoming, "shardFellDown", shard);
 		}
-		
 		internal function newInputPiece(isOn:Boolean, change:DCellXY):void
 		{
-			var length:int = this._input.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._input[i].newInputPiece(isOn, change);
-			}
+			this.call(this._input, "newInputPiece", isOn, change);
 		}
-		
 		internal function actionRequested(action:int):void
 		{
-			var length:int = this._input.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._input[i].actionRequested(action);
-			}
+			this.call(this._input, "actionRequested", action);
 		}
-		
 		internal function setVisibilityOfMap(visible:Boolean):void
 		{
-			var length:int = this._mapVisibility.length;
-			for (var i:int = 0; i < length; i++)
-			{
-				this._mapVisibility[i].setVisibilityOfMap(visible);
-			}
+			this.call(this._mapVisibility, "setVisibilityOfMap", visible);
 		}
 		
 		
+		private function call(list:Object, method:String, ... args):void
+		{
+			var length:int = list.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				var called:Object = list[i];
+				
+				called[method].apply(called, args);
+			}
+		}
 	}
 
 }
