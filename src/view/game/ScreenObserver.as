@@ -55,7 +55,7 @@ package view.game
 		
 		private function handleMenuButtonTriggered():void
 		{
-			this.controller.setVisibilityOfMenu(false);
+			this.controller.setVisibilityOfMenu(true);
 		}
 		public function newGame():void
 		{
