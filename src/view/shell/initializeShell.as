@@ -77,8 +77,6 @@ package view.shell
 			
 			return properties;
 		}
-		
-		//TODO: allow the return from every screen
 	}
 	
 }
