@@ -10,6 +10,8 @@ package view.sounds
 	{
 		private var sounds:Vector.<SoundManagerBase>;
 		
+		private var save:ISave;
+		
 		public function Sounds(binder:IBinder) 
 		{
 			binder.requestBindingFor(this);
@@ -21,11 +23,11 @@ package view.sounds
 		public function bindObjects(binder:IBinder):void
 		{
 			var assets:AssetManager = binder.assetManager;
-			var save:ISave = binder.save;
+			this.save = binder.save;
 			
 			this.sounds = new Vector.<SoundManagerBase>(View.NUMBER_OF_SOUND_TYPES, true);
-			this.sounds[View.SOUND_MUSIC] = new MusicManager(assets, save);
-			this.sounds[View.SOUND_EFFECT] = new SoundManager(assets, save);
+			this.sounds[View.SOUND_MUSIC] = new MusicManager(assets, this.save);
+			this.sounds[View.SOUND_EFFECT] = new SoundManager(assets, this.save);
 		}
 		
 		public function setSoundMute(type:int, value:Boolean):void
@@ -36,6 +38,8 @@ package view.sounds
 		public function setSoundValue(type:int, value:Number):void
 		{
 			this.sounds[type].setGlobalVolume(value);
+			this.sounds[type].muteAll(this.save.getSoundMute(type));
+			//the latter is done because otherwise mute settings would be ignored
 		}
 		
 	}
