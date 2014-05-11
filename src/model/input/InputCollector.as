@@ -2,16 +2,18 @@ package model.input
 {
 	import binding.IBinder;
 	import controller.observers.IDeactivationObserver;
-	import controller.observers.IGameMenuRelated;
+	import controller.observers.IGameMapObserver;
+	import controller.observers.IGameMenuObserver;
+	import controller.observers.IGameObserver;
 	import controller.observers.IInputObserver;
 	import controller.observers.INewGameHandler;
-	import controller.observers.IMapStatusObserver;
 	import model.metric.DCellXY;
 	
 	internal class InputCollector implements IInputObserver,
 	                                         INewGameHandler,
-											 IMapStatusObserver,
-											 IGameMenuRelated,
+											 IGameObserver,
+											 IGameMapObserver,
+											 IGameMenuObserver,
 											 IDeactivationObserver
 	{
 		private const NO_DIRECTION:int = 0;
@@ -64,11 +66,15 @@ package model.input
 		{
 			this.clearInput();
 		}
-		public function setVisibilityOfMap(visible:Boolean):void
+		public function showGameMap():void
 		{
 			this.clearInput();
 		}
-		public function setVisibilityOfMenu(visible:Boolean):void
+		public function showGameMenu():void
+		{
+			this.clearInput();
+		}
+		public function showGame():void
 		{
 			this.clearInput();
 		}

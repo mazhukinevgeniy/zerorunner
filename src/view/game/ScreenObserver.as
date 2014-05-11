@@ -2,9 +2,10 @@ package view.game
 {
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
-	import controller.observers.IGameMenuRelated;
+	import controller.observers.IGameMapObserver;
+	import controller.observers.IGameMenuObserver;
+	import controller.observers.IGameObserver;
 	import controller.observers.IGameStopHandler;
-	import controller.observers.IMapStatusObserver;
 	import controller.observers.INewGameHandler;
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
@@ -13,7 +14,7 @@ package view.game
 	import view.game.events.GameEvent;
 	import view.themes.GameTheme;
 	
-	internal class ScreenObserver extends Screen implements INewGameHandler, IGameStopHandler, IGameMenuRelated, IMapStatusObserver
+	internal class ScreenObserver extends Screen implements INewGameHandler, IGameStopHandler, IGameObserver, IGameMenuObserver, IGameMapObserver
 	{
 		private var gameEvents:Object = { }
 		private var navigator:ScreenNavigator;
@@ -55,11 +56,11 @@ package view.game
 		
 		private function handleMenuButtonTriggered():void
 		{
-			this.controller.setVisibilityOfMenu(true);
+			this.controller.showGameMenu();
 		}
 		public function newGame():void
 		{
-			this.controller.setVisibilityOfMenu(false);
+			this.controller.showGame();
 		}
 		
 		public function gameStopped(reason:int):void
@@ -77,20 +78,19 @@ package view.game
 			}
 		}
 		
-		public function setVisibilityOfMenu(visible:Boolean):void
+		public function showGame():void
 		{
-			if (visible)
-				this.forceEvent(GameEvent.SHOW_MENU);
-			else
-				this.forceEvent(GameEvent.SHOW_OBSERVER);
+			this.forceEvent(GameEvent.SHOW_OBSERVER);
 		}
 		
-		public function setVisibilityOfMap(visible:Boolean):void
+		public function showGameMenu():void
 		{
-			if (visible)
-				this.forceEvent(GameEvent.SHOW_MAP);
-			else
-				this.forceEvent(GameEvent.SHOW_OBSERVER);
+			this.forceEvent(GameEvent.SHOW_MENU);
+		}
+		
+		public function showGameMap():void
+		{
+			this.forceEvent(GameEvent.SHOW_MAP);
 		}
 		
 		

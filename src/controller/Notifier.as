@@ -18,12 +18,12 @@ package controller
 			
 			this.supportedInterfaces = new <Class>[
 				ISoundObserver, 
-				IScreenObserver,
+				IScreenObserver, IGameObserver,
 				IActivationObserver, IDeactivationObserver,
 				INewGameHandler, IQuitGameHandler,
 				IGameFrameHandler, IGameStopHandler,
-				IGameMenuRelated, IInputObserver,
-				IMapFrameHandler, IMapStatusObserver,
+				IGameMenuObserver, IGameMapObserver,
+				IMapFrameHandler, IInputObserver,
 				IShardObserver];
 			
 			for each (var observerClass:Class in this.supportedInterfaces)
@@ -84,9 +84,13 @@ package controller
 		{
 			this.call(IGameStopHandler, "gameStopped", reason);
 		}
-		internal function setVisibilityOfMenu(visible:Boolean):void
+		internal function showGameMenu():void
 		{
-			this.call(IGameMenuRelated, "setVisibilityOfMenu", visible);
+			this.call(IGameMenuObserver, "showGameMenu");
+		}
+		internal function showGame():void
+		{
+			this.call(IGameObserver, "showGame");
 		}
 		internal function shardFell(shard:Projectile):void
 		{
@@ -100,9 +104,9 @@ package controller
 		{
 			this.call(IInputObserver, "actionRequested", action);
 		}
-		internal function setVisibilityOfMap(visible:Boolean):void
+		internal function showGameMap():void
 		{
-			this.call(IMapStatusObserver, "setVisibilityOfMap", visible);
+			this.call(IGameMapObserver, "showGameMap");
 		}
 		
 		

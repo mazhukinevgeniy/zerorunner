@@ -69,12 +69,22 @@ package controller
 					else
 					{
 						if (keyCode == Keyboard.ESCAPE)
-							this.notifier.setVisibilityOfMenu(!this.status.isMenuOn());
+						{
+							if (this.status.isMenuOn())
+								this.notifier.showGame();
+							else
+								this.notifier.showGameMenu();
+						}
 					}
 				}
 				
 				if (!keyUp && keyCode == Keyboard.M)
-					this.notifier.setVisibilityOfMap(!this.status.isMapOn());
+				{
+					if (this.status.isMapOn())
+						this.notifier.showGame();
+					else
+						this.notifier.showGameMap();
+				}
 			}
 		}
 		

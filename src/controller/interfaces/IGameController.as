@@ -1,18 +1,24 @@
 package controller.interfaces 
 {
+	import controller.observers.IGameFrameHandler;
+	import controller.observers.IGameMapObserver;
+	import controller.observers.IGameMenuObserver;
+	import controller.observers.IGameObserver;
+	import controller.observers.IGameStopHandler;
+	import controller.observers.IMapFrameHandler;
+	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	
-	public interface IGameController 
+	public interface IGameController extends IGameMenuObserver,
+	                                         IGameMapObserver,
+											 IGameObserver,
+											 INewGameHandler,
+											 IQuitGameHandler,
+											 IGameFrameHandler,
+											 IMapFrameHandler,
+											 IGameStopHandler
 	{
-		function newGame():void;
-		function quitGame():void;
 		
-		function gameFrame(frame:int):void;
-		function mapFrame():void;
-		
-		function gameStopped(reason:int):void;
-		
-		function setVisibilityOfMenu(visible:Boolean):void;
-		function setVisibilityOfMap(visible:Boolean):void;
 	}
 	
 }

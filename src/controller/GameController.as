@@ -55,14 +55,19 @@ package controller
 			this.notifier.gameStopped(reason);
 		}
 		
-		public function setVisibilityOfMenu(visible:Boolean):void
+		public function showGameMenu():void
 		{
-			this.notifier.setVisibilityOfMenu(visible);
+			this.notifier.showGameMenu();
 		}
 		
-		public function setVisibilityOfMap(visible:Boolean):void
+		public function showGameMap():void
 		{
-			this.notifier.setVisibilityOfMap(visible);
+			this.notifier.showGameMap();
+		}
+		
+		public function showGame():void
+		{
+			this.notifier.showGame();
 		}
 	}
 
