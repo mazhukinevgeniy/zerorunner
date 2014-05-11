@@ -36,7 +36,7 @@ package view.shell
 			this.regulators[type].checkBox.isSelected = !value;
 		}
 		
-		public function setSoundValue(type:int, value:Number):void
+		public function setSoundVolume(type:int, value:Number):void
 		{
 			this.regulators[type].slider.value = value * 100;
 			//TODO: that 100 gets hardcody, fix it

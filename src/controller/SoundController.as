@@ -16,9 +16,9 @@ package controller
 		{
 			this.notifier.setSoundMute(type, value);
 		}
-		public function setSoundValue(type:int, value:Number):void
+		public function setSoundVolume(type:int, value:Number):void
 		{
-			this.notifier.setSoundValue(type, value);
+			this.notifier.setSoundVolume(type, value);
 		}
 		
 	}

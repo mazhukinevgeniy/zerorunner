@@ -38,7 +38,7 @@ package view.shell.controls
 			this.slider = new Slider();
 			this.slider.maximum = 100;
 			
-			this.slider.value = 100 * save.getSoundValue(this.soundType);
+			this.slider.value = 100 * save.getSoundVolume(this.soundType);
 			
 			
 			this.addChild(this.checkBox);
@@ -63,7 +63,7 @@ package view.shell.controls
 		
 		private function handleSliderChange():void
 		{
-			this.soundController.setSoundValue(this.soundType, this.slider.value / this.slider.maximum);
+			this.soundController.setSoundVolume(this.soundType, this.slider.value / this.slider.maximum);
 		}
 		private function handleCheckChange():void
 		{

@@ -35,7 +35,7 @@ package view.sounds
 			this.sounds[type].muteAll(value);
 		}
 		
-		public function setSoundValue(type:int, value:Number):void
+		public function setSoundVolume(type:int, value:Number):void
 		{
 			this.sounds[type].setGlobalVolume(value);
 			this.sounds[type].muteAll(this.save.getSoundMute(type));

@@ -56,9 +56,9 @@ package controller
 		{
 			this.call(ISoundObserver, "setSoundMute", type, value);
 		}
-		internal function setSoundValue(type:int, value:Number):void
+		internal function setSoundVolume(type:int, value:Number):void
 		{
-			this.call(ISoundObserver, "setSoundValue", type, value);
+			this.call(ISoundObserver, "setSoundVolume", type, value);
 		}
 		internal function newGame():void
 		{

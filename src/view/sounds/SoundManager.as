@@ -11,7 +11,7 @@ package view.sounds
 		{
 			super();
 			
-			this.volume = save.getSoundValue(View.SOUND_EFFECT);
+			this.volume = save.getSoundVolume(View.SOUND_EFFECT);
 			
 			this.initializeTracks(assets);
 			
