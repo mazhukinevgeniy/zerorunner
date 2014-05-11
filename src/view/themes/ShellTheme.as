@@ -60,8 +60,6 @@ package view.themes
 			
 			//TODO: fix view; it'd have different skin etc
 		}
-		
-		
 	}
 
 }

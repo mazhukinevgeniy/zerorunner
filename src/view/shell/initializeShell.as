@@ -3,6 +3,7 @@ package view.shell
 	import binding.IBinder;
 	import feathers.controls.ScreenNavigator;
 	import feathers.controls.ScreenNavigatorItem;
+	import feathers.layout.VerticalLayout;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -22,16 +23,16 @@ package view.shell
 		
 		
 		var mainScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(new MainScreen(binder), getMainEventMap());
+			new ScreenNavigatorItem(new MainScreen(binder), getMainEventMap(), getDefaultProperties());
 		
 		var optionsScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(new OptionsScreen(binder));
+			new ScreenNavigatorItem(new OptionsScreen(binder), null, getDefaultProperties());
 		
 		var trophiesScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(TrophiesScreen);
+			new ScreenNavigatorItem(TrophiesScreen, null, getDefaultProperties());
 		
 		var creditsScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(CreditsScreen);
+			new ScreenNavigatorItem(CreditsScreen, null, getDefaultProperties());
 		
 		
 		navigator.addScreen(View.SCREEN_MAIN, mainScreen);
@@ -52,6 +53,21 @@ package view.shell
 			map[ShellEvent.SHOW_TROPHIES] = View.SCREEN_TROPHIES;
 			
 			return map;
+		}
+		
+		
+		function getDefaultProperties():Object
+		{
+			var layout:VerticalLayout = new VerticalLayout();
+			
+			layout.gap = 26;
+			
+			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER;
+			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
+			
+			var properties:Object = { layout: layout };
+			
+			return properties;
 		}
 		
 		//TODO: allow the return from every screen

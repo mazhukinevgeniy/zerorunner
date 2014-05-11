@@ -4,7 +4,6 @@ package view.shell
 	import controller.interfaces.IGameController;
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
-	import feathers.layout.VerticalLayout;
 	import starling.events.Event;
 	import view.shell.events.ShellEvent;
 	
@@ -24,9 +23,6 @@ package view.shell
 			super();
 			
 			
-			
-			this.initializeLayout();
-			
 			this.buttonFactory = new ButtonFactory(binder.assetManager);
 			this.initializeButtons(); //TODO: something is weird here
 			
@@ -36,17 +32,7 @@ package view.shell
 		}
 		
 		
-		protected function initializeLayout():void
-		{
-			var layout:VerticalLayout = new VerticalLayout();
-			layout.gap = 26;
-			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER
-			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
-			
-			this.layout = layout;
-			
-			//TODO: initialize in the theme
-		}
+		
 		
 		protected function initializeButtons():void 
 		{
