@@ -34,6 +34,8 @@ package
 		public static const SCENE_UNUSED_4:int = 6;
 		public static const SCENE_UNUSED_5:int = 7;
 		
+		public static const SCENE_NONE:int = 8;
+		
 		/* Endings */
 		
 		public static const ENDING_LOST:int = 0;

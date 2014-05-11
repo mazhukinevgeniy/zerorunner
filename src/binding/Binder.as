@@ -8,6 +8,7 @@ package binding
 	import controller.interfaces.IScreenController;
 	import controller.interfaces.ISoundController;
 	import flash.utils.Dictionary;
+	import model.interfaces.IExploration;
 	import model.interfaces.IFuel;
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
@@ -60,6 +61,7 @@ package binding
 		public function get puppets():IPuppets { return this.objects[IPuppets]; }
 		public function get gameStatus():IStatus { return this.objects[IStatus]; }
 		public function get notifier():INotifier { return this.objects[INotifier]; }
+		public function get exploration():IExploration { return this.objects[IExploration]; }
 		public function get projectiles():IProjectiles { return this.objects[IProjectiles]; }
 		public function get assetManager():AssetManager { return this.objects[AssetManager]; }
 		public function get gameController():IGameController { return this.objects[IGameController]; }

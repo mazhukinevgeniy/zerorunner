@@ -2,11 +2,13 @@ package view.game
 {
 	import binding.IBinder;
 	import controller.observers.IGameFrameHandler;
+	import controller.observers.IGameMapObserver;
 	import controller.observers.IMapFrameHandler;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
 	import feathers.controls.Screen;
 	import flash.utils.ByteArray;
+	import model.interfaces.IExploration;
 	import model.interfaces.IInput;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
@@ -20,21 +22,14 @@ package view.game
 	
 	internal class MapScreen extends Screen implements INewGameHandler,
 	                                                   IQuitGameHandler,
-													   IGameFrameHandler,
-													   IMapFrameHandler
+													   IMapFrameHandler,
+													   IGameMapObserver
 	{
 		private const C_WIDTH:int = 7;
 		private const BORDER_WIDTH:int = 45;
 		
-		private const NOT_VISITED:int = 0;
-		private const VISITED:int = 1;
-		
-		private var visited:ByteArray;
-		
-		private var scene:IScene;
-		private var status:IStatus;
-		
 		private var input:IInput;
+		private var exploration:IExploration;
 		
 		private var container:QuadBatch;
 		
@@ -51,18 +46,14 @@ package view.game
 			
 			binder.notifier.addObserver(this);
 			
-			this.visited = new ByteArray();
-			//TODO: move to the model
-			
-			this.scene = binder.scene;
 			this.input = binder.input;
-			
-			this.status = binder.gameStatus;
+			this.exploration = binder.exploration;
 			
 			this.tiles = new Array();
 			this.tiles[Game.SCENE_FALL] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
 			this.tiles[Game.SCENE_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
 			this.tiles[Game.SCENE_GROUND] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x8B4513);
+			this.tiles[Game.SCENE_NONE] = new Quad(0, 0, 0x000000);
 			
 			this.container = new QuadBatch();
 			this.addChild(this.container);
@@ -72,16 +63,6 @@ package view.game
 		{
 			this.container.reset();
 			
-			var i:int;
-			
-			var length:int = this.visited.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
-			
-			for (i = 0; i < length; i++)
-				this.visited[i] = this.NOT_VISITED;
-				/* OPTIMIZABLE */
-			
-			this.container.reset();
-			
 			var borderPiece:Quad = new Quad(this.BORDER_WIDTH, this.BORDER_WIDTH, Color.NAVY);
 			
 			const MAX_WIDTH:int = Game.MAP_WIDTH * this.C_WIDTH + 2 * this.BORDER_WIDTH;
@@ -89,6 +70,7 @@ package view.game
 			if ((Game.MAP_WIDTH * this.C_WIDTH) % this.BORDER_WIDTH != 0)
 				throw new Error("can't render map borders");
 			
+			var i:int;
 			for (i = 0; i < MAX_WIDTH; i += this.BORDER_WIDTH)
 			{
 				borderPiece.y = 0;
@@ -119,39 +101,24 @@ package view.game
 			
 			this.minX = -(MAX_WIDTH - View.WIDTH);
 			this.minY = -(MAX_WIDTH - View.HEIGHT);
-			
-			this.gameFrame(Game.FRAME_TO_UNLOCK_ACHIEVEMENTS);
 		}
 		
-		
-		public function gameFrame(key:int):void
+		public function showGameMap():void
 		{
-			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
-			{
-				var center:ICoordinated = this.status.getLocationOfHero();
-				
-				var iGoal:int = center.x + 8;
-				var jGoal:int = center.y + 6;
-				
-				for (var i:int = center.x - 7; i < iGoal; i++)
-					for (var j:int = center.y - 5; j < jGoal; j++)
-					{
-						var nI:int = normalize(i);
-						var nJ:int = normalize(j);
-						
-						if (this.visited[nI + Game.MAP_WIDTH * nJ] == this.NOT_VISITED)
-						{
-							this.visited[nI + Game.MAP_WIDTH * nJ] = this.VISITED;
-							
-							var quad:Quad = this.tiles[this.scene.getSceneCell(i, j)];
-							
-							quad.x = this.BORDER_WIDTH + this.C_WIDTH * nI;
-							quad.y = this.BORDER_WIDTH + this.C_WIDTH * nJ;
-							
-							this.container.addQuad(quad);
-						}
-					}
-			}
+			var quad:Quad;
+			
+			this.container.reset();
+			
+			for (var x:int = 0; x < Game.MAP_WIDTH; x++)
+				for (var y:int = 0; y < Game.MAP_WIDTH; y++)
+				{
+					quad = this.tiles[this.exploration.getExplored(x, y)];
+					
+					quad.x = this.BORDER_WIDTH + x * this.C_WIDTH;
+					quad.y = this.BORDER_WIDTH + y * this.C_WIDTH;
+					
+					this.container.addQuad(quad);
+				}
 		}
 		
 		public function mapFrame():void
@@ -183,8 +150,6 @@ package view.game
 		public function quitGame():void
 		{
 			this.container.reset();
-			
-			this.visited.clear();
 		}
 	}
 

@@ -2,6 +2,7 @@ package model
 {
 	import binding.IBinder;
 	import model.input.InputTeller;
+	import model.interfaces.IExploration;
 	import model.interfaces.IFuel;
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
@@ -29,6 +30,8 @@ package model
 			binder.addBindable(new Scene(binder), IScene);
 			binder.addBindable(new Items(binder, status), IPuppets);
 			binder.addBindable(new Projectiles(binder), IProjectiles);
+			
+			binder.addBindable(new Exploration(binder), IExploration);
 			
 			new Time(binder);
 		}
