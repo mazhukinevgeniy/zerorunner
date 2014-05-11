@@ -69,7 +69,7 @@ package controller
 					else
 					{
 						if (keyCode == Keyboard.ESCAPE)
-							this.notifier.setVisibilityOfMenu(this.status.isMenuOn());
+							this.notifier.setVisibilityOfMenu(!this.status.isMenuOn());
 					}
 				}
 				
