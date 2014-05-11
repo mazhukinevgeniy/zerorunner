@@ -30,14 +30,15 @@ package view.shell.controls
 			
 			this.checkBox = new Check();
 			this.checkBox.nameList.add(ShellTheme.SOUND[type]);
-			this.checkBox.nameList.add(ShellTheme.TOGGLE_MUTE);
+			this.checkBox.nameList.add(ShellTheme.SOUND_REGULATOR);
 			
 			this.checkBox.isSelected = !save.getSoundMute(this.soundType);
 			
 			
 			this.slider = new Slider();
-			this.slider.maximum = 100;
+			this.slider.nameList.add(ShellTheme.SOUND_REGULATOR);
 			
+			this.slider.maximum = 100;
 			this.slider.value = 100 * save.getSoundVolume(this.soundType);
 			
 			

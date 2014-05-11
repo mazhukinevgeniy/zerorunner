@@ -230,7 +230,6 @@ package view.themes
 			
 			slider.step = 1;
 			slider.page = 10;
-			//TODO: initialize for named sliders
 		}
 		
 		protected function defaultCheckBoxInitializer(check:Check):void

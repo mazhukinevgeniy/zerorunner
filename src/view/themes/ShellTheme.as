@@ -2,6 +2,7 @@ package view.themes
 {
 	import feathers.controls.Button;
 	import feathers.controls.Check;
+	import feathers.controls.Slider;
 	import starling.display.DisplayObjectContainer;
 	import starling.textures.TextureAtlas;
 	
@@ -9,7 +10,7 @@ package view.themes
 	{
 		public static const NAVIGATION_BUTTON:String = "NAVIGATION_BUTTON";
 		
-		public static const TOGGLE_MUTE:String = "TOGGLE_MUTE";
+		public static const SOUND_REGULATOR:String = "SOUND_REGULATOR";
 		
 		public static const SOUND:Vector.<String> = Vector.<String>(["EFFECT", "MUSIC"]);
 		
@@ -25,7 +26,8 @@ package view.themes
 			
 			this.setInitializerForClass(Button, this.navigationButtonInitializer, ShellTheme.NAVIGATION_BUTTON);
 			
-			this.setInitializerForClass(Check, this.muteCheckBoxInitializer, ShellTheme.TOGGLE_MUTE);
+			this.setInitializerForClass(Check, this.muteCheckBoxInitializer, ShellTheme.SOUND_REGULATOR);
+			this.setInitializerForClass(Slider, this.volumeSliderInitializer, ShellTheme.SOUND_REGULATOR);
 		}
 		
 		
@@ -56,6 +58,13 @@ package view.themes
 				check.label = "SOUND";
 			}
 			
+		}
+		
+		private function volumeSliderInitializer(slider:Slider):void
+		{
+			this.defaultSliderInitializer(slider);
+			
+			slider.page = 20;
 		}
 	}
 
