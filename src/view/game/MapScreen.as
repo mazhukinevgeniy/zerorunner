@@ -1,32 +1,23 @@
 package view.game 
 {
 	import binding.IBinder;
-	import controller.observers.IGameFrameHandler;
 	import controller.observers.IGameMapObserver;
 	import controller.observers.IMapFrameHandler;
-	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
 	import feathers.controls.Screen;
-	import flash.utils.ByteArray;
 	import model.interfaces.IExploration;
 	import model.interfaces.IInput;
-	import model.interfaces.IScene;
-	import model.interfaces.IStatus;
 	import model.metric.DCellXY;
-	import model.metric.ICoordinated;
-	import model.utils.normalize;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.utils.Color;
 	
-	internal class MapScreen extends Screen implements INewGameHandler,
-	                                                   IQuitGameHandler,
+	internal class MapScreen extends Screen implements IQuitGameHandler,
 													   IMapFrameHandler,
 													   IGameMapObserver
 	{
-		private const C_WIDTH:int = 7;
-		private const BORDER_WIDTH:int = 45;
+		private const C_WIDTH:int = 8;
 		
 		private var input:IInput;
 		private var exploration:IExploration;
@@ -34,17 +25,14 @@ package view.game
 		private var container:QuadBatch;
 		
 		private var tiles:Array;
-		
-		private var minX:int;
-		private var maxX:int = 0;
-		private var minY:int;
-		private var maxY:int = 0;
+		private var back:Quad;
 		
 		public function MapScreen(binder:IBinder) 
 		{
 			super();
-			
 			binder.notifier.addObserver(this);
+			
+			this.container = new QuadBatch();
 			
 			this.input = binder.input;
 			this.exploration = binder.exploration;
@@ -55,52 +43,10 @@ package view.game
 			this.tiles[Game.SCENE_GROUND] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x8B4513);
 			this.tiles[Game.SCENE_NONE] = new Quad(0, 0, 0x000000);
 			
-			this.container = new QuadBatch();
+			this.back = new Quad(this.C_WIDTH * Game.MAP_WIDTH, this.C_WIDTH * Game.MAP_WIDTH,
+								 Color.SILVER);
+			
 			this.addChild(this.container);
-		}
-		
-		public function newGame():void
-		{
-			this.container.reset();
-			
-			var borderPiece:Quad = new Quad(this.BORDER_WIDTH, this.BORDER_WIDTH, Color.NAVY);
-			
-			const MAX_WIDTH:int = Game.MAP_WIDTH * this.C_WIDTH + 2 * this.BORDER_WIDTH;
-			
-			if ((Game.MAP_WIDTH * this.C_WIDTH) % this.BORDER_WIDTH != 0)
-				throw new Error("can't render map borders");
-			
-			var i:int;
-			for (i = 0; i < MAX_WIDTH; i += this.BORDER_WIDTH)
-			{
-				borderPiece.y = 0;
-				borderPiece.x = i;
-				
-				this.container.addQuad(borderPiece);
-				
-				borderPiece.y = MAX_WIDTH - this.BORDER_WIDTH;
-				
-				this.container.addQuad(borderPiece);
-				
-				borderPiece.x = 0;
-				borderPiece.y = i;
-				
-				this.container.addQuad(borderPiece);
-				
-				borderPiece.x = MAX_WIDTH - this.BORDER_WIDTH;
-				
-				this.container.addQuad(borderPiece);
-			}
-			
-			var back:Quad = new Quad(MAX_WIDTH - 2 * this.BORDER_WIDTH,
-									 MAX_WIDTH - 2 * this.BORDER_WIDTH,
-									 0xADD8E6);
-			back.x = back.y = this.BORDER_WIDTH;
-			
-			this.container.addQuad(back);
-			
-			this.minX = -(MAX_WIDTH - View.WIDTH);
-			this.minY = -(MAX_WIDTH - View.HEIGHT);
 		}
 		
 		public function showGameMap():void
@@ -108,14 +54,15 @@ package view.game
 			var quad:Quad;
 			
 			this.container.reset();
+			this.container.addQuad(this.back);
 			
-			for (var x:int = 0; x < Game.MAP_WIDTH; x++)
-				for (var y:int = 0; y < Game.MAP_WIDTH; y++)
+			for (var y:int = 0; y < Game.MAP_WIDTH; y++)
+				for (var x:int = 0; x < Game.MAP_WIDTH; x++)
 				{
 					quad = this.tiles[this.exploration.getExplored(x, y)];
 					
-					quad.x = this.BORDER_WIDTH + x * this.C_WIDTH;
-					quad.y = this.BORDER_WIDTH + y * this.C_WIDTH;
+					quad.x = x * this.C_WIDTH;
+					quad.y = y * this.C_WIDTH;
 					
 					this.container.addQuad(quad);
 				}
@@ -136,16 +83,20 @@ package view.game
 				action = input.pop();
 			}
 			
-			if (this.container.x < this.minX)
-				this.container.x = this.minX;
-			else if (this.container.x > this.maxX)
-				this.container.x = this.maxX;
+			var x:int = this.container.x;
+			var y:int = this.container.y;
 			
-			if (this.container.y < this.minY)
-				this.container.y = this.minY;
-			else if (this.container.y > this.maxY)
-				this.container.y = this.maxY;
+			const minX:int = -(Game.MAP_WIDTH * this.C_WIDTH - View.WIDTH);
+			const minY:int = -(Game.MAP_WIDTH * this.C_WIDTH - View.HEIGHT);
+			
+			x = x > 0 ? 0 : x < minX ? minX : x;
+			y = y > 0 ? 0 : y < minY ? minY : y;
+			
+			this.container.x = x;
+			this.container.y = y;
 		}
+		
+		
 		
 		public function quitGame():void
 		{
