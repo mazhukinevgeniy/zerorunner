@@ -3,22 +3,13 @@ package view.shell
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
 	import feathers.controls.Button;
-	import feathers.controls.ScrollContainer;
+	import feathers.controls.Screen;
 	import feathers.layout.VerticalLayout;
-	import starling.display.Sprite;
 	import starling.events.Event;
+	import view.shell.events.ShellEvent;
 	
-	public class Navigation extends ScrollContainer
+	internal class MainScreen extends Screen
 	{
-		public static const WIDTH:Number = 150;
-		public static const HEIGHT:Number = 300;
-		
-		private static const SPACE_BEETWEEN_BUTTON:Number = 25;
-		private static const START_HEIGHT_BUTTONS:Number = 50;
-		
-		private static const WIDTH_BUTTON:Number = 120;
-		private static const HEIGHT_BUTTON:Number = 30;
-		
 		protected var buttonFactory:ButtonFactory;
 		
 		protected var playButton:Button,
@@ -26,44 +17,35 @@ package view.shell
 					  settingsButton:Button,
 					  creditsButton:Button;
 		
-		private var resetButton:Button;
-		
-		private var windows:Windows;
-		
 		private var gameController:IGameController;
 		
-		public function Navigation(windows:Windows, binder:IBinder) 
+		public function MainScreen(binder:IBinder) 
 		{
-			this.windows = windows;
-			
 			super();
 			
-			this.initializeSize();
+			
+			
 			this.initializeLayout();
 			
-			this.buttonFactory = 
-				new ButtonFactory(binder.assetManager, 
-								  Navigation.WIDTH_BUTTON, 
-								  Navigation.HEIGHT_BUTTON);
+			this.buttonFactory = new ButtonFactory(binder.assetManager);
 			this.initializeButtons(); //TODO: something is weird here
 			
 			this.gameController = binder.gameController;
+			
+			
 		}
 		
-		protected function initializeSize():void
-		{
-			//this.width = Navigation.WIDTH;
-			//this.height = Navigation.HEIGHT;
-		}
 		
 		protected function initializeLayout():void
 		{
 			var layout:VerticalLayout = new VerticalLayout();
-			layout.gap = Navigation.SPACE_BEETWEEN_BUTTON;
+			layout.gap = 26;
 			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER
 			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
 			
 			this.layout = layout;
+			
+			//TODO: initialize in the theme
 		}
 		
 		protected function initializeButtons():void 
@@ -93,17 +75,17 @@ package view.shell
 			{
 				this.gameController.newGame();
 			}
-			else if (event.target == this.achievementsButton)
+			else if (event.target == this.achievementsButton)//TODO: rename button
 			{
-				this.windows.toggleWindow(Windows.ACHIEVEMENTS);
+				this.dispatchEventWith(ShellEvent.SHOW_TROPHIES);
 			}
 			else if (event.target == this.settingsButton)
 			{
-				this.windows.toggleWindow(Windows.SETTINGS);
+				this.dispatchEventWith(ShellEvent.SHOW_OPTIONS);
 			}
 			else if (event.target == this.creditsButton)
 			{
-				this.windows.toggleWindow(Windows.CREDITS);
+				this.dispatchEventWith(ShellEvent.SHOW_CREDITS);
 			}
 		}
 		

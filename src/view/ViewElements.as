@@ -2,8 +2,6 @@ package view
 {
 	import binding.IBinder;
 	import controller.interfaces.INotifier;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
@@ -15,15 +13,13 @@ package view
 	import view.themes.GameTheme;
 	import view.themes.ShellTheme;
 	
-	public class ViewElements implements INewGameHandler, IQuitGameHandler
+	public class ViewElements
 	{
 		private var shellRoot:Sprite;
 		private var gameRoot:Sprite;
 		
 		public function ViewElements(binder:IBinder, root:DisplayObjectContainer) 
 		{
-			binder.notifier.addObserver(this);
-			
 			this.createRoots(root);
 			this.bindAssets(binder);
 			
@@ -32,6 +28,7 @@ package view
 			
 			new Sounds(binder);
 			new EventListener(binder, Starling.current.nativeStage);
+			new RootSwapper(this.shellRoot, this.gameRoot, binder);
 		}
 		
 		private function createRoots(root:DisplayObjectContainer):void
@@ -55,16 +52,6 @@ package view
 			
 			new GameTheme(this.gameRoot, sprites);
 			new ShellTheme(this.shellRoot, sprites);
-		}
-		
-		public function newGame():void
-		{
-			this.shellRoot.visible = false;
-		}
-		
-		public function quitGame():void
-		{
-			this.shellRoot.visible = true;
 		}
 		
 	}

@@ -1,25 +1,28 @@
-package view.shell.screens 
+package view.shell 
 {
 	import binding.IBinder;
 	import controller.interfaces.ISoundController;
-	import feathers.controls.Slider;
+	import feathers.controls.Screen;
 	import starling.events.Event;
 	import starling.events.EventDispatcher;
 	import view.shell.controls.VolumeController;
-	import view.shell.WindowBase;
 	import view.themes.ShellTheme;
-
-	public class SettingsWindow extends WindowBase
+	
+	
+	internal class OptionsScreen extends Screen 
 	{
-		private static const GAP:int = 30;
+		private const GAP:int = 30;
 		
 		private var soundController:VolumeController;
 		private var musicController:VolumeController;
 		
 		private var controller:ISoundController;
 		
-		public function SettingsWindow(binder:IBinder)
+		public function OptionsScreen(binder:IBinder) 
 		{
+			super();
+			
+			
 			this.controller = binder.soundController;
 			
 			this.soundController = new VolumeController(ShellTheme.SOUND);
@@ -33,13 +36,14 @@ package view.shell.screens
 			this.soundController.slider.addEventListener(Event.CHANGE, this.handleSliderChange);
 		}
 		
+		
 		public function locate(event:Event):void
 		{	
-			this.soundController.x = SettingsWindow.GAP;
-			this.musicController.x = SettingsWindow.GAP;
+			this.soundController.x = this.GAP;
+			this.musicController.x = this.GAP;
 			
-			this.soundController.y = SettingsWindow.GAP;
-			this.musicController.y = this.soundController.y + this.soundController.height + SettingsWindow.GAP;
+			this.soundController.y = this.GAP;
+			this.musicController.y = this.soundController.y + this.soundController.height + this.GAP;
 			//TODO: use layout instead
 		}
 		
@@ -60,6 +64,5 @@ package view.shell.screens
 		}
 	}
 	//TODO: activate buttons so they actually mute stuff
-	//TODO: rename class
 
 }

@@ -9,30 +9,20 @@ package view.shell
 	{
 		private var assets:AssetManager;
 		
-		private var defaultWidth:Number,
-					defaultHeight:Number;
-					
-		private var background:String;
-		
-		public function ButtonFactory(assets:AssetManager, defaultWidth:Number, defaultHeight:Number)
+		public function ButtonFactory(assets:AssetManager)
 		{
-				this.assets = assets;
-				this.defaultHeight = defaultHeight;
-				this.defaultWidth = defaultWidth;
-				this.background = background;
+			this.assets = assets;
 		}
 		
 		public function createButton(title:String):Button
 		{
-				var button:Button = new Button();
-				
-				button.width = this.defaultWidth;
-				button.height = this.defaultHeight;
-				button.label = title;
-				
-				button.nameList.add(ShellTheme.NAVIGATION_BUTTON);
-				
-				return button;
+			var button:Button = new Button();
+			
+			button.label = title;
+			
+			button.nameList.add(ShellTheme.NAVIGATION_BUTTON);
+			
+			return button;
 		}
 		//TODO: reimplement via theme
 	}

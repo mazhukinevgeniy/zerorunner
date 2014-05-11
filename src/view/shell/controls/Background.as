@@ -1,4 +1,4 @@
-package view.shell 
+package view.shell.controls 
 {
 	import starling.display.Quad;
 	import starling.display.Sprite;
