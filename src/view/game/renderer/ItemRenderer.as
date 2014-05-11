@@ -18,7 +18,6 @@ package view.game.renderer
 		private var puppets:IPuppets;
 		
 		private var sprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
-		private var altsprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
 		
 		public function ItemRenderer(binder:IBinder, layer:QuadBatch) 
 		{
@@ -32,7 +31,6 @@ package view.game.renderer
 		private function initializeSprites(assets:AssetManager):void
 		{
 			this.initializeVectors("sprites");
-			this.initializeVectors("altsprites");
 			
 			var spritelist:Vector.<Array> = new < Array > 
 					[
@@ -60,13 +58,6 @@ package view.game.renderer
 					];
 			
 			this.initializeImages(spritelist, this.sprites, assets);
-			
-			var altspritelist:Vector.<Array> = new < Array > [
-					new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "front_dude", "front_dude")];
-			
-			this.initializeImages(altspritelist, this.altsprites, assets);
-			
-			this.removeEmptyAnimations(this.altsprites);
 		}
 		
 		private function initializeVectors(title:String):void
@@ -111,15 +102,6 @@ package view.game.renderer
 						new CenteredImage(spritename, assets));
 				}
 			}
-		}
-		
-		private function removeEmptyAnimations(vector:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>):void
-		{
-			for (var i:int = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
-				for (var j:int = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
-					for (var k:int = 0; k < 4; k++)
-						if (vector[i][j][k].length == 0)
-							vector[i][j][k] = null;
 		}
 		
 		override protected function get range():int 
@@ -167,22 +149,7 @@ package view.game.renderer
 			var animationLength:int = this.sprites[type][occupation][direction].length;
 			var frame:int = int(item.getProgress() * animationLength);
 			
-			var toReturn:CenteredImage = this.sprites[type][occupation][direction][frame];
-			
-			if (this.altsprites[type][occupation][direction] && item.isLastFrame())
-				this.swapAnimations(type, occupation, direction);
-			
-			return toReturn;
-		}
-		
-		private function swapAnimations(type:int, occupation:int, direction:int):void
-		{
-			var tmp:Vector.<CenteredImage> = this.altsprites[type][occupation][direction];
-			
-			this.altsprites[type][occupation][direction] = this.sprites[type][occupation][direction];
-			this.sprites[type][occupation][direction] = tmp;
-			
-			//TODO: make sure it's either used or removed
+			return this.sprites[type][occupation][direction][frame];
 		}
 		
 		private function getDirection(item:PuppetBase):int

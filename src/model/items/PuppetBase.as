@@ -140,12 +140,6 @@ package model.items
 		}
 		final public function get moveInProgress():DCellXY { return this._moveInProgress; }
 		
-		
-		
-		final public function isLastFrame():Boolean
-		{//TODO: remove if altsprites are no more
-			return this.framesOccupated + 1 == this.framesUntilOccupationEnds;
-		}
 	}
 
 }
