@@ -7,7 +7,6 @@ package view.game
 	import feathers.layout.VerticalLayout;
 	import model.interfaces.IStatus;
 	import starling.events.Event;
-	import view.game.events.GameEvent;
 	import view.themes.ShellTheme;
 	import view.utils.createButton;
 	
@@ -58,11 +57,7 @@ package view.game
 		
 		private function handleMapTriggered():void
 		{
-			this.dispatchEventWith(GameEvent.SHOW_MAP);
-			
-			//this.controller.setVisibilityOfMenu(false);
-			//this.controller.setVisibilityOfMap(!this.status.isMapOn());
-			//TODO: .
+			this.controller.showGameMap();
 		}
 	}
 

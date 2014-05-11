@@ -5,7 +5,6 @@ package view.game
 	import feathers.controls.ScreenNavigatorItem;
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
-	import view.game.events.GameEvent;
 	import view.game.renderer.Renderer;
 	import view.utils.createNavigatorListener;
 	
@@ -22,10 +21,10 @@ package view.game
 		
 		
 		var gameScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(new GameScreen(binder), getObserverEventMap());
+			new ScreenNavigatorItem(new GameScreen(binder));
 		
 		var menuScreen:ScreenNavigatorItem =
-			new ScreenNavigatorItem(new GameMenuScreen(binder), getMenuEventMap());
+			new ScreenNavigatorItem(new GameMenuScreen(binder));
 		
 		var mapScreen:ScreenNavigatorItem =
 			new ScreenNavigatorItem(new MapScreen(binder));
@@ -45,23 +44,6 @@ package view.game
 		
 		navigator.showScreen(View.GAME_SCREEN);
 		
-		
-		
-		function getObserverEventMap():Object
-		{
-			var map:Object = { };
-			
-			return map;
-		}
-		
-		function getMenuEventMap():Object
-		{
-			var map:Object = { };
-			
-			map[GameEvent.SHOW_MAP] = View.GAME_SCREEN_MAP;
-			//TODO: why need
-			return map;
-		}
 	}
 	
 }
