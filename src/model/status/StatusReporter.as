@@ -16,7 +16,7 @@ package model.status
 	{
 		private var gameScreens:Vector.<String> = Vector.<String>(
 		[View.GAME_SCREEN_MAP, View.GAME_SCREEN_LOST, View.GAME_SCREEN_WON,
-			 View.GAME_SCREEN_MENU, View.GAME_SCREEN_OBSERVER]);
+			 View.GAME_SCREEN_MENU, View.GAME_SCREEN]);
 		
 		private var hero:PuppetBase;
 		
@@ -38,7 +38,7 @@ package model.status
 		
 		public function newGame():void
 		{
-			this._screen = View.GAME_SCREEN_OBSERVER;
+			this._screen = View.GAME_SCREEN;
 		}
 		
 		public function quitGame():void

@@ -7,12 +7,12 @@ package view.game
 	import starling.events.Event;
 	import view.themes.GameTheme;
 	
-	internal class ScreenObserver extends Screen
+	internal class GameScreen extends Screen
 	{
 		private var controller:IGameController;
 		
 		
-		public function ScreenObserver(binder:IBinder) 
+		public function GameScreen(binder:IBinder) 
 		{
 			this.controller = binder.gameController;
 			
@@ -40,6 +40,5 @@ package view.game
 			this.controller.showGameMenu();
 		}
 	}
-//TODO: rename class
-//TODO: rename related View constant
+	
 }

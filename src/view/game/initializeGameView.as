@@ -21,8 +21,8 @@ package view.game
 		root.addChild(navigator);
 		
 		
-		var observerScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(new ScreenObserver(binder), getObserverEventMap());
+		var gameScreen:ScreenNavigatorItem = 
+			new ScreenNavigatorItem(new GameScreen(binder), getObserverEventMap());
 		
 		var menuScreen:ScreenNavigatorItem =
 			new ScreenNavigatorItem(new GameMenuScreen(binder), getMenuEventMap());
@@ -37,13 +37,13 @@ package view.game
 			new ScreenNavigatorItem(new EndGameScreen(binder, Game.ENDING_LOST));
 		
 		
-		navigator.addScreen(View.GAME_SCREEN_OBSERVER, observerScreen);
+		navigator.addScreen(View.GAME_SCREEN, gameScreen);
 		navigator.addScreen(View.GAME_SCREEN_MENU, menuScreen);
 		navigator.addScreen(View.GAME_SCREEN_MAP, mapScreen);
 		navigator.addScreen(View.GAME_SCREEN_WON, winGameScreen);
 		navigator.addScreen(View.GAME_SCREEN_LOST, loseGameScreen);
 		
-		navigator.showScreen(View.GAME_SCREEN_OBSERVER);
+		navigator.showScreen(View.GAME_SCREEN);
 		
 		
 		

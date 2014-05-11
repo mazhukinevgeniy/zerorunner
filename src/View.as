@@ -14,7 +14,7 @@ package
 		public static const NUMBER_OF_SOUND_TYPES:int = 2;
 		
 		
-		public static const GAME_SCREEN_OBSERVER:String = "observerScreen";
+		public static const GAME_SCREEN:String = "gameScreen";
 		public static const GAME_SCREEN_MENU:String = "menuScreen";
 		public static const GAME_SCREEN_MAP:String = "mapScreen";
 		public static const GAME_SCREEN_WON:String = "wonScreen";

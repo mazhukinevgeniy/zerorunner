@@ -46,7 +46,7 @@ package view.game
 		
 		public function showGame():void
 		{
-			this.navigator.showScreen(View.GAME_SCREEN_OBSERVER);
+			this.navigator.showScreen(View.GAME_SCREEN);
 		}
 		
 		public function showGameMenu():void
