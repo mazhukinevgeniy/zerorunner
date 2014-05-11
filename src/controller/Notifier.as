@@ -17,7 +17,8 @@ package controller
 			this.observers = new Dictionary();
 			
 			this.supportedInterfaces = new <Class>[
-				ISoundObserver,
+				ISoundObserver, 
+				IScreenObserver,
 				IActivationObserver, IDeactivationObserver,
 				INewGameHandler, IQuitGameHandler,
 				IGameFrameHandler, IGameStopHandler,
@@ -43,7 +44,10 @@ package controller
 			}
 		}
 		
-		
+		internal function screenActivated(name:String):void
+		{
+			this.call(IScreenObserver, "screenActivated", name);
+		}
 		internal function processActivation():void
 		{
 			this.call(IActivationObserver, "processActivation");

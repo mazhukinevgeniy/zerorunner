@@ -4,6 +4,7 @@ package binding
 	import controller.interfaces.IInputController;
 	import controller.interfaces.INotifier;
 	import controller.interfaces.IProjectileController;
+	import controller.interfaces.IScreenController;
 	import controller.interfaces.ISoundController;
 	import model.interfaces.IFuel;
 	import model.interfaces.IInput;
@@ -31,6 +32,7 @@ package binding
 		function get gameController():IGameController;
 		function get inputController():IInputController;
 		function get soundController():ISoundController;
+		function get screenController():IScreenController;
 		function get projectileController():IProjectileController;
 	}
 	

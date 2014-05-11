@@ -5,6 +5,7 @@ package binding
 	import controller.interfaces.IInputController;
 	import controller.interfaces.INotifier;
 	import controller.interfaces.IProjectileController;
+	import controller.interfaces.IScreenController;
 	import controller.interfaces.ISoundController;
 	import flash.utils.Dictionary;
 	import model.interfaces.IFuel;
@@ -64,6 +65,7 @@ package binding
 		public function get gameController():IGameController { return this.objects[IGameController]; }
 		public function get inputController():IInputController { return this.objects[IInputController]; }
 		public function get soundController():ISoundController { return this.objects[ISoundController]; }
+		public function get screenController():IScreenController { return this.objects[IScreenController]; }
 		public function get projectileController():IProjectileController { return this.objects[IProjectileController]; }
 	}
 
