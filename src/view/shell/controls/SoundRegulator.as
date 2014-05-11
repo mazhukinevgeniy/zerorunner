@@ -12,8 +12,8 @@ package view.shell.controls
 
 	public class SoundRegulator extends LayoutGroup
 	{
-		private var slider:Slider;
-		private var checkBox:Check;
+		public var slider:Slider;
+		public var checkBox:Check;
 		
 		private var soundType:int;
 		
