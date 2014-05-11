@@ -31,20 +31,8 @@ package view.shell
 			this.addChild(this.soundController);
 			this.addChild(this.musicController);
 			
-			this.addEventListener(Event.ADDED_TO_STAGE, this.locate)
 			this.musicController.slider.addEventListener(Event.CHANGE, this.handleSliderChange);
 			this.soundController.slider.addEventListener(Event.CHANGE, this.handleSliderChange);
-		}
-		
-		
-		public function locate(event:Event):void
-		{	
-			this.soundController.x = this.GAP;
-			this.musicController.x = this.GAP;
-			
-			this.soundController.y = this.GAP;
-			this.musicController.y = this.soundController.y + this.soundController.height + this.GAP;
-			//TODO: use layout instead
 		}
 		
 		
