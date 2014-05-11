@@ -19,23 +19,6 @@ package view.themes
 	
 	internal class ThemeBase extends DisplayListWatcher
 	{
-		/*
-		protected static function verticalScrollBarFactory():ScrollBar
-		{
-			const scrollBar:ScrollBar = new ScrollBar();
-			scrollBar.direction = ScrollBar.DIRECTION_VERTICAL;
-			return scrollBar;
-		}
-
-		protected static function horizontalScrollBarFactory():ScrollBar
-		{
-			const scrollBar:ScrollBar = new ScrollBar();
-			scrollBar.direction = ScrollBar.DIRECTION_HORIZONTAL;
-			return scrollBar;
-		}*/
-		//TODO: check if it's getting used
-		
-		
 		private const BUTTON_SCALE_9_GRID:Rectangle = new Rectangle(6, 6, 70, 10);
 		
 		protected var atlas:TextureAtlas;
