@@ -2,10 +2,13 @@ package view.shell
 {
 	import binding.IBinder;
 	import controller.interfaces.ISoundController;
+	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	import starling.events.Event;
 	import starling.events.EventDispatcher;
 	import view.shell.controls.VolumeController;
+	import view.shell.events.ShellEvent;
+	import view.shell.factories.createButton;
 	import view.themes.ShellTheme;
 	
 	
@@ -33,6 +36,13 @@ package view.shell
 			
 			this.musicController.slider.addEventListener(Event.CHANGE, this.handleSliderChange);
 			this.soundController.slider.addEventListener(Event.CHANGE, this.handleSliderChange);
+			
+			
+			
+			var quit:Button = createButton("BACK");
+			quit.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
+			
+			this.addChild(quit);
 		}
 		
 		
@@ -49,6 +59,11 @@ package view.shell
 			{
 				this.controller.setMusicValue(this.musicController.slider.value / 100);
 			}
+		}
+		
+		private function handleQuitTriggered():void
+		{
+			this.dispatchEventWith(ShellEvent.SHOW_MAIN);
 		}
 	}
 	//TODO: activate buttons so they actually mute stuff

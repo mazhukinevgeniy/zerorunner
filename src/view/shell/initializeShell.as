@@ -26,13 +26,13 @@ package view.shell
 			new ScreenNavigatorItem(new MainScreen(binder), getMainEventMap(), getDefaultProperties());
 		
 		var optionsScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(new OptionsScreen(binder), null, getDefaultProperties());
+			new ScreenNavigatorItem(new OptionsScreen(binder), getDefaultEventMap(), getDefaultProperties());
 		
 		var trophiesScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(TrophiesScreen, null, getDefaultProperties());
+			new ScreenNavigatorItem(TrophiesScreen, getDefaultEventMap(), getDefaultProperties());
 		
 		var creditsScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(CreditsScreen, null, getDefaultProperties());
+			new ScreenNavigatorItem(CreditsScreen, getDefaultEventMap(), getDefaultProperties());
 		
 		
 		navigator.addScreen(View.SCREEN_MAIN, mainScreen);
@@ -55,6 +55,14 @@ package view.shell
 			return map;
 		}
 		
+		function getDefaultEventMap():Object
+		{
+			var map:Object = { };
+			
+			map[ShellEvent.SHOW_MAIN] = View.SCREEN_MAIN;
+			
+			return map;
+		}
 		
 		function getDefaultProperties():Object
 		{
