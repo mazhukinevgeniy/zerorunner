@@ -74,7 +74,7 @@ package view.game
 			this.mainButtons = new Sprite();
 			this.addChild(this.mainButtons);
 			
-			var back:Quad = new Quad(Main.WIDTH, Main.HEIGHT, Color.BLACK);
+			var back:Quad = new Quad(View.WIDTH, View.HEIGHT, Color.BLACK);
 			back.alpha = 0.3;
 			
 			this.mainButtons.addChild(back);

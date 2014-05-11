@@ -39,13 +39,13 @@ package view.game.renderer
 					
 					var scalingFactor:Number = 1.5 - proj.height / Game.MAX_PROJ_HEIGHT;
 					
-					view.x = x * Game.CELL_WIDTH;
-					view.y = y * Game.CELL_HEIGHT;
+					view.x = x * View.CELL_WIDTH;
+					view.y = y * View.CELL_HEIGHT;
 					
 					view.scaleX = view.scaleY = scalingFactor;
 					
-					view.x += (Game.CELL_WIDTH - view.width) / 2;
-					view.y += (Game.CELL_HEIGHT - view.height) / 2;
+					view.x += (View.CELL_WIDTH - view.width) / 2;
+					view.y += (View.CELL_HEIGHT - view.height) / 2;
 					
 					this.layer.addImage(view);
 				}

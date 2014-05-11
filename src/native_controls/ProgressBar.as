@@ -13,8 +13,8 @@ package native_controls
 		{
 			this.color = 0x987650;
 			
-			this.x = int(Main.WIDTH / 2 - ProgressBar.WIDTH/ 2);
-			this.y = int(Main.HEIGHT / 2);
+			this.x = int(View.WIDTH / 2 - ProgressBar.WIDTH / 2);
+			this.y = int(View.HEIGHT / 2);
 			
 			this.useHandCursor = false;
 			this.mouseChildren = false;

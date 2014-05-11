@@ -76,13 +76,13 @@ package view.game.renderer
 		{
 			var cell:ICoordinated = this.status.getLocationOfHero();
 			
-			this.x = -cell.x * Game.CELL_WIDTH + (Main.WIDTH - Game.CELL_WIDTH) / 2;
-            this.y = -cell.y * Game.CELL_HEIGHT + (Main.HEIGHT - Game.CELL_HEIGHT) / 2;
+			this.x = -cell.x * View.CELL_WIDTH + (View.WIDTH - View.CELL_WIDTH) / 2;
+            this.y = -cell.y * View.CELL_HEIGHT + (View.HEIGHT - View.CELL_HEIGHT) / 2;
 			
 			var displacement:NumericalDxyHelper = this.status.getDisplacementOfHero();
 			
-			this.x -= int(Game.CELL_WIDTH * displacement.dx);
-			this.y -= int(Game.CELL_HEIGHT * displacement.dy);
+			this.x -= int(View.CELL_WIDTH * displacement.dx);
+			this.y -= int(View.CELL_HEIGHT * displacement.dy);
 		}
 		
 		public function quitGame():void

@@ -39,7 +39,7 @@ package starling.tweaks
 			
 			this.starlingRoot = event.data as Sprite;
 			
-			this.starlingInstance.stage.color = Game.STAGE_COLOR;
+			this.starlingInstance.stage.color = View.STAGE_COLOR;
 			FocusManager.isEnabled = false;
 			/**
 			 * IF we have keyboard user, we give him hotkeys.

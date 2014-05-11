@@ -125,8 +125,8 @@ package view.game.renderer
 				
 				var sprite:Image = this[sTitle];
 				
-				sprite.x = x * Game.CELL_WIDTH;
-				sprite.y = y * Game.CELL_HEIGHT;
+				sprite.x = x * View.CELL_WIDTH;
+				sprite.y = y * View.CELL_HEIGHT;
 				
 				this.layer.addImage(sprite);
 				
@@ -138,8 +138,8 @@ package view.game.renderer
 						
 						sprite = this[isTitle];
 						
-						sprite.x = x * Game.CELL_WIDTH;
-						sprite.y = (y + iI) * Game.CELL_HEIGHT;
+						sprite.x = x * View.CELL_WIDTH;
+						sprite.y = (y + iI) * View.CELL_HEIGHT;
 						
 						this.layer.addImage(sprite);
 					}

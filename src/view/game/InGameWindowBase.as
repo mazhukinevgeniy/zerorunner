@@ -67,8 +67,8 @@ package view.game
 		
 		private function handleAddedToStage():void
 		{
-			this.x = int((Main.WIDTH - this.width) / 2);
-			this.y = int((Main.HEIGHT - this.height) / 2);
+			this.x = int((View.WIDTH - this.width) / 2);
+			this.y = int((View.HEIGHT - this.height) / 2);
 		}
 	}
 

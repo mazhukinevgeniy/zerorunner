@@ -61,13 +61,13 @@ package view.game.renderer
 			
 			if (this.shards[key] > this.STONE_BOOM_SPEED_FACTOR)
 			{
-				x *= Game.CELL_WIDTH;
-				y *= Game.CELL_HEIGHT;
+				x *= View.CELL_WIDTH;
+				y *= View.CELL_HEIGHT;
 				
 				var sprite:CenteredImage = this.sprites["stone_boom_" + String(this.STONE_BOOM_LENGTH + 1 - int(this.shards[key] / this.STONE_BOOM_SPEED_FACTOR))];
 				
-				sprite.x = x + (Game.CELL_WIDTH - sprite.width) / 2;
-				sprite.y = y + (Game.CELL_HEIGHT - sprite.height) / 2;
+				sprite.x = x + (View.CELL_WIDTH - sprite.width) / 2;
+				sprite.y = y + (View.CELL_HEIGHT - sprite.height) / 2;
 				
 				this.layer.addImage(sprite);
 				

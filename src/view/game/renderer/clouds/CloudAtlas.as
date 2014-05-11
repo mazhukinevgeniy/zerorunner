@@ -18,27 +18,27 @@ package view.game.renderer.clouds
 					<SubTexture name="texture4" x="0" y="1024" width="1024" height="1024"/>
 				</atlas>;
 			
-			aXML.SubTexture[0].@width = Game.CLOUD_WIDTH;
-			aXML.SubTexture[0].@height = Game.CLOUD_WIDTH;
+			aXML.SubTexture[0].@width = View.CLOUD_WIDTH;
+			aXML.SubTexture[0].@height = View.CLOUD_WIDTH;
 			
-			aXML.SubTexture[1].@x = Game.CLOUD_WIDTH;
-			aXML.SubTexture[1].@width = Game.CLOUD_WIDTH;
-			aXML.SubTexture[1].@height = Game.CLOUD_WIDTH;
+			aXML.SubTexture[1].@x = View.CLOUD_WIDTH;
+			aXML.SubTexture[1].@width = View.CLOUD_WIDTH;
+			aXML.SubTexture[1].@height = View.CLOUD_WIDTH;
 			
-			aXML.SubTexture[2].@x = Game.CLOUD_WIDTH;
-			aXML.SubTexture[2].@y = Game.CLOUD_WIDTH;
-			aXML.SubTexture[2].@width = Game.CLOUD_WIDTH;
-			aXML.SubTexture[2].@height = Game.CLOUD_WIDTH;
+			aXML.SubTexture[2].@x = View.CLOUD_WIDTH;
+			aXML.SubTexture[2].@y = View.CLOUD_WIDTH;
+			aXML.SubTexture[2].@width = View.CLOUD_WIDTH;
+			aXML.SubTexture[2].@height = View.CLOUD_WIDTH;
 			
-			aXML.SubTexture[3].@y = Game.CLOUD_WIDTH;
-			aXML.SubTexture[3].@width = Game.CLOUD_WIDTH;
-			aXML.SubTexture[3].@height = Game.CLOUD_WIDTH;
+			aXML.SubTexture[3].@y = View.CLOUD_WIDTH;
+			aXML.SubTexture[3].@width = View.CLOUD_WIDTH;
+			aXML.SubTexture[3].@height = View.CLOUD_WIDTH;
 			
 			
 			super(this.createTexture(cloudiness), aXML);
 			
-			if (Game.CELL_HEIGHT != Game.CELL_WIDTH ||
-				Game.CELL_HEIGHT * Game.MAP_WIDTH % Game.CLOUD_WIDTH != 0)
+			if (View.CELL_HEIGHT != View.CELL_WIDTH ||
+				View.CELL_HEIGHT * Game.MAP_WIDTH % View.CLOUD_WIDTH != 0)
 				throw new Error("assumption is not fulfilled");
 		}
 		
@@ -51,11 +51,11 @@ package view.game.renderer.clouds
 				var bitmap:Bitmap = new Bitmap(new CloudBitmap(cloudiness))
 				container.addChild(bitmap);
 				
-				bitmap.x = Game.CLOUD_WIDTH * (i % 2);
-				bitmap.y = Game.CLOUD_WIDTH * int(i / 2);
+				bitmap.x = View.CLOUD_WIDTH * (i % 2);
+				bitmap.y = View.CLOUD_WIDTH * int(i / 2);
 			}
 			
-			var full:BitmapData = new BitmapData(Game.CLOUD_WIDTH * 2, Game.CLOUD_WIDTH * 2, true, 0);
+			var full:BitmapData = new BitmapData(View.CLOUD_WIDTH * 2, View.CLOUD_WIDTH * 2, true, 0);
 			full.draw(container);
 			
 			var texture:Texture = Texture.fromBitmapData(full);

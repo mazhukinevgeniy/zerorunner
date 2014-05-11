@@ -7,8 +7,8 @@ package view.game.renderer.clouds
 	internal class CloudBitmap extends BitmapData
 	{
 		
-		internal static const WIDTH:Number = Game.CLOUD_WIDTH;
-		internal static const HEIGHT:Number = Game.CLOUD_WIDTH;
+		internal static const WIDTH:Number = View.CLOUD_WIDTH;
+		internal static const HEIGHT:Number = View.CLOUD_WIDTH;
 		
 		private static const MIN_NUMBER_OF_ELEMENTS:int = 2;
 		

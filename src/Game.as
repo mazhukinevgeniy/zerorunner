@@ -1,7 +1,6 @@
 package  
 {
 	import model.metric.ICoordinated;
-	import starling.utils.Color;
 	
 	/**
 	 * Collection of global game-related constants, codes etc
@@ -70,18 +69,6 @@ package
 		
 		public static const MAP_WIDTH:int = 90;
 		public static const ACTION_RADIUS:int = 15;
-		
-		public static const CLOUD_WIDTH:int = 700;
-		
-		public static const STAGE_COLOR:uint = Color.WHITE;
-		
-		/* Metric */
-		
-		public static const CELL_WIDTH:int = 70;
-		public static const CELL_HEIGHT:int = 70;
-		
-		public static const CELLS_IN_VISIBLE_WIDTH:int = int(Main.WIDTH / Game.CELL_WIDTH);
-		public static const CELLS_IN_VISIBLE_HEIGHT:int = int(Main.HEIGHT / Game.CELL_HEIGHT);
 		
 		public function Game() 
 		{

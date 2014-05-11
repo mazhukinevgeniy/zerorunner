@@ -22,7 +22,7 @@ package view.game.renderer.clouds
 			
 			binder.notifier.addObserver(this);
 			
-			super(Main.WIDTH, Main.HEIGHT, false);
+			super(View.WIDTH, View.HEIGHT, false);
 		}
 		
 		public function newGame():void

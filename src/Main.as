@@ -15,9 +15,6 @@ package
 	[Frame(factoryClass="Preloader")]
 	public class Main extends Sprite 
 	{
-		public static const WIDTH:int = 640;
-		public static const HEIGHT:int = 480;
-		
 		private var starlingStarter:StarlingStarter;
 		
 		private var binder:Binder;

@@ -117,8 +117,8 @@ package view.game.renderer
 			{
 				var sprite:CenteredImage = this.getAnimationFrame(item);
 				
-				var sx:int = x * Game.CELL_WIDTH;
-				var sy:int = y * Game.CELL_HEIGHT;
+				var sx:int = x * View.CELL_WIDTH;
+				var sy:int = y * View.CELL_HEIGHT;
 				
 				if (item.occupation == Game.OCCUPATION_MOVING)
 				{
@@ -127,11 +127,11 @@ package view.game.renderer
 					
 					var progress:Number = 1 - item.getProgress();
 					
-					sx -= int(progress * Game.CELL_WIDTH * dX);
-					sy -= int(progress * Game.CELL_HEIGHT * dY);
+					sx -= int(progress * View.CELL_WIDTH * dX);
+					sy -= int(progress * View.CELL_HEIGHT * dY);
 				}
 				
-				sy += Game.CELL_HEIGHT - sprite.height;
+				sy += View.CELL_HEIGHT - sprite.height;
 				
 				sprite.x = sx;
 				sprite.y = sy;

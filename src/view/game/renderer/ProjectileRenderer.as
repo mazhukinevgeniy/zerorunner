@@ -44,8 +44,8 @@ package view.game.renderer
 				{
 					view = this.shard;
 					
-					view.x = x * Game.CELL_WIDTH;
-					view.y = y * Game.CELL_HEIGHT;
+					view.x = x * View.CELL_WIDTH;
+					view.y = y * View.CELL_HEIGHT;
 					
 					this.getTrajectoryCoordinates(proj.height);
 					
@@ -56,8 +56,8 @@ package view.game.renderer
 					
 					for (var k:int = 0; k < proj.height; k++)
 					{
-						tr.x = x * Game.CELL_WIDTH;
-						tr.y = y * Game.CELL_HEIGHT;
+						tr.x = x * View.CELL_WIDTH;
+						tr.y = y * View.CELL_HEIGHT;
 						
 						this.getTrajectoryCoordinates(k);
 						
@@ -85,8 +85,8 @@ package view.game.renderer
 			//this.tmpCell.setValue(height * X_STEP, 
 			//					  ((Game.MAX_PROJ_HEIGHT - height) * (Game.MAX_PROJ_HEIGHT - height) * Y_STEP / 10) - Game.MAX_PROJ_HEIGHT * Game.MAX_PROJ_HEIGHT * Y_STEP / 10);
 			
-			this.tmpCell.setValue(height * X_STEP + Game.CELL_WIDTH / 2,
-								  -height * Y_STEP + Game.CELL_HEIGHT / 2);
+			this.tmpCell.setValue(height * X_STEP + View.CELL_WIDTH / 2,
+								  -height * Y_STEP + View.CELL_HEIGHT / 2);
 		}
 	}
 

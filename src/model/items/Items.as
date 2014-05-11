@@ -78,8 +78,8 @@ package model.items
 			for (var j:int = 0; j < LENGTH; j++)
 			{
 				var type:int = itemCodes[objects[j].@gid];
-				var x:int = int(objects[j].@x) / Game.CELL_WIDTH;
-				var y:int = int(objects[j].@y) / Game.CELL_HEIGHT;
+				var x:int = int(objects[j].@x) / View.CELL_WIDTH;
+				var y:int = int(objects[j].@y) / View.CELL_HEIGHT;
 				
 				this.masters[type].spawnPuppet(x, y);
 			}

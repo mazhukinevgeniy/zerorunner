@@ -117,8 +117,8 @@ package view.game
 			
 			this.container.addQuad(back);
 			
-			this.minX = -(MAX_WIDTH - Main.WIDTH);
-			this.minY = -(MAX_WIDTH - Main.HEIGHT);
+			this.minX = -(MAX_WIDTH - View.WIDTH);
+			this.minY = -(MAX_WIDTH - View.HEIGHT);
 			
 			this.gameFrame(Game.FRAME_TO_UNLOCK_ACHIEVEMENTS);
 		}
