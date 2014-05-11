@@ -26,10 +26,8 @@ package model
 		{
 			const properties:Array = 
 				[
-					["soundMute", false], 
-					["musicMute", false],
-					["soundValue", 1],
-					["musicValue", 1]
+					["soundMute", [false, false]], 
+					["soundValue", [1, 1]]
 				];
 			
 			var length:int = properties.length;
@@ -41,17 +39,23 @@ package model
 			}
 		}
 		
-		public function get soundMute():Boolean { return this.so.data.soundMute; }
-		public function setSoundMute(value:Boolean):void { this.so.data.soundMute = value; }
+		public function setSoundMute(type:int, value:Boolean):void
+		{
+			this.so.data.soundMute[type] = value;
+		}
+		public function getSoundMute(type:int):Boolean
+		{
+			return this.so.data.soundMute[type];
+		}
 		
-		public function get musicMute():Boolean { return this.so.data.musicMute; }
-		public function setMusicMute(value:Boolean):void { this.so.data.musicMute = value; }
-		
-		public function get soundValue():Number { return this.so.data.soundValue; }
-		public function setSoundValue(value:Number):void { this.so.data.soundValue = value; }
-		
-		public function get musicValue():Number { return this.so.data.musicValue; }
-		public function setMusicValue(value:Number):void { this.so.data.musicValue = value; }
+		public function setSoundValue(type:int, value:Number):void
+		{
+			this.so.data.soundValue[type] = value;
+		}
+		public function getSoundValue(type:int):Number
+		{
+			return this.so.data.soundValue[type];
+		}
 	}
 
 }

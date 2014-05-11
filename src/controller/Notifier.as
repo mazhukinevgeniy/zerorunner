@@ -52,21 +52,13 @@ package controller
 		{
 			this.call(IDeactivationObserver, "processDeactivation");
 		}
-		internal function setSoundMute(value:Boolean):void
+		internal function setSoundMute(type:int, value:Boolean):void
 		{
-			this.call(ISoundObserver, "setSoundMute", value);
+			this.call(ISoundObserver, "setSoundMute", type, value);
 		}
-		internal function setMusicMute(value:Boolean):void
+		internal function setSoundValue(type:int, value:Number):void
 		{
-			this.call(ISoundObserver, "setMusicMute", value);
-		}
-		internal function setSoundValue(value:Number):void
-		{
-			this.call(ISoundObserver, "setSoundValue", value);
-		}
-		internal function setMusicValue(value:Number):void
-		{
-			this.call(ISoundObserver, "setMusicValue", value);
+			this.call(ISoundObserver, "setSoundValue", type, value);
 		}
 		internal function newGame():void
 		{

@@ -8,9 +8,7 @@ package view.sounds
 	
 	public class Sounds implements ISoundObserver, IDependent
 	{
-		private var music:MusicManager;
-		private var sound:SoundManager;
-		
+		private var sounds:Vector.<SoundManagerBase>;
 		
 		public function Sounds(binder:IBinder) 
 		{
@@ -25,31 +23,21 @@ package view.sounds
 			var assets:AssetManager = binder.assetManager;
 			var save:ISave = binder.save;
 			
-			this.music = new MusicManager(assets, save);
-			this.sound = new SoundManager(assets, save);
-			
-			this.music.playMusic();
+			this.sounds = new Vector.<SoundManagerBase>(View.NUMBER_OF_SOUND_TYPES, true);
+			this.sounds[View.SOUND_MUSIC] = new MusicManager(assets, save);
+			this.sounds[View.SOUND_EFFECT] = new SoundManager(assets, save);
 		}
 		
-		public function setSoundMute(value:Boolean):void
+		public function setSoundMute(type:int, value:Boolean):void
 		{
-			this.sound.muteAll(value);
+			this.sounds[type].muteAll(value);
 		}
 		
-		public function setMusicMute(value:Boolean):void
+		public function setSoundValue(type:int, value:Number):void
 		{
-			this.music.muteAll(value);
+			this.sounds[type].setGlobalVolume(value);
 		}
 		
-		public function setSoundValue(value:Number):void
-		{
-			this.sound.setGlobalVolume(value);
-		}
-		
-		public function setMusicValue(value:Number):void
-		{
-			this.music.setGlobalVolume(value);
-		}
 	}
 
 }

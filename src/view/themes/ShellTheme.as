@@ -11,8 +11,7 @@ package view.themes
 		
 		public static const TOGGLE_MUTE:String = "TOGGLE_MUTE";
 		
-		public static const SOUND:String = "SOUND";
-		public static const MUSIC:String = "MUSIC";
+		public static const SOUND:Vector.<String> = Vector.<String>(["EFFECT", "MUSIC"]);
 		
 		
 		public function ShellTheme(container:DisplayObjectContainer, atlas:TextureAtlas) 
@@ -48,11 +47,11 @@ package view.themes
 			this.defaultCheckBoxInitializer(check);
 			
 			
-			if (check.nameList.contains(ShellTheme.MUSIC))
+			if (check.nameList.contains(ShellTheme.SOUND[View.SOUND_MUSIC]))
 			{
 				check.label = "MUSIC";
 			}
-			else if (check.nameList.contains(ShellTheme.SOUND))
+			else if (check.nameList.contains(ShellTheme.SOUND[View.SOUND_EFFECT]))
 			{
 				check.label = "SOUND";
 			}

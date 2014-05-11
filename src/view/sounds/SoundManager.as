@@ -11,11 +11,11 @@ package view.sounds
 		{
 			super();
 			
-			this.volume = save.soundValue;
+			this.volume = save.getSoundValue(View.SOUND_EFFECT);
 			
 			this.initializeTracks(assets);
 			
-			if (save.soundMute)
+			if (save.getSoundMute(View.SOUND_EFFECT))
 			{
 				this.muteAll(true);
 			}

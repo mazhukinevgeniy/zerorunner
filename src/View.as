@@ -8,6 +8,12 @@ package
 		public static const HEIGHT:int = 480;
 		
 		
+		public static const SOUND_EFFECT:int = 0;
+		public static const SOUND_MUSIC:int = 1;
+		
+		public static const NUMBER_OF_SOUND_TYPES:int = 2;
+		
+		
 		public static const SCREEN_MAIN:String = "mainScreen";
 		public static const SCREEN_OPTIONS:String = "optionsScreen";
 		public static const SCREEN_TROPHIES:String = "trophiesString";

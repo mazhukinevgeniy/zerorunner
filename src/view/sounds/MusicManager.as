@@ -15,17 +15,19 @@ package view.sounds
 		{
 			super();
 			
-			this.volume = save.musicValue;
+			this.volume = save.getSoundValue(View.SOUND_MUSIC);
 			
 			this.initializeTracks(assets);
 			
 			this.currentTrack = this.nextTrack((int)(Math.random() * 100));
 			
 			
-			if (save.musicMute)
+			if (save.getSoundMute(View.SOUND_MUSIC))
 			{
 				this.muteAll(true);
 			}
+			
+			this.playMusic();
 		}
 		
 		private function initializeTracks(assets:AssetManager):void
@@ -39,7 +41,7 @@ package view.sounds
 			return (nowTrack % this.countTrack) + 1;
 		}
  
-		public function playMusic():void
+		private function playMusic():void
 		{
 			this.currentTrack = this.nextTrack(this.currentTrack);
 			this.playSound((String)(this.currentTrack), this.volume);

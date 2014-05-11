@@ -85,8 +85,11 @@ package controller
 			{
 				if (keyCode == Keyboard.M)
 				{
-					this.notifier.setMusicMute(!this.save.musicMute);
-					this.notifier.setSoundMute(!this.save.soundMute);
+					var mute:Boolean = !this.save.getSoundMute(View.SOUND_MUSIC) || 
+					                   !this.save.getSoundMute(View.SOUND_EFFECT);
+					
+					for (var i:int = 0; i < View.NUMBER_OF_SOUND_TYPES; i++)
+						this.notifier.setSoundMute(i, mute);
 				}
 			}
 		}

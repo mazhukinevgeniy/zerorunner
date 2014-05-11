@@ -3,11 +3,8 @@ package controller.observers
 	
 	public interface ISoundObserver 
 	{
-		function setSoundMute(value:Boolean):void;
-		function setMusicMute(value:Boolean):void;
-		
-		function setSoundValue(value:Number):void;
-		function setMusicValue(value:Number):void;
+		function setSoundMute(type:int, value:Boolean):void;
+		function setSoundValue(type:int, value:Number):void;
 	}
 	
 }

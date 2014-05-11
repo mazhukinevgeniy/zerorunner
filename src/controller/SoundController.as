@@ -12,26 +12,15 @@ package controller
 			this.notifier = notifier;
 		}
 		
-		
-		public function setSoundMute(value:Boolean):void
+		public function setSoundMute(type:int, value:Boolean):void
 		{
-			this.notifier.setSoundMute(value);
+			this.notifier.setSoundMute(type, value);
+		}
+		public function setSoundValue(type:int, value:Number):void
+		{
+			this.notifier.setSoundValue(type, value);
 		}
 		
-		public function setMusicMute(value:Boolean):void
-		{
-			this.notifier.setMusicMute(value);
-		}
-		
-		public function setSoundValue(value:Number):void
-		{
-			this.notifier.setSoundValue(value);
-		}
-		
-		public function setMusicValue(value:Number):void
-		{
-			this.notifier.setMusicValue(value);
-		}
 	}
 
 }
