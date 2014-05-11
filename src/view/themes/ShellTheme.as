@@ -1,6 +1,7 @@
 package view.themes 
 {
 	import feathers.controls.Button;
+	import feathers.controls.Check;
 	import starling.display.DisplayObjectContainer;
 	import starling.textures.TextureAtlas;
 	
@@ -24,7 +25,8 @@ package view.themes
 			super.setInitializers();
 			
 			this.setInitializerForClass(Button, this.navigationButtonInitializer, ShellTheme.NAVIGATION_BUTTON);
-			this.setInitializerForClass(Button, this.toggleMuteButtonInitializer, ShellTheme.TOGGLE_MUTE);
+			
+			this.setInitializerForClass(Check, this.muteCheckBoxInitializer, ShellTheme.TOGGLE_MUTE);
 		}
 		
 		
@@ -41,24 +43,20 @@ package view.themes
 		}
 		
 		
-		private function toggleMuteButtonInitializer(button:Button):void
+		private function muteCheckBoxInitializer(check:Check):void
 		{
-			this.defaultButtonInitializer(button);
+			this.defaultCheckBoxInitializer(check);
 			
-			//temporary
-			if (button.nameList.contains(ShellTheme.MUSIC))
+			
+			if (check.nameList.contains(ShellTheme.MUSIC))
 			{
-				button.label = "M";
+				check.label = "MUSIC";
 			}
-			else if (button.nameList.contains(ShellTheme.SOUND))
+			else if (check.nameList.contains(ShellTheme.SOUND))
 			{
-				button.label = "S";
+				check.label = "SOUND";
 			}
 			
-			button.width = 30;
-			button.height = 30;
-			
-			//TODO: fix view; it'd have different skin etc
 		}
 	}
 
