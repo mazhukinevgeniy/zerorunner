@@ -29,7 +29,14 @@ package view.game.renderer
 			this.shard = new Image(atlas.getTexture("stone_fly"));
 			this.trajectory = new Image(atlas.getTexture("progress-bar-fill-skin"));
 			
-			super(binder, layer);
+			
+			var changes:Changes = new Changes();
+			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			
+			super(binder, layer, changes);
 		}
 		
 		override protected function renderCell(x:int, y:int):void 
@@ -70,11 +77,6 @@ package view.game.renderer
 					this.layer.addImage(view);
 				}
 			}
-		}
-		
-		override protected function get range():int 
-		{
-			return 10;
 		}
 		
 		private function getTrajectoryCoordinates(height:int):void

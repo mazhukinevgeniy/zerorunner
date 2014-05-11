@@ -35,8 +35,15 @@ package view.game.renderer
 			
 			this.shards = new Array();
 			
+			var changes:Changes = new Changes();
+			changes._dx = -9;
+			changes.dx = 9;
+			changes._dy = -9;
+			changes.dy = 9;
+			/* A little extra, so we can avoid reasonable care for paused explosions */
+			//TODO: parametrize that extra
 			
-			super(binder, layer);
+			super(binder, layer, changes);
 		}
 		
 		public function newGame():void
@@ -75,11 +82,6 @@ package view.game.renderer
 			}
 		}
 		
-		override protected function get range():int 
-		{
-			return 9;
-			/* A little extra, so we can avoid reasonable care for paused explosions */
-		}
 	}
 
 }

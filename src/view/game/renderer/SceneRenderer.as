@@ -31,8 +31,6 @@ package view.game.renderer
 		
 		public function SceneRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			super(binder, layer);
-			
 			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas("scene");
 			
 			var key:String;
@@ -51,6 +49,15 @@ package view.game.renderer
 			}
 			
 			this.prepareTileCodes();
+			
+			
+			var changes:Changes = new Changes();
+			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 1 + 3);
+			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			
+			super(binder, layer, changes);
 		}
 		
 		private function prepareTileCodes():void 
@@ -77,12 +84,6 @@ package view.game.renderer
 				else if (name == "top_right")
 					this.tileCodes[i + 1] = this.TR_DISK;
 			}
-		}
-		
-		override protected function get range():int 
-		{
-			return 7;
-			//TODO: determine range more softly
 		}
 		
 		override protected function renderCell(x:int, y:int):void 

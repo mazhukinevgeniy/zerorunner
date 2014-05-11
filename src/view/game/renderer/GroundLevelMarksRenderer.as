@@ -16,13 +16,20 @@ package view.game.renderer
 		
 		public function GroundLevelMarksRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			super(binder, layer);
-			
 			this.projectiles = binder.projectiles;
 			
 			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas("sprites");
 			
 			this.shardIncView = new Image(atlas.getTexture("radio-hover-icon"));
+			
+			
+			var changes:Changes = new Changes();
+			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			
+			super(binder, layer, changes);
 		}
 		
 		override protected function renderCell(x:int, y:int):void 
@@ -50,11 +57,6 @@ package view.game.renderer
 					this.layer.addImage(view);
 				}
 			}
-		}
-		
-		override protected function get range():int 
-		{
-			return 8;
 		}
 	}
 

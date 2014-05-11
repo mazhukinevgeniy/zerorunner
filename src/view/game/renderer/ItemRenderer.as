@@ -21,11 +21,18 @@ package view.game.renderer
 		
 		public function ItemRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			super(binder, layer);
-			
 			this.puppets = binder.puppets;
 			
 			this.initializeSprites(binder.assetManager);
+			
+			
+			var changes:Changes = new Changes();
+			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			
+			super(binder, layer, changes);
 		}
 		
 		private function initializeSprites(assets:AssetManager):void
@@ -102,11 +109,6 @@ package view.game.renderer
 						new CenteredImage(spritename, assets));
 				}
 			}
-		}
-		
-		override protected function get range():int 
-		{
-			return 8;
 		}
 		
 		override protected function renderCell(x:int, y:int):void 

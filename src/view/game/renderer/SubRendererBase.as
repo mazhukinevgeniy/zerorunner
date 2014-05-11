@@ -11,13 +11,22 @@ package view.game.renderer
 		
 		protected var layer:QuadBatch;
 		
-		public function SubRendererBase(binder:IBinder, layer:QuadBatch) 
+		private var _dx:int;
+		private var dx:int;
+		private var _dy:int;
+		private var dy:int;
+		
+		public function SubRendererBase(binder:IBinder, layer:QuadBatch, changes:Changes) 
 		{
 			this.status = binder.gameStatus;
 			
 			this.layer = layer;
 			
-			super();
+			
+			this._dx = changes._dx;
+			this.dx = changes.dx;
+			this._dy = changes._dy;
+			this.dy = changes.dy;
 		}
 		
 		public function redraw():void
@@ -27,23 +36,16 @@ package view.game.renderer
 			var x:int = center.x;
 			var y:int = center.y;
 			
-			const RANGE:int = Math.abs(this.range);
-			
-			for (var i:int = -RANGE; i < RANGE + 1; i++)
-				for (var j:int = -RANGE; j < RANGE + 1; j++)
+			for (var i:int = this._dx; i < this.dx + 1; i++)
+				for (var j:int = this._dy; j < this.dy + 1; j++)
 				{
-					/* Render the square row by row */
+					/* Render row by row */
 					this.renderCell(x + j, y + i);
 				}
 		}
 		
 		
 		protected function renderCell(x:int, y:int):void
-		{
-			throw new Error("must implement");
-		}
-		
-		protected function get range():int
 		{
 			throw new Error("must implement");
 		}
