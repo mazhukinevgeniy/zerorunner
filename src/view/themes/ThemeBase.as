@@ -1,6 +1,7 @@
 package view.themes 
 {
 	import feathers.controls.Button;
+	import feathers.controls.Check;
 	import feathers.controls.Label;
 	import feathers.controls.Slider;
 	import feathers.core.DisplayListWatcher;
@@ -44,6 +45,7 @@ package view.themes
 		
 		protected var buttonTextures:Dictionary;
 		protected var sliderTextures:Dictionary;
+		protected var checkTextures:Dictionary;
 		
 		public function ThemeBase(container:DisplayObjectContainer, atlas:TextureAtlas) 
 		{
@@ -52,11 +54,13 @@ package view.themes
 			
 			this.buttonTextures = new Dictionary();
 			this.sliderTextures = new Dictionary();
+			this.checkTextures = new Dictionary();
 			
 			
 			this.initializeTextFormats();
 			this.initializeButtonTextures();
 			this.initializeSliderTextures();
+			this.initializeCheckTextures();
 			
 			this.setInitializers();
 		}
@@ -125,12 +129,34 @@ package view.themes
 				                   HSLIDER_FIRST_REGION, 
 								   HSLIDER_SECOND_REGION, 
 								   Scale3Textures.DIRECTION_HORIZONTAL);
-
+			
 			this.sliderTextures["vslider-track-skin"] =
 				new Scale3Textures(this.atlas.getTexture("vslider-track-skin"), 
 				                   HSLIDER_FIRST_REGION, 
 								   HSLIDER_SECOND_REGION, 
 								   Scale3Textures.DIRECTION_VERTICAL);
+		}
+		
+		protected function initializeCheckTextures():void
+		{
+			var name:String;
+			
+			var names:Array = 
+				[
+					"check-up-icon",
+					"check-hover-icon",
+					"check-down-icon",
+					
+					"check-selected-up-icon",
+					"check-selected-hover-icon",
+					"check-selected-down-icon"
+				]
+			
+			for each (name in names)
+			{
+				this.checkTextures[name] = 
+					this.atlas.getTexture(name);
+			}
 		}
 		
 		
@@ -140,6 +166,8 @@ package view.themes
 			
 			this.setInitializerForClass(Button, this.defaultButtonInitializer);
 			this.setInitializerForClass(Slider, this.defaultSliderInitializer);
+			
+			this.setInitializerForClass(Check, this.defaultCheckBoxInitializer);
 		}
 		
 		
@@ -168,7 +196,7 @@ package view.themes
 			slider.trackLayoutMode = Slider.TRACK_LAYOUT_MODE_SINGLE;
 			slider.minimumPadding = slider.maximumPadding = 
 				-this.sliderTextures["vslider-thumb-up-skin"].height / 2;
-
+			
 			if(slider.direction == Slider.DIRECTION_VERTICAL)
 			{
 				slider.thumbProperties.defaultSkin = 
@@ -204,6 +232,23 @@ package view.themes
 			slider.step = 1;
 			slider.page = 10;
 			//TODO: initialize for named sliders
+		}
+		
+		protected function defaultCheckBoxInitializer(check:Check):void
+		{
+			check.defaultIcon = new Image(this.checkTextures["check-up-icon"]);
+			check.hoverIcon = new Image(this.checkTextures["check-hover-icon"]);
+			check.downIcon = new Image(this.checkTextures["check-down-icon"]);
+			check.defaultSelectedIcon = new Image(this.checkTextures["check-selected-up-icon"]);
+			check.selectedHoverIcon = new Image(this.checkTextures["check-selected-hover-icon"]);
+			check.selectedDownIcon = new Image(this.checkTextures["check-selected-down-icon"]);
+			
+			check.defaultLabelProperties.textFormat = this.fantasqueTextFormat;
+			
+			check.horizontalAlign = Button.HORIZONTAL_ALIGN_RIGHT;
+			check.verticalAlign = Button.VERTICAL_ALIGN_MIDDLE;
+			
+			check.gap = 4;
 		}
 	}
 
