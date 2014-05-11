@@ -38,8 +38,7 @@ package view.shell
 		
 		public function setSoundVolume(type:int, value:Number):void
 		{
-			this.regulators[type].slider.value = value * 100;
-			//TODO: that 100 gets hardcody, fix it
+			this.regulators[type].slider.value = value * SoundRegulator.SLIDER_MAXIMUM;
 		}
 		
 		

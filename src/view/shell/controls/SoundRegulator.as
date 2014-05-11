@@ -12,6 +12,8 @@ package view.shell.controls
 
 	public class SoundRegulator extends LayoutGroup
 	{
+		public static const SLIDER_MAXIMUM:int = 100;
+		
 		public var slider:Slider;
 		public var checkBox:Check;
 		
@@ -38,8 +40,8 @@ package view.shell.controls
 			this.slider = new Slider();
 			this.slider.nameList.add(ShellTheme.SOUND_REGULATOR);
 			
-			this.slider.maximum = 100;
-			this.slider.value = 100 * save.getSoundVolume(this.soundType);
+			this.slider.maximum = SoundRegulator.SLIDER_MAXIMUM;
+			this.slider.value = SoundRegulator.SLIDER_MAXIMUM * save.getSoundVolume(this.soundType);
 			
 			
 			this.addChild(this.checkBox);
