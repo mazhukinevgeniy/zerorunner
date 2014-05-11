@@ -16,11 +16,13 @@ package view.game
 		var navigator:ScreenNavigator = new ScreenNavigator();
 		navigator.addEventListener(Event.CHANGE, createNavigatorListener(binder));
 		
+		new Observer(binder, navigator);
+		
 		root.addChild(navigator);
 		
 		
 		var observerScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(new ScreenObserver(binder, navigator), getObserverEventMap());
+			new ScreenNavigatorItem(new ScreenObserver(binder), getObserverEventMap());
 		
 		var menuScreen:ScreenNavigatorItem =
 			new ScreenNavigatorItem(new GameMenuScreen(binder), getMenuEventMap());
@@ -57,7 +59,7 @@ package view.game
 			var map:Object = { };
 			
 			map[GameEvent.SHOW_MAP] = View.GAME_SCREEN_MAP;
-			
+			//TODO: why need
 			return map;
 		}
 	}
