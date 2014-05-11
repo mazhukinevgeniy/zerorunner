@@ -32,10 +32,11 @@ package model
 			
 			var length:int = properties.length;
 			
-			for (var i:int = 0; i < length; i++)
+			for each (var property:Array in properties)
 			{
-				if (!this.so.data.hasOwnProperty(properties[i][0]))
-					this.so.data[properties[i][0]] = properties[i][1];
+				if (!this.so.data.hasOwnProperty(property[0]) ||
+				    (property[1] is Array && !(this.so.data[property[0]] is Array)))
+					this.so.data[property[0]] = property[1];
 			}
 		}
 		
