@@ -35,22 +35,22 @@ package view.shell
 			new ScreenNavigatorItem(CreditsScreen, getDefaultEventMap(), getDefaultProperties());
 		
 		
-		navigator.addScreen(View.SCREEN_MAIN, mainScreen);
-		navigator.addScreen(View.SCREEN_OPTIONS, optionsScreen);
-		navigator.addScreen(View.SCREEN_TROPHIES, trophiesScreen);
-		navigator.addScreen(View.SCREEN_CREDITS, creditsScreen);
+		navigator.addScreen(View.SHELL_SCREEN_MAIN, mainScreen);
+		navigator.addScreen(View.SHELL_SCREEN_OPTIONS, optionsScreen);
+		navigator.addScreen(View.SHELL_SCREEN_TROPHIES, trophiesScreen);
+		navigator.addScreen(View.SHELL_SCREEN_CREDITS, creditsScreen);
 		
 		
-		navigator.showScreen(View.SCREEN_MAIN);
+		navigator.showScreen(View.SHELL_SCREEN_MAIN);
 		
 		
 		function getMainEventMap():Object
 		{
 			var map:Object = { };
 			
-			map[ShellEvent.SHOW_CREDITS] = View.SCREEN_CREDITS;
-			map[ShellEvent.SHOW_OPTIONS] = View.SCREEN_OPTIONS;
-			map[ShellEvent.SHOW_TROPHIES] = View.SCREEN_TROPHIES;
+			map[ShellEvent.SHOW_CREDITS] = View.SHELL_SCREEN_CREDITS;
+			map[ShellEvent.SHOW_OPTIONS] = View.SHELL_SCREEN_OPTIONS;
+			map[ShellEvent.SHOW_TROPHIES] = View.SHELL_SCREEN_TROPHIES;
 			
 			return map;
 		}
@@ -59,7 +59,7 @@ package view.shell
 		{
 			var map:Object = { };
 			
-			map[ShellEvent.SHOW_MAIN] = View.SCREEN_MAIN;
+			map[ShellEvent.SHOW_MAIN] = View.SHELL_SCREEN_MAIN;
 			
 			return map;
 		}
