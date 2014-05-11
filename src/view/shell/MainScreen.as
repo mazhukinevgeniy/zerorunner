@@ -10,11 +10,6 @@ package view.shell
 	
 	internal class MainScreen extends Screen
 	{
-		protected var playButton:Button,
-					  trophiesButton:Button,
-					  optionsButton:Button,
-					  creditsButton:Button;
-		
 		private var gameController:IGameController;
 		
 		public function MainScreen(binder:IBinder) 
@@ -22,39 +17,43 @@ package view.shell
 			super();
 			
 			
-			this.addChild(this.playButton = createButton("NEW GAME"));
-			this.addChild(this.trophiesButton = createButton("TROPHIES"));
-			this.addChild(this.optionsButton = createButton("OPTIONS"));
-			this.addChild(this.creditsButton = createButton("CREDITS"));
+			var button:Button;
 			
-			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
-			this.trophiesButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
-			this.optionsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
-			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			this.addChild(button = createButton("NEW GAME"));
+			button.addEventListener(Event.TRIGGERED, this.handleNewGameTriggered);
+			
+			this.addChild(button = createButton("TROPHIES"));
+			button.addEventListener(Event.TRIGGERED, this.handleTrophiesTriggered);
+			
+			this.addChild(button = createButton("OPTIONS"));
+			button.addEventListener(Event.TRIGGERED, this.handleOptionsTriggered);
+			
+			this.addChild(button = createButton("CREDITS"));
+			button.addEventListener(Event.TRIGGERED, this.handleCreditsTriggered);
+			
 			
 			
 			this.gameController = binder.gameController;
 		}
 		
-		
-		protected function handleMenuTriggered(event:Event):void
+		private function handleNewGameTriggered():void
 		{
-			if (event.target == this.playButton)
-			{
-				this.gameController.newGame();
-			}
-			else if (event.target == this.trophiesButton)
-			{
-				this.dispatchEventWith(ShellEvent.SHOW_TROPHIES);
-			}
-			else if (event.target == this.optionsButton)
-			{
-				this.dispatchEventWith(ShellEvent.SHOW_OPTIONS);
-			}
-			else if (event.target == this.creditsButton)
-			{
-				this.dispatchEventWith(ShellEvent.SHOW_CREDITS);
-			}
+			this.gameController.newGame();
+		}
+		
+		private function handleTrophiesTriggered():void
+		{
+			this.dispatchEventWith(ShellEvent.SHOW_TROPHIES);
+		}
+		
+		private function handleOptionsTriggered():void
+		{
+			this.dispatchEventWith(ShellEvent.SHOW_OPTIONS);
+		}
+		
+		private function handleCreditsTriggered():void
+		{
+			this.dispatchEventWith(ShellEvent.SHOW_CREDITS);
 		}
 		
 	}
