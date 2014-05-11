@@ -6,11 +6,10 @@ package view.shell
 	import feathers.controls.Screen;
 	import starling.events.Event;
 	import view.shell.events.ShellEvent;
+	import view.shell.factories.createButton;
 	
 	internal class MainScreen extends Screen
 	{
-		protected var buttonFactory:ButtonFactory;
-		
 		protected var playButton:Button,
 					  achievementsButton:Button,
 					  settingsButton:Button,
@@ -23,37 +22,20 @@ package view.shell
 			super();
 			
 			
-			this.buttonFactory = new ButtonFactory(binder.assetManager);
-			this.initializeButtons(); //TODO: something is weird here
-			
-			this.gameController = binder.gameController;
-			
-			
-		}
-		
-		
-		
-		
-		protected function initializeButtons():void 
-		{
-			//TODO: you tell me why do we use buttonfactory anyway
-			this.playButton = this.buttonFactory.createButton("NEW GAME");
-			this.addChild(this.playButton);
-			
-			this.achievementsButton = this.buttonFactory.createButton("TROPHIES");
-			this.addChild(this.achievementsButton);
-			
-			this.settingsButton = this.buttonFactory.createButton("OPTIONS");
-			this.addChild(this.settingsButton);
-			
-			this.creditsButton = this.buttonFactory.createButton("CREDITS");
-			this.addChild(this.creditsButton);
+			this.addChild(this.playButton = createButton("NEW GAME"));
+			this.addChild(this.achievementsButton = createButton("TROPHIES"));
+			this.addChild(this.settingsButton = createButton("OPTIONS"));
+			this.addChild(this.creditsButton = createButton("CREDITS"));
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.settingsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			
+			
+			this.gameController = binder.gameController;
 		}
+		
 		
 		protected function handleMenuTriggered(event:Event):void
 		{
