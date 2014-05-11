@@ -14,10 +14,15 @@ package
 		public static const NUMBER_OF_SOUND_TYPES:int = 2;
 		
 		
+		public static const GAME_SCREEN_MAIN:String = "mainScreen";
+		public static const GAME_SCREEN_MAP:String = "mapScreen";
+		public static const GAME_SCREEN_END:String = "endScreen";
+		
+		
 		public static const SHELL_SCREEN_MAIN:String = "mainScreen";
 		public static const SHELL_SCREEN_OPTIONS:String = "optionsScreen";
-		public static const SHELL_SCREEN_TROPHIES:String = "trophiesString";
-		public static const SHELL_SCREEN_CREDITS:String = "creditsString";
+		public static const SHELL_SCREEN_TROPHIES:String = "trophiesScreen";
+		public static const SHELL_SCREEN_CREDITS:String = "creditsScreen";
 		
 		
 		public static const CLOUD_WIDTH:int = 700;
