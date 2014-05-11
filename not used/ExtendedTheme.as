@@ -8,7 +8,6 @@ package view.themes
 	import flash.text.TextFormat;
 	
 	public class ExtendedTheme extends AeonDesktopTheme
-	//TODO забрать всё полезное и удалить
 	{
 		public static const BUTTON_MENU:String = "button-menu";
 		public static const MUTE_BUTTON:String = "mute-button";

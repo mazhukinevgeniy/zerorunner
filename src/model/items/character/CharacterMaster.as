@@ -47,8 +47,6 @@ package model.items.character
 			
 			var next:int;
 			
-			//TODO: it's currently possible to shift movemode and move at the same turn; fix that
-			
 			if (isStanding)
 			{
 				while (action.x != 0 || action.y != 0)
