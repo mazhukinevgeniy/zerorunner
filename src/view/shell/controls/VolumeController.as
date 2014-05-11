@@ -1,4 +1,4 @@
-package view.shell.settings 
+package view.shell.controls 
 {
 	import feathers.controls.Button;
 	import feathers.controls.Label;

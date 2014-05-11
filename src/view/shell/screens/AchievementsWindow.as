@@ -1,4 +1,4 @@
-package view.shell.achievements 
+package view.shell.screens 
 {
 	import binding.IBinder;
 	import feathers.controls.ScrollContainer;

@@ -4,9 +4,9 @@ package view.shell
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
-	import view.shell.achievements.AchievementsWindow;
-	import view.shell.credits.CreditsWindow;
-	import view.shell.settings.SettingsWindow;
+	import view.shell.screens.AchievementsWindow;
+	import view.shell.screens.CreditsWindow;
+	import view.shell.screens.SettingsWindow;
 	
 	public function initializeShell(shellRoot:DisplayObjectContainer, 
 	                                gameRoot:DisplayObjectContainer,

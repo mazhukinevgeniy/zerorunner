@@ -1,10 +1,11 @@
-package view.shell.settings 
+package view.shell.screens 
 {
 	import binding.IBinder;
 	import controller.interfaces.ISoundController;
 	import feathers.controls.Slider;
 	import starling.events.Event;
 	import starling.events.EventDispatcher;
+	import view.shell.controls.VolumeController;
 	import view.shell.WindowBase;
 	import view.themes.ShellTheme;
 
