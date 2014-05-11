@@ -27,7 +27,7 @@ package model
 			const properties:Array = 
 				[
 					["soundMute", [false, false]], 
-					["setSoundVolume", [1, 1]]
+					["soundVolume", [1, 1]]
 				];
 			
 			var length:int = properties.length;
@@ -51,11 +51,11 @@ package model
 		
 		public function setSoundVolume(type:int, value:Number):void
 		{
-			this.so.data.soundValue[type] = value;
+			this.so.data.soundVolume[type] = value;
 		}
 		public function getSoundVolume(type:int):Number
 		{
-			return this.so.data.soundValue[type];
+			return this.so.data.soundVolume[type];
 		}
 	}
 
