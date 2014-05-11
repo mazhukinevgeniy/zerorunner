@@ -23,7 +23,7 @@ package view.shell
 		
 		
 		var mainScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(new MainScreen(binder), getMainEventMap(), getDefaultProperties());
+			new ScreenNavigatorItem(new MainMenuScreen(binder), getMainEventMap(), getDefaultProperties());
 		
 		var optionsScreen:ScreenNavigatorItem = 
 			new ScreenNavigatorItem(new OptionsScreen(binder), getDefaultEventMap(), getDefaultProperties());

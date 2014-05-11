@@ -8,11 +8,11 @@ package view.shell
 	import view.shell.events.ShellEvent;
 	import view.shell.factories.createButton;
 	
-	internal class MainScreen extends Screen
+	internal class MainMenuScreen extends Screen
 	{
 		private var gameController:IGameController;
 		
-		public function MainScreen(binder:IBinder) 
+		public function MainMenuScreen(binder:IBinder) 
 		{
 			super();
 			
