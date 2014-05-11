@@ -225,8 +225,7 @@ package view.themes
 				slider.focusPaddingTop = slider.focusPaddingBottom = -2;
 				slider.focusPaddingLeft = slider.focusPaddingRight = -2 + slider.minimumPadding;
 			
-				//slider.width = 200;
-				//TODO: remove if fine without it
+				slider.width = 200;
 			}
 			
 			slider.step = 1;
