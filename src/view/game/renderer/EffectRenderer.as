@@ -1,25 +1,21 @@
 package view.game.renderer 
 {
 	import binding.IBinder;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IShardObserver;
 	import model.projectiles.Projectile;
-	import model.utils.normalize;
 	import starling.display.QuadBatch;
 	import starling.extensions.CenteredImage;
+	import view.game.renderer.utils.EffectTracker;
 	
-	internal class EffectRenderer extends SubRendererBase implements INewGameHandler,
-	                                                                 IShardObserver
+	internal class EffectRenderer extends SubRendererBase
 	{
-		private const STONE_BOOM_LENGTH:int = 6;
-		private const STONE_BOOM_SPEED_FACTOR:int = 5;
-		
 		private var sprites:Object;
 		
-		private var shards:Array;
+		private var tracker:EffectTracker;
 		
 		public function EffectRenderer(binder:IBinder, layer:QuadBatch) 
 		{
+			this.tracker = new EffectTracker(binder);
+			
 			binder.notifier.addObserver(this);
 			
 			var spriteNames:Array = new Array();
@@ -33,52 +29,30 @@ package view.game.renderer
 				this.sprites[key] = new CenteredImage(key, binder.assetManager);
 			}
 			
-			this.shards = new Array();
-			
 			var changes:Changes = new Changes();
-			changes._dx = -9;
-			changes.dx = 9;
-			changes._dy = -9;
-			changes.dy = 9;
-			/* A little extra, so we can avoid reasonable care for paused explosions */
-			//TODO: parametrize that extra
+			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH + 2);
+			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			
 			super(binder, layer, changes);
 		}
 		
-		public function newGame():void
-		{
-			this.shards = new Array();
-		}
-		
-		private function getShardAnimationFrame(x:int, y:int):int
-		{
-			return this.shards[normalize(x) + normalize(y) * Game.MAP_WIDTH];
-		}
-		
-		public function shardFellDown(shard:Projectile):void
-		{
-			this.shards[shard.cell.x + Game.MAP_WIDTH * shard.cell.y] = 
-				this.STONE_BOOM_LENGTH * this.STONE_BOOM_SPEED_FACTOR;
-		}
-		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var key:int = normalize(x) + normalize(y) * Game.MAP_WIDTH;
+			var shardFrame:int = this.tracker.getShardAnimationFrame(x, y);
 			
-			if (this.shards[key] > this.STONE_BOOM_SPEED_FACTOR)
+			if (shardFrame < 7)
 			{
 				x *= View.CELL_WIDTH;
 				y *= View.CELL_HEIGHT;
 				
-				var sprite:CenteredImage = this.sprites["stone_boom_" + String(this.STONE_BOOM_LENGTH + 1 - int(this.shards[key] / this.STONE_BOOM_SPEED_FACTOR))];
+				var sprite:CenteredImage = this.sprites["stone_boom_" + String(shardFrame)];
 				
 				sprite.x = x + (View.CELL_WIDTH - sprite.width) / 2;
 				sprite.y = y + (View.CELL_HEIGHT - sprite.height) / 2;
 				
 				this.layer.addImage(sprite);
-				
-				this.shards[key]--;
 			}
 		}
 		

@@ -31,8 +31,6 @@ package view.game.renderer
 			
 			this.status = binder.gameStatus;
 			
-			binder.notifier.addObserver(this);
-			
 			
 			this.activeRenderers = new Vector.<IRenderer>();
 			
@@ -49,6 +47,8 @@ package view.game.renderer
 			this.activeRenderers.push(new EffectRenderer(binder, this.activeLayer));
 			
 			this.activeRenderers.push(root.addChild(new Clouds(binder, this)));
+			
+			binder.notifier.addObserver(this);
 		}
 		
 		public function newGame():void
