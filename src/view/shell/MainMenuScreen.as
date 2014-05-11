@@ -6,7 +6,8 @@ package view.shell
 	import feathers.controls.Screen;
 	import starling.events.Event;
 	import view.shell.events.ShellEvent;
-	import view.shell.factories.createButton;
+	import view.themes.ShellTheme;
+	import view.utils.createButton;
 	
 	internal class MainMenuScreen extends Screen
 	{
@@ -19,16 +20,16 @@ package view.shell
 			
 			var button:Button;
 			
-			this.addChild(button = createButton("NEW GAME"));
+			this.addChild(button = createButton("NEW GAME", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleNewGameTriggered);
 			
-			this.addChild(button = createButton("TROPHIES"));
+			this.addChild(button = createButton("TROPHIES", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleTrophiesTriggered);
 			
-			this.addChild(button = createButton("OPTIONS"));
+			this.addChild(button = createButton("OPTIONS", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleOptionsTriggered);
 			
-			this.addChild(button = createButton("CREDITS"));
+			this.addChild(button = createButton("CREDITS", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleCreditsTriggered);
 			
 			

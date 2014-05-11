@@ -5,7 +5,8 @@ package view.shell
 	import feathers.controls.Screen;
 	import starling.events.Event;
 	import view.shell.events.ShellEvent;
-	import view.shell.factories.createButton;
+	import view.themes.ShellTheme;
+	import view.utils.createButton;
 	
 	
 	internal class CreditsScreen extends Screen 
@@ -24,7 +25,7 @@ package view.shell
 			
 			
 			
-			var quit:Button = createButton("BACK");
+			var quit:Button = createButton("BACK", ShellTheme.NAVIGATION_BUTTON);
 			quit.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
 			

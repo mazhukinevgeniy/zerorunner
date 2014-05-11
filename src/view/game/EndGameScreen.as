@@ -7,7 +7,8 @@ package view.game
 	import feathers.controls.Screen;
 	import feathers.layout.VerticalLayout;
 	import starling.events.Event;
-	import view.game.factories.createButton;
+	import view.themes.GameTheme;
+	import view.utils.createButton;
 	
 	internal class EndGameScreen extends Screen
 	{
@@ -34,7 +35,7 @@ package view.game
 			}
 			
 			
-			var button:Button = createButton("QUIT");
+			var button:Button = createButton("QUIT", GameTheme.MENU_BUTTON);
 			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
 			

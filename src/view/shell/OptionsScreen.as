@@ -7,7 +7,8 @@ package view.shell
 	import starling.events.Event;
 	import view.shell.controls.SoundRegulator;
 	import view.shell.events.ShellEvent;
-	import view.shell.factories.createButton;
+	import view.themes.ShellTheme;
+	import view.utils.createButton;
 	
 	
 	internal class OptionsScreen extends Screen implements ISoundObserver
@@ -25,7 +26,7 @@ package view.shell
 				this.addChild(this.regulators[i] = new SoundRegulator(i, binder));
 			
 			
-			var quit:Button = createButton("BACK");
+			var quit:Button = createButton("BACK", ShellTheme.NAVIGATION_BUTTON);
 			quit.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
 			this.addChild(quit);

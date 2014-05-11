@@ -1,14 +1,14 @@
-package view.shell.factories 
+package view.utils 
 {
 	import feathers.controls.Button;
 	import view.themes.ShellTheme;
 	
-	public function createButton(title:String):Button
+	public function createButton(title:String, name:String):Button
 	{
 		var button:Button = new Button();
 		
 		button.label = title;
-		button.nameList.add(ShellTheme.NAVIGATION_BUTTON);
+		button.nameList.add(name);
 		
 		return button;
 	}

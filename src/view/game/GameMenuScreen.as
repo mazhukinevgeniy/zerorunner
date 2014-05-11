@@ -8,7 +8,8 @@ package view.game
 	import model.interfaces.IStatus;
 	import starling.events.Event;
 	import view.game.events.GameEvent;
-	import view.game.factories.createButton;
+	import view.themes.ShellTheme;
+	import view.utils.createButton;
 	
 	internal class GameMenuScreen extends Screen
 	{
@@ -26,10 +27,10 @@ package view.game
 			
 			var button:Button;
 			
-			this.addChild(button = createButton("QUIT"));
+			this.addChild(button = createButton("QUIT", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
-			this.addChild(button = createButton("MAP"));
+			this.addChild(button = createButton("MAP", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleMapTriggered);
 		}
 		
