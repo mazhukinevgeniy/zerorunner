@@ -83,11 +83,7 @@ package controller
 		{
 			if (keyUp)
 			{
-				if (keyCode == Keyboard.P)
-				{
-					this.notifier.newGame();
-				}
-				else if (keyCode == Keyboard.M)
+				if (keyCode == Keyboard.M)
 				{
 					this.notifier.setMusicMute(!this.save.musicMute);
 					this.notifier.setSoundMute(!this.save.soundMute);
