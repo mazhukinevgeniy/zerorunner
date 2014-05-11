@@ -1,26 +1,26 @@
 package model.status
 {
 	import binding.IBinder;
-	import controller.observers.IGameMenuRelated;
-	import controller.observers.IMapStatusObserver;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
+	import controller.observers.IScreenObserver;
 	import model.interfaces.IStatus;
 	import model.items.PuppetBase;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	
 	public class StatusReporter implements IStatus, 
-	                                       INewGameHandler, 
+	                                       INewGameHandler,
 										   IQuitGameHandler,
-										   IMapStatusObserver,
-										   IGameMenuRelated
+										   IScreenObserver
 	{
+		private var gameScreens:Vector.<String> = Vector.<String>(
+		[View.GAME_SCREEN_MAP, View.GAME_SCREEN_LOST, View.GAME_SCREEN_WON,
+			 View.GAME_SCREEN_MENU, View.GAME_SCREEN_OBSERVER]);
+		
 		private var hero:PuppetBase;
 		
-		private var _isGameOn:Boolean = false;
-		private var _isMapOn:Boolean = false;
-		private var _isMenuOn:Boolean = false;
+		private var _screen:String;
 		
 		private var dxyHelper:NumericalDxyHelper;
 		
@@ -31,30 +31,22 @@ package model.status
 			this.dxyHelper = new NumericalDxyHelper();
 		}
 		
+		public function screenActivated(name:String):void
+		{
+			this._screen = name;
+		}
+		
 		public function newGame():void
 		{
-			this._isGameOn = true;
-			this._isMapOn = false;
-		}
-		
-		public function setVisibilityOfMap(visible:Boolean):void
-		{
-			this._isMapOn = visible;
-		}
-		
-		public function setVisibilityOfMenu(visible:Boolean):void
-		{
-			this._isMenuOn = visible;
+			this._screen = View.GAME_SCREEN_OBSERVER;
 		}
 		
 		public function quitGame():void
 		{
-			this._isGameOn = false;
-			this._isMapOn = false;
+			this._screen = View.SHELL_SCREEN_MAIN;
 			
 			this.hero = null;
 		}
-		
 		
 		public function newHero(hero:PuppetBase):void
 		{
@@ -63,9 +55,18 @@ package model.status
 		
 		/**///As IStatus
 		
-		public function isGameOn():Boolean { return this._isGameOn; }
-		public function isMapOn():Boolean { return this._isMapOn; }
-		public function isMenuOn():Boolean { return this._isMenuOn; }
+		public function isGameOn():Boolean 
+		{ 
+			return this.gameScreens.indexOf(this._screen) != -1; 
+		}
+		public function isMapOn():Boolean 
+		{ 
+			return this._screen == View.GAME_SCREEN_MAP; 
+		}
+		public function isMenuOn():Boolean 
+		{ 
+			return this._screen == View.GAME_SCREEN_MENU; 
+		}
 		
 		public function isHeroFree():Boolean { return this.hero && this.hero.isFree(); }
 		public function getLocationOfHero():ICoordinated { return this.hero; }

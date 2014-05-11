@@ -14,9 +14,11 @@ package
 		public static const NUMBER_OF_SOUND_TYPES:int = 2;
 		
 		
-		public static const GAME_SCREEN_MAIN:String = "mainScreen";
+		public static const GAME_SCREEN_OBSERVER:String = "observerScreen";
+		public static const GAME_SCREEN_MENU:String = "menuScreen";
 		public static const GAME_SCREEN_MAP:String = "mapScreen";
-		public static const GAME_SCREEN_END:String = "endScreen";
+		public static const GAME_SCREEN_WON:String = "wonScreen";
+		public static const GAME_SCREEN_LOST:String = "lostScreen";
 		
 		
 		public static const SHELL_SCREEN_MAIN:String = "mainScreen";

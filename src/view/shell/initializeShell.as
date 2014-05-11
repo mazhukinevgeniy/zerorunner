@@ -7,8 +7,10 @@ package view.shell
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import view.shell.controls.Background;
 	import view.shell.events.ShellEvent;
+	import view.utils.createNavigatorListener;
 	
 	public function initializeShell(shellRoot:DisplayObjectContainer, 
 	                                gameRoot:DisplayObjectContainer,
@@ -18,6 +20,7 @@ package view.shell
 		
 		
 		var navigator:ScreenNavigator = new ScreenNavigator();
+		navigator.addEventListener(Event.CHANGE, createNavigatorListener(binder));
 		
 		shellRoot.addChild(navigator);
 		

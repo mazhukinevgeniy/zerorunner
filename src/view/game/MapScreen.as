@@ -3,9 +3,9 @@ package view.game
 	import binding.IBinder;
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.IMapFrameHandler;
-	import controller.observers.IMapStatusObserver;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
+	import feathers.controls.Screen;
 	import flash.utils.ByteArray;
 	import model.interfaces.IInput;
 	import model.interfaces.IScene;
@@ -13,16 +13,15 @@ package view.game
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	import model.utils.normalize;
-	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
+	import starling.display.Sprite;
 	import starling.utils.Color;
 	
-	public class MapFeature implements INewGameHandler,
-	                                   IQuitGameHandler,
-	                                   IGameFrameHandler, 
-									   IMapFrameHandler, 
-									   IMapStatusObserver
+	internal class MapScreen extends Screen implements INewGameHandler,
+	                                                   IQuitGameHandler,
+													   IGameFrameHandler,
+													   IMapFrameHandler
 	{
 		private const C_WIDTH:int = 7;
 		private const BORDER_WIDTH:int = 45;
@@ -46,8 +45,10 @@ package view.game
 		private var minY:int;
 		private var maxY:int = 0;
 		
-		public function MapFeature(binder:IBinder, root:DisplayObjectContainer) 
+		public function MapScreen(binder:IBinder) 
 		{
+			super();
+			
 			binder.notifier.addObserver(this);
 			
 			this.visited = new ByteArray();
@@ -64,7 +65,7 @@ package view.game
 			this.tiles[Game.SCENE_GROUND] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x8B4513);
 			
 			this.container = new QuadBatch();
-			root.addChild(this.container);
+			this.addChild(this.container);
 		}
 		
 		public function newGame():void
@@ -80,7 +81,6 @@ package view.game
 				/* OPTIMIZABLE */
 			
 			this.container.reset();
-			this.container.visible = false;
 			
 			var borderPiece:Quad = new Quad(this.BORDER_WIDTH, this.BORDER_WIDTH, Color.NAVY);
 			
@@ -123,10 +123,6 @@ package view.game
 			this.gameFrame(Game.FRAME_TO_UNLOCK_ACHIEVEMENTS);
 		}
 		
-		public function setVisibilityOfMap(visible:Boolean):void
-		{
-			this.container.visible = visible;
-		}
 		
 		public function gameFrame(key:int):void
 		{
@@ -189,8 +185,6 @@ package view.game
 			this.container.reset();
 			
 			this.visited.clear();
-			
-			this.container.visible = false;
 		}
 	}
 

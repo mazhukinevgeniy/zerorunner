@@ -23,8 +23,8 @@ package view
 			this.createRoots(root);
 			this.bindAssets(binder);
 			
-			initializeShell(this.shellRoot, this.gameRoot, binder);
 			initializeGameView(binder, this.gameRoot);
+			initializeShell(this.shellRoot, this.gameRoot, binder);
 			
 			new Sounds(binder);
 			new EventListener(binder, Starling.current.nativeStage);
