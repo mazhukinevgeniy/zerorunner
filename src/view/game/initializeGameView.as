@@ -49,8 +49,6 @@ package view.game
 		{
 			var map:Object = { };
 			
-			map[GameEvent.SHOW_MENU] = View.GAME_SCREEN_MENU;
-			
 			return map;
 		}
 		

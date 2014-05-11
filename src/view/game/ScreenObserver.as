@@ -1,6 +1,7 @@
 package view.game 
 {
 	import binding.IBinder;
+	import controller.interfaces.IGameController;
 	import controller.observers.IGameMenuRelated;
 	import controller.observers.IGameStopHandler;
 	import controller.observers.IMapStatusObserver;
@@ -14,8 +15,10 @@ package view.game
 	
 	internal class ScreenObserver extends Screen implements INewGameHandler, IGameStopHandler, IGameMenuRelated, IMapStatusObserver
 	{
-		var gameEvents:Object = { }
+		private var gameEvents:Object = { }
 		private var navigator:ScreenNavigator;
+		
+		private var controller:IGameController;
 		
 		
 		private var menuButton:Button;
@@ -23,6 +26,7 @@ package view.game
 		public function ScreenObserver(binder:IBinder, navigator:ScreenNavigator) 
 		{
 			this.navigator = navigator;
+			this.controller = binder.gameController;
 			
 			this.gameEvents[GameEvent.SHOW_MENU] = View.GAME_SCREEN_MENU;
 			this.gameEvents[GameEvent.SHOW_OBSERVER] = View.GAME_SCREEN_OBSERVER;
@@ -51,25 +55,17 @@ package view.game
 		
 		private function handleMenuButtonTriggered():void
 		{
-			this.dispatchEventWith(GameEvent.SHOW_MENU);
-			//this.controller.setVisibilityOfMenu(!this.mainButtons.visible);
-			//TODO: check if can't delete
+			this.controller.setVisibilityOfMenu(false);
 		}
-		
-		
 		public function newGame():void
 		{
-			this.forceEvent(GameEvent.SHOW_OBSERVER);
-			//this.controller.setVisibilityOfMenu(false);
-			//TODO: .
+			this.controller.setVisibilityOfMenu(false);
 		}
 		
 		public function gameStopped(reason:int):void
 		{
 			if (reason != Game.ENDING_ABANDONED)
 			{
-				
-				
 				if (reason == Game.ENDING_WON)
 				{
 					this.forceEvent(GameEvent.SHOW_WON);
