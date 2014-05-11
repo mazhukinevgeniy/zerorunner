@@ -11,8 +11,8 @@ package view.shell
 	internal class MainScreen extends Screen
 	{
 		protected var playButton:Button,
-					  achievementsButton:Button,
-					  settingsButton:Button,
+					  trophiesButton:Button,
+					  optionsButton:Button,
 					  creditsButton:Button;
 		
 		private var gameController:IGameController;
@@ -23,13 +23,13 @@ package view.shell
 			
 			
 			this.addChild(this.playButton = createButton("NEW GAME"));
-			this.addChild(this.achievementsButton = createButton("TROPHIES"));
-			this.addChild(this.settingsButton = createButton("OPTIONS"));
+			this.addChild(this.trophiesButton = createButton("TROPHIES"));
+			this.addChild(this.optionsButton = createButton("OPTIONS"));
 			this.addChild(this.creditsButton = createButton("CREDITS"));
 			
 			this.playButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
-			this.achievementsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
-			this.settingsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			this.trophiesButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
+			this.optionsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			this.creditsButton.addEventListener(Event.TRIGGERED, this.handleMenuTriggered);
 			
 			
@@ -43,11 +43,11 @@ package view.shell
 			{
 				this.gameController.newGame();
 			}
-			else if (event.target == this.achievementsButton)//TODO: rename button
+			else if (event.target == this.trophiesButton)
 			{
 				this.dispatchEventWith(ShellEvent.SHOW_TROPHIES);
 			}
-			else if (event.target == this.settingsButton)
+			else if (event.target == this.optionsButton)
 			{
 				this.dispatchEventWith(ShellEvent.SHOW_OPTIONS);
 			}
