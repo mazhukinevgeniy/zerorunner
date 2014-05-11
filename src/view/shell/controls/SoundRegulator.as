@@ -6,7 +6,7 @@ package view.shell.controls
 	import feathers.layout.HorizontalLayout;
 	import view.themes.ShellTheme;
 
-	public class VolumeController extends LayoutGroup
+	public class SoundRegulator extends LayoutGroup
 	{
 		private static const GAP:int = 30;
 		
@@ -14,7 +14,7 @@ package view.shell.controls
 		
 		public var checkBox:Check;
 		
-		public function VolumeController(name:String) 
+		public function SoundRegulator(name:String) 
 		{
 			this.setLayout();
 			
