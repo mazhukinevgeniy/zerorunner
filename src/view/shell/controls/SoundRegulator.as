@@ -6,6 +6,7 @@ package view.shell.controls
 	import feathers.controls.LayoutGroup;
 	import feathers.controls.Slider;
 	import feathers.layout.HorizontalLayout;
+	import model.interfaces.ISave;
 	import starling.events.Event;
 	import view.themes.ShellTheme;
 
@@ -25,19 +26,26 @@ package view.shell.controls
 			
 			this.setLayout();
 			
+			var save:ISave = binder.save;
+			
 			this.checkBox = new Check();
 			this.checkBox.nameList.add(ShellTheme.SOUND[type]);
 			this.checkBox.nameList.add(ShellTheme.TOGGLE_MUTE);
 			
+			this.checkBox.isSelected = !save.getSoundMute(this.soundType);
+			
+			
 			this.slider = new Slider();
-			this.slider.value = this.slider.maximum = 100;
-			//TODO: get from save
+			this.slider.maximum = 100;
+			
+			this.slider.value = 100 * save.getSoundValue(this.soundType);
 			
 			
 			this.addChild(this.checkBox);
 			this.addChild(this.slider);
 			
 			this.slider.addEventListener(Event.CHANGE, this.handleSliderChange);
+			this.checkBox.addEventListener(Event.CHANGE, this.handleCheckChange);
 		}
 		
 		private function setLayout():void
@@ -56,6 +64,10 @@ package view.shell.controls
 		private function handleSliderChange():void
 		{
 			this.soundController.setSoundValue(this.soundType, this.slider.value / this.slider.maximum);
+		}
+		private function handleCheckChange():void
+		{
+			this.soundController.setSoundMute(this.soundType, !this.checkBox.isSelected);
 		}
 	}
 
