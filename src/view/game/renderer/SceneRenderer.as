@@ -5,7 +5,9 @@ package view.game.renderer
 	import model.utils.normalize;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
+	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
+	import starling.utils.AssetManager;
 	
 	internal class SceneRenderer extends SubRendererBase
 	{
@@ -31,21 +33,22 @@ package view.game.renderer
 		
 		public function SceneRenderer(binder:IBinder, layer:QuadBatch) 
 		{
-			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas("scene");
+			var assets:AssetManager = binder.assetManager;
+			var atlas:TextureAtlas = assets.getTextureAtlas("scene");
 			
 			var key:String;
 			
 			for each (key in 
-					["1", "2", "3", "4", "5",
-					 "6", "7", "8", "9",
-					 "11", "33", "77", "99"])
-				this["_" + key] = new Image(atlas.getTexture(key));
+					["_1", "_2", "_3", "_4", "_5",
+					 "_6", "_7", "_8", "_9",
+					 "_11", "_33", "_77", "_99"])
+				this[key] = new CenteredImage(atlas.getTexture(key), assets.getXml("sceneOffsets")[key]);
 			
 			for each (key in 
-					["1", "2", "3"])
+					["_1", "_2", "_3"])
 			{
-				this["_" + key + "_"] = new Image(atlas.getTexture(key + "-"));
-				this["_" + key + "__"] = new Image(atlas.getTexture(key + "--"));
+				this[key + "_"] = new Image(atlas.getTexture(key + "-"));
+				this[key + "__"] = new Image(atlas.getTexture(key + "--"));
 			}
 			
 			this.prepareTileCodes();
@@ -90,52 +93,75 @@ package view.game.renderer
 		{
 			if (this.getMapCell(x, y) != this.FALL)
 			{
-				var sTitle:String;
+				var sTitles:Vector.<String> = new Vector.<String>;
+				//TODO: initialize above
 				
 				var tileCode:int = this.getMapCell(x, y);
 				
 				if (tileCode == this.GROUND)
 				{
-					if (this.getMapCell(x, y - 1) == this.FALL)
-						sTitle = "_8";
-					else if (this.getMapCell(x, y + 1) == this.FALL)
-						sTitle = "_2";
-					else if (this.getMapCell(x - 1, y) == this.FALL)
-						sTitle = "_4";
-					else if (this.getMapCell(x + 1, y) == this.FALL)
-						sTitle = "_6";
-					else if (this.getMapCell(x - 1, y - 1) == this.FALL)
-						sTitle = "_77";
-					else if (this.getMapCell(x + 1, y - 1) == this.FALL)
-						sTitle = "_99";
-					else if (this.getMapCell(x - 1, y + 1) == this.FALL)
-						sTitle = "_11";
-					else if (this.getMapCell(x + 1, y + 1) == this.FALL)
-						sTitle = "_33";
+					var top:int = this.getMapCell(x, y - 1);
+					var bot:int = this.getMapCell(x, y + 1);
+					var left:int = this.getMapCell(x - 1, y);
+					var right:int = this.getMapCell(x + 1, y);
+					
+					if (top == this.FALL)
+						sTitles.push("_8");
+					else if (bot == this.FALL)
+						sTitles.push("_2");
+					else if (left == this.FALL)
+						sTitles.push("_4");
+					else if (right == this.FALL)
+						sTitles.push("_6");
+					else if (top == this.TR_DISK || right == this.TR_DISK)
+					{
+						sTitles.push("_5");
+						sTitles.push("_99");
+					}
+					else if (top == this.TL_DISK || left == this.TL_DISK)
+					{
+						sTitles.push("_5");
+						sTitles.push("_77");
+					}
+					else if (bot == this.BL_DISK || left == this.BL_DISK)
+					{
+						sTitles.push("_5");
+						sTitles.push("_11");
+					}
+					else if (bot == this.BR_DISK || right == this.BR_DISK)
+					{
+						sTitles.push("_5");
+						sTitles.push("_33");
+					}
 					else
-						sTitle = "_5";
+						sTitles.push("_5");
 				}
 				else if (tileCode == this.BL_DISK)
-					sTitle = "_1";
+					sTitles.push("_1");
 				else if (tileCode == this.TL_DISK)
-					sTitle = "_7";
+					sTitles.push("_7");
 				else if (tileCode == this.BR_DISK)
-					sTitle = "_3";
+					sTitles.push("_3");
 				else if (tileCode == this.TR_DISK)
-					sTitle = "_9";
+					sTitles.push("_9");
 				
-				var sprite:Image = this[sTitle];
+				var sprite:Image;
 				
-				sprite.x = x * View.CELL_WIDTH;
-				sprite.y = y * View.CELL_HEIGHT;
-				
-				this.layer.addImage(sprite);
+				for (var i:int = 0; i < sTitles.length; i++)
+				{
+					sprite = this[sTitles[i]];
+					
+					sprite.x = x * View.CELL_WIDTH;
+					sprite.y = y * View.CELL_HEIGHT;
+					
+					this.layer.addImage(sprite);
+				}
 				
 				if (sprite == this._1 || sprite == this._2 || sprite == this._3)
 				{
 					for (var iI:int = 1; iI < 4; iI++)
 					{
-						var isTitle:String = sTitle + "_" + (iI == 3 ? "_" : "");
+						var isTitle:String = sTitles[0] + "_" + (iI == 3 ? "_" : "");
 						
 						sprite = this[isTitle];
 						

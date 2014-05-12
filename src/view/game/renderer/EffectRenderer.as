@@ -4,6 +4,8 @@ package view.game.renderer
 	import model.projectiles.Projectile;
 	import starling.display.QuadBatch;
 	import starling.extensions.CenteredImage;
+	import starling.textures.TextureAtlas;
+	import starling.utils.AssetManager;
 	import view.game.renderer.utils.EffectTracker;
 	
 	internal class EffectRenderer extends SubRendererBase
@@ -24,9 +26,12 @@ package view.game.renderer
 			for (var i:int = 1; i < 7; i++)
 				spriteNames.push("stone_boom_" + String(i));
 			
+			var assets:AssetManager = binder.assetManager;
+			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
+			
 			for each (var key:String in spriteNames)
 			{
-				this.sprites[key] = new CenteredImage(key, binder.assetManager);
+				this.sprites[key] = new CenteredImage(atlas.getTexture(key), assets.getXml("gameOffsets")[key]);
 			}
 			
 			var changes:Changes = new Changes();

@@ -6,6 +6,7 @@ package view.game.renderer
 	import model.metric.DCellXY;
 	import starling.display.QuadBatch;
 	import starling.extensions.CenteredImage;
+	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	
 	internal class ItemRenderer extends SubRendererBase
@@ -91,6 +92,8 @@ package view.game.renderer
 										  images:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>, 
 										  assets:AssetManager):void
 		{
+			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
+			
 			var length:int = list.length;
 			var i:int, j:int;
 			
@@ -106,8 +109,9 @@ package view.game.renderer
 					var spritename:String = list[i][j];
 					
 					images[type][occupation][direction].push(
-						new CenteredImage(spritename, assets));
+						new CenteredImage(atlas.getTexture(spritename), assets.getXml("gameOffsets")[spritename]));
 				}
+				//TODO: minimize the use of "gameOffsets"
 			}
 		}
 		
