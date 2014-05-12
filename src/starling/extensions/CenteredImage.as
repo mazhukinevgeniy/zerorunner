@@ -2,7 +2,6 @@ package starling.extensions
 {
 	import starling.display.Image;
 	import starling.textures.Texture;
-	import starling.utils.AssetManager;
 	
 	public class CenteredImage extends Image 
 	{
@@ -12,17 +11,13 @@ package starling.extensions
 		private var _height:int;
 		
 		
-		public function CenteredImage(name:String, assets:AssetManager) 
+		public function CenteredImage(texture:Texture, offsets:XMLList) 
 		{
-			var texture:Texture = assets.getTextureAtlas("sprites").getTexture(name);
+			this._offX = int(offsets.xOffset);
+			this._offY = int(offsets.yOffset);
 			
-			var offsets:XMLList = assets.getXml("offsets")[name];
-			
-			this._offX = offsets.xOffset;
-			this._offY = offsets.yOffset;
-			
-			this._width = offsets.width;
-			this._height = offsets.height;
+			this._width = int(offsets.width);
+			this._height = int(offsets.height);
 			
 			super(texture);
 		}
