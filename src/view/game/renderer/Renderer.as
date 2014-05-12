@@ -23,7 +23,7 @@ package view.game.renderer
 		private var activeRenderers:Vector.<IRenderer>;
 		
 		private var sceneLayer:QuadBatch;
-		private var activeLayer:QuadBatch;
+		private var activeLayer:QuadBatch;//TODO: it can be overfilled
 		
 		public function Renderer(binder:IBinder, root:DisplayObjectContainer) 
 		{
