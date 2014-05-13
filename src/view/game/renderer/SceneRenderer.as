@@ -34,7 +34,8 @@ package view.game.renderer
 		public function SceneRenderer(binder:IBinder, layer:QuadBatch) 
 		{
 			var assets:AssetManager = binder.assetManager;
-			var atlas:TextureAtlas = assets.getTextureAtlas("scene");
+			var atlas:TextureAtlas = assets.getTextureAtlas(View.MAIN_ATLAS);
+			var offsets:XML = assets.getXml(View.MAIN_OFFSETS);
 			
 			var key:String;
 			
@@ -42,7 +43,7 @@ package view.game.renderer
 					["_1", "_2", "_3", "_4", "_5",
 					 "_6", "_7", "_8", "_9",
 					 "_11", "_33", "_77", "_99"])
-				this[key] = new CenteredImage(atlas.getTexture(key), assets.getXml("sceneOffsets")[key]);
+				this[key] = new CenteredImage(atlas.getTexture(key), offsets[key]);
 			
 			for each (key in 
 					["_1", "_2", "_3"])

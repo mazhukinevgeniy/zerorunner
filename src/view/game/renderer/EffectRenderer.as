@@ -27,11 +27,12 @@ package view.game.renderer
 				spriteNames.push("stone_boom_" + String(i));
 			
 			var assets:AssetManager = binder.assetManager;
-			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
+			var atlas:TextureAtlas = assets.getTextureAtlas(View.MAIN_ATLAS);
+			var offsets:XML = assets.getXml(View.MAIN_OFFSETS);
 			
 			for each (var key:String in spriteNames)
 			{
-				this.sprites[key] = new CenteredImage(atlas.getTexture(key), assets.getXml("gameOffsets")[key]);
+				this.sprites[key] = new CenteredImage(atlas.getTexture(key), offsets[key]);
 			}
 			
 			var changes:Changes = new Changes();

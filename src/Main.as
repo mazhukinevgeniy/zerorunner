@@ -49,7 +49,7 @@ package
 			
 			this.binder.triggerBinding();
 			
-			(assets.getTextureAtlas("sprites") as TextureAtlasLogger).tellWhatIsNeverRequested();
+			(assets.getTextureAtlas(View.MAIN_ATLAS) as TextureAtlasLogger).tellWhatIsNeverRequested();
 		}
 	}
 

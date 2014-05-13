@@ -14,6 +14,10 @@ package
 		public static const NUMBER_OF_SOUND_TYPES:int = 2;
 		
 		
+		public static const MAIN_ATLAS:String = "mainAtlas";
+		public static const MAIN_OFFSETS:String = "mainOffsets";
+		
+		
 		public static const GAME_SCREEN:String = "gameScreen";
 		public static const GAME_SCREEN_MENU:String = "menuScreen";
 		public static const GAME_SCREEN_MAP:String = "mapScreen";

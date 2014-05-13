@@ -24,7 +24,7 @@ package view.game.renderer
 			
 			this.tmpCell = new CellXY(0, 0);
 			
-			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas("sprites");
+			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			
 			this.shard = new Image(atlas.getTexture("stone_fly"));
 			this.trajectory = new Image(atlas.getTexture("progress-bar-fill-skin"));

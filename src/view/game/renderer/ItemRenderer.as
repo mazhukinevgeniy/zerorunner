@@ -24,6 +24,9 @@ package view.game.renderer
 		{
 			this.puppets = binder.puppets;
 			
+			this.sprites = new Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>(Game.NUMBER_OF_ITEM_TYPES, true);
+			this.initializeVectors(this.sprites);
+			
 			this.initializeSprites(binder.assetManager);
 			
 			
@@ -38,8 +41,6 @@ package view.game.renderer
 		
 		private function initializeSprites(assets:AssetManager):void
 		{
-			this.initializeVectors("sprites");
-			
 			var spritelist:Vector.<Array> = new < Array > 
 					[
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_FREE, this.RIGHT, "front_dude"),
@@ -65,53 +66,44 @@ package view.game.renderer
 						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_UNSTABLE, this.RIGHT, "side_dude")
 					];
 			
-			this.initializeImages(spritelist, this.sprites, assets);
-		}
-		
-		private function initializeVectors(title:String):void
-		{
-			this[title] = new Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>(Game.NUMBER_OF_ITEM_TYPES, true);
+			var atlas:TextureAtlas = assets.getTextureAtlas(View.MAIN_ATLAS);
+			var offsets:XML = assets.getXml(View.MAIN_OFFSETS);
 			
-			var i:int, j:int, k:int;
-			
-			for (i = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
-			{
-				this[title][i] = new Vector.<Vector.<Vector.<CenteredImage>>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
-				
-				for (j = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
-				{
-					this[title][i][j] = new Vector.<Vector.<CenteredImage>>(4, true);
-					
-					for (k = 0; k < 4; k++)
-						this[title][i][j][k] = new Vector.<CenteredImage>();
-				}
-			}
-		}
-		
-		private function initializeImages(list:Vector.<Array>, 
-										  images:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>, 
-										  assets:AssetManager):void
-		{
-			var atlas:TextureAtlas = assets.getTextureAtlas("sprites");
-			
-			var length:int = list.length;
+			var length:int = spritelist.length;
 			var i:int, j:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				var jLength:int = list[i].length;
-				var type:int = list[i][0];
-				var occupation:int = list[i][1];
-				var direction:int = list[i][2];
+				var jLength:int = spritelist[i].length;
+				var type:int = spritelist[i][0];
+				var occupation:int = spritelist[i][1];
+				var direction:int = spritelist[i][2];
 				
 				for (j = 3; j < jLength; j++)
 				{
-					var spritename:String = list[i][j];
+					var spritename:String = spritelist[i][j];
 					
-					images[type][occupation][direction].push(
-						new CenteredImage(atlas.getTexture(spritename), assets.getXml("gameOffsets")[spritename]));
+					this.sprites[type][occupation][direction].push(
+						new CenteredImage(atlas.getTexture(spritename), offsets[spritename]));
 				}
-				//TODO: minimize the use of "gameOffsets"
+			}
+		}
+		
+		private function initializeVectors(vector:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>):void
+		{
+			var i:int, j:int, k:int;
+			
+			for (i = 0; i < Game.NUMBER_OF_ITEM_TYPES; i++)
+			{
+				vector[i] = new Vector.<Vector.<Vector.<CenteredImage>>>(Game.NUMBER_OF_ITEM_OCCUPATIONS, true);
+				
+				for (j = 0; j < Game.NUMBER_OF_ITEM_OCCUPATIONS; j++)
+				{
+					vector[i][j] = new Vector.<Vector.<CenteredImage>>(4, true);
+					
+					for (k = 0; k < 4; k++)
+						vector[i][j][k] = new Vector.<CenteredImage>();
+				}
 			}
 		}
 		

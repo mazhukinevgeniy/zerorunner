@@ -18,7 +18,7 @@ package view.game.renderer
 		{
 			this.projectiles = binder.projectiles;
 			
-			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas("sprites");
+			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			
 			this.shardIncView = new Image(atlas.getTexture("radio-hover-icon"));
 			

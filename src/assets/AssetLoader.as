@@ -43,7 +43,7 @@ package assets
 				
 				initializeAtlasMakerAtlases(this.assetManager, AtlasXML.getOne());
 				
-				var atlas:TextureAtlas = this.assetManager.getTextureAtlas("sprites");
+				var atlas:TextureAtlas = this.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 				
 				this.addFonts(atlas);
 				

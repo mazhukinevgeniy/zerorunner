@@ -48,7 +48,7 @@ package view
 		private function bindAssets(binder:IBinder):void
 		{
 			var assetManager:AssetManager = binder.assetManager;
-			var sprites:TextureAtlas = assetManager.getTextureAtlas("sprites");
+			var sprites:TextureAtlas = assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			
 			new GameTheme(this.gameRoot, sprites);
 			new ShellTheme(this.shellRoot, sprites);

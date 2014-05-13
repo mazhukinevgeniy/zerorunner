@@ -8,9 +8,6 @@ package assets
 		[Embed(source="../../res/atlases/sprites0.png")]
 		public static const sprites0:Class;
 		
-		[Embed(source = "../../res/atlases/scene0.png")]
-		public static const scene0:Class;
-		
 		/* Sounds */
 		
 		[Embed(source = "../../res/sounds/Veloma.mp3")]

@@ -4,12 +4,9 @@ package assets
 	
 	internal function initializeOffsets(assetManager:AssetManager, atlasXML:XML):void
 	{
-		var game:XML = getOffsets(atlasXML.texture[0]);
-		var scene:XML = getOffsets(atlasXML.texture[1]);
+		var main:XML = getOffsets(atlasXML.texture[0]);
 		
-		assetManager.addXml("gameOffsets", game);
-		assetManager.addXml("sceneOffsets", scene);
-		
+		assetManager.addXml(View.MAIN_OFFSETS, main);
 		
 		
 		function getOffsets(texture:XML):XML
