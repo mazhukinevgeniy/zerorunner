@@ -10,7 +10,6 @@ package view.game.renderer
 	import starling.display.DisplayObjectContainer;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
-	import view.game.renderer.clouds.Clouds;
 	
 	public class Renderer extends Sprite implements IRenderer, 
 	                                                INewGameHandler,
@@ -45,8 +44,6 @@ package view.game.renderer
 			this.activeRenderers.push(new ItemRenderer(binder, this.activeLayer));
 			this.activeRenderers.push(new ProjectileRenderer(binder, this.activeLayer));
 			this.activeRenderers.push(new EffectRenderer(binder, this.activeLayer));
-			
-			this.activeRenderers.push(root.addChild(new Clouds(binder, this)));
 			
 			binder.notifier.addObserver(this);
 		}

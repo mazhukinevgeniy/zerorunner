@@ -1,4 +1,4 @@
-package view.game.renderer.clouds 
+package view.shell.clouds 
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -18,28 +18,24 @@ package view.game.renderer.clouds
 					<SubTexture name="texture4" x="0" y="1024" width="1024" height="1024"/>
 				</atlas>;
 			
-			aXML.SubTexture[0].@width = View.CLOUD_WIDTH;
-			aXML.SubTexture[0].@height = View.CLOUD_WIDTH;
+			aXML.SubTexture[0].@width = CloudBitmap.WIDTH;
+			aXML.SubTexture[0].@height = CloudBitmap.HEIGHT;
 			
-			aXML.SubTexture[1].@x = View.CLOUD_WIDTH;
-			aXML.SubTexture[1].@width = View.CLOUD_WIDTH;
-			aXML.SubTexture[1].@height = View.CLOUD_WIDTH;
+			aXML.SubTexture[1].@x = CloudBitmap.WIDTH;
+			aXML.SubTexture[1].@width = CloudBitmap.WIDTH;
+			aXML.SubTexture[1].@height = CloudBitmap.HEIGHT;
 			
-			aXML.SubTexture[2].@x = View.CLOUD_WIDTH;
-			aXML.SubTexture[2].@y = View.CLOUD_WIDTH;
-			aXML.SubTexture[2].@width = View.CLOUD_WIDTH;
-			aXML.SubTexture[2].@height = View.CLOUD_WIDTH;
+			aXML.SubTexture[2].@x = CloudBitmap.WIDTH;
+			aXML.SubTexture[2].@y = CloudBitmap.HEIGHT;
+			aXML.SubTexture[2].@width = CloudBitmap.WIDTH;
+			aXML.SubTexture[2].@height = CloudBitmap.HEIGHT;
 			
-			aXML.SubTexture[3].@y = View.CLOUD_WIDTH;
-			aXML.SubTexture[3].@width = View.CLOUD_WIDTH;
-			aXML.SubTexture[3].@height = View.CLOUD_WIDTH;
+			aXML.SubTexture[3].@y = CloudBitmap.HEIGHT;
+			aXML.SubTexture[3].@width = CloudBitmap.WIDTH;
+			aXML.SubTexture[3].@height = CloudBitmap.HEIGHT;
 			
 			
 			super(this.createTexture(cloudiness), aXML);
-			
-			if (View.CELL_HEIGHT != View.CELL_WIDTH ||
-				View.CELL_HEIGHT * Game.MAP_WIDTH % View.CLOUD_WIDTH != 0)
-				throw new Error("assumption is not fulfilled");
 		}
 		
 		private function createTexture(cloudiness:int):Texture
@@ -51,11 +47,11 @@ package view.game.renderer.clouds
 				var bitmap:Bitmap = new Bitmap(new CloudBitmap(cloudiness))
 				container.addChild(bitmap);
 				
-				bitmap.x = View.CLOUD_WIDTH * (i % 2);
-				bitmap.y = View.CLOUD_WIDTH * int(i / 2);
+				bitmap.x = CloudBitmap.WIDTH * (i % 2);
+				bitmap.y = CloudBitmap.HEIGHT * int(i / 2);
 			}
 			
-			var full:BitmapData = new BitmapData(View.CLOUD_WIDTH * 2, View.CLOUD_WIDTH * 2, true, 0);
+			var full:BitmapData = new BitmapData(CloudBitmap.WIDTH * 2, CloudBitmap.HEIGHT * 2, true, 0);
 			full.draw(container);
 			
 			var texture:Texture = Texture.fromBitmapData(full);

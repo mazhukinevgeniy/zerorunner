@@ -16,7 +16,7 @@ package view.shell
 	                                gameRoot:DisplayObjectContainer,
 									binder:IBinder):void
 	{
-		shellRoot.addChild(new Background());
+		shellRoot.addChild(new Background(binder));
 		
 		
 		var navigator:ScreenNavigator = new ScreenNavigator();

@@ -1,4 +1,4 @@
-package view.game.renderer.clouds 
+package view.shell.clouds 
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -6,21 +6,18 @@ package view.game.renderer.clouds
 	
 	internal class CloudBitmap extends BitmapData
 	{
+		internal static const WIDTH:Number = 256;
+		internal static const HEIGHT:Number = 256;
 		
-		internal static const WIDTH:Number = View.CLOUD_WIDTH;
-		internal static const HEIGHT:Number = View.CLOUD_WIDTH;
-		
-		private static const MIN_NUMBER_OF_ELEMENTS:int = 2;
-		
-		[Embed(source="../../../../../res/clouds/unimplemented.png")]
+		[Embed(source="../../../../res/clouds/unimplemented.png")]
 		private static const BaseCloud:Class;
 		
 		public function CloudBitmap(cloudiness:int) 
 		{
 			super(CloudBitmap.WIDTH, CloudBitmap.HEIGHT, true, 0x00FFFFFF);
 			
-			var baseCloud:Bitmap = new BaseCloud();
-			var numberOfElements:int = CloudBitmap.MIN_NUMBER_OF_ELEMENTS + Math.random() * 10 * cloudiness;
+			var baseCloud:Bitmap = new CloudBitmap.BaseCloud();
+			var numberOfElements:int = 1 + Math.random() * cloudiness;
 			
 			var dataBaseCloud:BitmapData = baseCloud.bitmapData; 
 			var container:Sprite = new Sprite();

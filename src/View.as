@@ -31,9 +31,6 @@ package
 		public static const SHELL_SCREEN_CREDITS:String = "creditsScreen";
 		
 		
-		public static const CLOUD_WIDTH:int = 700;
-		
-		
 		public static const STAGE_COLOR:uint = Color.WHITE;
 		
 		
