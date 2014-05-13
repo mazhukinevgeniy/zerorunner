@@ -23,7 +23,9 @@ package view.game.renderer
 		private var _3:Image, _9:Image, _7:Image, _1:Image;
 		private var _33:Image, _99:Image, _77:Image, _11:Image;
 		
-		private var _1_:Image, _1__:Image, _2_:Image, _2__:Image, _3_:Image, _3__:Image;
+		private var _1_mid:Image, _1_bot:Image;
+		private var _2_mid:Image, _2_bot:Image;
+		private var _3_mid:Image, _3_bot:Image;
 		
 		private var tiles:XMLList;
 		private var tileCodes:Array;
@@ -48,10 +50,13 @@ package view.game.renderer
 				this[key] = new CenteredImage(atlas.getTexture(key), offsets[key]);
 			
 			for each (key in 
-					["_1", "_2", "_3"])
+					["_1_", "_2_", "_3_"])
 			{
-				this[key + "_"] = new Image(atlas.getTexture(key + "-"));
-				this[key + "__"] = new Image(atlas.getTexture(key + "--"));
+				for each (var postfix:String in ["mid", "bot"])
+				{
+					var name:String = key + postfix;
+					this[name] = new CenteredImage(atlas.getTexture(name), offsets[name]);
+				}
 			}
 			
 			this.prepareTileCodes();
@@ -108,13 +113,45 @@ package view.game.renderer
 					var right:int = this.getMapCell(x + 1, y);
 					
 					if (top == this.FALL)
+					{
 						this.sprites[0] = this._8;
+					}
 					else if (bot == this.FALL)
+					{
 						this.sprites[0] = this._2;
+					}
 					else if (left == this.FALL)
-						this.sprites[0] = this._4;
+					{
+						top = this.getMapCell(x - 1, y - 1);
+						
+						if (top == this.GROUND || top == this.BL_DISK)
+							this.sprites[0] = this._2_mid;
+						else 
+						{
+							top = this.getMapCell(x - 1, y - 2);
+						    
+							if (top == this.GROUND || top == this.BL_DISK)
+								this.sprites[0] = this._2_mid;
+						}
+						
+						this.sprites[1] = this._4;
+					}
 					else if (right == this.FALL)
-						this.sprites[0] = this._6;
+					{
+						top = this.getMapCell(x + 1, y - 1);
+						
+						if (top == this.GROUND || top == this.BR_DISK)
+							this.sprites[0] = this._2_mid;
+						else 
+						{
+							top = this.getMapCell(x + 1, y - 2);
+						    
+							if (top == this.GROUND || top == this.BR_DISK)
+								this.sprites[0] = this._2_mid;
+						}
+						
+						this.sprites[1] = this._6;
+					}
 					else if (top == this.TR_DISK || right == this.TR_DISK)
 					{
 						this.sprites[0] = this._5;
@@ -162,33 +199,36 @@ package view.game.renderer
 					}
 				}
 				
-				this.sprites[0] = null;
-				this.sprites[1] = null;
-				
 				
 				var name:String = "";
 				
-				if (sprite == this._1)
+				if (this.sprites[0] == this._1)
 					name = "_1";
-				else if (sprite == this._2)
+				else if (this.sprites[0] == this._2)
 					name = "_2";
-				else if (sprite == this._3)
+				else if (this.sprites[0] == this._3)
 					name = "_3";
 				
 				if (name != "")
 				{
-					for (var iI:int = 1; iI < 4; iI++)
-					{
-						var isTitle:String = name + "_" + (iI == 3 ? "_" : "");
-						
-						sprite = this[isTitle];
-						
-						sprite.x = x * View.CELL_WIDTH;
-						sprite.y = (y + iI) * View.CELL_HEIGHT;
-						
-						this.layer.addImage(sprite);
-					}
+					var imid:Image = this[name + "_mid"];
+					
+					imid.x = x * View.CELL_WIDTH;
+					imid.y = (y + 1) * View.CELL_HEIGHT;
+					
+					this.layer.addImage(imid);
+					
+					var ibot:Image = this[name + "_bot"];
+					
+					ibot.x = x * View.CELL_WIDTH;
+					ibot.y = (y + 2) * View.CELL_HEIGHT;
+					
+					this.layer.addImage(ibot);
 				}
+				
+				
+				this.sprites[0] = null;
+				this.sprites[1] = null;
 			}
 		}
 		
