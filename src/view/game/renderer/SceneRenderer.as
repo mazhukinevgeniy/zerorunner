@@ -25,9 +25,11 @@ package view.game.renderer
 		
 		private var _1_:Image, _1__:Image, _2_:Image, _2__:Image, _3_:Image, _3__:Image;
 		
-		/* Helper variables */
 		private var tiles:XMLList;
 		private var tileCodes:Array;
+		
+		/* Helper variables */
+		private var sprites:Vector.<Image>;
 		
 		private const extraRange:int = 7;
 		
@@ -62,6 +64,8 @@ package view.game.renderer
 			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			
 			super(binder, layer, changes);
+			
+			this.sprites = new Vector.<Image>(2, true);
 		}
 		
 		private function prepareTileCodes():void 
@@ -93,10 +97,7 @@ package view.game.renderer
 		override protected function renderCell(x:int, y:int):void 
 		{
 			if (this.getMapCell(x, y) != this.FALL)
-			{
-				var sTitles:Vector.<String> = new Vector.<String>;
-				//TODO: initialize above
-				
+			{				
 				var tileCode:int = this.getMapCell(x, y);
 				
 				if (tileCode == this.GROUND)
@@ -107,62 +108,78 @@ package view.game.renderer
 					var right:int = this.getMapCell(x + 1, y);
 					
 					if (top == this.FALL)
-						sTitles.push("_8");
+						this.sprites[0] = this._8;
 					else if (bot == this.FALL)
-						sTitles.push("_2");
+						this.sprites[0] = this._2;
 					else if (left == this.FALL)
-						sTitles.push("_4");
+						this.sprites[0] = this._4;
 					else if (right == this.FALL)
-						sTitles.push("_6");
+						this.sprites[0] = this._6;
 					else if (top == this.TR_DISK || right == this.TR_DISK)
 					{
-						sTitles.push("_5");
-						sTitles.push("_99");
+						this.sprites[0] = this._5;
+						this.sprites[1] = this._99;
 					}
 					else if (top == this.TL_DISK || left == this.TL_DISK)
 					{
-						sTitles.push("_5");
-						sTitles.push("_77");
+						this.sprites[0] = this._5;
+						this.sprites[1] = this._77;
 					}
 					else if (bot == this.BL_DISK || left == this.BL_DISK)
 					{
-						sTitles.push("_5");
-						sTitles.push("_11");
+						this.sprites[0] = this._5;
+						this.sprites[1] = this._11;
 					}
 					else if (bot == this.BR_DISK || right == this.BR_DISK)
 					{
-						sTitles.push("_5");
-						sTitles.push("_33");
+						this.sprites[0] = this._5;
+						this.sprites[1] = this._33;
 					}
 					else
-						sTitles.push("_5");
+						this.sprites[0] = this._5;
 				}
 				else if (tileCode == this.BL_DISK)
-					sTitles.push("_1");
+					this.sprites[0] = this._1;
 				else if (tileCode == this.TL_DISK)
-					sTitles.push("_7");
+					this.sprites[0] = this._7;
 				else if (tileCode == this.BR_DISK)
-					sTitles.push("_3");
+					this.sprites[0] = this._3;
 				else if (tileCode == this.TR_DISK)
-					sTitles.push("_9");
+					this.sprites[0] = this._9;
 				
 				var sprite:Image;
 				
-				for (var i:int = 0; i < sTitles.length; i++)
+				for (var i:int = 0; i < 2; i++)
 				{
-					sprite = this[sTitles[i]];
+					sprite = this.sprites[i];
 					
-					sprite.x = x * View.CELL_WIDTH;
-					sprite.y = y * View.CELL_HEIGHT;
-					
-					this.layer.addImage(sprite);
+					if (sprite)
+					{
+						sprite.x = x * View.CELL_WIDTH;
+						sprite.y = y * View.CELL_HEIGHT;
+						
+						this.layer.addImage(sprite);
+					}
 				}
 				
-				if (sprite == this._1 || sprite == this._2 || sprite == this._3)
+				this.sprites[0] = null;
+				this.sprites[1] = null;
+				
+				
+				var name:String = "";
+				
+				if (sprite == this._1)
+					name = "_1";
+				else if (sprite == this._2)
+					name = "_2";
+				else if (sprite == this._3)
+					name = "_3";
+				
+				if (name != "")
 				{
 					for (var iI:int = 1; iI < 4; iI++)
 					{
-						var isTitle:String = sTitles[0] + "_" + (iI == 3 ? "_" : "");
+						var isTitle:String = name + "_" + (iI == 3 ? "_" : "");
 						
 						sprite = this[isTitle];
 						
