@@ -7,7 +7,6 @@ package binding
 	import controller.interfaces.IScreenController;
 	import controller.interfaces.ISoundController;
 	import model.interfaces.IExploration;
-	import model.interfaces.IFuel;
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
@@ -22,7 +21,6 @@ package binding
 		function requestBindingFor(object:IDependent):void;
 		
 		function get save():ISave;
-		function get fuel():IFuel;
 		function get scene():IScene;
 		function get input():IInput;
 		function get puppets():IPuppets;
