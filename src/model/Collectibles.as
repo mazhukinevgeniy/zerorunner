@@ -2,16 +2,22 @@ package model
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
+	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import model.interfaces.ICollectible;
+	import model.interfaces.IStatus;
+	import model.metric.ICoordinated;
 	import model.utils.normalize;
 	
-	internal class Collectibles implements ICollectible, INewGameHandler
+	internal class Collectibles implements ICollectible, INewGameHandler, IGameFrameHandler
 	{
+		private var status:IStatus;
+		
 		private var collectibles:Array;
 		
 		public function Collectibles(binder:IBinder) 
 		{
+			this.status = binder.gameStatus;
 			
 			binder.notifier.addObserver(this);
 		}
@@ -34,6 +40,20 @@ package model
 				var y:int = collectibles[i].@y / View.CELL_HEIGHT;
 				
 				this.collectibles[x + y * Game.MAP_WIDTH] = Game.COLLECTIBLE_ONE;
+			}
+		}
+		
+		public function gameFrame(frame:int):void
+		{
+			if (frame == Game.FRAME_UNUSED_FRAME_1)
+			{
+				var char:ICoordinated = this.status.getLocationOfHero();
+				var key:int = char.x + char.y * Game.MAP_WIDTH;
+				
+				if (this.collectibles[key] == Game.COLLECTIBLE_ONE)
+				{
+					this.collectibles[key] = Game.COLLECTIBLE_NONE;
+				}
 			}
 		}
 		
