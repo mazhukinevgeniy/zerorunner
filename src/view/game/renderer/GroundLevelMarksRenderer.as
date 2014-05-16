@@ -1,6 +1,7 @@
 package view.game.renderer 
 {
 	import binding.IBinder;
+	import model.interfaces.ICollectible;
 	import model.interfaces.IProjectiles;
 	import model.projectiles.Projectile;
 	import starling.display.Image;
@@ -10,16 +11,22 @@ package view.game.renderer
 	internal class GroundLevelMarksRenderer extends SubRendererBase
 	{		
 		private var projectiles:IProjectiles;
+		private var collectibles:ICollectible;
 		
 		private var shardIncView:Image;
+		private var collectibleView:Image;
 		
 		public function GroundLevelMarksRenderer(binder:IBinder) 
 		{
 			this.projectiles = binder.projectiles;
+			this.collectibles = binder.collectible;
 			
 			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			
-			this.shardIncView = new Image(atlas.getTexture("radio-hover-icon"));
+			this.shardIncView = 
+				new Image(atlas.getTexture("radio-hover-icon"));
+			this.collectibleView = 
+				new Image(atlas.getTexture("hslider-thumb-down-skin"));
 			
 			
 			var changes:Changes = new Changes();
@@ -56,6 +63,20 @@ package view.game.renderer
 					this.addImage(view);
 				}
 			}
+			
+			if (this.collectibles.findCollectible(x, y))
+			{
+				view = this.collectibleView;
+				
+				view.x = x * View.CELL_WIDTH;
+				view.y = y * View.CELL_HEIGHT;
+				
+				view.x += (View.CELL_WIDTH - view.width) / 2;
+				view.y += (View.CELL_HEIGHT - view.height) / 2;
+				
+				this.addImage(view);
+			}
+			//TODO: make sure projectile can't hit any important collectible
 		}
 	}
 
