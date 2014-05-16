@@ -1,9 +1,12 @@
-package model 
+package assets 
 {
+	import assets.xml.MapXML;
 	import model.utils.normalize;
 	
-	internal function validateTheMap(map:XML):void
+	internal function validateTheMap():void
 	{
+		var map:XML = MapXML.getOne();
+		
 		const SCENE_FALL:int = 0;
 		const SCENE_GROUND:int = 1;
 		const SCENE_BL_DISK:int = 2;

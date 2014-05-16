@@ -21,8 +21,6 @@ package model
 			if (map.@width != map.@height || map.@width != Game.MAP_WIDTH)
 				throw new Error("map is not compatible");
 			
-			validateTheMap(map);
-			
  			var tileCodes:Array = this.getTileCodes(map);
 			
 			const LENGTH:int = this.scene.length;

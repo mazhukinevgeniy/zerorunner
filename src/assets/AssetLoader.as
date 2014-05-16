@@ -47,6 +47,8 @@ package assets
 				
 				this.addFonts(atlas);
 				
+				validateTheMap();
+				
 				this.boss.initializeEverything(this.assetManager);
 			}
 		}
