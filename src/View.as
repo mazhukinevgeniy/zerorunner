@@ -27,7 +27,7 @@ package
 		
 		public static const SHELL_SCREEN_MAIN:String = "mainScreen";
 		public static const SHELL_SCREEN_OPTIONS:String = "optionsScreen";
-		public static const SHELL_SCREEN_TROPHIES:String = "trophiesScreen";
+		public static const SHELL_SCREEN_MEMORIES:String = "memoriesScreen";
 		public static const SHELL_SCREEN_CREDITS:String = "creditsScreen";
 		
 		

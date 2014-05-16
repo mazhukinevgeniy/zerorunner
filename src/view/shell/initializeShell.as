@@ -31,8 +31,8 @@ package view.shell
 		var optionsScreen:ScreenNavigatorItem = 
 			new ScreenNavigatorItem(new OptionsScreen(binder), getDefaultEventMap(), getDefaultProperties());
 		
-		var trophiesScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(TrophiesScreen, getDefaultEventMap(), getDefaultProperties());
+		var memoriesScreen:ScreenNavigatorItem = 
+			new ScreenNavigatorItem(MemoriesScreen, getDefaultEventMap(), getDefaultProperties());
 		
 		var creditsScreen:ScreenNavigatorItem = 
 			new ScreenNavigatorItem(CreditsScreen, getDefaultEventMap(), getDefaultProperties());
@@ -40,7 +40,7 @@ package view.shell
 		
 		navigator.addScreen(View.SHELL_SCREEN_MAIN, mainScreen);
 		navigator.addScreen(View.SHELL_SCREEN_OPTIONS, optionsScreen);
-		navigator.addScreen(View.SHELL_SCREEN_TROPHIES, trophiesScreen);
+		navigator.addScreen(View.SHELL_SCREEN_MEMORIES, memoriesScreen);
 		navigator.addScreen(View.SHELL_SCREEN_CREDITS, creditsScreen);
 		
 		
@@ -53,7 +53,7 @@ package view.shell
 			
 			map[ShellEvent.SHOW_CREDITS] = View.SHELL_SCREEN_CREDITS;
 			map[ShellEvent.SHOW_OPTIONS] = View.SHELL_SCREEN_OPTIONS;
-			map[ShellEvent.SHOW_TROPHIES] = View.SHELL_SCREEN_TROPHIES;
+			map[ShellEvent.SHOW_MEMORIES] = View.SHELL_SCREEN_MEMORIES;
 			
 			return map;
 		}

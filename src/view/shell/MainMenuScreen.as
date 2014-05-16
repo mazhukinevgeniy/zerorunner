@@ -23,8 +23,8 @@ package view.shell
 			this.addChild(button = createButton("NEW GAME", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleNewGameTriggered);
 			
-			this.addChild(button = createButton("TROPHIES", ShellTheme.NAVIGATION_BUTTON));
-			button.addEventListener(Event.TRIGGERED, this.handleTrophiesTriggered);
+			this.addChild(button = createButton("MEMORIES", ShellTheme.NAVIGATION_BUTTON));
+			button.addEventListener(Event.TRIGGERED, this.handleMemoriesTriggered);
 			
 			this.addChild(button = createButton("OPTIONS", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleOptionsTriggered);
@@ -42,9 +42,9 @@ package view.shell
 			this.gameController.newGame();
 		}
 		
-		private function handleTrophiesTriggered():void
+		private function handleMemoriesTriggered():void
 		{
-			this.dispatchEventWith(ShellEvent.SHOW_TROPHIES);
+			this.dispatchEventWith(ShellEvent.SHOW_MEMORIES);
 		}
 		
 		private function handleOptionsTriggered():void

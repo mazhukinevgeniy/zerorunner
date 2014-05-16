@@ -8,10 +8,10 @@ package view.shell
 	import view.themes.ShellTheme;
 	import view.utils.createButton;
 	
-	internal class TrophiesScreen extends Screen
+	internal class MemoriesScreen extends Screen
 	{
 		
-		public function TrophiesScreen() 
+		public function MemoriesScreen() 
 		{
 			super();
 			
