@@ -6,6 +6,7 @@ package binding
 	import controller.interfaces.IProjectileController;
 	import controller.interfaces.IScreenController;
 	import controller.interfaces.ISoundController;
+	import model.interfaces.ICollectible;
 	import model.interfaces.IExploration;
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
@@ -28,6 +29,7 @@ package binding
 		function get gameStatus():IStatus;
 		function get projectiles():IProjectiles;
 		function get exploration():IExploration;
+		function get collectible():ICollectible;
 		function get assetManager():AssetManager;
 		function get gameController():IGameController;
 		function get inputController():IInputController;

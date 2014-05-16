@@ -17,6 +17,11 @@ package
 		
 		public static const NUMBER_OF_ITEM_TYPES:int = 5;
 		
+		/* Collectible types */
+		
+		public static const COLLECTIBLE_NONE:int = 0;
+		public static const COLLECTIBLE_ONE:int = 1;
+		
 		/* Action types */
 		
 		public static const ACTION_SKIP_FRAME:int = 0;

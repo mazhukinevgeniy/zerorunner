@@ -2,6 +2,7 @@ package model
 {
 	import binding.IBinder;
 	import model.input.InputTeller;
+	import model.interfaces.ICollectible;
 	import model.interfaces.IExploration;
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
@@ -28,6 +29,7 @@ package model
 			binder.addBindable(new Scene(binder), IScene);
 			binder.addBindable(new Items(binder, status), IPuppets);
 			binder.addBindable(new Projectiles(binder), IProjectiles);
+			binder.addBindable(new Collectibles(binder), ICollectible);
 			
 			binder.addBindable(new Exploration(binder), IExploration);
 			
