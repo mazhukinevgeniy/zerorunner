@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
-	<properties>
-		<soundEffectMute>false</soundEffectMute>
-		<soundMusicMute>false</soundMusicMute>
-		
-		<soundEffectVolume>1</soundEffectVolume>
-		<soundMusicVolume>1</soundMusicVolume>
-	</properties>
+	<entry name="version" value="0.101" />
+	
+	<entry name="soundMute" type="0" value="false"/>
+	<entry name="soundMute" type="1" value="false"/>
+	
+	<entry name="soundVolume" type="0" value="1"/>
+	<entry name="soundVolume" type="1" value="1"/>
 </data>
+<!-- each pair "name and type" must be unique -->

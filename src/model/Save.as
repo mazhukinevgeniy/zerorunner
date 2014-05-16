@@ -17,37 +17,42 @@ package model
 			const PROJECT_NAME:String = "zeroRunner";
 			this.so = SharedObject.getLocal(PROJECT_NAME);
 			
-			this.initializeProperties();
+			const entries:XMLList = SaveXML.getOne().entry;
+			
+			if (!this.so.data.hasOwnProperty("version") ||
+				!this.so.data.version.hasOwnProperty("0") ||
+				this.so.data.version[0] != entries[0].@value)
+				this.so.clear();
+			
+			this.addEntries(entries);
 			
 			binder.notifier.addObserver(this);
 		}
 		
-		private function initializeProperties():void
+		private function addEntries(entries:XMLList):void
 		{
-			const properties:XMLList =
-				SaveXML.getOne().properties;
+			var length:int = entries.length();
+			var root:Object = this.so.data;
 			
-			this.initializeSounds(properties);
-		}
-		
-		private function initializeSounds(properties:XMLList):void
-		{
-			if (!this.so.data.hasOwnProperty("soundMute") ||
-			    !(this.so.data.soundMute is Array))
+			for (var i:int = 0; i < length; i++)
 			{
-				this.so.data.soundMute = new Array();
+				var entry:XML = entries[i];
 				
-				this.so.data.soundMute[View.SOUND_EFFECT] = properties.soundEffectMute;
-				this.so.data.soundMute[View.SOUND_MUSIC] = properties.soundMusicMute;
-			}
-			
-			if (!this.so.data.hasOwnProperty("soundVolume") ||
-			    !(this.so.data.soundVolume is Array))
-			{
-				this.so.data.soundVolume = new Array();
+				var name:String = entry.@name;
+				var value:String = entry.@value;
 				
-				this.so.data.soundVolume[View.SOUND_EFFECT] = properties.soundEffectVolume;
-				this.so.data.soundVolume[View.SOUND_MUSIC] = properties.soundMusicVolume;
+				var type:int = entry.@type.length() ? entry.@type : 0;
+				
+				
+				if (!root.hasOwnProperty(name))
+				{
+					root[name] = { };
+				}
+				
+				if (!root[name].hasOwnProperty(type))
+				{
+					root[name][type] = value;
+				}
 			}
 		}
 		
