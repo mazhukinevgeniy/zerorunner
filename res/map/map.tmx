@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="90" height="90" tilewidth="70" tileheight="70" backgroundcolor="#2f2f2f">
  <tileset firstgid="1" name="ground" tilewidth="70" tileheight="70">
-  <image source="../atlases/sprites/scene/_5.png" width="70" height="70"/>
+  <image source="../atlases/sprites/_5.png" width="70" height="70"/>
  </tileset>
  <tileset firstgid="2" name="fall" tilewidth="70" tileheight="70">
   <image source="fall.gif" width="70" height="70"/>
  </tileset>
  <tileset firstgid="3" name="bot_left" tilewidth="70" tileheight="70">
-  <image source="../atlases/sprites/scene/_1.png" width="70" height="70"/>
+  <image source="../atlases/sprites/_1.png" width="70" height="70"/>
  </tileset>
  <tileset firstgid="4" name="bot_right" tilewidth="70" tileheight="70">
-  <image source="../atlases/sprites/scene/_3.png" width="70" height="70"/>
+  <image source="../atlases/sprites/_3.png" width="70" height="70"/>
  </tileset>
  <tileset firstgid="5" name="top_right" tilewidth="70" tileheight="70">
-  <image source="../atlases/sprites/scene/_9.png" width="70" height="70"/>
+  <image source="../atlases/sprites/_9.png" width="70" height="70"/>
  </tileset>
  <tileset firstgid="6" name="top_left" tilewidth="70" tileheight="70">
-  <image source="../atlases/sprites/scene/_7.png" width="70" height="70"/>
+  <image source="../atlases/sprites/_7.png" width="70" height="70"/>
  </tileset>
  <tileset firstgid="7" name="goal" tilewidth="35" tileheight="35">
   <image source="goal.gif" width="35" height="35"/>
