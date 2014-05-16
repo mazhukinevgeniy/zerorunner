@@ -4,7 +4,6 @@ package view.game.renderer
 	import model.interfaces.IPuppets;
 	import model.items.PuppetBase;
 	import model.metric.DCellXY;
-	import starling.display.QuadBatch;
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
@@ -20,7 +19,7 @@ package view.game.renderer
 		
 		private var sprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
 		
-		public function ItemRenderer(binder:IBinder, layer:QuadBatch) 
+		public function ItemRenderer(binder:IBinder) 
 		{
 			this.puppets = binder.puppets;
 			
@@ -36,7 +35,7 @@ package view.game.renderer
 			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			
-			super(binder, layer, changes);
+			super(binder, changes);
 		}
 		
 		private function initializeSprites(assets:AssetManager):void
@@ -134,7 +133,7 @@ package view.game.renderer
 				sprite.x = sx;
 				sprite.y = sy;
 				
-				this.layer.addImage(sprite);
+				this.addImage(sprite);
 			}
 		}
 		

@@ -3,7 +3,6 @@ package view.game.renderer
 	import binding.IBinder;
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
 	import model.status.NumericalDxyHelper;
@@ -13,16 +12,12 @@ package view.game.renderer
 	
 	public class Renderer extends Sprite implements IRenderer, 
 	                                                INewGameHandler,
-													IGameFrameHandler,
-													IQuitGameHandler
+													IGameFrameHandler
 	{
 		private var status:IStatus;
 		
 		private var sceneRenderer:SceneRenderer;
 		private var activeRenderers:Vector.<IRenderer>;
-		
-		private var sceneLayer:QuadBatch;
-		private var activeLayer:QuadBatch;//TODO: it can be overfilled
 		
 		public function Renderer(binder:IBinder, root:DisplayObjectContainer) 
 		{
@@ -30,20 +25,25 @@ package view.game.renderer
 			
 			this.status = binder.gameStatus;
 			
-			
 			this.activeRenderers = new Vector.<IRenderer>();
-			
 			this.activeRenderers.push(root.addChild(this));
 			
-			this.addChild(this.sceneLayer = new QuadBatch());
-			this.addChild(this.activeLayer = new QuadBatch());
+			this.addChild(
+				this.sceneRenderer = 
+					new SceneRenderer(binder));
 			
-			this.sceneRenderer = new SceneRenderer(binder, this.sceneLayer);
-			
-			this.activeRenderers.push(new GroundLevelMarksRenderer(binder, this.activeLayer));
-			this.activeRenderers.push(new ItemRenderer(binder, this.activeLayer));
-			this.activeRenderers.push(new ProjectileRenderer(binder, this.activeLayer));
-			this.activeRenderers.push(new EffectRenderer(binder, this.activeLayer));
+			this.activeRenderers.push(
+				this.addChild(
+					new GroundLevelMarksRenderer(binder)));
+			this.activeRenderers.push(
+				this.addChild(
+					new ItemRenderer(binder)));
+			this.activeRenderers.push(
+				this.addChild(
+					new ProjectileRenderer(binder)));
+			this.activeRenderers.push(
+				this.addChild(
+					new EffectRenderer(binder)));
 			
 			binder.notifier.addObserver(this);
 		}
@@ -59,11 +59,8 @@ package view.game.renderer
 		{
 			if (frame == Game.FRAME_TO_ACT)
 			{
-				this.sceneLayer.reset();
 				this.sceneRenderer.redraw();
 			}
-			
-			this.activeLayer.reset();
 			
 			for (var i:int = 0; i < this.activeRenderers.length; i++)
 				this.activeRenderers[i].redraw();
@@ -80,12 +77,6 @@ package view.game.renderer
 			
 			this.x -= int(View.CELL_WIDTH * displacement.dx);
 			this.y -= int(View.CELL_HEIGHT * displacement.dy);
-		}
-		
-		public function quitGame():void
-		{
-			this.sceneLayer.reset();
-			this.activeLayer.reset();
 		}
 	}
 

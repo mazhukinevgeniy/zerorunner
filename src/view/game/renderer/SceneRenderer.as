@@ -4,7 +4,6 @@ package view.game.renderer
 	import binding.IBinder;
 	import model.utils.normalize;
 	import starling.display.Image;
-	import starling.display.QuadBatch;
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
@@ -35,7 +34,7 @@ package view.game.renderer
 		
 		private const extraRange:int = 7;
 		
-		public function SceneRenderer(binder:IBinder, layer:QuadBatch) 
+		public function SceneRenderer(binder:IBinder) 
 		{
 			var assets:AssetManager = binder.assetManager;
 			var atlas:TextureAtlas = assets.getTextureAtlas(View.MAIN_ATLAS);
@@ -68,7 +67,7 @@ package view.game.renderer
 			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 1 + 3);
 			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			
-			super(binder, layer, changes);
+			super(binder, changes);
 			
 			this.sprites = new Vector.<Image>(2, true);
 		}
@@ -195,7 +194,7 @@ package view.game.renderer
 						sprite.x = x * View.CELL_WIDTH;
 						sprite.y = y * View.CELL_HEIGHT;
 						
-						this.layer.addImage(sprite);
+						this.addImage(sprite);
 					}
 				}
 				
@@ -216,14 +215,14 @@ package view.game.renderer
 					imid.x = x * View.CELL_WIDTH;
 					imid.y = (y + 1) * View.CELL_HEIGHT;
 					
-					this.layer.addImage(imid);
+					this.addImage(imid);
 					
 					var ibot:Image = this[name + "_bot"];
 					
 					ibot.x = x * View.CELL_WIDTH;
 					ibot.y = (y + 2) * View.CELL_HEIGHT;
 					
-					this.layer.addImage(ibot);
+					this.addImage(ibot);
 				}
 				
 				

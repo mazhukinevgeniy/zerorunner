@@ -5,7 +5,6 @@ package view.game.renderer
 	import model.metric.CellXY;
 	import model.projectiles.Projectile;
 	import starling.display.Image;
-	import starling.display.QuadBatch;
 	import starling.textures.TextureAtlas;
 	
 	internal class ProjectileRenderer extends SubRendererBase
@@ -18,7 +17,7 @@ package view.game.renderer
 		/* Used by getTrajectoryCoordinates() */
 		private var tmpCell:CellXY;
 		
-		public function ProjectileRenderer(binder:IBinder, layer:QuadBatch) 
+		public function ProjectileRenderer(binder:IBinder) 
 		{
 			this.projectiles = binder.projectiles;
 			
@@ -36,7 +35,7 @@ package view.game.renderer
 			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			
-			super(binder, layer, changes);
+			super(binder, changes);
 		}
 		
 		override protected function renderCell(x:int, y:int):void 
@@ -71,10 +70,10 @@ package view.game.renderer
 						tr.x += this.tmpCell.x - tr.width / 2;
 						tr.y += this.tmpCell.y - tr.height / 2;
 						
-						this.layer.addImage(tr);
+						this.addImage(tr);
 					}
 					
-					this.layer.addImage(view);
+					this.addImage(view);
 				}
 			}
 		}

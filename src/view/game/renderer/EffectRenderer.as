@@ -2,7 +2,6 @@ package view.game.renderer
 {
 	import binding.IBinder;
 	import model.projectiles.Projectile;
-	import starling.display.QuadBatch;
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
@@ -14,7 +13,7 @@ package view.game.renderer
 		
 		private var tracker:EffectTracker;
 		
-		public function EffectRenderer(binder:IBinder, layer:QuadBatch) 
+		public function EffectRenderer(binder:IBinder) 
 		{
 			this.tracker = new EffectTracker(binder);
 			
@@ -41,7 +40,7 @@ package view.game.renderer
 			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			
-			super(binder, layer, changes);
+			super(binder, changes);
 		}
 		
 		override protected function renderCell(x:int, y:int):void 
@@ -58,7 +57,7 @@ package view.game.renderer
 				sprite.x = x + (View.CELL_WIDTH - sprite.width) / 2;
 				sprite.y = y + (View.CELL_HEIGHT - sprite.height) / 2;
 				
-				this.layer.addImage(sprite);
+				this.addImage(sprite);
 			}
 		}
 		

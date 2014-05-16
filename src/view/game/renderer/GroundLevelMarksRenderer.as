@@ -4,7 +4,6 @@ package view.game.renderer
 	import model.interfaces.IProjectiles;
 	import model.projectiles.Projectile;
 	import starling.display.Image;
-	import starling.display.QuadBatch;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -14,7 +13,7 @@ package view.game.renderer
 		
 		private var shardIncView:Image;
 		
-		public function GroundLevelMarksRenderer(binder:IBinder, layer:QuadBatch) 
+		public function GroundLevelMarksRenderer(binder:IBinder) 
 		{
 			this.projectiles = binder.projectiles;
 			
@@ -29,7 +28,7 @@ package view.game.renderer
 			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
 			
-			super(binder, layer, changes);
+			super(binder, changes);
 		}
 		
 		override protected function renderCell(x:int, y:int):void 
@@ -54,7 +53,7 @@ package view.game.renderer
 					view.x += (View.CELL_WIDTH - view.width) / 2;
 					view.y += (View.CELL_HEIGHT - view.height) / 2;
 					
-					this.layer.addImage(view);
+					this.addImage(view);
 				}
 			}
 		}
