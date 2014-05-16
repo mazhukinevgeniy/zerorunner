@@ -1,10 +1,10 @@
 package model 
 {
+	import assets.xml.SaveXML;
 	import binding.IBinder;
 	import controller.interfaces.INotifier;
 	import controller.observers.ISoundObserver;
 	import flash.net.SharedObject;
-	
 	import model.interfaces.ISave;
 	
 	public class Save implements ISave,
@@ -24,21 +24,33 @@ package model
 		
 		private function initializeProperties():void
 		{
-			const properties:Array = 
-				[
-					["soundMute", [false, false]], 
-					["soundVolume", [1, 1]]
-				];
+			const properties:XMLList =
+				SaveXML.getOne().properties;
 			
-			var length:int = properties.length;
-			
-			for each (var property:Array in properties)
+			this.initializeSounds(properties);
+		}
+		
+		private function initializeSounds(properties:XMLList):void
+		{
+			if (!this.so.data.hasOwnProperty("soundMute") ||
+			    !(this.so.data.soundMute is Array))
 			{
-				if (!this.so.data.hasOwnProperty(property[0]) ||
-				    (property[1] is Array && !(this.so.data[property[0]] is Array)))
-					this.so.data[property[0]] = property[1];
+				this.so.data.soundMute = new Array();
+				
+				this.so.data.soundMute[View.SOUND_EFFECT] = properties.soundEffectMute;
+				this.so.data.soundMute[View.SOUND_MUSIC] = properties.soundMusicMute;
+			}
+			
+			if (!this.so.data.hasOwnProperty("soundVolume") ||
+			    !(this.so.data.soundVolume is Array))
+			{
+				this.so.data.soundVolume = new Array();
+				
+				this.so.data.soundVolume[View.SOUND_EFFECT] = properties.soundEffectVolume;
+				this.so.data.soundVolume[View.SOUND_MUSIC] = properties.soundMusicVolume;
 			}
 		}
+		
 		
 		public function setSoundMute(type:int, value:Boolean):void
 		{

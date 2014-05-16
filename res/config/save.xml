@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<properties>
+		<soundEffectMute>false</soundEffectMute>
+		<soundMusicMute>false</soundMusicMute>
+		
+		<soundEffectVolume>1</soundEffectVolume>
+		<soundMusicVolume>1</soundMusicVolume>
+	</properties>
+</data>
