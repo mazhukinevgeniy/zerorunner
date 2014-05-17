@@ -22,6 +22,8 @@ package
 		public static const COLLECTIBLE_SPAWN:int = 0;
 		public static const COLLECTIBLE_GOAL:int = 1;
 		
+		public static const NUMBER_OF_COLLECTIBLES:int = 2;
+		
 		/* Action types */
 		
 		public static const ACTION_SKIP_FRAME:int = 0;

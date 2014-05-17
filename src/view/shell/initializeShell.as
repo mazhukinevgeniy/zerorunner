@@ -32,7 +32,7 @@ package view.shell
 			new ScreenNavigatorItem(new OptionsScreen(binder), getDefaultEventMap(), getDefaultProperties());
 		
 		var memoriesScreen:ScreenNavigatorItem = 
-			new ScreenNavigatorItem(MemoriesScreen, getDefaultEventMap(), getDefaultProperties());
+			new ScreenNavigatorItem(new MemoriesScreen(binder), getDefaultEventMap(), getDefaultProperties());
 		
 		var creditsScreen:ScreenNavigatorItem = 
 			new ScreenNavigatorItem(CreditsScreen, getDefaultEventMap(), getDefaultProperties());
