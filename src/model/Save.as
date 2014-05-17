@@ -3,12 +3,15 @@ package model
 	import assets.xml.SaveXML;
 	import binding.IBinder;
 	import controller.interfaces.INotifier;
+	import controller.observers.ICollectibleObserver;
 	import controller.observers.ISoundObserver;
 	import flash.net.SharedObject;
+	import model.collectibles.Collectible;
 	import model.interfaces.ISave;
 	
 	public class Save implements ISave,
-								 ISoundObserver
+								 ISoundObserver,
+								 ICollectibleObserver
 	{
 		private var so:SharedObject;
 		
@@ -75,6 +78,10 @@ package model
 			return this.so.data.soundVolume[type];
 		}
 		
+		public function setCollectibleFound(collectible:Collectible):void
+		{
+			this.so.data.collectible[collectible.type] = true;
+		}
 		public function getCollectibleFound(type:int):Boolean
 		{
 			return this.so.data.collectible[type];

@@ -3,6 +3,7 @@ package controller
 	import controller.interfaces.INotifier;
 	import controller.observers.*;
 	import flash.utils.Dictionary;
+	import model.collectibles.Collectible;
 	import model.metric.DCellXY;
 	import model.projectiles.Projectile;
 	
@@ -17,7 +18,8 @@ package controller
 			this.observers = new Dictionary();
 			
 			this.supportedInterfaces = new <Class>[
-				ISoundObserver, 
+				ISoundObserver,
+				ICollectibleObserver,
 				IScreenObserver, IGameObserver,
 				IActivationObserver, IDeactivationObserver,
 				INewGameHandler, IQuitGameHandler,
@@ -44,6 +46,10 @@ package controller
 			}
 		}
 		
+		internal function setCollectibleFound(collectible:Collectible):void
+		{
+			this.call(ICollectibleObserver, "setCollectibleFound", collectible);
+		}
 		internal function screenActivated(name:String):void
 		{
 			this.call(IScreenObserver, "screenActivated", name);
