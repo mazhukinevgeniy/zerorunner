@@ -42,7 +42,14 @@ package model
 				var entry:XML = entries[i];
 				
 				var name:String = entry.@name;
-				var value:String = entry.@value;
+				var value:*;
+				
+				var dvalue:String = entry.@value;
+				if (dvalue == "false")
+					value = false;
+				else if (dvalue == "true")
+					value = true;
+				else value = dvalue;
 				
 				var type:int = entry.@type.length() ? entry.@type : 0;
 				
