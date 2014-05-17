@@ -1,20 +1,16 @@
 package view.shell.controls 
 {
-	import feathers.core.FeathersControl;
-	import view.themes.ShellTheme;
+	import starling.display.Sprite;
 	
-	public class SingularMemory extends FeathersControl
+	public class SingularMemory extends Sprite
 	{
 		private var _type:int;
 		
-		public function SingularMemory(type:int, isUnlocked:Boolean) 
+		public function SingularMemory(type:int) 
 		{
 			super();
 			
 			this._type = type;
-			
-			this.nameList.add(
-				isUnlocked ? ShellTheme.MEMORY_UNLOCKED : ShellTheme.MEMORY_LOCKED);
 		}
 		
 		public function get type():int

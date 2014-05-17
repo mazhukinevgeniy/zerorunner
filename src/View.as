@@ -37,10 +37,11 @@ package
 		public static const CELL_WIDTH:int = 70;
 		public static const CELL_HEIGHT:int = 70;
 		
-		
 		public static const CELLS_IN_VISIBLE_WIDTH:int = int(View.WIDTH / View.CELL_WIDTH);
 		public static const CELLS_IN_VISIBLE_HEIGHT:int = int(View.HEIGHT / View.CELL_HEIGHT);
 		
+		
+		public static const MEMORY_VIEW_WIDTH:int = 65;
 		
 		public function View() 
 		{

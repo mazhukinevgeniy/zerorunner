@@ -22,7 +22,7 @@ package
 		public static const COLLECTIBLE_SPAWN:int = 0;
 		public static const COLLECTIBLE_GOAL:int = 1;
 		
-		public static const NUMBER_OF_COLLECTIBLES:int = 2;
+		public static const NUMBER_OF_COLLECTIBLES:int = 32;
 		
 		/* Action types */
 		

@@ -3,11 +3,6 @@
 
 * add collection effect
 * add collection popup
-* add basic memories view:
-
-* * * *
-* * * *
-* * * *
 
 * сделать внутриигровое меню
 * * часть опций

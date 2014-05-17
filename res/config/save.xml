@@ -12,5 +12,33 @@
 	<entry name="collectible" type="1" value="false" />
 	<entry name="collectible" type="2" value="false" />
 	<entry name="collectible" type="3" value="false" />
+	<entry name="collectible" type="4" value="false" />
+	<entry name="collectible" type="5" value="false" />
+	<entry name="collectible" type="6" value="false" />
+	<entry name="collectible" type="7" value="false" />
+	<entry name="collectible" type="8" value="false" />
+	<entry name="collectible" type="9" value="false" />
+	<entry name="collectible" type="10" value="false" />
+	<entry name="collectible" type="11" value="false" />
+	<entry name="collectible" type="12" value="false" />
+	<entry name="collectible" type="13" value="false" />
+	<entry name="collectible" type="14" value="false" />
+	<entry name="collectible" type="15" value="false" />
+	<entry name="collectible" type="16" value="false" />
+	<entry name="collectible" type="17" value="false" />
+	<entry name="collectible" type="18" value="false" />
+	<entry name="collectible" type="19" value="false" />
+	<entry name="collectible" type="20" value="false" />
+	<entry name="collectible" type="21" value="false" />
+	<entry name="collectible" type="22" value="false" />
+	<entry name="collectible" type="23" value="false" />
+	<entry name="collectible" type="24" value="false" />
+	<entry name="collectible" type="25" value="false" />
+	<entry name="collectible" type="26" value="false" />
+	<entry name="collectible" type="27" value="false" />
+	<entry name="collectible" type="28" value="false" />
+	<entry name="collectible" type="29" value="false" />
+	<entry name="collectible" type="30" value="false" />
+	<entry name="collectible" type="31" value="false" />
 </data>
 <!-- each pair (name, type) must be unique -->
