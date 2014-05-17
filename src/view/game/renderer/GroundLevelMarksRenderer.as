@@ -1,7 +1,7 @@
 package view.game.renderer 
 {
 	import binding.IBinder;
-	import model.interfaces.ICollectible;
+	import model.interfaces.ICollectibles;
 	import model.interfaces.IProjectiles;
 	import model.projectiles.Projectile;
 	import starling.display.Image;
@@ -11,7 +11,7 @@ package view.game.renderer
 	internal class GroundLevelMarksRenderer extends SubRendererBase
 	{		
 		private var projectiles:IProjectiles;
-		private var collectibles:ICollectible;
+		private var collectibles:ICollectibles;
 		
 		private var shardIncView:Image;
 		private var collectibleView:Image;
@@ -19,7 +19,7 @@ package view.game.renderer
 		public function GroundLevelMarksRenderer(binder:IBinder) 
 		{
 			this.projectiles = binder.projectiles;
-			this.collectibles = binder.collectible;
+			this.collectibles = binder.collectibles;
 			
 			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			

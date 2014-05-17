@@ -8,7 +8,7 @@ package binding
 	import controller.interfaces.IScreenController;
 	import controller.interfaces.ISoundController;
 	import flash.utils.Dictionary;
-	import model.interfaces.ICollectible;
+	import model.interfaces.ICollectibles;
 	import model.interfaces.IExploration;
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
@@ -62,8 +62,8 @@ package binding
 		public function get notifier():INotifier { return this.objects[INotifier]; }
 		public function get exploration():IExploration { return this.objects[IExploration]; }
 		public function get projectiles():IProjectiles { return this.objects[IProjectiles]; }
-		public function get collectible():ICollectible { return this.objects[ICollectible]; }
 		public function get assetManager():AssetManager { return this.objects[AssetManager]; }
+		public function get collectibles():ICollectibles { return this.objects[ICollectibles]; }
 		public function get gameController():IGameController { return this.objects[IGameController]; }
 		public function get inputController():IInputController { return this.objects[IInputController]; }
 		public function get soundController():ISoundController { return this.objects[ISoundController]; }

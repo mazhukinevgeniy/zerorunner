@@ -4,12 +4,12 @@ package model
 	import binding.IBinder;
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
-	import model.interfaces.ICollectible;
+	import model.interfaces.ICollectibles;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
 	import model.utils.normalize;
 	
-	internal class Collectibles implements ICollectible, INewGameHandler, IGameFrameHandler
+	internal class Collectibles implements ICollectibles, INewGameHandler, IGameFrameHandler
 	{
 		private var status:IStatus;
 		
