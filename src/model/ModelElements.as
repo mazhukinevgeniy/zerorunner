@@ -1,6 +1,7 @@
 package model 
 {
 	import binding.IBinder;
+	import model.collectibles.Collectibles;
 	import model.input.InputTeller;
 	import model.interfaces.ICollectibles;
 	import model.interfaces.IExploration;

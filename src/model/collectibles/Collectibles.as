@@ -1,4 +1,4 @@
-package model 
+package model.collectibles 
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
@@ -9,7 +9,7 @@ package model
 	import model.metric.ICoordinated;
 	import model.utils.normalize;
 	
-	internal class Collectibles implements ICollectibles, INewGameHandler, IGameFrameHandler
+	public class Collectibles implements ICollectibles, INewGameHandler, IGameFrameHandler
 	{
 		private var status:IStatus;
 		
