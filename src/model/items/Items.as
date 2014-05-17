@@ -9,7 +9,6 @@ package model.items
 	import model.interfaces.IStatus;
 	import model.items.beacon.BeaconMaster;
 	import model.items.character.CharacterMaster;
-	import model.items.checkpoint.CheckpointMaster;
 	import model.items.shard.ShardMaster;
 	import model.items.the_goal.TheGoalMaster;
 	import model.metric.ICoordinated;
@@ -40,7 +39,6 @@ package model.items
 			
 			this.masters[Game.ITEM_BEACON] = new BeaconMaster(binder, this);
 			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(binder, this, status);
-			this.masters[Game.ITEM_CHECKPOINT] = new CheckpointMaster(binder, this);
 			this.masters[Game.ITEM_SHARD] = new ShardMaster(binder, this);
 			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(binder, this);
 			
@@ -68,8 +66,6 @@ package model.items
 					itemCodes[i + 1] = Game.ITEM_BEACON;
 				else if (name == "shard")
 					itemCodes[i + 1] = Game.ITEM_SHARD;
-				else if (name == "checkpoint")
-					itemCodes[i + 1] = Game.ITEM_CHECKPOINT;
 			}
 			
 			var objects:XMLList = map.objectgroup[0].object;

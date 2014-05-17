@@ -26,7 +26,7 @@ package view.game.renderer
 			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			
 			this.shard = new Image(atlas.getTexture("stone_fly"));
-			this.trajectory = new Image(atlas.getTexture("progress-bar-fill-skin"));
+			this.trajectory = new Image(atlas.getTexture("trajectory_mark"));
 			
 			
 			var changes:Changes = new Changes();

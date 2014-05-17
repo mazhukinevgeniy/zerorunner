@@ -24,9 +24,9 @@ package view.game.renderer
 			var atlas:TextureAtlas = binder.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			
 			this.shardIncView = 
-				new Image(atlas.getTexture("radio-hover-icon"));
+				new Image(atlas.getTexture("shard_incoming_mark"));
 			this.collectibleView = 
-				new Image(atlas.getTexture("hslider-thumb-down-skin"));
+				new Image(atlas.getTexture("tmp_collectible"));
 			
 			
 			var changes:Changes = new Changes();

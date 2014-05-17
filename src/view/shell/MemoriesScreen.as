@@ -94,7 +94,7 @@ package view.shell
 		{
 			var mem:SingularMemory = new SingularMemory(type);
 			
-			var skin:Image = new Image(this.atlas.getTexture("unimplemented"));
+			var skin:Image = new Image(this.atlas.getTexture("memory_0"));
 			skin.scaleX = skin.scaleY = View.MEMORY_VIEW_WIDTH / skin.width;
 			
 			mem.addChild(skin);
