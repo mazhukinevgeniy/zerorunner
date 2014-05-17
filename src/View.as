@@ -43,6 +43,8 @@ package
 		
 		public static const MEMORY_VIEW_WIDTH:int = 65;
 		
+		public static const CALLOUT_LENGTH:int = 3 * 60; //sec * frames/sec
+		
 		public function View() 
 		{
 			throw new Error("do not call");
