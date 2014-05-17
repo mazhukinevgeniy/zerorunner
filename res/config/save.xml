@@ -7,5 +7,10 @@
 	
 	<entry name="soundVolume" type="0" value="1"/>
 	<entry name="soundVolume" type="1" value="1"/>
+	
+	<entry name="collectible" type="0" value="false" />
+	<entry name="collectible" type="1" value="false" />
+	<entry name="collectible" type="2" value="false" />
+	<entry name="collectible" type="3" value="false" />
 </data>
-<!-- each pair "name and type" must be unique -->
+<!-- each pair (name, type) must be unique -->

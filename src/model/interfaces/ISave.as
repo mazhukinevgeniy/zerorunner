@@ -5,6 +5,8 @@ package model.interfaces
 	{
 		function getSoundMute(type:int):Boolean;
 		function getSoundVolume(type:int):Number;
+		
+		function getCollectibleFound(type:int):Boolean;
 	}
 	
 }

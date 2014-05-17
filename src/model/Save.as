@@ -74,6 +74,11 @@ package model
 		{
 			return this.so.data.soundVolume[type];
 		}
+		
+		public function getCollectibleFound(type:int):Boolean
+		{
+			return this.so.data.collectible[type];
+		}
 	}
 
 }
