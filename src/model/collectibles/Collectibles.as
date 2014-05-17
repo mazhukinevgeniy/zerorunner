@@ -58,7 +58,7 @@ package model.collectibles
 		
 		public function gameFrame(frame:int):void
 		{
-			if (frame == Game.FRAME_UNUSED_FRAME_1)
+			if (frame == Game.FRAME_UNUSED_FRAME_2)
 			{
 				var char:ICoordinated = this.status.getLocationOfHero();
 				var key:int = char.x + char.y * Game.MAP_WIDTH;
