@@ -5,6 +5,7 @@ package model.collectibles
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import model.interfaces.ICollectibles;
+	import model.interfaces.ISave;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
 	import model.utils.normalize;
@@ -12,12 +13,14 @@ package model.collectibles
 	public class Collectibles implements ICollectibles, INewGameHandler, IGameFrameHandler
 	{
 		private var status:IStatus;
+		private var save:ISave;
 		
 		private var collectibles:Array;
 		
 		public function Collectibles(binder:IBinder) 
 		{
 			this.status = binder.gameStatus;
+			this.save = binder.save;
 			
 			binder.notifier.addObserver(this);
 		}
@@ -39,9 +42,12 @@ package model.collectibles
 				var x:int = collectibles[i].@x / View.CELL_WIDTH;
 				var y:int = collectibles[i].@y / View.CELL_HEIGHT;
 				
-				var type:int = collectibles[i].@type;
+				var key:int = x + y * Game.MAP_WIDTH;
 				
-				this.collectibles[x + y * Game.MAP_WIDTH] = new Collectible(type);
+				var type:int = collectibles[i].@type;
+				var unmet:Boolean = !this.save.getCollectibleFound(type);
+				
+				this.collectibles[key] = new Collectible(type, unmet);
 			}
 		}
 		
