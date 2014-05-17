@@ -19,8 +19,8 @@ package
 		
 		/* Collectible types */
 		
-		public static const COLLECTIBLE_NONE:int = 0;
-		public static const COLLECTIBLE_ONE:int = 1;
+		public static const COLLECTIBLE_SPAWN:int = 0;
+		public static const COLLECTIBLE_GOAL:int = 1;
 		
 		/* Action types */
 		

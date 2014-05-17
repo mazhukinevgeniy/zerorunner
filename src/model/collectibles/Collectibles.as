@@ -39,7 +39,9 @@ package model.collectibles
 				var x:int = collectibles[i].@x / View.CELL_WIDTH;
 				var y:int = collectibles[i].@y / View.CELL_HEIGHT;
 				
-				this.collectibles[x + y * Game.MAP_WIDTH] = Game.COLLECTIBLE_ONE;
+				var type:int = collectibles[i].@type;
+				
+				this.collectibles[x + y * Game.MAP_WIDTH] = new Collectible(type);
 			}
 		}
 		
@@ -50,20 +52,21 @@ package model.collectibles
 				var char:ICoordinated = this.status.getLocationOfHero();
 				var key:int = char.x + char.y * Game.MAP_WIDTH;
 				
-				if (this.collectibles[key] == Game.COLLECTIBLE_ONE)
+				var coll:Collectible = this.collectibles[key];
+				
+				if (coll)
 				{
-					this.collectibles[key] = Game.COLLECTIBLE_NONE;
+					this.collectibles[key] = null;
 				}
 			}
 		}
 		
-		public function findCollectible(x:int, y:int):int
+		public function findCollectible(x:int, y:int):Collectible
 		{
 			x = normalize(x);
 			y = normalize(y);
 			
-			return this.collectibles[x + y * Game.MAP_WIDTH] ? 
-				Game.COLLECTIBLE_ONE : Game.COLLECTIBLE_NONE;
+			return this.collectibles[x + y * Game.MAP_WIDTH];
 		}
 	}
 

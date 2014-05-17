@@ -8206,10 +8206,10 @@
   <object x="1903" y="442" width="530" height="176"/>
  </objectgroup>
  <objectgroup name="Collectibles" width="90" height="90">
-  <object x="1624" y="504" width="46" height="44">
+  <object x="1624" y="504" width="46" height="44" type="0">
    <ellipse/>
   </object>
-  <object x="3866" y="3440" width="44" height="44">
+  <object x="3866" y="3440" width="44" height="44" type="1">
    <ellipse/>
   </object>
  </objectgroup>
