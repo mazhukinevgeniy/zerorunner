@@ -9,7 +9,9 @@ package view.game
 	import controller.observers.INewGameHandler;
 	import feathers.controls.ScreenNavigator;
 	
-	internal class Observer implements INewGameHandler, IGameStopHandler, IGameObserver, IGameMenuObserver, IGameMapObserver
+	internal class Observer implements INewGameHandler, IGameStopHandler, 
+	                                   IGameObserver, IGameMenuObserver, 
+									   IGameMapObserver
 	{
 		private var navigator:ScreenNavigator;
 		
@@ -58,7 +60,6 @@ package view.game
 		{
 			this.navigator.showScreen(View.GAME_SCREEN_MAP);
 		}
-		
 	}
 
 }
