@@ -2,8 +2,8 @@
 Внятные задачи
 
 * add collection effect
-* add collection save, implement memories, actually
-* then add basic memories view:
+* add collection popup
+* add basic memories view:
 
 * * * *
 * * * *
