@@ -1,6 +1,7 @@
 package view.themes 
 {
 	import feathers.controls.Button;
+	import feathers.controls.Callout;
 	import feathers.controls.Check;
 	import feathers.controls.Label;
 	import feathers.controls.Slider;
@@ -15,6 +16,7 @@ package view.themes
 	import flash.utils.Dictionary;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
+	import starling.display.Quad;
 	import starling.textures.TextureAtlas;
 	
 	internal class ThemeBase extends DisplayListWatcher
@@ -30,6 +32,8 @@ package view.themes
 		protected var sliderTextures:Dictionary;
 		protected var checkTextures:Dictionary;
 		
+		protected var panelBackgroundSkin:Scale9Textures;
+		
 		public function ThemeBase(container:DisplayObjectContainer, atlas:TextureAtlas) 
 		{
 			super(container);
@@ -44,6 +48,10 @@ package view.themes
 			this.initializeButtonTextures();
 			this.initializeSliderTextures();
 			this.initializeCheckTextures();
+			
+			this.panelBackgroundSkin = 
+				new Scale9Textures(this.atlas.getTexture("panel-background-skin"), 
+				                   new Rectangle(6, 6, 2, 2));
 			
 			this.setInitializers();
 		}
@@ -151,6 +159,8 @@ package view.themes
 			this.setInitializerForClass(Slider, this.defaultSliderInitializer);
 			
 			this.setInitializerForClass(Check, this.defaultCheckBoxInitializer);
+			
+			this.setInitializerForClass(Callout, this.defaultCalloutInitializer);
 		}
 		
 		
@@ -230,6 +240,19 @@ package view.themes
 			check.verticalAlign = Button.VERTICAL_ALIGN_MIDDLE;
 			
 			check.gap = 4;
+		}
+		
+		protected function defaultCalloutInitializer(callout:Callout):void
+		{
+			callout.backgroundSkin = new Scale9Image(this.panelBackgroundSkin);
+			
+			const arrowSkin:Quad = new Quad(8, 8, 0xff00ff);
+			arrowSkin.alpha = 0;
+			callout.topArrowSkin =  callout.rightArrowSkin = callout.bottomArrowSkin =
+				callout.leftArrowSkin = arrowSkin;
+			
+			callout.paddingTop = callout.paddingBottom = 6;
+			callout.paddingRight = callout.paddingLeft = 10;
 		}
 	}
 

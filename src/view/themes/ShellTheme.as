@@ -65,6 +65,8 @@ package view.themes
 			
 			slider.page = 20;
 		}
+		
+		
 	}
 
 }

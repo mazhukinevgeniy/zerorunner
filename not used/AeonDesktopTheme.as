@@ -475,22 +475,12 @@ package view.themes
 			//do nothing
 		}
 
-		protected function screenInitializer(screen:Screen):void
-		{
-			screen.originalDPI = this.originalDPI;
-		}
-
 		protected function panelScreenInitializer(screen:PanelScreen):void
 		{
 			screen.originalDPI = this.originalDPI;
 
 			screen.horizontalScrollBarFactory = horizontalScrollBarFactory;
 			screen.verticalScrollBarFactory = verticalScrollBarFactory;
-		}
-
-		protected function labelInitializer(label:Label):void
-		{
-			label.textRendererProperties.textFormat = this.defaultTextFormat;
 		}
 
 		protected function scrollTextInitializer(text:ScrollText):void
@@ -511,29 +501,6 @@ package view.themes
 		protected function itemRendererAccessoryLabelInitializer(renderer:TextFieldTextRenderer):void
 		{
 			renderer.textFormat = this.defaultTextFormat;
-		}
-
-		protected function buttonInitializer(button:Button):void
-		{
-			button.defaultSkin = new Scale9Image(buttonUpSkinTextures);
-			button.hoverSkin = new Scale9Image(buttonHoverSkinTextures);
-			button.downSkin = new Scale9Image(buttonDownSkinTextures);
-			button.disabledSkin = new Scale9Image(buttonDisabledSkinTextures);
-			button.defaultSelectedSkin = new Scale9Image(buttonSelectedUpSkinTextures);
-			button.selectedHoverSkin = new Scale9Image(buttonSelectedHoverSkinTextures);
-			button.selectedDownSkin = new Scale9Image(buttonSelectedDownSkinTextures);
-			button.selectedDisabledSkin = new Scale9Image(buttonSelectedDisabledSkinTextures);
-
-			button.focusIndicatorSkin = new Scale9Image(this.focusIndicatorSkinTextures);
-			button.focusPadding = -1;
-
-			button.defaultLabelProperties.textFormat = this.defaultTextFormat;
-			button.disabledLabelProperties.textFormat = this.disabledTextFormat;
-
-			button.paddingTop = button.paddingBottom = 2;
-			button.paddingLeft = button.paddingRight = 10;
-			button.gap = 2;
-			button.minWidth = button.minHeight = 12;
 		}
 
 		protected function pickerListButtonInitializer(button:Button):void
@@ -559,52 +526,6 @@ package view.themes
 		{
 			this.buttonInitializer(thumb);
 			thumb.width = thumb.height = buttonUpSkinTextures.texture.frame.height;
-		}
-
-		protected function checkInitializer(check:Check):void
-		{
-			check.defaultIcon = new Image(checkUpIconTexture);
-			check.hoverIcon = new Image(checkHoverIconTexture);
-			check.downIcon = new Image(checkDownIconTexture);
-			check.disabledIcon = new Image(checkDisabledIconTexture);
-			check.defaultSelectedIcon = new Image(checkSelectedUpIconTexture);
-			check.selectedHoverIcon = new Image(checkSelectedHoverIconTexture);
-			check.selectedDownIcon = new Image(checkSelectedDownIconTexture);
-			check.selectedDisabledIcon = new Image(checkSelectedDisabledIconTexture);
-
-			check.focusIndicatorSkin = new Scale9Image(this.focusIndicatorSkinTextures);
-			check.focusPadding = -2;
-
-			check.defaultLabelProperties.textFormat = this.defaultTextFormat;
-			check.disabledLabelProperties.textFormat = this.disabledTextFormat;
-
-			check.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;
-			check.verticalAlign = Button.VERTICAL_ALIGN_MIDDLE;
-
-			check.gap = 4;
-		}
-
-		protected function radioInitializer(radio:Radio):void
-		{
-			radio.defaultIcon = new Image(radioUpIconTexture);
-			radio.hoverIcon = new Image(radioHoverIconTexture);
-			radio.downIcon = new Image(radioDownIconTexture);
-			radio.disabledIcon = new Image(radioDisabledIconTexture);
-			radio.defaultSelectedIcon = new Image(radioSelectedUpIconTexture);
-			radio.selectedHoverIcon = new Image(radioSelectedHoverIconTexture);
-			radio.selectedDownIcon = new Image(radioSelectedDownIconTexture);
-			radio.selectedDisabledIcon = new Image(radioSelectedDisabledIconTexture);
-
-			radio.focusIndicatorSkin = new Scale9Image(this.focusIndicatorSkinTextures);
-			radio.focusPadding = -2;
-
-			radio.defaultLabelProperties.textFormat = this.defaultTextFormat;
-			radio.disabledLabelProperties.textFormat = this.disabledTextFormat;
-
-			radio.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;
-			radio.verticalAlign = Button.VERTICAL_ALIGN_MIDDLE;
-
-			radio.gap = 4;
 		}
 
 		protected function tabInitializer(tab:Button):void
