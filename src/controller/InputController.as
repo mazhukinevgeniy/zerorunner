@@ -3,6 +3,13 @@ package controller
 	import binding.IBinder;
 	import binding.IDependent;
 	import controller.interfaces.IInputController;
+	import controller.observers.IActivationObserver;
+	import controller.observers.IDeactivationObserver;
+	import controller.observers.IGameMapObserver;
+	import controller.observers.IGameMenuObserver;
+	import controller.observers.IGameObserver;
+	import controller.observers.IInputObserver;
+	import controller.observers.ISoundObserver;
 	import flash.ui.Keyboard;
 	import model.interfaces.ISave;
 	import model.interfaces.IStatus;
@@ -46,13 +53,13 @@ package controller
 		private function processInGameInput(keyUp:Boolean, keyCode:uint):void 
 		{
 			if (keyCode == Keyboard.UP)
-				this.notifier.newInputPiece(!keyUp, this.UP);
+				this.notifier.call(IInputObserver, "newInputPiece", !keyUp, this.UP);
 			else if (keyCode == Keyboard.DOWN)
-				this.notifier.newInputPiece(!keyUp, this.DOWN);
+				this.notifier.call(IInputObserver, "newInputPiece", !keyUp, this.DOWN);
 			else if (keyCode == Keyboard.RIGHT)
-				this.notifier.newInputPiece(!keyUp, this.RIGHT);
+				this.notifier.call(IInputObserver, "newInputPiece", !keyUp, this.RIGHT);
 			else if (keyCode == Keyboard.LEFT)
-				this.notifier.newInputPiece(!keyUp, this.LEFT);
+				this.notifier.call(IInputObserver, "newInputPiece", !keyUp, this.LEFT);
 			else
 			{
 				if (this.status.isMapOn())
@@ -64,16 +71,18 @@ package controller
 					if (!keyUp)
 					{
 						if (keyCode == Keyboard.Q)
-							this.notifier.actionRequested(Game.ACTION_SKIP_FRAME);
+							this.notifier.call(IInputObserver, 
+							                   "actionRequested", 
+											   Game.ACTION_SKIP_FRAME);
 					}
 					else
 					{
 						if (keyCode == Keyboard.ESCAPE)
 						{
 							if (this.status.isMenuOn())
-								this.notifier.showGame();
+								this.notifier.call(IGameObserver, "showGame");
 							else
-								this.notifier.showGameMenu();
+								this.notifier.call(IGameMenuObserver, "showGameMenu");
 						}
 					}
 				}
@@ -81,9 +90,9 @@ package controller
 				if (!keyUp && keyCode == Keyboard.M)
 				{
 					if (this.status.isMapOn())
-						this.notifier.showGame();
+						this.notifier.call(IGameObserver, "showGame");
 					else
-						this.notifier.showGameMap();
+						this.notifier.call(IGameMapObserver, "showGameMap");
 				}
 			}
 		}
@@ -99,7 +108,7 @@ package controller
 					                   !this.save.getSoundMute(View.SOUND_EFFECT);
 					
 					for (var i:int = 0; i < View.NUMBER_OF_SOUND_TYPES; i++)
-						this.notifier.setSoundMute(i, mute);
+						this.notifier.call(ISoundObserver, "setSoundMute", i, mute);
 				}
 			}
 		}
@@ -107,12 +116,12 @@ package controller
 		
 		public function processActivation():void
 		{
-			this.notifier.processActivation();
+			this.notifier.call(IActivationObserver, "processActivation");
 		}
 		
 		public function processDeactivation():void
 		{
-			this.notifier.processDeactivation();
+			this.notifier.call(IDeactivationObserver, "processDeactivation");
 		}
 	}
 

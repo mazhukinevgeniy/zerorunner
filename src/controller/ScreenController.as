@@ -1,6 +1,7 @@
 package controller 
 {
 	import controller.interfaces.IScreenController;
+	import controller.observers.IScreenObserver;
 	
 	internal class ScreenController implements IScreenController
 	{
@@ -13,7 +14,7 @@ package controller
 		
 		public function screenActivated(name:String):void
 		{
-			this.notifier.screenActivated(name);
+			this.notifier.call(IScreenObserver, "screenActivated", name);
 		}
 	}
 

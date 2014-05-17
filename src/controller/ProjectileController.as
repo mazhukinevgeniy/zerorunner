@@ -1,6 +1,7 @@
 package controller 
 {
 	import controller.interfaces.IProjectileController;
+	import controller.observers.IShardObserver;
 	import model.projectiles.Projectile;
 	
 	public class ProjectileController implements IProjectileController
@@ -13,9 +14,9 @@ package controller
 			this.notifier = notifier;
 		}
 		
-		public function shardFell(shard:Projectile):void
+		public function shardFellDown(shard:Projectile):void
 		{
-			this.notifier.shardFell(shard);
+			this.notifier.call(IShardObserver, "shardFellDown", shard);
 		}
 		
 	}

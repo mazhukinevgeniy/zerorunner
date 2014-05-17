@@ -1,10 +1,11 @@
 package controller.interfaces 
 {
+	import controller.observers.IShardObserver;
 	import model.projectiles.Projectile;
 	
-	public interface IProjectileController 
+	public interface IProjectileController extends IShardObserver
 	{
-		function shardFell(shard:Projectile):void;
+		
 	}
 	
 }

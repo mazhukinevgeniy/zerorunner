@@ -142,7 +142,7 @@ package model.projectiles
 				}
 				else if (this.scene.getSceneCell(x, y) == Game.SCENE_GROUND)
 				{
-					this.projectileController.shardFell(projectile);
+					this.projectileController.shardFellDown(projectile);
 				}
 			}
 		}

@@ -1,6 +1,7 @@
 package controller 
 {
 	import controller.interfaces.ISoundController;
+	import controller.observers.ISoundObserver;
 	
 	internal class SoundController implements ISoundController
 	{
@@ -14,11 +15,11 @@ package controller
 		
 		public function setSoundMute(type:int, value:Boolean):void
 		{
-			this.notifier.setSoundMute(type, value);
+			this.notifier.call(ISoundObserver, "setSoundMute", type, value);
 		}
 		public function setSoundVolume(type:int, value:Number):void
 		{
-			this.notifier.setSoundVolume(type, value);
+			this.notifier.call(ISoundObserver, "setSoundVolume", type, value);
 		}
 		
 	}
