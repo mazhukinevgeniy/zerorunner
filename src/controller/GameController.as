@@ -3,6 +3,7 @@ package controller
 	import binding.IBinder;
 	import binding.IDependent;
 	import controller.interfaces.IGameController;
+	import model.collectibles.Collectible;
 	import model.interfaces.IStatus;
 	
 	internal class GameController implements IGameController, IDependent
@@ -68,6 +69,11 @@ package controller
 		public function showGame():void
 		{
 			this.notifier.showGame();
+		}
+		
+		public function setCollectibleFound(collectible:Collectible):void
+		{
+			this.notifier.setCollectibleFound(collectible);
 		}
 	}
 

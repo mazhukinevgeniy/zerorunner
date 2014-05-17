@@ -1,5 +1,6 @@
 package controller.interfaces 
 {
+	import controller.observers.ICollectibleObserver;
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.IGameMapObserver;
 	import controller.observers.IGameMenuObserver;
@@ -12,6 +13,7 @@ package controller.interfaces
 	public interface IGameController extends IGameMenuObserver,
 	                                         IGameMapObserver,
 											 IGameObserver,
+											 ICollectibleObserver,
 											 INewGameHandler,
 											 IQuitGameHandler,
 											 IGameFrameHandler,

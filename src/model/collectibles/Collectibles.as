@@ -2,6 +2,7 @@ package model.collectibles
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
+	import controller.interfaces.IGameController;
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import model.interfaces.ICollectibles;
@@ -15,12 +16,16 @@ package model.collectibles
 		private var status:IStatus;
 		private var save:ISave;
 		
+		private var controller:IGameController;
+		
 		private var collectibles:Array;
 		
 		public function Collectibles(binder:IBinder) 
 		{
 			this.status = binder.gameStatus;
 			this.save = binder.save;
+			
+			this.controller = binder.gameController;
 			
 			binder.notifier.addObserver(this);
 		}
@@ -62,6 +67,7 @@ package model.collectibles
 				
 				if (coll)
 				{
+					this.controller.setCollectibleFound(coll);
 					this.collectibles[key] = null;
 				}
 			}
