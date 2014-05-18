@@ -7,7 +7,7 @@ package view.game
 	import feathers.layout.VerticalLayout;
 	import model.interfaces.IStatus;
 	import starling.events.Event;
-	import view.themes.ShellTheme;
+	import view.themes.GameTheme;
 	import view.utils.createButton;
 	
 	internal class GameMenuScreen extends Screen
@@ -26,10 +26,10 @@ package view.game
 			
 			var button:Button;
 			
-			this.addChild(button = createButton("Quit", ShellTheme.NAVIGATION_BUTTON));
+			this.addChild(button = createButton("menu", GameTheme.MENU_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
-			this.addChild(button = createButton("Map", ShellTheme.NAVIGATION_BUTTON));
+			this.addChild(button = createButton("map", GameTheme.MENU_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleMapTriggered);
 		}
 		
