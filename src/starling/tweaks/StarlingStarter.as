@@ -53,7 +53,10 @@ package starling.tweaks
 		
 		private function getTrueTypeTextRenderer():TextFieldTextRenderer
 		{
-			return new TextFieldTextRenderer();
+			var renderer:TextFieldTextRenderer = new TextFieldTextRenderer();
+			renderer.embedFonts = true;
+			
+			return renderer;
 		}
 	}
 
