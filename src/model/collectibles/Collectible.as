@@ -14,6 +14,9 @@ package model.collectibles
 		{
 			this._type = type;
 			this._unmet = unmet;
+			
+			this._x = x;
+			this._y = y;
 		}
 		
 		public function get type():int
