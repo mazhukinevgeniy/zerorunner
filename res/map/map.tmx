@@ -8195,11 +8195,11 @@
   <object x="20" y="1625" width="6256" height="1582"/>
  </objectgroup>
  <objectgroup name="ProjectileAbsorbers" width="90" height="90">
-  <object x="508" y="1480" width="176" height="184"/>
   <object x="3582" y="3230" width="679" height="682"/>
   <object x="1337" y="8" width="1164" height="396"/>
   <object x="1266" y="6164" width="472" height="132"/>
   <object x="1903" y="442" width="530" height="176"/>
+  <object x="1268" y="422" width="476" height="344"/>
  </objectgroup>
  <objectgroup name="Collectibles" width="90" height="90">
   <object type="0" x="1624" y="504" width="46" height="44">
