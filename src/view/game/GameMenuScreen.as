@@ -26,10 +26,10 @@ package view.game
 			
 			var button:Button;
 			
-			this.addChild(button = createButton("QUIT", ShellTheme.NAVIGATION_BUTTON));
+			this.addChild(button = createButton("Quit", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleQuitTriggered);
 			
-			this.addChild(button = createButton("MAP", ShellTheme.NAVIGATION_BUTTON));
+			this.addChild(button = createButton("Map", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleMapTriggered);
 		}
 		

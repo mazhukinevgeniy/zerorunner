@@ -69,7 +69,7 @@ package view.themes
 			
 			
 			this.unispaceTextFormat =
-				new TextFormat("Unispace", 32, Color.BLACK,
+				new TextFormat("Unispace", 28, Color.BLACK,
 				               false, false, false,
 							   null, null,
 							   TextFormatAlign.CENTER,
@@ -186,7 +186,7 @@ package view.themes
 			button.paddingLeft = button.paddingRight = 2;
 			
 			button.minWidth = 12;
-			button.minHeight = 30;
+			button.minHeight = 12;
 		}
 		
 		protected function defaultSliderInitializer(slider:Slider):void
@@ -222,7 +222,7 @@ package view.themes
 				
 				slider.focusPaddingTop = slider.focusPaddingBottom = -2;
 				slider.focusPaddingLeft = slider.focusPaddingRight = -2 + slider.minimumPadding;
-			
+				
 				slider.width = 200;
 			}
 			
