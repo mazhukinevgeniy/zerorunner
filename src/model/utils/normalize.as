@@ -8,5 +8,5 @@ package model.utils
 		
 		return value % Game.MAP_WIDTH;
 	}
-	
+	//TODO: it's not model only, must relocate
 }
