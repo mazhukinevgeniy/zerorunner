@@ -4,8 +4,9 @@ package view.game.renderer
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
 	import starling.display.QuadBatch;
+	import view.game.renderer.structs.Changes;
 	
-	internal class SubRendererBase extends QuadBatch implements IRenderer
+	public class SubRendererBase extends QuadBatch implements IRenderer
 	{
 		private var status:IStatus;
 		

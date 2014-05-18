@@ -1,13 +1,14 @@
-package view.game.renderer 
+package view.game.renderer.effects 
 {
 	import binding.IBinder;
 	import model.projectiles.Projectile;
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
-	import view.game.renderer.utils.EffectTracker;
+	import view.game.renderer.structs.Changes;
+	import view.game.renderer.SubRendererBase;
 	
-	internal class EffectRenderer extends SubRendererBase
+	public class EffectRenderer extends SubRendererBase
 	{
 		private var sprites:Object;
 		

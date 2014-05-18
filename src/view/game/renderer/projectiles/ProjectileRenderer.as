@@ -1,4 +1,4 @@
-package view.game.renderer 
+package view.game.renderer.projectiles 
 {
 	import binding.IBinder;
 	import model.interfaces.IProjectiles;
@@ -6,8 +6,10 @@ package view.game.renderer
 	import model.projectiles.Projectile;
 	import starling.display.Image;
 	import starling.textures.TextureAtlas;
+	import view.game.renderer.structs.Changes;
+	import view.game.renderer.SubRendererBase;
 	
-	internal class ProjectileRenderer extends SubRendererBase
+	public class ProjectileRenderer extends SubRendererBase
 	{
 		private var projectiles:IProjectiles;
 		

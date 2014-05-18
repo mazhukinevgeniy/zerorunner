@@ -1,4 +1,4 @@
-package view.game.renderer 
+package view.game.renderer.marks 
 {
 	import binding.IBinder;
 	import model.interfaces.ICollectibles;
@@ -7,8 +7,10 @@ package view.game.renderer
 	import starling.display.Image;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+	import view.game.renderer.structs.Changes;
+	import view.game.renderer.SubRendererBase;
 	
-	internal class GroundLevelMarksRenderer extends SubRendererBase
+	public class GroundLevelMarksRenderer extends SubRendererBase
 	{		
 		private var projectiles:IProjectiles;
 		private var collectibles:ICollectibles;

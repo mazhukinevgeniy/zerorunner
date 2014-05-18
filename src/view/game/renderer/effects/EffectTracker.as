@@ -1,4 +1,4 @@
-package view.game.renderer.utils 
+package view.game.renderer.effects 
 {
 	import binding.IBinder;
 	import controller.observers.IGameFrameHandler;
@@ -11,12 +11,13 @@ package view.game.renderer.utils
 	/**
 	 * Remembers how many frames should take some effect here or there
 	 */
-	public class EffectTracker implements IGameFrameHandler, INewGameHandler, IShardObserver
+	internal class EffectTracker implements IGameFrameHandler, INewGameHandler, IShardObserver
 	{
 		private const STONE_BOOM_LENGTH:int = 6;
 		private const STONE_BOOM_SPEED_FACTOR:int = 5;
 		
 		private var shards:Array;
+		private var collection:Array;
 		
 		public function EffectTracker(binder:IBinder) 
 		{
@@ -26,18 +27,25 @@ package view.game.renderer.utils
 		
 		public function gameFrame(frame:int):void
 		{
-			for (var key:String in this.shards)
+			this.reduceCounters(this.shards);
+			this.reduceCounters(this.collection);
+		}
+		
+		private function reduceCounters(arr:Array):void
+		{
+			for (var key:String in arr)
 			{
-				this.shards[key]--;
+				arr[key]--;
 				
-				if (this.shards[key] == 0)
-					delete this.shards[key];
+				if (arr[key] == 0)
+					delete arr[key];
 			}
 		}
 		
 		public function newGame():void
 		{
 			this.shards = new Array();
+			this.collection = new Array();
 		}
 		
 		public function shardFellDown(shard:Projectile):void

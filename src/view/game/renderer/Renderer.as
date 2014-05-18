@@ -9,6 +9,11 @@ package view.game.renderer
 	import starling.display.DisplayObjectContainer;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
+	import view.game.renderer.effects.EffectRenderer;
+	import view.game.renderer.items.ItemRenderer;
+	import view.game.renderer.marks.GroundLevelMarksRenderer;
+	import view.game.renderer.projectiles.ProjectileRenderer;
+	import view.game.renderer.scene.SceneRenderer;
 	
 	public class Renderer extends Sprite implements IRenderer, 
 	                                                INewGameHandler,

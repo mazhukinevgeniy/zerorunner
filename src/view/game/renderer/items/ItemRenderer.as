@@ -1,4 +1,4 @@
-package view.game.renderer 
+package view.game.renderer.items 
 {
 	import binding.IBinder;
 	import model.interfaces.IPuppets;
@@ -7,8 +7,10 @@ package view.game.renderer
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import view.game.renderer.structs.Changes;
+	import view.game.renderer.SubRendererBase;
 	
-	internal class ItemRenderer extends SubRendererBase
+	public class ItemRenderer extends SubRendererBase
 	{
 		private const TOP:int = 0;
 		private const DOWN:int = 1;
