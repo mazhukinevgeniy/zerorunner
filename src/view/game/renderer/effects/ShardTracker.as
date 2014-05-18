@@ -22,10 +22,7 @@ package view.game.renderer.effects
 			effect.duration = EffectRenderer.STONE_BOOM_LENGTH * 
 			                  EffectRenderer.STONE_BOOM_SPEED_FACTOR;
 			
-			var x:int = shard.cell.x;
-			var y:int = shard.cell.y;
-			
-			this.tracked[x + y * Game.MAP_WIDTH] = effect;
+			this.addEffect(effect, shard.cell);
 		}
 	}
 
