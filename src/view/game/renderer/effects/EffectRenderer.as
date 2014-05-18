@@ -6,17 +6,24 @@ package view.game.renderer.effects
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import view.game.renderer.structs.Changes;
+	import view.game.renderer.structs.Effect;
 	import view.game.renderer.SubRendererBase;
 	
 	public class EffectRenderer extends SubRendererBase
 	{
+		private const STONE_BOOM:String = "STONE_BOOM";
+		
+		internal static const STONE_BOOM_LENGTH:int = 6;
+		internal static const STONE_BOOM_SPEED_FACTOR:int = 5;
+		
+		
 		private var sprites:Object;
 		
-		private var tracker:EffectTracker;
+		private var shardTracker:ShardTracker;
 		
 		public function EffectRenderer(binder:IBinder) 
 		{
-			this.tracker = new EffectTracker(binder);
+			this.shardTracker = new ShardTracker(binder);
 			
 			binder.notifier.addObserver(this);
 			
@@ -46,22 +53,31 @@ package view.game.renderer.effects
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var shardFrame:int = this.tracker.getShardAnimationFrame(x, y);
+			var effect:Effect;
 			
-			if (shardFrame < 7)
+			effect = this.shardTracker.getEffect(x, y);
+			
+			if (effect)
 			{
-				x *= View.CELL_WIDTH;
-				y *= View.CELL_HEIGHT;
+				var frame:int = this.getEffectFrame(this.STONE_BOOM, effect.duration);
 				
-				var sprite:CenteredImage = this.sprites["stone_boom_" + String(shardFrame)];
+				var sprite:CenteredImage = this.sprites["stone_boom_" + String(frame)];
 				
-				sprite.x = x + (View.CELL_WIDTH - sprite.width) / 2;
-				sprite.y = y + (View.CELL_HEIGHT - sprite.height) / 2;
+				sprite.x = x * View.CELL_WIDTH + (View.CELL_WIDTH - sprite.width) / 2;
+				sprite.y = y * View.CELL_HEIGHT + (View.CELL_HEIGHT - sprite.height) / 2;
 				
 				this.addImage(sprite);
 			}
 		}
 		
+		private function getEffectFrame(type:String, duration:int):int
+		{
+			var frame:int = EffectRenderer[type + "_LENGTH"];
+			
+			frame += 1 - duration / EffectRenderer[type + "_SPEED_FACTOR"];
+			
+			return frame;
+		}
 	}
 
 }
