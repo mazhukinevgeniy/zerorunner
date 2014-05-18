@@ -5,6 +5,7 @@ package view.themes
 	import feathers.controls.Slider;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
+	import starling.extensions.PreciseBitmapFontTextRenderer;
 	import starling.textures.TextureAtlas;
 	
 	public class ShellTheme extends ThemeBase
@@ -34,7 +35,9 @@ package view.themes
 		{
 			this.defaultButtonInitializer(button);
 			
-			button.defaultLabelProperties.textFormat = this.bananaBrickTextFormat;
+			button.labelFactory = this.createLabelFactory;
+			
+			button.defaultLabelProperties.textFormat = this.bananaTextFormat;
 			
 			button.labelOffsetY = 8;
 			
@@ -66,7 +69,10 @@ package view.themes
 			slider.page = 20;
 		}
 		
-		
+		private function createLabelFactory():PreciseBitmapFontTextRenderer
+		{
+			return new PreciseBitmapFontTextRenderer();
+		}
 	}
 
 }

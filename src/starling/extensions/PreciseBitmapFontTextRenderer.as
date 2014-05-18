@@ -1,10 +1,10 @@
-package starling.tweaks 
+package starling.extensions 
 {
 	import feathers.controls.text.BitmapFontTextRenderer;
 	import starling.core.RenderSupport;
 	import starling.text.BitmapChar;
 	
-	internal class PreciseBitmapFontTextRenderer extends BitmapFontTextRenderer
+	public class PreciseBitmapFontTextRenderer extends BitmapFontTextRenderer
 	{
 		
 		public function PreciseBitmapFontTextRenderer() 

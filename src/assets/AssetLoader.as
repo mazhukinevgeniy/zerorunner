@@ -11,6 +11,12 @@ package assets
 	
 	public class AssetLoader 
 	{
+		[Embed(source = "../../res/fonts/unispace/tt/unispace bd.ttf", 
+		       embedAsCFF = "false", 
+			   fontFamily = "Unispace", 
+			   unicodeRange = "U+0020-U+007e")]
+		private static const Unispace:Class;
+		
 		private var boss:Main;
 		private var assetManager:AssetManager;
 		
@@ -62,11 +68,6 @@ package assets
 		
 		private function addFonts(atlas:TextureAtlas):void
 		{
-			TextField.registerBitmapFont(new BitmapFont(
-					atlas.getTexture("FantasqueSansMono"), 
-					FontXML.getFantasqueSansMonoXML()),
-					"FantasqueSansMono");
-			
 			var bbxml:XML = FontXML.getBananaBrickXML();
 			
 			for each (var char:XML in bbxml.chars.char)
@@ -75,7 +76,8 @@ package assets
 					char.@xadvance = (parseInt(char.@xoffset) + parseInt(char.@width));
 			}
 			
-			TextField.registerBitmapFont(new BitmapFont(atlas.getTexture("BananaBrick"), bbxml),
+			TextField.registerBitmapFont(new BitmapFont(
+				atlas.getTexture("BananaBrick"), bbxml),
 				                         "BananaBrick");
 		}
 	}

@@ -12,12 +12,14 @@ package view.themes
 	import feathers.textures.Scale3Textures;
 	import feathers.textures.Scale9Textures;
 	import flash.geom.Rectangle;
+	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	import flash.utils.Dictionary;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.textures.TextureAtlas;
+	import starling.utils.Color;
 	
 	internal class ThemeBase extends DisplayListWatcher
 	{
@@ -25,8 +27,8 @@ package view.themes
 		
 		protected var atlas:TextureAtlas;
 		
-		protected var fantasqueTextFormat:BitmapFontTextFormat;
-		protected var bananaBrickTextFormat:BitmapFontTextFormat;
+		protected var unispaceTextFormat:TextFormat;
+		protected var bananaTextFormat:BitmapFontTextFormat;
 		
 		protected var buttonTextures:Dictionary;
 		protected var sliderTextures:Dictionary;
@@ -58,18 +60,20 @@ package view.themes
 		
 		protected function initializeTextFormats():void
 		{
-			this.fantasqueTextFormat = 
-				new BitmapFontTextFormat("FantasqueSansMono", 32);
-			
-			this.fantasqueTextFormat.align = TextFormatAlign.CENTER;
-			
-			
-			this.bananaBrickTextFormat =
+			this.bananaTextFormat =
 				new BitmapFontTextFormat("BananaBrick", 46);
 			
-			this.bananaBrickTextFormat.align = TextFormatAlign.CENTER;
-			this.bananaBrickTextFormat.isKerningEnabled = false;
-			this.bananaBrickTextFormat.letterSpacing = 1;
+			this.bananaTextFormat.align = TextFormatAlign.CENTER;
+			this.bananaTextFormat.isKerningEnabled = false;
+			this.bananaTextFormat.letterSpacing = 1;
+			
+			
+			this.unispaceTextFormat =
+				new TextFormat("Unispace", 32, Color.BLACK,
+				               false, false, false,
+							   null, null,
+							   TextFormatAlign.CENTER,
+							   0, 0, 0, 5);
 		}
 		
 		protected function initializeButtonTextures():void
@@ -167,7 +171,7 @@ package view.themes
 		
 		protected function defaultLabelInitializer(label:Label):void
 		{
-			label.textRendererProperties.textFormat = this.fantasqueTextFormat;
+			label.textRendererProperties.textFormat = this.unispaceTextFormat;
 		}
 		
 		protected function defaultButtonInitializer(button:Button):void
@@ -176,12 +180,13 @@ package view.themes
 			button.hoverSkin = new Scale9Image(this.buttonTextures["button-hover-skin"]);
 			button.downSkin = new Scale9Image(this.buttonTextures["button-down-skin"]);
 			
-			button.defaultLabelProperties.textFormat = this.fantasqueTextFormat;
+			button.defaultLabelProperties.textFormat = this.unispaceTextFormat;
 			
 			button.paddingTop = button.paddingBottom = 2;
 			button.paddingLeft = button.paddingRight = 2;
 			
-			button.minWidth = button.minHeight = 12;
+			button.minWidth = 12;
+			button.minHeight = 30;
 		}
 		
 		protected function defaultSliderInitializer(slider:Slider):void
@@ -234,7 +239,7 @@ package view.themes
 			check.selectedHoverIcon = new Image(this.checkTextures["check-selected-hover-icon"]);
 			check.selectedDownIcon = new Image(this.checkTextures["check-selected-down-icon"]);
 			
-			check.defaultLabelProperties.textFormat = this.fantasqueTextFormat;
+			check.defaultLabelProperties.textFormat = this.unispaceTextFormat;
 			
 			check.horizontalAlign = Button.HORIZONTAL_ALIGN_RIGHT;
 			check.verticalAlign = Button.VERTICAL_ALIGN_MIDDLE;
