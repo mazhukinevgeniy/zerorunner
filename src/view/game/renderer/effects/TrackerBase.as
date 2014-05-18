@@ -1,5 +1,6 @@
 package view.game.renderer.effects 
 {
+	import binding.IBinder;
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import model.utils.normalize;
@@ -9,9 +10,9 @@ package view.game.renderer.effects
 	{
 		protected var tracked:Array;
 		
-		public function TrackerBase() 
+		public function TrackerBase(binder:IBinder) 
 		{
-			
+			binder.notifier.addObserver(this);
 		}
 		
 		public function newGame():void

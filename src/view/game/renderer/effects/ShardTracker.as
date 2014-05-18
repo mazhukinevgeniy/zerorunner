@@ -12,8 +12,7 @@ package view.game.renderer.effects
 		
 		public function ShardTracker(binder:IBinder) 
 		{
-			
-			binder.notifier.addObserver(this);
+			super(binder);
 		}
 		
 		public function shardFellDown(shard:Projectile):void
