@@ -53,11 +53,11 @@ package view.themes
 			
 			if (check.nameList.contains(ShellTheme.SOUND[View.SOUND_MUSIC]))
 			{
-				check.label = "Music";
+				check.label = "music";
 			}
 			else if (check.nameList.contains(ShellTheme.SOUND[View.SOUND_EFFECT]))
 			{
-				check.label = "Sound";
+				check.label = "sound";
 			}
 			
 		}

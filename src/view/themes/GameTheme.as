@@ -22,8 +22,6 @@ package view.themes
 		private function menuButtonInitializer(button:Button):void
 		{
 			this.defaultButtonInitializer(button);
-			
-			
 		}
 		
 		private function menuTogglerInitializer(button:Button):void
