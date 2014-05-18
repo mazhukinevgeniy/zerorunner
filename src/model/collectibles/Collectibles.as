@@ -52,7 +52,7 @@ package model.collectibles
 				var type:int = collectibles[i].@type;
 				var unmet:Boolean = !this.save.getCollectibleFound(type);
 				
-				this.collectibles[key] = new Collectible(type, unmet);
+				this.collectibles[key] = new Collectible(type, unmet, x, y);
 			}
 		}
 		
