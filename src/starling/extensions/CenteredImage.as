@@ -24,7 +24,7 @@ package starling.extensions
 		
 		override public function get width():Number 
 		{
-			return this._width;
+			return this._width * this.scaleX;
 		}
 		
 		override public function set width(value:Number):void 
@@ -34,7 +34,7 @@ package starling.extensions
 		
 		override public function get height():Number 
 		{
-			return this._height;
+			return this._height * this.scaleY;
 		}
 		
 		override public function set height(value:Number):void 
