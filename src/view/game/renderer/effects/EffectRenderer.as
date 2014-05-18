@@ -12,18 +12,24 @@ package view.game.renderer.effects
 	public class EffectRenderer extends SubRendererBase
 	{
 		private const STONE_BOOM:String = "STONE_BOOM";
+		private const COLLECTION:String = "COLLECTION";
 		
 		internal static const STONE_BOOM_LENGTH:int = 6;
 		internal static const STONE_BOOM_SPEED_FACTOR:int = 5;
+		
+		internal static const COLLECTION_LENGTH:int = 8;
+		internal static const COLLECTION_SPEED_FACTOR:int = 5;
 		
 		
 		private var sprites:Object;
 		
 		private var shardTracker:ShardTracker;
+		private var collectionTracker:CollectionTracker;
 		
 		public function EffectRenderer(binder:IBinder) 
 		{
 			this.shardTracker = new ShardTracker(binder);
+			this.collectionTracker = new CollectionTracker(binder);
 			
 			binder.notifier.addObserver(this);
 			
@@ -32,6 +38,8 @@ package view.game.renderer.effects
 			
 			for (var i:int = 1; i < 7; i++)
 				spriteNames.push("stone_boom_" + String(i));
+			
+			spriteNames.push("collection_eff");
 			
 			var assets:AssetManager = binder.assetManager;
 			var atlas:TextureAtlas = assets.getTextureAtlas(View.MAIN_ATLAS);
@@ -54,6 +62,7 @@ package view.game.renderer.effects
 		override protected function renderCell(x:int, y:int):void 
 		{
 			var effect:Effect;
+			var sprite:CenteredImage;
 			
 			effect = this.shardTracker.getEffect(x, y);
 			
@@ -61,13 +70,35 @@ package view.game.renderer.effects
 			{
 				var frame:int = this.getEffectFrame(this.STONE_BOOM, effect.duration);
 				
-				var sprite:CenteredImage = this.sprites["stone_boom_" + String(frame)];
+				sprite = this.sprites["stone_boom_" + String(frame)];
 				
-				sprite.x = x * View.CELL_WIDTH + (View.CELL_WIDTH - sprite.width) / 2;
-				sprite.y = y * View.CELL_HEIGHT + (View.CELL_HEIGHT - sprite.height) / 2;
-				
-				this.addImage(sprite);
+				this.addSprite(sprite, x, y);
 			}
+			
+			effect = this.collectionTracker.getEffect(x, y);
+			
+			if (effect)
+			{
+				sprite = this.sprites["collection_eff"];
+				
+				/* (0,1] */
+				var timeLeft:Number = effect.duration / 
+					(EffectRenderer.COLLECTION_LENGTH * 
+					 EffectRenderer.COLLECTION_SPEED_FACTOR); 
+				
+				sprite.alpha = 0.75 * timeLeft;
+				sprite.scaleX = sprite.scaleY = 1.5 - timeLeft;
+				
+				this.addSprite(sprite, x, y);
+			}
+		}
+		
+		private function addSprite(image:CenteredImage, x:int, y:int):void
+		{
+			image.x = x * View.CELL_WIDTH + (View.CELL_WIDTH - image.width) / 2;
+			image.y = y * View.CELL_HEIGHT + (View.CELL_HEIGHT - image.height) / 2;
+			
+			this.addImage(image);
 		}
 		
 		private function getEffectFrame(type:String, duration:int):int

@@ -1,4 +1,4 @@
-<atlas numImages="57">
+<atlas numImages="58">
   <texture file="sprites0.png" trans="true">
     <image name="_1" x="275" y="303" width="70" height="70" trans="false"/>
     <image name="_11" x="282" y="97" width="32" height="51" yOffset="19" transWidth="70" transHeight="70"/>
@@ -15,10 +15,10 @@
     <image name="_5" x="345" y="163" width="70" height="70" trans="false"/>
     <image name="_6" x="275" y="163" width="70" height="70"/>
     <image name="_7" x="205" y="163" width="70" height="70"/>
-    <image name="_77" x="383" y="369" width="40" height="45" transWidth="70" transHeight="70"/>
+    <image name="_77" x="383" y="413" width="40" height="45" transWidth="70" transHeight="70"/>
     <image name="_8" x="128" y="379" width="70" height="70"/>
     <image name="_9" x="128" y="309" width="70" height="70"/>
-    <image name="_99" x="128" y="449" width="41" height="44" xOffset="29" transWidth="70" transHeight="70"/>
+    <image name="_99" x="383" y="369" width="41" height="44" xOffset="29" transWidth="70" transHeight="70"/>
     <image name="BananaBrick" x="0" y="0" width="64" height="420"/>
     <image name="button-down-skin" x="383" y="347" width="82" height="22"/>
     <image name="button-hover-skin" x="383" y="325" width="82" height="22"/>
@@ -29,20 +29,21 @@
     <image name="check-selected-hover-icon" x="14" y="498" width="14" height="14"/>
     <image name="check-selected-up-icon" x="14" y="484" width="14" height="14"/>
     <image name="check-up-icon" x="0" y="498" width="14" height="14"/>
+    <image name="collection_eff" x="64" y="440" width="58" height="58" xOffset="7" yOffset="6" transWidth="70" transHeight="70"/>
     <image name="FantasqueSansMono" x="64" y="163" width="64" height="169"/>
     <image name="front_dude" x="439" y="0" width="52" height="101" xOffset="9" yOffset="16" transWidth="70" transHeight="140"/>
     <image name="hero_unstable" x="64" y="332" width="48" height="108" xOffset="12" yOffset="20" transWidth="70" transHeight="140"/>
     <image name="hslider-thumb-down-skin" x="414" y="148" width="13" height="13"/>
     <image name="hslider-thumb-hover-skin" x="414" y="135" width="13" height="13"/>
     <image name="hslider-thumb-up-skin" x="414" y="122" width="13" height="13"/>
-    <image name="hslider-track-skin" x="423" y="369" width="79" height="3"/>
+    <image name="hslider-track-skin" x="424" y="369" width="79" height="3"/>
     <image name="memory_0" x="439" y="101" width="60" height="60"/>
     <image name="panel-background-skin" x="0" y="484" width="14" height="14"/>
     <image name="radar" x="380" y="0" width="59" height="122" xOffset="7" yOffset="5" transWidth="70" transHeight="140"/>
-    <image name="shard_incoming_mark" x="169" y="449" width="30" height="30"/>
+    <image name="shard_incoming_mark" x="345" y="405" width="30" height="30"/>
     <image name="side_dude" x="345" y="303" width="38" height="102" xOffset="16" yOffset="19" transWidth="70" transHeight="140"/>
     <image name="spawn" x="64" y="0" width="157" height="163" xOffset="25" yOffset="25" transWidth="210" transHeight="210"/>
-    <image name="stone_boom_1" x="64" y="440" width="53" height="52" xOffset="27" yOffset="30" transWidth="110" transHeight="110"/>
+    <image name="stone_boom_1" x="128" y="449" width="53" height="52" xOffset="27" yOffset="30" transWidth="110" transHeight="110"/>
     <image name="stone_boom_2" x="128" y="163" width="77" height="75" xOffset="14" yOffset="16" transWidth="110" transHeight="110"/>
     <image name="stone_boom_3" x="221" y="0" width="94" height="97" yOffset="6" transWidth="110" transHeight="110"/>
     <image name="stone_boom_4" x="128" y="238" width="70" height="71" xOffset="20" yOffset="17" transWidth="110" transHeight="110"/>
