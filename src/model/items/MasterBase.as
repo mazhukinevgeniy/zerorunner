@@ -51,6 +51,7 @@ package model.items
 		{
 			throw new Error("must implement");
 		}
+		//TODO: it's badly public, fix that
 		
 		/**
 		 * Use this method if you want some puppet to act
