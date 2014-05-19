@@ -1,6 +1,7 @@
 package model.items 
 {
 	import model.interfaces.IPuppets;
+	import model.interfaces.IStatus;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	import model.utils.normalize;
@@ -19,6 +20,7 @@ package model.items
 		private var _moveInProgress:DCellXY;
 		
 		private var items:Items;
+		private var status:IStatus;
 		
 		/* Used to avoid repeatable object creation. */
 		private var dcHelper:DCellXY;
@@ -28,6 +30,7 @@ package model.items
 			this._master = master;
 			
 			this.items = master.items;
+			this.status = master.status;
 			
 			this.dcHelper = new DCellXY(0, 0);
 			this._moveInProgress = new DCellXY(0, 0);
@@ -43,7 +46,7 @@ package model.items
 			return this._occupation == Game.OCCUPATION_FREE;
 		}
 		
-		final internal function tickPassed():void
+		final internal function gameFrame(frame:int):void
 		{
 			if (this._occupation == Game.OCCUPATION_FREE)
 			{
@@ -66,8 +69,20 @@ package model.items
 			{
 				this.onUnstabilized();
 			}
+			
+			if (frame == Game.FRAME_TO_ACT &&
+			    this._occupation == Game.OCCUPATION_FREE &&
+			    Game.distance(this, 
+				              this.status.getLocationOfHero()) < Game.ACTION_RADIUS)
+			{
+				this.act();
+			}
 		}
 		
+		protected function act():void
+		{
+			
+		}
 		
 		final public function tryDestruction():void
 		{
@@ -91,7 +106,7 @@ package model.items
 		
 		/** Position and movements */
 		
-		final internal function startMovingBy(change:DCellXY):void
+		final protected function startMovingBy(change:DCellXY):void
 		{
 			this.items.removeItem(this);
 			this._moveInProgress.setValue(change.x, change.y);

@@ -1,9 +1,9 @@
 package model.items.the_goal 
 {
-	import model.items._utils.CheckpointPuppetBase;
+	import model.items.PuppetBase;
 	import model.metric.ICoordinated;
 	
-	internal class TheGoal extends CheckpointPuppetBase
+	internal class TheGoal extends PuppetBase
 	{
 		
 		public function TheGoal(master:TheGoalMaster, cell:ICoordinated) 

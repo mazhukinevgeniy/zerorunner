@@ -2,7 +2,6 @@ package model.items
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
-	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
 	import model.interfaces.IPuppets;
@@ -16,8 +15,7 @@ package model.items
 	import model.utils.normalize;
 	
 	public class Items implements IPuppets,
-	                              INewGameHandler, 
-	                              IGameFrameHandler, 
+	                              INewGameHandler,
 								  IQuitGameHandler
 	{
 		private var items:Array;
@@ -31,14 +29,14 @@ package model.items
 		{
 			this.status = status;
 			
-			binder.notifier.addObserver(this);
-			
 			this.masters = new Vector.<MasterBase>(Game.NUMBER_OF_ITEM_TYPES, true);
 			
 			this.masters[Game.ITEM_BEACON] = new BeaconMaster(binder, this);
 			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(binder, this, status);
 			this.masters[Game.ITEM_SHARD] = new ShardMaster(binder, this);
 			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(binder, this);
+			
+			binder.notifier.addObserver(this);
 		}
 		
 		public function newGame():void
@@ -73,40 +71,6 @@ package model.items
 				var y:int = int(objects[j].@y) / View.CELL_HEIGHT;
 				
 				this.masters[type].spawnPuppet(x, y);
-			}
-		}
-		
-		public function gameFrame(frame:int):void
-		{
-			var i:int, j:int;
-			var item:PuppetBase;
-			
-			
-			var center:ICoordinated = this.status.getLocationOfHero();
-			
-			const tlcX:int = center.x - Game.ACTION_RADIUS;
-			const tlcY:int = center.y - Game.ACTION_RADIUS;
-			
-			const brcX:int = center.x + Game.ACTION_RADIUS + 1;
-			const brcY:int = center.y + Game.ACTION_RADIUS + 1;
-			
-			for (j = tlcY; j < brcY; j++)
-			{				
-				for (i = tlcX; i < brcX; i++)
-				{
-					item = this.findObjectByCell(i, j);
-					
-					if (item)
-					{
-						item.tickPassed();
-						//TODO: must call it on everyone who needs that
-						
-						if (frame == Game.FRAME_TO_ACT)
-						{
-							item._master.actOn(item);
-						}
-					}
-				}
 			}
 		}
 		
