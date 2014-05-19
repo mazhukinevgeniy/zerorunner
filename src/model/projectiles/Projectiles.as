@@ -134,7 +134,7 @@ package model.projectiles
 				var x:int = projectile.cell.x;
 				var y:int = projectile.cell.y;
 				
-				var target:PuppetBase = this.puppets.findAnyObjectByCell(x, y);
+				var target:PuppetBase = this.puppets.findObjectByCell(x, y);
 				
 				if (target)
 				{

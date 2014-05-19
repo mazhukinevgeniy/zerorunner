@@ -107,7 +107,7 @@ package view.game.renderer.items
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var item:PuppetBase = this.puppets.findAnyObjectByCell(x, y);
+			var item:PuppetBase = this.puppets.findObjectByCell(x, y);
 			
 			if (item)
 			{

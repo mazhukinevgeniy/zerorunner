@@ -12,8 +12,6 @@ package model.items.shard
 		}
 		
 		override public function get type():int { return Game.ITEM_SHARD; }
-		
-		override protected function get isPassive():Boolean { return true; }
 	}
 
 }

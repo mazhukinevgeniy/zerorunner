@@ -12,7 +12,6 @@ package model.items._utils
 			super(master, cell);
 		}
 		
-		final override protected function get isPassive():Boolean { return true; }
 		final override protected function get isDestructible():Boolean { return false; }
 	}
 

@@ -4,7 +4,7 @@ package model.interfaces
 	
 	public interface IPuppets 
 	{
-		function findAnyObjectByCell(x:int, y:int):PuppetBase;
+		function findObjectByCell(x:int, y:int):PuppetBase;
 	}
 	
 }

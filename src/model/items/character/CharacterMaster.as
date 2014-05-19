@@ -51,7 +51,7 @@ package model.items.character
 			{
 				while (action.x != 0 || action.y != 0)
 				{
-					if (!this.items.findAnyObjectByCell(x + action.x, y + action.y))
+					if (!this.items.findObjectByCell(x + action.x, y + action.y))
 					{
 						next = this.scene.getSceneCell(x + action.x, y + action.y);
 						

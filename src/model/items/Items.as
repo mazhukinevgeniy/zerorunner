@@ -20,12 +20,10 @@ package model.items
 	                              IGameFrameHandler, 
 								  IQuitGameHandler
 	{
-		private var activeItems:Array;
-		private var passiveItems:Array;
-		
-		private var moved:Vector.<PuppetBase>;
+		private var items:Array;
 		
 		private var masters:Vector.<MasterBase>;
+		
 		
 		private var status:IStatus;
 		
@@ -41,14 +39,11 @@ package model.items
 			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(binder, this, status);
 			this.masters[Game.ITEM_SHARD] = new ShardMaster(binder, this);
 			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(binder, this);
-			
-			this.moved = new Vector.<PuppetBase>();
 		}
 		
 		public function newGame():void
 		{
-			this.activeItems = new Array();
-			this.passiveItems = new Array();
+			this.items = new Array();
 			
 			var map:XML = MapXML.getOne();
 			
@@ -86,101 +81,65 @@ package model.items
 			var i:int, j:int;
 			var item:PuppetBase;
 			
-			for each (var pup:PuppetBase in this.activeItems)
-				pup.tickPassed();
 			
-			if (frame == Game.FRAME_TO_ACT)
-			{
-				var center:ICoordinated = this.status.getLocationOfHero();
-				
-				const tlcX:int = center.x - Game.ACTION_RADIUS;
-				const tlcY:int = center.y - Game.ACTION_RADIUS;
-				
-				const brcX:int = center.x + Game.ACTION_RADIUS + 1;
-				const brcY:int = center.y + Game.ACTION_RADIUS + 1;
-				
-				this.moved.length = 0;
-				
-				for (j = tlcY; j < brcY; j++)
-				{				
-					for (i = tlcX; i < brcX; i++)
+			var center:ICoordinated = this.status.getLocationOfHero();
+			
+			const tlcX:int = center.x - Game.ACTION_RADIUS;
+			const tlcY:int = center.y - Game.ACTION_RADIUS;
+			
+			const brcX:int = center.x + Game.ACTION_RADIUS + 1;
+			const brcY:int = center.y + Game.ACTION_RADIUS + 1;
+			
+			for (j = tlcY; j < brcY; j++)
+			{				
+				for (i = tlcX; i < brcX; i++)
+				{
+					item = this.findObjectByCell(i, j);
+					
+					if (item)
 					{
-						item = this.findActiveObjectByCell(i, j);
+						item.tickPassed();
+						//TODO: must call it on everyone who needs that
 						
-						if (item && this.moved.indexOf(item) == -1)
+						if (frame == Game.FRAME_TO_ACT)
 						{
 							item._master.actOn(item);
-							this.moved.push(item);
 						}
 					}
 				}
-				
 			}
 		}
 		
 		public function quitGame():void
 		{
-			this.activeItems = null;
-			this.passiveItems = null;
+			this.items = null;
 		}
 		
 		
 		
-		internal function addActiveItem(item:PuppetBase):void
+		internal function addItem(item:PuppetBase):void
 		{
-			if (this.activeItems[item.x + item.y * Game.MAP_WIDTH] ||
-				this.passiveItems[item.x + item.y * Game.MAP_WIDTH])
+			if (this.items[item.x + item.y * Game.MAP_WIDTH])
 				throw new Error();
-			this.activeItems[item.x + item.y * Game.MAP_WIDTH] = item;
-		}
-		
-		internal function addPassiveItem(item:PuppetBase):void
-		{
-			if (this.activeItems[item.x + item.y * Game.MAP_WIDTH] ||
-				this.passiveItems[item.x + item.y * Game.MAP_WIDTH])
-				throw new Error();
-			this.passiveItems[item.x + item.y * Game.MAP_WIDTH] = item;
-		}
-		
-		internal function activateItem(item:PuppetBase):void
-		{
-			this.passiveItems[item.x + item.y * Game.MAP_WIDTH] = null;
-			this.activeItems[item.x + item.y * Game.MAP_WIDTH] = item;
-		}
-		
-		internal function deactivateItem(item:PuppetBase):void
-		{
-			this.passiveItems[item.x + item.y * Game.MAP_WIDTH] = item;
-			this.activeItems[item.x + item.y * Game.MAP_WIDTH] = null;
+			this.items[item.x + item.y * Game.MAP_WIDTH] = item;
 		}
 		
 		internal function removeItem(item:PuppetBase):void
 		{
-			delete this.passiveItems[item.x + item.y * Game.MAP_WIDTH];
-			delete this.activeItems[item.x + item.y * Game.MAP_WIDTH];
+			this.items[item.x + item.y * Game.MAP_WIDTH] = null;
 		}
+		//TODO: распутай это безумие, и можно будет приделать многоклеточники
+		//      собственно, разумно сдизайнить класс заново. тут же ад какой-то, ну.
 		
 		
-		
-		public function findAnyObjectByCell(x:int, y:int):PuppetBase
+		public function findObjectByCell(x:int, y:int):PuppetBase
 		{
 			x = normalize(x);
 			y = normalize(y);
 			
-			var item:PuppetBase = this.activeItems[x + y * Game.MAP_WIDTH];
-			
-			if (item == null)
-				item = this.passiveItems[x + y * Game.MAP_WIDTH];
+			var item:PuppetBase = this.items[x + y * Game.MAP_WIDTH];
 			
 			return item;
-		}
-		
-		public function findActiveObjectByCell(x:int, y:int):PuppetBase
-		{
-			x = normalize(x);
-			y = normalize(y);
-			
-			return this.activeItems[x + y * Game.MAP_WIDTH];
 		}
 	}
 

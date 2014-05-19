@@ -35,10 +35,7 @@ package model.items
 			this._x = cell.x;
 			this._y = cell.y;
 			
-			if (this.isPassive)
-				this.items.addPassiveItem(this);
-			else
-				this.items.addActiveItem(this);
+			this.items.addItem(this);
 		}
 		
 		public function isFree():Boolean
@@ -76,8 +73,6 @@ package model.items
 		{
 			if (this.isDestructible)
 			{
-				this.items.activateItem(this);
-				
 				this._occupation = Game.OCCUPATION_DYING;
 				
 				this._moveInProgress.setValue(1, 0); /* to be right-directioned */
@@ -104,8 +99,7 @@ package model.items
 			this._x = normalize(change.x + this._x);
 			this._y = normalize(change.y + this._y);
 			
-			this.items.addActiveItem(this);
-			
+			this.items.addItem(this);
 			
 			this._occupation = Game.OCCUPATION_MOVING;
 			this.framesUntilOccupationEnds = this.movespeed * Game.FRAMES_PER_CYCLE;
@@ -119,7 +113,6 @@ package model.items
 		/** Things to override */
 		
 		protected function get movespeed():int { return 2; }
-		protected function get isPassive():Boolean { return false; }
 		protected function get isDestructible():Boolean { return true; }
 		
 		protected function onUnstabilized():void { }
