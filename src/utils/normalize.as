@@ -1,4 +1,4 @@
-package model.utils
+package utils
 {
 	
 	public function normalize(value:int):int 
@@ -8,5 +8,4 @@ package model.utils
 		
 		return value % Game.MAP_WIDTH;
 	}
-	//TODO: it's not model only, must relocate
 }

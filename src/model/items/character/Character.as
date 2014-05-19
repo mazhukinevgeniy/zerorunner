@@ -8,7 +8,7 @@ package model.items.character
 	import model.items.PuppetBase;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
-	import model.utils.isCellSolid;
+	import utils.isCellSolid;
 	
 	
 	internal class Character extends PuppetBase

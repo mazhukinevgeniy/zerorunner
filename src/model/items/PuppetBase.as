@@ -4,7 +4,8 @@ package model.items
 	import model.interfaces.IStatus;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
-	import model.utils.normalize;
+	import utils.distance;
+	import utils.normalize;
 	
 	public class PuppetBase implements ICoordinated
 	{
@@ -72,7 +73,7 @@ package model.items
 			
 			if (frame == Game.FRAME_TO_ACT &&
 			    this._occupation == Game.OCCUPATION_FREE &&
-			    Game.distance(this, 
+			    distance(this, 
 				              this.status.getLocationOfHero()) < Game.ACTION_RADIUS)
 			{
 				this.act();

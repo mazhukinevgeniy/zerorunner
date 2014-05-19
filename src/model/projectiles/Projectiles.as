@@ -11,7 +11,7 @@ package model.projectiles
 	import model.interfaces.IScene;
 	import model.items.PuppetBase;
 	import model.metric.ICoordinated;
-	import model.utils.normalize;
+	import utils.normalize;
 	
 	public class Projectiles implements IProjectiles, 
 	                                    INewGameHandler, 

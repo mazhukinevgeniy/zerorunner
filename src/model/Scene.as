@@ -4,7 +4,7 @@ package model
 	import binding.IBinder;
 	import flash.utils.ByteArray;
 	import model.interfaces.IScene;
-	import model.utils.normalize;
+	import utils.normalize;
 	
 	public class Scene implements IScene
 	{

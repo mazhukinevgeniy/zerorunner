@@ -12,7 +12,7 @@ package model.items
 	import model.items.the_goal.TheGoalMaster;
 	import model.metric.ICoordinated;
 	import model.status.StatusReporter;
-	import model.utils.normalize;
+	import utils.normalize;
 	
 	public class Items implements IPuppets,
 	                              INewGameHandler,

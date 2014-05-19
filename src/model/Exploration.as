@@ -9,7 +9,7 @@ package model
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
-	import model.utils.normalize;
+	import utils.normalize;
 	
 	internal class Exploration implements IExploration, INewGameHandler, IGameFrameHandler, IQuitGameHandler
 	{

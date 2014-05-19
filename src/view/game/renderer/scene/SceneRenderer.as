@@ -2,11 +2,11 @@ package view.game.renderer.scene
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
-	import model.utils.normalize;
 	import starling.display.Image;
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import utils.normalize;
 	import view.game.renderer.structs.Changes;
 	import view.game.renderer.SubRendererBase;
 	

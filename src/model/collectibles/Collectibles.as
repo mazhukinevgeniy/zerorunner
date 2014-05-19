@@ -9,7 +9,7 @@ package model.collectibles
 	import model.interfaces.ISave;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
-	import model.utils.normalize;
+	import utils.normalize;
 	
 	public class Collectibles implements ICollectibles, INewGameHandler, IGameFrameHandler
 	{

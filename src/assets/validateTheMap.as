@@ -1,7 +1,7 @@
 package assets 
 {
 	import assets.xml.MapXML;
-	import model.utils.normalize;
+	import utils.normalize;
 	
 	internal function validateTheMap():void
 	{

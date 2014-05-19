@@ -4,7 +4,7 @@ package view.game.renderer.effects
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import model.metric.ICoordinated;
-	import model.utils.normalize;
+	import utils.normalize;
 	import view.game.renderer.structs.Effect;
 	
 	internal class TrackerBase implements INewGameHandler, IGameFrameHandler

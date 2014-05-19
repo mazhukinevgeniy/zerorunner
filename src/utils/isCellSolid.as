@@ -1,4 +1,4 @@
-package model.utils 
+package utils 
 {
 	
 	public function isCellSolid(type:int):Boolean
