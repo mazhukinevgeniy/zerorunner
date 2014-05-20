@@ -73,10 +73,21 @@ package model.items.concrete
 		
 		private function createBeacon(x:int, y:int):void 
 		{
+			this.createPassiveItem(Game.ITEM_BEACON, x, y);
+		}
+		
+		private function createTheGoal(x:int, y:int):void
+		{
+			this.createPassiveItem(Game.ITEM_THE_GOAL, x, y);
+		}
+		
+		private function createPassiveItem(type:int, x:int, y:int):void
+		{
 			this.tmpCell.setValue(x, y);
 			
-			new Beacon(this.items, this.binder, this.tmpCell);
+			new PassiveItem(type, this.items, this.binder, this.tmpCell);
 		}
+		
 		
 		private function createCharacter(x:int, y:int):void
 		{
@@ -91,13 +102,6 @@ package model.items.concrete
 			this.tmpCell.setValue(x, y);
 			
 			new Shard(this.items, this.binder, this.tmpCell);
-		}
-		
-		private function createTheGoal(x:int, y:int):void
-		{
-			this.tmpCell.setValue(x, y);
-			
-			new TheGoal(this.items, this.binder, this.tmpCell);
 		}
 		//TODO: remove doublecode
 		
