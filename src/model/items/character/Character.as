@@ -3,7 +3,7 @@ package model.items.character
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
 	import model.interfaces.IInput;
-	import model.interfaces.IPuppets;
+	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IScene;
 	import model.items.PuppetBase;
 	import model.metric.DCellXY;
@@ -18,7 +18,7 @@ package model.items.character
 		
 		private var input:IInput;
 		private var scene:IScene;
-		private var items:IPuppets;
+		private var items:IItemSnapshotter;
 		
 		public function Character(master:CharacterMaster, cell:ICoordinated, binder:IBinder) 
 		{
@@ -26,7 +26,7 @@ package model.items.character
 			
 			this.input = binder.input;
 			this.scene = binder.scene;
-			this.items = binder.puppets;
+			this.items = binder.itemSnapshotter;
 			
 			super(master, cell);
 		}

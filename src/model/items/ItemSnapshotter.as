@@ -1,16 +1,16 @@
 package model.items 
 {
 	import binding.IBinder;
-	import model.interfaces.IPuppets;
+	import model.interfaces.IItemSnapshotter;
 	
-	internal class ItemSnapshotter implements IPuppets
+	internal class ItemSnapshotter implements IItemSnapshotter
 	{
 		private var items:Items;
 		private var pool:ItemSnapshotPool;
 		
 		public function ItemSnapshotter(items:Items, binder:IBinder) 
 		{
-			binder.addBindable(this, IPuppets);
+			binder.addBindable(this, IItemSnapshotter);
 			
 			this.items = items;
 			this.pool = new ItemSnapshotPool(binder);

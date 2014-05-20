@@ -11,8 +11,8 @@ package binding
 	import model.interfaces.ICollectibles;
 	import model.interfaces.IExploration;
 	import model.interfaces.IInput;
+	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IProjectiles;
-	import model.interfaces.IPuppets;
 	import model.interfaces.ISave;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
@@ -57,7 +57,6 @@ package binding
 		public function get save():ISave { return this.objects[ISave]; }
 		public function get input():IInput { return this.objects[IInput]; }
 		public function get scene():IScene { return this.objects[IScene]; }
-		public function get puppets():IPuppets { return this.objects[IPuppets]; }
 		public function get gameStatus():IStatus { return this.objects[IStatus]; }
 		public function get notifier():INotifier { return this.objects[INotifier]; }
 		public function get exploration():IExploration { return this.objects[IExploration]; }
@@ -65,6 +64,7 @@ package binding
 		public function get assetManager():AssetManager { return this.objects[AssetManager]; }
 		public function get collectibles():ICollectibles { return this.objects[ICollectibles]; }
 		public function get gameController():IGameController { return this.objects[IGameController]; }
+		public function get itemSnapshotter():IItemSnapshotter { return this.objects[IItemSnapshotter]; }
 		public function get inputController():IInputController { return this.objects[IInputController]; }
 		public function get soundController():ISoundController { return this.objects[ISoundController]; }
 		public function get screenController():IScreenController { return this.objects[IScreenController]; }

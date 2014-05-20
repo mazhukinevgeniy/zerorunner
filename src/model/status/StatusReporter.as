@@ -5,7 +5,7 @@ package model.status
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
 	import controller.observers.IScreenObserver;
-	import model.interfaces.IPuppets;
+	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IStatus;
 	import model.items.ItemSnapshot;
 	import model.items.PuppetBase;
@@ -24,7 +24,7 @@ package model.status
 			 View.GAME_SCREEN_MENU, View.GAME_SCREEN]);
 		
 		private var hero:PuppetBase;
-		private var items:IPuppets;
+		private var items:IItemSnapshotter;
 		
 		private var _screen:String;
 		
@@ -37,7 +37,7 @@ package model.status
 		
 		public function bindObjects(binder:IBinder):void
 		{
-			this.items = binder.puppets;
+			this.items = binder.itemSnapshotter;
 		}
 		
 		public function screenActivated(name:String):void

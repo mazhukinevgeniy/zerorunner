@@ -1,7 +1,7 @@
 package view.game.renderer.items 
 {
 	import binding.IBinder;
-	import model.interfaces.IPuppets;
+	import model.interfaces.IItemSnapshotter;
 	import model.items.ItemSnapshot;
 	import model.metric.DCellXY;
 	import starling.extensions.CenteredImage;
@@ -20,13 +20,13 @@ package view.game.renderer.items
 		private const RIGHT:int = Game.DIRECTION_RIGHT; 
 		/* Please note: right is the default direction */
 		
-		private var puppets:IPuppets;
+		private var items:IItemSnapshotter;
 		
 		private var sprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
 		
 		public function ItemRenderer(binder:IBinder) 
 		{
-			this.puppets = binder.puppets;
+			this.items = binder.itemSnapshotter;
 			
 			this.sprites = new Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>(Game.NUMBER_OF_ITEM_TYPES, true);
 			this.initializeVectors(this.sprites);
@@ -110,7 +110,7 @@ package view.game.renderer.items
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var item:ItemSnapshot = this.puppets.getItemSnapshot(getCellId(x, y));
+			var item:ItemSnapshot = this.items.getItemSnapshot(getCellId(x, y));
 			
 			if (item)
 			{

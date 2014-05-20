@@ -6,8 +6,8 @@ package model.projectiles
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
+	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IProjectiles;
-	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;
 	import model.items.Items;
 	import model.items.ItemSnapshot;
@@ -25,7 +25,7 @@ package model.projectiles
 		
 		private var clouds:Vector.<CloudBase>;
 		
-		private var puppets:IPuppets;
+		private var snapshotter:IItemSnapshotter;
 		private var scene:IScene;
 		private var projectileController:IProjectileController;
 		
@@ -38,7 +38,7 @@ package model.projectiles
 			this.items = items;
 			
 			this.scene = binder.scene;
-			this.puppets = binder.puppets;
+			this.snapshotter = binder.itemSnapshotter;
 			this.projectileController = binder.projectileController;
 			
 			this.unusedProjectiles = new Vector.<Projectile>();
@@ -139,7 +139,7 @@ package model.projectiles
 				
 				var cellId:int = getCellId(x, y);
 				
-				var target:ItemSnapshot = this.puppets.getItemSnapshot(cellId);
+				var target:ItemSnapshot = this.snapshotter.getItemSnapshot(cellId);
 				
 				if (target)
 				{

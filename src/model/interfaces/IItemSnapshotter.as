@@ -2,7 +2,7 @@ package model.interfaces
 {
 	import model.items.ItemSnapshot;
 	
-	public interface IPuppets 
+	public interface IItemSnapshotter 
 	{
 		function getItemSnapshot(cellId:int):ItemSnapshot;
 	}

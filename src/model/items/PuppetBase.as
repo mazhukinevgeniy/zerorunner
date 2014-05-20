@@ -1,6 +1,5 @@
 package model.items 
 {
-	import model.interfaces.IPuppets;
 	import model.interfaces.IStatus;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
@@ -8,6 +7,7 @@ package model.items
 	import utils.getDirection;
 	import utils.normalize;
 	
+	//TODO: rename
 	public class PuppetBase implements ICoordinated
 	{
 		private var _x:int, _y:int;
