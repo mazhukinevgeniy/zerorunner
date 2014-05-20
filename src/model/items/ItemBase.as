@@ -55,10 +55,6 @@ package model.items
 					this.framesOccupated = this.framesUntilOccupationEnds = 0;
 				}
 			}
-			else if (this.occupation == Game.OCCUPATION_DYING)
-			{
-				this.items.removeItem(this);
-			}
 			else if (this.occupation == Game.OCCUPATION_UNSTABLE)
 			{
 				this.onUnstabilized();
@@ -77,9 +73,10 @@ package model.items
 		{
 			if (this.isDestructible)
 			{
-				this.occupation = Game.OCCUPATION_DYING;
+				this.items.removeItem(this);
 				
-				this.direction = Game.DIRECTION_RIGHT;
+				if (this.isActive)
+					this.items.notifier.removeActor(this);
 			}
 			else
 			{

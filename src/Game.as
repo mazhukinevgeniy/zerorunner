@@ -68,10 +68,9 @@ package
 		
 		public static const OCCUPATION_FREE:int = 0;
 		public static const OCCUPATION_MOVING:int = 1;
-		public static const OCCUPATION_DYING:int = 2;
-		public static const OCCUPATION_UNSTABLE:int = 3;
+		public static const OCCUPATION_UNSTABLE:int = 2;
 		
-		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 4;
+		public static const NUMBER_OF_ITEM_OCCUPATIONS:int = 3;
 		
 		/* Projectiles */
 		
