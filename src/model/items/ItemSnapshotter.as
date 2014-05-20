@@ -18,7 +18,7 @@ package model.items
 		
 		public function getItemSnapshot(cellId:int):ItemSnapshot
 		{
-			var item:PuppetBase = this.items.getItem(cellId);
+			var item:ItemBase = this.items.getItem(cellId);
 			var shot:ItemSnapshot;
 			
 			if (item)

@@ -9,7 +9,7 @@ package model.items
 	
 	public class MasterBase implements INewGameHandler, IGameFrameHandler, IQuitGameHandler
 	{
-		private var actors:Vector.<PuppetBase>;
+		private var actors:Vector.<ItemBase>;
 		
 		protected var _binder:IBinder;
 		
@@ -28,7 +28,7 @@ package model.items
 		
 		public function newGame():void
 		{
-			this.actors = new Vector.<PuppetBase>();
+			this.actors = new Vector.<ItemBase>();
 		}
 		
 		public function gameFrame(frame:int):void
@@ -46,7 +46,7 @@ package model.items
 			this.actors = null; 
 		}
 		
-		
+		//TODO: rename
 		public function spawnPuppet(x:int, y:int):void
 		{
 			throw new Error("must implement");
@@ -57,12 +57,12 @@ package model.items
 		 * Use this method if you want some puppet to act
 		 * @param	actor
 		 */
-		protected function addActor(actor:PuppetBase):void
+		protected function addActor(actor:ItemBase):void
 		{
 			this.actors.push(actor);
 		}
 		
-		protected function removeActor(actor:PuppetBase):void
+		protected function removeActor(actor:ItemBase):void
 		{
 			var pos:int = this.actors.indexOf(actor);
 			var len:int = this.actors.length;

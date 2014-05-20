@@ -32,7 +32,7 @@ package model.items
 		
 		
 		
-		internal function addItem(item:PuppetBase):void
+		internal function addItem(item:ItemBase):void
 		{
 			var cellId:int = getCellId(item.x, item.y);
 			
@@ -41,12 +41,12 @@ package model.items
 			this.items[cellId] = item;
 		}
 		
-		internal function removeItem(item:PuppetBase):void
+		internal function removeItem(item:ItemBase):void
 		{
 			this.items[getCellId(item.x, item.y)] = null;
 		}
 		
-		internal function getItem(cellId:int):PuppetBase
+		internal function getItem(cellId:int):ItemBase
 		{
 			return this.items[cellId];
 		}
@@ -54,9 +54,9 @@ package model.items
 		//TODO: temporary and ugly, must find how to destroy items
 		public function smashItem(cellId:int):void
 		{
-			var pup:PuppetBase = this.items[cellId];
+			var item:ItemBase = this.items[cellId];
 			
-			pup.tryDestruction();
+			item.tryDestruction();
 		}
 	}
 

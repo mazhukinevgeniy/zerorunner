@@ -7,8 +7,7 @@ package model.items
 	import utils.getDirection;
 	import utils.normalize;
 	
-	//TODO: rename
-	public class PuppetBase implements ICoordinated
+	public class ItemBase implements ICoordinated
 	{
 		private var _x:int, _y:int;
 		
@@ -24,7 +23,7 @@ package model.items
 		private var items:Items;
 		private var status:IStatus;
 		
-		public function PuppetBase(master:MasterBase, cell:ICoordinated) 
+		public function ItemBase(master:MasterBase, cell:ICoordinated) 
 		{
 			this.items = master.items;
 			this.status = master.status;

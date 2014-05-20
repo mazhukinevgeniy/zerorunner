@@ -5,14 +5,14 @@ package model.items.character
 	import model.interfaces.IInput;
 	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IScene;
-	import model.items.PuppetBase;
+	import model.items.ItemBase;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	import utils.getCellId;
 	import utils.isCellSolid;
 	
 	
-	internal class Character extends PuppetBase
+	internal class Character extends ItemBase
 	{
 		private var gameController:IGameController;
 		

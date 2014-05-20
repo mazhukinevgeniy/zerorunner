@@ -1,9 +1,9 @@
 package model.items.shard 
 {
-	import model.items.PuppetBase;
+	import model.items.ItemBase;
 	import model.metric.ICoordinated;
 	
-	internal class Shard extends PuppetBase
+	internal class Shard extends ItemBase
 	{
 		
 		public function Shard(master:ShardMaster, cell:ICoordinated) 

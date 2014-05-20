@@ -1,9 +1,9 @@
 package model.items.character 
 {
 	import binding.IBinder;
+	import model.items.ItemBase;
 	import model.items.Items;
 	import model.items.MasterBase;
-	import model.items.PuppetBase;
 	import model.metric.CellXY;
 	import model.metric.DCellXY;
 	import model.status.StatusReporter;
@@ -21,7 +21,7 @@ package model.items.character
 		
 		override public function spawnPuppet(x:int, y:int):void 
 		{
-			var hero:PuppetBase = new Character(this, new CellXY(x, y), this._binder);
+			var hero:ItemBase = new Character(this, new CellXY(x, y), this._binder);
 			
 			this.status.newHero(hero);
 			this.addActor(hero);

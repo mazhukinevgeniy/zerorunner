@@ -1,9 +1,9 @@
 package model.items.beacon 
 {
-	import model.items.PuppetBase;
+	import model.items.ItemBase;
 	import model.metric.ICoordinated;
 	
-	internal class Beacon extends PuppetBase
+	internal class Beacon extends ItemBase
 	{
 		
 		public function Beacon(master:BeaconMaster, cell:ICoordinated) 

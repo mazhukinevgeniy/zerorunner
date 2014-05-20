@@ -7,8 +7,8 @@ package model.status
 	import controller.observers.IScreenObserver;
 	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IStatus;
+	import model.items.ItemBase;
 	import model.items.ItemSnapshot;
-	import model.items.PuppetBase;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	import utils.getCellId;
@@ -23,7 +23,7 @@ package model.status
 		[View.GAME_SCREEN_MAP, View.GAME_SCREEN_LOST, View.GAME_SCREEN_WON,
 			 View.GAME_SCREEN_MENU, View.GAME_SCREEN]);
 		
-		private var hero:PuppetBase;
+		private var hero:ItemBase;
 		private var items:IItemSnapshotter;
 		
 		private var _screen:String;
@@ -57,7 +57,7 @@ package model.status
 			this.hero = null;
 		}
 		
-		public function newHero(hero:PuppetBase):void
+		public function newHero(hero:ItemBase):void
 		{
 			this.hero = hero;
 		}

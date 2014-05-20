@@ -1,9 +1,9 @@
 package model.items.the_goal 
 {
-	import model.items.PuppetBase;
+	import model.items.ItemBase;
 	import model.metric.ICoordinated;
 	
-	internal class TheGoal extends PuppetBase
+	internal class TheGoal extends ItemBase
 	{
 		
 		public function TheGoal(master:TheGoalMaster, cell:ICoordinated) 
