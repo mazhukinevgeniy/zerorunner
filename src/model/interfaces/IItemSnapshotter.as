@@ -6,5 +6,4 @@ package model.interfaces
 	{
 		function getItemSnapshot(cellId:int):ItemSnapshot;
 	}
-	//TODO: rename
 }
