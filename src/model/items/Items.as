@@ -3,6 +3,7 @@ package model.items
 	import binding.IBinder;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
+	import model.items.concrete.ItemSpawner;
 	import model.status.StatusReporter;
 	import utils.getCellId;
 	
@@ -16,7 +17,7 @@ package model.items
 		{
 			binder.notifier.addObserver(this);
 			
-			new ItemStarter(binder, this, status);
+			new ItemSpawner(binder, this, status);
 			new ItemSnapshotter(this, binder);
 		}
 		

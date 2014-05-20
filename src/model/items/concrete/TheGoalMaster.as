@@ -1,4 +1,4 @@
-package model.items.the_goal 
+package model.items.concrete 
 {
 	import binding.IBinder;
 	import model.interfaces.IStatus;
@@ -7,7 +7,7 @@ package model.items.the_goal
 	import model.metric.CellXY;
 	import model.metric.ICoordinated;
 	
-	public class TheGoalMaster extends MasterBase
+	internal class TheGoalMaster extends MasterBase
 	{
 		private var currentGoal:TheGoal;
 		

@@ -1,22 +1,19 @@
-package model.items 
+package model.items.concrete 
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
 	import controller.observers.INewGameHandler;
-	import model.items.beacon.BeaconMaster;
-	import model.items.character.CharacterMaster;
-	import model.items.shard.ShardMaster;
-	import model.items.the_goal.TheGoalMaster;
+	import model.items.Items;
 	import model.status.StatusReporter;
 	
-	internal class ItemStarter implements INewGameHandler
+	public class ItemSpawner implements INewGameHandler
 	{
 		
-		private var masters:Vector.<MasterBase>;
+		private var masters:Array;
 		
-		public function ItemStarter(binder:IBinder, items:Items, status:StatusReporter) 
+		public function ItemSpawner(binder:IBinder, items:Items, status:StatusReporter) 
 		{
-			this.masters = new Vector.<MasterBase>(Game.NUMBER_OF_ITEM_TYPES, true);
+			this.masters = new Array();
 			
 			this.masters[Game.ITEM_BEACON] = new BeaconMaster(binder, items);
 			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(binder, items, status);
@@ -59,6 +56,5 @@ package model.items
 			}
 		}
 	}
-	//TODO: rename to the ItemSpawner and move to rhe items.concrete
 
 }

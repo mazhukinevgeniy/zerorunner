@@ -1,11 +1,11 @@
-package model.items.beacon 
+package model.items.concrete 
 {
 	import binding.IBinder;
 	import model.items.Items;
 	import model.items.MasterBase;
 	import model.metric.CellXY;
 	
-	public class BeaconMaster extends MasterBase
+	internal class BeaconMaster extends MasterBase
 	{
 		private var tmpCell:CellXY;
 		

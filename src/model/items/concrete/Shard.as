@@ -1,4 +1,4 @@
-package model.items.shard 
+package model.items.concrete 
 {
 	import model.items.ItemBase;
 	import model.metric.ICoordinated;

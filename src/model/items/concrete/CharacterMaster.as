@@ -1,4 +1,4 @@
-package model.items.character 
+package model.items.concrete 
 {
 	import binding.IBinder;
 	import model.items.ItemBase;
@@ -8,7 +8,7 @@ package model.items.character
 	import model.metric.DCellXY;
 	import model.status.StatusReporter;
 	
-	public class CharacterMaster extends MasterBase
+	internal class CharacterMaster extends MasterBase
 	{
 		private var status:StatusReporter;
 		

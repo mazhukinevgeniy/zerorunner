@@ -1,4 +1,4 @@
-package model.items.shard 
+package model.items.concrete 
 {
 	import binding.IBinder;
 	import controller.observers.IShardObserver;
@@ -7,7 +7,7 @@ package model.items.shard
 	import model.metric.CellXY;
 	import model.projectiles.Projectile;
 	
-	public class ShardMaster extends MasterBase implements IShardObserver
+	internal class ShardMaster extends MasterBase implements IShardObserver
 	{
 		private var tmpCell:CellXY;
 		

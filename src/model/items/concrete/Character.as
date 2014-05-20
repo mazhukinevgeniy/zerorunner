@@ -1,4 +1,4 @@
-package model.items.character 
+package model.items.concrete 
 {
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
