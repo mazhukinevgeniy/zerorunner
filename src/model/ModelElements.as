@@ -7,7 +7,6 @@ package model
 	import model.interfaces.IExploration;
 	import model.interfaces.IInput;
 	import model.interfaces.IProjectiles;
-	import model.interfaces.IPuppets;
 	import model.interfaces.ISave;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
@@ -23,13 +22,15 @@ package model
 			binder.addBindable(new Save(binder), ISave);
 			
 			var status:StatusReporter = new StatusReporter(binder);
-			
 			binder.addBindable(status, IStatus);
+			
 			binder.addBindable(new InputTeller(binder), IInput);
 			
 			binder.addBindable(new Scene(binder), IScene);
-			binder.addBindable(new Items(binder, status), IPuppets);
-			binder.addBindable(new Projectiles(binder), IProjectiles);
+			
+			var items:Items = new Items(binder, status);
+			
+			binder.addBindable(new Projectiles(binder, items), IProjectiles);
 			binder.addBindable(new Collectibles(binder), ICollectibles);
 			
 			binder.addBindable(new Exploration(binder), IExploration);

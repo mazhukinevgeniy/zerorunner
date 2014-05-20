@@ -45,7 +45,7 @@ package model.items.character
 			{
 				var cellId:int = getCellId(x + action.x, y + action.y);
 				
-				if (!this.items.findObjectByCell(cellId))
+				if (!this.items.getItemSnapshot(cellId))
 				{
 					next = this.scene.getSceneCell(cellId);
 					
@@ -62,7 +62,7 @@ package model.items.character
 			
 			if (!isCellSolid(this.scene.getSceneCell(getCellId(this.x, this.y))))
 			{
-				this.tryDestruction();
+				this.die();
 			}
 		}
 		

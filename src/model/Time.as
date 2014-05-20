@@ -44,7 +44,7 @@ package model
 		{
 			if (!this.isFixed && !this.status.isMenuOn() &&
 				((this.frameCount != Game.FRAME_TO_ACT) || 
-				 !this.status.isHeroFree() || 
+				 !this.status.getSnapshotOfHero().isFree() || 
 				 this.input.isThereInput()))
 			{
 				if (this.status.isMapOn())

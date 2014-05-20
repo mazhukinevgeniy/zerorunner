@@ -1,7 +1,7 @@
 package model.interfaces 
 {
+	import model.items.ItemSnapshot;
 	import model.metric.ICoordinated;
-	import model.status.NumericalDxyHelper;
 	
 	public interface IStatus 
 	{
@@ -9,10 +9,8 @@ package model.interfaces
 		function isMapOn():Boolean;
 		function isMenuOn():Boolean;
 		
-		function isHeroFree():Boolean;
 		function getLocationOfHero():ICoordinated;
-		function getDisplacementOfHero():NumericalDxyHelper;
-		
+		function getSnapshotOfHero():ItemSnapshot;
 	}
 	
 }

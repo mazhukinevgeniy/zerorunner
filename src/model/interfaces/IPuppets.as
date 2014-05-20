@@ -1,10 +1,10 @@
 package model.interfaces 
 {
-	import model.items.PuppetBase;
+	import model.items.ItemSnapshot;
 	
 	public interface IPuppets 
 	{
-		function findObjectByCell(cellId:int):PuppetBase;
+		function getItemSnapshot(cellId:int):ItemSnapshot;
 	}
-	
+	//TODO: rename
 }

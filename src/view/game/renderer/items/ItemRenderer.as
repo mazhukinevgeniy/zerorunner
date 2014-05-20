@@ -2,21 +2,23 @@ package view.game.renderer.items
 {
 	import binding.IBinder;
 	import model.interfaces.IPuppets;
-	import model.items.PuppetBase;
+	import model.items.ItemSnapshot;
 	import model.metric.DCellXY;
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
 	import utils.getCellId;
+	import utils.normalize;
 	import view.game.renderer.structs.Changes;
 	import view.game.renderer.SubRendererBase;
 	
 	public class ItemRenderer extends SubRendererBase
 	{
-		private const TOP:int = 0;
-		private const DOWN:int = 1;
-		private const LEFT:int = 2;
-		private const RIGHT:int = 3; /* Please note: this is the default direction */
+		private const TOP:int = Game.DIRECTION_TOP;
+		private const DOWN:int = Game.DIRECTION_DOWN;
+		private const LEFT:int = Game.DIRECTION_LEFT;
+		private const RIGHT:int = Game.DIRECTION_RIGHT; 
+		/* Please note: right is the default direction */
 		
 		private var puppets:IPuppets;
 		
@@ -108,25 +110,17 @@ package view.game.renderer.items
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var item:PuppetBase = this.puppets.findObjectByCell(getCellId(x, y));
+			var item:ItemSnapshot = this.puppets.getItemSnapshot(getCellId(x, y));
 			
 			if (item)
 			{
+				var trueX:int = normalize(x);
+				var trueY:int = normalize(y);
+				
 				var sprite:CenteredImage = this.getAnimationFrame(item);
 				
-				var sx:int = x * View.CELL_WIDTH;
-				var sy:int = y * View.CELL_HEIGHT;
-				
-				if (item.occupation == Game.OCCUPATION_MOVING)
-				{
-					var dX:int = item.moveInProgress.x;
-					var dY:int = item.moveInProgress.y;
-					
-					var progress:Number = 1 - item.getProgress();
-					
-					sx -= int(progress * View.CELL_WIDTH * dX);
-					sy -= int(progress * View.CELL_HEIGHT * dY);
-				}
+				var sx:int = (item.x - trueX + x) * View.CELL_WIDTH;
+				var sy:int = (item.y - trueY + y) * View.CELL_HEIGHT;
 				
 				sy += View.CELL_HEIGHT - sprite.height;
 				
@@ -137,30 +131,16 @@ package view.game.renderer.items
 			}
 		}
 		
-		private function getAnimationFrame(item:PuppetBase):CenteredImage
+		private function getAnimationFrame(item:ItemSnapshot):CenteredImage
 		{
 			var type:int = item.type;
 			var occupation:int = item.occupation;
-			var direction:int = this.getDirection(item);
+			var direction:int = item.direction;
 			
 			var animationLength:int = this.sprites[type][occupation][direction].length;
-			var frame:int = int(item.getProgress() * animationLength);
+			var frame:int = int(item.progress * animationLength);
 			
 			return this.sprites[type][occupation][direction][frame];
-		}
-		
-		private function getDirection(item:PuppetBase):int
-		{
-			var change:DCellXY = item.moveInProgress;
-			
-			if (change.x < 0)
-				return this.LEFT;
-			else if (change.y > 0)
-				return this.DOWN;
-			else if (change.y < 0)
-				return this.TOP;
-			else 
-				return this.RIGHT;
 		}
 	}
 

@@ -3,12 +3,10 @@ package model.items
 	import binding.IBinder;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
-	import model.interfaces.IPuppets;
 	import model.status.StatusReporter;
 	import utils.getCellId;
 	
-	public class Items implements IPuppets,
-	                              INewGameHandler,
+	public class Items implements INewGameHandler,
 								  IQuitGameHandler
 	{
 		private var items:Array;
@@ -19,6 +17,7 @@ package model.items
 			binder.notifier.addObserver(this);
 			
 			new ItemStarter(binder, this, status);
+			new ItemSnapshotter(this, binder);
 		}
 		
 		public function newGame():void
@@ -46,12 +45,18 @@ package model.items
 		{
 			this.items[getCellId(item.x, item.y)] = null;
 		}
-		//TODO: this should be implemented in the controller probably
 		
-		
-		public function findObjectByCell(cellId:int):PuppetBase
+		internal function getItem(cellId:int):PuppetBase
 		{
 			return this.items[cellId];
+		}
+		
+		//TODO: temporary and ugly, must find how to destroy items
+		public function smashItem(cellId:int):void
+		{
+			var pup:PuppetBase = this.items[cellId];
+			
+			pup.tryDestruction();
 		}
 	}
 

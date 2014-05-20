@@ -41,6 +41,13 @@ package
 		
 		public static const SCENE_NONE:int = 8;
 		
+		/* Directions */
+		
+		public static const DIRECTION_RIGHT:int = 0;
+		public static const DIRECTION_TOP:int = 1;
+		public static const DIRECTION_LEFT:int = 2;
+		public static const DIRECTION_DOWN:int = 3;
+		
 		/* Endings */
 		
 		public static const ENDING_LOST:int = 0;

@@ -4,8 +4,8 @@ package view.game.renderer
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import model.interfaces.IStatus;
+	import model.items.ItemSnapshot;
 	import model.metric.ICoordinated;
-	import model.status.NumericalDxyHelper;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
@@ -73,15 +73,10 @@ package view.game.renderer
 		
 		public function redraw():void
 		{
-			var cell:ICoordinated = this.status.getLocationOfHero();
+			var hero:ItemSnapshot = this.status.getSnapshotOfHero();
 			
-			this.x = -cell.x * View.CELL_WIDTH + (View.WIDTH - View.CELL_WIDTH) / 2;
-            this.y = -cell.y * View.CELL_HEIGHT + (View.HEIGHT - View.CELL_HEIGHT) / 2;
-			
-			var displacement:NumericalDxyHelper = this.status.getDisplacementOfHero();
-			
-			this.x -= int(View.CELL_WIDTH * displacement.dx);
-			this.y -= int(View.CELL_HEIGHT * displacement.dy);
+			this.x = -hero.x * View.CELL_WIDTH + (View.WIDTH - View.CELL_WIDTH) / 2;
+            this.y = -hero.y * View.CELL_HEIGHT + (View.HEIGHT - View.CELL_HEIGHT) / 2;
 		}
 	}
 

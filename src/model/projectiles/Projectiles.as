@@ -9,7 +9,8 @@ package model.projectiles
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IPuppets;
 	import model.interfaces.IScene;
-	import model.items.PuppetBase;
+	import model.items.Items;
+	import model.items.ItemSnapshot;
 	import model.metric.ICoordinated;
 	import utils.getCellId;
 	import utils.normalize;
@@ -28,9 +29,13 @@ package model.projectiles
 		private var scene:IScene;
 		private var projectileController:IProjectileController;
 		
-		public function Projectiles(binder:IBinder) 
+		private var items:Items;
+		
+		public function Projectiles(binder:IBinder, items:Items) 
 		{
 			binder.notifier.addObserver(this);
+			
+			this.items = items;
 			
 			this.scene = binder.scene;
 			this.puppets = binder.puppets;
@@ -134,11 +139,11 @@ package model.projectiles
 				
 				var cellId:int = getCellId(x, y);
 				
-				var target:PuppetBase = this.puppets.findObjectByCell(cellId);
+				var target:ItemSnapshot = this.puppets.getItemSnapshot(cellId);
 				
 				if (target)
 				{
-					target.tryDestruction();
+					this.items.smashItem(cellId);
 				}
 				else if (this.scene.getSceneCell(cellId) == Game.SCENE_GROUND)
 				{
