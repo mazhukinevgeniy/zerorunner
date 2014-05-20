@@ -1,5 +1,6 @@
 package model.items 
 {
+	import binding.IBinder;
 	import model.interfaces.IStatus;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
@@ -23,10 +24,10 @@ package model.items
 		private var items:Items;
 		private var status:IStatus;
 		
-		public function ItemBase(master:MasterBase, cell:ICoordinated) 
+		public function ItemBase(items:Items, binder:IBinder, cell:ICoordinated) 
 		{
-			this.items = master.items;
-			this.status = master.status;
+			this.items = items;
+			this.status = binder.gameStatus;
 			
 			this.direction = Game.DIRECTION_RIGHT;
 			
@@ -34,6 +35,9 @@ package model.items
 			this._y = cell.y;
 			
 			this.items.addItem(this);
+			
+			if (this.isActive)
+				this.items.notifier.addActor(this);
 		}
 		
 		internal function gameFrame(frame:int):void
@@ -121,6 +125,7 @@ package model.items
 		
 		protected function get movespeed():int { return 2; }
 		protected function get isDestructible():Boolean { return true; }
+		protected function get isActive():Boolean { return false; }
 		
 		protected function act():void {	}
 		

@@ -6,6 +6,7 @@ package model.items.concrete
 	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IScene;
 	import model.items.ItemBase;
+	import model.items.Items;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	import utils.getCellId;
@@ -20,7 +21,7 @@ package model.items.concrete
 		private var scene:IScene;
 		private var items:IItemSnapshotter;
 		
-		public function Character(master:CharacterMaster, cell:ICoordinated, binder:IBinder) 
+		public function Character(items:Items, binder:IBinder, cell:ICoordinated) 
 		{
 			this.gameController = binder.gameController;
 			
@@ -28,7 +29,7 @@ package model.items.concrete
 			this.scene = binder.scene;
 			this.items = binder.itemSnapshotter;
 			
-			super(master, cell);
+			super(items, binder, cell);
 		}
 		
 		override protected function act():void 
@@ -72,6 +73,11 @@ package model.items.concrete
 		override protected function get isDestructible():Boolean 
 		{
 			return false;
+		}
+		
+		override protected function get isActive():Boolean 
+		{
+			return true;
 		}
 		
 		override protected function onUnstabilized():void 

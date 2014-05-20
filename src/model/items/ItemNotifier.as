@@ -4,24 +4,17 @@ package model.items
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
-	import model.interfaces.IStatus;
-	import model.metric.DCellXY;
 	
-	public class MasterBase implements INewGameHandler, IGameFrameHandler, IQuitGameHandler
+	/**
+	 * This class is an internal Notifier with removal of subscribers supported.
+	 * Eh, why not? 
+	 */
+	internal class ItemNotifier implements INewGameHandler, IGameFrameHandler, IQuitGameHandler
 	{
 		private var actors:Vector.<ItemBase>;
 		
-		protected var _binder:IBinder;
-		
-		private var _items:Items;
-		private var _status:IStatus;
-		
-		public function MasterBase(binder:IBinder, items:Items) 
+		public function ItemNotifier(binder:IBinder) 
 		{
-			this._binder = binder;
-			this._items = items;
-			this._status = binder.gameStatus;
-			
 			binder.notifier.addObserver(this);
 		}
 		
@@ -46,23 +39,16 @@ package model.items
 			this.actors = null; 
 		}
 		
-		//TODO: rename
-		public function spawnPuppet(x:int, y:int):void
-		{
-			throw new Error("must implement");
-		}
-		//TODO: it's badly public, fix that
-		
 		/**
 		 * Use this method if you want some puppet to act
 		 * @param	actor
 		 */
-		protected function addActor(actor:ItemBase):void
+		internal function addActor(actor:ItemBase):void
 		{
 			this.actors.push(actor);
 		}
 		
-		protected function removeActor(actor:ItemBase):void
+		internal function removeActor(actor:ItemBase):void
 		{
 			var pos:int = this.actors.indexOf(actor);
 			var len:int = this.actors.length;
@@ -77,11 +63,6 @@ package model.items
 				this.actors.pop();
 			}
 		}
-		
-		/* For the puppet */
-		internal function get binder():IBinder { return this._binder; }
-		internal function get items():Items { return this._items; }
-		internal function get status():IStatus { return this._status; }
 	}
 
 }

@@ -3,22 +3,30 @@ package model.items.concrete
 	import assets.xml.MapXML;
 	import binding.IBinder;
 	import controller.observers.INewGameHandler;
+	import controller.observers.IShardObserver;
+	import model.items.ItemBase;
 	import model.items.Items;
+	import model.metric.CellXY;
+	import model.projectiles.Projectile;
 	import model.status.StatusReporter;
 	
-	public class ItemSpawner implements INewGameHandler
+	public class ItemSpawner implements INewGameHandler, IShardObserver
 	{
+		private var binder:IBinder;
+		private var items:Items;
 		
-		private var masters:Array;
+		private var status:StatusReporter;
+		
+		private var tmpCell:CellXY;
 		
 		public function ItemSpawner(binder:IBinder, items:Items, status:StatusReporter) 
 		{
-			this.masters = new Array();
+			this.binder = binder;
+			this.items = items;
 			
-			this.masters[Game.ITEM_BEACON] = new BeaconMaster(binder, items);
-			this.masters[Game.ITEM_CHARACTER] = new CharacterMaster(binder, items, status);
-			this.masters[Game.ITEM_SHARD] = new ShardMaster(binder, items);
-			this.masters[Game.ITEM_THE_GOAL] = new TheGoalMaster(binder, items);
+			this.status = status;
+			
+			this.tmpCell = new CellXY(0, 0);
 			
 			binder.notifier.addObserver(this);
 		}
@@ -52,8 +60,54 @@ package model.items.concrete
 				var x:int = int(objects[j].@x) / View.CELL_WIDTH;
 				var y:int = int(objects[j].@y) / View.CELL_HEIGHT;
 				
-				this.masters[type].spawnPuppet(x, y);
+				if (type == Game.ITEM_CHARACTER)
+					this.createCharacter(x, y);
+				else if (type == Game.ITEM_THE_GOAL)
+					this.createTheGoal(x, y);
+				else if (type == Game.ITEM_SHARD)
+					this.createShard(x, y);
+				else if (type == Game.ITEM_BEACON)
+					this.createBeacon(x, y);
 			}
+		}
+		
+		private function createBeacon(x:int, y:int):void 
+		{
+			this.tmpCell.setValue(x, y);
+			
+			new Beacon(this.items, this.binder, this.tmpCell);
+		}
+		
+		private function createCharacter(x:int, y:int):void
+		{
+			this.tmpCell.setValue(x, y);
+			var hero:ItemBase = new Character(this.items, this.binder, this.tmpCell);
+			
+			this.status.newHero(hero);
+		}
+		
+		private function createShard(x:int, y:int):void
+		{
+			this.tmpCell.setValue(x, y);
+			
+			new Shard(this.items, this.binder, this.tmpCell);
+		}
+		
+		private function createTheGoal(x:int, y:int):void
+		{
+			this.tmpCell.setValue(x, y);
+			
+			new TheGoal(this.items, this.binder, this.tmpCell);
+		}
+		//TODO: remove doublecode
+		
+		
+		
+		
+		
+		public function shardFellDown(shard:Projectile):void
+		{
+			this.createShard(shard.cell.x, shard.cell.y);
 		}
 	}
 

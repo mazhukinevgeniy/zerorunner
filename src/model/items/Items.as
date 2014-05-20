@@ -12,10 +12,13 @@ package model.items
 	{
 		private var items:Array;
 		
+		internal var notifier:ItemNotifier;
 		
 		public function Items(binder:IBinder, status:StatusReporter) 
 		{
 			binder.notifier.addObserver(this);
+			
+			this.notifier = new ItemNotifier(binder);
 			
 			new ItemSpawner(binder, this, status);
 			new ItemSnapshotter(this, binder);
