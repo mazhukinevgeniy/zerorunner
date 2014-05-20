@@ -4,7 +4,6 @@ package model
 	import binding.IBinder;
 	import flash.utils.ByteArray;
 	import model.interfaces.IScene;
-	import utils.normalize;
 	
 	public class Scene implements IScene
 	{
@@ -54,12 +53,9 @@ package model
 			return tileCodes;
 		}
 		
-		public function getSceneCell(x:int, y:int):int
+		public function getSceneCell(cellId:int):int
 		{
-			x = normalize(x);
-			y = normalize(y);
-			
-			return this.scene[x + y * Game.MAP_WIDTH];
+			return this.scene[cellId];
 		}
 	}
 

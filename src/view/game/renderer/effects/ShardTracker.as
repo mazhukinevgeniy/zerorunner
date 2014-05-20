@@ -3,7 +3,6 @@ package view.game.renderer.effects
 	import binding.IBinder;
 	import controller.observers.IShardObserver;
 	import model.projectiles.Projectile;
-	import utils.normalize;
 	import view.game.renderer.structs.Effect;
 	
 	

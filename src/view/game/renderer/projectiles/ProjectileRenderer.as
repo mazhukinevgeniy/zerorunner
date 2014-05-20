@@ -6,6 +6,7 @@ package view.game.renderer.projectiles
 	import model.projectiles.Projectile;
 	import starling.display.Image;
 	import starling.textures.TextureAtlas;
+	import utils.getCellId;
 	import view.game.renderer.structs.Changes;
 	import view.game.renderer.SubRendererBase;
 	
@@ -42,7 +43,7 @@ package view.game.renderer.projectiles
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var proj:Projectile = this.projectiles.getProjectile(x, y);
+			var proj:Projectile = this.projectiles.getProjectile(getCellId(x, y));
 			
 			if (proj)
 			{

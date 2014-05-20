@@ -4,7 +4,7 @@ package model.interfaces
 	
 	public interface IProjectiles 
 	{
-		function getProjectile(x:int, y:int):Projectile;
+		function getProjectile(cellId:int):Projectile;
 	}
 	
 }

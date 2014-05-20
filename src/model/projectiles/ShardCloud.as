@@ -1,6 +1,6 @@
 package model.projectiles 
 {
-	import utils.normalize;
+	import utils.getCellId;
 	
 	public class ShardCloud extends CloudBase
 	{
@@ -33,10 +33,10 @@ package model.projectiles
 				
 				for (var j:int = 0; j < NUMBER_OF_TRIES; j++)
 				{
-					x = normalize(this.tlcX + this.width * Math.random());
-					y = normalize(this.tlcY + this.height * Math.random());
+					x = this.tlcX + this.width * Math.random();
+					y = this.tlcY + this.height * Math.random();
 					
-					if (!this.projectiles.getProjectile(x, y))
+					if (!this.projectiles.getProjectile(getCellId(x, y)))
 					{
 						this.projectiles.getNewProjectile(Game.PROJECTILE_SHARD, x, y);
 						

@@ -6,7 +6,7 @@ package view.game.renderer.scene
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
-	import utils.normalize;
+	import utils.getCellId;
 	import view.game.renderer.structs.Changes;
 	import view.game.renderer.SubRendererBase;
 	
@@ -102,9 +102,10 @@ package view.game.renderer.scene
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			if (this.getMapCell(x, y) != this.FALL)
+			var tileCode:int = this.getMapCell(x, y);
+			
+			if (tileCode != this.FALL)
 			{				
-				var tileCode:int = this.getMapCell(x, y);
 				
 				if (tileCode == this.GROUND)
 				{
@@ -235,9 +236,7 @@ package view.game.renderer.scene
 		
 		private function getMapCell(x:int, y:int):int
 		{
-			var key:int = normalize(x) + normalize(y) * Game.MAP_WIDTH;
-			
-			return this.tileCodes[this.tiles[key].@gid];
+			return this.tileCodes[this.tiles[getCellId(x, y)].@gid];
 		}
 	}
 

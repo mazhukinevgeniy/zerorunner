@@ -7,6 +7,7 @@ package view.game.renderer.marks
 	import starling.display.Image;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+	import utils.getCellId;
 	import view.game.renderer.structs.Changes;
 	import view.game.renderer.SubRendererBase;
 	
@@ -42,7 +43,8 @@ package view.game.renderer.marks
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var proj:Projectile = this.projectiles.getProjectile(x, y);
+			var cellId:int = getCellId(x, y);
+			var proj:Projectile = this.projectiles.getProjectile(cellId);
 			
 			var view:Image;
 			
@@ -66,7 +68,7 @@ package view.game.renderer.marks
 				}
 			}
 			
-			if (this.collectibles.findCollectible(x, y))
+			if (this.collectibles.findCollectible(cellId))
 			{
 				view = this.collectibleView;
 				

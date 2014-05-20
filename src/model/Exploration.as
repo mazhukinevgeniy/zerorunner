@@ -9,7 +9,7 @@ package model
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
-	import utils.normalize;
+	import utils.getCellId;
 	
 	internal class Exploration implements IExploration, INewGameHandler, IGameFrameHandler, IQuitGameHandler
 	{
@@ -56,12 +56,11 @@ package model
 				for (var i:int = center.x - 7; i < iGoal; i++)
 					for (var j:int = center.y - 5; j < jGoal; j++)
 					{
-						var nI:int = normalize(i);
-						var nJ:int = normalize(j);
+						var cell:int = getCellId(i, j);
 						
-						if (this.visited[nI + Game.MAP_WIDTH * nJ] == this.NOT_VISITED)
+						if (this.visited[cell] == this.NOT_VISITED)
 						{
-							this.visited[nI + Game.MAP_WIDTH * nJ] = this.VISITED;
+							this.visited[cell] = this.VISITED;
 						}
 					}
 			}
@@ -75,15 +74,12 @@ package model
 		
 		
 		
-		public function getExplored(x:int, y:int):int
+		public function getExplored(cellId:int):int
 		{
-			x = normalize(x);
-			y = normalize(y);
-			
 			var toReturn:int;
 			
-			if (this.visited[x + y * Game.MAP_WIDTH] == this.VISITED)
-				toReturn = this.scene.getSceneCell(x, y);
+			if (this.visited[cellId] == this.VISITED)
+				toReturn = this.scene.getSceneCell(cellId);
 			else
 				toReturn = Game.SCENE_NONE;
 			

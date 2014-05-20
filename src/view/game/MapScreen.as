@@ -12,6 +12,7 @@ package view.game
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.utils.Color;
+	import utils.getCellId;
 	
 	internal class MapScreen extends Screen implements IQuitGameHandler,
 													   IMapFrameHandler,
@@ -59,7 +60,7 @@ package view.game
 			for (var y:int = 0; y < Game.MAP_WIDTH; y++)
 				for (var x:int = 0; x < Game.MAP_WIDTH; x++)
 				{
-					quad = this.tiles[this.exploration.getExplored(x, y)];
+					quad = this.tiles[this.exploration.getExplored(getCellId(x, y))];
 					
 					quad.x = x * this.C_WIDTH;
 					quad.y = y * this.C_WIDTH;

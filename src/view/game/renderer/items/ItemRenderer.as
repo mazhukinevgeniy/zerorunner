@@ -7,6 +7,7 @@ package view.game.renderer.items
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import utils.getCellId;
 	import view.game.renderer.structs.Changes;
 	import view.game.renderer.SubRendererBase;
 	
@@ -107,7 +108,7 @@ package view.game.renderer.items
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
-			var item:PuppetBase = this.puppets.findObjectByCell(x, y);
+			var item:PuppetBase = this.puppets.findObjectByCell(getCellId(x, y));
 			
 			if (item)
 			{

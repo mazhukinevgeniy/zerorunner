@@ -11,6 +11,7 @@ package model.projectiles
 	import model.interfaces.IScene;
 	import model.items.PuppetBase;
 	import model.metric.ICoordinated;
+	import utils.getCellId;
 	import utils.normalize;
 	
 	public class Projectiles implements IProjectiles, 
@@ -100,12 +101,9 @@ package model.projectiles
 		
 		/**///As IProjectiles
 		
-		public function getProjectile(x:int, y:int):Projectile
+		public function getProjectile(cellId:int):Projectile
 		{
-			x = normalize(x);
-			y = normalize(y);
-			
-			return this.projectiles[x + y * Game.MAP_WIDTH];
+			return this.projectiles[cellId];
 		}
 		
 		/**/
@@ -121,7 +119,7 @@ package model.projectiles
 		{
 			var cell:ICoordinated = projectile.cell;
 			
-			this.projectiles[cell.x + Game.MAP_WIDTH * cell.y] = projectile;
+			this.projectiles[getCellId(cell.x, cell.y)] = projectile;
 		}
 		
 		internal function projectileLanded(projectile:Projectile):void
@@ -134,13 +132,15 @@ package model.projectiles
 				var x:int = projectile.cell.x;
 				var y:int = projectile.cell.y;
 				
-				var target:PuppetBase = this.puppets.findObjectByCell(x, y);
+				var cellId:int = getCellId(x, y);
+				
+				var target:PuppetBase = this.puppets.findObjectByCell(cellId);
 				
 				if (target)
 				{
 					target.tryDestruction();
 				}
-				else if (this.scene.getSceneCell(x, y) == Game.SCENE_GROUND)
+				else if (this.scene.getSceneCell(cellId) == Game.SCENE_GROUND)
 				{
 					this.projectileController.shardFellDown(projectile);
 				}
@@ -149,6 +149,9 @@ package model.projectiles
 		
 		internal function getNewProjectile(type:int, x:int, y:int):void
 		{
+			x = normalize(x);
+			y = normalize(y);
+			
 			var projectile:Projectile = this.unusedProjectiles.pop();
 			
 			if (projectile)
@@ -166,7 +169,7 @@ package model.projectiles
 		{
 			var cell:ICoordinated = projectile.cell;
 			
-			delete this.projectiles[cell.x + cell.y * Game.MAP_WIDTH];
+			delete this.projectiles[getCellId(cell.x, cell.y)];
 			
 			this.unusedProjectiles.push(projectile);
 		}

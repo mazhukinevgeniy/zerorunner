@@ -8,6 +8,7 @@ package model.items.character
 	import model.items.PuppetBase;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
+	import utils.getCellId;
 	import utils.isCellSolid;
 	
 	
@@ -42,9 +43,11 @@ package model.items.character
 			
 			while (action.x != 0 || action.y != 0)
 			{
-				if (!this.items.findObjectByCell(x + action.x, y + action.y))
+				var cellId:int = getCellId(x + action.x, y + action.y);
+				
+				if (!this.items.findObjectByCell(cellId))
 				{
-					next = this.scene.getSceneCell(x + action.x, y + action.y);
+					next = this.scene.getSceneCell(cellId);
 					
 					if (isCellSolid(next))
 					{
@@ -57,7 +60,7 @@ package model.items.character
 				action = tmp.pop();
 			}
 			
-			if (!isCellSolid(this.scene.getSceneCell(x, y)))
+			if (!isCellSolid(this.scene.getSceneCell(getCellId(this.x, this.y))))
 			{
 				this.tryDestruction();
 			}

@@ -9,7 +9,7 @@ package model.collectibles
 	import model.interfaces.ISave;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
-	import utils.normalize;
+	import utils.getCellId;
 	
 	public class Collectibles implements ICollectibles, INewGameHandler, IGameFrameHandler
 	{
@@ -47,12 +47,12 @@ package model.collectibles
 				var x:int = collectibles[i].@x / View.CELL_WIDTH;
 				var y:int = collectibles[i].@y / View.CELL_HEIGHT;
 				
-				var key:int = x + y * Game.MAP_WIDTH;
+				var cellId:int = getCellId(x, y);
 				
 				var type:int = collectibles[i].@type;
 				var unmet:Boolean = !this.save.getCollectibleFound(type);
 				
-				this.collectibles[key] = new Collectible(type, unmet, x, y);
+				this.collectibles[cellId] = new Collectible(type, unmet, x, y);
 			}
 		}
 		
@@ -61,24 +61,21 @@ package model.collectibles
 			if (frame == Game.FRAME_UNUSED_FRAME_2)
 			{
 				var char:ICoordinated = this.status.getLocationOfHero();
-				var key:int = char.x + char.y * Game.MAP_WIDTH;
+				var cellId:int = getCellId(char.x, char.y);
 				
-				var coll:Collectible = this.collectibles[key];
+				var coll:Collectible = this.collectibles[cellId];
 				
 				if (coll)
 				{
 					this.controller.setCollectibleFound(coll);
-					this.collectibles[key] = null;
+					this.collectibles[cellId] = null;
 				}
 			}
 		}
 		
-		public function findCollectible(x:int, y:int):Collectible
+		public function findCollectible(cellId:int):Collectible
 		{
-			x = normalize(x);
-			y = normalize(y);
-			
-			return this.collectibles[x + y * Game.MAP_WIDTH];
+			return this.collectibles[cellId];
 		}
 	}
 

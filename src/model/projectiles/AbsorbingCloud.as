@@ -1,5 +1,7 @@
 package model.projectiles 
 {
+	import utils.getCellId;
+	
 	/**
 	 * Denies projectiles; it's anticloud actually. Anyway, it's super effective.
 	 */
@@ -28,7 +30,7 @@ package model.projectiles
 			for (var x:int = this.tlcX; x < this.tlcX + this.width; x++)
 				for (var y:int = this.tlcY; y < this.tlcY + this.height; y++)
 				{
-					var proj:Projectile = this.projectiles.getProjectile(x, y);
+					var proj:Projectile = this.projectiles.getProjectile(getCellId(x, y));
 					
 					if (proj)
 						this.projectiles.denyProjectile(proj);

@@ -1,7 +1,7 @@
 package assets 
 {
 	import assets.xml.MapXML;
-	import utils.normalize;
+	import utils.getCellId;
 	
 	internal function validateTheMap():void
 	{
@@ -159,12 +159,7 @@ package assets
 		
 		function getSceneCell(x:int, y:int):int
 		{
-			x = normalize(x);
-			y = normalize(y);
-			
-			var key:int = x + y * Game.MAP_WIDTH;
-			
-			return tileCodes[tiles[key].@gid];
+			return tileCodes[tiles[getCellId(x, y)].@gid];
 		}
 	}
 	

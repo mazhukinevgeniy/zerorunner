@@ -5,6 +5,7 @@ package view.game.renderer.effects
 	import starling.extensions.CenteredImage;
 	import starling.textures.TextureAtlas;
 	import starling.utils.AssetManager;
+	import utils.getCellId;
 	import view.game.renderer.structs.Changes;
 	import view.game.renderer.structs.Effect;
 	import view.game.renderer.SubRendererBase;
@@ -61,10 +62,12 @@ package view.game.renderer.effects
 		
 		override protected function renderCell(x:int, y:int):void 
 		{
+			var cellId:int = getCellId(x, y);
+			
 			var effect:Effect;
 			var sprite:CenteredImage;
 			
-			effect = this.shardTracker.getEffect(x, y);
+			effect = this.shardTracker.getEffect(cellId);
 			
 			if (effect)
 			{
@@ -75,7 +78,7 @@ package view.game.renderer.effects
 				this.addSprite(sprite, x, y);
 			}
 			
-			effect = this.collectionTracker.getEffect(x, y);
+			effect = this.collectionTracker.getEffect(cellId);
 			
 			if (effect)
 			{

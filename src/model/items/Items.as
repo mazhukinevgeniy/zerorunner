@@ -5,7 +5,7 @@ package model.items
 	import controller.observers.IQuitGameHandler;
 	import model.interfaces.IPuppets;
 	import model.status.StatusReporter;
-	import utils.normalize;
+	import utils.getCellId;
 	
 	public class Items implements IPuppets,
 	                              INewGameHandler,
@@ -35,26 +35,23 @@ package model.items
 		
 		internal function addItem(item:PuppetBase):void
 		{
-			if (this.items[item.x + item.y * Game.MAP_WIDTH])
+			var cellId:int = getCellId(item.x, item.y);
+			
+			if (this.items[cellId])
 				throw new Error();
-			this.items[item.x + item.y * Game.MAP_WIDTH] = item;
+			this.items[cellId] = item;
 		}
 		
 		internal function removeItem(item:PuppetBase):void
 		{
-			this.items[item.x + item.y * Game.MAP_WIDTH] = null;
+			this.items[getCellId(item.x, item.y)] = null;
 		}
 		//TODO: this should be implemented in the controller probably
 		
 		
-		public function findObjectByCell(x:int, y:int):PuppetBase
+		public function findObjectByCell(cellId:int):PuppetBase
 		{
-			x = normalize(x);
-			y = normalize(y);
-			
-			var item:PuppetBase = this.items[x + y * Game.MAP_WIDTH];
-			
-			return item;
+			return this.items[cellId];
 		}
 	}
 

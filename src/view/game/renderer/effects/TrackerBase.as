@@ -4,7 +4,7 @@ package view.game.renderer.effects
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import model.metric.ICoordinated;
-	import utils.normalize;
+	import utils.getCellId;
 	import view.game.renderer.structs.Effect;
 	
 	internal class TrackerBase implements INewGameHandler, IGameFrameHandler
@@ -37,15 +37,12 @@ package view.game.renderer.effects
 			var x:int = cell.x;
 			var y:int = cell.y;
 			
-			this.tracked[x + y * Game.MAP_WIDTH] = effect;
+			this.tracked[getCellId(x, y)] = effect;
 		}
 		
-		internal function getEffect(x:int, y:int):Effect
+		internal function getEffect(cellId:int):Effect
 		{
-			x = normalize(x);
-			y = normalize(y);
-			
-			return this.tracked[x + y * Game.MAP_WIDTH];
+			return this.tracked[cellId];
 		}
 	}
 
