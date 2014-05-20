@@ -1,16 +1,14 @@
 package model.items.concrete 
 {
-	import binding.IBinder;
 	import model.items.ItemBase;
-	import model.items.Items;
-	import model.metric.ICoordinated;
+	import model.items.structs.ItemParams;
 	
 	internal class Shard extends ItemBase
 	{
 		
-		public function Shard(items:Items, binder:IBinder, cell:ICoordinated) 
+		public function Shard(params:ItemParams) 
 		{
-			super(items, binder, cell);
+			super(params);
 		}
 		
 		override public function get type():int { return Game.ITEM_SHARD; }

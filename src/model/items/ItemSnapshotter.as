@@ -30,6 +30,9 @@ package model.items
 				shot._direction = item.direction;
 				shot._occ = item.occupation;
 				
+				shot._width = item.width;
+				shot._height = item.height;
+				
 				shot._prog = Number(item.framesOccupated) / item.framesUntilOccupationEnds;
 				
 				shot._x = Number(item.x);

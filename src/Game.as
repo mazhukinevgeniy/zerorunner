@@ -12,8 +12,9 @@ package
 		public static const ITEM_BEACON:int = 1;
 		public static const ITEM_SHARD:int = 2;
 		public static const ITEM_THE_GOAL:int = 3;
+		public static const ITEM_THE_SPAWN:int = 4;
 		
-		public static const NUMBER_OF_ITEM_TYPES:int = 4;
+		public static const NUMBER_OF_ITEM_TYPES:int = 5;
 		
 		/* Collectible types */
 		

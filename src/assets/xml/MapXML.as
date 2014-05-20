@@ -23,6 +23,32 @@ package assets.xml
 			}
 			return MapXML.map;
 		}
+		
+		public static function getItemCodes():Array
+		{
+			var itemCodes:Array = new Array();
+			
+			var map:XML = MapXML.getOne();
+			
+			for (var i:int = 0; i < map.tileset.length(); i++)
+			{
+				var name:String = map.tileset[i].@name;
+				
+				if (name == "hero")
+					itemCodes[i + 1] = Game.ITEM_CHARACTER;
+				else if (name == "goal")
+					itemCodes[i + 1] = Game.ITEM_THE_GOAL;
+				else if (name == "radar")
+					itemCodes[i + 1] = Game.ITEM_BEACON;
+				else if (name == "shard")
+					itemCodes[i + 1] = Game.ITEM_SHARD;
+				else if (name == "spawn")
+					itemCodes[i + 1] = Game.ITEM_THE_SPAWN;
+			}
+			
+			return itemCodes;
+		}
+		
 	}
 
 }

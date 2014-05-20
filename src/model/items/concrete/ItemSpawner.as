@@ -6,27 +6,24 @@ package model.items.concrete
 	import controller.observers.IShardObserver;
 	import model.items.ItemBase;
 	import model.items.Items;
-	import model.metric.CellXY;
+	import model.items.structs.ItemParams;
 	import model.projectiles.Projectile;
 	import model.status.StatusReporter;
 	
 	public class ItemSpawner implements INewGameHandler, IShardObserver
-	{
-		private var binder:IBinder;
-		private var items:Items;
-		
+	{		
 		private var status:StatusReporter;
 		
-		private var tmpCell:CellXY;
+		private var itemParams:ItemParams;
 		
 		public function ItemSpawner(binder:IBinder, items:Items, status:StatusReporter) 
 		{
-			this.binder = binder;
-			this.items = items;
+			this.itemParams = new ItemParams();
+			
+			this.itemParams.binder = binder;
+			this.itemParams.items = items;
 			
 			this.status = status;
-			
-			this.tmpCell = new CellXY(0, 0);
 			
 			binder.notifier.addObserver(this);
 		}
@@ -34,22 +31,7 @@ package model.items.concrete
 		public function newGame():void
 		{
 			var map:XML = MapXML.getOne();
-			
-			var itemCodes:Array = new Array();
-			
-			for (var i:int = 0; i < map.tileset.length(); i++)
-			{
-				var name:String = map.tileset[i].@name;
-				
-				if (name == "hero")
-					itemCodes[i + 1] = Game.ITEM_CHARACTER;
-				else if (name == "goal")
-					itemCodes[i + 1] = Game.ITEM_THE_GOAL;
-				else if (name == "radar")
-					itemCodes[i + 1] = Game.ITEM_BEACON;
-				else if (name == "shard")
-					itemCodes[i + 1] = Game.ITEM_SHARD;
-			}
+			var itemCodes:Array = MapXML.getItemCodes();
 			
 			var objects:XMLList = map.objectgroup[0].object;
 			const LENGTH:int = objects.length();
@@ -63,45 +45,39 @@ package model.items.concrete
 				if (type == Game.ITEM_CHARACTER)
 					this.createCharacter(x, y);
 				else if (type == Game.ITEM_THE_GOAL)
-					this.createTheGoal(x, y);
+					this.createPassiveItem(Game.ITEM_THE_GOAL, x, y, 1, 1);
 				else if (type == Game.ITEM_SHARD)
 					this.createShard(x, y);
 				else if (type == Game.ITEM_BEACON)
-					this.createBeacon(x, y);
+					this.createPassiveItem(Game.ITEM_BEACON, x, y, 1, 1);
+				else if (type == Game.ITEM_THE_SPAWN)
+					this.createPassiveItem(Game.ITEM_THE_SPAWN, x, y, 3, 3);
 			}
 		}
 		
-		private function createBeacon(x:int, y:int):void 
+		private function createPassiveItem(type:int, x:int, y:int,
+		                                   width:int, height:int):void
 		{
-			this.createPassiveItem(Game.ITEM_BEACON, x, y);
-		}
-		
-		private function createTheGoal(x:int, y:int):void
-		{
-			this.createPassiveItem(Game.ITEM_THE_GOAL, x, y);
-		}
-		
-		private function createPassiveItem(type:int, x:int, y:int):void
-		{
-			this.tmpCell.setValue(x, y);
+			this.setParams(x, y, width, height);
 			
-			new PassiveItem(type, this.items, this.binder, this.tmpCell);
+			new PassiveItem(type, this.itemParams);
 		}
 		
 		
 		private function createCharacter(x:int, y:int):void
 		{
-			this.tmpCell.setValue(x, y);
-			var hero:ItemBase = new Character(this.items, this.binder, this.tmpCell);
+			this.setParams(x, y, 1, 1);
+			
+			var hero:ItemBase = new Character(this.itemParams);
 			
 			this.status.newHero(hero);
 		}
 		
 		private function createShard(x:int, y:int):void
 		{
-			this.tmpCell.setValue(x, y);
+			this.setParams(x, y, 1, 1);
 			
-			new Shard(this.items, this.binder, this.tmpCell);
+			new Shard(this.itemParams);
 		}
 		//TODO: remove doublecode
 		
@@ -112,6 +88,15 @@ package model.items.concrete
 		public function shardFellDown(shard:Projectile):void
 		{
 			this.createShard(shard.cell.x, shard.cell.y);
+		}
+		
+		private function setParams(x:int, y:int, width:int, height:int):void
+		{
+			this.itemParams.x = x;
+			this.itemParams.y = y - height + 1;
+			
+			this.itemParams.width = width;
+			this.itemParams.height = height;
 		}
 	}
 

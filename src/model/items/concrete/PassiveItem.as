@@ -1,17 +1,15 @@
 package model.items.concrete 
 {
-	import binding.IBinder;
 	import model.items.ItemBase;
-	import model.items.Items;
-	import model.metric.ICoordinated;
+	import model.items.structs.ItemParams;
 	
 	internal class PassiveItem extends ItemBase
 	{
 		private var _type:int;
 		
-		public function PassiveItem(type:int, items:Items, binder:IBinder, cell:ICoordinated) 
+		public function PassiveItem(type:int, params:ItemParams) 
 		{
-			super(items, binder, cell);
+			super(params);
 			
 			this._type = type;
 		}

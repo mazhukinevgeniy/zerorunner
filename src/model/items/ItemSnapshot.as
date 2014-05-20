@@ -8,6 +8,9 @@ package model.items
 		internal var _x:Number;
 		internal var _y:Number;
 		
+		internal var _width:int;
+		internal var _height:int;
+		
 		internal var _occ:int;
 		internal var _prog:Number;
 		
@@ -23,6 +26,9 @@ package model.items
 		
 		public function get x():Number { return this._x; }
 		public function get y():Number { return this._y; }
+		
+		public function get width():int { return this._width; }
+		public function get height():int { return this._height; }
 		
 		public function get occupation():int { return this._occ; }
 		public function get progress():Number { return this._prog; }

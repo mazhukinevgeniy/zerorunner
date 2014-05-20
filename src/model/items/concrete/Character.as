@@ -1,14 +1,12 @@
 package model.items.concrete 
 {
-	import binding.IBinder;
 	import controller.interfaces.IGameController;
 	import model.interfaces.IInput;
 	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IScene;
 	import model.items.ItemBase;
-	import model.items.Items;
+	import model.items.structs.ItemParams;
 	import model.metric.DCellXY;
-	import model.metric.ICoordinated;
 	import utils.getCellId;
 	import utils.isCellSolid;
 	
@@ -21,15 +19,15 @@ package model.items.concrete
 		private var scene:IScene;
 		private var items:IItemSnapshotter;
 		
-		public function Character(items:Items, binder:IBinder, cell:ICoordinated) 
+		public function Character(params:ItemParams) 
 		{
-			this.gameController = binder.gameController;
+			this.gameController = params.binder.gameController;
 			
-			this.input = binder.input;
-			this.scene = binder.scene;
-			this.items = binder.itemSnapshotter;
+			this.input = params.binder.input;
+			this.scene = params.binder.scene;
+			this.items = params.binder.itemSnapshotter;
 			
-			super(items, binder, cell);
+			super(params);
 		}
 		
 		override protected function act():void 

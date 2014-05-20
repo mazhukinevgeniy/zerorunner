@@ -2,6 +2,7 @@ package model.items
 {
 	import binding.IBinder;
 	import model.interfaces.IStatus;
+	import model.items.structs.ItemParams;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	import utils.distance;
@@ -12,6 +13,8 @@ package model.items
 	{
 		private var _x:int, _y:int;
 		
+		internal var width:int;
+		internal var height:int;
 		
 		internal var direction:int;
 		
@@ -24,17 +27,28 @@ package model.items
 		private var items:Items;
 		private var status:IStatus;
 		
-		public function ItemBase(items:Items, binder:IBinder, cell:ICoordinated) 
+		public function ItemBase(params:ItemParams) 
 		{
-			this.items = items;
-			this.status = binder.gameStatus;
+			this.items = params.items;
+			this.status = params.binder.gameStatus;
 			
 			this.direction = Game.DIRECTION_RIGHT;
 			
-			this._x = cell.x;
-			this._y = cell.y;
+			this._x = params.x;
+			this._y = params.y;
 			
-			this.items.addItem(this);
+			this.width = params.width;
+			this.height = params.height;
+			
+			for (var i:int = params.x + params.width - 1; i >= params.x; i--)
+				for (var j:int = params.y + params.height - 1; j >= params.y; j--)
+				{
+					this._x = i;
+					this._y = j;
+					
+					this.items.addItem(this);
+				}
+			//TODO: rewrite, not clean enough
 			
 			if (this.isActive)
 				this.items.notifier.addActor(this);
