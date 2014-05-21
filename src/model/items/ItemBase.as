@@ -87,13 +87,6 @@ package model.items
 		{
 			if (this.isDestructible)
 			{
-				this.items.removeItem(this);
-				
-				if (this.isActive)
-					this.items.notifier.removeActor(this);
-			}
-			else
-			{
 				this.occupation = Game.OCCUPATION_UNSTABLE;
 				
 				this.direction = Game.DIRECTION_RIGHT;
@@ -140,7 +133,13 @@ package model.items
 		
 		protected function act():void {	}
 		
-		protected function onUnstabilized():void { }
+		protected function onUnstabilized():void 
+		{ 
+			this.items.removeItem(this);
+			
+			if (this.isActive)
+				this.items.notifier.removeActor(this);
+		}
 		
 		
 		public function get type():int { throw new Error(); }
