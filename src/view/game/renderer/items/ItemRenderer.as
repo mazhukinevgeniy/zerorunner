@@ -24,6 +24,11 @@ package view.game.renderer.items
 		
 		private var sprites:Vector.<Vector.<Vector.<Vector.<CenteredImage>>>>;
 		
+		/**
+		 * Cells we've drawn since the last reset
+		 */
+		private var cells:Vector.<int>;
+		
 		public function ItemRenderer(binder:IBinder) 
 		{
 			this.items = binder.itemSnapshotter;
@@ -35,10 +40,12 @@ package view.game.renderer.items
 			
 			
 			var changes:Changes = new Changes();
-			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH + 2);
-			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH + 2);
-			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 2);
-			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH / 2 + 3);
+			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH / 2 + 3);
+			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT / 2 + 3);
+			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT / 2 + 3);
+			
+			this.cells = new Vector.<int>();
 			
 			super(binder, changes);
 		}
@@ -58,6 +65,7 @@ package view.game.renderer.items
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_UNSTABLE, this.RIGHT, "hero_unstable"),
 						
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_FREE, this.RIGHT, "stone_down"),
+						new Array(Game.ITEM_SHARD, Game.OCCUPATION_UNSTABLE, this.RIGHT, "stone_down"),
 						
 						new Array(Game.ITEM_THE_GOAL, Game.OCCUPATION_FREE, this.RIGHT, "tmp_goal"),
 						new Array(Game.ITEM_BEACON, Game.OCCUPATION_FREE, this.RIGHT, "radar"),
@@ -105,12 +113,35 @@ package view.game.renderer.items
 			}
 		}
 		
+		override public function reset():void 
+		{
+			super.reset();
+			
+			this.cells.length = 0;
+		}
+		
 		override protected function renderCell(x:int, y:int):void 
 		{
 			var item:ItemSnapshot = this.items.getItemSnapshot(getCellId(x, y));
 			
 			if (item)
 			{
+				if (item.width > 1 || item.height > 1)
+				{
+					/* Then item is stationary */
+					
+					var trueId:int = getCellId(item.x, item.y);
+					
+					if (this.cells.indexOf(trueId) != -1)
+					{
+						return;
+					}
+					else
+					{
+						this.cells.push(trueId);
+					}
+				}
+				
 				var trueX:int = normalize(x);
 				var trueY:int = normalize(y);
 				

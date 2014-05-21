@@ -64,10 +64,10 @@ package view.game.renderer.scene
 			
 			
 			var changes:Changes = new Changes();
-			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH + 2);
-			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH + 2);
-			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT + 1 + 3);
-			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT + 2);
+			changes._dx = -(View.CELLS_IN_VISIBLE_WIDTH / 2 + 3);
+			changes.dx = (View.CELLS_IN_VISIBLE_WIDTH / 2 + 3);
+			changes._dy = -(View.CELLS_IN_VISIBLE_HEIGHT / 2 + 1 + 3);
+			changes.dy = (View.CELLS_IN_VISIBLE_HEIGHT / 2 + 3);
 			
 			super(binder, changes);
 			
