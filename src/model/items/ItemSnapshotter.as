@@ -5,20 +5,18 @@ package model.items
 	
 	internal class ItemSnapshotter implements IItemSnapshotter
 	{
-		private var items:Items;
+		private var storage:ItemStorage;
 		private var pool:ItemSnapshotPool;
 		
-		public function ItemSnapshotter(items:Items, binder:IBinder) 
+		public function ItemSnapshotter(storage:ItemStorage, binder:IBinder) 
 		{
-			binder.addBindable(this, IItemSnapshotter);
-			
-			this.items = items;
+			this.storage = storage;
 			this.pool = new ItemSnapshotPool(binder);
 		}
 		
 		public function getItemSnapshot(cellId:int):ItemSnapshot
 		{
-			var item:ItemBase = this.items.getItem(cellId);
+			var item:ItemBase = this.storage.getItem(cellId);
 			var shot:ItemSnapshot;
 			
 			if (item)

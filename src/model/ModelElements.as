@@ -28,9 +28,9 @@ package model
 			
 			binder.addBindable(new Scene(binder), IScene);
 			
-			var items:Items = new Items(binder, status);
+			new Items(binder, status);
 			
-			binder.addBindable(new Projectiles(binder, items), IProjectiles);
+			binder.addBindable(new Projectiles(binder), IProjectiles);
 			binder.addBindable(new Collectibles(binder), ICollectibles);
 			
 			binder.addBindable(new Exploration(binder), IExploration);

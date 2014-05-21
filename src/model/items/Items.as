@@ -1,63 +1,49 @@
 package model.items 
 {
 	import binding.IBinder;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import controller.observers.IShardObserver;
+	import model.interfaces.IItemSnapshotter;
 	import model.items.concrete.ItemSpawner;
+	import model.projectiles.Projectile;
 	import model.status.StatusReporter;
+	import utils.getCellId;
 	
-	public class Items implements INewGameHandler,
-								  IQuitGameHandler
+	/**
+	 * This class manages interaction between Items and the other modules
+	 */
+	public class Items implements IShardObserver
 	{
-		private var items:Array;
-		
+		internal var storage:ItemStorage;
 		internal var notifier:ItemNotifier;
+		internal var spawner:ItemSpawner;
 		
 		public function Items(binder:IBinder, status:StatusReporter) 
 		{
-			binder.notifier.addObserver(this);
-			
+			this.storage = new ItemStorage(binder);
 			this.notifier = new ItemNotifier(binder);
+			this.spawner = new ItemSpawner(binder, this, status);
 			
-			new ItemSpawner(binder, this, status);
-			new ItemSnapshotter(this, binder);
-		}
-		
-		public function newGame():void
-		{
-			this.items = new Array();
-		}
-		
-		public function quitGame():void
-		{
-			this.items = null;
+			binder.addBindable(new ItemSnapshotter(this.storage, binder), 
+			                   IItemSnapshotter);
+			binder.notifier.addObserver(this);
 		}
 		
 		
-		
-		internal function addItem(item:ItemBase, cellId:int):void
+		public function shardFellDown(shard:Projectile):void
 		{
-			if (this.items[cellId])
-				throw new Error();
-			this.items[cellId] = item;
-		}
-		
-		internal function removeItem(cellId:int):void
-		{
-			this.items[cellId] = null;
-		}
-		
-		internal function getItem(cellId:int):ItemBase
-		{
-			return this.items[cellId];
-		}
-		
-		//TODO: temporary and ugly, must find how to destroy items
-		public function smashItem(cellId:int):void
-		{
-			var item:ItemBase = this.items[cellId];
+			var cellId:int = getCellId(shard.cell.x, shard.cell.y);
 			
-			item.tryDestruction();
+			var itemHit:ItemBase = this.storage.getItem(cellId);
+			
+			
+			if (itemHit)
+			{
+				itemHit.tryDestruction();
+			}
+			else
+			{
+				this.spawner.createShard(shard.cell.x, shard.cell.y);
+			}
 		}
 	}
 

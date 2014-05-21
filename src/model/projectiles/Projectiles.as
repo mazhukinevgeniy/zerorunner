@@ -6,11 +6,8 @@ package model.projectiles
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
-	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IProjectiles;
 	import model.interfaces.IScene;
-	import model.items.Items;
-	import model.items.ItemSnapshot;
 	import model.metric.ICoordinated;
 	import utils.getCellId;
 	import utils.normalize;
@@ -25,20 +22,14 @@ package model.projectiles
 		
 		private var clouds:Vector.<CloudBase>;
 		
-		private var snapshotter:IItemSnapshotter;
 		private var scene:IScene;
 		private var projectileController:IProjectileController;
 		
-		private var items:Items;
-		
-		public function Projectiles(binder:IBinder, items:Items) 
+		public function Projectiles(binder:IBinder) 
 		{
 			binder.notifier.addObserver(this);
 			
-			this.items = items;
-			
 			this.scene = binder.scene;
-			this.snapshotter = binder.itemSnapshotter;
 			this.projectileController = binder.projectileController;
 			
 			this.unusedProjectiles = new Vector.<Projectile>();
@@ -134,21 +125,7 @@ package model.projectiles
 			
 			if (projectile.type == Game.PROJECTILE_SHARD)
 			{
-				var x:int = projectile.cell.x;
-				var y:int = projectile.cell.y;
-				
-				var cellId:int = getCellId(x, y);
-				
-				var target:ItemSnapshot = this.snapshotter.getItemSnapshot(cellId);
-				
-				if (target)
-				{
-					this.items.smashItem(cellId);
-				}
-				else if (this.scene.getSceneCell(cellId) == Game.SCENE_GROUND)
-				{
-					this.projectileController.shardFellDown(projectile);
-				}
+				this.projectileController.shardFellDown(projectile);
 			}
 		}
 		

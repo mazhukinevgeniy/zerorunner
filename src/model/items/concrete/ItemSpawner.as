@@ -3,14 +3,12 @@ package model.items.concrete
 	import assets.xml.MapXML;
 	import binding.IBinder;
 	import controller.observers.INewGameHandler;
-	import controller.observers.IShardObserver;
 	import model.items.ItemBase;
 	import model.items.Items;
 	import model.items.structs.ItemParams;
-	import model.projectiles.Projectile;
 	import model.status.StatusReporter;
 	
-	public class ItemSpawner implements INewGameHandler, IShardObserver
+	public class ItemSpawner implements INewGameHandler
 	{		
 		private var status:StatusReporter;
 		
@@ -63,7 +61,6 @@ package model.items.concrete
 			new PassiveItem(type, this.itemParams);
 		}
 		
-		
 		private function createCharacter(x:int, y:int):void
 		{
 			this.setParams(x, y, 1, 1);
@@ -73,22 +70,14 @@ package model.items.concrete
 			this.status.newHero(hero);
 		}
 		
-		private function createShard(x:int, y:int):void
+		
+		public function createShard(x:int, y:int):void
 		{
 			this.setParams(x, y, 1, 1);
 			
 			new Shard(this.itemParams);
 		}
-		//TODO: remove doublecode
 		
-		
-		
-		
-		
-		public function shardFellDown(shard:Projectile):void
-		{
-			this.createShard(shard.cell.x, shard.cell.y);
-		}
 		
 		private function setParams(x:int, y:int, width:int, height:int):void
 		{

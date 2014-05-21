@@ -24,13 +24,16 @@ package model.items
 		internal var framesOccupated:int;
 		internal var framesUntilOccupationEnds:int;
 		
+		private var storage:ItemStorage;
+		private var notifier:ItemNotifier;
 		
-		private var items:Items;
 		private var status:IStatus;
 		
 		public function ItemBase(params:ItemParams) 
 		{
-			this.items = params.items;
+			this.storage = params.items.storage;
+			this.notifier = params.items.notifier;
+			
 			this.status = params.binder.gameStatus;
 			
 			this.direction = Game.DIRECTION_RIGHT;
@@ -46,11 +49,11 @@ package model.items
 				{
 					var cellId:int = getCellId(i, j);
 					
-					this.items.addItem(this, cellId);
+					this.storage.addItem(this, cellId);
 				}
 			
 			if (this.isActive)
-				this.items.notifier.addActor(this);
+				this.notifier.addActor(this);
 		}
 		
 		internal function gameFrame(frame:int):void
@@ -100,13 +103,13 @@ package model.items
 		
 		final protected function startMovingBy(change:DCellXY):void
 		{
-			this.items.removeItem(getCellId(this._x, this._y));
+			this.storage.removeItem(getCellId(this._x, this._y));
 			this.direction = getDirection(change);
 			
 			this._x = normalize(change.x + this._x);
 			this._y = normalize(change.y + this._y);
 			
-			this.items.addItem(this, getCellId(this._x, this._y));
+			this.storage.addItem(this, getCellId(this._x, this._y));
 			
 			this.occupation = Game.OCCUPATION_MOVING;
 			this.framesUntilOccupationEnds = this.movespeed * Game.FRAMES_PER_CYCLE;
@@ -134,10 +137,10 @@ package model.items
 		
 		protected function onUnstabilized():void 
 		{ 
-			this.items.removeItem(getCellId(this._x, this._y));
+			this.storage.removeItem(getCellId(this._x, this._y));
 			
 			if (this.isActive)
-				this.items.notifier.removeActor(this);
+				this.notifier.removeActor(this);
 		}
 		
 		
