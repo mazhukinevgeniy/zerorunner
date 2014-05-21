@@ -54,6 +54,9 @@ package model.items
 			
 			if (this.isActive)
 				this.notifier.addActor(this);
+			
+			this.framesOccupated = this.framesUntilOccupationEnds = 
+				1; //so we don't divide by zero when calculating progress
 		}
 		
 		internal function gameFrame(frame:int):void
@@ -68,7 +71,6 @@ package model.items
 				if (this.framesOccupated == this.framesUntilOccupationEnds)
 				{
 					this.occupation = Game.OCCUPATION_FREE;
-					this.framesOccupated = this.framesUntilOccupationEnds = 0;
 				}
 			}
 			else if (this.occupation == Game.OCCUPATION_UNSTABLE)
@@ -89,12 +91,15 @@ package model.items
 		{
 			if (this.isDestructible)
 			{
+				if (this.occupation == Game.OCCUPATION_MOVING)
+				{
+					//keep the progress
+				}
+				
 				this.occupation = Game.OCCUPATION_UNSTABLE;
 				
 				this.direction = Game.DIRECTION_RIGHT;
 			}
-			
-			//TODO: adress the issue: this thing can interrupt walking
 		}
 		
 		

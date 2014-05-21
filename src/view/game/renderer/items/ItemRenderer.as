@@ -167,7 +167,9 @@ package view.game.renderer.items
 			var direction:int = item.direction;
 			
 			var animationLength:int = this.sprites[type][occupation][direction].length;
-			var frame:int = int(item.progress * animationLength);
+			var frame:int = animationLength == 1 ? 
+			                0 : 
+							int(item.progress * animationLength);
 			
 			return this.sprites[type][occupation][direction][frame];
 		}

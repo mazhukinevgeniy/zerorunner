@@ -31,27 +31,30 @@ package model.items
 				shot._width = item.width;
 				shot._height = item.height;
 				
-				shot._prog = Number(item.framesOccupated) / item.framesUntilOccupationEnds;
+				shot._prog = Number(item.framesOccupated) / 
+							        item.framesUntilOccupationEnds;
 				
 				shot._x = Number(item.x);
 				shot._y = Number(item.y);
 				
-				if (item.occupation == Game.OCCUPATION_MOVING)
-				{
-					var dir:int = item.direction;
-					
-					if (dir == Game.DIRECTION_RIGHT)
-						shot._x -= 1 - shot._prog;
-					else if (dir == Game.DIRECTION_TOP)
-						shot._y += 1 - shot._prog;
-					else if (dir == Game.DIRECTION_LEFT)
-						shot._x += 1 - shot._prog;
-					else if (dir == Game.DIRECTION_DOWN)
-						shot._y -= 1 - shot._prog;
-				}
+				this.setExactCoordinatesFor(shot);
 			}
 			
 			return shot;
+		}
+		
+		private function setExactCoordinatesFor(shot:ItemSnapshot):void
+		{
+			var dir:int = shot._direction;
+			
+			if (dir == Game.DIRECTION_RIGHT)
+				shot._x -= 1 - shot._prog;
+			else if (dir == Game.DIRECTION_TOP)
+				shot._y += 1 - shot._prog;
+			else if (dir == Game.DIRECTION_LEFT)
+				shot._x += 1 - shot._prog;
+			else if (dir == Game.DIRECTION_DOWN)
+				shot._y -= 1 - shot._prog;
 		}
 	}
 
