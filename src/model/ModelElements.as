@@ -36,6 +36,7 @@ package model
 			binder.addBindable(new Exploration(binder), IExploration);
 			
 			new Time(binder);
+			new VictoryDetector(binder);
 		}
 		
 	}
