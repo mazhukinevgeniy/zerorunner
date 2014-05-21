@@ -6,6 +6,7 @@ package model.items
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
 	import utils.distance;
+	import utils.getCellId;
 	import utils.getDirection;
 	import utils.normalize;
 	
@@ -40,15 +41,13 @@ package model.items
 			this.width = params.width;
 			this.height = params.height;
 			
-			for (var i:int = params.x + params.width - 1; i >= params.x; i--)
-				for (var j:int = params.y + params.height - 1; j >= params.y; j--)
+			for (var i:int = this._x; i < this._x + this.width; i++)
+				for (var j:int = this._y; j < this._y + this.height; j++)
 				{
-					this._x = i;
-					this._y = j;
+					var cellId:int = getCellId(i, j);
 					
-					this.items.addItem(this);
+					this.items.addItem(this, cellId);
 				}
-			//TODO: rewrite, not clean enough
 			
 			if (this.isActive)
 				this.items.notifier.addActor(this);
@@ -101,13 +100,13 @@ package model.items
 		
 		final protected function startMovingBy(change:DCellXY):void
 		{
-			this.items.removeItem(this);
+			this.items.removeItem(getCellId(this._x, this._y));
 			this.direction = getDirection(change);
 			
 			this._x = normalize(change.x + this._x);
 			this._y = normalize(change.y + this._y);
 			
-			this.items.addItem(this);
+			this.items.addItem(this, getCellId(this._x, this._y));
 			
 			this.occupation = Game.OCCUPATION_MOVING;
 			this.framesUntilOccupationEnds = this.movespeed * Game.FRAMES_PER_CYCLE;
@@ -135,7 +134,7 @@ package model.items
 		
 		protected function onUnstabilized():void 
 		{ 
-			this.items.removeItem(this);
+			this.items.removeItem(getCellId(this._x, this._y));
 			
 			if (this.isActive)
 				this.items.notifier.removeActor(this);

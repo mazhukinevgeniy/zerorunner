@@ -5,7 +5,6 @@ package model.items
 	import controller.observers.IQuitGameHandler;
 	import model.items.concrete.ItemSpawner;
 	import model.status.StatusReporter;
-	import utils.getCellId;
 	
 	public class Items implements INewGameHandler,
 								  IQuitGameHandler
@@ -36,18 +35,16 @@ package model.items
 		
 		
 		
-		internal function addItem(item:ItemBase):void
+		internal function addItem(item:ItemBase, cellId:int):void
 		{
-			var cellId:int = getCellId(item.x, item.y);
-			
 			if (this.items[cellId])
 				throw new Error();
 			this.items[cellId] = item;
 		}
 		
-		internal function removeItem(item:ItemBase):void
+		internal function removeItem(cellId:int):void
 		{
-			this.items[getCellId(item.x, item.y)] = null;
+			this.items[cellId] = null;
 		}
 		
 		internal function getItem(cellId:int):ItemBase
