@@ -3,7 +3,6 @@ package view.game.renderer.effects
 	import binding.IBinder;
 	import controller.observers.IShardObserver;
 	import model.projectiles.Projectile;
-	import view.game.renderer.structs.Effect;
 	
 	
 	internal class ShardTracker extends TrackerBase implements IShardObserver
@@ -16,12 +15,10 @@ package view.game.renderer.effects
 		
 		public function shardFellDown(shard:Projectile):void
 		{
-			var effect:Effect = new Effect();
+			var duration:int = EffectRenderer.STONE_BOOM_LENGTH * 
+			                   EffectRenderer.STONE_BOOM_SPEED_FACTOR;
 			
-			effect.duration = EffectRenderer.STONE_BOOM_LENGTH * 
-			                  EffectRenderer.STONE_BOOM_SPEED_FACTOR;
-			
-			this.addEffect(effect, shard.cell);
+			this.addEffect(duration, shard.cell);
 		}
 	}
 

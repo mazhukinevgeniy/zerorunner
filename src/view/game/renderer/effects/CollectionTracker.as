@@ -3,7 +3,6 @@ package view.game.renderer.effects
 	import binding.IBinder;
 	import controller.observers.ICollectibleObserver;
 	import model.collectibles.Collectible;
-	import view.game.renderer.structs.Effect;
 	
 	internal class CollectionTracker extends TrackerBase implements ICollectibleObserver
 	{
@@ -15,12 +14,10 @@ package view.game.renderer.effects
 		
 		public function setCollectibleFound(collectible:Collectible):void
 		{
-			var effect:Effect = new Effect();
+			var duration:int = EffectRenderer.COLLECTION_LENGTH * 
+			                   EffectRenderer.COLLECTION_SPEED_FACTOR;
 			
-			effect.duration = EffectRenderer.COLLECTION_LENGTH * 
-			                  EffectRenderer.COLLECTION_SPEED_FACTOR;
-			
-			this.addEffect(effect, collectible);
+			this.addEffect(duration, collectible);
 		}
 	}
 

@@ -7,7 +7,6 @@ package view.game.renderer.effects
 	import starling.utils.AssetManager;
 	import utils.getCellId;
 	import view.game.renderer.structs.Changes;
-	import view.game.renderer.structs.Effect;
 	import view.game.renderer.SubRendererBase;
 	
 	public class EffectRenderer extends SubRendererBase

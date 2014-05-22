@@ -29,17 +29,38 @@ package utils
 			return struct;
 		}
 		
-		public function freeEverythingUsed():void
+		public function freeStruct(struct:Object):void
 		{
-			var struct:Object = this.used.pop();
+			var pos:int = this.used.indexOf(struct);
 			
-			while (struct)
+			if (pos != -1)
 			{
+				var length:int = this.used.length;
+				
+				if (pos == length - 1)
+					this.used.pop();
+				else
+					this.used[pos] = this.used.pop();
+				
 				this.free.push(struct);
-				struct = this.used.pop();
+			}
+			else
+			{
+				throw new Error("struct is free already");
 			}
 		}
+		
+		public function freeEverythingUsed():void
+        {
+            var struct:Object = this.used.pop();
+            
+            while (struct)
+            {
+                this.free.push(struct);
+                struct = this.used.pop();
+            }
+        }
+
 	}
-	//TODO: check if used everywhere where needed and possible
 
 }
