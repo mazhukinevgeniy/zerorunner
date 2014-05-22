@@ -1,5 +1,7 @@
 package model.projectiles 
 {
+	import binding.IBinder;
+	import flash.geom.Rectangle;
 	import utils.getCellId;
 	
 	/**
@@ -15,14 +17,14 @@ package model.projectiles
 		private var width:int;
 		private var height:int;
 		
-		public function AbsorbingCloud(projectiles:Projectiles, x:int, y:int, width:int, height:int) 
+		public function AbsorbingCloud(projectiles:Projectiles, binder:IBinder, area:Rectangle) 
 		{
 			this.projectiles = projectiles;
 			
-			this.tlcX = x;
-			this.tlcY = y;
-			this.width = width;
-			this.height = height;
+			this.tlcX = area.x;
+			this.tlcY = area.y;
+			this.width = area.width;
+			this.height = area.height;
 		}
 		
 		override internal function spawnProjectiles():void 

@@ -6,8 +6,8 @@ package model.projectiles
 	import controller.observers.IGameFrameHandler;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
+	import flash.geom.Rectangle;
 	import model.interfaces.IProjectiles;
-	import model.interfaces.IScene;
 	import model.metric.ICoordinated;
 	import utils.getCellId;
 	import utils.normalize;
@@ -17,19 +17,19 @@ package model.projectiles
 										IQuitGameHandler,
 										IGameFrameHandler
 	{
+		private var binder:IBinder;
+		
 		private var projectiles:Array;
 		private var unusedProjectiles:Vector.<Projectile>;
 		
 		private var clouds:Vector.<CloudBase>;
 		
-		private var scene:IScene;
 		private var projectileController:IProjectileController;
 		
 		public function Projectiles(binder:IBinder) 
 		{
 			binder.notifier.addObserver(this);
 			
-			this.scene = binder.scene;
 			this.projectileController = binder.projectileController;
 			
 			this.unusedProjectiles = new Vector.<Projectile>();
@@ -42,6 +42,8 @@ package model.projectiles
 				throw new Error("wrong map");
 			if (map.objectgroup[2].@name != "ProjectileAbsorbers")
 				throw new Error("wrong map");
+			
+			this.binder = binder;
 			
 			var shardClouds:XMLList = map.objectgroup[1].object;
 			this.spawnClouds(shardClouds, ShardCloud);
@@ -62,7 +64,9 @@ package model.projectiles
 				var width:int = 1 + int(list[j].@width) / 70;
 				var height:int = 1 + int(list[j].@height) / 70;
 				
-				this.clouds.push(new cloud(this, x, y, width, height));
+				var rect:Rectangle = new Rectangle(x, y, width, height);
+				
+				this.clouds.push(new cloud(this, this.binder, rect));
 			}
 		}
 		

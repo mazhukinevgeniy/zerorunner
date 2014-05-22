@@ -1,10 +1,16 @@
 package model.projectiles 
 {
+	import binding.IBinder;
+	import flash.geom.Rectangle;
+	import model.interfaces.IScene;
 	import utils.getCellId;
+	import utils.isCellSolid;
 	
 	public class ShardCloud extends CloudBase
 	{
 		private var projectiles:Projectiles;
+		
+		private var scene:IScene;
 		
 		private var tlcX:int;
 		private var tlcY:int;
@@ -12,14 +18,16 @@ package model.projectiles
 		private var width:int;
 		private var height:int;
 		
-		public function ShardCloud(projectiles:Projectiles, x:int, y:int, width:int, height:int) 
+		public function ShardCloud(projectiles:Projectiles, binder:IBinder, area:Rectangle) 
 		{
 			this.projectiles = projectiles;
 			
-			this.tlcX = x;
-			this.tlcY = y;
-			this.width = width;
-			this.height = height;
+			this.scene = binder.scene;
+			
+			this.tlcX = area.x;
+			this.tlcY = area.y;
+			this.width = area.width;
+			this.height = area.height;
 		}
 		
 		override internal function spawnProjectiles():void 
@@ -36,7 +44,10 @@ package model.projectiles
 					x = this.tlcX + this.width * Math.random();
 					y = this.tlcY + this.height * Math.random();
 					
-					if (!this.projectiles.getProjectile(getCellId(x, y)))
+					var cellId:int = getCellId(x, y);
+					
+					if (!this.projectiles.getProjectile(cellId) &&
+					    isCellSolid(this.scene.getSceneCell(cellId)))
 					{
 						this.projectiles.getNewProjectile(Game.PROJECTILE_SHARD, x, y);
 						
