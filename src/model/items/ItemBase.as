@@ -75,7 +75,7 @@ package model.items
 			}
 			else if (this.occupation == Game.OCCUPATION_UNSTABLE)
 			{
-				this.onUnstabilized();
+				
 			}
 			
 			if (frame == Game.FRAME_TO_ACT &&
@@ -98,7 +98,7 @@ package model.items
 				
 				this.occupation = Game.OCCUPATION_UNSTABLE;
 				
-				this.direction = Game.DIRECTION_RIGHT;
+				this.onUnstabilized();
 			}
 		}
 		

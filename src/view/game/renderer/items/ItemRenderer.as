@@ -63,6 +63,9 @@ package view.game.renderer.items
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.RIGHT, "front_dude", "front_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_MOVING, this.DOWN, "front_dude", "front_dude"),
 						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_UNSTABLE, this.RIGHT, "hero_unstable"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_UNSTABLE, this.TOP, "hero_unstable"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_UNSTABLE, this.LEFT, "hero_unstable"),
+						new Array(Game.ITEM_CHARACTER, Game.OCCUPATION_UNSTABLE, this.DOWN, "hero_unstable"),
 						
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_FREE, this.RIGHT, "stone_down"),
 						new Array(Game.ITEM_SHARD, Game.OCCUPATION_UNSTABLE, this.RIGHT, "stone_down"),
