@@ -1,17 +1,21 @@
 package model.items 
 {
 	import binding.IBinder;
+	import controller.observers.IGameFrameHandler;
 	import model.interfaces.IItemSnapshotter;
+	import utils.StructPool;
 	
-	internal class ItemSnapshotter implements IItemSnapshotter
+	internal class ItemSnapshotter implements IItemSnapshotter, IGameFrameHandler
 	{
 		private var storage:ItemStorage;
-		private var pool:ItemSnapshotPool;
+		private var pool:StructPool;
 		
 		public function ItemSnapshotter(storage:ItemStorage, binder:IBinder) 
 		{
 			this.storage = storage;
-			this.pool = new ItemSnapshotPool(binder);
+			this.pool = new StructPool(ItemSnapshot);
+			
+			binder.notifier.addObserver(this);
 		}
 		
 		public function getItemSnapshot(cellId:int):ItemSnapshot
@@ -21,7 +25,7 @@ package model.items
 			
 			if (item)
 			{
-				shot = this.pool.getSnapshot();
+				shot = this.pool.getStruct();
 				
 				shot._type = item.type;
 				
@@ -55,6 +59,15 @@ package model.items
 				shot._x += 1 - shot._prog;
 			else if (dir == Game.DIRECTION_DOWN)
 				shot._y -= 1 - shot._prog;
+		}
+		
+		
+		public function gameFrame(frame:int):void
+		{
+			if (frame == Game.FRAME_TO_RUN_CATACLYSM)
+			{
+				this.pool.freeEverythingUsed();
+			}
 		}
 	}
 

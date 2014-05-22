@@ -41,7 +41,6 @@ package model.items
 		{
 			return this._occ == Game.OCCUPATION_FREE;
 		}
-		//TODO: the whole snapshot thing desires its own package
 	}
 
 }
