@@ -11,6 +11,7 @@ package view.game
 	public function initializeGameView(binder:IBinder, root:DisplayObjectContainer):void
 	{
 		new Renderer(binder, root);
+		new GameCallouts(binder, root);
 		
 		var navigator:ScreenNavigator = new ScreenNavigator();
 		navigator.addEventListener(Event.CHANGE, createNavigatorListener(binder));

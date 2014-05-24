@@ -1,6 +1,7 @@
 package starling.tweaks 
 {
 	import assets.AssetLoader;
+	import feathers.controls.Callout;
 	import feathers.controls.text.TextFieldTextRenderer;
 	import feathers.core.FeathersControl;
 	import feathers.core.FocusManager;
@@ -46,7 +47,11 @@ package starling.tweaks
 			 * IF we have keyboard user, we give him hotkeys.
 			 * It's, like, caring about keyboard user or NOT caring about extra sprites.
 			 */
+			
 			FeathersControl.defaultTextRendererFactory = this.getTrueTypeTextRenderer;
+			
+			Callout.stagePaddingBottom = Callout.stagePaddingLeft =
+				Callout.stagePaddingRight = Callout.stagePaddingTop = 10;
 			
 			new AssetLoader(this.boss);
 		}

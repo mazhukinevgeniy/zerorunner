@@ -29,7 +29,6 @@ package view
 			new Sounds(binder);
 			new EventListener(binder, Starling.current.nativeStage);
 			new RootSwapper(this.shellRoot, this.gameRoot, binder);
-			new CalloutManager(binder, this.shellRoot, this.gameRoot);
 		}
 		
 		private function createRoots(root:DisplayObjectContainer):void

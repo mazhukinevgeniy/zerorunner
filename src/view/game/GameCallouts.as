@@ -1,38 +1,27 @@
-package view 
+package view.game 
 {
 	import binding.IBinder;
 	import controller.observers.ICollectibleObserver;
-	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
 	import feathers.controls.Callout;
 	import feathers.controls.Label;
 	import model.collectibles.Collectible;
-	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import starling.events.EnterFrameEvent;
 	
-	internal class CalloutManager implements ICollectibleObserver,
-	                                         INewGameHandler,
-											 IQuitGameHandler
+	internal class GameCallouts implements ICollectibleObserver,
+										   IQuitGameHandler
 	{
-		private var gameRoot:DisplayObjectContainer;
-		private var shellRoot:DisplayObjectContainer;
-		
-		private var gameOrigin:DisplayObject;
+		private var gameOrigin:Quad;
 		
 		private var collectedLabel:Label;
 		
 		private var currentCallout:Callout;
 		private var countdown:int;
 		
-		public function CalloutManager(binder:IBinder, 
-		                               shellRoot:DisplayObjectContainer, 
-									   gameRoot:DisplayObjectContainer) 
-		{
-			this.gameRoot = gameRoot;
-			this.shellRoot = shellRoot;
-			
+		public function GameCallouts(binder:IBinder, gameRoot:DisplayObjectContainer) 
+		{			
 			binder.notifier.addObserver(this);
 			
 			this.collectedLabel = new Label();
@@ -43,12 +32,9 @@ package view
 			this.gameOrigin.x = View.WIDTH * 6 / 7;
 			this.gameOrigin.y = View.HEIGHT;
 			
-			this.gameRoot.addChild(this.gameOrigin);
+			gameRoot.addChild(this.gameOrigin);
 			
-			Callout.stagePaddingBottom = Callout.stagePaddingLeft =
-				Callout.stagePaddingRight = Callout.stagePaddingTop = 10;
-			
-			this.gameRoot.parent.addEventListener(
+			gameRoot.addEventListener(
 				EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 		}
 		
@@ -66,17 +52,10 @@ package view
 			}
 		}
 		
-		public function newGame():void
-		{
-			this.countdown = View.CALLOUT_LENGTH;
-		}
-		
 		public function quitGame():void
 		{
 			if (this.currentCallout)
 				this.currentCallout.close();
-			
-			this.countdown = View.CALLOUT_LENGTH;
 		}
 		
 		private function handleEnterFrame():void
