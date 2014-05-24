@@ -6,7 +6,6 @@ package view
 	import controller.observers.IQuitGameHandler;
 	import feathers.controls.Callout;
 	import feathers.controls.Label;
-	import feathers.core.PopUpManager;
 	import model.collectibles.Collectible;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
@@ -35,8 +34,6 @@ package view
 			this.shellRoot = shellRoot;
 			
 			binder.notifier.addObserver(this);
-			
-			PopUpManager.root = shellRoot;
 			
 			this.collectedLabel = new Label();
 			this.collectedLabel.text = "NEW COLLECTIBLE";
@@ -71,14 +68,11 @@ package view
 		
 		public function newGame():void
 		{
-			PopUpManager.root = this.gameRoot;
-			
 			this.countdown = View.CALLOUT_LENGTH;
 		}
 		
 		public function quitGame():void
 		{
-			PopUpManager.root = this.shellRoot;
 			if (this.currentCallout)
 				this.currentCallout.close();
 			
