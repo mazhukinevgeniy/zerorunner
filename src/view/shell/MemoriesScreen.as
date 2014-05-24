@@ -3,6 +3,7 @@ package view.shell
 	import binding.IBinder;
 	import controller.observers.ICollectibleObserver;
 	import feathers.controls.Button;
+	import feathers.controls.Callout;
 	import feathers.controls.Label;
 	import feathers.controls.LayoutGroup;
 	import feathers.controls.Screen;
@@ -15,6 +16,7 @@ package view.shell
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.TouchEvent;
 	import starling.textures.TextureAtlas;
 	import view.shell.controls.SingularMemory;
 	import view.shell.events.ShellEvent;
@@ -30,6 +32,12 @@ package view.shell
 		
 		private var body:LayoutGroup;
 		
+		private var memories:Vector.<SingularMemory>;
+		
+		
+		private var tmpLabel:Label;
+		private var currentCallout:Callout;
+		
 		public function MemoriesScreen(binder:IBinder) 
 		{
 			super();
@@ -37,11 +45,14 @@ package view.shell
 			this.save = binder.save;
 			this.collectibles = binder.collectibles;
 			
+			this.memories = new Vector.<SingularMemory>(Game.NUMBER_OF_COLLECTIBLES, true);
+			
 			this.atlas = binder.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			
 			binder.notifier.addObserver(this);
 			
 			this.initializeBody();
+			
 			
 			
 			var quit:Button = createButton("BACK", ShellTheme.NAVIGATION_BUTTON);
@@ -73,6 +84,9 @@ package view.shell
 			this.body.layout = layout;
 			
 			this.addChild(this.body);
+			
+			this.addEventListener(TouchEvent.TOUCH, this.handleTouch);
+			this.tmpLabel = new Label();
 		}
 		
 		
@@ -109,6 +123,7 @@ package view.shell
 			}
 			
 			this.body.addChild(mem);
+			this.memories[this.body.numChildren - 1] = mem;
 		}
 		
 		public function setCollectibleFound(collectible:Collectible):void
@@ -117,14 +132,46 @@ package view.shell
 		}
 		
 		
-		
-		
-		
+		private function handleTouch(event:TouchEvent):void
+		{
+			var calloutShown:Boolean = false;
+			
+			for (var i:int = 0; i < Game.NUMBER_OF_COLLECTIBLES; i++)
+			{
+				var mem:SingularMemory = this.memories[i];
+				
+				if (event.interactsWith(mem))
+				{
+					calloutShown = true;
+					
+					if (!this.currentCallout || this.currentCallout.origin != mem)
+					{
+						this.tmpLabel.text = "memory " + mem.type.toString();
+						//TODO: design the view
+						
+						if (this.currentCallout && this.currentCallout.parent)
+							this.currentCallout.close(false);
+						
+						this.currentCallout = Callout.show(this.tmpLabel, mem, Callout.DIRECTION_ANY, false);
+					}
+					
+					break;
+				}
+			}
+			
+			if (!calloutShown)
+				if (this.currentCallout && this.currentCallout.parent)
+				{
+					this.currentCallout.close(false);
+					this.currentCallout = null;
+				}
+		}
 		
 		private function handleQuitTriggered():void
 		{
 			this.dispatchEventWith(ShellEvent.SHOW_MAIN);
 		}
 	}
+	//TODO: this class is big and ugly, must fix it
 
 }
