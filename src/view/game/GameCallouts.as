@@ -46,7 +46,7 @@ package view.game
 					throw new Error("can't handle callout overlap");
 				else
 				{
-					this.currentCallout = Callout.show(this.collectedLabel, this.gameOrigin);
+					this.currentCallout = Callout.show(this.collectedLabel, this.gameOrigin, Callout.DIRECTION_ANY, false);
 					this.countdown = View.CALLOUT_LENGTH;
 				}
 			}
