@@ -1,60 +1,60 @@
 <atlas numImages="57">
   <texture file="sprites0.png" trans="true">
-    <image name="_1" x="281" y="233" width="70" height="70" trans="false"/>
-    <image name="_11" x="282" y="97" width="32" height="51" yOffset="19" transWidth="70" transHeight="70"/>
-    <image name="_1_bot" x="211" y="443" width="70" height="69" transHeight="70"/>
-    <image name="_1_mid" x="211" y="373" width="70" height="70"/>
-    <image name="_2" x="211" y="303" width="70" height="70" trans="false"/>
-    <image name="_2_bot" x="211" y="233" width="70" height="70"/>
-    <image name="_2_mid" x="421" y="163" width="70" height="70"/>
-    <image name="_3" x="351" y="163" width="70" height="70" trans="false"/>
-    <image name="_33" x="315" y="122" width="39" height="35" xOffset="31" yOffset="35" transWidth="70" transHeight="70"/>
-    <image name="_3_bot" x="141" y="443" width="70" height="69" transHeight="70"/>
-    <image name="_3_mid" x="281" y="163" width="70" height="70"/>
-    <image name="_4" x="211" y="163" width="70" height="70"/>
-    <image name="_5" x="141" y="373" width="70" height="70" trans="false"/>
-    <image name="_6" x="141" y="303" width="70" height="70"/>
-    <image name="_7" x="141" y="233" width="70" height="70"/>
-    <image name="_77" x="319" y="377" width="40" height="45" transWidth="70" transHeight="70"/>
-    <image name="_8" x="141" y="163" width="70" height="70"/>
+    <image name="_1" x="211" y="373" width="70" height="70" trans="false"/>
+    <image name="_11" x="211" y="303" width="70" height="70"/>
+    <image name="_1_bot" x="421" y="233" width="70" height="69" transHeight="70"/>
+    <image name="_1_mid" x="211" y="233" width="70" height="70" trans="false"/>
+    <image name="_2" x="421" y="163" width="70" height="70" trans="false"/>
+    <image name="_2_bot" x="351" y="163" width="70" height="70"/>
+    <image name="_2_mid" x="281" y="163" width="70" height="70" trans="false"/>
+    <image name="_3" x="211" y="163" width="70" height="70" trans="false"/>
+    <image name="_33" x="375" y="303" width="58" height="59" xOffset="12" yOffset="11" transWidth="70" transHeight="70"/>
+    <image name="_3_bot" x="351" y="233" width="70" height="69" transHeight="70"/>
+    <image name="_3_mid" x="141" y="373" width="70" height="70"/>
+    <image name="_4" x="141" y="303" width="70" height="70"/>
+    <image name="_5" x="141" y="233" width="70" height="70" trans="false"/>
+    <image name="_6" x="141" y="163" width="70" height="70"/>
+    <image name="_7" x="211" y="443" width="70" height="69" yOffset="1" transHeight="70"/>
+    <image name="_77" x="319" y="303" width="56" height="68" transWidth="70" transHeight="70"/>
+    <image name="_8" x="141" y="443" width="70" height="69" yOffset="1" transHeight="70"/>
     <image name="_9" x="64" y="417" width="70" height="70"/>
-    <image name="_99" x="454" y="303" width="41" height="44" xOffset="29" transWidth="70" transHeight="70"/>
+    <image name="_99" x="281" y="405" width="34" height="60" xOffset="36" transWidth="70" transHeight="70"/>
     <image name="BananaBrick" x="0" y="0" width="64" height="420"/>
-    <image name="button-down-skin" x="319" y="355" width="82" height="22"/>
-    <image name="button-hover-skin" x="372" y="325" width="82" height="22"/>
-    <image name="button-up-skin" x="372" y="303" width="82" height="22"/>
+    <image name="button-down-skin" x="372" y="415" width="82" height="22"/>
+    <image name="button-hover-skin" x="372" y="393" width="82" height="22"/>
+    <image name="button-up-skin" x="372" y="371" width="82" height="22"/>
     <image name="check-down-icon" x="42" y="484" width="14" height="14" trans="false"/>
     <image name="check-hover-icon" x="28" y="498" width="14" height="14"/>
     <image name="check-selected-down-icon" x="28" y="484" width="14" height="14" trans="false"/>
     <image name="check-selected-hover-icon" x="14" y="498" width="14" height="14"/>
     <image name="check-selected-up-icon" x="14" y="484" width="14" height="14"/>
     <image name="check-up-icon" x="0" y="498" width="14" height="14"/>
-    <image name="collection_eff" x="421" y="233" width="58" height="58" xOffset="7" yOffset="6" transWidth="70" transHeight="70"/>
+    <image name="collection_eff" x="433" y="303" width="58" height="58" xOffset="7" yOffset="6" transWidth="70" transHeight="70"/>
     <image name="front_dude" x="439" y="0" width="52" height="101" xOffset="9" yOffset="16" transWidth="70" transHeight="140"/>
     <image name="hero_unstable" x="64" y="238" width="48" height="108" xOffset="12" yOffset="20" transWidth="70" transHeight="140"/>
-    <image name="hslider-thumb-down-skin" x="414" y="148" width="13" height="13"/>
-    <image name="hslider-thumb-hover-skin" x="414" y="135" width="13" height="13"/>
-    <image name="hslider-thumb-up-skin" x="414" y="122" width="13" height="13"/>
-    <image name="hslider-track-skin" x="372" y="347" width="79" height="3"/>
+    <image name="hslider-thumb-down-skin" x="362" y="135" width="13" height="13"/>
+    <image name="hslider-thumb-hover-skin" x="349" y="148" width="13" height="13"/>
+    <image name="hslider-thumb-up-skin" x="349" y="135" width="13" height="13"/>
+    <image name="hslider-track-skin" x="372" y="437" width="79" height="3"/>
     <image name="memory_0" x="439" y="101" width="60" height="60"/>
     <image name="panel-background-skin" x="0" y="484" width="14" height="14"/>
     <image name="radar" x="380" y="0" width="59" height="122" xOffset="7" yOffset="5" transWidth="70" transHeight="140"/>
-    <image name="shard_incoming_mark" x="479" y="233" width="30" height="30"/>
+    <image name="shard_incoming_mark" x="282" y="97" width="30" height="30"/>
     <image name="side_dude" x="281" y="303" width="38" height="102" xOffset="16" yOffset="19" transWidth="70" transHeight="140"/>
     <image name="spawn" x="64" y="0" width="157" height="163" xOffset="25" yOffset="25" transWidth="210" transHeight="210"/>
-    <image name="stone_boom_1" x="319" y="303" width="53" height="52" xOffset="27" yOffset="30" transWidth="110" transHeight="110"/>
+    <image name="stone_boom_1" x="319" y="371" width="53" height="52" xOffset="27" yOffset="30" transWidth="110" transHeight="110"/>
     <image name="stone_boom_2" x="64" y="163" width="77" height="75" xOffset="14" yOffset="16" transWidth="110" transHeight="110"/>
     <image name="stone_boom_3" x="221" y="0" width="94" height="97" yOffset="6" transWidth="110" transHeight="110"/>
     <image name="stone_boom_4" x="64" y="346" width="70" height="71" xOffset="20" yOffset="17" transWidth="110" transHeight="110"/>
     <image name="stone_boom_5" x="0" y="420" width="63" height="64" xOffset="24" yOffset="23" transWidth="110" transHeight="110"/>
     <image name="stone_boom_6" x="221" y="97" width="61" height="66" xOffset="24" yOffset="21" transWidth="110" transHeight="110"/>
-    <image name="stone_down" x="351" y="233" width="70" height="70"/>
-    <image name="stone_fly" x="354" y="122" width="25" height="35"/>
-    <image name="tmp_collectible" x="380" y="122" width="34" height="40" xOffset="18" yOffset="18" transWidth="70" transHeight="70"/>
+    <image name="stone_down" x="281" y="233" width="70" height="70"/>
+    <image name="stone_fly" x="282" y="127" width="25" height="35"/>
+    <image name="tmp_collectible" x="315" y="122" width="34" height="40" xOffset="18" yOffset="18" transWidth="70" transHeight="70"/>
     <image name="tmp_goal" x="315" y="0" width="65" height="122" xOffset="1" transWidth="70" transHeight="140"/>
     <image name="trajectory_mark" x="56" y="484" width="4" height="4" trans="false"/>
-    <image name="vslider-thumb-down-skin" x="295" y="148" width="13" height="13"/>
-    <image name="vslider-thumb-hover-skin" x="282" y="148" width="13" height="13"/>
+    <image name="vslider-thumb-down-skin" x="362" y="122" width="13" height="13"/>
+    <image name="vslider-thumb-hover-skin" x="349" y="122" width="13" height="13"/>
     <image name="vslider-thumb-up-skin" x="42" y="498" width="13" height="13"/>
     <image name="vslider-track-skin" x="491" y="0" width="3" height="79"/>
   </texture>
