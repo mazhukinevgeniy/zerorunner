@@ -2,15 +2,15 @@ package model
 {
 	import binding.IBinder;
 	import controller.interfaces.IGameController;
-	import controller.observers.IGameStopHandler;
 	import controller.observers.INewGameHandler;
+	import controller.observers.IQuitGameHandler;
 	import model.interfaces.IInput;
 	import model.interfaces.IStatus;
 	import starling.core.Starling;
 	import starling.events.EnterFrameEvent;
 	
 	internal class Time implements INewGameHandler,
-	                               IGameStopHandler
+	                               IQuitGameHandler
 	{
 		private var frameCount:int = 0;
 		
@@ -65,7 +65,7 @@ package model
 			}
 		}
 		
-		public function gameStopped(reason:int):void 
+		public function quitGame():void 
 		{ 
 			this.isFixed = true;
 			
