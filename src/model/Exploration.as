@@ -10,27 +10,30 @@ package model
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
 	import utils.getCellId;
+	import utils.HeroChecker;
 	
 	internal class Exploration implements IExploration, INewGameHandler, IGameFrameHandler, IQuitGameHandler
 	{
 		private const NOT_VISITED:int = 0;
 		private const VISITED:int = 1;
 		
-		
-		
 		private var visited:ByteArray;
 		
 		private var status:IStatus;
 		private var scene:IScene;
 		
+		private var checker:HeroChecker;
+		
 		public function Exploration(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
-			
 			this.visited = new ByteArray();
 			
 			this.status = binder.gameStatus;
 			this.scene = binder.scene;
+			
+			this.checker = new HeroChecker(binder);
+			
+			binder.notifier.addObserver(this);
 		}
 		
 		public function newGame():void
@@ -41,12 +44,12 @@ package model
 			for (i = 0; i < length; i++)
 				this.visited[i] = this.NOT_VISITED;
 			
-			this.gameFrame(Game.FRAME_TO_UNLOCK_ACHIEVEMENTS);
+			this.gameFrame();
 		}
 		
-		public function gameFrame(key:int):void
+		public function gameFrame():void
 		{
-			if (key == Game.FRAME_TO_UNLOCK_ACHIEVEMENTS)
+			if (this.checker.checkIfHeroMoved())
 			{
 				var center:ICoordinated = this.status.getLocationOfHero();
 				

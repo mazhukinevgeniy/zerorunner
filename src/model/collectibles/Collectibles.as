@@ -56,20 +56,17 @@ package model.collectibles
 			}
 		}
 		
-		public function gameFrame(frame:int):void
+		public function gameFrame():void
 		{
-			if (frame == Game.FRAME_UNUSED_FRAME_2)
+			var char:ICoordinated = this.status.getLocationOfHero();
+			var cellId:int = getCellId(char.x, char.y);
+			
+			var coll:Collectible = this.collectibles[cellId];
+			
+			if (coll)
 			{
-				var char:ICoordinated = this.status.getLocationOfHero();
-				var cellId:int = getCellId(char.x, char.y);
-				
-				var coll:Collectible = this.collectibles[cellId];
-				
-				if (coll)
-				{
-					this.controller.setCollectibleFound(coll);
-					this.collectibles[cellId] = null;
-				}
+				this.controller.setCollectibleFound(coll);
+				this.collectibles[cellId] = null;
 			}
 		}
 		

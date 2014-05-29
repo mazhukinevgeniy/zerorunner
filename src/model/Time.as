@@ -12,8 +12,6 @@ package model
 	internal class Time implements INewGameHandler,
 	                               IQuitGameHandler
 	{
-		private var frameCount:int = 0;
-		
 		private var isFixed:Boolean = true;
 		
 		private var status:IStatus;
@@ -36,15 +34,12 @@ package model
 		public function newGame():void
 		{
 			this.isFixed = false;
-			
-			this.frameCount = 0;
 		}
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
 		{
 			if (!this.isFixed && !this.status.isMenuOn() &&
-				((this.frameCount != Game.FRAME_TO_ACT) || 
-				 !this.status.getSnapshotOfHero().isFree() || 
+				(!this.status.getSnapshotOfHero().isFree() || 
 				 this.input.isThereInput()))
 			{
 				if (this.status.isMapOn())
@@ -56,11 +51,7 @@ package model
 					if (!this.status.isGameOn())
 						throw new Error("numberedFrame must happen in-game only");
 					
-					this.controller.gameFrame(this.frameCount);
-					this.frameCount++;
-					
-					if (this.frameCount >= Game.FRAMES_PER_CYCLE)
-						this.frameCount = 0;
+					this.controller.gameFrame();
 				}
 			}
 		}
@@ -68,8 +59,6 @@ package model
 		public function quitGame():void 
 		{ 
 			this.isFixed = true;
-			
-			this.frameCount = 0;
 		}
 		
 	}

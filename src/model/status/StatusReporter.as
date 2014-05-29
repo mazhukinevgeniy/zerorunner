@@ -84,6 +84,8 @@ package model.status
 			return this.items.getItemSnapshot(getCellId(this.hero.x, this.hero.y));
 		}
 		/**/
+		
+		//TODO: this class is too big, fix that
 	}
 
 }

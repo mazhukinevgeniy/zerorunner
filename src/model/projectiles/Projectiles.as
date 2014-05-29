@@ -80,7 +80,7 @@ package model.projectiles
 			this.projectiles = null;
 		}
 		
-		public function gameFrame(frame:int):void
+		public function gameFrame():void
 		{
 			for each (var projectile:Projectile in this.projectiles)
 			{
@@ -88,12 +88,9 @@ package model.projectiles
 			}
 			
 			
-			if (frame == Game.FRAME_TO_RUN_CATACLYSM)
+			for (var i:int = 0; i < this.clouds.length; i++)
 			{
-				for (var i:int = 0; i < this.clouds.length; i++)
-				{
-					this.clouds[i].spawnProjectiles();
-				}
+				this.clouds[i].spawnProjectiles();
 			}
 		}
 		

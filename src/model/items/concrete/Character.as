@@ -65,7 +65,6 @@ package model.items.concrete
 			}
 		}
 		
-		override protected function get movespeed():int { return 2; }
 		override public function get type():int { return Game.ITEM_CHARACTER; }
 		
 		override protected function get isActive():Boolean 

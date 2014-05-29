@@ -24,7 +24,7 @@ package view.game.renderer.effects
 			this.tracked = new Array();
 		}
 		
-		public function gameFrame(frame:int):void
+		public function gameFrame():void
 		{
 			for (var key:String in this.tracked)
 			{

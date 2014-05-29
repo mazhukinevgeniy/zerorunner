@@ -59,7 +59,7 @@ package model.items
 				1; //so we don't divide by zero when calculating progress
 		}
 		
-		internal function gameFrame(frame:int):void
+		internal function gameFrame():void
 		{
 			if (this.occupation == Game.OCCUPATION_FREE)
 			{
@@ -78,8 +78,7 @@ package model.items
 				
 			}
 			
-			if (frame == Game.FRAME_TO_ACT &&
-			    this.occupation == Game.OCCUPATION_FREE &&
+			if (this.occupation == Game.OCCUPATION_FREE &&
 			    distance(this, 
 				         this.status.getLocationOfHero()) < Game.ACTION_RADIUS)
 			{
@@ -117,7 +116,7 @@ package model.items
 			this.storage.addItem(this, getCellId(this._x, this._y));
 			
 			this.occupation = Game.OCCUPATION_MOVING;
-			this.framesUntilOccupationEnds = this.movespeed * Game.FRAMES_PER_CYCLE;
+			this.framesUntilOccupationEnds = this.movespeed;
 			this.framesOccupated = 0;
 		}
 		
@@ -134,7 +133,7 @@ package model.items
 		
 		/** Things to override */
 		
-		protected function get movespeed():int { return 2; }
+		protected function get movespeed():int { return 10; }
 		protected function get isDestructible():Boolean { return true; }
 		protected function get isActive():Boolean { return false; }
 		

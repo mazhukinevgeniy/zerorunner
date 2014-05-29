@@ -50,9 +50,9 @@ package controller
 				throw new Error("can't quit game twice, something is very wrong");
 		}
 		
-		public function gameFrame(frame:int):void
+		public function gameFrame():void
 		{
-			this.notifier.call(IGameFrameHandler, "gameFrame", frame);
+			this.notifier.call(IGameFrameHandler, "gameFrame");
 		}
 		
 		public function mapFrame():void

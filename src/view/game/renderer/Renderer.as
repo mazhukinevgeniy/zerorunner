@@ -9,6 +9,7 @@ package view.game.renderer
 	import starling.display.DisplayObjectContainer;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
+	import utils.HeroChecker;
 	import view.game.renderer.effects.EffectRenderer;
 	import view.game.renderer.items.ItemRenderer;
 	import view.game.renderer.marks.GroundLevelMarksRenderer;
@@ -23,6 +24,8 @@ package view.game.renderer
 		
 		private var sceneRenderer:SceneRenderer;
 		private var activeRenderers:Vector.<IRenderer>;
+		
+		private var checker:HeroChecker;
 		
 		public function Renderer(binder:IBinder, root:DisplayObjectContainer) 
 		{
@@ -50,6 +53,8 @@ package view.game.renderer
 				this.addChild(
 					new EffectRenderer(binder)));
 			
+			
+			this.checker = new HeroChecker(binder);
 			binder.notifier.addObserver(this);
 		}
 		
@@ -57,12 +62,12 @@ package view.game.renderer
 		{
 			/* Force rendering */
 			
-			this.gameFrame(Game.FRAME_TO_ACT);
+			this.gameFrame();
 		}
 		
-		public function gameFrame(frame:int):void 
+		public function gameFrame():void 
 		{
-			if (frame == Game.FRAME_TO_ACT)
+			if (this.checker.checkIfHeroMoved())
 			{
 				this.sceneRenderer.redraw();
 			}

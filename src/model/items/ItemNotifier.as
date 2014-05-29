@@ -24,13 +24,13 @@ package model.items
 			this.actors = new Vector.<ItemBase>();
 		}
 		
-		public function gameFrame(frame:int):void
+		public function gameFrame():void
 		{
 			var length:int = this.actors.length;
 			
 			for (var i:int = 0; i < length; i++)
 			{
-				this.actors[i].gameFrame(frame);
+				this.actors[i].gameFrame();
 			}
 		}
 		

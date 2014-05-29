@@ -62,12 +62,10 @@ package model.items
 		}
 		
 		
-		public function gameFrame(frame:int):void
+		public function gameFrame():void
 		{
-			if (frame == Game.FRAME_TO_RUN_CATACLYSM)
-			{
-				this.pool.freeEverythingUsed();
-			}
+			this.pool.freeEverythingUsed();
+			//TODO: check if we really need that
 		}
 	}
 
