@@ -6,6 +6,7 @@ package model.interfaces
 	public interface IStatus 
 	{
 		function isGameOn():Boolean;
+		function isGameStopped():Boolean;
 		function isMapOn():Boolean;
 		function isMenuOn():Boolean;
 		

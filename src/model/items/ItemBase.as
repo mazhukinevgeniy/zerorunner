@@ -80,7 +80,8 @@ package model.items
 			
 			if (this.occupation == Game.OCCUPATION_FREE &&
 			    distance(this, 
-				         this.status.getLocationOfHero()) < Game.ACTION_RADIUS)
+				         this.status.getLocationOfHero()) < Game.ACTION_RADIUS &&
+				!this.status.isGameStopped())
 			{
 				this.act();
 			}

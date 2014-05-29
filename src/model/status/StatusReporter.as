@@ -2,6 +2,7 @@ package model.status
 {
 	import binding.IBinder;
 	import binding.IDependent;
+	import controller.observers.IGameStopHandler;
 	import controller.observers.INewGameHandler;
 	import controller.observers.IQuitGameHandler;
 	import controller.observers.IScreenObserver;
@@ -15,6 +16,7 @@ package model.status
 	
 	public class StatusReporter implements IStatus, 
 	                                       INewGameHandler,
+										   IGameStopHandler,
 										   IQuitGameHandler,
 										   IScreenObserver,
 										   IDependent
@@ -27,6 +29,7 @@ package model.status
 		private var items:IItemSnapshotter;
 		
 		private var _screen:String;
+		private var _gameStopped:Boolean;
 		
 		public function StatusReporter(binder:IBinder) 
 		{
@@ -48,6 +51,12 @@ package model.status
 		public function newGame():void
 		{
 			this._screen = View.GAME_SCREEN;
+			this._gameStopped = false;
+		}
+		
+		public function gameStopped(reason:int):void
+		{
+			this._gameStopped = true;
 		}
 		
 		public function quitGame():void
@@ -67,6 +76,10 @@ package model.status
 		public function isGameOn():Boolean 
 		{ 
 			return this.gameScreens.indexOf(this._screen) != -1; 
+		}
+		public function isGameStopped():Boolean
+		{
+			return !this.isGameOn() || this._gameStopped;
 		}
 		public function isMapOn():Boolean 
 		{ 
