@@ -3,18 +3,14 @@ package model.items.concrete
 	import assets.xml.MapXML;
 	import binding.IBinder;
 	import controller.observers.INewGameHandler;
-	import model.interfaces.IScene;
 	import model.items.ItemBase;
 	import model.items.Items;
 	import model.items.structs.ItemParams;
 	import model.status.StatusReporter;
-	import utils.getCellId;
-	import utils.isCellSolid;
 	
 	public class ItemSpawner implements INewGameHandler
 	{		
 		private var status:StatusReporter;
-		private var scene:IScene;
 		
 		private var itemParams:ItemParams;
 		
@@ -26,7 +22,6 @@ package model.items.concrete
 			this.itemParams.items = items;
 			
 			this.status = status;
-			this.scene = binder.scene;
 			
 			binder.notifier.addObserver(this);
 		}
@@ -78,12 +73,9 @@ package model.items.concrete
 		
 		public function createShard(x:int, y:int):void
 		{
-			if (isCellSolid(this.scene.getSceneCell(getCellId(x, y))))
-			{
-				this.setParams(x, y, 1, 1);
-				
-				new Shard(this.itemParams);
-			}
+			this.setParams(x, y, 1, 1);
+			
+			new Shard(this.itemParams);
 		}
 		
 		
