@@ -2,19 +2,23 @@ package view
 {
 	import binding.IBinder;
 	import controller.interfaces.IInputController;
+	import events.GlobalEvent;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.events.KeyboardEvent;
+	import starling.events.EventDispatcher;
 	
 	public class EventListener
 	{
 		private var inputController:IInputController;
+		private var dispatcher:EventDispatcher;
 		
 		private const UP:Boolean = true;
 		
 		public function EventListener(binder:IBinder, root:IEventDispatcher) 
 		{
 			this.inputController = binder.inputController;
+			this.dispatcher = binder.eventDispatcher;
 			
 			root.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
 			root.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);
@@ -37,12 +41,12 @@ package view
 		
 		private function handleActivation(event:Event):void
 		{
-			this.inputController.processActivation();
+			this.dispatcher.dispatchEventWith(GlobalEvent.ACTIVATED);
 		}
 		
 		private function handleDeactivation(event:Event):void
 		{
-			this.inputController.processDeactivation();
+			this.dispatcher.dispatchEventWith(GlobalEvent.DEACTIVATED);
 		}
 	}
 

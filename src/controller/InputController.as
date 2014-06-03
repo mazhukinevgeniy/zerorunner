@@ -3,20 +3,17 @@ package controller
 	import binding.IBinder;
 	import binding.IDependent;
 	import controller.interfaces.IInputController;
-	import controller.observers.IActivationObserver;
-	import controller.observers.IDeactivationObserver;
-	import controller.observers.IGameMapObserver;
-	import controller.observers.IGameMenuObserver;
-	import controller.observers.IGameObserver;
-	import controller.observers.IInputObserver;
-	import controller.observers.ISoundObserver;
+	import events.GlobalEvent;
 	import flash.ui.Keyboard;
 	import model.interfaces.ISave;
 	import model.interfaces.IStatus;
 	import model.metric.ProtectedDCellXY;
+	import starling.events.EventDispatcher;
+	import structs.InputPiece;
+	import structs.SoundMute;
 	
 	internal class InputController implements IInputController,
-								   IDependent
+								              IDependent
 	{
 		private const UP:ProtectedDCellXY = new ProtectedDCellXY(0, -1);
 		private const DOWN:ProtectedDCellXY = new ProtectedDCellXY(0, 1);
@@ -26,13 +23,13 @@ package controller
 		private var status:IStatus;
 		private var save:ISave;
 		
-		private var notifier:Notifier;
+		private var dispatcher:EventDispatcher;
 		
-		public function InputController(notifier:Notifier, binder:IBinder) 
+		public function InputController(binder:IBinder) 
 		{
 			binder.requestBindingFor(this);
 			
-			this.notifier = notifier;
+			this.dispatcher = binder.eventDispatcher;
 		}
 		
 		public function bindObjects(binder:IBinder):void
@@ -53,13 +50,21 @@ package controller
 		private function processInGameInput(keyUp:Boolean, keyCode:uint):void 
 		{
 			if (keyCode == Keyboard.UP)
-				this.notifier.call(IInputObserver, "newInputPiece", !keyUp, this.UP);
+				this.dispatcher.dispatchEventWith(GlobalEvent.ADD_INPUT_PIECE,
+				                                  false,
+												  new InputPiece(!keyUp, this.UP));
 			else if (keyCode == Keyboard.DOWN)
-				this.notifier.call(IInputObserver, "newInputPiece", !keyUp, this.DOWN);
+				this.dispatcher.dispatchEventWith(GlobalEvent.ADD_INPUT_PIECE,
+				                                  false,
+												  new InputPiece(!keyUp, this.DOWN));
 			else if (keyCode == Keyboard.RIGHT)
-				this.notifier.call(IInputObserver, "newInputPiece", !keyUp, this.RIGHT);
+				this.dispatcher.dispatchEventWith(GlobalEvent.ADD_INPUT_PIECE,
+				                                  false,
+												  new InputPiece(!keyUp, this.RIGHT));
 			else if (keyCode == Keyboard.LEFT)
-				this.notifier.call(IInputObserver, "newInputPiece", !keyUp, this.LEFT);
+				this.dispatcher.dispatchEventWith(GlobalEvent.ADD_INPUT_PIECE,
+				                                  false,
+												  new InputPiece(!keyUp, this.LEFT));
 			else
 			{
 				if (this.status.isMapOn())
@@ -71,18 +76,22 @@ package controller
 					if (!keyUp)
 					{
 						if (keyCode == Keyboard.Q)
-							this.notifier.call(IInputObserver, 
-							                   "actionRequested", 
-											   Game.ACTION_SKIP_FRAME);
+							this.dispatcher.dispatchEventWith(GlobalEvent.PERFORM_ACTION,
+							                                  false,
+															  Game.ACTION_SKIP_FRAME);
 					}
 					else
 					{
 						if (keyCode == Keyboard.ESCAPE)
 						{
 							if (this.status.isMenuOn())
-								this.notifier.call(IGameObserver, "showGame");
+								this.dispatcher.dispatchEventWith(GlobalEvent.ACTIVATE_GAME_SCREEN,
+								                                  false,
+								                                  View.GAME_SCREEN);
 							else
-								this.notifier.call(IGameMenuObserver, "showGameMenu");
+								this.dispatcher.dispatchEventWith(GlobalEvent.ACTIVATE_GAME_SCREEN,
+								                                  false,
+								                                  View.GAME_SCREEN_MENU);
 						}
 					}
 				}
@@ -90,9 +99,13 @@ package controller
 				if (!keyUp && keyCode == Keyboard.M)
 				{
 					if (this.status.isMapOn())
-						this.notifier.call(IGameObserver, "showGame");
+						this.dispatcher.dispatchEventWith(GlobalEvent.ACTIVATE_GAME_SCREEN,
+						                                  false,
+								                          View.GAME_SCREEN);
 					else
-						this.notifier.call(IGameMapObserver, "showGameMap");
+						this.dispatcher.dispatchEventWith(GlobalEvent.ACTIVATE_GAME_SCREEN,
+						                                  false,
+								                          View.GAME_SCREEN_MAP);
 				}
 			}
 		}
@@ -108,20 +121,11 @@ package controller
 					                   !this.save.getSoundMute(View.SOUND_EFFECT);
 					
 					for (var i:int = 0; i < View.NUMBER_OF_SOUND_TYPES; i++)
-						this.notifier.call(ISoundObserver, "setSoundMute", i, mute);
+						this.dispatcher.dispatchEventWith(GlobalEvent.SET_SOUND_MUTE,
+						                                  false,
+														  new SoundMute(i, mute));
 				}
 			}
-		}
-		
-		
-		public function processActivation():void
-		{
-			this.notifier.call(IActivationObserver, "processActivation");
-		}
-		
-		public function processDeactivation():void
-		{
-			this.notifier.call(IDeactivationObserver, "processDeactivation");
 		}
 	}
 

@@ -1,11 +1,11 @@
 package model.items 
 {
 	import binding.IBinder;
-	import controller.observers.IGameFrameHandler;
+	import events.GlobalEvent;
 	import model.interfaces.IItemSnapshotter;
 	import utils.StructPool;
 	
-	internal class ItemSnapshotter implements IItemSnapshotter, IGameFrameHandler
+	internal class ItemSnapshotter implements IItemSnapshotter
 	{
 		private var storage:ItemStorage;
 		private var pool:StructPool;
@@ -15,7 +15,9 @@ package model.items
 			this.storage = storage;
 			this.pool = new StructPool(ItemSnapshot);
 			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.GAME_FRAME, 
+			                                        this.pool.freeEverythingUsed);
+			//TODO: check if we really need that
 		}
 		
 		public function getItemSnapshot(cellId:int):ItemSnapshot
@@ -59,13 +61,6 @@ package model.items
 				shot._x += 1 - shot._prog;
 			else if (dir == Game.DIRECTION_DOWN)
 				shot._y -= 1 - shot._prog;
-		}
-		
-		
-		public function gameFrame():void
-		{
-			this.pool.freeEverythingUsed();
-			//TODO: check if we really need that
 		}
 	}
 

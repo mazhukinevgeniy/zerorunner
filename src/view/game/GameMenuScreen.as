@@ -1,19 +1,21 @@
 package view.game 
 {
 	import binding.IBinder;
-	import controller.interfaces.IGameController;
+	import events.GlobalEvent;
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	import feathers.layout.VerticalLayout;
 	import model.interfaces.IStatus;
 	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	import view.themes.GameTheme;
 	import view.utils.createButton;
 	
 	internal class GameMenuScreen extends Screen
 	{
-		private var controller:IGameController;
 		private var status:IStatus;
+		
+		private var dispatcher:EventDispatcher;
 		
 		public function GameMenuScreen(binder:IBinder) 
 		{
@@ -21,7 +23,8 @@ package view.game
 			
 			this.setLayout();
 			this.status = binder.gameStatus;
-			this.controller = binder.gameController;
+			
+			this.dispatcher = binder.eventDispatcher;
 			
 			
 			var button:Button;
@@ -50,14 +53,18 @@ package view.game
 		private function handleQuitTriggered():void
 		{
 			if (this.status.isGameOn())
-				this.controller.gameStopped(Game.ENDING_ABANDONED);
+				this.dispatcher.dispatchEventWith(GlobalEvent.GAME_STOPPED,
+				                                  false,
+												  Game.ENDING_ABANDONED);
 			
-			this.controller.quitGame();
+			this.dispatcher.dispatchEventWith(GlobalEvent.QUIT_GAME);
 		}
 		
 		private function handleMapTriggered():void
 		{
-			this.controller.showGameMap();
+			this.dispatcher.dispatchEventWith(GlobalEvent.ACTIVATE_GAME_SCREEN,
+			                                  false,
+											  View.GAME_SCREEN_MAP);
 		}
 	}
 

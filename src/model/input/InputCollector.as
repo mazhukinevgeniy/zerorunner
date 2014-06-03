@@ -1,20 +1,12 @@
 package model.input 
 {
 	import binding.IBinder;
-	import controller.observers.IDeactivationObserver;
-	import controller.observers.IGameMapObserver;
-	import controller.observers.IGameMenuObserver;
-	import controller.observers.IGameObserver;
-	import controller.observers.IInputObserver;
-	import controller.observers.INewGameHandler;
+	import events.GlobalEvent;
 	import model.metric.DCellXY;
+	import starling.events.Event;
+	import structs.InputPiece;
 	
-	internal class InputCollector implements IInputObserver,
-	                                         INewGameHandler,
-											 IGameObserver,
-											 IGameMapObserver,
-											 IGameMenuObserver,
-											 IDeactivationObserver
+	internal class InputCollector
 	{
 		private const NO_DIRECTION:int = 0;
 		
@@ -25,7 +17,16 @@ package model.input
 		
 		public function InputCollector(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.DEACTIVATED, 
+			                                        this.clearInput);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.clearInput);
+			binder.eventDispatcher.addEventListener(GlobalEvent.ACTIVATE_GAME_SCREEN,
+			                                        this.clearInput);
+			binder.eventDispatcher.addEventListener(GlobalEvent.ADD_INPUT_PIECE,
+			                                        this.newInputPiece);
+			binder.eventDispatcher.addEventListener(GlobalEvent.PERFORM_ACTION,
+			                                        this.actionRequested);
 			
 			this.actions = new Vector.<Boolean>(Game.NUMBER_OF_ACTIONS, true);
 			for (var i:int = 0; i < Game.NUMBER_OF_ACTIONS; i++)
@@ -37,15 +38,15 @@ package model.input
 			this.order[this.NO_DIRECTION] = 0;
 		}
 		
-		public function newInputPiece(isOn:Boolean, change:DCellXY):void
+		private function newInputPiece(event:Event, input:InputPiece):void
 		{	
 			var tmp:int = 0;
 			
 			//tmp += isKeyboard ? this.KEYBOARD : this.MOUSE;
 			tmp += Input.KEYBOARD;
-			tmp += this.dCXYtoInt(change);
+			tmp += this.dCXYtoInt(input.change);
 			
-			if (isOn)
+			if (input.isOn)
 			{
 				this.bubble(tmp + Input.PRESS);
 				this.bubble(tmp + Input.CLICK); 
@@ -56,31 +57,9 @@ package model.input
 			}
 		}
 		
-		public function actionRequested(action:int):void
+		private function actionRequested(event:Event, action:int):void
 		{
 			this.actions[action] = true;
-		}
-		
-		
-		public function newGame():void
-		{
-			this.clearInput();
-		}
-		public function showGameMap():void
-		{
-			this.clearInput();
-		}
-		public function showGameMenu():void
-		{
-			this.clearInput();
-		}
-		public function showGame():void
-		{
-			this.clearInput();
-		}
-		public function processDeactivation():void
-		{
-			this.clearInput();
 		}
 		
 		

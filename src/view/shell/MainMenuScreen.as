@@ -1,21 +1,24 @@
 package view.shell 
 {
 	import binding.IBinder;
-	import controller.interfaces.IGameController;
+	import events.GlobalEvent;
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	import view.shell.events.ShellEvent;
 	import view.themes.ShellTheme;
 	import view.utils.createButton;
 	
 	internal class MainMenuScreen extends Screen
 	{
-		private var gameController:IGameController;
+		private var globalDispatcher:EventDispatcher;
 		
 		public function MainMenuScreen(binder:IBinder) 
 		{
 			super();
+			
+			this.globalDispatcher = binder.eventDispatcher;
 			
 			
 			var button:Button;
@@ -31,15 +34,11 @@ package view.shell
 			
 			this.addChild(button = createButton("CREDITS", ShellTheme.NAVIGATION_BUTTON));
 			button.addEventListener(Event.TRIGGERED, this.handleCreditsTriggered);
-			
-			
-			
-			this.gameController = binder.gameController;
 		}
 		
 		private function handleNewGameTriggered():void
 		{
-			this.gameController.newGame();
+			this.globalDispatcher.dispatchEventWith(GlobalEvent.NEW_GAME);
 		}
 		
 		private function handleMemoriesTriggered():void

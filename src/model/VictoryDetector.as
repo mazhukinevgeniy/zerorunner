@@ -1,26 +1,30 @@
 package model 
 {
 	import binding.IBinder;
-	import controller.interfaces.IGameController;
-	import controller.observers.ICollectibleObserver;
+	import events.GlobalEvent;
 	import model.collectibles.Collectible;
+	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	
-	internal class VictoryDetector implements ICollectibleObserver
+	internal class VictoryDetector
 	{
-		private var gameController:IGameController;
+		private var dispatcher:EventDispatcher;
 		
 		public function VictoryDetector(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
+			this.dispatcher = binder.eventDispatcher;
 			
-			this.gameController = binder.gameController;
+			this.dispatcher.addEventListener(GlobalEvent.COLLECTIBLE_FOUND,
+			                                 this.collectibleFound);
 		}
 		
-		public function setCollectibleFound(collectible:Collectible):void
+		public function collectibleFound(event:Event, collectible:Collectible):void
 		{
 			if (collectible.type == Game.COLLECTIBLE_GOAL)
 			{
-				this.gameController.gameStopped(Game.ENDING_WON);
+				this.dispatcher.dispatchEventWith(GlobalEvent.GAME_STOPPED,
+				                                  false,
+												  Game.ENDING_WON);
 			}
 		}
 	}

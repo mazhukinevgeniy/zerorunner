@@ -1,18 +1,19 @@
 package view.game 
 {
 	import binding.IBinder;
-	import controller.interfaces.IGameController;
+	import events.GlobalEvent;
 	import feathers.controls.Button;
 	import feathers.controls.Label;
 	import feathers.controls.Screen;
 	import feathers.layout.VerticalLayout;
 	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	import view.themes.GameTheme;
 	import view.utils.createButton;
 	
 	internal class EndGameScreen extends Screen
 	{
-		private var controller:IGameController;
+		private var dispatcher:EventDispatcher;
 		
 		public function EndGameScreen(binder:IBinder, ending:int) 
 		{
@@ -20,7 +21,7 @@ package view.game
 			
 			
 			this.setLayout();
-			this.controller = binder.gameController;
+			this.dispatcher = binder.eventDispatcher;
 			
 			
 			var text:Label = new Label();
@@ -60,7 +61,7 @@ package view.game
 		
 		private function handleQuitTriggered():void
 		{
-			this.controller.quitGame();
+			this.dispatcher.dispatchEventWith(GlobalEvent.QUIT_GAME);
 		}
 	}
 

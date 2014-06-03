@@ -2,23 +2,17 @@ package model.status
 {
 	import binding.IBinder;
 	import binding.IDependent;
-	import controller.observers.IGameStopHandler;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
-	import controller.observers.IScreenObserver;
+	import events.GlobalEvent;
 	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IStatus;
 	import model.items.ItemBase;
 	import model.items.ItemSnapshot;
 	import model.metric.DCellXY;
 	import model.metric.ICoordinated;
+	import starling.events.Event;
 	import utils.getCellId;
 	
-	public class StatusReporter implements IStatus, 
-	                                       INewGameHandler,
-										   IGameStopHandler,
-										   IQuitGameHandler,
-										   IScreenObserver,
+	public class StatusReporter implements IStatus,
 										   IDependent
 	{
 		private var gameScreens:Vector.<String> = Vector.<String>(
@@ -33,7 +27,14 @@ package model.status
 		
 		public function StatusReporter(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.SCREEN_ACTIVATED,
+			                                        this.screenActivated);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME,
+			                                        this.quitGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.GAME_STOPPED,
+			                                        this.gameStopped);
 			
 			binder.requestBindingFor(this);
 		}
@@ -43,23 +44,23 @@ package model.status
 			this.items = binder.itemSnapshotter;
 		}
 		
-		public function screenActivated(name:String):void
+		private function screenActivated(event:Event, name:String):void
 		{
 			this._screen = name;
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this._screen = View.GAME_SCREEN;
 			this._gameStopped = false;
 		}
 		
-		public function gameStopped(reason:int):void
+		private function gameStopped(event:Event, reason:int):void
 		{
 			this._gameStopped = true;
 		}
 		
-		public function quitGame():void
+		private function quitGame():void
 		{
 			this._screen = View.SHELL_SCREEN_MAIN;
 			

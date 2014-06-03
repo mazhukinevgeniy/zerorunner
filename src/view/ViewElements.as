@@ -1,7 +1,6 @@
 package view 
 {
 	import binding.IBinder;
-	import controller.interfaces.INotifier;
 	import starling.core.Starling;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;

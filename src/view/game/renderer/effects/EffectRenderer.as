@@ -31,8 +31,6 @@ package view.game.renderer.effects
 			this.shardTracker = new ShardTracker(binder);
 			this.collectionTracker = new CollectionTracker(binder);
 			
-			binder.notifier.addObserver(this);
-			
 			var spriteNames:Array = new Array();
 			this.sprites = new Object();
 			

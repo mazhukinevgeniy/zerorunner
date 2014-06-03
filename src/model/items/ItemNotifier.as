@@ -1,30 +1,33 @@
 package model.items 
 {
 	import binding.IBinder;
-	import controller.observers.IGameFrameHandler;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import events.GlobalEvent;
 	
 	/**
 	 * This class is an internal Notifier with removal of subscribers supported.
 	 * Eh, why not? 
 	 */
-	internal class ItemNotifier implements INewGameHandler, IGameFrameHandler, IQuitGameHandler
+	internal class ItemNotifier
 	{
 		private var actors:Vector.<ItemBase>;
 		
 		public function ItemNotifier(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.GAME_FRAME,
+			                                        this.gameFrame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME,
+			                                        this.quitGame);
 		}
 		
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this.actors = new Vector.<ItemBase>();
 		}
 		
-		public function gameFrame():void
+		private function gameFrame():void
 		{
 			var length:int = this.actors.length;
 			
@@ -34,7 +37,7 @@ package model.items
 			}
 		}
 		
-		public function quitGame():void 
+		private function quitGame():void 
 		{ 
 			this.actors = null; 
 		}

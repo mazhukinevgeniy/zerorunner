@@ -1,32 +1,33 @@
 package view.game 
 {
 	import binding.IBinder;
-	import controller.interfaces.IGameController;
-	import controller.observers.IGameMapObserver;
-	import controller.observers.IGameMenuObserver;
-	import controller.observers.IGameObserver;
-	import controller.observers.IGameStopHandler;
-	import controller.observers.INewGameHandler;
+	import events.GlobalEvent;
 	import feathers.controls.ScreenNavigator;
+	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	
-	internal class Observer implements INewGameHandler, IGameStopHandler, 
-	                                   IGameObserver, IGameMenuObserver, 
-									   IGameMapObserver
+	internal class Observer
 	{
 		private var navigator:ScreenNavigator;
 		
-		private var controller:IGameController;
+		private var dispatcher:EventDispatcher;
 		
 		public function Observer(binder:IBinder, navigator:ScreenNavigator) 
 		{
-			this.controller = binder.gameController;
 			this.navigator = navigator;
 			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.ACTIVATE_GAME_SCREEN,
+			                                        this.activateScreen);
+			binder.eventDispatcher.addEventListener(GlobalEvent.GAME_STOPPED,
+			                                        this.gameStopped);
+			
+			this.dispatcher = binder.eventDispatcher;
 		}
 		
 		
-		public function gameStopped(reason:int):void
+		private function gameStopped(event:Event, reason:int):void
 		{
 			if (reason != Game.ENDING_ABANDONED)
 			{
@@ -41,24 +42,18 @@ package view.game
 			}
 		}
 		
-		public function newGame():void
+		private function activateScreen(event:Event, screen:String):void
 		{
-			this.controller.showGame();
+			this.navigator.showScreen(screen);
+			//TODO: fix the weirdness, ENDING screens are never called this way
 		}
 		
-		public function showGame():void
+		private function newGame():void
 		{
-			this.navigator.showScreen(View.GAME_SCREEN);
-		}
-		
-		public function showGameMenu():void
-		{
-			this.navigator.showScreen(View.GAME_SCREEN_MENU);
-		}
-		
-		public function showGameMap():void
-		{
-			this.navigator.showScreen(View.GAME_SCREEN_MAP);
+			this.dispatcher.dispatchEventWith(GlobalEvent.ACTIVATE_GAME_SCREEN,
+			                                  false,
+											  View.GAME_SCREEN);
+			//TODO: fix the weirdness, why isn't it the other way around?
 		}
 	}
 

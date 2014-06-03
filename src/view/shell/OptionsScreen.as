@@ -1,24 +1,30 @@
 package view.shell 
 {
 	import binding.IBinder;
-	import controller.observers.ISoundObserver;
+	import events.GlobalEvent;
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	import starling.events.Event;
+	import structs.SoundMute;
+	import structs.SoundVolume;
 	import view.shell.controls.SoundRegulator;
 	import view.shell.events.ShellEvent;
 	import view.themes.ShellTheme;
 	import view.utils.createButton;
 	
 	
-	internal class OptionsScreen extends Screen implements ISoundObserver
+	internal class OptionsScreen extends Screen
 	{
 		private var regulators:Vector.<SoundRegulator>;
 		
 		public function OptionsScreen(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
 			super();
+			
+			binder.eventDispatcher.addEventListener(GlobalEvent.SET_SOUND_MUTE,
+			                                        this.setSoundMute);
+			binder.eventDispatcher.addEventListener(GlobalEvent.SET_SOUND_VOLUME,
+			                                        this.setSoundVolume);
 			
 			this.regulators = new Vector.<SoundRegulator>(View.NUMBER_OF_SOUND_TYPES, true);
 			
@@ -32,14 +38,15 @@ package view.shell
 			this.addChild(quit);
 		}
 		
-		public function setSoundMute(type:int, value:Boolean):void
+		private function setSoundMute(event:Event, mute:SoundMute):void
 		{
-			this.regulators[type].checkBox.isSelected = !value;
+			this.regulators[mute.type].checkBox.isSelected = !mute.value;
 		}
 		
-		public function setSoundVolume(type:int, value:Number):void
+		private function setSoundVolume(event:Event, volume:SoundVolume):void
 		{
-			this.regulators[type].slider.value = value * SoundRegulator.SLIDER_MAXIMUM;
+			this.regulators[volume.type].slider.value = 
+				volume.value * SoundRegulator.SLIDER_MAXIMUM;
 		}
 		
 		

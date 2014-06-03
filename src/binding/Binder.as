@@ -1,12 +1,7 @@
 package binding
 {
 	import binding.IDependent;
-	import controller.interfaces.IGameController;
 	import controller.interfaces.IInputController;
-	import controller.interfaces.INotifier;
-	import controller.interfaces.IProjectileController;
-	import controller.interfaces.IScreenController;
-	import controller.interfaces.ISoundController;
 	import flash.utils.Dictionary;
 	import model.interfaces.ICollectibles;
 	import model.interfaces.IExploration;
@@ -16,6 +11,7 @@ package binding
 	import model.interfaces.ISave;
 	import model.interfaces.IScene;
 	import model.interfaces.IStatus;
+	import starling.events.EventDispatcher;
 	import starling.utils.AssetManager;
 	
 	public class Binder implements IBinder
@@ -58,17 +54,13 @@ package binding
 		public function get input():IInput { return this.objects[IInput]; }
 		public function get scene():IScene { return this.objects[IScene]; }
 		public function get gameStatus():IStatus { return this.objects[IStatus]; }
-		public function get notifier():INotifier { return this.objects[INotifier]; }
 		public function get exploration():IExploration { return this.objects[IExploration]; }
 		public function get projectiles():IProjectiles { return this.objects[IProjectiles]; }
 		public function get assetManager():AssetManager { return this.objects[AssetManager]; }
 		public function get collectibles():ICollectibles { return this.objects[ICollectibles]; }
-		public function get gameController():IGameController { return this.objects[IGameController]; }
+		public function get eventDispatcher():EventDispatcher { return this.objects[EventDispatcher]; }
 		public function get itemSnapshotter():IItemSnapshotter { return this.objects[IItemSnapshotter]; }
 		public function get inputController():IInputController { return this.objects[IInputController]; }
-		public function get soundController():ISoundController { return this.objects[ISoundController]; }
-		public function get screenController():IScreenController { return this.objects[IScreenController]; }
-		public function get projectileController():IProjectileController { return this.objects[IProjectileController]; }
 	}
 
 }

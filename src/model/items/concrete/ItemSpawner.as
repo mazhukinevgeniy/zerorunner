@@ -2,13 +2,13 @@ package model.items.concrete
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
-	import controller.observers.INewGameHandler;
+	import events.GlobalEvent;
 	import model.items.ItemBase;
 	import model.items.Items;
 	import model.items.structs.ItemParams;
 	import model.status.StatusReporter;
 	
-	public class ItemSpawner implements INewGameHandler
+	public class ItemSpawner
 	{		
 		private var status:StatusReporter;
 		
@@ -23,10 +23,11 @@ package model.items.concrete
 			
 			this.status = status;
 			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			var map:XML = MapXML.getOne();
 			var itemCodes:Array = MapXML.getItemCodes();

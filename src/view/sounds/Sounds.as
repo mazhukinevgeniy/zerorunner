@@ -2,11 +2,14 @@ package view.sounds
 {
 	import binding.IBinder;
 	import binding.IDependent;
-	import controller.observers.ISoundObserver;
+	import events.GlobalEvent;
 	import model.interfaces.ISave;
+	import starling.events.Event;
 	import starling.utils.AssetManager;
+	import structs.SoundMute;
+	import structs.SoundVolume;
 	
-	public class Sounds implements ISoundObserver, IDependent
+	public class Sounds implements IDependent
 	{
 		private var sounds:Vector.<SoundManagerBase>;
 		
@@ -15,12 +18,16 @@ package view.sounds
 		public function Sounds(binder:IBinder) 
 		{
 			binder.requestBindingFor(this);
-			binder.notifier.addObserver(this);
+			
+			binder.eventDispatcher.addEventListener(GlobalEvent.SET_SOUND_MUTE,
+			                                        this.setSoundMute);
+			binder.eventDispatcher.addEventListener(GlobalEvent.SET_SOUND_VOLUME,
+			                                        this.setSoundVolume);
 			
 			super();
 		}
 		
-		public function bindObjects(binder:IBinder):void
+		public function bindObjects(binder:IBinder):void//TODO: replace with an event
 		{
 			var assets:AssetManager = binder.assetManager;
 			this.save = binder.save;
@@ -30,16 +37,17 @@ package view.sounds
 			this.sounds[View.SOUND_EFFECT] = new SoundManager(assets, this.save);
 		}
 		
-		public function setSoundMute(type:int, value:Boolean):void
+		private function setSoundMute(event:Event, mute:SoundMute):void
 		{
-			this.sounds[type].muteAll(value);
+			this.sounds[mute.type].muteAll(mute.value);
 		}
 		
-		public function setSoundVolume(type:int, value:Number):void
+		private function setSoundVolume(event:Event, volume:SoundVolume):void
 		{
-			this.sounds[type].setGlobalVolume(value);
-			this.sounds[type].muteAll(this.save.getSoundMute(type));
+			this.sounds[volume.type].setGlobalVolume(volume.value);
+			this.sounds[volume.type].muteAll(this.save.getSoundMute(volume.type));
 			//the latter is done because otherwise mute settings would be ignored
+			//TODO: fix that because hacks are not good
 		}
 		
 	}

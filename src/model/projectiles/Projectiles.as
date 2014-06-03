@@ -2,20 +2,15 @@ package model.projectiles
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
-	import controller.interfaces.IProjectileController;
-	import controller.observers.IGameFrameHandler;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import events.GlobalEvent;
 	import flash.geom.Rectangle;
 	import model.interfaces.IProjectiles;
 	import model.metric.ICoordinated;
+	import starling.events.EventDispatcher;
 	import utils.getCellId;
 	import utils.normalize;
 	
-	public class Projectiles implements IProjectiles, 
-	                                    INewGameHandler, 
-										IQuitGameHandler,
-										IGameFrameHandler
+	public class Projectiles implements IProjectiles
 	{
 		private var binder:IBinder;
 		
@@ -24,13 +19,15 @@ package model.projectiles
 		
 		private var clouds:Vector.<CloudBase>;
 		
-		private var projectileController:IProjectileController;
+		private var dispatcher:EventDispatcher;
 		
 		public function Projectiles(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.GAME_FRAME, this.gameFrame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME, this.newGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME, this.quitGame);
 			
-			this.projectileController = binder.projectileController;
+			this.dispatcher = binder.eventDispatcher;
 			
 			this.unusedProjectiles = new Vector.<Projectile>();
 			
@@ -70,17 +67,17 @@ package model.projectiles
 			}
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this.projectiles = new Array();
 		}
 		
-		public function quitGame():void
+		private function quitGame():void
 		{
 			this.projectiles = null;
 		}
 		
-		public function gameFrame():void
+		private function gameFrame():void
 		{
 			for each (var projectile:Projectile in this.projectiles)
 			{
@@ -126,7 +123,9 @@ package model.projectiles
 			
 			if (projectile.type == Game.PROJECTILE_SHARD)
 			{
-				this.projectileController.shardFellDown(projectile);
+				this.dispatcher.dispatchEventWith(GlobalEvent.PROJECTILE_FELL, 
+				                                  false, 
+												  projectile);
 			}
 		}
 		

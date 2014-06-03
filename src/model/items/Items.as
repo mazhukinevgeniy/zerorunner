@@ -1,17 +1,18 @@
 package model.items 
 {
 	import binding.IBinder;
-	import controller.observers.IShardObserver;
+	import events.GlobalEvent;
 	import model.interfaces.IItemSnapshotter;
 	import model.items.concrete.ItemSpawner;
 	import model.projectiles.Projectile;
 	import model.status.StatusReporter;
+	import starling.events.Event;
 	import utils.getCellId;
 	
 	/**
 	 * This class manages interaction between Items and the other modules
 	 */
-	public class Items implements IShardObserver
+	public class Items
 	{
 		internal var storage:ItemStorage;
 		internal var notifier:ItemNotifier;
@@ -25,25 +26,29 @@ package model.items
 			
 			binder.addBindable(new ItemSnapshotter(this.storage, binder), 
 			                   IItemSnapshotter);
-			binder.notifier.addObserver(this);
+			
+			binder.eventDispatcher.addEventListener(GlobalEvent.PROJECTILE_FELL, this.projectileFell);
 		}
 		
 		
-		public function shardFellDown(shard:Projectile):void
+		private function projectileFell(event:Event, proj:Projectile):void
 		{
-			var cellId:int = getCellId(shard.cell.x, shard.cell.y);
+			var cellId:int = getCellId(proj.cell.x, proj.cell.y);
 			
-			var itemHit:ItemBase = this.storage.getItem(cellId);
-			
-			
-			if (itemHit)
+			if (proj.type == Game.PROJECTILE_SHARD)
 			{
-				itemHit.tryDestruction();
+				var itemHit:ItemBase = this.storage.getItem(cellId);
+				
+				if (itemHit)
+				{
+					itemHit.tryDestruction();
+				}
+				else
+				{
+					this.spawner.createShard(proj.cell.x, proj.cell.y);
+				}
 			}
-			else
-			{
-				this.spawner.createShard(shard.cell.x, shard.cell.y);
-			}
+			
 		}
 	}
 

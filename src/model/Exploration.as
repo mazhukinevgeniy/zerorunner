@@ -1,9 +1,7 @@
 package model 
 {
 	import binding.IBinder;
-	import controller.observers.IGameFrameHandler;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import events.GlobalEvent;
 	import flash.utils.ByteArray;
 	import model.interfaces.IExploration;
 	import model.interfaces.IScene;
@@ -12,7 +10,7 @@ package model
 	import utils.getCellId;
 	import utils.HeroChecker;
 	
-	internal class Exploration implements IExploration, INewGameHandler, IGameFrameHandler, IQuitGameHandler
+	internal class Exploration implements IExploration
 	{
 		private const NOT_VISITED:int = 0;
 		private const VISITED:int = 1;
@@ -33,10 +31,13 @@ package model
 			
 			this.checker = new HeroChecker(binder);
 			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.GAME_FRAME, this.gameFrame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME, this.newGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME, 
+			                                        this.visited.clear);
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			var length:int = this.visited.length = Game.MAP_WIDTH * Game.MAP_WIDTH;
 			
@@ -47,7 +48,7 @@ package model
 			this.gameFrame();
 		}
 		
-		public function gameFrame():void
+		private function gameFrame():void
 		{
 			if (this.checker.checkIfHeroMoved())
 			{
@@ -67,11 +68,6 @@ package model
 						}
 					}
 			}
-		}
-		
-		public function quitGame():void
-		{
-			this.visited.clear();
 		}
 		
 		

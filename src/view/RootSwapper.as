@@ -1,12 +1,11 @@
 package view 
 {
 	import binding.IBinder;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import events.GlobalEvent;
 	import feathers.core.PopUpManager;
 	import starling.display.DisplayObjectContainer;
 	
-	internal class RootSwapper implements INewGameHandler, IQuitGameHandler
+	internal class RootSwapper
 	{
 		private var game:DisplayObjectContainer;
 		private var shell:DisplayObjectContainer;
@@ -18,12 +17,15 @@ package view
 			this.game = gameRoot;
 			this.shell = shellRoot;
 			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME,
+			                                        this.quitGame);
 			
 			PopUpManager.root = shellRoot;
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this.game.visible = true;
 			this.shell.visible = false;
@@ -31,7 +33,7 @@ package view
 			PopUpManager.root = this.game;
 		}
 		
-		public function quitGame():void
+		private function quitGame():void
 		{
 			this.game.visible = false;
 			this.shell.visible = true;

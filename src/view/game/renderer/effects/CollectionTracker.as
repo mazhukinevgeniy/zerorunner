@@ -1,18 +1,22 @@
 package view.game.renderer.effects 
 {
 	import binding.IBinder;
-	import controller.observers.ICollectibleObserver;
+	import events.GlobalEvent;
 	import model.collectibles.Collectible;
+	import starling.events.Event;
 	
-	internal class CollectionTracker extends TrackerBase implements ICollectibleObserver
+	internal class CollectionTracker extends TrackerBase
 	{
 		
 		public function CollectionTracker(binder:IBinder) 
 		{
 			super(binder);
+			
+			binder.eventDispatcher.addEventListener(GlobalEvent.COLLECTIBLE_FOUND,
+			                                        this.collectibleFound);
 		}
 		
-		public function setCollectibleFound(collectible:Collectible):void
+		private function collectibleFound(event:Event, collectible:Collectible):void
 		{
 			var duration:int = EffectRenderer.COLLECTION_LENGTH * 
 			                   EffectRenderer.COLLECTION_SPEED_FACTOR;

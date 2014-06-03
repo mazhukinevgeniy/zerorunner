@@ -1,30 +1,32 @@
 package view.game.renderer.effects 
 {
 	import binding.IBinder;
-	import controller.observers.IGameFrameHandler;
-	import controller.observers.INewGameHandler;
+	import events.GlobalEvent;
 	import model.metric.ICoordinated;
 	import utils.getCellId;
 	import utils.StructPool;
 	
-	internal class TrackerBase implements INewGameHandler, IGameFrameHandler
+	internal class TrackerBase
 	{
 		private var pool:StructPool;
 		private var tracked:Array;
 		
 		public function TrackerBase(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.GAME_FRAME,
+			                                        this.gameFrame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
 			
 			this.pool = new StructPool(Effect);
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this.tracked = new Array();
 		}
 		
-		public function gameFrame():void
+		private function gameFrame():void
 		{
 			for (var key:String in this.tracked)
 			{

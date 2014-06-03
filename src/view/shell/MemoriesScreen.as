@@ -1,7 +1,7 @@
 package view.shell 
 {
 	import binding.IBinder;
-	import controller.observers.ICollectibleObserver;
+	import events.GlobalEvent;
 	import feathers.controls.Button;
 	import feathers.controls.Callout;
 	import feathers.controls.Label;
@@ -10,7 +10,6 @@ package view.shell
 	import feathers.core.FeathersControl;
 	import feathers.layout.TiledColumnsLayout;
 	import feathers.layout.TiledRowsLayout;
-	import model.collectibles.Collectible;
 	import model.interfaces.ICollectibles;
 	import model.interfaces.ISave;
 	import starling.display.Image;
@@ -23,7 +22,7 @@ package view.shell
 	import view.themes.ShellTheme;
 	import view.utils.createButton;
 	
-	internal class MemoriesScreen extends Screen implements ICollectibleObserver
+	internal class MemoriesScreen extends Screen
 	{
 		private var collectibles:ICollectibles;
 		private var save:ISave;
@@ -49,7 +48,8 @@ package view.shell
 			
 			this.atlas = binder.assetManager.getTextureAtlas(View.MAIN_ATLAS);
 			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.COLLECTIBLE_FOUND,
+			                                        this.invalidate);
 			
 			this.initializeBody();
 			
@@ -124,11 +124,6 @@ package view.shell
 			
 			this.body.addChild(mem);
 			this.memories[this.body.numChildren - 1] = mem;
-		}
-		
-		public function setCollectibleFound(collectible:Collectible):void
-		{
-			this.invalidate();
 		}
 		
 		

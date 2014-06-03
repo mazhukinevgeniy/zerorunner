@@ -2,16 +2,15 @@ package model
 {
 	import assets.xml.SaveXML;
 	import binding.IBinder;
-	import controller.interfaces.INotifier;
-	import controller.observers.ICollectibleObserver;
-	import controller.observers.ISoundObserver;
+	import events.GlobalEvent;
 	import flash.net.SharedObject;
 	import model.collectibles.Collectible;
 	import model.interfaces.ISave;
+	import starling.events.Event;
+	import structs.SoundMute;
+	import structs.SoundVolume;
 	
-	public class Save implements ISave,
-								 ISoundObserver,
-								 ICollectibleObserver
+	public class Save implements ISave
 	{
 		private var so:SharedObject;
 		
@@ -29,7 +28,12 @@ package model
 			
 			this.addEntries(entries);
 			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.COLLECTIBLE_FOUND,
+			                                        this.collectibleFound);
+			binder.eventDispatcher.addEventListener(GlobalEvent.SET_SOUND_MUTE,
+			                                        this.setSoundMute);
+			binder.eventDispatcher.addEventListener(GlobalEvent.SET_SOUND_VOLUME,
+			                                        this.setSoundVolume);
 		}
 		
 		private function addEntries(entries:XMLList):void
@@ -67,25 +71,25 @@ package model
 		}
 		
 		
-		public function setSoundMute(type:int, value:Boolean):void
+		private function setSoundMute(event:Event, mute:SoundMute):void
 		{
-			this.so.data.soundMute[type] = value;
+			this.so.data.soundMute[mute.type] = mute.value;
 		}
 		public function getSoundMute(type:int):Boolean
 		{
 			return this.so.data.soundMute[type];
 		}
 		
-		public function setSoundVolume(type:int, value:Number):void
+		private function setSoundVolume(event:Event, volume:SoundVolume):void
 		{
-			this.so.data.soundVolume[type] = value;
+			this.so.data.soundVolume[volume.type] = volume.value;
 		}
 		public function getSoundVolume(type:int):Number
 		{
 			return this.so.data.soundVolume[type];
 		}
 		
-		public function setCollectibleFound(collectible:Collectible):void
+		private function collectibleFound(event:Event, collectible:Collectible):void
 		{
 			this.so.data.collectible[collectible.type] = true;
 		}

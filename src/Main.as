@@ -6,6 +6,7 @@ package
 	import flash.events.Event;
 	import flash.ui.ContextMenu;
 	import model.ModelElements;
+	import starling.events.EventDispatcher;
 	import starling.extensions.TextureAtlasLogger;
 	import starling.tweaks.StarlingStarter;
 	import starling.utils.AssetManager;
@@ -42,6 +43,7 @@ package
 			this.binder = new Binder();
 			
 			this.binder.addBindable(assets, AssetManager);
+			this.binder.addBindable(new EventDispatcher(), EventDispatcher);
 			
 			this.controllerElements = new ControllerElements(this.binder);
 			this.modelElements = new ModelElements(this.binder);

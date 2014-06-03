@@ -1,19 +1,22 @@
 package view.utils 
 {
 	import binding.IBinder;
-	import controller.interfaces.IScreenController;
+	import events.GlobalEvent;
 	import feathers.controls.ScreenNavigator;
 	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	
 	public function createNavigatorListener(binder:IBinder):Function
 	{
-		const controller:IScreenController = binder.screenController;
+		const dispatcher:EventDispatcher = binder.eventDispatcher;
 		
 		function listener(event:Event):void
 		{
 			var navigator:ScreenNavigator = event.target as ScreenNavigator;
 			
-			controller.screenActivated(navigator.activeScreenID);
+			dispatcher.dispatchEventWith(GlobalEvent.SCREEN_ACTIVATED,
+			                             false,
+										 navigator.activeScreenID);
 		}
 		
 		return listener;

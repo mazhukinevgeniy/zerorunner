@@ -1,9 +1,7 @@
 package view.game 
 {
 	import binding.IBinder;
-	import controller.observers.IGameMapObserver;
-	import controller.observers.IMapFrameHandler;
-	import controller.observers.IQuitGameHandler;
+	import events.GlobalEvent;
 	import feathers.controls.Screen;
 	import model.interfaces.IExploration;
 	import model.interfaces.IInput;
@@ -11,12 +9,11 @@ package view.game
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import starling.utils.Color;
 	import utils.getCellId;
 	
-	internal class MapScreen extends Screen implements IQuitGameHandler,
-													   IMapFrameHandler,
-													   IGameMapObserver
+	internal class MapScreen extends Screen
 	{
 		private const C_WIDTH:int = 8;
 		
@@ -31,7 +28,8 @@ package view.game
 		public function MapScreen(binder:IBinder) 
 		{
 			super();
-			binder.notifier.addObserver(this);
+			
+			binder.eventDispatcher.addEventListener(GlobalEvent.MAP_FRAME, this.mapFrame);
 			
 			this.container = new QuadBatch();
 			
@@ -47,29 +45,37 @@ package view.game
 			this.back = new Quad(this.C_WIDTH * Game.MAP_WIDTH, this.C_WIDTH * Game.MAP_WIDTH,
 								 Color.SILVER);
 			
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME,
+			                                        this.container.reset);
+			binder.eventDispatcher.addEventListener(GlobalEvent.ACTIVATE_GAME_SCREEN,
+			                                        this.screenActivated);
+			
 			this.addChild(this.container);
 		}
 		
-		public function showGameMap():void
+		private function screenActivated(event:Event, screen:String):void
 		{
-			var quad:Quad;
-			
-			this.container.reset();
-			this.container.addQuad(this.back);
-			
-			for (var y:int = 0; y < Game.MAP_WIDTH; y++)
-				for (var x:int = 0; x < Game.MAP_WIDTH; x++)
-				{
-					quad = this.tiles[this.exploration.getExplored(getCellId(x, y))];
-					
-					quad.x = x * this.C_WIDTH;
-					quad.y = y * this.C_WIDTH;
-					
-					this.container.addQuad(quad);
-				}
+			if (screen == View.GAME_SCREEN_MAP)
+			{
+				var quad:Quad;
+				
+				this.container.reset();
+				this.container.addQuad(this.back);
+				
+				for (var y:int = 0; y < Game.MAP_WIDTH; y++)
+					for (var x:int = 0; x < Game.MAP_WIDTH; x++)
+					{
+						quad = this.tiles[this.exploration.getExplored(getCellId(x, y))];
+						
+						quad.x = x * this.C_WIDTH;
+						quad.y = y * this.C_WIDTH;
+						
+						this.container.addQuad(quad);
+					}
+			}
 		}
 		
-		public function mapFrame():void
+		private function mapFrame():void
 		{
 			var input:Vector.<DCellXY> = this.input.getInputCopy();
 			var action:DCellXY = input.pop();
@@ -97,12 +103,6 @@ package view.game
 			this.container.y = y;
 		}
 		
-		
-		
-		public function quitGame():void
-		{
-			this.container.reset();
-		}
 	}
 
 }

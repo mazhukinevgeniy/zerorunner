@@ -1,20 +1,21 @@
 package view.game 
 {
 	import binding.IBinder;
-	import controller.interfaces.IGameController;
+	import events.GlobalEvent;
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	import view.themes.GameTheme;
 	
 	internal class GameScreen extends Screen
 	{
-		private var controller:IGameController;
+		private var dispatcher:EventDispatcher;
 		
 		
 		public function GameScreen(binder:IBinder) 
 		{
-			this.controller = binder.gameController;
+			this.dispatcher = binder.eventDispatcher;
 			
 			
 			
@@ -37,7 +38,9 @@ package view.game
 		
 		private function handleMenuButtonTriggered():void
 		{
-			this.controller.showGameMenu();
+			this.dispatcher.dispatchEventWith(GlobalEvent.ACTIVATE_GAME_SCREEN,
+			                                  false,
+											  View.GAME_SCREEN_MENU);
 		}
 	}
 	

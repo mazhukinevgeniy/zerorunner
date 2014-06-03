@@ -1,12 +1,12 @@
 package utils 
 {
 	import binding.IBinder;
-	import controller.observers.INewGameHandler;
+	import events.GlobalEvent;
 	import model.interfaces.IStatus;
 	import model.metric.CellXY;
 	import model.metric.ICoordinated;
 	
-	public class HeroChecker implements INewGameHandler
+	public class HeroChecker
 	{
 		private var lastCell:CellXY;
 		
@@ -19,7 +19,8 @@ package utils
 			this.lastCell = new CellXY( -1, -1);
 			
 			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
 		}
 		
 		public function checkIfHeroMoved():Boolean
@@ -33,7 +34,7 @@ package utils
 			return isMoved;
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this.lastCell.setValue( -1, -1);
 		}

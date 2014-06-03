@@ -1,13 +1,16 @@
 package view.shell.controls 
 {
 	import binding.IBinder;
-	import controller.interfaces.ISoundController;
+	import events.GlobalEvent;
 	import feathers.controls.Check;
 	import feathers.controls.LayoutGroup;
 	import feathers.controls.Slider;
 	import feathers.layout.HorizontalLayout;
 	import model.interfaces.ISave;
 	import starling.events.Event;
+	import starling.events.EventDispatcher;
+	import structs.SoundMute;
+	import structs.SoundVolume;
 	import view.themes.ShellTheme;
 
 	public class SoundRegulator extends LayoutGroup
@@ -19,12 +22,12 @@ package view.shell.controls
 		
 		private var soundType:int;
 		
-		private var soundController:ISoundController;
+		private var dispatcher:EventDispatcher;
 		
 		public function SoundRegulator(type:int, binder:IBinder) 
 		{
 			this.soundType = type;
-			this.soundController = binder.soundController;
+			this.dispatcher = binder.eventDispatcher;
 			
 			this.setLayout();
 			
@@ -66,11 +69,17 @@ package view.shell.controls
 		
 		private function handleSliderChange():void
 		{
-			this.soundController.setSoundVolume(this.soundType, this.slider.value / this.slider.maximum);
+			this.dispatcher.dispatchEventWith(
+				GlobalEvent.SET_SOUND_VOLUME,
+			    false,
+				new SoundVolume(this.soundType, this.slider.value / this.slider.maximum));
 		}
 		private function handleCheckChange():void
 		{
-			this.soundController.setSoundMute(this.soundType, !this.checkBox.isSelected);
+			this.dispatcher.dispatchEventWith(
+				GlobalEvent.SET_SOUND_MUTE,
+				false,
+				new SoundMute(this.soundType, !this.checkBox.isSelected));
 		}
 	}
 

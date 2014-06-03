@@ -1,17 +1,16 @@
 package view.game 
 {
 	import binding.IBinder;
-	import controller.observers.ICollectibleObserver;
-	import controller.observers.IQuitGameHandler;
+	import events.GlobalEvent;
 	import feathers.controls.Callout;
 	import feathers.controls.Label;
 	import model.collectibles.Collectible;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Quad;
 	import starling.events.EnterFrameEvent;
+	import starling.events.Event;
 	
-	internal class GameCallouts implements ICollectibleObserver,
-										   IQuitGameHandler
+	internal class GameCallouts
 	{
 		private var gameOrigin:Quad;
 		
@@ -22,7 +21,10 @@ package view.game
 		
 		public function GameCallouts(binder:IBinder, gameRoot:DisplayObjectContainer) 
 		{			
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME,
+			                                        this.quitGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.COLLECTIBLE_FOUND,
+			                                        this.collectibleFound);
 			
 			this.collectedLabel = new Label();
 			this.collectedLabel.text = "NEW COLLECTIBLE";
@@ -38,7 +40,7 @@ package view.game
 				EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 		}
 		
-		public function setCollectibleFound(collectible:Collectible):void
+		private function collectibleFound(event:Event, collectible:Collectible):void
 		{
 			if (collectible.unmet)
 			{
@@ -52,7 +54,7 @@ package view.game
 			}
 		}
 		
-		public function quitGame():void
+		private function quitGame():void
 		{
 			if (this.currentCallout)
 				this.currentCallout.close();

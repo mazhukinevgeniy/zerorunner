@@ -1,25 +1,26 @@
 package model.items 
 {
 	import binding.IBinder;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import events.GlobalEvent;
 	
-	internal class ItemStorage implements INewGameHandler,
-								          IQuitGameHandler
+	internal class ItemStorage
 	{
 		private var items:Array;
 		
 		public function ItemStorage(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME,
+			                                        this.quitGame);
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this.items = new Array();
 		}
 		
-		public function quitGame():void
+		private function quitGame():void
 		{
 			this.items = null;
 		}

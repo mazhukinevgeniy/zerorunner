@@ -2,21 +2,20 @@ package model.collectibles
 {
 	import assets.xml.MapXML;
 	import binding.IBinder;
-	import controller.interfaces.IGameController;
-	import controller.observers.IGameFrameHandler;
-	import controller.observers.INewGameHandler;
+	import events.GlobalEvent;
 	import model.interfaces.ICollectibles;
 	import model.interfaces.ISave;
 	import model.interfaces.IStatus;
 	import model.metric.ICoordinated;
+	import starling.events.EventDispatcher;
 	import utils.getCellId;
 	
-	public class Collectibles implements ICollectibles, INewGameHandler, IGameFrameHandler
+	public class Collectibles implements ICollectibles
 	{
 		private var status:IStatus;
 		private var save:ISave;
 		
-		private var controller:IGameController;
+		private var dispatcher:EventDispatcher;
 		
 		private var collectibles:Array;
 		
@@ -25,12 +24,13 @@ package model.collectibles
 			this.status = binder.gameStatus;
 			this.save = binder.save;
 			
-			this.controller = binder.gameController;
+			this.dispatcher = binder.eventDispatcher;
 			
-			binder.notifier.addObserver(this);
+			this.dispatcher.addEventListener(GlobalEvent.NEW_GAME, this.newGame);
+			this.dispatcher.addEventListener(GlobalEvent.GAME_FRAME, this.gameFrame);
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this.collectibles = new Array();
 			
@@ -56,7 +56,7 @@ package model.collectibles
 			}
 		}
 		
-		public function gameFrame():void
+		private function gameFrame():void
 		{
 			var char:ICoordinated = this.status.getLocationOfHero();
 			var cellId:int = getCellId(char.x, char.y);
@@ -65,7 +65,9 @@ package model.collectibles
 			
 			if (coll)
 			{
-				this.controller.setCollectibleFound(coll);
+				this.dispatcher.dispatchEventWith(GlobalEvent.COLLECTIBLE_FOUND,
+				                                  false,
+												  coll);
 				this.collectibles[cellId] = null;
 			}
 		}

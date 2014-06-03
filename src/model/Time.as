@@ -1,39 +1,45 @@
 package model 
 {
 	import binding.IBinder;
-	import controller.interfaces.IGameController;
-	import controller.observers.INewGameHandler;
-	import controller.observers.IQuitGameHandler;
+	import events.GlobalEvent;
 	import model.interfaces.IInput;
 	import model.interfaces.IStatus;
 	import starling.core.Starling;
 	import starling.events.EnterFrameEvent;
+	import starling.events.EventDispatcher;
 	
-	internal class Time implements INewGameHandler,
-	                               IQuitGameHandler
+	internal class Time
 	{
 		private var isFixed:Boolean = true;
 		
 		private var status:IStatus;
 		private var input:IInput;
 		
-		private var controller:IGameController;
+		private var dispatcher:EventDispatcher;
 		
 		public function Time(binder:IBinder) 
 		{
-			binder.notifier.addObserver(this);
-			
 			this.status = binder.gameStatus;
 			this.input = binder.input;
 			
 			Starling.current.root.addEventListener(EnterFrameEvent.ENTER_FRAME, this.handleEnterFrame);
 			
-			this.controller = binder.gameController;
+			this.dispatcher = binder.eventDispatcher;
+			
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME,
+			                                        this.newGame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.QUIT_GAME,
+			                                        this.quitGame);
 		}
 		
-		public function newGame():void
+		private function newGame():void
 		{
 			this.isFixed = false;
+		}
+		
+		private function quitGame():void 
+		{ 
+			this.isFixed = true;
 		}
 		
 		protected function handleEnterFrame(event:EnterFrameEvent):void 
@@ -44,21 +50,13 @@ package model
 			{
 				if (this.status.isMapOn())
 				{
-					this.controller.mapFrame();
+					this.dispatcher.dispatchEventWith(GlobalEvent.MAP_FRAME);
 				}
-				else
+				else if (this.status.isGameOn())
 				{
-					if (!this.status.isGameOn())
-						throw new Error("numberedFrame must happen in-game only");
-					
-					this.controller.gameFrame();
+					this.dispatcher.dispatchEventWith(GlobalEvent.GAME_FRAME);
 				}
 			}
-		}
-		
-		public function quitGame():void 
-		{ 
-			this.isFixed = true;
 		}
 		
 	}

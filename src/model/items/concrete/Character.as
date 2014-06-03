@@ -1,19 +1,20 @@
 package model.items.concrete 
 {
-	import controller.interfaces.IGameController;
+	import events.GlobalEvent;
 	import model.interfaces.IInput;
 	import model.interfaces.IItemSnapshotter;
 	import model.interfaces.IScene;
 	import model.items.ItemBase;
 	import model.items.structs.ItemParams;
 	import model.metric.DCellXY;
+	import starling.events.EventDispatcher;
 	import utils.getCellId;
 	import utils.isCellSolid;
 	
 	
 	internal class Character extends ItemBase
 	{
-		private var gameController:IGameController;
+		private var dispatcher:EventDispatcher;
 		
 		private var input:IInput;
 		private var scene:IScene;
@@ -21,7 +22,7 @@ package model.items.concrete
 		
 		public function Character(params:ItemParams) 
 		{
-			this.gameController = params.binder.gameController;
+			this.dispatcher = params.binder.eventDispatcher;
 			
 			this.input = params.binder.input;
 			this.scene = params.binder.scene;
@@ -74,7 +75,9 @@ package model.items.concrete
 		
 		override protected function onUnstabilized():void 
 		{
-			this.gameController.gameStopped(Game.ENDING_LOST);
+			this.dispatcher.dispatchEventWith(GlobalEvent.GAME_STOPPED,
+											  false,
+											  Game.ENDING_LOST);
 		}
 	}
 

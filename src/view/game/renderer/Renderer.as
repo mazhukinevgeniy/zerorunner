@@ -1,8 +1,7 @@
 package view.game.renderer 
 {
 	import binding.IBinder;
-	import controller.observers.IGameFrameHandler;
-	import controller.observers.INewGameHandler;
+	import events.GlobalEvent;
 	import model.interfaces.IStatus;
 	import model.items.ItemSnapshot;
 	import model.metric.ICoordinated;
@@ -16,9 +15,7 @@ package view.game.renderer
 	import view.game.renderer.projectiles.ProjectileRenderer;
 	import view.game.renderer.scene.SceneRenderer;
 	
-	public class Renderer extends Sprite implements IRenderer, 
-	                                                INewGameHandler,
-													IGameFrameHandler
+	public class Renderer extends Sprite implements IRenderer
 	{
 		private var status:IStatus;
 		
@@ -53,19 +50,13 @@ package view.game.renderer
 				this.addChild(
 					new EffectRenderer(binder)));
 			
-			
 			this.checker = new HeroChecker(binder);
-			binder.notifier.addObserver(this);
-		}
-		
-		public function newGame():void
-		{
-			/* Force rendering */
 			
-			this.gameFrame();
+			binder.eventDispatcher.addEventListener(GlobalEvent.NEW_GAME, this.gameFrame);
+			binder.eventDispatcher.addEventListener(GlobalEvent.GAME_FRAME, this.gameFrame);
 		}
 		
-		public function gameFrame():void 
+		private function gameFrame():void 
 		{
 			if (this.checker.checkIfHeroMoved())
 			{
