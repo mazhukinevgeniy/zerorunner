@@ -38,8 +38,8 @@ package view.game
 			
 			this.tiles = new Array();
 			this.tiles[Game.SCENE_FALL] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
-			this.tiles[Game.SCENE_DISK] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x000000);
 			this.tiles[Game.SCENE_GROUND] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x8B4513);
+			this.tiles[Game.SCENE_BRIDGE] = new Quad(this.C_WIDTH, this.C_WIDTH, 0x0080FF);
 			this.tiles[Game.SCENE_NONE] = new Quad(0, 0, 0x000000);
 			
 			this.back = new Quad(this.C_WIDTH * Game.MAP_WIDTH, this.C_WIDTH * Game.MAP_WIDTH,

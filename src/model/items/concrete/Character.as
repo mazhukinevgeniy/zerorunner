@@ -9,7 +9,6 @@ package model.items.concrete
 	import model.metric.DCellXY;
 	import starling.events.EventDispatcher;
 	import utils.getCellId;
-	import utils.isCellSolid;
 	
 	
 	internal class Character extends ItemBase
@@ -49,7 +48,7 @@ package model.items.concrete
 				{
 					next = this.scene.getSceneCell(cellId);
 					
-					if (isCellSolid(next))
+					if (this.canStandOn(next))
 					{
 						this.startMovingBy(action);
 						
@@ -60,7 +59,7 @@ package model.items.concrete
 				action = tmp.pop();
 			}
 			
-			if (!isCellSolid(this.scene.getSceneCell(getCellId(this.x, this.y))))
+			if (!this.canStandOn(this.scene.getSceneCell(getCellId(this.x, this.y))))
 			{
 				this.die();
 			}
@@ -78,6 +77,12 @@ package model.items.concrete
 			this.dispatcher.dispatchEventWith(GlobalEvent.GAME_STOPPED,
 											  false,
 											  Game.ENDING_LOST);
+		}
+		
+		
+		private function canStandOn(cellType:int):Boolean
+		{
+			return cellType == Game.SCENE_GROUND || cellType == Game.SCENE_BRIDGE;
 		}
 	}
 

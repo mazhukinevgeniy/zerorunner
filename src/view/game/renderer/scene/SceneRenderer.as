@@ -28,6 +28,8 @@ package view.game.renderer.scene
 		private var _2_mid:Image, _2_bot:Image;
 		private var _3_mid:Image, _3_bot:Image;
 		
+		private var bridge:Image;
+		
 		private var tiles:XMLList;
 		private var tileCodes:Array;
 		
@@ -47,7 +49,8 @@ package view.game.renderer.scene
 			for each (key in 
 					["_1", "_2", "_3", "_4", "_5",
 					 "_6", "_7", "_8", "_9",
-					 "_11", "_33", "_77", "_99"])
+					 "_11", "_33", "_77", "_99",
+					 "bridge"])
 				this[key] = new CenteredImage(atlas.getTexture(key), offsets[key]);
 			
 			for each (key in 
@@ -232,11 +235,24 @@ package view.game.renderer.scene
 				this.sprites[0] = null;
 				this.sprites[1] = null;
 			}
+			else if (this.isThereBridge(x, y))
+			{
+				this.bridge.x = x * View.CELL_WIDTH;
+				this.bridge.y = y * View.CELL_HEIGHT;
+				
+				this.addImage(this.bridge);
+			}
 		}
+		//TODO: rewrite it in a cleaner manner
 		
 		private function getMapCell(x:int, y:int):int
 		{
 			return this.tileCodes[this.tiles[getCellId(x, y)].@gid];
+		}
+		
+		private function isThereBridge(x:int, y:int):Boolean
+		{
+			return this.tiles[getCellId(x, y) + Game.MAP_WIDTH * Game.MAP_WIDTH].@gid != "0";
 		}
 	}
 

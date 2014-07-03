@@ -23,11 +23,15 @@ package model
  			var tileCodes:Array = this.getTileCodes(map);
 			
 			const LENGTH:int = this.scene.length;
+			
 			var tiles:XMLList = map.layer.data.tile;
 			
 			for (var j:int = 0; j < LENGTH; j++)
 			{
-				this.scene[j] = tileCodes[tiles[j].@gid];
+				if (tiles[j + LENGTH].@gid != "0")
+					this.scene[j] = Game.SCENE_BRIDGE;
+				else 
+					this.scene[j] = tileCodes[tiles[j].@gid];
 			}
 			
 		}
@@ -47,7 +51,7 @@ package model
 				else if (name == "ground")
 					tileCodes[i + 1] = Game.SCENE_GROUND;
 				else if (discNames.indexOf(name) != -1)
-					tileCodes[i + 1] = Game.SCENE_DISK;
+					tileCodes[i + 1] = Game.SCENE_FALL;
 			}
 			
 			return tileCodes;

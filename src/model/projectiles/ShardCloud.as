@@ -4,7 +4,6 @@ package model.projectiles
 	import flash.geom.Rectangle;
 	import model.interfaces.IScene;
 	import utils.getCellId;
-	import utils.isCellSolid;
 	
 	public class ShardCloud extends CloudBase
 	{
@@ -47,7 +46,7 @@ package model.projectiles
 					var cellId:int = getCellId(x, y);
 					
 					if (!this.projectiles.getProjectile(cellId) &&
-					    isCellSolid(this.scene.getSceneCell(cellId)))
+					    this.scene.getSceneCell(cellId) == Game.SCENE_GROUND)
 					{
 						this.projectiles.getNewProjectile(Game.PROJECTILE_SHARD, x, y);
 						

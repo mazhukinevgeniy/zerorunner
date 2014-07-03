@@ -33,12 +33,12 @@ package
 		
 		public static const SCENE_FALL:int = 0;
 		public static const SCENE_GROUND:int = 1;
-		public static const SCENE_DISK:int = 2;
-		public static const SCENE_UNUSED_1:int = 3;
-		public static const SCENE_UNUSED_2:int = 4;
+		public static const SCENE_BRIDGE:int = 2;
+		public static const SCENE_UNUSED_5:int = 3;
+		public static const SCENE_UNUSED_4:int = 4;
 		public static const SCENE_UNUSED_3:int = 5;
-		public static const SCENE_UNUSED_4:int = 6;
-		public static const SCENE_UNUSED_5:int = 7;
+		public static const SCENE_UNUSED_2:int = 6;
+		public static const SCENE_UNUSED_1:int = 7;
 		
 		public static const SCENE_NONE:int = 8;
 		
