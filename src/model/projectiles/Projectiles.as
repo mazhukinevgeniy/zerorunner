@@ -34,18 +34,12 @@ package model.projectiles
 			this.clouds = new Vector.<CloudBase>();
 			
 			var map:XML = MapXML.getOne();
-			
-			if (map.objectgroup[1].@name != "ShardClouds")
-				throw new Error("wrong map");
-			if (map.objectgroup[2].@name != "ProjectileAbsorbers")
-				throw new Error("wrong map");
-			
 			this.binder = binder;
 			
-			var shardClouds:XMLList = map.objectgroup[1].object;
+			var shardClouds:XMLList = map.objectgroup.(@name == "ShardClouds").object;
 			this.spawnClouds(shardClouds, ShardCloud);
 			
-			var absorbers:XMLList = map.objectgroup[2].object;
+			var absorbers:XMLList = map.objectgroup.(@name == "ProjectileAbsorbers").object;
 			this.spawnClouds(absorbers, AbsorbingCloud);
 		}
 		

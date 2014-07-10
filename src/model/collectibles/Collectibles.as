@@ -37,10 +37,7 @@ package model.collectibles
 			
 			var map:XML = MapXML.getOne();
 			
-			if (map.objectgroup[3].@name != "Collectibles")
-				throw new Error("Map incompatible");
-			
-			var collectibles:XMLList = map.objectgroup[3].object;
+			var collectibles:XMLList = map.objectgroup.(@name == "Collectibles").object;
 			
 			for (var i:int = 0; i < collectibles.length(); i++)
 			{

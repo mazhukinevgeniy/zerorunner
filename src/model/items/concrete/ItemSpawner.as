@@ -32,7 +32,7 @@ package model.items.concrete
 			var map:XML = MapXML.getOne();
 			var itemCodes:Array = MapXML.getItemCodes();
 			
-			var objects:XMLList = map.objectgroup[0].object;
+			var objects:XMLList = map.objectgroup.(@name == "Items").object;
 			const LENGTH:int = objects.length();
 			
 			for (var j:int = 0; j < LENGTH; j++)
