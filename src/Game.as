@@ -71,7 +71,7 @@ package
 		
 		/* Constants */
 		
-		public static const MAP_WIDTH:int = 90;
+		public static const MAP_WIDTH:int = 88;
 		public static const ACTION_RADIUS:int = 10;
 		
 		public function Game() 
